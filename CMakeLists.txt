@@ -7,6 +7,9 @@ string(REGEX MATCH "${version_regex}" _ "${version_line}")
 set(version "${CMAKE_MATCH_1}")
 message(STATUS "h3core-py version: ${version}")
 
+set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/toolchain.cmake"
+    CACHE STRING "Toolchain file to build project and dependencies")
+
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(HunterGate)
 
