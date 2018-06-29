@@ -25,7 +25,7 @@ find_package(PythonLibs REQUIRED)
 hunter_add_package(h3)
 find_package(h3 CONFIG REQUIRED)
 
-add_cython_target(h3core_cy h3.pyx)
+add_cython_target(h3core_cy h3core.pyx)
 add_library(h3core MODULE ${h3core_cy})
 python_extension_module(h3core)
 target_link_libraries(h3core h3::h3)
