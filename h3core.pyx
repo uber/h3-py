@@ -1,4 +1,5 @@
 cimport libc.stdlib
+from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 cimport _h3core
 
 
@@ -35,7 +36,7 @@ cdef class GeoBoundary:
 
     @property
     def verts(self):
-        return [self._boundary.verts[i] for i in range(self.num_verts)]
+        return [self._boundary.verts[i] for i in range(self._boundary.numVerts)]
 
 
 cdef GeoBoundary h3_to_geo_boundary(_h3core.H3Index address):
@@ -46,13 +47,16 @@ cdef GeoBoundary h3_to_geo_boundary(_h3core.H3Index address):
 
 cdef class Geofence:
     cdef _h3core.Geofence _fence
+    cdef bint _owned
 
     def __cinit__(self):
         self._fence.verts = NULL
         self._fence.numVerts = 0
+        self._owned = False
 
     def __dealloc__(self):
-        libc.stdlib.free(self._fence.verts)
+        if self._owned:
+            libc.stdlib.free(self._fence.verts)
 
     @property
     def num_verts(self):
@@ -60,13 +64,7 @@ cdef class Geofence:
 
     @property
     def verts(self):
-        return [self._fence.verts[i] for i in range(self.num_verts)]
-
-    def clone(self):
-        fence = Geofence()
-        fence._fence.numVerts = self._fence.numVerts
-        fence._fence.verts = <_h3core.GeoCoord *> libc.stdlib.malloc(fence._fence.numVerts * sizeof(_h3core.GeoCoord))
-        return fence
+        return [self._fence.verts[i] for i in range(self._fence.numVerts)]
 
 
 cdef class GeoJsonLite:
@@ -77,13 +75,15 @@ cdef class GeoJsonLite:
         self._polygon.numHoles = 0
         self._polygon.holes = NULL
 
-    def __deinit__(self):
-        libc.stdlib.free(self._polygon.holes)
-        libc.stdlib.free(self._polygon.geofence.verts)
+#    def __deinit__(self):
+#        libc.stdlib.free(self._polygon.holes)
+#        libc.stdlib.free(self._polygon.geofence.verts)
 
     @property
     def geofence(self):
-        fence = self.clone
+        fence = Geofence()
+        fence._fence = self._polygon.geofence
+        return fence
 
     @property
     def num_holes(self):
@@ -91,4 +91,4 @@ cdef class GeoJsonLite:
 
     @property
     def holes(self):
-        return [<_h3core.Geofence *> self._polygon.holes[i] for i in range(self._polygon.numHoles)]
+        return [self._polygen.holes[i] for i in range(self._polygon.numHoles)]
