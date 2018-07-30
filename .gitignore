@@ -1,0 +1,61 @@
+h3c/
+*.py[cod]
+.cache/
+h3core/out/
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+coverage.xml
+.tox
+nosetests.xml
+.noseids
+.pytest_cache
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+*.csv
+build/
+env/
+env_docs/
+docs/_build/
+htmlcov/
+
+# vim/emacs backup files
+*~
+\#*\#
+.\#*
+.*.sw*
+
+#DB snapshots
+db_snapshots/
+
+#OSX
+.DS_Store
+
+node_modules/
+bower_components/
+.sass-cache/
+.idea/
+.unison.*
