@@ -1,7 +1,7 @@
 h3c/
 *.py[cod]
 .cache/
-h3core/out/
+h3/out/
 
 # C extensions
 *.so
