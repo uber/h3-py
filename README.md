@@ -2,7 +2,7 @@
      title="Size Limit logo" src="docs/source/logo.png">
 # H3-Python
 
-[![Build Status](https://travis-ci.com/uber/h3-py.svg?token=8RZFXqNcjKDdLZH3myRq&branch=master)](https://travis-ci.com/uber/h3-py)
+[![Build Status](https://travis-ci.org/uber/h3-py.svg?branch=master)](https://travis-ci.org/uber/h3-py)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 This library provides Python bindings for the [H3 Core Library](https://github.com/uber/h3). For API reference, please see the [H3 Documentation](https://uber.github.io/h3/).
