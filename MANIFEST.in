@@ -1,3 +1,2 @@
 include *.txt README.md CHANGELOG .install.sh version.py h3_version.py
-recursive-include h3core/out *.so *.dylib
 global-exclude *.pyc
