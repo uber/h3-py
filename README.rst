@@ -1,6 +1,7 @@
 .. image:: docs/source/logo.png
-           :scale: 10%
-	   :align: right
+   :scale: 40%
+   :align: right
+
 
 H3-Python
 =========
