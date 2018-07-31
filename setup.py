@@ -36,16 +36,8 @@ class BinaryDistribution(Distribution):
 
 
 try:
-    import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
-    blacklist = [
-        'Build Status', 'Latest Version', 'Documentation Status',
-        'travis-ci.org'
-    ]
-    long_description = '\n'.join([
-        line for line in long_description.split('\n')
-        if not any(patt in line for patt in blacklist)
-    ])
+    os.system('pandoc --from=markdown --to=rst --output=README.rst README.md')
+    long_description = open('README.rst').read()
 except Exception as e:
     sys.stderr.write('Failed to convert README.md to rst:\n  {}\n'.format(e))
     sys.stderr.flush()
@@ -58,7 +50,7 @@ setup(
     'Python bindings for H3, a hierarchical hexagonal geospatial indexing system developed by Uber Technologies',
     long_description=long_description,
     author='Uber Technologies',
-    author_email='David Ellis <d.f.ellis@ieee.org>',
+    author_email='Niel Hu <hu.niel92@gmail.com>',
     url='https://github.com/uber/h3-py.git',
     packages=find_packages(exclude=['tests', 'tests.*']),
     install_requires=[],
