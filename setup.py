@@ -34,6 +34,7 @@ class BinaryDistribution(Distribution):
         # different platforms separately.
         self.ext_modules = [Extension('h3c', [])]
 
+
 long_description = open('README.rst').read()
 
 setup(
