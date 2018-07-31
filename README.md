@@ -48,9 +48,9 @@ hex_boundary = h3.h3_to_geo_boundary(h3_address) # array of arrays of [lat, lng]
 ### Get KRings of hexagon
 ```python
 h3.k_ring_distances(h3_address, 4) # array of 4 rings with size [1, 6, 12, 18]
-h3.k_ring(h3_address, 4) # a collection of hexagons within kring size 4
+h3.k_ring(h3_address, 4) # a collection of hexagons within kring sizes from 0 to 3
 ```
-Krings from size 0 to 3
+
 <img  src="docs/source/KRings.png">
 
 
