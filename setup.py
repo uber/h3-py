@@ -34,14 +34,7 @@ class BinaryDistribution(Distribution):
         # different platforms separately.
         self.ext_modules = [Extension('h3c', [])]
 
-
-try:
-    os.system('pandoc --from=markdown --to=rst --output=README.rst README.md')
-    long_description = open('README.rst').read()
-except Exception as e:
-    sys.stderr.write('Failed to convert README.md to rst:\n  {}\n'.format(e))
-    sys.stderr.flush()
-    long_description = open('README.md').read()
+long_description = open('README.rst').read()
 
 setup(
     name='h3',
