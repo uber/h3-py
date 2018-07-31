@@ -1,4 +1,5 @@
 import os
+import sys
 import platform
 
 from setuptools import setup, find_packages
@@ -34,12 +35,16 @@ class BinaryDistribution(Distribution):
         self.ext_modules = [Extension('h3c', [])]
 
 
+long_description = open('README.rst').read()
+
 setup(
     name='h3',
     version=h3_version,
-    description='Python bindings for H3, a hierarchical hexagonal geospatial indexing system developed by Uber Technologies',
+    description=
+    'Python bindings for H3, a hierarchical hexagonal geospatial indexing system developed by Uber Technologies',
+    long_description=long_description,
     author='Uber Technologies',
-    author_email='David Ellis <d.f.ellis@ieee.org>',
+    author_email='Niel Hu <hu.niel92@gmail.com>',
     url='https://github.com/uber/h3-py.git',
     packages=find_packages(exclude=['tests', 'tests.*']),
     install_requires=[],
