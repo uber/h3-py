@@ -19,7 +19,7 @@ which cc
 
 **Python 3.4+:**
 ```sh
-pip install h3
+pip install h3 (working in progress)
 ```
 
 # Development
