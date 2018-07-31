@@ -1,5 +1,6 @@
 <img align="right" width="200" height="200"
      title="Size Limit logo" src="docs/source/logo.png">
+
 # H3-Python
 
 [![Build Status](https://travis-ci.org/uber/h3-py.svg?branch=master)](https://travis-ci.org/uber/h3-py)
