@@ -10,7 +10,7 @@ This library provides Python bindings for the [H3 Core Library](https://github.c
 
 # Installing
 
-You need to have a `cc` in your `$PATH` when installing this package::
+You need to have a `cc` in your `$PATH` when installing this package:
 
 ```sh
 which cc
@@ -40,7 +40,7 @@ from h3 import h3
 ```python
 h3_address = h3.geo_to_h3(37.3615593, -122.0553238, 5) # lat, lng, hex resolution
 hex_center_coordinates = h3.h3_to_geo(h3_address) # array of [lat, lng]
-hex_boundary = h3.h3_to_geo_cell_bndry(h3_address) # array of arrays of [lat, lng]
+hex_boundary = h3.h3_to_geo_boundary(h3_address) # array of arrays of [lat, lng]
 ```
 <img  src="docs/source/Hexagon.png">
 
