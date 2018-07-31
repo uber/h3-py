@@ -1,2 +1,2 @@
-include *.txt README.md CHANGELOG .install.sh version.py h3_version.py
+include *.txt README.rst CHANGELOG .install.sh version.py h3_version.py
 global-exclude *.pyc
