@@ -10,13 +10,17 @@ the `H3 Documentation <https://uber.github.io/h3/>`__.
 Installing
 ==========
 
-You need to have a ``cc`` in your ``$PATH`` when installing this
+You need to have ``cc``, ``make``, and ``cmake`` in your ``$PATH`` when installing this
 package:
 
 .. code:: sh
 
     which cc
     /usr/bin/cc
+    which make
+    /usr/bin/make
+    which cmake
+    /usr/bin/cmake
 
 **Python 3.4+:**
 
