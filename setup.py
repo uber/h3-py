@@ -10,8 +10,10 @@ from setuptools.extension import Extension
 from h3_version import h3_version
 from binding_version import binding_version
 
+
 def install_h3(h3_version):
-    subprocess.run('bash ./.install.sh {}'.format(h3_version), shell=True, check=True)    
+    subprocess.run(
+        'bash ./.install.sh {}'.format(h3_version), shell=True, check=True)
 
 
 class CustomBuildExtCommand(build_ext):
