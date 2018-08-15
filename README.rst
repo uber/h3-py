@@ -10,19 +10,15 @@ the `H3 Documentation <https://uber.github.io/h3/>`__.
 Installing
 ==========
 
-You need to have ``cc``, ``make``, and ``cmake`` in your ``$PATH`` when installing this
+You need to have a ``cc`` in your ``$PATH`` when installing this
 package:
 
 .. code:: sh
 
     which cc
     /usr/bin/cc
-    which make
-    /usr/bin/make
-    which cmake
-    /usr/bin/cmake
 
-**Python 3.4+:**
+**Python 3.5+:**
 
 .. code:: sh
 
@@ -58,10 +54,6 @@ Convert lat/lng to hexagon address
     hex_center_coordinates = h3.h3_to_geo(h3_address) # array of [lat, lng]
     hex_boundary = h3.h3_to_geo_boundary(h3_address) # array of arrays of [lat, lng]
 
-.. image:: docs/source/Hexagon.png
-	   :scale: 50%
-
-    
 Get KRings of hexagon
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -70,10 +62,6 @@ Get KRings of hexagon
     h3.k_ring_distances(h3_address, 4) # array of 4 rings with size [1, 6, 12, 18]
     h3.k_ring(h3_address, 4) # a collection of hexagons within kring sizes from 0 to 3
 
-.. image:: docs/source/KRings.png
-	   :scale: 50%
-
- 
 Polyfill a Geo Json with hexagons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -88,10 +76,6 @@ Polyfill a Geo Json with hexagons
      [37.8151571999998453, -122.4798767000009008]]] }
     hexagons = list(h3.polyfill(geoJson, 8)) # resolution 8
 
-.. image:: docs/source/Polyfill.png
-	   :scale: 50%
-
-    
 For more API reference, please see the `H3
 Documentation <https://uber.github.io/h3/>`__.
 
