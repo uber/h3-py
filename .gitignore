@@ -59,3 +59,5 @@ bower_components/
 .sass-cache/
 .idea/
 .unison.*
+
+docs/.ipynb_checkpoints/
