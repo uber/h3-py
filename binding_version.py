@@ -1,1 +1,1 @@
-binding_version = '3.0.1'
+binding_version = '3.1.0'

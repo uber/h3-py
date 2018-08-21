@@ -15,7 +15,7 @@ git clone https://github.com/uber/h3.git h3c
 
 pushd h3c
 git pull origin master --tags
-git checkout "v$VERSION"
+git checkout "$VERSION"
 
 # Run CMake, installing a recent version if not found or not compatible
 {
