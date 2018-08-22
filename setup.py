@@ -1,17 +1,19 @@
 import os
 import sys
 import platform
-
+import subprocess
 from setuptools import setup, find_packages
 from setuptools.command.build_ext import build_ext
 from setuptools.dist import Distribution
 from setuptools.extension import Extension
 
 from h3_version import h3_version
+from binding_version import binding_version
 
 
 def install_h3(h3_version):
-    os.system('bash ./.install.sh')
+    subprocess.run(
+        'bash ./.install.sh {}'.format(h3_version), shell=True, check=True)
 
 
 class CustomBuildExtCommand(build_ext):
@@ -39,7 +41,7 @@ long_description = open('README.rst').read()
 
 setup(
     name='h3',
-    version=h3_version,
+    version=binding_version,
     description=
     'Python bindings for H3, a hierarchical hexagonal geospatial indexing system developed by Uber Technologies',
     long_description=long_description,

@@ -22,7 +22,7 @@ package:
     which cmake
     /usr/bin/cmake
 
-**Python 3.4+:**
+**Python 3.5+:**
 
 .. code:: sh
 
