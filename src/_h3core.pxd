@@ -1,6 +1,6 @@
 from libc cimport stdint
 
-cdef extern from "h3/h3api.h":
+cdef extern from "h3api.h":
     ctypedef stdint.uint64_t H3Index
 
     ctypedef struct GeoCoord:

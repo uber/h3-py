@@ -1,31 +1,31 @@
 cmake_minimum_required(VERSION 3.3)
 
-set(version_regex "^version = '([0-9.]+)'$")
+set(version_regex "([0-9.]+)")
+file(STRINGS "h3/VERSION" h3_version
+     REGEX "^${version_regex}$")
+message(STATUS "h3 version: ${h3_version}")
+
+set(py_version_regex "^version = '${version_regex}'$")
 file(STRINGS "version.py" version_line
-     REGEX "${version_regex}")
-string(REGEX MATCH "${version_regex}" _ "${version_line}")
+     REGEX "${py_version_regex}")
+string(REGEX MATCH "${py_version_regex}" _ "${version_line}")
 set(version "${CMAKE_MATCH_1}")
 message(STATUS "h3core-py version: ${version}")
 
-set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/toolchain.cmake"
-    CACHE STRING "Toolchain file to build project and dependencies")
-
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-include(HunterGate)
-
-HunterGate(URL "https://github.com/ruslo/hunter/archive/v0.22.17.tar.gz"
-           SHA1 "b89a5110e8e417dcac552f66b640bb3735e0b898")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 project(h3core-py VERSION "${version}" LANGUAGES C CXX)
 
-find_package(Cython REQUIRED)
-find_package(PythonExtensions REQUIRED)
-find_package(PythonLibs REQUIRED)
+add_subdirectory(h3)
 
-hunter_add_package(h3)
-find_package(h3 CONFIG REQUIRED)
+find_package(Cython MODULE REQUIRED)
+find_package(PythonExtensions MODULE REQUIRED)
+find_package(PythonLibs MODULE REQUIRED)
 
 add_cython_target(h3core_cy ${CMAKE_CURRENT_SOURCE_DIR}/src/h3core.pyx)
 add_library(h3core MODULE ${h3core_cy})
 python_extension_module(h3core)
-target_link_libraries(h3core h3::h3)
+
+target_compile_definitions(h3core INTERFACE $<TARGET_PROPERTY:h3,COMPILE_DEFINITIONS>)
+target_include_directories(h3core INTERFACE $<TARGET_PROPERTY:h3,INCLUDE_DIRECTORIES>)
+target_link_libraries(h3core h3)
