@@ -5,10 +5,10 @@ cdef extern from "h3api.h":
 
     ctypedef struct GeoCoord:
         double lat
-        double lon
+        double lng "lon"
 
     ctypedef struct GeoBoundary:
-        int numVerts
+        int num_verts "numVerts"
         GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
 
     ctypedef struct Geofence:
