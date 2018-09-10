@@ -101,7 +101,7 @@ def k_ring(str h3_address, int ring_size):
 
     # todo: does this guarantee all non-hex elements will be zeroed out?
     # do we need to pre-set our memory to zero?
-    h3c.kRing(hex2int(h3_address), ring_size, hm.hexptr)
+    h3c.kRing(hex2int(h3_address), ring_size, hm.ptr)
 
     out = hm.hexset()
 
@@ -121,7 +121,7 @@ def hex_ring(str h3_address, int ring_size):
 
     hm = HexMem(array_len)
 
-    flag = h3c.hexRing(hex2int(h3_address), ring_size, hm.hexptr)
+    flag = h3c.hexRing(hex2int(h3_address), ring_size, hm.ptr)
 
     if flag == 0:
         out = hm.hexset()
@@ -141,28 +141,47 @@ cdef class HexMem:
     """
     cdef:
         unsigned int array_len
-        h3c.H3Index* hexptr
+        h3c.H3Index* ptr
 
     def __cinit__(self, array_len):
         self.array_len = array_len
-        self.hexptr = <h3c.H3Index*> PyMem_Malloc(array_len * sizeof(h3c.H3Index))
+        self.ptr = <h3c.H3Index*> PyMem_Malloc(array_len * sizeof(h3c.H3Index))
         # question: do we need to zero out memory before operations?
 
-        if not self.hexptr:
+        if not self.ptr:
             raise MemoryError()
 
+        # yeah, it looks like we really do have to zero out the memory. otherwise, `compact` messes up
+        # what's the fast way to do this with C?
+        for i in range(self.array_len):
+            self.ptr[i] = 0
+
     def __dealloc__(self):
-        PyMem_Free(self.hexptr)
+        PyMem_Free(self.ptr)
 
     def hexset(self):
         """ Return set of hex strings
         """
         out = set(
-                int2hex(self.hexptr[i])
+                int2hex(self.ptr[i])
                 for i in range(self.array_len)
-                if self.hexptr[i] != 0
+                if self.ptr[i] != 0
             )
         return out
+
+    def __len__(self):
+        return self.array_len
+
+
+cdef HexMem hm_from_hexes(hexes):
+    hexes = set(hexes)
+    n = len(hexes)
+    hm = HexMem(n)
+
+    for i, h in enumerate(hexes):
+        hm.ptr[i] = hex2int(h)
+
+    return hm
 
 
 def is_valid(str h3_address):
@@ -198,7 +217,7 @@ def children(str h3_address, int res):
 
     hm = HexMem(max_children)
 
-    h3c.h3ToChildren(h, res, hm.hexptr)
+    h3c.h3ToChildren(h, res, hm.ptr)
 
     return hm.hexset()
 
@@ -241,6 +260,7 @@ cdef h3c.GeoPolygon make_geopolygon(geos):
 
 
 cdef int maxpolysize(geos, int res):
+    # todo: make a python-accessible version, for easier testing?
     gp = make_geopolygon(geos)
 
     num = h3c.maxPolyfillSize(&gp, res)
@@ -263,10 +283,36 @@ def polyfill(geos, int res):
     # forming this poly multiple times... ok for now..
     gp = make_geopolygon(geos)
     # zero-out memory before?
-    h3c.polyfill(&gp, res, hm.hexptr)
+    h3c.polyfill(&gp, res, hm.ptr)
 
     return hm.hexset()
 
+
+def compact(hexes):
+    hm0 = hm_from_hexes(hexes)
+    hm1 = HexMem(len(hm0))
+
+    flag = h3c.compact(hm0.ptr, hm1.ptr, len(hm0))
+
+    if flag != 0:
+        raise ValueError('Could not compact set of hexagons!')
+
+    return hm1.hexset()
+
+
+def uncompact(hexes, int res):
+    hm0 = hm_from_hexes(hexes)
+
+    max_hexes = h3c.maxUncompactSize(hm0.ptr, len(hm0), res)
+
+    hm1 = HexMem(max_hexes)
+
+    flag = h3c.uncompact(hm0.ptr, len(hm0), hm1.ptr, len(hm1), res)
+
+    if flag != 0:
+        raise ValueError('Could not uncompact set of hexagons!')
+
+    return hm1.hexset()
 
 
 # cdef class Geofence:
