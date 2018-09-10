@@ -81,17 +81,17 @@ def test7():
     assert out == expected
 
 def test8():
-    assert h3.h3_is_valid('89283082803ffff')
-    assert not h3.h3_is_valid('foo')
+    assert h3.is_valid('89283082803ffff')
+    assert not h3.is_valid('foo')
 
 def test9():
-    assert h3.h3_get_resolution('8928308280fffff') == 9
-    assert h3.h3_get_resolution('8a28308280fffff') == 10
+    assert h3.resolution('8928308280fffff') == 9
+    assert h3.resolution('8a28308280fffff') == 10
 
 def test_parent():
-    assert h3.h3_to_parent('8928308280fffff', 8) == '8828308281fffff'
-    assert h3.h3_to_parent('8928308280fffff', 7) == '872830828ffffff'
-    assert h3.h3_to_parent('8928308280fffff', 10) == '0'
+    assert h3.parent('8928308280fffff', 8) == '8828308281fffff'
+    assert h3.parent('8928308280fffff', 7) == '872830828ffffff'
+    assert h3.parent('8928308280fffff', 10) == '0'
 
 
 def test_children():
@@ -105,24 +105,24 @@ def test_children():
         '8a28308280f7fff'
     }
 
-    out = h3.h3_to_children('8928308280fffff', 10)
+    out = h3.children('8928308280fffff', 10)
 
     assert out == expected
 
     expected = set()
-    out = h3.h3_to_children('8928308280fffff', 8)
+    out = h3.children('8928308280fffff', 8)
 
     assert out == expected
 
 def test_distance():
     h = '8a28308280c7fff'
-    assert h3.h3distance(h,h) == 0
+    assert h3.distance(h,h) == 0
 
     n = h3.hex_ring(h,1).pop()
-    assert h3.h3distance(h,n) == 1
+    assert h3.distance(h,n) == 1
 
     n = h3.hex_ring(h,2).pop()
-    assert h3.h3distance(h,n) == 2
+    assert h3.distance(h,n) == 2
 
 
 def test_polyfill():

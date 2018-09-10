@@ -165,7 +165,7 @@ cdef class HexMem:
         return out
 
 
-def h3_is_valid(str h3_address):
+def is_valid(str h3_address):
     """Validates an `h3_address`
 
     :returns: boolean
@@ -176,7 +176,7 @@ def h3_is_valid(str h3_address):
         return False
 
 
-def h3_get_resolution(str h3_address):
+def resolution(str h3_address):
     """Returns the resolution of an `h3_address`
 
     :return: nibble (0-15)
@@ -184,7 +184,7 @@ def h3_get_resolution(str h3_address):
     return int(h3_address[1], 16)
 
 
-def h3_to_parent(str h3_address, int res):
+def parent(str h3_address, int res):
     h = hex2int(h3_address)
     h = h3c.h3ToParent(h, res)
     h = int2hex(h)
@@ -192,7 +192,7 @@ def h3_to_parent(str h3_address, int res):
     return h
 
 
-def h3_to_children(str h3_address, int res):
+def children(str h3_address, int res):
     h = hex2int(h3_address)
     max_children = h3c.maxH3ToChildrenSize(h, res)
 
@@ -203,7 +203,9 @@ def h3_to_children(str h3_address, int res):
     return hm.hexset()
 
 
-def h3distance(str h1, str h2):
+def distance(str h1, str h2):
+    """ compute the hex-distance between two hexagons
+    """
     d = h3c.h3Distance(
             hex2int(h1),
             hex2int(h2)
