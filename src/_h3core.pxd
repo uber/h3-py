@@ -50,6 +50,8 @@ cdef extern from "h3api.h":
 
     int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
 
+    int h3Distance(H3Index origin, H3Index h3)
+
     int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
 
     void kRing(H3Index origin, int k, H3Index *out)

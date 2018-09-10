@@ -12,5 +12,5 @@
 - from within build dir: `make`
 
 
-- `fab bootstrap` (maybe not needed?)
+- `python -m pytest ../test.py`
 
