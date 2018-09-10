@@ -212,6 +212,61 @@ def h3distance(str h1, str h2):
     return d
 
 
+cdef h3c.Geofence make_geofence(geos):
+    cdef:
+        h3c.Geofence gf
+
+    gf.numVerts = len(geos)
+
+    # todo: figure out when/how to free this memory
+    gf.verts = <h3c.GeoCoord*> PyMem_Malloc(gf.numVerts * sizeof(h3c.GeoCoord))
+
+    for i, (lat, lng) in enumerate(geos):
+        gf.verts[i] = geo2coord(lat, lng)
+
+    return gf
+
+
+cdef h3c.GeoPolygon make_geopolygon(geos):
+    cdef:
+        h3c.GeoPolygon gp
+
+    gp.numHoles = 0
+    gp.holes = NULL
+    gp.geofence = make_geofence(geos)
+
+    return gp
+
+
+cdef int maxpolysize(geos, int res):
+    gp = make_geopolygon(geos)
+
+    num = h3c.maxPolyfillSize(&gp, res)
+
+    return num
+
+
+def polyfill(geos, int res):
+    """ A quick, sloppy implementation of polyfill
+    Works, but is inefficient with memory and doesn't free allocated memory.
+    Doesn't work with GeoPolygons with holes.
+
+    `geos` should be a list of (lat, lng) tuples.
+
+    """
+    array_len = maxpolysize(geos, res)
+
+    hm = HexMem(array_len)
+
+    # forming this poly multiple times... ok for now..
+    gp = make_geopolygon(geos)
+    # zero-out memory before?
+    h3c.polyfill(&gp, res, hm.hexptr)
+
+    return hm.hexset()
+
+
+
 # cdef class Geofence:
 #     cdef _h3core.Geofence _fence
 #     cdef bint _owned
