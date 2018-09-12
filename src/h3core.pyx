@@ -7,6 +7,7 @@ cimport _h3core as h3c
 
 # why are we doing all this rad and mercator math? can the c library not do this automatically?
 # two versions of functions? int/hex(str) versions?
+# add neighbors/edges? https://uber.github.io/h3/#/documentation/api-reference/unidirectional-edges
 
 
 # todo: c versions?
@@ -173,7 +174,9 @@ cdef class HexMem:
         return self.array_len
 
 
+# todo: can i make this a class method? static method?
 cdef HexMem hm_from_hexes(hexes):
+    # todo: convert to integers first?
     hexes = set(hexes)
     n = len(hexes)
     hm = HexMem(n)
@@ -267,7 +270,7 @@ cdef int maxpolysize(geos, int res):
 
     return num
 
-
+# todo: nogil expensive C operation?
 def polyfill(geos, int res):
     """ A quick, sloppy implementation of polyfill
     Works, but is inefficient with memory and doesn't free allocated memory.
@@ -287,7 +290,7 @@ def polyfill(geos, int res):
 
     return hm.hexset()
 
-
+# todo: nogil expensive C operation?
 def compact(hexes):
     hm0 = hm_from_hexes(hexes)
     hm1 = HexMem(len(hm0))
@@ -299,12 +302,11 @@ def compact(hexes):
 
     return hm1.hexset()
 
-
+# todo: nogil expensive C operation?
 def uncompact(hexes, int res):
     hm0 = hm_from_hexes(hexes)
 
     max_hexes = h3c.maxUncompactSize(hm0.ptr, len(hm0), res)
-
     hm1 = HexMem(max_hexes)
 
     flag = h3c.uncompact(hm0.ptr, len(hm0), hm1.ptr, len(hm1), res)
