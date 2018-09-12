@@ -1,6 +1,5 @@
-from libc.string cimport memset
-
 from cpython.mem cimport PyMem_Malloc, PyMem_Free
+from libc.string cimport memset
 
 from cpython cimport bool
 from libc.math cimport pi
@@ -102,8 +101,6 @@ def h3_to_geo_boundary(str h3_address, bool geo_json=False):
 def k_ring(str h3_address, int ring_size):
     hm = HexMem(h3c.maxKringSize(ring_size))
 
-    # todo: does this guarantee all non-hex elements will be zeroed out?
-    # do we need to pre-set our memory to zero?
     h3c.kRing(hex2int(h3_address), ring_size, hm.ptr)
 
     out = hm.hexset()
@@ -150,12 +147,10 @@ cdef class HexMem:
         self.n = n
         self.ptr = <h3c.H3Index*> PyMem_Malloc(n * sizeof(h3c.H3Index))
 
-        # question: do we need to zero out memory before operations?
-
         if not self.ptr:
             raise MemoryError()
 
-        # yeah, it looks like we really do have to zero out the memory. otherwise, `compact` messes up
+        # h3c expects zero'd out memory in many cases
         memset(self.ptr, 0, len(self) * sizeof(h3c.H3Index))
 
     def __dealloc__(self):
@@ -250,46 +245,43 @@ cdef h3c.Geofence make_geofence(geos):
     return gf
 
 
-cdef h3c.GeoPolygon make_geopolygon(geos):
+cdef class GeoPolygon:
+    """ Basic version of GeoPolygon
+
+    Doesn't work with holes.
+    """
     cdef:
         h3c.GeoPolygon gp
 
-    gp.numHoles = 0
-    gp.holes = NULL
-    gp.geofence = make_geofence(geos)
+    def __cinit__(self, geos):
+        self.gp.numHoles = 0
+        self.gp.holes = NULL
+        self.gp.geofence = make_geofence(geos)
 
-    return gp
+    def __dealloc__(self):
+        PyMem_Free(self.gp.geofence.verts)
 
 
-cdef int maxpolysize(geos, int res):
-    # todo: make a python-accessible version, for easier testing?
-    gp = make_geopolygon(geos)
-
-    num = h3c.maxPolyfillSize(&gp, res)
-
-    return num
-
-# todo: nogil expensive C operation?
+# todo: nogil for expensive C operation?
 def polyfill(geos, int res):
-    """ A quick, sloppy implementation of polyfill
-    Works, but is inefficient with memory and doesn't free allocated memory.
+    """ A quick implementation of polyfill
+    I think it *should* properly free allocated memory.
     Doesn't work with GeoPolygons with holes.
 
     `geos` should be a list of (lat, lng) tuples.
 
     """
-    array_len = maxpolysize(geos, res)
+    gp = GeoPolygon(geos)
+
+    array_len = h3c.maxPolyfillSize(&gp.gp, res)
 
     hm = HexMem(array_len)
 
-    # forming this poly multiple times... ok for now..
-    gp = make_geopolygon(geos)
-    # zero-out memory before?
-    h3c.polyfill(&gp, res, hm.ptr)
+    h3c.polyfill(&gp.gp, res, hm.ptr)
 
     return hm.hexset()
 
-# todo: nogil expensive C operation?
+# todo: nogil for expensive C operation?
 def compact(hexes):
     hm0 = HexMem.from_hexes(hexes)
     hm1 = HexMem(len(hm0))
@@ -301,7 +293,7 @@ def compact(hexes):
 
     return hm1.hexset()
 
-# todo: nogil expensive C operation?
+# todo: nogil for expensive C operation?
 def uncompact(hexes, int res):
     hm0 = HexMem.from_hexes(hexes)
 
@@ -314,28 +306,6 @@ def uncompact(hexes, int res):
         raise ValueError('Could not uncompact set of hexagons!')
 
     return hm1.hexset()
-
-
-# cdef class Geofence:
-#     cdef _h3core.Geofence _fence
-#     cdef bint _owned
-
-#     def __cinit__(self):
-#         self._fence.verts = NULL
-#         self._fence.numVerts = 0
-#         self._owned = False
-
-#     def __dealloc__(self):
-#         if self._owned:
-#             libc.stdlib.free(self._fence.verts)
-
-#     @property
-#     def num_verts(self):
-#         return self._fence.numVerts
-
-#     @property
-#     def verts(self):
-#         return [self._fence.verts[i] for i in range(self._fence.numVerts)]
 
 
 # cdef class GeoJsonLite:
