@@ -78,6 +78,91 @@ cpdef (double, double) h3_to_geo(str h3_address):
     return coord2geo(c)
 
 
+def is_valid(str h3_address):
+    """Validates an `h3_address`
+
+    :returns: boolean
+    """
+    try:
+        return h3c.h3IsValid(hex2int(h3_address)) is 1
+    except Exception:
+        return False
+
+
+def resolution(str h3_address):
+    """Returns the resolution of an `h3_address`
+
+    :return: nibble (0-15)
+    """
+    return int(h3_address[1], 16)
+
+
+def parent(str h3_address, int res):
+    h = hex2int(h3_address)
+    h = h3c.h3ToParent(h, res)
+    h = int2hex(h)
+
+    return h
+
+
+def distance(str h1, str h2):
+    """ compute the hex-distance between two hexagons
+    """
+    d = h3c.h3Distance(
+            hex2int(h1),
+            hex2int(h2)
+        )
+
+    return d
+
+
+cdef class HexMem:
+    """ A small class to manage memory for H3Index arrays
+    Memory is allocated and deallocated at object creation and garbage collection
+
+    """
+    cdef:
+        unsigned int n
+        h3c.H3Index* ptr
+
+    def __cinit__(self, n):
+        self.n = n
+        self.ptr = <h3c.H3Index*> PyMem_Malloc(n * sizeof(h3c.H3Index))
+
+        if not self.ptr:
+            raise MemoryError()
+
+        # h3c expects zero'd out memory in many cases
+        memset(self.ptr, 0, len(self) * sizeof(h3c.H3Index))
+
+    def __dealloc__(self):
+        PyMem_Free(self.ptr)
+
+    def hexset(self):
+        """ Return set of hex strings
+        """
+        out = set(
+                int2hex(self.ptr[i])
+                for i in range(len(self))
+                if self.ptr[i] != 0
+            )
+        return out
+
+    def __len__(self):
+        return self.n
+
+
+    @staticmethod
+    cdef HexMem from_hexes(set hexes):
+        n = len(hexes)
+        hm = HexMem(n)
+
+        for i, h in enumerate(hexes):
+            hm.ptr[i] = hex2int(h)
+
+        return hm
+
+
 def h3_to_geo_boundary(str h3_address, bool geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
@@ -134,80 +219,6 @@ def hex_ring(str h3_address, int ring_size):
     return out
 
 
-cdef class HexMem:
-    """ A small class to manage memory for H3Index arrays
-    Memory is allocated and deallocated at object creation and garbage collection
-
-    """
-    cdef:
-        unsigned int n
-        h3c.H3Index* ptr
-
-    def __cinit__(self, n):
-        self.n = n
-        self.ptr = <h3c.H3Index*> PyMem_Malloc(n * sizeof(h3c.H3Index))
-
-        if not self.ptr:
-            raise MemoryError()
-
-        # h3c expects zero'd out memory in many cases
-        memset(self.ptr, 0, len(self) * sizeof(h3c.H3Index))
-
-    def __dealloc__(self):
-        PyMem_Free(self.ptr)
-
-    def hexset(self):
-        """ Return set of hex strings
-        """
-        out = set(
-                int2hex(self.ptr[i])
-                for i in range(len(self))
-                if self.ptr[i] != 0
-            )
-        return out
-
-    def __len__(self):
-        return self.n
-
-
-    @staticmethod
-    cdef HexMem from_hexes(set hexes):
-        n = len(hexes)
-        hm = HexMem(n)
-
-        for i, h in enumerate(hexes):
-            hm.ptr[i] = hex2int(h)
-
-        return hm
-
-
-def is_valid(str h3_address):
-    """Validates an `h3_address`
-
-    :returns: boolean
-    """
-    try:
-        return h3c.h3IsValid(hex2int(h3_address)) is 1
-    except Exception:
-        return False
-
-
-def resolution(str h3_address):
-    """Returns the resolution of an `h3_address`
-
-    :return: nibble (0-15)
-    """
-    return int(h3_address[1], 16)
-
-
-def parent(str h3_address, int res):
-    h = hex2int(h3_address)
-    h = h3c.h3ToParent(h, res)
-    h = int2hex(h)
-
-    return h
-
-
 def children(str h3_address, int res):
     h = hex2int(h3_address)
     max_children = h3c.maxH3ToChildrenSize(h, res)
@@ -217,17 +228,6 @@ def children(str h3_address, int res):
     h3c.h3ToChildren(h, res, hm.ptr)
 
     return hm.hexset()
-
-
-def distance(str h1, str h2):
-    """ compute the hex-distance between two hexagons
-    """
-    d = h3c.h3Distance(
-            hex2int(h1),
-            hex2int(h2)
-        )
-
-    return d
 
 
 cdef h3c.Geofence make_geofence(geos):
@@ -272,10 +272,9 @@ def polyfill(geos, int res):
 
     """
     gp = GeoPolygon(geos)
-
-    array_len = h3c.maxPolyfillSize(&gp.gp, res)
-
-    hm = HexMem(array_len)
+    hm = HexMem(
+        h3c.maxPolyfillSize(&gp.gp, res)
+    )
 
     h3c.polyfill(&gp.gp, res, hm.ptr)
 
