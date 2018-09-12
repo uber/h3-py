@@ -1,3 +1,5 @@
+from libc.string cimport memset
+
 from cpython.mem cimport PyMem_Malloc, PyMem_Free
 
 from cpython cimport bool
@@ -141,21 +143,20 @@ cdef class HexMem:
 
     """
     cdef:
-        unsigned int array_len
+        unsigned int n
         h3c.H3Index* ptr
 
-    def __cinit__(self, array_len):
-        self.array_len = array_len
-        self.ptr = <h3c.H3Index*> PyMem_Malloc(array_len * sizeof(h3c.H3Index))
+    def __cinit__(self, n):
+        self.n = n
+        self.ptr = <h3c.H3Index*> PyMem_Malloc(n * sizeof(h3c.H3Index))
+
         # question: do we need to zero out memory before operations?
 
         if not self.ptr:
             raise MemoryError()
 
         # yeah, it looks like we really do have to zero out the memory. otherwise, `compact` messes up
-        # what's the fast way to do this with C?
-        for i in range(self.array_len):
-            self.ptr[i] = 0
+        memset(self.ptr, 0, len(self) * sizeof(h3c.H3Index))
 
     def __dealloc__(self):
         PyMem_Free(self.ptr)
@@ -165,26 +166,24 @@ cdef class HexMem:
         """
         out = set(
                 int2hex(self.ptr[i])
-                for i in range(self.array_len)
+                for i in range(len(self))
                 if self.ptr[i] != 0
             )
         return out
 
     def __len__(self):
-        return self.array_len
+        return self.n
 
 
-# todo: can i make this a class method? static method?
-cdef HexMem hm_from_hexes(hexes):
-    # todo: convert to integers first?
-    hexes = set(hexes)
-    n = len(hexes)
-    hm = HexMem(n)
+    @staticmethod
+    cdef HexMem from_hexes(set hexes):
+        n = len(hexes)
+        hm = HexMem(n)
 
-    for i, h in enumerate(hexes):
-        hm.ptr[i] = hex2int(h)
+        for i, h in enumerate(hexes):
+            hm.ptr[i] = hex2int(h)
 
-    return hm
+        return hm
 
 
 def is_valid(str h3_address):
@@ -292,7 +291,7 @@ def polyfill(geos, int res):
 
 # todo: nogil expensive C operation?
 def compact(hexes):
-    hm0 = hm_from_hexes(hexes)
+    hm0 = HexMem.from_hexes(hexes)
     hm1 = HexMem(len(hm0))
 
     flag = h3c.compact(hm0.ptr, hm1.ptr, len(hm0))
@@ -304,7 +303,7 @@ def compact(hexes):
 
 # todo: nogil expensive C operation?
 def uncompact(hexes, int res):
-    hm0 = hm_from_hexes(hexes)
+    hm0 = HexMem.from_hexes(hexes)
 
     max_hexes = h3c.maxUncompactSize(hm0.ptr, len(hm0), res)
     hm1 = HexMem(max_hexes)

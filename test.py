@@ -82,7 +82,7 @@ def test7():
 
 def test8():
     assert h3.is_valid('89283082803ffff')
-    assert not h3.is_valid('foo')
+    assert not h3.is_valid('abc')
 
 def test9():
     assert h3.resolution('8928308280fffff') == 9
