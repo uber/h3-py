@@ -12,5 +12,6 @@
 - from within build dir: `make`
 
 
+- `source env/bin/activate`
 - `python -m pytest ../test.py`
 

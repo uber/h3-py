@@ -154,8 +154,9 @@ cdef class HexMem:
 
     @staticmethod
     cdef HexMem from_hexes(set hexes):
-        n = len(hexes)
-        hm = HexMem(n)
+        hm = HexMem(
+            len(hexes)
+        )
 
         for i, h in enumerate(hexes):
             hm.ptr[i] = hex2int(h)
@@ -184,7 +185,9 @@ def h3_to_geo_boundary(str h3_address, bool geo_json=False):
 
 
 def k_ring(str h3_address, int ring_size):
-    hm = HexMem(h3c.maxKringSize(ring_size))
+    hm = HexMem(
+        h3c.maxKringSize(ring_size)
+    )
 
     h3c.kRing(hex2int(h3_address), ring_size, hm.ptr)
 
@@ -202,9 +205,9 @@ def hex_ring(str h3_address, int ring_size):
     MUCH slower form based on `k_ring`.
     """
 
-    array_len = 6 * ring_size if ring_size > 0 else 1
-
-    hm = HexMem(array_len)
+    hm = HexMem(
+        6 * ring_size if ring_size > 0 else 1
+    )
 
     flag = h3c.hexRing(hex2int(h3_address), ring_size, hm.ptr)
 
@@ -221,9 +224,10 @@ def hex_ring(str h3_address, int ring_size):
 
 def children(str h3_address, int res):
     h = hex2int(h3_address)
-    max_children = h3c.maxH3ToChildrenSize(h, res)
 
-    hm = HexMem(max_children)
+    hm = HexMem(
+        h3c.maxH3ToChildrenSize(h, res)
+    )
 
     h3c.h3ToChildren(h, res, hm.ptr)
 
@@ -282,29 +286,34 @@ def polyfill(geos, int res):
 
 # todo: nogil for expensive C operation?
 def compact(hexes):
-    hm0 = HexMem.from_hexes(hexes)
-    hm1 = HexMem(len(hm0))
+    hu = HexMem.from_hexes(hexes)
+    hc = HexMem(len(hu))
 
-    flag = h3c.compact(hm0.ptr, hm1.ptr, len(hm0))
+    flag = h3c.compact(hu.ptr, hc.ptr, len(hu))
 
     if flag != 0:
         raise ValueError('Could not compact set of hexagons!')
 
-    return hm1.hexset()
+    return hc.hexset()
 
 # todo: nogil for expensive C operation?
 def uncompact(hexes, int res):
-    hm0 = HexMem.from_hexes(hexes)
+    hc = HexMem.from_hexes(hexes)
 
-    max_hexes = h3c.maxUncompactSize(hm0.ptr, len(hm0), res)
-    hm1 = HexMem(max_hexes)
+    hu = HexMem(
+        h3c.maxUncompactSize(hc.ptr, len(hc), res)
+    )
 
-    flag = h3c.uncompact(hm0.ptr, len(hm0), hm1.ptr, len(hm1), res)
+    flag = h3c.uncompact(
+        hc.ptr, len(hc),
+        hu.ptr, len(hu),
+        res
+    )
 
     if flag != 0:
         raise ValueError('Could not uncompact set of hexagons!')
 
-    return hm1.hexset()
+    return hu.hexset()
 
 
 # cdef class GeoJsonLite:
