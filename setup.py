@@ -57,4 +57,5 @@ setup(
         'h-py':
         ['out/*.dylib' if platform.system() == 'Darwin' else 'out/*.so.*']
     },
+    license='Apache License 2.0',
     distclass=BinaryDistribution)
