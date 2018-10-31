@@ -1,7 +1,7 @@
 H3-Python
 =========
 
-|Build Status| |License|
+|Build Status| |H3 Version| |License|
 
 This library provides Python bindings for the `H3 Core
 Library <https://github.com/uber/h3>`__. For API reference, please see
@@ -97,5 +97,7 @@ Documentation <https://uber.github.io/h3/>`__.
 
 .. |Build Status| image:: https://travis-ci.org/uber/h3-py.svg?branch=master
    :target: https://travis-ci.org/uber/h3-py
+.. |H3 Version| image:: https://img.shields.io/badge/h3-v3.1.0-blue.svg
+   :target: https://github.com/uber/h3/releases/tag/v3.1.0
 .. |License| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
    :target: LICENSE
