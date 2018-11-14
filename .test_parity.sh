@@ -11,3 +11,4 @@ rm -rf h3c
 git clone https://github.com/uber/h3.git h3c
 pushd h3c
 git pull origin master --tags
+git checkout "$VERSION"
