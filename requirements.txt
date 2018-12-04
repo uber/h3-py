@@ -7,3 +7,5 @@ shapely
 geopandas
 matplotlib
 descartes
+#Need this as the py package for a lib dependency but also here?
+rtree
