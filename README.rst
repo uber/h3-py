@@ -4,7 +4,7 @@ H3-Python
 |Build Status| |H3 Version| |License|
 
 .. image:: https://mybinder.org/badge_logo.svg 
-  :target: https://mybinder.org/v2/gh/uber/h3-py/master
+  :target: https://mybinder.org/v2/gh/uber/h3-py/master?filepath=docs
 
 This library provides Python bindings for the `H3 Core
 Library <https://github.com/uber/h3>`__. For API reference, please see
