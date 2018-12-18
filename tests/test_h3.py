@@ -656,6 +656,18 @@ class TestH3Core(unittest.TestCase):
 
         self.assertTrue(isinstance(e_info.value, ValueError))
 
+    def test_many_hex_ranges(self):
+        hex_ranges = h3.hex_ranges(list(h3.k_ring('8928308280fffff', 2)), 2)
+
+        self.assertEqual(19, len(list(hex_ranges.keys())))
+
+        hexagons = hex_ranges['8928308280fffff']
+
+        self.assertEqual(3, len(hexagons))
+        self.assertEqual(1, len(hexagons[0]))
+        self.assertEqual(6, len(hexagons[1]))
+        self.assertEqual(12, len(hexagons[2]))
+
     def test_hex_area(self):
         for i in range(0, 15):
             self.assertTrue(isinstance(h3.hex_area(i), float))
