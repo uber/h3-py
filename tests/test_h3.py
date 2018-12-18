@@ -668,6 +668,19 @@ class TestH3Core(unittest.TestCase):
         self.assertEqual(6, len(hexagons[1]))
         self.assertEqual(12, len(hexagons[2]))
 
+        hex_ranges_even_larger = h3.hex_ranges(list(h3.k_ring('8928308280fffff', 5)), 5)
+        self.assertEqual(91, len(list(hex_ranges_even_larger.keys())))
+
+        hexagons_larger = hex_ranges_even_larger['8928308280fffff']
+
+        self.assertEqual(6, len(hexagons))
+        self.assertEqual(1, len(hexagons[0]))
+        self.assertEqual(6, len(hexagons[1]))
+        self.assertEqual(12, len(hexagons[2]))
+        self.assertEqual(18, len(hexagons[3]))
+        self.assertEqual(24, len(hexagons[4]))
+        self.assertEqual(30, len(hexagons[5]))
+
     def test_hex_area(self):
         for i in range(0, 15):
             self.assertTrue(isinstance(h3.hex_area(i), float))
