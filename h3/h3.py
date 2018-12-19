@@ -628,7 +628,7 @@ def hex_ranges(h3_address_list, ring_size):
             # divided by 6 ceiled.
             ring_index = int(
                 math.floor(
-                    (1 + math.sqrt(1 + 8 * math.max(math.ceil(j / 6.0 - 1), -0.1))) / 2))
+                    (1 + math.sqrt(1 + 8 * max(math.ceil(j / 6.0 - 1), -0.1))) / 2))
             # hexRanges doesn't return distance array
             hex_range_list[ring_index].add(
                 h3_to_string(krings[i * int(array_len / num_hexagons) + j]))
