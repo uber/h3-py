@@ -621,17 +621,16 @@ def hex_ranges(h3_address_list, ring_size):
         out[h3_address] = hex_range_list
         for j in range(0, ring_size + 1):
             hex_range_list.append(set([]))
-        for j in range(0, int(array_len / num_hexagons)):
-            # Mostly from
-            # https://math.stackexchange.com/questions/455511/formula-for-the-nth-term-of-1-2-2-3-3-3-4-4-4-4-5
-            # After figuring out the k-ring sequence matches that term once
-            # divided by 6 ceiled.
-            ring_index = int(
-                math.floor(
-                    (1 + math.sqrt(1 + 8 * math.ceil(j / 6.0))) / 2)) - 1
+        ring_index = 0
+        ring_end = 0
+        range_size = int(array_len / num_hexagons)
+        for j in range(0, range_size):
+            if j > ring_end:
+                ring_index = ring_index + 1
+                ring_end = ring_end + 6 * ring_index
             # hexRanges doesn't return distance array
             hex_range_list[ring_index].add(
-                h3_to_string(krings[i * num_hexagons + j]))
+                h3_to_string(krings[i * range_size + j]))
     return out
 
 
