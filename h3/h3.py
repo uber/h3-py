@@ -623,13 +623,14 @@ def hex_ranges(h3_address_list, ring_size):
             hex_range_list.append(set([]))
         ring_index = 0
         ring_end = 0
-        for j in range(0, int(array_len / num_hexagons)):
+        range_size = int(array_len / num_hexagons)
+        for j in range(0, range_size):
             if j > ring_end:
                 ring_index = ring_index + 1
                 ring_end = ring_end + 6 * ring_index
             # hexRanges doesn't return distance array
             hex_range_list[ring_index].add(
-                h3_to_string(krings[i * int(array_len / num_hexagons) + j]))
+                h3_to_string(krings[i * range_size + j]))
     return out
 
 
