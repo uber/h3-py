@@ -10,6 +10,8 @@ the `H3 Documentation <https://uber.github.io/h3/>`__.
 Installing
 ==========
 
+IMPORTANT: The `h3` library currently requires **Python 3.5** or later.
+
 You need to have ``cc``, ``make``, and ``cmake`` in your ``$PATH`` when installing this
 package:
 
