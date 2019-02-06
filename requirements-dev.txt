@@ -1,5 +1,5 @@
 # Testing
-pytest>=2.7
+pytest==4.0.2
 pytest-cov==1.8.1
 coverage==3.7.1
 mock==1.0.1
