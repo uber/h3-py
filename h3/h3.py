@@ -240,7 +240,7 @@ def h3_is_valid(h3_address):
     :returns: boolean
     """
     try:
-        return libh3.h3IsValid(string_to_h3(h3_address)) is 1
+        return libh3.h3IsValid(string_to_h3(h3_address)) == 1
     except Exception:
         return False
 
