@@ -22,7 +22,7 @@ from h3 import h3
 
 class TestH3Core(unittest.TestCase):
     def shift_circular_list(self, start_element, elements_list):
-        # We shift the circular list so that it starts from start_coord,
+        # We shift the circular list so that it starts from start_element,
         start_index = elements_list.index(start_element)
         return elements_list[start_index:] + elements_list[:start_index]
 
