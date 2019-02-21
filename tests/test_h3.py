@@ -21,6 +21,11 @@ from h3 import h3
 
 
 class TestH3Core(unittest.TestCase):
+    def shift_circular_list(self, start_element, elements_list):
+        # We shift the circular list so that it starts from start_coord,
+        start_index = elements_list.index(start_element)
+        return elements_list[start_index:] + elements_list[:start_index]
+
     def test_h3_is_valid(self):
         self.assertTrue(
             h3.h3_is_valid('85283473fffffff'),
@@ -179,12 +184,12 @@ class TestH3Core(unittest.TestCase):
     def test_polyfill(self):
         hexagons = h3.polyfill({
             'type':
-            'Polygon',
+                'Polygon',
             'coordinates': [[[37.813318999983238, -122.4089866999972145], [
                 37.7866302000007224, -122.3805436999997056
             ], [37.7198061999978478, -122.3544736999993603], [
-                37.7076131999975672, -122.5123436999983966
-            ], [37.7835871999971715, -122.5247187000021967],
+                                 37.7076131999975672, -122.5123436999983966
+                             ], [37.7835871999971715, -122.5247187000021967],
                              [37.8151571999998453, -122.4798767000009008]]]
         }, 9)
         self.assertGreater(
@@ -199,15 +204,15 @@ class TestH3Core(unittest.TestCase):
     def test_polyfill_with_hole(self):
         hexagons = h3.polyfill({
             'type':
-            'Polygon',
+                'Polygon',
             'coordinates': [[[37.813318999983238, -122.4089866999972145], [
                 37.7866302000007224, -122.3805436999997056
             ], [37.7198061999978478, -122.3544736999993603], [
-                37.7076131999975672, -122.5123436999983966
-            ], [37.7835871999971715, -122.5247187000021967], [
-                37.8151571999998453, -122.4798767000009008
-            ]], [[37.7869802, -122.4471197], [37.7664102, -122.4590777],
-                 [37.7710682, -122.4137097]]]
+                                 37.7076131999975672, -122.5123436999983966
+                             ], [37.7835871999971715, -122.5247187000021967], [
+                                 37.8151571999998453, -122.4798767000009008
+                             ]], [[37.7869802, -122.4471197], [37.7664102, -122.4590777],
+                                  [37.7710682, -122.4137097]]]
         }, 9)
         self.assertGreater(
             len(hexagons), 1000, 'got an appropriate number of hexagons back')
@@ -215,14 +220,14 @@ class TestH3Core(unittest.TestCase):
     def test_polyfill_with_two_holes(self):
         hexagons = h3.polyfill({
             'type':
-            'Polygon',
+                'Polygon',
             'coordinates': [[[37.813318999983238, -122.4089866999972145], [
                 37.7866302000007224, -122.3805436999997056
             ], [37.7198061999978478, -122.3544736999993603], [
-                37.7076131999975672, -122.5123436999983966
-            ], [37.7835871999971715, -122.5247187000021967], [
-                37.8151571999998453, -122.4798767000009008
-            ]], [[37.7869802, -122.4471197], [37.7664102, -122.4590777], [
+                                 37.7076131999975672, -122.5123436999983966
+                             ], [37.7835871999971715, -122.5247187000021967], [
+                                 37.8151571999998453, -122.4798767000009008
+                             ]], [[37.7869802, -122.4471197], [37.7664102, -122.4590777], [
                 37.7710682, -122.4137097
             ]], [[37.747976, -122.490025], [37.731550, -122.503758],
                  [37.725440, -122.452603]]]
@@ -233,12 +238,12 @@ class TestH3Core(unittest.TestCase):
     def test_polyfill_geo_json_compliant(self):
         hexagons = h3.polyfill({
             'type':
-            'Polygon',
+                'Polygon',
             'coordinates': [[[-122.4089866999972145, 37.813318999983238], [
                 -122.3805436999997056, 37.7866302000007224
             ], [-122.3544736999993603, 37.7198061999978478], [
-                -122.5123436999983966, 37.7076131999975672
-            ], [-122.5247187000021967, 37.7835871999971715],
+                                 -122.5123436999983966, 37.7076131999975672
+                             ], [-122.5247187000021967, 37.7835871999971715],
                              [-122.4798767000009008, 37.8151571999998453]]]
         }, 9, True)
         self.assertGreater(
@@ -247,27 +252,27 @@ class TestH3Core(unittest.TestCase):
     def test_polyfill_down_under(self):
         hexagons = h3.polyfill({
             'type':
-            'Polygon',
+                'Polygon',
             'coordinates':
-            [[[151.1979259, -33.8555555], [151.2074556, -33.8519779], [
-                151.224743, -33.8579597
-            ], [151.2254986, -33.8582212], [151.235313348, -33.8564183032],
-              [151.234799568, -33.8594049408], [151.233485084, -33.8641069037],
-              [151.233181742, -33.8715791334], [151.223980353, -33.8876967719],
-              [151.219388501, -33.8873877027], [151.2189209, -33.8869995], [
-                  151.2181177, -33.886283399999996
-              ], [151.2157995, -33.8851287], [151.2156925, -33.8852471],
-              [151.2141233, -33.8851287], [151.2116267, -33.8847438], [
-                  151.2083456, -33.8834707
-              ], [151.2080246, -33.8827601], [151.2059204, -33.8816053], [
-                  151.2043868, -33.8827601
-              ], [151.2028176, -33.8838556], [151.2022826, -33.8839148], [
-                  151.2011057, -33.8842405
-              ], [151.1986114, -33.8842819], [151.1986091, -33.8842405], [
-                  151.1948287, -33.8773416
-              ], [151.1923322, -33.8740845], [151.1850566, -33.8697019], [
-                  151.1902636, -33.8625354
-              ], [151.1986805, -33.8612915], [151.1979259, -33.8555555]]]
+                [[[151.1979259, -33.8555555], [151.2074556, -33.8519779], [
+                    151.224743, -33.8579597
+                ], [151.2254986, -33.8582212], [151.235313348, -33.8564183032],
+                  [151.234799568, -33.8594049408], [151.233485084, -33.8641069037],
+                  [151.233181742, -33.8715791334], [151.223980353, -33.8876967719],
+                  [151.219388501, -33.8873877027], [151.2189209, -33.8869995], [
+                      151.2181177, -33.886283399999996
+                  ], [151.2157995, -33.8851287], [151.2156925, -33.8852471],
+                  [151.2141233, -33.8851287], [151.2116267, -33.8847438], [
+                      151.2083456, -33.8834707
+                  ], [151.2080246, -33.8827601], [151.2059204, -33.8816053], [
+                      151.2043868, -33.8827601
+                  ], [151.2028176, -33.8838556], [151.2022826, -33.8839148], [
+                      151.2011057, -33.8842405
+                  ], [151.1986114, -33.8842819], [151.1986091, -33.8842405], [
+                      151.1948287, -33.8773416
+                  ], [151.1923322, -33.8740845], [151.1850566, -33.8697019], [
+                      151.1902636, -33.8625354
+                  ], [151.1986805, -33.8612915], [151.1979259, -33.8555555]]]
         }, 9, True)
         self.assertGreater(
             len(hexagons), 10, 'got an appropriate number of hexagons back')
@@ -275,12 +280,12 @@ class TestH3Core(unittest.TestCase):
     def test_polyfill_far_east(self):
         hexagons = h3.polyfill({
             "type":
-            "Polygon",
+                "Polygon",
             "coordinates": [[[142.86483764648438, 41.92578147109541], [
                 142.86483764648438, 42.29965889253408
             ], [143.41552734375, 42.29965889253408], [
-                143.41552734375, 41.92578147109541
-            ], [142.86483764648438, 41.92578147109541]]]
+                                 143.41552734375, 41.92578147109541
+                             ], [142.86483764648438, 41.92578147109541]]]
         }, 9, True)
         self.assertGreater(
             len(hexagons), 10, 'got an appropriate number of hexagons back')
@@ -288,12 +293,12 @@ class TestH3Core(unittest.TestCase):
     def test_polyfill_southern_tip(self):
         hexagons = h3.polyfill({
             "type":
-            "Polygon",
+                "Polygon",
             "coordinates": [[[-67.642822265625, -55.41654360858007], [
                 -67.642822265625, -54.354955689554096
             ], [-64.742431640625, -54.354955689554096], [
-                -64.742431640625, -55.41654360858007
-            ], [-67.642822265625, -55.41654360858007]]]
+                                 -64.742431640625, -55.41654360858007
+                             ], [-67.642822265625, -55.41654360858007]]]
         }, 9, True)
         self.assertGreater(
             len(hexagons), 10, 'got an appropriate number of hexagons back')
@@ -301,12 +306,12 @@ class TestH3Core(unittest.TestCase):
     def test_polyfill_null_island(self):
         hexagons = h3.polyfill({
             "type":
-            "Polygon",
+                "Polygon",
             "coordinates": [[[-3.218994140625, -3.0856655287215378], [
                 -3.218994140625, 3.6888551431470478
             ], [3.5815429687499996, 3.6888551431470478], [
-                3.5815429687499996, -3.0856655287215378
-            ], [-3.218994140625, -3.0856655287215378]]]
+                                 3.5815429687499996, -3.0856655287215378
+                             ], [-3.218994140625, -3.0856655287215378]]]
         }, 4, True)
         self.assertGreater(
             len(hexagons), 10, 'got an appropriate number of hexagons back')
@@ -322,13 +327,14 @@ class TestH3Core(unittest.TestCase):
         h3_addresses = ['89283082837ffff']
         multi_polygon = h3.h3_set_to_multi_polygon(h3_addresses)
         vertices = h3.h3_to_geo_boundary(h3_addresses[0])
-        # This is tricky, because output in an order starting from any vertex
-        # would also be correct, but that's difficult to assert and there's
-        # value in being specific here
         expected = [[[
             vertices[2], vertices[3], vertices[4], vertices[5], vertices[0],
             vertices[1]
         ]]]
+
+        # We shift the multi_polygon circular list so that it starts from expected[0][0][0],
+        # since output starting from any vertex would be correct as long as it's in order.
+        multi_polygon[0][0] = self.shift_circular_list(expected[0][0][0], multi_polygon[0][0])
 
         self.assertEqual(multi_polygon, expected, 'outline matches expected')
 
@@ -336,22 +342,39 @@ class TestH3Core(unittest.TestCase):
         h3_addresses = ['89283082837ffff']
         multi_polygon = h3.h3_set_to_multi_polygon(h3_addresses, True)
         vertices = h3.h3_to_geo_boundary(h3_addresses[0], True)
-        # As above, could require an order update later on
         expected = [[[
             vertices[2], vertices[3], vertices[4], vertices[5], vertices[0],
-            vertices[1], vertices[2]
+            vertices[1]
         ]]]
+
+        self.assertEqual(
+            len(multi_polygon), 1, 'polygon count matches expected')
+        self.assertEqual(
+            len(multi_polygon[0]), 1, 'loop count matches expected')
+        self.assertEqual(
+            len(multi_polygon[0][0]), 7, 'coord count 7 matches expected according to geojson format')
+        self.assertEqual(multi_polygon[0], multi_polygon[-1],
+                         'first coord should be the same as last coord according to geojson format')
+        self.assertEqual(multi_polygon[0][0][0], [-122.42778275313199, 37.77598951883773],
+                         'the coord should be (lng, lat) according to geojson format')
+
+        # Discard last coord for testing below, since last coord is the same as the first one
+        multi_polygon[0][0].pop()
+
+        # We shift the multi_polygon circular list so that it starts from expected[0][0][0],
+        # since output starting from any vertex would be correct as long as it's in order.
+        multi_polygon[0][0] = self.shift_circular_list(expected[0][0][0], multi_polygon[0][0])
 
         self.assertEqual(multi_polygon, expected, 'outline matches expected')
 
     def test_h3_set_to_multi_polygon_contiguous(self):
         # the second hexagon shares v0 and v1 with the first
         h3_addresses = ['89283082837ffff', '89283082833ffff']
+
         multi_polygon = h3.h3_set_to_multi_polygon(h3_addresses)
         vertices0 = h3.h3_to_geo_boundary(h3_addresses[0])
         vertices1 = h3.h3_to_geo_boundary(h3_addresses[1])
-        # As above: This test is brittle but worthwhile; it's possible we'll
-        # need to update to a new start vertex if the algo is changed
+
         expected = [[[
             vertices1[0],
             vertices1[1],
@@ -365,22 +388,31 @@ class TestH3Core(unittest.TestCase):
             vertices1[5],
         ]]]
 
-        self.assertEqual(multi_polygon, expected, 'outline matches expected')
+        self.assertEqual(
+            len(multi_polygon), 1, 'polygon count matches expected')
+        self.assertEqual(
+            len(multi_polygon[0]), 1, 'loop count matches expected')
+        self.assertEqual(
+            len(multi_polygon[0][0]), 10, 'coord count 10 matches expected')
+
+        # We shift the multi_polygon circular list so that it starts from expected[0][0][0],
+        # since output starting from any vertex would be correct as long as it's in order.
+        multi_polygon[0][0] = self.shift_circular_list(expected[0][0][0], multi_polygon[0][0])
+        self.assertTrue(multi_polygon == expected, 'outline matches expected')
 
     def test_h3_set_to_multi_polygon_non_contiguous(self):
         # the second hexagon does not touch the first
         h3_addresses = ['89283082837ffff', '8928308280fffff']
         multi_polygon = h3.h3_set_to_multi_polygon(h3_addresses)
-        # TODO: Update to appropriate expectations when the algorithm correctly
-        # returns two polygons
+
         self.assertEqual(
-            len(multi_polygon), 1, 'polygon count matches expected')
+            len(multi_polygon), 2, 'polygon count matches expected')
         self.assertEqual(
-            len(multi_polygon[0]), 2, 'loop count matches expected')
+            len(multi_polygon[0]), 1, 'loop count matches expected')
         self.assertEqual(
             len(multi_polygon[0][0]), 6, 'coord count 1 matches expected')
         self.assertEqual(
-            len(multi_polygon[0][1]), 6, 'coord count 2 matches expected')
+            len(multi_polygon[1][0]), 6, 'coord count 2 matches expected')
 
     def test_h3_set_to_multi_polygon_hole(self):
         # Six hexagons in a ring around a hole
@@ -498,12 +530,12 @@ class TestH3Core(unittest.TestCase):
     def test_compact_and_uncompact(self):
         hexagons = h3.polyfill({
             'type':
-            'Polygon',
+                'Polygon',
             'coordinates': [[[37.813318999983238, -122.4089866999972145], [
                 37.7866302000007224, -122.3805436999997056
             ], [37.7198061999978478, -122.3544736999993603], [
-                37.7076131999975672, -122.5123436999983966
-            ], [37.7835871999971715, -122.5247187000021967],
+                                 37.7076131999975672, -122.5123436999983966
+                             ], [37.7835871999971715, -122.5247187000021967],
                              [37.8151571999998453, -122.4798767000009008]]]
         }, 9)
         compactedHexagons = h3.compact(hexagons)
