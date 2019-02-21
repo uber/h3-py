@@ -476,15 +476,9 @@ class TestH3Core(unittest.TestCase):
         # since output starting from any vertex would be correct as long as it's in order.
         expected_coords = self.shift_circular_list(multi_polygon[0][0][0],
                                                    [
-                                                       vertices1[0],
-                                                       vertices1[1],
-                                                       vertices1[2],
-                                                       vertices0[1],
+                                                       vertices1[0], vertices1[1], vertices1[2], vertices0[1],
                                                        vertices0[2],
-                                                       vertices0[3],
-                                                       vertices0[4],
-                                                       vertices0[5],
-                                                       vertices1[4],
+                                                       vertices0[3], vertices0[4], vertices0[5], vertices1[4],
                                                        vertices1[5],
                                                    ])
         expected = [
