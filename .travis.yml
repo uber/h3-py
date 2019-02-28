@@ -1,8 +1,6 @@
 language: python
 cache: pip
-osx_image: xcode8.3
 os:
-- osx
 - linux
 python:
   - "2.7"
