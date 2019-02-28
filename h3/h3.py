@@ -35,7 +35,9 @@ from ctypes import (
 
 _dirname = os.path.dirname(__file__)
 libh3_path = ('out/libh3.1.dylib'
-              if platform.system() == 'Darwin' else 'out/libh3.so.1')
+              if platform.system() == 'Darwin' else (
+              'out/h3.lib' if platform.system() == 'Windows' else
+              'out/libh3.so.1'))
 libh3 = cdll.LoadLibrary('{}/{}'.format(_dirname, libh3_path))
 
 
