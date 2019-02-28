@@ -1,5 +1,6 @@
 language: python
 cache: pip
+osx_image: xcode9.3
 os:
 - osx
 - linux
