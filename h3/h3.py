@@ -34,11 +34,11 @@ from ctypes import (
 )
 
 _dirname = os.path.dirname(__file__)
-libh3_path = ('out/libh3.1.dylib'
+libh3_path = ('{}/{}'.format(_dirname, 'out/libh3.1.dylib')
               if platform.system() == 'Darwin' else (
-              'out/h3.lib' if platform.system() == 'Windows' else
-              'out/libh3.so.1'))
-libh3 = cdll.LoadLibrary('{}/{}'.format(_dirname, libh3_path))
+              '{}\\{}'.format(_dirname, 'out\\h3.lib') if platform.system() == 'Windows' else
+              '{}/{}'.format(_dirname, 'out/libh3.so.1')))
+libh3 = cdll.LoadLibrary(libh3_path)
 
 
 class GeoCoord(Structure):
