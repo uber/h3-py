@@ -1,0 +1,29 @@
+environment:
+  matrix:
+    - PYTHON: "C:\\Python27"
+      PYTHON_VERSION: "2.7.x"
+      PYTHON_ARCH: "32"
+    - PYTHON: "C:\\Python36"
+      PYTHON_VERSION: "3.6.x"
+      PYTHON_ARCH: "32"
+    - PYTHON: "C:\\Python27-x64"
+      PYTHON_VERSION: "2.7.x"
+      PYTHON_ARCH: "64"
+    - PYTHON: "C:\\Python36-x64"
+      PYTHON_VERSION: "3.6.x"
+      PYTHON_ARCH: "64"
+
+configuration: Release
+platform:
+  - x86
+  - x64
+
+install:
+  - SET PATH=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin;%PATH%
+  - pip install -r requirements-dev.txt
+  - fab bootstrap
+
+test_script:
+  - python --version
+  - fab --version
+  - fab test

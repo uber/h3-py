@@ -1,6 +1,10 @@
 language: python
 cache: pip
+os:
+- osx
+- linux
 python:
+  - "2.7"
   - "3.6"
 install:
   - pip install -r requirements-dev.txt
