@@ -47,7 +47,7 @@ else
   else
     cmake . -DCMAKE_VS_PLATFORM_NAME=${Platform} && msbuild.exe h3.vcxproj;
   fi
-  ls -l bin/Release/h3*
+  ls -l bin/Release/*
   cp bin/Release/h3.lib ../h3/out
 fi
 popd
