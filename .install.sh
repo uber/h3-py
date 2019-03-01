@@ -43,9 +43,9 @@ if command -v make; then
   fi
 else
   if [[ "${Platform}" == "x64" ]]; then
-    cmake . -DCMAKE_C_FLAGS='"/MT"' -DCMAKE_VS_PLATFORM_NAME=${Platform} -G "Visual Studio 14 Win64" && msbuild.exe h3.vcxproj;
+    cmake . -DCMAKE_VS_PLATFORM_NAME=${Platform} -G "Visual Studio 14 Win64" && msbuild.exe h3.vcxproj;
   else
-    cmake . -DCMAKE_C_FLAGS='"/MT"' -DCMAKE_VS_PLATFORM_NAME=${Platform} && msbuild.exe h3.vcxproj;
+    cmake . -DCMAKE_VS_PLATFORM_NAME=${Platform} && msbuild.exe h3.vcxproj;
   fi
   ls -l bin/Release/*
   cp bin/Release/h3.lib ../h3/out

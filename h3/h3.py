@@ -38,6 +38,11 @@ libh3_path = ('{}/{}'.format(_dirname, 'out/libh3.1.dylib')
               if platform.system() == 'Darwin' else (
               '{}\\{}'.format(_dirname, 'out\\h3.lib') if platform.system() == 'Windows' else
               '{}/{}'.format(_dirname, 'out/libh3.so.1')))
+
+# Load the Windows version of libc for H3 to use (calloc, free, etc)
+if platform.system() == 'Windows':
+    ctypes.CDLL(ctypes.util.find_msvcrt())
+
 libh3 = cdll.LoadLibrary(libh3_path)
 
 
