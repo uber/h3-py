@@ -967,3 +967,39 @@ class TestH3Core(unittest.TestCase):
         self.assertEqual(
             5, h3.h3_distance('89283082993ffff', '89283082827ffff')
         )
+
+    def test_h3_line(self):
+        self.assertEqual(
+            ['8a2a84730587fff',
+             '8a2a8473059ffff',
+             '8a2a847304b7fff',
+             '8a2a84730487fff',
+             '8a2a8473049ffff',
+             '8a2a84732b37fff',
+             '8a2a84732b17fff',
+             '8a2a84732baffff',
+             '8a2a84732a37fff',
+             '8a2a84732a17fff',
+             '8a2a84732aaffff',
+             '8a2a84732a8ffff',
+             '8a2a84732327fff',
+             '8a2a8473232ffff',
+             '8a2a8473230ffff',
+             '8a2a84732227fff',
+             '8a2a84732207fff',
+             '8a2a8473221ffff',
+             '8a2a847322e7fff',
+             '8a2a847322c7fff',
+             '8a2a847322dffff',
+             '8a2a84714977fff',
+             '8a2a84714957fff',
+             '8a2a8471495ffff',
+             '8a2a84714877fff',
+             '8a2a84714857fff',
+             '8a2a847148effff',
+             '8a2a847148cffff',
+             '8a2a84714b97fff',
+             '8a2a8471416ffff',
+             '8a2a8471414ffff'],
+            h3.h3_line('8a2a84730587fff', '8a2a8471414ffff')
+        )

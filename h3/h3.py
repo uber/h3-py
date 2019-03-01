@@ -225,6 +225,9 @@ libh3.getH3UnidirectionalEdgeBoundary.argtypes = [c_long, c_void_p]
 libh3.h3Distance.restype = c_int
 libh3.h3Distance.argtypes = [c_long, c_long]
 
+libh3.h3Line.restype = c_int
+libh3.h3Line.argtypes = [c_long, c_long]
+
 
 def string_to_h3(h3_address):
     return int(h3_address, 16)
@@ -754,3 +757,11 @@ def get_h3_unidirectional_edge_boundary(h3_address, geo_json=False):
 def h3_distance(h3_address_origin, h3_address_h3):
     return libh3.h3Distance(
         string_to_h3(h3_address_origin), string_to_h3(h3_address_h3))
+
+
+def h3_line(h3_address_origin, h3_address_h3):
+    array_len = h3_distance(h3_address_origin, h3_address_h3) + 1
+    IndexArray = c_long * array_len
+    index_array = IndexArray()
+    libh3.h3Line(string_to_h3(h3_address_origin), string_to_h3(h3_address_h3), index_array)
+    return [h3_to_string(h3_int) for h3_int in index_array if h3_int != 0]
