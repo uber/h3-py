@@ -1003,3 +1003,6 @@ class TestH3Core(unittest.TestCase):
              '8a2a8471414ffff'],
             h3.h3_line('8a2a84730587fff', '8a2a8471414ffff')
         )
+        with pytest.raises(ValueError) as e_info:
+            h3.h3_line('8a2a84730587fff', '8001fffffffffff')
+        self.assertTrue(isinstance(e_info.value, ValueError))
