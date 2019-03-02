@@ -48,7 +48,7 @@ else
     cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_VS_PLATFORM_NAME=${Platform} && msbuild.exe h3.vcxproj;
   fi
   ls -l bin/Release/*
-  cp bin/Release/h3.lib ../h3/out
+  cp bin/Release/h3.dll ../h3/out
 fi
 popd
 rm -rf h3c
