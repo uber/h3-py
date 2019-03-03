@@ -39,10 +39,6 @@ libh3_path = ('{}/{}'.format(_dirname, 'out/libh3.1.dylib')
               '{}\\{}'.format(_dirname, 'out\\h3.dll') if platform.system() == 'Windows' else
               '{}/{}'.format(_dirname, 'out/libh3.so.1')))
 
-# Load the Windows version of libc for H3 to use (calloc, free, etc)
-# if platform.system() == 'Windows':
-#     cdll.LoadLibrary(ctypes_util.find_msvcrt())
-
 libh3 = cdll.LoadLibrary(libh3_path)
 
 

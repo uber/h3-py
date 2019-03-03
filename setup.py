@@ -54,7 +54,9 @@ setup(
     },
     package_data={
         'h-py':
-        ['out/*.dylib' if platform.system() == 'Darwin' else 'out/*.so.*']
+        ['out/*.dylib' if platform.system() == 'Darwin' else (
+            'out/*.dll' if platform.system() == 'Windows' else
+            'out/*.so.*')]
     },
     license='Apache License 2.0',
     distclass=BinaryDistribution)
