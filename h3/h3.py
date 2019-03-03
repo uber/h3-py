@@ -31,7 +31,7 @@ from ctypes import (
     byref,
     Structure,
     POINTER,
-    util as ctypes_util,
+#    util as ctypes_util,
 )
 
 _dirname = os.path.dirname(__file__)
