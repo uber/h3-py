@@ -21,15 +21,21 @@ git checkout "$VERSION"
 {
 	cmake -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON .
 } || {
-	# Install modern CMake
-	mkdir cmake-download
-	pushd cmake-download
-	curl -O https://cmake.org/files/v3.10/cmake-3.10.0-rc5-Linux-x86_64.sh
-	bash cmake-3.10.0-rc5-Linux-x86_64.sh --skip-license
-	export PATH=`pwd`/bin:$PATH
-	echo $PATH
-	popd
-	cmake -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON .
+	machineName=`uname -s`
+	if [ "$machineName" =~ "Linux.*" ]; then
+	  # Install modern CMake
+          mkdir cmake-download
+          pushd cmake-download
+          curl -O https://cmake.org/files/v3.10/cmake-3.10.0-rc5-Linux-x86_64.sh
+          bash cmake-3.10.0-rc5-Linux-x86_64.sh --skip-license
+          export PATH=`pwd`/bin:$PATH
+          echo $PATH
+          popd
+          cmake -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON .
+	else
+	  echo "Failed to find cmake. Please make sure cmake is installed and set in PATH."
+	  exit 1
+	fi
 }
 
 make
