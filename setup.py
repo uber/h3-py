@@ -12,7 +12,7 @@ from binding_version import binding_version
 
 
 def install_h3(h3_version):
-    subprocess.check_call('bash ./.install.sh {}'.format(h3_version), shell=True)
+    subprocess.call('bash ./.install.sh {}'.format(h3_version), shell=True)
 
 
 class CustomBuildExtCommand(build_ext):
