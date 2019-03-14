@@ -9,6 +9,10 @@ if [ "" == "$VERSION" ]; then
     exit 1
 fi
 
+command -v cmake  >/dev/null 2>&1 || { echo "cmake required but not found."; exit 1; }
+command -v make  >/dev/null 2>&1 || { echo "make required but not found."; exit 1; }
+command -v cc  >/dev/null 2>&1 || { echo "cc required but not found."; exit 1; }
+
 mkdir -p h3/out
 rm -rf h3c
 git clone https://github.com/uber/h3.git h3c
@@ -17,27 +21,7 @@ pushd h3c
 git pull origin master --tags
 git checkout "$VERSION"
 
-# Run CMake, installing a recent version if not found or not compatible
-{
-	cmake -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON .
-} || {
-	machineName=`uname -s`
-	if [ "$machineName" =~ "Linux.*" ]; then
-	  # Install modern CMake
-          mkdir cmake-download
-          pushd cmake-download
-          curl -O https://cmake.org/files/v3.10/cmake-3.10.0-rc5-Linux-x86_64.sh
-          bash cmake-3.10.0-rc5-Linux-x86_64.sh --skip-license
-          export PATH=`pwd`/bin:$PATH
-          echo $PATH
-          popd
-          cmake -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON .
-	else
-	  echo "Failed to find cmake. Please make sure cmake is installed and set in PATH."
-	  exit 1
-	fi
-}
-
+cmake -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON .
 make
 ls -l lib/libh3*
 cp lib/libh3* ../h3/out
