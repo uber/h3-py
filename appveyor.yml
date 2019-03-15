@@ -20,6 +20,8 @@ platform:
   - x64
 
 install:
+  - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+  - echo %PATH%
   - pip install -r requirements-dev.txt
   - fab bootstrap
 
