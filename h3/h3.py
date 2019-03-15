@@ -233,10 +233,10 @@ libh3.h3Distance.restype = c_int
 libh3.h3Distance.argtypes = [H3Index, H3Index]
 
 libh3.h3LineSize.restype = c_int
-libh3.h3LineSize.argtypes = [c_long, c_long]
+libh3.h3LineSize.argtypes = [H3Index, H3Index]
 
 libh3.h3Line.restype = c_int
-libh3.h3Line.argtypes = [c_long, c_long]
+libh3.h3Line.argtypes = [H3Index, H3Index]
 
 
 def string_to_h3(h3_address):
@@ -777,7 +777,7 @@ def h3_line(h3_address_origin, h3_address_h3):
     array_len = h3_line_size(h3_address_origin, h3_address_h3)
     if array_len < 0:
         raise ValueError('Failed to compute a line, see docs for possible reasons')
-    IndexArray = c_long * array_len
+    IndexArray = H3Index * array_len
     index_array = IndexArray()
     ret_val = libh3.h3Line(string_to_h3(h3_address_origin),
                            string_to_h3(h3_address_h3),
