@@ -45,6 +45,7 @@ libh3 = cdll.LoadLibrary(libh3_path)
 # Type of an H3 index
 H3Index = c_ulonglong
 
+
 class GeoCoord(Structure):
     """
     An instance of :class:`GeoCoord` will have attributes:
@@ -237,7 +238,7 @@ def string_to_h3(h3_address):
 
 
 def h3_to_string(h3_int):
-    return hex(h3_int)[2:]
+    return format(h3_int, 'x')
 
 
 def h3_is_valid(h3_address):
