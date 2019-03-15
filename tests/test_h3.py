@@ -18,6 +18,7 @@ import pytest
 import unittest
 
 from h3 import h3
+from numbers import Number
 
 
 class TestH3Core(unittest.TestCase):
@@ -874,7 +875,7 @@ class TestH3Core(unittest.TestCase):
 
     def test_num_hexagons(self):
         for i in range(0, 15):
-            self.assertTrue(isinstance(h3.num_hexagons(i), int))
+            self.assertTrue(isinstance(h3.num_hexagons(i), Number))
 
     def test_h3_get_base_cell(self):
         self.assertTrue(isinstance(h3.h3_get_base_cell('8928308280fffff'), int))
