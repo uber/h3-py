@@ -43,9 +43,9 @@ if command -v make; then
   fi
 else
   if [[ "${Platform}" == "x64" ]]; then
-    cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_VS_PLATFORM_NAME=${Platform} -G "Visual Studio 14 Win64" && msbuild.exe h3.vcxproj;
+    cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_VS_PLATFORM_NAME=${Platform} -G "Visual Studio 14 Win64" && cmake --build . --target h3 --config Release;
   else
-    cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_VS_PLATFORM_NAME=${Platform} && msbuild.exe h3.vcxproj;
+    cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_VS_PLATFORM_NAME=${Platform} && cmake --build . --target h3 --config Release;
   fi
   ls -l bin/Release/*
   cp bin/Release/h3.dll ../h3/out

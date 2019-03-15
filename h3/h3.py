@@ -25,8 +25,9 @@ from ctypes import (
     cast,
     cdll,
     c_int,
-    c_long,
     c_double,
+    c_longlong,
+    c_ulonglong,
     c_void_p,
     byref,
     Structure,
@@ -41,6 +42,8 @@ libh3_path = ('{}/{}'.format(_dirname, 'out/libh3.1.dylib')
 
 libh3 = cdll.LoadLibrary(libh3_path)
 
+# Type of an H3 index
+H3Index = c_ulonglong
 
 class GeoCoord(Structure):
     """
@@ -115,25 +118,25 @@ LinkedGeoPolygon._fields_ = [('first', POINTER(LinkedGeoLoop)),
                              ('next', POINTER(LinkedGeoPolygon))]
 
 libh3.h3IsValid.restype = c_int
-libh3.h3IsValid.argtypes = [c_long]
+libh3.h3IsValid.argtypes = [H3Index]
 
-libh3.geoToH3.restype = c_long
+libh3.geoToH3.restype = H3Index
 libh3.geoToH3.argtypes = [c_void_p, c_int]
 
 libh3.h3ToGeo.restype = None
-libh3.h3ToGeo.argtypes = [c_long, c_void_p]
+libh3.h3ToGeo.argtypes = [H3Index, c_void_p]
 
 libh3.h3ToGeoBoundary.restype = None
-libh3.h3ToGeoBoundary.argtypes = [c_long, c_void_p]
+libh3.h3ToGeoBoundary.argtypes = [H3Index, c_void_p]
 
 libh3.maxKringSize.restype = c_int
 libh3.maxKringSize.argtypes = [c_int]
 
 libh3.kRing.restype = None
-libh3.kRing.argtypes = [c_long, c_int, c_void_p]
+libh3.kRing.argtypes = [H3Index, c_int, c_void_p]
 
 libh3.kRingDistances.restype = None
-libh3.kRingDistances.argtypes = [c_long, c_int, c_void_p, c_void_p]
+libh3.kRingDistances.argtypes = [H3Index, c_int, c_void_p, c_void_p]
 
 libh3.maxPolyfillSize.restype = c_int
 libh3.maxPolyfillSize.argtypes = [c_void_p, c_int]
@@ -148,7 +151,7 @@ libh3.destroyLinkedPolygon.restype = None
 libh3.destroyLinkedPolygon.argtypes = [c_void_p]
 
 libh3.hexRing.restype = c_int
-libh3.hexRing.argtypes = [c_long, c_int, c_void_p]
+libh3.hexRing.argtypes = [H3Index, c_int, c_void_p]
 
 libh3.compact.restype = c_int
 libh3.compact.argtypes = [c_void_p, c_void_p, c_int]
@@ -159,20 +162,20 @@ libh3.uncompact.argtypes = [c_void_p, c_int, c_void_p, c_int, c_int]
 libh3.maxUncompactSize.restype = c_int
 libh3.maxUncompactSize.argtypes = [c_void_p, c_int, c_int]
 
-libh3.h3ToParent.restype = c_long
-libh3.h3ToParent.argtypes = [c_long, c_int]
+libh3.h3ToParent.restype = H3Index
+libh3.h3ToParent.argtypes = [H3Index, c_int]
 
 libh3.maxH3ToChildrenSize.restype = c_int
-libh3.maxH3ToChildrenSize.argtypes = [c_long, c_int]
+libh3.maxH3ToChildrenSize.argtypes = [H3Index, c_int]
 
 libh3.h3ToChildren.restype = None
-libh3.h3ToChildren.argtypes = [c_long, c_int, c_void_p]
+libh3.h3ToChildren.argtypes = [H3Index, c_int, c_void_p]
 
 libh3.hexRange.restype = c_int
-libh3.hexRange.argtypes = [c_long, c_int, c_void_p]
+libh3.hexRange.argtypes = [H3Index, c_int, c_void_p]
 
 libh3.hexRangeDistances.restype = c_int
-libh3.hexRangeDistances.argtypes = [c_long, c_int, c_void_p, c_void_p]
+libh3.hexRangeDistances.argtypes = [H3Index, c_int, c_void_p, c_void_p]
 
 libh3.hexRanges.restype = c_int
 libh3.hexRanges.argtypes = [c_void_p, c_int, c_int, c_void_p]
@@ -189,44 +192,44 @@ libh3.edgeLengthKm.argtypes = [c_int]
 libh3.edgeLengthM.restype = c_double
 libh3.edgeLengthM.argtypes = [c_int]
 
-libh3.numHexagons.restype = c_long
+libh3.numHexagons.restype = c_longlong
 libh3.numHexagons.argtypes = [c_int]
 
 libh3.h3GetBaseCell.restype = c_int
-libh3.h3GetBaseCell.argtypes = [c_long]
+libh3.h3GetBaseCell.argtypes = [H3Index]
 
 libh3.h3IsResClassIII.restype = c_int
-libh3.h3IsResClassIII.argtypes = [c_long]
+libh3.h3IsResClassIII.argtypes = [H3Index]
 
 libh3.h3IsPentagon.restype = c_int
-libh3.h3IsPentagon.argtypes = [c_long]
+libh3.h3IsPentagon.argtypes = [H3Index]
 
 libh3.h3IndexesAreNeighbors.restype = c_int
-libh3.h3IndexesAreNeighbors.argtypes = [c_long, c_long]
+libh3.h3IndexesAreNeighbors.argtypes = [H3Index, H3Index]
 
-libh3.getH3UnidirectionalEdge.restype = c_long
-libh3.getH3UnidirectionalEdge.argtypes = [c_long, c_long]
+libh3.getH3UnidirectionalEdge.restype = H3Index
+libh3.getH3UnidirectionalEdge.argtypes = [H3Index, H3Index]
 
 libh3.h3UnidirectionalEdgeIsValid.restype = c_int
-libh3.h3UnidirectionalEdgeIsValid.argtypes = [c_long]
+libh3.h3UnidirectionalEdgeIsValid.argtypes = [H3Index]
 
-libh3.getOriginH3IndexFromUnidirectionalEdge.restype = c_long
-libh3.getOriginH3IndexFromUnidirectionalEdge.argtypes = [c_long]
+libh3.getOriginH3IndexFromUnidirectionalEdge.restype = H3Index
+libh3.getOriginH3IndexFromUnidirectionalEdge.argtypes = [H3Index]
 
-libh3.getDestinationH3IndexFromUnidirectionalEdge.restype = c_long
-libh3.getDestinationH3IndexFromUnidirectionalEdge.argtypes = [c_long]
+libh3.getDestinationH3IndexFromUnidirectionalEdge.restype = H3Index
+libh3.getDestinationH3IndexFromUnidirectionalEdge.argtypes = [H3Index]
 
 libh3.getH3IndexesFromUnidirectionalEdge.restype = None
-libh3.getH3IndexesFromUnidirectionalEdge.argtypes = [c_long, c_void_p]
+libh3.getH3IndexesFromUnidirectionalEdge.argtypes = [H3Index, c_void_p]
 
 libh3.getH3UnidirectionalEdgesFromHexagon.restype = None
-libh3.getH3UnidirectionalEdgesFromHexagon.argtypes = [c_long, c_void_p]
+libh3.getH3UnidirectionalEdgesFromHexagon.argtypes = [H3Index, c_void_p]
 
 libh3.getH3UnidirectionalEdgeBoundary.restype = None
-libh3.getH3UnidirectionalEdgeBoundary.argtypes = [c_long, c_void_p]
+libh3.getH3UnidirectionalEdgeBoundary.argtypes = [H3Index, c_void_p]
 
 libh3.h3Distance.restype = c_int
-libh3.h3Distance.argtypes = [c_long, c_long]
+libh3.h3Distance.argtypes = [H3Index, H3Index]
 
 
 def string_to_h3(h3_address):
@@ -321,7 +324,7 @@ def h3_to_geo_boundary(h3_address, geo_json=False):
 def k_ring(h3_address, ring_size):
     """Get K-Rings for a given hexagon"""
     array_len = libh3.maxKringSize(ring_size)
-    KringArray = c_long * array_len
+    KringArray = H3Index * array_len
     # Initializes to zeroes by default, don't need to force
     krings = KringArray()
     libh3.kRing(string_to_h3(h3_address), ring_size, krings)
@@ -331,7 +334,7 @@ def k_ring(h3_address, ring_size):
 def k_ring_distances(h3_address, ring_size):
     """Get K-Rings for a given hexagon properly split by ring"""
     array_len = libh3.maxKringSize(ring_size)
-    KringArray = c_long * array_len
+    KringArray = H3Index * array_len
     DistanceArray = c_int * array_len
     # Initializes to zeroes by default, don't need to force
     krings = KringArray()
@@ -401,7 +404,7 @@ def polyfill(geo_json, res, geo_json_conformant=False):
     """
     geo_json_lite = _geo_json_to_geo_json_lite(geo_json, geo_json_conformant)
     array_len = libh3.maxPolyfillSize(byref(geo_json_lite), res)
-    HexagonArray = c_long * array_len
+    HexagonArray = H3Index * array_len
     hexagons = HexagonArray()
     libh3.polyfill(byref(geo_json_lite), res, hexagons)
     return hexagon_c_array_to_set(hexagons)
@@ -423,7 +426,7 @@ def h3_set_to_multi_polygon(h3_addresses, geo_json=False):
         return []
     # Set up input set
     address_count = len(h3_addresses)
-    HexagonArray = c_long * address_count
+    HexagonArray = H3Index * address_count
     hexagons = HexagonArray()
     for i, address in enumerate(h3_addresses):
         hexagons[i] = int(address, 16)
@@ -488,7 +491,7 @@ def hex_ring(h3_address, ring_size):
     # This technically should be defined in the C code,
     # but this is much faster
     array_len = 6 * ring_size
-    HexRingArray = c_long * array_len
+    HexRingArray = H3Index * array_len
     hex_rings = HexRingArray()
     success = libh3.hexRing(string_to_h3(h3_address), ring_size, hex_rings)
     if success != 0:
@@ -503,7 +506,7 @@ def compact(h3_addresses):
         return set()
 
     num_hexagons = len(h3_addresses)
-    HexSetArray = c_long * num_hexagons
+    HexSetArray = H3Index * num_hexagons
     hex_set = HexSetArray()
     compacted_hex_set = HexSetArray()
     for i, address in enumerate(h3_addresses):
@@ -522,7 +525,7 @@ def uncompact(h3_addresses, res):
         return set()
 
     num_hexagons = len(h3_addresses)
-    HexSetArray = c_long * num_hexagons
+    HexSetArray = H3Index * num_hexagons
     hex_set = HexSetArray()
     for i, address in enumerate(h3_addresses):
         hex_set[i] = int(address, 16)
@@ -531,7 +534,7 @@ def uncompact(h3_addresses, res):
     if max_uncompacted_num < 0:
         raise Exception(
             'Failed to determine max uncompact output size (bad resolution?)')
-    HexOutSetArray = c_long * max_uncompacted_num
+    HexOutSetArray = H3Index * max_uncompacted_num
     uncompacted_hex_set = HexOutSetArray()
 
     ret_val = libh3.uncompact(hex_set, num_hexagons, uncompacted_hex_set,
@@ -550,7 +553,7 @@ def h3_to_parent(h3_address, res):
 def h3_to_children(h3_address, res):
     h3_address_num = string_to_h3(h3_address)
     max_children = libh3.maxH3ToChildrenSize(h3_address_num, res)
-    ChildrenArray = c_long * max_children
+    ChildrenArray = H3Index * max_children
     children = ChildrenArray()
     libh3.h3ToChildren(h3_address_num, res, children)
 
@@ -559,7 +562,7 @@ def h3_to_children(h3_address, res):
 
 def hex_range(h3_address, ring_size):
     array_len = libh3.maxKringSize(ring_size)
-    KringArray = c_long * array_len
+    KringArray = H3Index * array_len
     krings = KringArray()
     success = libh3.hexRange(string_to_h3(h3_address), ring_size, krings)
     if success != 0:
@@ -573,7 +576,7 @@ def hex_range_distances(h3_address, ring_size):
     aborting if a pentagon is reached
     """
     array_len = libh3.maxKringSize(ring_size)
-    KringArray = c_long * array_len
+    KringArray = H3Index * array_len
     DistanceArray = c_int * array_len
     # Initializes to zeroes by default, don't need to force
     krings = KringArray()
@@ -602,8 +605,8 @@ def hex_ranges(h3_address_list, ring_size):
     """
     num_hexagons = len(h3_address_list)
     array_len = num_hexagons * libh3.maxKringSize(ring_size)
-    HexArray = c_long * num_hexagons
-    KringArray = c_long * array_len
+    HexArray = H3Index * num_hexagons
+    KringArray = H3Index * array_len
     # Initializes to zeroes by default, don't need to force
     hex_array = HexArray(
         *[string_to_h3(h3_address) for h3_address in h3_address_list])
@@ -712,7 +715,7 @@ def get_destination_h3_index_from_unidirectional_edge(h3_address):
 
 
 def get_h3_indexes_from_unidirectional_edge(h3_address):
-    IndexArray = c_long * 2
+    IndexArray = H3Index * 2
     index_array = IndexArray()
     libh3.getH3IndexesFromUnidirectionalEdge(
         string_to_h3(h3_address), index_array)
@@ -722,7 +725,7 @@ def get_h3_indexes_from_unidirectional_edge(h3_address):
 
 
 def get_h3_unidirectional_edges_from_hexagon(h3_address):
-    IndexArray = c_long * 6
+    IndexArray = H3Index * 6
     index_array = IndexArray()
     libh3.getH3UnidirectionalEdgesFromHexagon(
         string_to_h3(h3_address), index_array)

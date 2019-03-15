@@ -455,9 +455,13 @@ class TestH3Core(unittest.TestCase):
             multi_polygon[0], multi_polygon[-1],
             'first coord should be the same as last coord according to geojson format'
         )
-        self.assertEqual(
-            multi_polygon[0][0][0], [-122.42778275313199, 37.77598951883773],
-            'the coord should be (lng, lat) according to geojson format'
+        self.assertAlmostEqual(
+            multi_polygon[0][0][0][0], -122.42778275313199, None,
+            'the coord should be (lng, lat) according to geojson format (1)'
+        )
+        self.assertAlmostEqual(
+            multi_polygon[0][0][0][1], 37.77598951883773, None,
+            'the coord should be (lng, lat) according to geojson format (2)'
         )
         # Discard last coord for testing below, since last coord is the same as the first one
         multi_polygon[0][0].pop()
