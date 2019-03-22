@@ -10,3 +10,4 @@ flake8==2.1.0
 colorama==0.3.9
 
 cython
+scikit-build
