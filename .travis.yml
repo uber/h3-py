@@ -1,9 +1,0 @@
-language: python
-cache: pip
-python:
-  - "3.6"
-install:
-  - pip install -r requirements-dev.txt
-  - fab bootstrap
-script:
-  - fab test
