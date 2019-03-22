@@ -8,10 +8,11 @@ Based on @isaachier/h3-py https://github.com/isaachier/h3-py/blob/cython/src/h3c
 - `source env/bin/activate`
 - `pip install -r requirements-dev.txt`
 - `python setup.py install`
-- `pip install ipython; mkdir a; cd a; ipython`
-- From within Pyhton: `import h3core.h3core`
-- `h3core.h3core.geo_to_h3(0, 0, 0)`
+- `cd tests; ipython`
+- From within IPython: `import h3core.h3core as h3`
+- `h3.geo_to_h3(0, 0, 0)`
 
+# to run tests
 - `source env/bin/activate`
-- `python -m pytest ../test.py`
-
+- `cd tests`
+- `pytest test.py`

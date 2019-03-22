@@ -61,3 +61,4 @@ bower_components/
 .unison.*
 
 docs/.ipynb_checkpoints/
+_skbuild/
