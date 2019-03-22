@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.7.2)
 
-set(BUILD_SHARED_LIBS ON)
-
 set(version_regex "([0-9.]+)")
 file(STRINGS "h3/VERSION" h3_version
      REGEX "^${version_regex}$")
@@ -16,7 +14,12 @@ message(STATUS "h3core-py version: ${version}")
 
 project(h3core-py VERSION "${version}" LANGUAGES C)
 
+# Build the core library as static
+set(BUILD_SHARED_LIBS OFF)
 add_subdirectory(h3)
+
+# Build the rest (other than the core library dependency) as shared
+set(BUILD_SHARED_LIBS ON)
 
 find_package(Cython MODULE REQUIRED)
 find_package(PythonExtensions MODULE REQUIRED)
