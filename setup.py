@@ -20,4 +20,5 @@ setup(
     url='https://github.com/uber/h3-py.git',
     packages=find_packages(exclude=['tests', 'tests.*']),
     install_requires=[],
+    cmake_languages=('C'),
 )

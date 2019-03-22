@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11.0)
+cmake_minimum_required(VERSION 3.7.2)
 
 set(BUILD_SHARED_LIBS ON)
 
@@ -14,7 +14,7 @@ string(REGEX MATCH "${py_version_regex}" _ "${version_line}")
 set(version "${CMAKE_MATCH_1}")
 message(STATUS "h3core-py version: ${version}")
 
-project(h3core-py VERSION "${version}" LANGUAGES C CXX)
+project(h3core-py VERSION "${version}" LANGUAGES C)
 
 add_subdirectory(h3)
 
