@@ -1,9 +1,11 @@
 from setuptools import find_packages
 from skbuild import setup
 
+from version import version
+
 setup(
     name='h3',
-    version='1.cy',
+    version=version,
     description=
     'Python bindings for H3, a hierarchical hexagonal geospatial indexing system developed by Uber Technologies',
     long_description='long_description',
