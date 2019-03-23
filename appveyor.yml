@@ -1,9 +1,10 @@
 build: off
 environment:
   matrix:
-    - PYTHON: "C:\\Python27"
+    # Python 2.7 is disabled due to not working
+    #- PYTHON: "C:\\Python27"
     - PYTHON: "C:\\Python36"
-    - PYTHON: "C:\\Python27-x64"
+    #- PYTHON: "C:\\Python27-x64"
     - PYTHON: "C:\\Python36-x64"
 
 configuration: Release
