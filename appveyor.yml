@@ -1,0 +1,23 @@
+build: off
+environment:
+  matrix:
+    - PYTHON: "C:\\Python27"
+    - PYTHON: "C:\\Python36"
+    - PYTHON: "C:\\Python27-x64"
+    - PYTHON: "C:\\Python36-x64"
+
+configuration: Release
+platform:
+  - x64
+
+install:
+  - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+  - echo %PATH%
+  - python --version
+  - git submodule update --init
+  - pip install -r requirements-dev.txt
+  - python setup.py install
+
+test_script:
+  - pytest tests/test.py
+
