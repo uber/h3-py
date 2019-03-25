@@ -3,6 +3,7 @@
 set -ex
 
 VERSION=$1
+IS_64BITS=$2
 
 if [ "" == "$VERSION" ]; then
     echo "Failed to specify version required"
@@ -35,7 +36,7 @@ if [ "Windows_NT" != "$OS" ]; then
   fi
 else
   # Assumed to be Windows, default to x86
-  if [[ "$PYTHON_ARCH" == "64" ]]; then
+  if [[ "True" == "$IS_64BITS" ]]; then
     cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -G "Visual Studio 14 Win64"
   else
     cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON
