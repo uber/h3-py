@@ -19,8 +19,9 @@ pushd h3c
 git pull origin master --tags
 git checkout "$VERSION"
 
-if command -v make; then
-  command -v cc  >/dev/null 2>&1 || { echo "cc required but not found."; exit 1; }
+if [ "Windows_NT" != "$OS" ]; then
+  command -v make >/dev/null 2>&1 || { echo "make required but not found."; exit 1; }
+  command -v cc >/dev/null 2>&1 || { echo "cc required but not found."; exit 1; }
 
   cmake -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON .
 
@@ -33,11 +34,11 @@ if command -v make; then
       cp lib/libh3* ../build/$LIBNAME/h3/out
   fi
 else
-  # Assumed to be Windows, default to x64
-  if [[ "$PYTHON_ARCH" == "32" ]]; then
-    cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_VS_PLATFORM_NAME=$PLATFORM
+  # Assumed to be Windows, default to x86
+  if [[ "$PYTHON_ARCH" == "64" ]]; then
+    cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -G "Visual Studio 14 Win64"
   else
-    cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_VS_PLATFORM_NAME=$PLATFORM -G "Visual Studio 14 Win64"
+    cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON
   fi
   cmake --build . --target h3 --config Release
   ls -l bin/Release/*
