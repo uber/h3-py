@@ -12,7 +12,10 @@ from binding_version import binding_version
 
 
 def install_h3(h3_version):
-    subprocess.check_call('bash ./.install.sh {}'.format(h3_version), shell=True)
+    # Recommended by Python docs for determining the 64-bit-ness of the current
+    # interpreter. Needed for invoking CMake correctly on Windows.
+    is_64bits = sys.maxsize > 2**32
+    subprocess.check_call('bash ./.install.sh {} {}'.format(h3_version, is_64bits), shell=True)
 
 
 class CustomBuildExtCommand(build_ext):
@@ -54,7 +57,9 @@ setup(
     },
     package_data={
         'h-py':
-        ['out/*.dylib' if platform.system() == 'Darwin' else 'out/*.so.*']
+        ['out/*.dylib' if platform.system() == 'Darwin' else (
+            'out/*.dll' if platform.system() == 'Windows' else
+            'out/*.so.*')]
     },
     license='Apache License 2.0',
     distclass=BinaryDistribution)
