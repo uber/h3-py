@@ -601,9 +601,8 @@ def hex_range_distances(h3_address, ring_size):
     for i in range(0, ring_size + 1):
         out.append(set([]))
     for i in range(0, array_len):
-        if krings[i] != 0:
-            ring_index = distances[i]
-            out[ring_index].add(h3_to_string(krings[i]))
+        ring_index = distances[i]
+        out[ring_index].add(h3_to_string(krings[i]))
     return out
 
 
