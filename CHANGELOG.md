@@ -18,7 +18,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and uses [this
 ## [3.4.3] - 2019-04-18
 - Removed null values in k_ring_distances.
 - Support on Windows Platform
-- Fixed some install problem
+- Fixed some install problems
 
 ## [3.4.2] - 2019-03-13
 - Added h3_line support.
