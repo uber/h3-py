@@ -204,6 +204,12 @@ class TestH3Core(unittest.TestCase):
         self.assertTrue('89283082873ffff' in hexagons[1])
         self.assertTrue('8928308283bffff' in hexagons[1])
 
+        hexagons = h3.k_ring_distances('870800003ffffff', 2)
+        self.assertEqual(3, len(hexagons))
+        self.assertEqual(1, len(hexagons[0]))
+        self.assertEqual(6, len(hexagons[1]))
+        self.assertEqual(11, len(hexagons[2]))
+
     def test_polyfill(self):
         hexagons = h3.polyfill(
             {
