@@ -1,1 +1,1 @@
-h3_version = 'v3.4.3'
+h3_version = 'v3.4.2'
