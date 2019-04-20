@@ -15,6 +15,11 @@ avoid adding features or APIs which do not map onto the
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and uses [this changelog structure](http://keepachangelog.com/).
 
+## [3.4.3] - 2019-04-18
+- Removed null values in k_ring_distances.
+- Support on Windows Platform
+- Fixed some install problems
+
 ## [3.4.2] - 2019-03-13
 - Added h3_line support.
 
