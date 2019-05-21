@@ -1,4 +1,5 @@
 pytest
 cython
+cmake
 scikit-build
 ipython

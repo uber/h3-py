@@ -4,7 +4,7 @@ from libc.string cimport memset
 from cpython cimport bool
 from libc.math cimport pi
 
-cimport _h3core as h3c
+cimport h3api
 
 # why are we doing all this rad and mercator math? can the c library not do this automatically?
 # two versions of functions? int/hex(str) versions?
@@ -12,10 +12,10 @@ cimport _h3core as h3c
 
 
 # todo: c versions?
-cdef h3c.H3Index hex2int(str h):
+cdef h3api.H3Index hex2int(str h):
     return int(h, 16)
 
-def int2hex(h3c.H3Index x):
+def int2hex(h3api.H3Index x):
     return hex(x)[2:]
 
 
@@ -39,9 +39,9 @@ cdef double mercator_lng(double lng):
     return lng - 360 if lng > 180 else lng
 
 
-cdef h3c.GeoCoord geo2coord(double lat, double lng):
+cdef h3api.GeoCoord geo2coord(double lat, double lng):
     cdef:
-        h3c.GeoCoord c
+        h3api.GeoCoord c
 
     c.lat = degs_to_rads(mercator_lat(lat))
     c.lng = degs_to_rads(mercator_lng(lng))
@@ -49,7 +49,7 @@ cdef h3c.GeoCoord geo2coord(double lat, double lng):
     return c
 
 
-cdef (double, double) coord2geo(h3c.GeoCoord c):
+cdef (double, double) coord2geo(h3api.GeoCoord c):
     return (
         mercator_lat(rads_to_degs(c.lat)),
         mercator_lng(rads_to_degs(c.lng))
@@ -59,11 +59,11 @@ cdef (double, double) coord2geo(h3c.GeoCoord c):
 cpdef str geo_to_h3(double lat, double lng, int res):
     # these cdef's are actually optional. they can be inferred
     cdef:
-        h3c.GeoCoord c
-        h3c.H3Index h
+        h3api.GeoCoord c
+        h3api.H3Index h
 
     c = geo2coord(lat, lng)
-    h = h3c.geoToH3(&c, res)
+    h = h3api.geoToH3(&c, res)
 
     return int2hex(h)
 
@@ -71,9 +71,9 @@ cpdef str geo_to_h3(double lat, double lng, int res):
 cpdef (double, double) h3_to_geo(str h3_address):
     """Reverse lookup an h3 address into a geo-coordinate"""
     cdef:
-        h3c.GeoCoord c
+        h3api.GeoCoord c
 
-    h3c.h3ToGeo(hex2int(h3_address), &c)
+    h3api.h3ToGeo(hex2int(h3_address), &c)
 
     return coord2geo(c)
 
@@ -84,7 +84,7 @@ def is_valid(str h3_address):
     :returns: boolean
     """
     try:
-        return h3c.h3IsValid(hex2int(h3_address)) is 1
+        return h3api.h3IsValid(hex2int(h3_address)) is 1
     except Exception:
         return False
 
@@ -99,7 +99,7 @@ def resolution(str h3_address):
 
 def parent(str h3_address, int res):
     h = hex2int(h3_address)
-    h = h3c.h3ToParent(h, res)
+    h = h3api.h3ToParent(h, res)
     h = int2hex(h)
 
     return h
@@ -108,7 +108,7 @@ def parent(str h3_address, int res):
 def distance(str h1, str h2):
     """ compute the hex-distance between two hexagons
     """
-    d = h3c.h3Distance(
+    d = h3api.h3Distance(
             hex2int(h1),
             hex2int(h2)
         )
@@ -122,30 +122,35 @@ cdef class HexMem:
 
     """
     cdef:
+        # TODO: what if `n` is passed in (accidentally) as negative -- what
+        # does the `unsigned` coercion do?
         unsigned int n
-        h3c.H3Index* ptr
+        h3api.H3Index* ptr
 
     def __cinit__(self, n):
+        # TODO: saftey check for n>0?
         self.n = n
-        self.ptr = <h3c.H3Index*> PyMem_Malloc(n * sizeof(h3c.H3Index))
+        self.ptr = <h3api.H3Index*> PyMem_Malloc(n * sizeof(h3api.H3Index))
 
         if not self.ptr:
             raise MemoryError()
 
         # h3c expects zero'd out memory in many cases
-        memset(self.ptr, 0, len(self) * sizeof(h3c.H3Index))
+        memset(self.ptr, 0, len(self) * sizeof(h3api.H3Index))
 
     def __dealloc__(self):
-        PyMem_Free(self.ptr)
+        if self.ptr:
+            PyMem_Free(self.ptr)
+        self.ptr = NULL
 
     def hexset(self):
         """ Return set of hex strings
         """
         out = set(
-                int2hex(self.ptr[i])
-                for i in range(len(self))
-                if self.ptr[i] != 0
-            )
+            int2hex(self.ptr[i])
+            for i in range(len(self))
+            if self.ptr[i] != 0
+        )
         return out
 
     def __len__(self):
@@ -167,9 +172,9 @@ cdef class HexMem:
 def h3_to_geo_boundary(str h3_address, bool geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
-        h3c.GeoBoundary gb
+        h3api.GeoBoundary gb
 
-    h3c.h3ToGeoBoundary(hex2int(h3_address), &gb)
+    h3api.h3ToGeoBoundary(hex2int(h3_address), &gb)
 
     verts = tuple(
         coord2geo(gb.verts[i])
@@ -186,10 +191,10 @@ def h3_to_geo_boundary(str h3_address, bool geo_json=False):
 
 def k_ring(str h3_address, int ring_size):
     hm = HexMem(
-        h3c.maxKringSize(ring_size)
+        h3api.maxKringSize(ring_size)
     )
 
-    h3c.kRing(hex2int(h3_address), ring_size, hm.ptr)
+    h3api.kRing(hex2int(h3_address), ring_size, hm.ptr)
 
     out = hm.hexset()
 
@@ -209,7 +214,7 @@ def hex_ring(str h3_address, int ring_size):
         6 * ring_size if ring_size > 0 else 1
     )
 
-    flag = h3c.hexRing(hex2int(h3_address), ring_size, hm.ptr)
+    flag = h3api.hexRing(hex2int(h3_address), ring_size, hm.ptr)
 
     if flag == 0:
         out = hm.hexset()
@@ -226,22 +231,22 @@ def children(str h3_address, int res):
     h = hex2int(h3_address)
 
     hm = HexMem(
-        h3c.maxH3ToChildrenSize(h, res)
+        h3api.maxH3ToChildrenSize(h, res)
     )
 
-    h3c.h3ToChildren(h, res, hm.ptr)
+    h3api.h3ToChildren(h, res, hm.ptr)
 
     return hm.hexset()
 
 
-cdef h3c.Geofence make_geofence(geos):
+cdef h3api.Geofence make_geofence(geos):
     cdef:
-        h3c.Geofence gf
+        h3api.Geofence gf
 
     gf.numVerts = len(geos)
 
     # todo: figure out when/how to free this memory
-    gf.verts = <h3c.GeoCoord*> PyMem_Malloc(gf.numVerts * sizeof(h3c.GeoCoord))
+    gf.verts = <h3api.GeoCoord*> PyMem_Malloc(gf.numVerts * sizeof(h3api.GeoCoord))
 
     for i, (lat, lng) in enumerate(geos):
         gf.verts[i] = geo2coord(lat, lng)
@@ -255,7 +260,7 @@ cdef class GeoPolygon:
     Doesn't work with holes.
     """
     cdef:
-        h3c.GeoPolygon gp
+        h3api.GeoPolygon gp
 
     def __cinit__(self, geos):
         self.gp.numHoles = 0
@@ -277,10 +282,10 @@ def polyfill(geos, int res):
     """
     gp = GeoPolygon(geos)
     hm = HexMem(
-        h3c.maxPolyfillSize(&gp.gp, res)
+        h3api.maxPolyfillSize(&gp.gp, res)
     )
 
-    h3c.polyfill(&gp.gp, res, hm.ptr)
+    h3api.polyfill(&gp.gp, res, hm.ptr)
 
     return hm.hexset()
 
@@ -289,7 +294,7 @@ def compact(hexes):
     hu = HexMem.from_hexes(hexes)
     hc = HexMem(len(hu))
 
-    flag = h3c.compact(hu.ptr, hc.ptr, len(hu))
+    flag = h3api.compact(hu.ptr, hc.ptr, len(hu))
 
     if flag != 0:
         raise ValueError('Could not compact set of hexagons!')
@@ -301,10 +306,10 @@ def uncompact(hexes, int res):
     hc = HexMem.from_hexes(hexes)
 
     hu = HexMem(
-        h3c.maxUncompactSize(hc.ptr, len(hc), res)
+        h3api.maxUncompactSize(hc.ptr, len(hc), res)
     )
 
-    flag = h3c.uncompact(
+    flag = h3api.uncompact(
         hc.ptr, len(hc),
         hu.ptr, len(hu),
         res

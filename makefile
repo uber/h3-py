@@ -1,10 +1,15 @@
+DOCKER_IMAGE ?= quay.io/pypa/manylinux1_x86_64
+
 .PHONY: purge init
 
 init:
 	git submodule update --init
 	virtualenv -p python3 env
 	env/bin/pip install -r requirements-dev.txt
-	env/bin/python setup.py install
+	env/bin/python setup.py bdist_wheel
+
+linux:
+	docker run --rm -v `pwd`:/io ${DOCKER_IMAGE} /io/build-wheels-manylinux.sh
 
 purge:
 	-@rm -rf env
