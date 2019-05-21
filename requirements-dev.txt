@@ -3,3 +3,4 @@ cython
 cmake
 scikit-build
 ipython
+numpy
