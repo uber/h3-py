@@ -321,28 +321,3 @@ def uncompact(hexes, int res):
     return hu.hexset()
 
 
-# cdef class GeoJsonLite:
-#     cdef _h3core.GeoPolygon _polygon
-
-#     def __cinit__(self):
-#         self._polygon.geofence = _h3core.Geofence()
-#         self._polygon.numHoles = 0
-#         self._polygon.holes = NULL
-
-# #    def __deinit__(self):
-# #        libc.stdlib.free(self._polygon.holes)
-# #        libc.stdlib.free(self._polygon.geofence.verts)
-
-#     @property
-#     def geofence(self):
-#         fence = Geofence()
-#         fence._fence = self._polygon.geofence
-#         return fence
-
-#     @property
-#     def num_holes(self):
-#         return self._polygon.numHoles
-
-#     @property
-#     def holes(self):
-#         return [self._polygen.holes[i] for i in range(self._polygon.numHoles)]

@@ -7,6 +7,7 @@ init:
 	virtualenv -p python3 env
 	env/bin/pip install -r requirements-dev.txt
 	env/bin/python setup.py bdist_wheel
+	env/bin/pip install dist/*.whl
 
 linux:
 	docker run --rm -v `pwd`:/io ${DOCKER_IMAGE} /io/build-wheels-manylinux.sh

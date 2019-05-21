@@ -1,4 +1,4 @@
-import h3core.h3core as h3
+from h3 import h3
 import pytest
 
 

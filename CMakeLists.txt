@@ -13,7 +13,7 @@ set(version "${CMAKE_MATCH_1}")
 message(STATUS "h3core-py version: ${version}")
 
 # project(h3core-py VERSION "${version}" LANGUAGES C)
-project(h3-py VERSION "${version}")
+project(h3-py VERSION "${version}" LANGUAGES C)
 
 # Build the core library as static
 set(BUILD_SHARED_LIBS OFF)
