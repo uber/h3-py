@@ -17,5 +17,4 @@ Try from within `ipython`:
 ```
 
 # to run tests
-- `source env/bin/activate`
-- `pytest tests/test.py`
+- `make test`

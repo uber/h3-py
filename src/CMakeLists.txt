@@ -21,14 +21,3 @@ target_link_libraries(h3core h3)
 install(TARGETS h3core LIBRARY DESTINATION src)
 
 
-# new .pyx files
-
-add_cython_target(hexmem C PY3)
-add_library(hexmem MODULE ${hexmem} ${LIB_SOURCE_FILES} ${CONFIGURED_API_HEADER})
-python_extension_module(hexmem)
-set_property(TARGET hexmem PROPERTY C_STANDARD 99)
-
-target_compile_definitions(hexmem INTERFACE $<TARGET_PROPERTY:h3,COMPILE_DEFINITIONS>)
-target_include_directories(hexmem INTERFACE $<TARGET_PROPERTY:h3,INCLUDE_DIRECTORIES>)
-target_link_libraries(hexmem h3)
-install(TARGETS hexmem LIBRARY DESTINATION src)
