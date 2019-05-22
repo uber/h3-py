@@ -19,5 +19,3 @@ target_link_libraries(h3core h3)
 # $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/h3lib/include>)
 
 install(TARGETS h3core LIBRARY DESTINATION src)
-
-
