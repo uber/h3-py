@@ -21,7 +21,7 @@ add_subdirectory(h3)
 
 # Build the rest (other than the core library dependency) as shared
 set(BUILD_SHARED_LIBS ON)
-add_subdirectory(src)
+add_subdirectory(h3py)
 
 # find_package(Cython MODULE REQUIRED)
 # find_package(PythonExtensions MODULE REQUIRED)
