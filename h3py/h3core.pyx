@@ -7,8 +7,6 @@ from libc.math cimport pi
 cimport h3py.h3api as h3c
 from h3py.h3api cimport H3int, H3str
 
-import numpy as np
-
 
 cdef double degs_to_rads(double deg):
     """Helper degrees to radians"""

@@ -2,6 +2,7 @@ import h3py.h3core as h3core
 from h3py.hexmem import hex2int, int2hex
 
 # todo: add validation
+# todo: how to write documentation once and have it carry over to each interface?
 
 
 def is_valid(h):
