@@ -4,8 +4,6 @@ ctypedef stdint.uint64_t H3int
 ctypedef str H3str
 
 cdef extern from "h3api.h":
-    ctypedef stdint.uint64_t H3Index
-
     ctypedef struct GeoCoord:
         double lat
         double lng "lon"
@@ -41,33 +39,33 @@ cdef extern from "h3api.h":
         LinkedGeoLoop *last
         LinkedGeoPolygon *next
 
-    H3Index geoToH3(const GeoCoord *g, int res)
+    H3int geoToH3(const GeoCoord *g, int res)
 
-    void h3ToGeo(H3Index h3, GeoCoord *g)
+    void h3ToGeo(H3int h3, GeoCoord *g)
 
-    void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp)
+    void h3ToGeoBoundary(H3int h3, GeoBoundary *gp)
 
     int maxKringSize(int k)
 
-    int hexRange(H3Index origin, int k, H3Index *out)
+    int hexRange(H3int origin, int k, H3int *out)
 
-    int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
+    int hexRangeDistances(H3int origin, int k, H3int *out, int *distances)
 
-    int h3Distance(H3Index origin, H3Index h3)
+    int h3Distance(H3int origin, H3int h3)
 
-    int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
+    int hexRanges(H3int *h3Set, int length, int k, H3int *out)
 
-    void kRing(H3Index origin, int k, H3Index *out)
+    void kRing(H3int origin, int k, H3int *out)
 
-    void kRingDistances(H3Index origin, int k, H3Index *out, int *distances)
+    void kRingDistances(H3int origin, int k, H3int *out, int *distances)
 
-    int hexRing(H3Index origin, int k, H3Index *out)
+    int hexRing(H3int origin, int k, H3int *out)
 
     int maxPolyfillSize(const GeoPolygon *geoPolygon, int res)
 
-    void polyfill(const GeoPolygon *geoPolygon, int res, H3Index *out)
+    void polyfill(const GeoPolygon *geoPolygon, int res, H3int *out)
 
-    void h3SetToLinkedGeo(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
+    void h3SetToLinkedGeo(const H3int *h3Set, const int numHexes, LinkedGeoPolygon *out)
 
     void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
 
@@ -85,44 +83,44 @@ cdef extern from "h3api.h":
 
     stdint.int64_t numHexagons(int res)
 
-    int h3GetResolution(H3Index h)
+    int h3GetResolution(H3int h)
 
-    int h3GetBaseCell(H3Index h)
+    int h3GetBaseCell(H3int h)
 
-    H3Index stringToH3(const char *str)
+    H3int stringToH3(const char *str)
 
-    void h3ToString(H3Index h, char *str, size_t sz)
+    void h3ToString(H3int h, char *str, size_t sz)
 
-    int h3IsValid(H3Index h)
+    int h3IsValid(H3int h)
 
-    H3Index h3ToParent(H3Index h, int parentRes)
+    H3int h3ToParent(H3int h, int parentRes)
 
-    int maxH3ToChildrenSize(H3Index h, int childRes)
+    int maxH3ToChildrenSize(H3int h, int childRes)
 
-    void h3ToChildren(H3Index h, int childRes, H3Index *children)
+    void h3ToChildren(H3int h, int childRes, H3int *children)
 
-    int compact(const H3Index *h3Set, H3Index *compactedSet, const int numHexes)
+    int compact(const H3int *h3Set, H3int *compactedSet, const int numHexes)
 
-    int maxUncompactSize(const H3Index *compactedSet, const int numHexes, const int res)
+    int maxUncompactSize(const H3int *compactedSet, const int numHexes, const int res)
 
-    int uncompact(const H3Index *compactedSet, const int numHexes, H3Index *h3Set, const int maxHexes, const int res)
+    int uncompact(const H3int *compactedSet, const int numHexes, H3int *h3Set, const int maxHexes, const int res)
 
-    int h3IsResClassIII(H3Index h)
+    int h3IsResClassIII(H3int h)
 
-    int h3IsPentagon(H3Index h)
+    int h3IsPentagon(H3int h)
 
-    int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
+    int H3intesAreNeighbors(H3int origin, H3int destination)
 
-    H3Index getH3UnidirectionalEdge(H3Index origin, H3Index destination)
+    H3int getH3UnidirectionalEdge(H3int origin, H3int destination)
 
-    int h3UnidirectionalEdgeIsValid(H3Index edge)
+    int h3UnidirectionalEdgeIsValid(H3int edge)
 
-    H3Index getOriginH3IndexFromUnidirectionalEdge(H3Index edge)
+    H3int getOriginH3intFromUnidirectionalEdge(H3int edge)
 
-    H3Index getDestinationH3IndexFromUnidirectionalEdge(H3Index edge)
+    H3int getDestinationH3intFromUnidirectionalEdge(H3int edge)
 
-    void getH3IndexesFromUnidirectionalEdge(H3Index edge, H3Index *originDestination)
+    void getH3intesFromUnidirectionalEdge(H3int edge, H3int *originDestination)
 
-    void getH3UnidirectionalEdgesFromHexagon(H3Index origin, H3Index *edges)
+    void getH3UnidirectionalEdgesFromHexagon(H3int origin, H3int *edges)
 
-    void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
+    void getH3UnidirectionalEdgeBoundary(H3int edge, GeoBoundary *gb)

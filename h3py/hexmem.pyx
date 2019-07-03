@@ -1,6 +1,12 @@
-import numpy as np
 from libc cimport stdlib
 from h3py.h3api cimport H3int, H3str
+
+cpdef H3int hex2int(h):  # we get typing problems if we try to type input as `H3str h`
+    return int(h, 16)
+
+
+cpdef H3str int2hex(H3int x):
+    return hex(x)[2:]
 
 
 cdef class HexMem:
@@ -52,12 +58,6 @@ cdef class HexMem:
         """
         n = move_nonzeros(self.ptr, self.n)
         self.resize(n)
-
-    def array_int(self):
-        return np.asarray(self.memview())
-
-    def array_str(self):
-        return np.array([int2hex(h) for h in self.memview()])
 
     def set_str(self):
         return set(int2hex(h) for h in self.memview())
@@ -112,11 +112,3 @@ cdef inline H3int[:] empty_memory_view():
         H3int a[1]
 
     return (<H3int[:]>a)[:0]
-
-
-cpdef H3int hex2int(h):  # we get typing problems if we try to type input as `H3str h`
-    return int(h, 16)
-
-
-cpdef H3str int2hex(H3int x):
-    return hex(x)[2:]
