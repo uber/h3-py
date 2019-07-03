@@ -32,7 +32,7 @@ def resolution(h):
 # todo: what's a good variable name? h vs h3_address vs h3str?
 def parent(h3_address, resolution):
     h = hex2int(h3_address)
-    h = h3core.parent(h, res)
+    h = h3core.parent(h, resolution)
     h = int2hex(h)
 
     return h
@@ -50,3 +50,46 @@ def distance(h1, h2):
         )
 
     return d
+
+def h3_to_geo_boundary(h, geo_json=False):
+    return h3core.h3_to_geo_boundary(hex2int(h), geo_json)
+
+
+def k_ring(h, ring_size):
+    hm = h3core.k_ring(hex2int(h), ring_size)
+
+    # todo: take these out of the HexMem class
+    return hm.set_str()
+
+def hex_ring(h, ring_size):
+    hm = h3core.hex_ring(hex2int(h), ring_size)
+
+    # todo: take these out of the HexMem class
+    return hm.set_str()
+
+def children(h, res):
+    hm = h3core.children(hex2int(h), res)
+
+    return hm.set_str()
+
+# todo: nogil for expensive C operation?
+def compact(hexes):
+    # move this helper to this module?
+    hu = h3core.from_strs(hexes)
+    hc = h3core.compact(hu.memview())
+
+    return hc.set_str()
+
+def uncompact(hexes, res):
+    hc = h3core.from_strs(hexes)
+    hu = h3core.uncompact(hc.memview(), res)
+
+    return hu.set_str()
+
+
+def polyfill(geos, res):
+    hm = h3core.polyfill(geos, res)
+
+    return hm.set_str()
+
+

@@ -94,12 +94,7 @@ cpdef int distance(H3int h1, H3int h2):
 
     return d
 
-
-
-def h3_to_geo_boundary(H3str h, bool geo_json=False):
-    return h3_to_geo_boundary_int(hex2int(h), geo_json)
-
-def h3_to_geo_boundary_int(H3int h, bool geo_json=False):
+def h3_to_geo_boundary(H3int h, bool geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
         h3c.GeoBoundary gb
@@ -121,7 +116,7 @@ def h3_to_geo_boundary_int(H3int h, bool geo_json=False):
 
 
 
-cpdef HexMem k_ring_hm(H3int h, int ring_size):
+cpdef HexMem k_ring(H3int h, int ring_size):
     n = h3c.maxKringSize(ring_size)
     hm = HexMem(n)
 
@@ -129,25 +124,7 @@ cpdef HexMem k_ring_hm(H3int h, int ring_size):
 
     return hm
 
-def k_ring(H3str h, int ring_size):
-    hm = k_ring_hm(hex2int(h), ring_size)
-
-    return hm.set_str()
-
-def k_ring_int(H3int h, int ring_size):
-    hm = k_ring_hm(h, ring_size)
-
-    return hm.array_int()
-
-def k_ring_str(H3str h, int ring_size):
-    hm = k_ring_hm(hex2int(h), ring_size)
-
-    return hm.array_str()
-
-
-
-
-cpdef HexMem hex_ring_hm(H3int h, int ring_size):
+cpdef HexMem hex_ring(H3int h, int ring_size):
     """
     Get a hexagon ring for a given hexagon.
     Returns individual rings, unlike `k_ring`.
@@ -161,30 +138,15 @@ cpdef HexMem hex_ring_hm(H3int h, int ring_size):
     flag = h3c.hexRing(h, ring_size, hm.ptr)
 
     if flag != 0:
-        s1 = k_ring_hm(h, ring_size).set_int()
-        s2 = k_ring_hm(h, ring_size - 1).set_int()
+        s1 = k_ring(h, ring_size).set_int()
+        s2 = k_ring(h, ring_size - 1).set_int()
         hm = from_ints(s1-s2)
 
     return hm
 
-def hex_ring(H3str h, int ring_size):
-    hm = hex_ring_hm(hex2int(h), ring_size)
-
-    return hm.set_str()
-
-def hex_ring_str(H3str h, int ring_size):
-    hm = hex_ring_hm(hex2int(h), ring_size)
-
-    return hm.array_str()
-
-def hex_ring_int(H3int h, int ring_size):
-    hm = hex_ring_hm(h, ring_size)
-
-    return hm.array_int()
 
 
-
-cpdef HexMem children_hm(H3int h, int res):
+cpdef HexMem children(H3int h, int res):
     n = h3c.maxH3ToChildrenSize(h, res)
     hm = HexMem(n)
 
@@ -192,24 +154,9 @@ cpdef HexMem children_hm(H3int h, int res):
 
     return hm
 
-def children(H3str h, int res):
-    hm = children_hm(hex2int(h), res)
-
-    return hm.set_str()
-
-def children_str(H3str h, int res):
-    hm = children_hm(hex2int(h), res)
-
-    return hm.array_str()
-
-def children_int(H3int h, int res):
-    hm = children_hm(h, res)
-
-    return hm.array_int()
 
 
-
-cpdef HexMem compact_hm(const H3int[:] hu):
+cpdef HexMem compact(const H3int[:] hu):
     hc = HexMem(len(hu))
 
     flag = h3c.compact(&hu[0], hc.ptr, len(hu))
@@ -219,31 +166,8 @@ cpdef HexMem compact_hm(const H3int[:] hu):
 
     return hc
 
-# todo: nogil for expensive C operation?
-def compact(hexes):
-    hu = from_strs(hexes)
 
-    hc = compact_hm(hu.memview())
-
-    return hc.set_str()
-
-def compact_str(hexes):
-    hu = from_strs(hexes)
-
-    hc = compact_hm(hu.memview())
-
-    return hc.array_str()
-
-def compact_int(const H3int[:] hu not None):
-    hc = compact_hm(hu)
-
-    return hc.array_int()
-
-
-# todo: or do we want a memory view version!?
-
-# todo: do this same thing with all the other functions
-cpdef HexMem uncompact_hm(const H3int[:] hc, int res):
+cpdef HexMem uncompact(const H3int[:] hc, int res):
     N = h3c.maxUncompactSize(&hc[0], len(hc), res)
     hu = HexMem(N)
 
@@ -258,27 +182,6 @@ cpdef HexMem uncompact_hm(const H3int[:] hc, int res):
 
     # we need to keep the HexMem object around to keep the memory from getting freed
     return hu
-
-
-def uncompact(hexes, int res):
-    hc = from_strs(hexes)
-
-    hu = uncompact_hm(hc.memview(), res)
-
-    return hu.set_str()
-
-def uncompact_str(hexes, int res): # can't seem to type it with `H3str[:] hc not None`
-    hc = from_strs(hexes)
-    # and we can't just memview right away, because the HexMem will get garbage collected...
-
-    hu = uncompact_hm(hc.memview(), res)
-
-    return hu.array_str()
-
-def uncompact_int(const H3int[:] hc not None, int res):
-    hu = uncompact_hm(hc, res)
-
-    return hu.array_int()
 
 
 cdef h3c.Geofence make_geofence(geos):
@@ -330,7 +233,7 @@ def polyfill(geos, int res):
 
     h3c.polyfill(&gp.gp, res, hm.ptr)
 
-    return hm.set_str()
+    return hm
 
 
 cpdef HexMem from_ints(hexes):
