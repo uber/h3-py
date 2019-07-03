@@ -47,11 +47,7 @@ cdef (double, double) coord2geo(h3c.GeoCoord c):
     )
 
 
-
-cpdef H3str geo_to_h3(double lat, double lng, int res):
-    return int2hex(geo_to_h3_int(lat, lng, res))
-
-cpdef H3int geo_to_h3_int(double lat, double lng, int res):
+cpdef H3int geo_to_h3(double lat, double lng, int res):
     cdef:
         h3c.GeoCoord c
 
@@ -60,12 +56,7 @@ cpdef H3int geo_to_h3_int(double lat, double lng, int res):
     return h3c.geoToH3(&c, res)
 
 
-
-cpdef (double, double) h3_to_geo(H3str h):
-    """Reverse lookup an h3 address into a geo-coordinate"""
-    return h3_to_geo_int(hex2int(h))
-
-cpdef (double, double) h3_to_geo_int(H3int h):
+cpdef (double, double) h3_to_geo(H3int h):
     """Reverse lookup an h3 address into a geo-coordinate"""
     cdef:
         h3c.GeoCoord c
@@ -75,67 +66,28 @@ cpdef (double, double) h3_to_geo_int(H3int h):
     return coord2geo(c)
 
 
-
-def is_valid(H3str h):
+cpdef bool is_valid(H3int h):
     """Validates an `h3_address`
 
     :returns: boolean
     """
-    return is_valid_int(hex2int(h))
-
-cpdef bool is_valid_int(H3int h):
     try:
         return h3c.h3IsValid(h) is 1
     except Exception:
         return False
 
-
-
-def resolution(H3str h):
-    """Returns the resolution of an `h3_address`
-
-    :return: nibble (0-15)
-    """
-    return resolution_int(hex2int(h))
-
-cpdef int resolution_int(H3int h):
+cpdef int resolution(H3int h):
     """Returns the resolution of an `h3_address`
     0--15
     """
     return h3c.h3GetResolution(h)
 
 
-
-def parent(H3str h3_address, int res):
-    h = hex2int(h3_address)
-    h = parent_int(h, res)
-    h = int2hex(h)
-
-    return h
-
-cpdef H3int parent_int(H3int h, int res):
+cpdef H3int parent(H3int h, int res):
     return h3c.h3ToParent(h, res)
 
 
-
-def distance(h1, h2):
-    """ compute the hex-distance between two hexagons
-
-    todo: figure out string typing.
-    had to drop typing due to errors like
-    `TypeError: Argument 'h2' has incorrect type (expected str, got numpy.str_)`
-    """
-    d = distance_int(
-            hex2int(h1),
-            hex2int(h2)
-        )
-
-    return d
-
-# todo: make a function generator to do this properly...
-distance_str = distance
-
-cpdef int distance_int(H3int h1, H3int h2):
+cpdef int distance(H3int h1, H3int h2):
     """ compute the hex-distance between two hexagons
     """
     d = h3c.h3Distance(h1,h2)
