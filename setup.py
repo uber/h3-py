@@ -4,7 +4,7 @@ from skbuild import setup
 from version import version
 
 setup(
-    name='h3',
+    name='h3py',
     version=version,
     description=
     'Python bindings for H3, a hierarchical hexagonal geospatial indexing system developed by Uber Technologies',
@@ -12,8 +12,7 @@ setup(
     author='Uber Technologies',
     author_email='Niel Hu <hu.niel92@gmail.com>',
     url='https://github.com/uber/h3-py.git',
-    packages=['h3'],
-    package_dir={'h3': 'src'},
+    packages=['h3py'],
     classifiers=[
         "Development Status :: 2 - Beta",
         "Intended Audience :: Developers",
