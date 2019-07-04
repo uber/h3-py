@@ -59,12 +59,6 @@ cdef class HexMem:
         n = move_nonzeros(self.ptr, self.n)
         self.resize(n)
 
-    def set_str(self):
-        return set(int2hex(h) for h in self.memview())
-
-    def set_int(self):
-        return set(self.memview())
-
     cpdef H3int[:] memview(self):
         self.drop_zeros() # how to make sure we always run this when appropriate?
         # ideally, it would just run right after the pointer is **exposed**, not

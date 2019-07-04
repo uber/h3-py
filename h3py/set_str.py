@@ -6,6 +6,10 @@ import h3py.hexmem as hexmem
 # todo: add validation
 # todo: how to write documentation once and have it carry over to each interface?
 
+def format_out(hm):
+    "Output formatter for this module."
+    return set(int2hex(h) for h in hm.memview())
+
 
 def is_valid(h):
     """Validates an `h3_address` given as a string
@@ -62,18 +66,18 @@ def k_ring(h, ring_size):
     hm = h3core.k_ring(hex2int(h), ring_size)
 
     # todo: take these out of the HexMem class
-    return hm.set_str()
+    return format_out(hm)
 
 def hex_ring(h, ring_size):
     hm = h3core.hex_ring(hex2int(h), ring_size)
 
     # todo: take these out of the HexMem class
-    return hm.set_str()
+    return format_out(hm)
 
 def children(h, res):
     hm = h3core.children(hex2int(h), res)
 
-    return hm.set_str()
+    return format_out(hm)
 
 # todo: nogil for expensive C operation?
 def compact(hexes):
@@ -81,18 +85,18 @@ def compact(hexes):
     hu = hexmem.from_strs(hexes)
     hc = h3core.compact(hu.memview())
 
-    return hc.set_str()
+    return format_out(hc)
 
 def uncompact(hexes, res):
     hc = hexmem.from_strs(hexes)
     hu = h3core.uncompact(hc.memview(), res)
 
-    return hu.set_str()
+    return format_out(hu)
 
 
 def polyfill(geos, res):
     hm = h3core.polyfill(geos, res)
 
-    return hm.set_str()
+    return format_out(hm)
 
 
