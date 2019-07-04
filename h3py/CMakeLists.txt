@@ -18,3 +18,14 @@ target_compile_definitions(hexmem PUBLIC $<TARGET_PROPERTY:h3,COMPILE_DEFINITION
 target_include_directories(hexmem PUBLIC $<TARGET_PROPERTY:h3,INCLUDE_DIRECTORIES>)
 
 install(TARGETS h3core hexmem LIBRARY DESTINATION h3py)
+
+
+add_cython_target(geo C PY3)
+add_library(geo MODULE ${geo} ${LIB_SOURCE_FILES} ${CONFIGURED_API_HEADER})
+python_extension_module(geo)
+set_property(TARGET geo PROPERTY C_STANDARD 99)
+target_compile_definitions(geo PUBLIC $<TARGET_PROPERTY:h3,COMPILE_DEFINITIONS>)
+target_include_directories(geo PUBLIC $<TARGET_PROPERTY:h3,INCLUDE_DIRECTORIES>)
+
+install(TARGETS h3core geo LIBRARY DESTINATION h3py)
+
