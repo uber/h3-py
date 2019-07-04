@@ -1,14 +1,22 @@
 import h3py.h3core as h3core
-
-from h3py.hexmem import hex2int, int2hex
 import h3py.hexmem as hexmem
 
-# todo: add validation
+# todo: add validation (just do it in `_in_scalar()`?)
 # todo: how to write documentation once and have it carry over to each interface?
 
-def format_out(hm):
+
+def _in_scalar(h):
     "Output formatter for this module."
-    return set(int2hex(h) for h in hm.memview())
+    return hexmem.hex2int(h)
+
+def _out_scalar(h):
+    "Output formatter for this module."
+    return hexmem.int2hex(h)
+
+def _out_collection(hm):
+    "Output formatter for this module."
+    # todo: this could just use the _out_scalar function...
+    return set(_out_scalar(h) for h in hm.memview())
 
 
 def is_valid(h):
@@ -17,30 +25,30 @@ def is_valid(h):
     :returns: boolean
     """
     # todo: below
-    return h3core.is_valid(hex2int(h))
+    return h3core.is_valid(_in_scalar(h))
 
 
 def geo_to_h3(lat, lng, resolution):
-    return int2hex(h3core.geo_to_h3(lat, lng, resolution))
+    return _out_scalar(h3core.geo_to_h3(lat, lng, resolution))
 
 
 def h3_to_geo(h):
     """Reverse lookup an h3 address into a geo-coordinate"""
 
-    return h3core.h3_to_geo(hex2int(h))
+    return h3core.h3_to_geo(_in_scalar(h))
 
 def resolution(h):
     """Returns the resolution of an `h3_address`
 
     :return: nibble (0-15)
     """
-    return h3core.resolution(hex2int(h))
+    return h3core.resolution(_in_scalar(h))
 
 # todo: what's a good variable name? h vs h3_address vs h3str?
 def parent(h3_address, resolution):
-    h = hex2int(h3_address)
+    h = _in_scalar(h3_address)
     h = h3core.parent(h, resolution)
-    h = int2hex(h)
+    h = _out_scalar(h)
 
     return h
 
@@ -52,32 +60,32 @@ def distance(h1, h2):
     `TypeError: Argument 'h2' has incorrect type (expected str, got numpy.str_)`
     """
     d = h3core.distance(
-            hex2int(h1),
-            hex2int(h2)
+            _in_scalar(h1),
+            _in_scalar(h2)
         )
 
     return d
 
 def h3_to_geo_boundary(h, geo_json=False):
-    return h3core.h3_to_geo_boundary(hex2int(h), geo_json)
+    return h3core.h3_to_geo_boundary(_in_scalar(h), geo_json)
 
 
 def k_ring(h, ring_size):
-    hm = h3core.k_ring(hex2int(h), ring_size)
+    hm = h3core.k_ring(_in_scalar(h), ring_size)
 
     # todo: take these out of the HexMem class
-    return format_out(hm)
+    return _out_collection(hm)
 
 def hex_ring(h, ring_size):
-    hm = h3core.hex_ring(hex2int(h), ring_size)
+    hm = h3core.hex_ring(_in_scalar(h), ring_size)
 
     # todo: take these out of the HexMem class
-    return format_out(hm)
+    return _out_collection(hm)
 
 def children(h, res):
-    hm = h3core.children(hex2int(h), res)
+    hm = h3core.children(_in_scalar(h), res)
 
-    return format_out(hm)
+    return _out_collection(hm)
 
 # todo: nogil for expensive C operation?
 def compact(hexes):
@@ -85,18 +93,18 @@ def compact(hexes):
     hu = hexmem.from_strs(hexes)
     hc = h3core.compact(hu.memview())
 
-    return format_out(hc)
+    return _out_collection(hc)
 
 def uncompact(hexes, res):
     hc = hexmem.from_strs(hexes)
     hu = h3core.uncompact(hc.memview(), res)
 
-    return format_out(hu)
+    return _out_collection(hu)
 
 
 def polyfill(geos, res):
     hm = h3core.polyfill(geos, res)
 
-    return format_out(hm)
+    return _out_collection(hm)
 
 

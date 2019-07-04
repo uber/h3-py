@@ -13,43 +13,55 @@ import h3py.hexmem as hexmem
 
 # todo: add validation
 
-def format_out(hm):
+
+def _in_scalar(h):
+    "Output formatter for this module."
+    # todo: but add validation
+    # todo: but what about the functions imported above. how to add validation?
+    # todo: acutally use this function
+    return h
+
+def _out_scalar(h):
+    "Output formatter for this module."
+    return h
+
+def _out_collection(hm):
     "Output formatter for this module."
     return set(hm.memview())
 
 def k_ring(h, ring_size):
     hm = h3core.k_ring(h, ring_size)
 
-    return format_out(hm)
+    return _out_collection(hm)
 
 
 # todo: simpler wrappers for these functions?
 def hex_ring(h, ring_size):
     hm = h3core.hex_ring(h, ring_size)
 
-    return format_out(hm)
+    return _out_collection(hm)
 
 
 def children(h, res):
     hm = h3core.children(h, res)
 
     #todo: move these conversion functions to this module
-    return format_out(hm)
+    return _out_collection(hm)
 
 
 def compact(hexes):
     hu = hexmem.from_ints(hexes)
     hc = h3core.compact(hu.memview())
 
-    return format_out(hc)
+    return _out_collection(hc)
 
 def uncompact(hexes, res):
     hc = hexmem.from_ints(hexes) ## todo: is this the right logic for packing/unpacking?
     hu = h3core.uncompact(hc.memview(), res)
 
-    return format_out(hu)
+    return _out_collection(hu)
 
 def polyfill(geos, res):
     hm = h3core.polyfill(geos, res)
 
-    return format_out(hm)
+    return _out_collection(hm)
