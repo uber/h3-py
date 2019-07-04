@@ -1,5 +1,5 @@
 from libc cimport stdlib
-from h3py.hexmem cimport HexMem, int2hex, hex2int
+from h3py.hexmem cimport HexMem, from_ints
 
 from cpython cimport bool
 from libc.math cimport pi
@@ -234,20 +234,5 @@ def polyfill(geos, int res):
     return hm
 
 
-cpdef HexMem from_ints(hexes):
-    hm = HexMem(len(hexes))
 
-    for i, h in enumerate(hexes):
-        hm.ptr[i] = h
-
-    return hm
-
-# maybe drop the cpdef???
-cpdef HexMem from_strs(hexes):
-    hm = HexMem(len(hexes))
-
-    for i, h in enumerate(hexes):
-        hm.ptr[i] = hex2int(h)
-
-    return hm
 

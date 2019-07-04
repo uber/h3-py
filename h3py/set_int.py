@@ -9,6 +9,7 @@ from h3py.h3core import (
 )
 
 import h3py.h3core as h3core
+import h3py.hexmem as hexmem
 
 # todo: add validation
 
@@ -33,13 +34,13 @@ def children(h, res):
 
 
 def compact(hexes):
-    hu = h3core.from_ints(hexes)
+    hu = hexmem.from_ints(hexes)
     hc = h3core.compact(hu.memview())
 
     return hc.set_int()
 
 def uncompact(hexes, res):
-    hc = h3core.from_ints(hexes) ## todo: is this the right logic for packing/unpacking?
+    hc = hexmem.from_ints(hexes) ## todo: is this the right logic for packing/unpacking?
     hu = h3core.uncompact(hc.memview(), res)
 
     return hu.set_int()

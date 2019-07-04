@@ -112,3 +112,21 @@ cdef inline H3int[:] empty_memory_view():
         H3int a[1]
 
     return (<H3int[:]>a)[:0]
+
+
+cpdef HexMem from_ints(hexes):
+    hm = HexMem(len(hexes))
+
+    for i, h in enumerate(hexes):
+        hm.ptr[i] = h
+
+    return hm
+
+# maybe drop the cpdef???
+cpdef HexMem from_strs(hexes):
+    hm = HexMem(len(hexes))
+
+    for i, h in enumerate(hexes):
+        hm.ptr[i] = hex2int(h)
+
+    return hm

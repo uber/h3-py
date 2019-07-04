@@ -1,5 +1,7 @@
 import h3py.h3core as h3core
+
 from h3py.hexmem import hex2int, int2hex
+import h3py.hexmem as hexmem
 
 # todo: add validation
 # todo: how to write documentation once and have it carry over to each interface?
@@ -76,13 +78,13 @@ def children(h, res):
 # todo: nogil for expensive C operation?
 def compact(hexes):
     # move this helper to this module?
-    hu = h3core.from_strs(hexes)
+    hu = hexmem.from_strs(hexes)
     hc = h3core.compact(hu.memview())
 
     return hc.set_str()
 
 def uncompact(hexes, res):
-    hc = h3core.from_strs(hexes)
+    hc = hexmem.from_strs(hexes)
     hu = h3core.uncompact(hc.memview(), res)
 
     return hu.set_str()
