@@ -11,9 +11,9 @@ cdef class HexMem:
     Memory is allocated and deallocated at object creation and garbage collection
     """
     cdef:
-        unsigned int n
+        size_t n
         H3int* ptr
 
-    cdef void resize(self, int n)
+    cdef void resize(self, size_t n)
     cpdef void drop_zeros(self)
     cpdef H3int[:] memview(self)

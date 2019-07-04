@@ -16,7 +16,7 @@ cdef class HexMem:
 
     # The data members are already declared in hexmem.pxd, we do not re-declare here.
     # cdef:
-    #     unsigned int n
+    #     size_t n
     #     H3int* ptr
 
     def __cinit__(self, n):
@@ -29,11 +29,12 @@ cdef class HexMem:
     def __dealloc__(self):
         if self.ptr:
             stdlib.free(self.ptr)
+        self.ptr = NULL
 
     def __len__(self):
         return self.n
 
-    cdef void resize(self, int n):
+    cdef void resize(self, size_t n):
         cdef:
             H3int* a = NULL
 
@@ -70,7 +71,7 @@ cdef class HexMem:
             return empty_memory_view()
 
 
-cdef int move_nonzeros(H3int* a, int n):
+cdef size_t move_nonzeros(H3int* a, size_t n):
     """ Move nonzero elements to front of array `a` of length `n`.
 
     Return the number of nonzero elements.

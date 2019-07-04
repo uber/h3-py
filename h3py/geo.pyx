@@ -95,6 +95,7 @@ cdef class GeoPolygon:
     def __dealloc__(self):
         if self.gp.geofence.verts:
             stdlib.free(self.gp.geofence.verts)
+        self.gp.geofence.verts = NULL
 
 
 # todo: nogil for expensive C operation?
