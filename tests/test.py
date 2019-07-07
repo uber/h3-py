@@ -261,4 +261,46 @@ def test_hex_edge_length():
     assert out == pytest.approx(expected_in_km)
 
 
+def test_uni_edge():
+    h1 = '8928308280fffff'
+    h2 = '89283082873ffff'
+
+    assert not h3.are_neighbors(h1, h1)
+    assert h3.are_neighbors(h1, h2)
+
+    e = h3.uni_edge(h1,h2)
+
+    assert e == '12928308280fffff'
+    assert h3.is_uni_edge(e)
+    assert not h3.is_valid(e)
+
+    assert h3.uni_edge_origin(e) == h1
+    assert h3.uni_edge_destination(e) == h2
+
+    assert h3.uni_edge_hexes(e) == (h1,h2)
+
+def test_uni_edges_from_hex():
+    h = '8928308280fffff'
+    edges = h3.uni_edges_from_hex(h)
+    destinations = {h3.uni_edge_destination(e) for e in edges}
+    neighbors = h3.hex_ring(h, 1)
+
+    assert neighbors == destinations
+
+def test_uni_edge_boundary():
+    h1 = '8928308280fffff'
+    h2 = '89283082873ffff'
+    e = h3.uni_edge(h1,h2)
+
+    expected = (
+        (37.77688044840226, -122.41612835779266),
+        (37.778385004930925, -122.41738797617619)
+    )
+
+    out = h3.uni_edge_boundary(e)
+
+    assert out[0] == pytest.approx(expected[0])
+    assert out[1] == pytest.approx(expected[1])
+
+
 

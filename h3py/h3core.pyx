@@ -6,7 +6,7 @@ from cpython cimport bool
 cimport h3py.h3api as h3c
 from h3py.h3api cimport H3int, H3str
 
-from h3py.geo import polyfill, h3_to_geo_boundary, geo_to_h3, h3_to_geo
+from h3py.geo import polyfill, h3_to_geo_boundary, geo_to_h3, h3_to_geo, uni_edge_boundary
 
 
 cpdef bool is_valid(H3int h):
@@ -15,7 +15,7 @@ cpdef bool is_valid(H3int h):
     :returns: boolean
     """
     try:
-        return h3c.h3IsValid(h) is 1
+        return h3c.h3IsValid(h) == 1
     except Exception:
         return False
 
@@ -132,10 +132,44 @@ cpdef double edge_length(int resolution, unit='km'):
 
 cpdef bool is_pentagon(H3int h):
     try:
-        return h3c.h3IsPentagon(h) is 1
+        return h3c.h3IsPentagon(h) == 1
     except Exception:
         return False
 
 cpdef int base_cell(H3int h):
     return h3c.h3GetBaseCell(h)
+
+
+cpdef bool are_neighbors(H3int h1, H3int h2):
+    try:
+        return h3c.h3IndexesAreNeighbors(h1, h2) == 1
+    except Exception:
+        return False
+
+cpdef H3int uni_edge(H3int origin, H3int destination):
+    return h3c.getH3UnidirectionalEdge(origin, destination)
+
+cpdef bool is_uni_edge(H3int e):
+    try:
+        return h3c.h3UnidirectionalEdgeIsValid(e) == 1
+    except Exception:
+        return False
+
+
+cpdef H3int uni_edge_origin(H3int e):
+    return h3c.getOriginH3IndexFromUnidirectionalEdge(e)
+
+cpdef H3int uni_edge_destination(H3int e):
+    return h3c.getDestinationH3IndexFromUnidirectionalEdge(e)
+
+cpdef (H3int, H3int) uni_edge_hexes(H3int e):
+    return uni_edge_origin(e), uni_edge_destination(e)
+
+cpdef HexMem uni_edges_from_hex(H3int origin):
+    """ Returns the 6 (or 5 for pentagons) edges associated with the hex
+    """
+    hm = HexMem(6)
+    h3c.getH3UnidirectionalEdgesFromHexagon(origin, hm.ptr)
+
+    return hm
 

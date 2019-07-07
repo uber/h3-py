@@ -11,6 +11,13 @@ from h3py.h3core import (
     edge_length,
     is_pentagon,
     base_cell,
+    are_neighbors,
+    uni_edge,
+    is_uni_edge,
+    uni_edge_origin,
+    uni_edge_destination,
+    uni_edge_hexes,
+    uni_edge_boundary
 )
 
 import h3py.h3core as h3core
@@ -68,5 +75,10 @@ def uncompact(hexes, res):
 
 def polyfill(geos, res):
     hm = h3core.polyfill(geos, res)
+
+    return _out_collection(hm)
+
+def uni_edges_from_hex(origin):
+    hm = h3core.uni_edges_from_hex(origin)
 
     return _out_collection(hm)

@@ -144,3 +144,18 @@ def h3_to_geo_boundary(H3int h, bool geo_json=False):
 
     return verts
 
+def uni_edge_boundary(H3int edge):
+    """ Returns the GeoBoundary containing the coordinates of the edge
+    """
+    cdef:
+        h3c.GeoBoundary gb
+
+    h3c.getH3UnidirectionalEdgeBoundary(edge, &gb)
+
+    verts = tuple(
+        coord2geo(gb.verts[i])
+        for i in range(gb.num_verts)
+    )
+
+    return verts
+

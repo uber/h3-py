@@ -125,4 +125,53 @@ def base_cell(h):
     """
     return h3core.base_cell(_in_scalar(h))
 
+def are_neighbors(h1, h2):
+    """
+    :returns: boolean
+    """
+    return h3core.are_neighbors(_in_scalar(h1), _in_scalar(h2))
+
+def uni_edge(origin, destination):
+    o = _in_scalar(origin)
+    d = _in_scalar(destination)
+    e = h3core.uni_edge(o, d)
+    e = _out_scalar(e)
+
+    return e
+
+def is_uni_edge(edge):
+    return h3core.is_uni_edge(_in_scalar(edge))
+
+def uni_edge_origin(e):
+    e = _in_scalar(e)
+    o = h3core.uni_edge_origin(e)
+    o = _out_scalar(o)
+
+    return o
+
+def uni_edge_destination(e):
+    e = _in_scalar(e)
+    d = h3core.uni_edge_destination(e)
+    d = _out_scalar(d)
+
+    return d
+
+
+def uni_edge_hexes(e):
+    e = _in_scalar(e)
+    o,d = h3core.uni_edge_hexes(e)
+    o,d = _out_scalar(o), _out_scalar(d)
+
+    return o,d
+
+def uni_edges_from_hex(origin):
+    hm = h3core.uni_edges_from_hex(_in_scalar(origin))
+
+    return _out_collection(hm)
+
+def uni_edge_boundary(edge):
+    return h3core.uni_edge_boundary(_in_scalar(edge))
+
+
+
 

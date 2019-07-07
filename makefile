@@ -3,7 +3,7 @@ DOCKER_IMAGE ?= quay.io/pypa/manylinux1_x86_64
 .PHONY: purge init
 
 
-init:
+init: purge
 	git submodule update --init
 	virtualenv -p python3 env
 	env/bin/pip install -r requirements-dev.txt
