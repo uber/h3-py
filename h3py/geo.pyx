@@ -132,6 +132,7 @@ def uni_edge_boundary(H3int edge):
 
     h3c.getH3UnidirectionalEdgeBoundary(edge, &gb)
 
+    # todo: move this verts transform into the GeoBoundary object
     verts = tuple(
         coord2geo(gb.verts[i])
         for i in range(gb.num_verts)
