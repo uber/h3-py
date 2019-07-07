@@ -1,4 +1,4 @@
-import h3py.api_set_str as h3
+import h3py.api.set_str as h3
 import pytest
 
 

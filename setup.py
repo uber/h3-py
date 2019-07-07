@@ -12,7 +12,7 @@ setup(
     author='Uber Technologies',
     author_email='Niel Hu <hu.niel92@gmail.com>',
     url='https://github.com/uber/h3-py.git',
-    packages=['h3py'],
+    packages=find_packages(),
     classifiers=[
         "Development Status :: 2 - Beta",
         "Intended Audience :: Developers",
