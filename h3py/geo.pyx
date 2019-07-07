@@ -1,30 +1,10 @@
 from libc cimport stdlib
-from libc.math cimport pi
-from cpython cimport bool
 
 cimport h3py.h3api as h3c
 from h3py.h3api cimport H3int, H3str
 
 from h3py.hexmem cimport HexMem
 
-
-
-cdef double degs_to_rads(double deg):
-    """Helper degrees to radians"""
-    """
-    todo: use C API functions instead:
-
-    double degsToRads(double degrees);
-    double radsToDegs(double radians);
-
-    """
-
-    return deg * pi / 180.0
-
-
-cdef double rads_to_degs(double rad):
-    """Helper radians to degrees"""
-    return rad * 180.0 / pi
 
 
 cdef double mercator_lat(double lat):
@@ -41,16 +21,16 @@ cdef h3c.GeoCoord geo2coord(double lat, double lng):
     cdef:
         h3c.GeoCoord c
 
-    c.lat = degs_to_rads(mercator_lat(lat))
-    c.lng = degs_to_rads(mercator_lng(lng))
+    c.lat = h3c.degsToRads(mercator_lat(lat))
+    c.lng = h3c.degsToRads(mercator_lng(lng))
 
     return c
 
 
 cdef (double, double) coord2geo(h3c.GeoCoord c):
     return (
-        mercator_lat(rads_to_degs(c.lat)),
-        mercator_lng(rads_to_degs(c.lng))
+        mercator_lat(h3c.radsToDegs(c.lat)),
+        mercator_lng(h3c.radsToDegs(c.lng))
     )
 
 
@@ -125,7 +105,7 @@ def polyfill(geos, int res):
     return hm
 
 
-def h3_to_geo_boundary(H3int h, bool geo_json=False):
+def h3_to_geo_boundary(H3int h, geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
         h3c.GeoBoundary gb
