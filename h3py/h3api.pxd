@@ -115,11 +115,11 @@ cdef extern from "h3api.h":
 
     int h3UnidirectionalEdgeIsValid(H3int edge)
 
-    H3int getOriginH3intFromUnidirectionalEdge(H3int edge)
+    H3int getOriginH3IndexFromUnidirectionalEdge(H3int edge)
 
-    H3int getDestinationH3intFromUnidirectionalEdge(H3int edge)
+    H3int getDestinationH3IndexFromUnidirectionalEdge(H3int edge)
 
-    void getH3intesFromUnidirectionalEdge(H3int edge, H3int *originDestination)
+    void getH3IndexesFromUnidirectionalEdge(H3int edge, H3int *originDestination)
 
     void getH3UnidirectionalEdgesFromHexagon(H3int origin, H3int *edges)
 
