@@ -1,6 +1,9 @@
 from libc cimport stdlib
 from h3py.h3api cimport H3int, H3str
 
+
+# todo:  not sure this is the most intuitive place to have these conversion functions...
+# todo: should we use C API functions instead? (stringToH3 and h3ToString)
 cpdef H3int hex2int(h):  # we get typing problems if we try to type input as `H3str h`
     return int(h, 16)
 

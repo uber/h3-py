@@ -11,6 +11,14 @@ from h3py.hexmem cimport HexMem
 
 cdef double degs_to_rads(double deg):
     """Helper degrees to radians"""
+    """
+    todo: use C API functions instead:
+
+    double degsToRads(double degrees);
+    double radsToDegs(double radians);
+
+    """
+
     return deg * pi / 180.0
 
 
