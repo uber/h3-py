@@ -212,4 +212,53 @@ def test_uncompact():
     assert out == h_uncomp
 
 
+def test_num_hexagons():
+    expected = {
+        0: 122,
+        1: 842,
+        2: 5882,
+        9: 4842432842,
+        15: 569707381193162,
+    }
+
+    out = {
+        k: h3.num_hexagons(k)
+        for k in expected
+    }
+
+    assert expected == out
+
+def test_hex_area():
+    expected_in_km2 = {
+        0: 4250546.848,
+        1: 607220.9782,
+        2: 86745.85403,
+        9: 0.1053325,
+        15: 9e-07,
+    }
+
+    out = {
+        k: h3.hex_area(k, unit='km')
+        for k in expected_in_km2
+    }
+
+    assert out == pytest.approx(expected_in_km2)
+
+def test_hex_edge_length():
+    expected_in_km = {
+        0: 1107.712591000,
+        1: 418.676005500,
+        2: 158.244655800,
+        9: 0.174375668,
+        15: 0.000509713,
+    }
+
+    out = {
+        res: h3.edge_length(res, unit='km')
+        for res in expected_in_km
+    }
+
+    assert out == pytest.approx(expected_in_km)
+
+
 

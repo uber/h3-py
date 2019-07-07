@@ -105,3 +105,37 @@ cpdef HexMem uncompact(const H3int[:] hc, int res):
     return hu
 
 
+cpdef H3int num_hexagons(int resolution):
+    return h3c.numHexagons(resolution)
+
+cpdef double hex_area(int resolution, unit='km'):
+    area = h3c.hexAreaKm2(resolution)
+
+    # todo: multiple units
+    convert = {
+        'km': 1.0,
+    }
+    area *= convert[unit]
+
+    return area
+
+cpdef double edge_length(int resolution, unit='km'):
+    length = h3c.edgeLengthKm(resolution)
+
+    # todo: multiple units
+    convert = {
+        'km': 1.0,
+    }
+    length *= convert[unit]
+
+    return length
+
+cpdef bool is_pentagon(H3int h):
+    try:
+        return h3c.h3IsPentagon(h) is 1
+    except Exception:
+        return False
+
+cpdef int base_cell(H3int h):
+    return h3c.h3GetBaseCell(h)
+

@@ -109,7 +109,7 @@ cdef extern from "h3api.h":
 
     int h3IsPentagon(H3int h)
 
-    int H3intesAreNeighbors(H3int origin, H3int destination)
+    int h3IndexesAreNeighbors(H3int origin, H3int destination)
 
     H3int getH3UnidirectionalEdge(H3int origin, H3int destination)
 

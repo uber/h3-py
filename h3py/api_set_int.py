@@ -6,6 +6,11 @@ from h3py.h3core import (
     parent,
     distance,
     h3_to_geo_boundary,
+    num_hexagons,
+    hex_area,
+    edge_length,
+    is_pentagon,
+    base_cell,
 )
 
 import h3py.h3core as h3core

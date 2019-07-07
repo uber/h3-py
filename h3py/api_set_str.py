@@ -1,6 +1,12 @@
 import h3py.h3core as h3core
 import h3py.hexmem as hexmem
 
+from h3py.h3core import (
+    num_hexagons,
+    hex_area,
+    edge_length,
+)
+
 # todo: add validation (just do it in `_in_scalar()`?)
 # todo: how to write documentation once and have it carry over to each interface?
 
@@ -106,5 +112,17 @@ def polyfill(geos, res):
     hm = h3core.polyfill(geos, res)
 
     return _out_collection(hm)
+
+def is_pentagon(h):
+    """
+    :returns: boolean
+    """
+    return h3core.is_pentagon(_in_scalar(h))
+
+def base_cell(h):
+    """
+    :returns: boolean
+    """
+    return h3core.base_cell(_in_scalar(h))
 
 

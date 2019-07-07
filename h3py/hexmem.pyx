@@ -77,8 +77,8 @@ cdef size_t move_nonzeros(H3int* a, size_t n):
     Return the number of nonzero elements.
     """
     cdef:
-        int i = 0
-        int j = n
+        size_t i = 0
+        size_t j = n
 
     while i < j:
         if a[j-1] == 0:
