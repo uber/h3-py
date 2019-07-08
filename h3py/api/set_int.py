@@ -1,84 +1,34 @@
-from h3py.h3core import (
-    is_valid,
-    geo_to_h3,
-    h3_to_geo,
-    resolution,
-    parent,
-    distance,
-    h3_to_geo_boundary,
-    num_hexagons,
-    hex_area,
-    edge_length,
-    is_pentagon,
-    base_cell,
-    are_neighbors,
-    uni_edge,
-    is_uni_edge,
-    uni_edge_origin,
-    uni_edge_destination,
-    uni_edge_hexes,
-    uni_edge_boundary
-)
-
-import h3py.h3core as h3core
 import h3py.hexmem as hexmem
+from h3py.api._api_template import api_functions
 
-# todo: add validation
+
+# todo: add validation (just do it in `_in_scalar()`?)
+# todo: how to write documentation once and have it carry over to each interface?
 
 
 def _in_scalar(h):
-    "Output formatter for this module."
-    # todo: but add validation
-    # todo: but what about the functions imported above. how to add validation?
-    # todo: acutally use this function
+    "Input formatter for this module."
+    # todo: validation here?
     return h
 
 def _out_scalar(h):
     "Output formatter for this module."
     return h
 
+def _in_collection(hexes):
+    return hexmem.from_ints(hexes)
+
 def _out_collection(hm):
     "Output formatter for this module."
-    return set(hm.memview())
-
-def k_ring(h, ring_size):
-    hm = h3core.k_ring(h, ring_size)
-
-    return _out_collection(hm)
+    return set(_out_scalar(h) for h in hm.memview())
 
 
-# todo: simpler wrappers for these functions?
-def hex_ring(h, ring_size):
-    hm = h3core.hex_ring(h, ring_size)
+funcs = api_functions(
+    _in_scalar,
+    _out_scalar,
+    _in_collection,
+    _out_collection,
+)
 
-    return _out_collection(hm)
+globals().update(funcs)
 
-
-def children(h, res):
-    hm = h3core.children(h, res)
-
-    #todo: move these conversion functions to this module
-    return _out_collection(hm)
-
-
-def compact(hexes):
-    hu = hexmem.from_ints(hexes)
-    hc = h3core.compact(hu.memview())
-
-    return _out_collection(hc)
-
-def uncompact(hexes, res):
-    hc = hexmem.from_ints(hexes) ## todo: is this the right logic for packing/unpacking?
-    hu = h3core.uncompact(hc.memview(), res)
-
-    return _out_collection(hu)
-
-def polyfill(geos, res):
-    hm = h3core.polyfill(geos, res)
-
-    return _out_collection(hm)
-
-def uni_edges_from_hex(origin):
-    hm = h3core.uni_edges_from_hex(origin)
-
-    return _out_collection(hm)
