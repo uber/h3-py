@@ -16,11 +16,11 @@ def _out_scalar(h):
     return h
 
 def _in_collection(hexes):
-    return hexmem.from_ints(hexes)
+    return hexmem.from_iter(list(hexes))
 
-def _out_collection(hm):
+def _out_collection(mv):
     "Output formatter for this module."
-    return set(_out_scalar(h) for h in hm.memview())
+    return set(_out_scalar(h) for h in mv)
 
 
 funcs = api_functions(

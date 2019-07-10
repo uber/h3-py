@@ -1,10 +1,10 @@
 
-from h3py.hexmem cimport HexMem, from_ints
+from h3py.hexmem cimport create_ptr, create_mv
 
 from cpython cimport bool
 
 cimport h3py.h3api as h3c
-from h3py.h3api cimport H3int, H3str
+from h3py.h3api cimport H3int
 
 from h3py.geo import polyfill, h3_to_geo_boundary, geo_to_h3, h3_to_geo, uni_edge_boundary
 
@@ -27,6 +27,7 @@ cpdef int resolution(H3int h):
 
 
 cpdef H3int parent(H3int h, int res):
+    # todo: have this infer the res if not specified (res(h) + 1)
     return h3c.h3ToParent(h, res)
 
 
@@ -37,15 +38,16 @@ cpdef int distance(H3int h1, H3int h2):
 
     return d
 
-cpdef HexMem k_ring(H3int h, int ring_size):
+cpdef H3int[:] k_ring(H3int h, int ring_size):
     n = h3c.maxKringSize(ring_size)
-    hm = HexMem(n)
 
-    h3c.kRing(h, ring_size, hm.ptr)
+    ptr = create_ptr(n) # todo: return a "smart" pointer that knows its length?
+    h3c.kRing(h, ring_size, ptr)
+    mv = create_mv(ptr, n)
 
-    return hm
+    return mv
 
-cpdef HexMem hex_ring(H3int h, int ring_size):
+cpdef H3int[:] hex_ring(H3int h, int ring_size):
     """
     Get a hexagon ring for a given hexagon.
     Returns individual rings, unlike `k_ring`.
@@ -54,55 +56,64 @@ cpdef HexMem hex_ring(H3int h, int ring_size):
     MUCH slower form based on `k_ring`.
     """
     n = 6*ring_size if ring_size > 0 else 1
-    hm = HexMem(n)
+    ptr = create_ptr(n)
 
-    flag = h3c.hexRing(h, ring_size, hm.ptr)
+    flag = h3c.hexRing(h, ring_size, ptr)
+    mv = create_mv(ptr, n)
 
+    # todo: maybe let something else do this...?
     if flag != 0:
-        s1 = k_ring(h, ring_size).set_int()
-        s2 = k_ring(h, ring_size - 1).set_int()
-        hm = from_ints(s1-s2)
+        # todo: raise error here
+        pass
+        # s1 = k_ring(h, ring_size).set_int()
+        # s2 = k_ring(h, ring_size - 1).set_int() # todo: actually, these are probably broken right now
+        # mv = from_ints(s1-s2)
 
-    return hm
+    return mv
 
 
 
-cpdef HexMem children(H3int h, int res):
+cpdef H3int[:] children(H3int h, int res):
+    # todo: have this infer the res (res(h) - 1) if not specified
     n = h3c.maxH3ToChildrenSize(h, res)
-    hm = HexMem(n)
 
-    h3c.h3ToChildren(h, res, hm.ptr)
+    ptr = create_ptr(n)
+    h3c.h3ToChildren(h, res, ptr)
+    mv = create_mv(ptr, n)
 
-    return hm
+    return mv
 
 
 
-cpdef HexMem compact(const H3int[:] hu):
-    hc = HexMem(len(hu))
+cpdef H3int[:] compact(const H3int[:] hu):
 
-    flag = h3c.compact(&hu[0], hc.ptr, len(hu))
+
+    ptr = create_ptr(len(hu))
+    flag = h3c.compact(&hu[0], ptr, len(hu))
+    mv = create_mv(ptr, len(hu))
 
     if flag != 0:
         raise ValueError('Could not compact set of hexagons!')
 
-    return hc
+    return mv
 
 
-cpdef HexMem uncompact(const H3int[:] hc, int res):
+cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     N = h3c.maxUncompactSize(&hc[0], len(hc), res)
-    hu = HexMem(N)
 
+    ptr = create_ptr(N)
     flag = h3c.uncompact(
         &hc[0], len(hc),
-        hu.ptr, len(hu),
+           ptr, N,
         res
     )
+    mv = create_mv(ptr, N)
 
     if flag != 0:
         raise ValueError('Could not uncompact set of hexagons!')
 
     # we need to keep the HexMem object around to keep the memory from getting freed
-    return hu
+    return mv
 
 
 cpdef H3int num_hexagons(int resolution):
@@ -165,11 +176,12 @@ cpdef H3int uni_edge_destination(H3int e):
 cpdef (H3int, H3int) uni_edge_hexes(H3int e):
     return uni_edge_origin(e), uni_edge_destination(e)
 
-cpdef HexMem uni_edges_from_hex(H3int origin):
+cpdef H3int[:] uni_edges_from_hex(H3int origin):
     """ Returns the 6 (or 5 for pentagons) edges associated with the hex
     """
-    hm = HexMem(6)
-    h3c.getH3UnidirectionalEdgesFromHexagon(origin, hm.ptr)
+    ptr = create_ptr(6)
+    h3c.getH3UnidirectionalEdgesFromHexagon(origin, ptr)
+    mv = create_mv(ptr, 6)
 
-    return hm
+    return mv
 

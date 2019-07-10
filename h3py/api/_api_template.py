@@ -71,41 +71,41 @@ def api_functions(_in_scalar, _out_scalar, _in_collection, _out_collection):
 
 
     def k_ring(h, ring_size):
-        hm = h3core.k_ring(_in_scalar(h), ring_size)
+        mv = h3core.k_ring(_in_scalar(h), ring_size)
 
         # todo: take these out of the HexMem class
-        return _out_collection(hm)
+        return _out_collection(mv)
 
     def hex_ring(h, ring_size):
-        hm = h3core.hex_ring(_in_scalar(h), ring_size)
+        mv = h3core.hex_ring(_in_scalar(h), ring_size)
 
         # todo: take these out of the HexMem class
-        return _out_collection(hm)
+        return _out_collection(mv)
 
     def children(h, res):
-        hm = h3core.children(_in_scalar(h), res)
+        mv = h3core.children(_in_scalar(h), res)
 
-        return _out_collection(hm)
+        return _out_collection(mv)
 
     # todo: nogil for expensive C operation?
     def compact(hexes):
         # move this helper to this module?
         hu = _in_collection(hexes)
-        hc = h3core.compact(hu.memview())
+        hc = h3core.compact(hu)
 
         return _out_collection(hc)
 
     def uncompact(hexes, res):
         hc = _in_collection(hexes)
-        hu = h3core.uncompact(hc.memview(), res)
+        hu = h3core.uncompact(hc, res)
 
         return _out_collection(hu)
 
 
     def polyfill(geos, res):
-        hm = h3core.polyfill(geos, res)
+        mv = h3core.polyfill(geos, res)
 
-        return _out_collection(hm)
+        return _out_collection(mv)
 
     def is_pentagon(h):
         """
@@ -159,9 +159,9 @@ def api_functions(_in_scalar, _out_scalar, _in_collection, _out_collection):
         return o,d
 
     def uni_edges_from_hex(origin):
-        hm = h3core.uni_edges_from_hex(_in_scalar(origin))
+        mv = h3core.uni_edges_from_hex(_in_scalar(origin))
 
-        return _out_collection(hm)
+        return _out_collection(mv)
 
     def uni_edge_boundary(edge):
         return h3core.uni_edge_boundary(_in_scalar(edge))

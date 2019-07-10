@@ -1,9 +1,9 @@
 from libc cimport stdlib
 
 cimport h3py.h3api as h3c
-from h3py.h3api cimport H3int, H3str
+from h3py.h3api cimport H3int
 
-from h3py.hexmem cimport HexMem
+from h3py.hexmem cimport create_ptr, create_mv
 
 
 
@@ -98,11 +98,12 @@ def polyfill(geos, int res):
     gp = GeoPolygon(geos)
 
     n = h3c.maxPolyfillSize(&gp.gp, res)
-    hm = HexMem(n)
+    ptr = create_ptr(n)
 
-    h3c.polyfill(&gp.gp, res, hm.ptr)
+    h3c.polyfill(&gp.gp, res, ptr)
+    mv = create_mv(ptr, n)
 
-    return hm
+    return mv
 
 
 def h3_to_geo_boundary(H3int h, geo_json=False):

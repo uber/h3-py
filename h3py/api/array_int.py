@@ -1,4 +1,3 @@
-# can start as a .py file, but when we make it no-copy, it'll probably have to be Cython
 import numpy as np
 
 import h3py.hexmem as hexmem
@@ -12,15 +11,15 @@ def _out_scalar(h):
     "Output formatter for this module."
     return h
 
-def _in_collection(hexes):
-    # todo: this one is trickier...
-    pass
-
-def _out_collection(hm):
-    """ Since this isn't compiled, we just make a copy instead of
-    re-using the C memory. (for now)
+def _in_collection(mv):
+    """ Expect input collections to be a numpy array (or at least a memoryview)
     """
-    return np.array(hm.memview())
+    return mv
+
+def _out_collection(mv):
+    """ np.asarray should re-use the memory from the memoryview object mv
+    """
+    return np.asarray(mv)
 
 
 funcs = api_functions(
