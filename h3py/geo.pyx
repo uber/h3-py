@@ -7,30 +7,29 @@ from h3py.hexmem cimport create_ptr, create_mv
 
 
 
-cdef double mercator_lat(double lat):
-    """Helper coerce lat range"""
-    return lat - 180 if lat > 90 else lat
+cdef (double, double) mercator(double lat, double lng):
+    """Helper coerce lat/lng range"""
+    lat = lat - 180 if lat > 90  else lat
+    lng = lng - 360 if lng > 180 else lng
 
-
-cdef double mercator_lng(double lng):
-    """Helper coerce lng range"""
-    return lng - 360 if lng > 180 else lng
+    return lat, lng
 
 
 cdef h3c.GeoCoord geo2coord(double lat, double lng):
     cdef:
         h3c.GeoCoord c
 
-    c.lat = h3c.degsToRads(mercator_lat(lat))
-    c.lng = h3c.degsToRads(mercator_lng(lng))
+    lat, lng = mercator(lat, lng)
+    c.lat = h3c.degsToRads(lat)
+    c.lng = h3c.degsToRads(lng)
 
     return c
 
 
 cdef (double, double) coord2geo(h3c.GeoCoord c):
-    return (
-        mercator_lat(h3c.radsToDegs(c.lat)),
-        mercator_lng(h3c.radsToDegs(c.lng))
+    return mercator(
+        h3c.radsToDegs(c.lat),
+        h3c.radsToDegs(c.lng)
     )
 
 
