@@ -14,10 +14,8 @@ cpdef bool is_valid(H3int h):
 
     :returns: boolean
     """
-    try:
-        return h3c.h3IsValid(h) == 1
-    except Exception:
-        return False
+    return h3c.h3IsValid(h) == 1
+
 
 cpdef int resolution(H3int h):
     """Returns the resolution of an `h3_address`
@@ -142,30 +140,21 @@ cpdef double edge_length(int resolution, unit='km'):
     return length
 
 cpdef bool is_pentagon(H3int h):
-    try:
-        return h3c.h3IsPentagon(h) == 1
-    except Exception:
-        return False
+    return h3c.h3IsPentagon(h) == 1
 
 cpdef int base_cell(H3int h):
     return h3c.h3GetBaseCell(h)
 
 
 cpdef bool are_neighbors(H3int h1, H3int h2):
-    try:
-        return h3c.h3IndexesAreNeighbors(h1, h2) == 1
-    except Exception:
-        return False
+    return h3c.h3IndexesAreNeighbors(h1, h2) == 1
+
 
 cpdef H3int uni_edge(H3int origin, H3int destination):
     return h3c.getH3UnidirectionalEdge(origin, destination)
 
 cpdef bool is_uni_edge(H3int e):
-    try:
-        return h3c.h3UnidirectionalEdgeIsValid(e) == 1
-    except Exception:
-        return False
-
+    return h3c.h3UnidirectionalEdgeIsValid(e) == 1
 
 cpdef H3int uni_edge_origin(H3int e):
     return h3c.getOriginH3IndexFromUnidirectionalEdge(e)
