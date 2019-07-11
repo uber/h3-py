@@ -5,9 +5,10 @@ from cython.view cimport array
 
 # todo:  not sure this is the most intuitive place to have these conversion functions...
 # todo: should we use C API functions instead? (stringToH3 and h3ToString)
-cpdef H3int hex2int(h):  # we get typing problems if we try to type input as `H3str h`
+cpdef H3int hex2int(H3str h):
     return int(h, 16)
 
+# todo: yeah, these functions really shouldn't be in this module. h3core instead?
 
 cpdef H3str int2hex(H3int x):
     return hex(x)[2:]
