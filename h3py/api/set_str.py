@@ -1,4 +1,4 @@
-import h3py.hexmem as hexmem
+from h3py.hexmem import hex2int, int2hex, from_iter
 from h3py.api._api_template import api_functions
 
 import h3py.h3core as h3core
@@ -7,56 +7,21 @@ import h3py.h3core as h3core
 # todo: add validation (just do it in `_in_scalar()`?)
 # todo: how to write documentation once and have it carry over to each interface?
 
-
-def _in_addr(h):
-    "Input formatter for this module."
-    err = ValueError('Invalid H3 address: {}'.format(h))
-
-    try:
-        # raise if it fails on conversion
-        h2 = hexmem.hex2int(h)
-    except:
-        raise err
-
-    if not h3core.is_valid(h2):
-        raise err
-
-    return h2
-
-def _in_edge(e):
-    err = ValueError('Invalid H3 edge: {}'.format(e))
-
-    try:
-        # raise if it fails on conversion
-        e2 = hexmem.hex2int(e)
-    except:
-        raise err
-
-    if not h3core.is_uni_edge(e2):
-        raise err
-
-    return e2
-
-def _out_scalar(h):
-    "Output formatter for this module."
-    return hexmem.int2hex(h)
-
 def _in_collection(hexes):
-    it = [_in_addr(h) for h in hexes]
+    it = [hex2int(h) for h in hexes]
 
-    return hexmem.from_iter(it)
+    return from_iter(it)
 
 def _out_collection(mv):
-    "Output formatter for this module."
-    return set(_out_scalar(h) for h in mv)
+    return set(int2hex(h) for h in mv)
 
 
 funcs = api_functions(
-    _in_addr,
-    _in_edge,
-    _out_scalar,
-    _in_collection,
-    _out_collection,
+    _in_scalar = hex2int,
+    _out_scalar = int2hex,
+    _in_collection = _in_collection,
+    _out_collection = _out_collection,
+    _validate=True,
 )
 
 # todo: not sure if this is the best way to do this...
