@@ -3,6 +3,13 @@ import numpy as np
 import h3py.hexmem as hexmem
 from h3py.api._api_template import api_functions
 
+
+def _in_addr(h):
+    return h
+
+def _in_edge(e):
+    return e
+
 def _in_scalar(h):
     "Input formatter for this module."
     return h
@@ -23,7 +30,8 @@ def _out_collection(mv):
 
 
 funcs = api_functions(
-    _in_scalar,
+    _in_addr,
+    _in_edge,
     _out_scalar,
     _in_collection,
     _out_collection,

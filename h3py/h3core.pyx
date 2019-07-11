@@ -16,6 +16,13 @@ cpdef bool is_valid(H3int h):
     """
     return h3c.h3IsValid(h) == 1
 
+cpdef bool is_pentagon(H3int h):
+    return h3c.h3IsPentagon(h) == 1
+
+cpdef int base_cell(H3int h):
+    # todo: `get_base_cell` a better name?
+    return h3c.h3GetBaseCell(h)
+
 
 cpdef int resolution(H3int h):
     """Returns the resolution of an `h3_address`
@@ -37,6 +44,10 @@ cpdef int distance(H3int h1, H3int h2):
     return d
 
 cpdef H3int[:] k_ring(H3int h, int ring_size):
+    """ Return *disk* of hex radius ring_size
+    todo: rename ring_size to k?
+
+    """
     n = h3c.maxKringSize(ring_size)
 
     ptr = create_ptr(n) # todo: return a "smart" pointer that knows its length?
@@ -47,11 +58,8 @@ cpdef H3int[:] k_ring(H3int h, int ring_size):
 
 cpdef H3int[:] hex_ring(H3int h, int ring_size):
     """
-    Get a hexagon ring for a given hexagon.
-    Returns individual rings, unlike `k_ring`.
+    Return *hollow* ring around h.
 
-    If a pentagon is reachable, falls back to a
-    MUCH slower form based on `k_ring`.
     """
     n = 6*ring_size if ring_size > 0 else 1
     ptr = create_ptr(n)
@@ -60,8 +68,11 @@ cpdef H3int[:] hex_ring(H3int h, int ring_size):
     mv = create_mv(ptr, n)
 
     # todo: maybe let something else do this...?
+    # todo: we can do this much more efficiently by using kRingDistances
     if flag != 0:
         # todo: raise error here
+        # do we fall back to something slower?
+        # fall back to `kRingDistances` and filter for appropriate distance. don't need to use sets
         pass
         # s1 = k_ring(h, ring_size).set_int()
         # s2 = k_ring(h, ring_size - 1).set_int() # todo: actually, these are probably broken right now
@@ -114,6 +125,8 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     return mv
 
 
+
+
 cpdef H3int num_hexagons(int resolution):
     return h3c.numHexagons(resolution)
 
@@ -139,11 +152,7 @@ cpdef double edge_length(int resolution, unit='km'):
 
     return length
 
-cpdef bool is_pentagon(H3int h):
-    return h3c.h3IsPentagon(h) == 1
 
-cpdef int base_cell(H3int h):
-    return h3c.h3GetBaseCell(h)
 
 
 cpdef bool are_neighbors(H3int h1, H3int h2):

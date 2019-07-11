@@ -84,14 +84,22 @@ def test8():
     assert h3.is_valid('89283082803ffff')
     assert not h3.is_valid('abc')
 
+    # looks like it might be valid, but it isn't!
+    h_bad = '8a28308280fffff'
+    assert not h3.is_valid(h_bad)
+
+    # other methods should validate and raise exception if bad input
+    with pytest.raises(Exception):
+        h3.resolution(h_bad)
+
 def test9():
     assert h3.resolution('8928308280fffff') == 9
-    assert h3.resolution('8a28308280fffff') == 10
+    assert h3.resolution('8a28308280f7fff') == 10
 
 def test_parent():
     assert h3.parent('8928308280fffff', 8) == '8828308281fffff'
     assert h3.parent('8928308280fffff', 7) == '872830828ffffff'
-    assert h3.parent('8928308280fffff', 10) == '0'
+    assert h3.parent('8928308280fffff', 10) == '0' # todo: thsi should probably return None, eh?
 
 
 def test_children():

@@ -22,6 +22,7 @@ cdef H3int* create_ptr(size_t n):
     return ptr
 
 
+# todo: helper function that returns (ptr, n_new) does the resize and error checking
 cdef H3int[:] create_mv(H3int* ptr, size_t n):
     cdef:
         array x
