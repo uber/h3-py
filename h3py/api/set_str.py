@@ -10,16 +10,30 @@ import h3py.h3core as h3core
 
 def _in_addr(h):
     "Input formatter for this module."
-    h2 = hexmem.hex2int(h) # todo: what if it fails on the conversion?
+    err = ValueError('Invalid H3 address: {}'.format(h))
+
+    try:
+        # raise if it fails on conversion
+        h2 = hexmem.hex2int(h)
+    except:
+        raise err
+
     if not h3core.is_valid(h2):
-        raise ValueError('Invalid H3 address: {}'.format(h))
+        raise err
 
     return h2
 
 def _in_edge(e):
-    e2 = hexmem.hex2int(e)
+    err = ValueError('Invalid H3 edge: {}'.format(e))
+
+    try:
+        # raise if it fails on conversion
+        e2 = hexmem.hex2int(e)
+    except:
+        raise err
+
     if not h3core.is_uni_edge(e2):
-        raise ValueError('Invalid H3 edge: {}'.format(e))
+        raise err
 
     return e2
 

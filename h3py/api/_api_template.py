@@ -25,7 +25,7 @@ def api_functions(
         return h3core.edge_length(resolution, unit)
 
     def is_valid(h):
-        """Validates an `h3_address` given as a string
+        """Validates an H3 address
 
         :returns: boolean
         """
@@ -39,6 +39,13 @@ def api_functions(
             return False
 
         #return h3core.is_valid(_in_scalar(h))
+
+    def is_uni_edge(edge):
+        try:
+            e = _in_edge(edge)
+            return h3core.is_uni_edge(e) # we need this check in case `_in_edge` doesn't check for correctness
+        except: # todo: maybe make a special Exception type?
+            return False
 
 
     def geo_to_h3(lat, lng, resolution):
@@ -142,10 +149,6 @@ def api_functions(
         e = _out_scalar(e)
 
         return e
-
-    def is_uni_edge(edge):
-        # todo: have to do the same validity checking here
-        return h3core.is_uni_edge(_in_edge(edge))
 
     def uni_edge_origin(e):
         e = _in_edge(e)
