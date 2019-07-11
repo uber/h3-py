@@ -1,5 +1,4 @@
 import h3py.h3core as h3core
-import h3py.hexmem as hexmem
 
 # this module tries to DRY-up API code which is repeated across
 # modules. Not sure if this function closure is the best solution.
@@ -9,9 +8,8 @@ import h3py.hexmem as hexmem
 # another approach: we could also just use `exec()`
 
 
-
 def api_functions(
-    _in_scalar, # convert
+    _in_scalar,
     _out_scalar,
     _in_collection,
     _out_collection,
@@ -65,7 +63,7 @@ def api_functions(
             return e_int
 
         def _in_hs(hexes):
-            [_in_h(h) for h in hexes] # raise if invalid hex
+            [_in_h(h) for h in hexes] # raises if invalid
 
             return _in_collection(hexes)
     else:

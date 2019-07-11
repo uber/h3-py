@@ -1,6 +1,5 @@
-import numpy as np
-
 from h3py.api._api_template import api_functions
+import numpy as np
 
 
 def _id(x):
@@ -12,7 +11,7 @@ funcs = api_functions(
     _out_scalar = _id,
     _in_collection = _id,
     _out_collection = np.asarray,
-    _validate=False,
+    _validate = False,
 )
 
 # todo: not sure if this is the best way to do this...
@@ -20,5 +19,3 @@ funcs = api_functions(
 # of the `api_functions` body. However, that isn't very DRY.
 # Something like a python #include macro would be nice here...
 globals().update(funcs)
-
-
