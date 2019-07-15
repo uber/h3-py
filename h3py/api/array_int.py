@@ -11,7 +11,6 @@ funcs = api_functions(
     _out_scalar = _id,
     _in_collection = _id,
     _out_collection = np.asarray,
-    _validate = False,
 )
 
 # todo: not sure if this is the best way to do this...

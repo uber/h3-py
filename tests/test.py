@@ -89,7 +89,7 @@ def test8():
     assert not h3.is_valid(h_bad)
 
     # other methods should validate and raise exception if bad input
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         h3.resolution(h_bad)
 
 def test9():
@@ -311,4 +311,40 @@ def test_uni_edge_boundary():
     assert out[1] == pytest.approx(expected[1])
 
 
+def test_validation():
+    h = '8a28308280fffff' # invalid hex
+
+    with pytest.raises(ValueError):
+        h3.base_cell(h)
+
+    with pytest.raises(ValueError):
+        h3.resolution(h)
+
+    with pytest.raises(ValueError):
+        h3.parent(h, 9)
+
+    with pytest.raises(ValueError):
+        h3.distance(h, h)
+
+    with pytest.raises(ValueError):
+        h3.k_ring(h, 1)
+
+    with pytest.raises(ValueError):
+        h3.hex_ring(h, 1)
+
+    with pytest.raises(ValueError):
+        h3.children(h, 11)
+
+    with pytest.raises(ValueError):
+        h3.compact({h})
+
+    with pytest.raises(ValueError):
+        h3.uncompact({h}, 10)
+
+
+def test_validation():
+    h = '8928308280fffff'
+
+    with pytest.raises(ValueError):
+        h3.children(h, 17)
 

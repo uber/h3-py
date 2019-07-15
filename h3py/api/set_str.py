@@ -24,7 +24,6 @@ funcs = api_functions(
     _out_scalar = int2hex,
     _in_collection = _in_collection,
     _out_collection = _out_collection,
-    _validate = True,
 )
 
 # todo: not sure if this is the best way to do this...

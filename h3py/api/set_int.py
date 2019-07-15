@@ -19,7 +19,6 @@ funcs = api_functions(
     _out_scalar = _id,
     _in_collection = _in_collection,
     _out_collection = _out_collection,
-    _validate = True,
 )
 
 globals().update(funcs)

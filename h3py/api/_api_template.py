@@ -13,7 +13,6 @@ def api_functions(
     _out_scalar,
     _in_collection,
     _out_collection,
-    _validate=True,
 ):
     def num_hexagons(resolution):
         return h3core.num_hexagons(resolution)
@@ -46,52 +45,26 @@ def api_functions(
             return False
 
 
-    # define new input functions that optionally validate inputs
-    if _validate:
-        def _in_h(h):
-            h_int = _in_scalar(h)
-            if not h3core.is_valid(h_int):
-                raise ValueError('Invalid H3 address: {}'.format(h))
-
-            return h_int
-
-        def _in_e(e):
-            e_int = _in_scalar(e)
-            if not h3core.is_uni_edge(e_int):
-                raise ValueError('Invalid H3 edge: {}'.format(e))
-
-            return e_int
-
-        def _in_hs(hexes):
-            [_in_h(h) for h in hexes] # raises if invalid
-
-            return _in_collection(hexes)
-    else:
-        _in_h = _in_scalar
-        _in_e = _in_scalar
-        _in_hs = _in_collection
-
-
     def geo_to_h3(lat, lng, resolution):
         return _out_scalar(h3core.geo_to_h3(lat, lng, resolution))
 
 
     def h3_to_geo(h):
         """Reverse lookup an h3 address into a geo-coordinate"""
-        return h3core.h3_to_geo(_in_h(h))
+        return h3core.h3_to_geo(_in_scalar(h))
 
     def resolution(h):
         """Returns the resolution of an `h3_address`
 
         :return: nibble (0-15)
         """
-        return h3core.resolution(_in_h(h))
+        return h3core.resolution(_in_scalar(h))
 
     def parent(h, res='default'):
         if res == 'default':
             res = resolution(h) - 1
 
-        h = _in_h(h)
+        h = _in_scalar(h)
         p = h3core.parent(h, res)
         p = _out_scalar(p)
 
@@ -105,23 +78,23 @@ def api_functions(
         `TypeError: Argument 'h2' has incorrect type (expected str, got numpy.str_)`
         """
         d = h3core.distance(
-                _in_h(h1),
-                _in_h(h2)
+                _in_scalar(h1),
+                _in_scalar(h2)
             )
 
         return d
 
     def h3_to_geo_boundary(h, geo_json=False):
-        return h3core.h3_to_geo_boundary(_in_h(h), geo_json)
+        return h3core.h3_to_geo_boundary(_in_scalar(h), geo_json)
 
 
     def k_ring(h, k):
-        mv = h3core.k_ring(_in_h(h), k)
+        mv = h3core.k_ring(_in_scalar(h), k)
 
         return _out_collection(mv)
 
     def hex_ring(h, k):
-        mv = h3core.hex_ring(_in_h(h), k)
+        mv = h3core.hex_ring(_in_scalar(h), k)
 
         return _out_collection(mv)
 
@@ -130,19 +103,19 @@ def api_functions(
         if res == 'default':
             res = resolution(h) + 1
 
-        mv = h3core.children(_in_h(h), res)
+        mv = h3core.children(_in_scalar(h), res)
 
         return _out_collection(mv)
 
     # todo: nogil for expensive C operation?
     def compact(hexes):
-        hu = _in_hs(hexes)
+        hu = _in_collection(hexes)
         hc = h3core.compact(hu)
 
         return _out_collection(hc)
 
     def uncompact(hexes, res):
-        hc = _in_hs(hexes)
+        hc = _in_collection(hexes)
         hu = h3core.uncompact(hc, res)
 
         return _out_collection(hu)
@@ -159,37 +132,37 @@ def api_functions(
 
         :returns: boolean
         """
-        return h3core.is_pentagon(_in_h(h))
+        return h3core.is_pentagon(_in_scalar(h))
 
     def base_cell(h):
         """
         :returns: boolean
         """
-        return h3core.base_cell(_in_h(h))
+        return h3core.base_cell(_in_scalar(h))
 
     def are_neighbors(h1, h2):
         """
         :returns: boolean
         """
-        return h3core.are_neighbors(_in_h(h1), _in_h(h2))
+        return h3core.are_neighbors(_in_scalar(h1), _in_scalar(h2))
 
     def uni_edge(origin, destination):
-        o = _in_h(origin)
-        d = _in_h(destination)
+        o = _in_scalar(origin)
+        d = _in_scalar(destination)
         e = h3core.uni_edge(o, d)
         e = _out_scalar(e)
 
         return e
 
     def uni_edge_origin(e):
-        e = _in_e(e)
+        e = _in_scalar(e)
         o = h3core.uni_edge_origin(e)
         o = _out_scalar(o)
 
         return o
 
     def uni_edge_destination(e):
-        e = _in_e(e)
+        e = _in_scalar(e)
         d = h3core.uni_edge_destination(e)
         d = _out_scalar(d)
 
@@ -197,19 +170,19 @@ def api_functions(
 
 
     def uni_edge_hexes(e):
-        e = _in_e(e)
+        e = _in_scalar(e)
         o,d = h3core.uni_edge_hexes(e)
         o,d = _out_scalar(o), _out_scalar(d)
 
         return o,d
 
     def uni_edges_from_hex(origin):
-        mv = h3core.uni_edges_from_hex(_in_h(origin))
+        mv = h3core.uni_edges_from_hex(_in_scalar(origin))
 
         return _out_collection(mv)
 
     def uni_edge_boundary(edge):
-        return h3core.uni_edge_boundary(_in_e(edge))
+        return h3core.uni_edge_boundary(_in_scalar(edge))
 
     return locals()
 

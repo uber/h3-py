@@ -6,6 +6,9 @@ from h3py.h3api cimport H3int
 from h3py.hexmem cimport create_ptr, create_mv
 
 
+# todo: add input validation
+
+
 
 cdef (double, double) mercator(double lat, double lng):
     """Helper coerce lat/lng range"""
