@@ -68,6 +68,20 @@ def api_functions(
         return h3core.resolution(_in_scalar(h))
 
     def parent(h, res=None):
+        """ Get the parent of a hexagon.
+
+        Parameters
+        ----------
+        h : H3 address
+        res : int or None, optional
+            The resolution for the parent
+            If `None`, then `res = resolution(h) - 1`
+
+        Returns
+        -------
+        H3 address
+
+        """
         h = _in_scalar(h)
         p = h3core.parent(h, res)
         p = _out_scalar(p)
@@ -75,11 +89,16 @@ def api_functions(
         return p
 
     def distance(h1, h2):
-        """ compute the hex-distance between two hexagons
+        """ Compute the hex-distance between two hexagons
 
-        todo: figure out string typing.
-        had to drop typing due to errors like
-        `TypeError: Argument 'h2' has incorrect type (expected str, got numpy.str_)`
+        Parameters
+        ----------
+        h1, h2 : H3 address
+
+        Returns
+        -------
+        int
+
         """
         d = h3core.distance(
                 _in_scalar(h1),
@@ -103,6 +122,19 @@ def api_functions(
         return _out_collection(mv)
 
     def children(h, res=None):
+        """ Get the children of a hexagon.
+
+        Parameters
+        ----------
+        h : H3 address
+        res : int or None, optional
+            The resolution for the children.
+            If `None`, then `res = resolution(h) + 1`
+
+        Returns
+        -------
+        collection of h3 addresses
+        """
         mv = h3core.children(_in_scalar(h), res)
 
         return _out_collection(mv)
