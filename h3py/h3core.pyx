@@ -1,41 +1,14 @@
-from h3py.util cimport create_ptr, create_mv
+from h3py.util cimport create_ptr, create_mv, GeoPolygon
+cimport h3py.util as u
+import h3py.util as u
 
 from cpython cimport bool
 
 cimport h3py.h3api as h3c
 from h3py.h3api cimport H3int
 
-from libc cimport stdlib # maybe move all stdlib stuff to a util.pyx
-
 # move the hex2int and int2hex things in here
 # h3int error codes should be 1
-
-class H3ValueError(ValueError):
-    pass
-
-class InvalidH3Address(H3ValueError):
-    pass
-
-class InvalidH3Edge(H3ValueError):
-    pass
-
-class InvalidH3Resolution(H3ValueError):
-    pass
-
-
-# rename to: valid_cell, valid_addr? check_cell? raise_cell?
-# prefix with util...?
-cdef _v_addr(H3int h):
-    if h3c.h3IsValid(h) == 0:
-        raise InvalidH3Address(h)
-
-cdef _v_edge(H3int e):
-    if h3c.h3UnidirectionalEdgeIsValid(e) == 0:
-        raise InvalidH3Edge(e)
-
-cdef _v_res(int res):
-    if res < 0 or res > 15:
-        raise InvalidH3Resolution(res)
 
 
 # bool is a python type, so we don't need the except clause
@@ -51,7 +24,7 @@ cpdef bool is_pentagon(H3int h):
 
 cpdef int base_cell(H3int h) except -1:
     # todo: `get_base_cell` a better name?
-    _v_addr(h)
+    u._v_addr(h)
 
     return h3c.h3GetBaseCell(h)
 
@@ -60,10 +33,7 @@ cpdef int resolution(H3int h) except -1:
     """Returns the resolution of an `h3_address`
     0--15
     """
-    _v_addr(h)
-    # if h3c.h3IsValid(h) == 0:
-    #     # todo: not sure these errors get properly raised in Python. At least, Pytest doesn't seem to be recognizing them
-    #     raise ValueError('Invalid H3 address: {}'.format(h))
+    u._v_addr(h)
 
     return h3c.h3GetResolution(h)
 
@@ -71,7 +41,7 @@ cpdef int resolution(H3int h) except -1:
 cpdef H3int parent(H3int h, int res) except 1:
     # todo: have this infer the res if not specified (res(h) + 1)
     # todo: validate resolution
-    _v_addr(h)
+    u._v_addr(h)
 
     return h3c.h3ToParent(h, res)
 
@@ -79,8 +49,8 @@ cpdef H3int parent(H3int h, int res) except 1:
 cpdef int distance(H3int h1, H3int h2) except -1:
     """ compute the hex-distance between two hexagons
     """
-    _v_addr(h1)
-    _v_addr(h2)
+    u._v_addr(h1)
+    u._v_addr(h2)
 
     d = h3c.h3Distance(h1,h2)
 
@@ -91,9 +61,9 @@ cpdef H3int[:] k_ring(H3int h, int ring_size):
     todo: rename ring_size to k?
 
     """
-    _v_addr(h)
+    u._v_addr(h)
     if ring_size < 0:
-        raise H3ValueError('Invalid ring size: {}'.format(ring_size))
+        raise u.H3ValueError('Invalid ring size: {}'.format(ring_size))
 
     n = h3c.maxKringSize(ring_size)
 
@@ -108,7 +78,7 @@ cpdef H3int[:] hex_ring(H3int h, int ring_size):
     Return *hollow* ring around h.
 
     """
-    _v_addr(h)
+    u._v_addr(h)
 
     n = 6*ring_size if ring_size > 0 else 1
     ptr = create_ptr(n)
@@ -132,8 +102,8 @@ cpdef H3int[:] hex_ring(H3int h, int ring_size):
 
 
 cpdef H3int[:] children(H3int h, int res):
-    _v_addr(h)
-    _v_res(res)
+    u._v_addr(h)
+    u._v_res(res)
 
     # todo: have this infer the res (res(h) - 1) if not specified
     n = h3c.maxH3ToChildrenSize(h, res)
@@ -148,7 +118,7 @@ cpdef H3int[:] children(H3int h, int res):
 
 cpdef H3int[:] compact(const H3int[:] hu):
     for h in hu:
-        _v_addr(h)
+        u._v_addr(h)
 
     ptr = create_ptr(len(hu))
     flag = h3c.compact(&hu[0], ptr, len(hu))
@@ -163,7 +133,7 @@ cpdef H3int[:] compact(const H3int[:] hu):
 # apparently, memoryviews are python objects, so we don't need to do the except clause
 cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     for h in hc:
-        _v_addr(h)
+        u._v_addr(h)
 
     N = h3c.maxUncompactSize(&hc[0], len(hc), res)
 
@@ -213,46 +183,46 @@ cpdef double edge_length(int resolution, unit='km') except -1:
 
 
 cpdef bool are_neighbors(H3int h1, H3int h2):
-    _v_addr(h1)
-    _v_addr(h2)
+    u._v_addr(h1)
+    u._v_addr(h2)
 
     return h3c.h3IndexesAreNeighbors(h1, h2) == 1
 
 
 cpdef H3int uni_edge(H3int origin, H3int destination) except 1:
-    _v_addr(origin)
-    _v_addr(destination)
+    u._v_addr(origin)
+    u._v_addr(destination)
 
     if h3c.h3IndexesAreNeighbors(origin, destination) != 1:
-        raise H3ValueError('Hexes are not neighbors: {} and {}'.format(origin, destination))
+        raise u.H3ValueError('Hexes are not neighbors: {} and {}'.format(origin, destination))
 
     return h3c.getH3UnidirectionalEdge(origin, destination)
 
 
 cpdef bool is_uni_edge(H3int e):
-    _v_edge(e)
+    u._v_edge(e)
 
     return h3c.h3UnidirectionalEdgeIsValid(e) == 1
 
 cpdef H3int uni_edge_origin(H3int e) except 1:
-    _v_edge(e)
+    u._v_edge(e)
 
     return h3c.getOriginH3IndexFromUnidirectionalEdge(e)
 
 cpdef H3int uni_edge_destination(H3int e) except 1:
-    _v_edge(e)
+    u._v_edge(e)
 
     return h3c.getDestinationH3IndexFromUnidirectionalEdge(e)
 
 cpdef (H3int, H3int) uni_edge_hexes(H3int e) except *:
-    _v_edge(e)
+    u._v_edge(e)
 
     return uni_edge_origin(e), uni_edge_destination(e)
 
 cpdef H3int[:] uni_edges_from_hex(H3int origin):
     """ Returns the 6 (or 5 for pentagons) edges associated with the hex
     """
-    _v_addr(origin)
+    u._v_addr(origin)
 
     ptr = create_ptr(6)
     h3c.getH3UnidirectionalEdgesFromHexagon(origin, ptr)
@@ -265,39 +235,13 @@ cpdef H3int[:] uni_edges_from_hex(H3int origin):
 #####
 
 
-cdef (double, double) mercator(double lat, double lng):
-    """Helper coerce lat/lng range"""
-    lat = lat - 180 if lat > 90  else lat
-    lng = lng - 360 if lng > 180 else lng
-
-    return lat, lng
-
-
-cdef h3c.GeoCoord geo2coord(double lat, double lng):
-    cdef:
-        h3c.GeoCoord c
-
-    lat, lng = mercator(lat, lng)
-    c.lat = h3c.degsToRads(lat)
-    c.lng = h3c.degsToRads(lng)
-
-    return c
-
-
-cdef (double, double) coord2geo(h3c.GeoCoord c):
-    return mercator(
-        h3c.radsToDegs(c.lat),
-        h3c.radsToDegs(c.lng)
-    )
-
-
 cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
     cdef:
         h3c.GeoCoord c
 
-    _v_res(res)
+    u._v_res(res)
 
-    c = geo2coord(lat, lng)
+    c = u.geo2coord(lat, lng)
 
     return h3c.geoToH3(&c, res)
 
@@ -307,44 +251,11 @@ cpdef (double, double) h3_to_geo(H3int h) except *:
     cdef:
         h3c.GeoCoord c
 
-    _v_addr(h)
+    u._v_addr(h)
 
     h3c.h3ToGeo(h, &c)
 
-    return coord2geo(c)
-
-cdef h3c.Geofence make_geofence(geos):
-    cdef:
-        h3c.Geofence gf
-
-    gf.numVerts = len(geos)
-
-    # todo: figure out when/how to free this memory
-    gf.verts = <h3c.GeoCoord*> stdlib.calloc(gf.numVerts, sizeof(h3c.GeoCoord))
-
-    for i, (lat, lng) in enumerate(geos):
-        gf.verts[i] = geo2coord(lat, lng)
-
-    return gf
-
-
-cdef class GeoPolygon:
-    """ Basic version of GeoPolygon
-
-    Doesn't work with holes.
-    """
-    cdef:
-        h3c.GeoPolygon gp
-
-    def __cinit__(self, geos):
-        self.gp.numHoles = 0
-        self.gp.holes = NULL
-        self.gp.geofence = make_geofence(geos)
-
-    def __dealloc__(self):
-        if self.gp.geofence.verts:
-            stdlib.free(self.gp.geofence.verts)
-        self.gp.geofence.verts = NULL
+    return u.coord2geo(c)
 
 
 # todo: nogil for expensive C operation?
@@ -356,7 +267,7 @@ def polyfill(geos, int res):
     `geos` should be a list of (lat, lng) tuples.
 
     """
-    _v_res(res)
+    u._v_res(res)
 
     gp = GeoPolygon(geos)
 
@@ -374,12 +285,12 @@ def h3_to_geo_boundary(H3int h, geo_json=False):
     cdef:
         h3c.GeoBoundary gb
 
-    _v_addr(h)
+    u._v_addr(h)
 
     h3c.h3ToGeoBoundary(h, &gb)
 
     verts = tuple(
-        coord2geo(gb.verts[i])
+        u.coord2geo(gb.verts[i])
         for i in range(gb.num_verts)
     )
 
@@ -396,13 +307,13 @@ def uni_edge_boundary(H3int edge):
     cdef:
         h3c.GeoBoundary gb
 
-    _v_edge(edge)
+    u._v_edge(edge)
 
     h3c.getH3UnidirectionalEdgeBoundary(edge, &gb)
 
     # todo: move this verts transform into the GeoBoundary object
     verts = tuple(
-        coord2geo(gb.verts[i])
+        u.coord2geo(gb.verts[i])
         for i in range(gb.num_verts)
     )
 

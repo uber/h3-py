@@ -1,5 +1,5 @@
 import h3py.api.set_str as h3
-from h3py.h3core import InvalidH3Address, InvalidH3Resolution, InvalidH3Edge, H3ValueError
+from h3py.util import InvalidH3Address, InvalidH3Resolution, InvalidH3Edge, H3ValueError
 import pytest
 
 
