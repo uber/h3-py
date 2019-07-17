@@ -1,8 +1,8 @@
 from libc cimport stdlib
 from cython.view cimport array
 
-from h3py.h3api cimport H3int, H3str
-cimport h3py.h3api as h3c
+from h3py.libh3 cimport H3int, H3str
+cimport h3py.libh3 as h3c
 
 # todo: should we use C API functions instead? (stringToH3 and h3ToString)
 cpdef H3int hex2int(H3str h):

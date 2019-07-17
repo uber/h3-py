@@ -1,7 +1,7 @@
 from libc cimport stdlib
 
-cimport h3py.h3api as h3c
-from h3py.h3api cimport H3int, H3str
+cimport h3py.libh3 as h3c
+from h3py.libh3 cimport H3int, H3str
 
 from h3py.util cimport create_ptr, create_mv
 

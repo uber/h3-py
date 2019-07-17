@@ -1,4 +1,4 @@
-from h3py.h3api cimport H3int, H3str
+from h3py.libh3 cimport H3int, H3str
 
 cpdef H3int hex2int(H3str h)
 cpdef H3str int2hex(H3int x)

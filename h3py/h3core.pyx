@@ -4,8 +4,8 @@ from h3py.util cimport create_ptr, create_mv
 
 from cpython cimport bool
 
-from h3py.h3api cimport H3int
-cimport h3py.h3api as h3c
+from h3py.libh3 cimport H3int
+cimport h3py.libh3 as h3c
 
 
 from h3py.geo import (
