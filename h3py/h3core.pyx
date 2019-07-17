@@ -1,4 +1,3 @@
-
 from h3py.hexmem cimport create_ptr, create_mv
 
 from cpython cimport bool
@@ -6,20 +5,37 @@ from cpython cimport bool
 cimport h3py.h3api as h3c
 from h3py.h3api cimport H3int
 
-from h3py.geo import polyfill, h3_to_geo_boundary, geo_to_h3, h3_to_geo, uni_edge_boundary
+from libc cimport stdlib # maybe move all stdlib stuff to a util.pyx
 
+# move the hex2int and int2hex things in here
+# h3int error codes should be 1
+
+class H3ValueError(ValueError):
+    pass
+
+class InvalidH3Address(H3ValueError):
+    pass
+
+class InvalidH3Edge(H3ValueError):
+    pass
+
+class InvalidH3Resolution(H3ValueError):
+    pass
+
+
+# rename to: valid_cell, valid_addr? check_cell? raise_cell?
+# prefix with util...?
 cdef _v_addr(H3int h):
     if h3c.h3IsValid(h) == 0:
-        # todo: not sure these errors get properly raised in Python. At least, Pytest doesn't seem to be recognizing them
-        raise ValueError('Invalid H3 address: {}'.format(h))
+        raise InvalidH3Address(h)
 
 cdef _v_edge(H3int e):
     if h3c.h3UnidirectionalEdgeIsValid(e) == 0:
-        raise ValueError('Invalid H3 edge: {}'.format(e))
+        raise InvalidH3Edge(e)
 
 cdef _v_res(int res):
     if res < 0 or res > 15:
-        raise ValueError('Invalid resolution: {}'.format(res))
+        raise InvalidH3Resolution(res)
 
 
 # bool is a python type, so we don't need the except clause
@@ -52,7 +68,7 @@ cpdef int resolution(H3int h) except -1:
     return h3c.h3GetResolution(h)
 
 
-cpdef H3int parent(H3int h, int res) except -1:
+cpdef H3int parent(H3int h, int res) except 1:
     # todo: have this infer the res if not specified (res(h) + 1)
     # todo: validate resolution
     _v_addr(h)
@@ -76,6 +92,8 @@ cpdef H3int[:] k_ring(H3int h, int ring_size):
 
     """
     _v_addr(h)
+    if ring_size < 0:
+        raise H3ValueError('Invalid ring size: {}'.format(ring_size))
 
     n = h3c.maxKringSize(ring_size)
 
@@ -165,7 +183,7 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
 
 
 
-
+# weird return type here
 cpdef H3int num_hexagons(int resolution) except -1:
     return h3c.numHexagons(resolution)
 
@@ -202,9 +220,12 @@ cpdef bool are_neighbors(H3int h1, H3int h2):
     return h3c.h3IndexesAreNeighbors(h1, h2) == 1
 
 
-cpdef H3int uni_edge(H3int origin, H3int destination) except -1:
+cpdef H3int uni_edge(H3int origin, H3int destination) except 1:
     _v_addr(origin)
     _v_addr(destination)
+
+    if h3c.h3IndexesAreNeighbors(origin, destination) != 1:
+        raise H3ValueError('Hexes are not neighbors: {} and {}'.format(origin, destination))
 
     return h3c.getH3UnidirectionalEdge(origin, destination)
 
@@ -214,17 +235,17 @@ cpdef bool is_uni_edge(H3int e):
 
     return h3c.h3UnidirectionalEdgeIsValid(e) == 1
 
-cpdef H3int uni_edge_origin(H3int e) except -1:
+cpdef H3int uni_edge_origin(H3int e) except 1:
     _v_edge(e)
 
     return h3c.getOriginH3IndexFromUnidirectionalEdge(e)
 
-cpdef H3int uni_edge_destination(H3int e) except -1:
+cpdef H3int uni_edge_destination(H3int e) except 1:
     _v_edge(e)
 
     return h3c.getDestinationH3IndexFromUnidirectionalEdge(e)
 
-cpdef (H3int, H3int) uni_edge_hexes(H3int e):
+cpdef (H3int, H3int) uni_edge_hexes(H3int e) except *:
     _v_edge(e)
 
     return uni_edge_origin(e), uni_edge_destination(e)
@@ -239,4 +260,152 @@ cpdef H3int[:] uni_edges_from_hex(H3int origin):
     mv = create_mv(ptr, 6)
 
     return mv
+
+#####
+## geo stuff
+#####
+
+
+cdef (double, double) mercator(double lat, double lng):
+    """Helper coerce lat/lng range"""
+    lat = lat - 180 if lat > 90  else lat
+    lng = lng - 360 if lng > 180 else lng
+
+    return lat, lng
+
+
+cdef h3c.GeoCoord geo2coord(double lat, double lng):
+    cdef:
+        h3c.GeoCoord c
+
+    lat, lng = mercator(lat, lng)
+    c.lat = h3c.degsToRads(lat)
+    c.lng = h3c.degsToRads(lng)
+
+    return c
+
+
+cdef (double, double) coord2geo(h3c.GeoCoord c):
+    return mercator(
+        h3c.radsToDegs(c.lat),
+        h3c.radsToDegs(c.lng)
+    )
+
+
+cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
+    cdef:
+        h3c.GeoCoord c
+
+    _v_res(res)
+
+    c = geo2coord(lat, lng)
+
+    return h3c.geoToH3(&c, res)
+
+
+cpdef (double, double) h3_to_geo(H3int h) except *:
+    """Reverse lookup an h3 address into a geo-coordinate"""
+    cdef:
+        h3c.GeoCoord c
+
+    _v_addr(h)
+
+    h3c.h3ToGeo(h, &c)
+
+    return coord2geo(c)
+
+cdef h3c.Geofence make_geofence(geos):
+    cdef:
+        h3c.Geofence gf
+
+    gf.numVerts = len(geos)
+
+    # todo: figure out when/how to free this memory
+    gf.verts = <h3c.GeoCoord*> stdlib.calloc(gf.numVerts, sizeof(h3c.GeoCoord))
+
+    for i, (lat, lng) in enumerate(geos):
+        gf.verts[i] = geo2coord(lat, lng)
+
+    return gf
+
+
+cdef class GeoPolygon:
+    """ Basic version of GeoPolygon
+
+    Doesn't work with holes.
+    """
+    cdef:
+        h3c.GeoPolygon gp
+
+    def __cinit__(self, geos):
+        self.gp.numHoles = 0
+        self.gp.holes = NULL
+        self.gp.geofence = make_geofence(geos)
+
+    def __dealloc__(self):
+        if self.gp.geofence.verts:
+            stdlib.free(self.gp.geofence.verts)
+        self.gp.geofence.verts = NULL
+
+
+# todo: nogil for expensive C operation?
+def polyfill(geos, int res):
+    """ A quick implementation of polyfill
+    I think it *should* properly free allocated memory.
+    Doesn't work with GeoPolygons with holes.
+
+    `geos` should be a list of (lat, lng) tuples.
+
+    """
+    _v_res(res)
+
+    gp = GeoPolygon(geos)
+
+    n = h3c.maxPolyfillSize(&gp.gp, res)
+    ptr = create_ptr(n)
+
+    h3c.polyfill(&gp.gp, res, ptr)
+    mv = create_mv(ptr, n)
+
+    return mv
+
+
+def h3_to_geo_boundary(H3int h, geo_json=False):
+    """Compose an array of geo-coordinates that outlines a hexagonal cell"""
+    cdef:
+        h3c.GeoBoundary gb
+
+    _v_addr(h)
+
+    h3c.h3ToGeoBoundary(h, &gb)
+
+    verts = tuple(
+        coord2geo(gb.verts[i])
+        for i in range(gb.num_verts)
+    )
+
+    if geo_json:
+        #lat/lng -> lng/lat and last point same as first
+        verts = tuple(tuple(reversed(v)) for v in verts)
+        verts += (verts[0],)
+
+    return verts
+
+def uni_edge_boundary(H3int edge):
+    """ Returns the GeoBoundary containing the coordinates of the edge
+    """
+    cdef:
+        h3c.GeoBoundary gb
+
+    _v_edge(edge)
+
+    h3c.getH3UnidirectionalEdgeBoundary(edge, &gb)
+
+    # todo: move this verts transform into the GeoBoundary object
+    verts = tuple(
+        coord2geo(gb.verts[i])
+        for i in range(gb.num_verts)
+    )
+
+    return verts
 
