@@ -1,4 +1,5 @@
 import h3py.h3core as h3core
+import h3py.util as u
 
 # this module tries to DRY-up API code which is repeated across
 # modules. Not sure if this function closure is the best solution.
@@ -14,6 +15,12 @@ def api_functions(
     _in_collection,
     _out_collection,
 ):
+    def hex2int(h):
+        return u.hex2int(h)
+
+    def int2hex(x):
+        return u.int2hex(x)
+
     def num_hexagons(resolution):
         return h3core.num_hexagons(resolution)
 

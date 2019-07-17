@@ -4,12 +4,6 @@ from h3py.util import hex2int, int2hex, from_iter
 # todo: how to write documentation once and have it carry over to each interface?
 
 
-
-# todo: put int2hex and hex2int in each interface
-
-
-
-
 def _in_collection(hexes):
     it = [hex2int(h) for h in hexes]
 

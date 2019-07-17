@@ -1,13 +1,20 @@
-from h3py.util cimport create_ptr, create_mv
 cimport h3py.util as u
-import h3py.util as u
+from h3py.util import H3ValueError
+from h3py.util cimport create_ptr, create_mv
 
 from cpython cimport bool
 
-cimport h3py.h3api as h3c
 from h3py.h3api cimport H3int
+cimport h3py.h3api as h3c
 
-from h3py.geo import geo_to_h3, h3_to_geo, polyfill, h3_to_geo_boundary, uni_edge_boundary
+
+from h3py.geo import (
+    geo_to_h3,
+    h3_to_geo,
+    polyfill,
+    h3_to_geo_boundary,
+    uni_edge_boundary
+)
 
 # move the hex2int and int2hex things in here
 # h3int error codes should be 1
@@ -65,7 +72,7 @@ cpdef H3int[:] k_ring(H3int h, int ring_size):
     """
     u._v_addr(h)
     if ring_size < 0:
-        raise u.H3ValueError('Invalid ring size: {}'.format(ring_size))
+        raise H3ValueError('Invalid ring size: {}'.format(ring_size))
 
     n = h3c.maxKringSize(ring_size)
 
@@ -127,7 +134,7 @@ cpdef H3int[:] compact(const H3int[:] hu):
     mv = create_mv(ptr, len(hu))
 
     if flag != 0:
-        raise ValueError('Could not compact set of hexagons!')
+        raise H3ValueError('Could not compact set of hexagons!')
 
     return mv
 
@@ -148,7 +155,7 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     mv = create_mv(ptr, N)
 
     if flag != 0:
-        raise ValueError('Could not uncompact set of hexagons!')
+        raise H3ValueError('Could not uncompact set of hexagons!')
 
     return mv
 
@@ -196,7 +203,7 @@ cpdef H3int uni_edge(H3int origin, H3int destination) except 1:
     u._v_addr(destination)
 
     if h3c.h3IndexesAreNeighbors(origin, destination) != 1:
-        raise u.H3ValueError('Hexes are not neighbors: {} and {}'.format(origin, destination))
+        raise H3ValueError('Hexes are not neighbors: {} and {}'.format(origin, destination))
 
     return h3c.getH3UnidirectionalEdge(origin, destination)
 
