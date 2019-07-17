@@ -67,10 +67,7 @@ def api_functions(
         """
         return h3core.resolution(_in_scalar(h))
 
-    def parent(h, res='default'):
-        if res == 'default':
-            res = resolution(h) - 1
-
+    def parent(h, res=None):
         h = _in_scalar(h)
         p = h3core.parent(h, res)
         p = _out_scalar(p)
@@ -105,11 +102,7 @@ def api_functions(
 
         return _out_collection(mv)
 
-    def children(h, res='default'):
-        # todo: crap, segfault if you run `h3.children(h, 17)`. FIX!
-        if res == 'default':
-            res = resolution(h) + 1
-
+    def children(h, res=None):
         mv = h3core.children(_in_scalar(h), res)
 
         return _out_collection(mv)

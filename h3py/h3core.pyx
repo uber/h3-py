@@ -44,10 +44,13 @@ cpdef int resolution(H3int h) except -1:
     return h3c.h3GetResolution(h)
 
 
-cpdef H3int parent(H3int h, int res) except 1:
-    # todo: have this infer the res if not specified (res(h) + 1)
-    # todo: validate resolution
+cpdef H3int parent(H3int h, res=None) except 1:
     u.check_addr(h)
+
+    if res is None:
+        res = resolution(h) - 1
+    # todo: actually, do we want to raise an error if there are no children, or just return an empty set?
+    u.check_res(res)
 
     return h3c.h3ToParent(h, res)
 
@@ -107,11 +110,14 @@ cpdef H3int[:] hex_ring(H3int h, int ring_size):
 
 
 
-cpdef H3int[:] children(H3int h, int res):
+cpdef H3int[:] children(H3int h, res=None):
     u.check_addr(h)
+
+    if res is None:
+        res = resolution(h) + 1
+    # todo: actually, do we want to raise an error if there are no children, or just return an empty set?
     u.check_res(res)
 
-    # todo: have this infer the res (res(h) - 1) if not specified
     n = h3c.maxH3ToChildrenSize(h, res)
 
     ptr = create_ptr(n)
@@ -160,10 +166,14 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
 
 # weird return type here
 cpdef H3int num_hexagons(int resolution) except -1:
+    u.check_res(resolution)
+
     return h3c.numHexagons(resolution)
 
 
 cpdef double hex_area(int resolution, unit='km') except -1:
+    u.check_res(resolution)
+
     area = h3c.hexAreaKm2(resolution)
 
     # todo: multiple units
@@ -175,6 +185,8 @@ cpdef double hex_area(int resolution, unit='km') except -1:
     return area
 
 cpdef double edge_length(int resolution, unit='km') except -1:
+    u.check_res(resolution)
+
     length = h3c.edgeLengthKm(resolution)
 
     # todo: multiple units
