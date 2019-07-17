@@ -1,4 +1,4 @@
-from h3py.util cimport create_ptr, create_mv, GeoPolygon
+from h3py.util cimport create_ptr, create_mv
 cimport h3py.util as u
 import h3py.util as u
 
@@ -6,6 +6,8 @@ from cpython cimport bool
 
 cimport h3py.h3api as h3c
 from h3py.h3api cimport H3int
+
+from h3py.geo import geo_to_h3, h3_to_geo, polyfill, h3_to_geo_boundary, uni_edge_boundary
 
 # move the hex2int and int2hex things in here
 # h3int error codes should be 1
@@ -230,92 +232,5 @@ cpdef H3int[:] uni_edges_from_hex(H3int origin):
 
     return mv
 
-#####
-## geo stuff
-#####
 
-
-cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
-    cdef:
-        h3c.GeoCoord c
-
-    u._v_res(res)
-
-    c = u.geo2coord(lat, lng)
-
-    return h3c.geoToH3(&c, res)
-
-
-cpdef (double, double) h3_to_geo(H3int h) except *:
-    """Reverse lookup an h3 address into a geo-coordinate"""
-    cdef:
-        h3c.GeoCoord c
-
-    u._v_addr(h)
-
-    h3c.h3ToGeo(h, &c)
-
-    return u.coord2geo(c)
-
-
-# todo: nogil for expensive C operation?
-def polyfill(geos, int res):
-    """ A quick implementation of polyfill
-    I think it *should* properly free allocated memory.
-    Doesn't work with GeoPolygons with holes.
-
-    `geos` should be a list of (lat, lng) tuples.
-
-    """
-    u._v_res(res)
-
-    gp = GeoPolygon(geos)
-
-    n = h3c.maxPolyfillSize(&gp.gp, res)
-    ptr = create_ptr(n)
-
-    h3c.polyfill(&gp.gp, res, ptr)
-    mv = create_mv(ptr, n)
-
-    return mv
-
-
-def h3_to_geo_boundary(H3int h, geo_json=False):
-    """Compose an array of geo-coordinates that outlines a hexagonal cell"""
-    cdef:
-        h3c.GeoBoundary gb
-
-    u._v_addr(h)
-
-    h3c.h3ToGeoBoundary(h, &gb)
-
-    verts = tuple(
-        u.coord2geo(gb.verts[i])
-        for i in range(gb.num_verts)
-    )
-
-    if geo_json:
-        #lat/lng -> lng/lat and last point same as first
-        verts = tuple(tuple(reversed(v)) for v in verts)
-        verts += (verts[0],)
-
-    return verts
-
-def uni_edge_boundary(H3int edge):
-    """ Returns the GeoBoundary containing the coordinates of the edge
-    """
-    cdef:
-        h3c.GeoBoundary gb
-
-    u._v_edge(edge)
-
-    h3c.getH3UnidirectionalEdgeBoundary(edge, &gb)
-
-    # todo: move this verts transform into the GeoBoundary object
-    verts = tuple(
-        u.coord2geo(gb.verts[i])
-        for i in range(gb.num_verts)
-    )
-
-    return verts
 
