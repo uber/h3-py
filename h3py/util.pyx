@@ -27,15 +27,15 @@ class InvalidH3Resolution(H3ValueError):
 
 # rename to: valid_cell, valid_addr? check_cell? raise_cell?
 # prefix with util...?
-cdef _v_addr(H3int h):
+cdef check_addr(H3int h):
     if h3c.h3IsValid(h) == 0:
         raise InvalidH3Address(h)
 
-cdef _v_edge(H3int e):
+cdef check_edge(H3int e):
     if h3c.h3UnidirectionalEdgeIsValid(e) == 0:
         raise InvalidH3Edge(e)
 
-cdef _v_res(int res):
+cdef check_res(int res):
     if res < 0 or res > 15:
         raise InvalidH3Resolution(res)
 

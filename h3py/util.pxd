@@ -7,9 +7,9 @@ cdef H3int* create_ptr(size_t n)
 cdef H3int[:] create_mv(H3int* ptr, size_t n)
 
 
-cdef _v_addr(H3int h)
-cdef _v_edge(H3int e)
-cdef _v_res(int res)
+cdef check_addr(H3int h)
+cdef check_edge(H3int e)
+cdef check_res(int res)
 
 
 

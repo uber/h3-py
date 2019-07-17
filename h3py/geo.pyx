@@ -74,7 +74,7 @@ cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
     cdef:
         h3c.GeoCoord c
 
-    u._v_res(res)
+    u.check_res(res)
 
     c = geo2coord(lat, lng)
 
@@ -86,7 +86,7 @@ cpdef (double, double) h3_to_geo(H3int h) except *:
     cdef:
         h3c.GeoCoord c
 
-    u._v_addr(h)
+    u.check_addr(h)
 
     h3c.h3ToGeo(h, &c)
 
@@ -102,7 +102,7 @@ def polyfill(geos, int res):
     `geos` should be a list of (lat, lng) tuples.
 
     """
-    #u._v_res(res)
+    #u.check_res(res)
 
     gp = GeoPolygon(geos)
 
@@ -120,7 +120,7 @@ def h3_to_geo_boundary(H3int h, geo_json=False):
     cdef:
         h3c.GeoBoundary gb
 
-    u._v_addr(h)
+    u.check_addr(h)
 
     h3c.h3ToGeoBoundary(h, &gb)
 
@@ -142,7 +142,7 @@ def uni_edge_boundary(H3int edge):
     cdef:
         h3c.GeoBoundary gb
 
-    u._v_edge(edge)
+    u.check_edge(edge)
 
     h3c.getH3UnidirectionalEdgeBoundary(edge, &gb)
 
