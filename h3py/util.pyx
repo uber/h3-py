@@ -92,6 +92,14 @@ cdef size_t move_nonzeros(H3int* a, size_t n):
     """ Move nonzero elements to front of array `a` of length `n`.
 
     Return the number of nonzero elements.
+
+    | a | b | 0 | c | d | ... |
+            ^           ^
+            i           j
+
+    | a | b | d | c | d | ... |
+            ^       ^
+            i       j
     """
     cdef:
         size_t i = 0
