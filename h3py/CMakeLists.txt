@@ -10,12 +10,12 @@ target_compile_definitions(h3core INTERFACE $<TARGET_PROPERTY:h3,COMPILE_DEFINIT
 target_include_directories(h3core INTERFACE $<TARGET_PROPERTY:h3,INCLUDE_DIRECTORIES>)
 target_link_libraries(h3core h3)
 
-add_cython_target(hexmem C PY3)
-add_library(hexmem MODULE ${hexmem} ${LIB_SOURCE_FILES} ${CONFIGURED_API_HEADER})
-python_extension_module(hexmem)
-set_property(TARGET hexmem PROPERTY C_STANDARD 99)
-target_compile_definitions(hexmem PUBLIC $<TARGET_PROPERTY:h3,COMPILE_DEFINITIONS>)
-target_include_directories(hexmem PUBLIC $<TARGET_PROPERTY:h3,INCLUDE_DIRECTORIES>)
+add_cython_target(util C PY3)
+add_library(util MODULE ${util} ${LIB_SOURCE_FILES} ${CONFIGURED_API_HEADER})
+python_extension_module(util)
+set_property(TARGET util PROPERTY C_STANDARD 99)
+target_compile_definitions(util PUBLIC $<TARGET_PROPERTY:h3,COMPILE_DEFINITIONS>)
+target_include_directories(util PUBLIC $<TARGET_PROPERTY:h3,INCLUDE_DIRECTORIES>)
 
-install(TARGETS h3core hexmem LIBRARY DESTINATION h3py)
+install(TARGETS h3core util LIBRARY DESTINATION h3py)
 

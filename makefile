@@ -16,7 +16,7 @@ rebuild:
 	env/bin/pip uninstall -y h3py
 	env/bin/pip install dist/*.whl
 	env/bin/python -Ic 'from h3py import h3core; print(h3core.__file__)'
-	env/bin/python -Ic 'from h3py import hexmem; print(hexmem.__file__)'
+	env/bin/python -Ic 'from h3py import util; print(util.__file__)'
 
 
 linux:

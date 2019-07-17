@@ -1,4 +1,4 @@
-from h3py.hexmem cimport create_ptr, create_mv
+from h3py.util cimport create_ptr, create_mv
 
 from cpython cimport bool
 
@@ -178,7 +178,6 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     if flag != 0:
         raise ValueError('Could not uncompact set of hexagons!')
 
-    # we need to keep the HexMem object around to keep the memory from getting freed
     return mv
 
 
