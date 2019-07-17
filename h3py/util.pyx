@@ -24,9 +24,6 @@ class InvalidH3Edge(H3ValueError):
 class InvalidH3Resolution(H3ValueError):
     pass
 
-
-# rename to: valid_cell, valid_addr? check_cell? raise_cell?
-# prefix with util...?
 cdef check_addr(H3int h):
     if h3c.h3IsValid(h) == 0:
         raise InvalidH3Address(h)
@@ -40,10 +37,16 @@ cdef check_res(int res):
         raise InvalidH3Resolution(res)
 
 
+
 ## todo: can i turn these two into a context manager?
-cdef H3int* create_ptr(size_t n):
+cdef H3int* create_ptr(size_t n) except *:
+    if n <= 0:
+        # raise H3ValueError("Can't allocate an array of length 0!")
+        # actually, n=0 should be OK.
+        pass
+
     cdef H3int* ptr = <H3int*> stdlib.calloc(n, sizeof(H3int))
-    if not ptr:
+    if (n > 0) and (not ptr):
         raise MemoryError()
 
     return ptr
@@ -55,18 +58,19 @@ cdef H3int[:] create_mv(H3int* ptr, size_t n):
         array x
 
     n = move_nonzeros(ptr, n)
+    if n <= 0:
+        stdlib.free(ptr)
+        return empty_memory_view()
+
     ptr = <H3int*> stdlib.realloc(ptr, n*sizeof(H3int))
 
     if ptr is NULL:
         raise MemoryError()
 
-    if n > 0:
-        x = <H3int[:n]> ptr
-        x.callback_free_data = stdlib.free
+    x = <H3int[:n]> ptr
+    x.callback_free_data = stdlib.free
 
-        return x
-    else:
-        return empty_memory_view()
+    return x
 
 
 cpdef H3int[:] from_iter(hexes):
@@ -77,7 +81,7 @@ cpdef H3int[:] from_iter(hexes):
         array x
         size_t n
     n = len(hexes)
-    x = <H3int[:n]> stdlib.calloc(n, sizeof(H3int))
+    x = <H3int[:n]> create_ptr(n)
     x.callback_free_data = stdlib.free
 
     for i,h in enumerate(hexes):
