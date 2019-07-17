@@ -51,8 +51,6 @@ cdef H3int* create_ptr(size_t n) except *:
 
     return ptr
 
-
-# todo: helper function that returns (ptr, n_new) does the resize and error checking
 cdef H3int[:] create_mv(H3int* ptr, size_t n):
     cdef:
         array x
@@ -113,7 +111,6 @@ cdef size_t move_nonzeros(H3int* a, size_t n):
         # a[j-1] != 0
         # i < j
         # so we can swap!
-        # todo: what about j vs j-1 ....?
         a[i] = a[j-1]
         j -= 1
 

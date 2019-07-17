@@ -16,9 +16,6 @@ from h3py.geo import (
     uni_edge_boundary
 )
 
-# move the hex2int and int2hex things in here
-# h3int error codes should be 1
-
 
 # bool is a python type, so we don't need the except clause
 cpdef bool is_valid(H3int h):
