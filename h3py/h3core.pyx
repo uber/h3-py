@@ -16,6 +16,9 @@ from h3py.geo import (
     edge_boundary
 )
 
+# todo: should we rename all `hex` things to `cell` if a pentagon is a possibility?
+# what's the difference between a `cell` and a `base cell`?
+
 
 # bool is a python type, so we don't need the except clause
 cpdef bool is_cell(H3int h):
@@ -65,34 +68,35 @@ cpdef int distance(H3int h1, H3int h2) except -1:
 
     return d
 
-cpdef H3int[:] disk(H3int h, int ring_size):
-    """ Return *disk* of hex radius ring_size
-    todo: rename ring_size to k?
+cpdef H3int[:] disk(H3int h, int k):
+    """ Return cells at grid distance `<= k` from `h`.
+
 
     """
     u.check_addr(h)
-    if ring_size < 0:
-        raise H3ValueError('Invalid ring size: {}'.format(ring_size))
+    if k < 0:
+        raise H3ValueError('Invalid ring size: {}'.format(k))
 
-    n = h3c.maxKringSize(ring_size)
+    n = h3c.maxKringSize(k)
 
     ptr = create_ptr(n) # todo: return a "smart" pointer that knows its length?
-    h3c.kRing(h, ring_size, ptr)
+    h3c.kRing(h, k, ptr)
     mv = create_mv(ptr, n)
 
     return mv
 
-cpdef H3int[:] ring(H3int h, int ring_size):
-    """
-    Return *hollow* ring around h.
+cpdef H3int[:] ring(H3int h, int k):
+    """ Return cells at grid distance `== k` from `h`.
+
+    Collection is "hollow" for k >= 1.
 
     """
     u.check_addr(h)
 
-    n = 6*ring_size if ring_size > 0 else 1
+    n = 6*k if k > 0 else 1
     ptr = create_ptr(n)
 
-    flag = h3c.hexRing(h, ring_size, ptr)
+    flag = h3c.hexRing(h, k, ptr)
     mv = create_mv(ptr, n)
 
     # todo: maybe let something else do this...?
