@@ -393,6 +393,21 @@ def test_edges():
         h3.uni_edge_hexes(e_bad)
 
 
+def test_line():
+    h1 = '8928308280fffff'
+    h2 = '8928308287bffff'
+
+    out = h3.line(h1,h2)
+
+    expected = {
+        '8928308280fffff',
+        '89283082873ffff',
+        '8928308287bffff'
+    }
+
+    assert out == expected
+
+
 
 
 

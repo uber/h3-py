@@ -216,5 +216,10 @@ def api_functions(
     def uni_edge_boundary(edge):
         return h3core.uni_edge_boundary(_in_scalar(edge))
 
+    def line(start, end):
+        mv = h3core.line(_in_scalar(start), _in_scalar(end))
+
+        return _out_collection(mv)
+
     return locals()
 

@@ -248,5 +248,20 @@ cpdef H3int[:] uni_edges_from_hex(H3int origin):
 
     return mv
 
+cpdef H3int[:] line(H3int start, H3int end):
+    u.check_addr(start)
+    u.check_addr(end)
+
+    n = h3c.h3LineSize(start, end)
+
+    ptr = create_ptr(n)
+    flag = h3c.h3Line(start, end, ptr)
+    mv = create_mv(ptr, n)
+
+    if flag != 0:
+        raise H3ValueError("Couldn't find line between hexes {} and {}".format(start, end))
+
+    return mv
+
 
 

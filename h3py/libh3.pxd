@@ -124,3 +124,7 @@ cdef extern from "h3api.h":
     void getH3UnidirectionalEdgesFromHexagon(H3int origin, H3int *edges)
 
     void getH3UnidirectionalEdgeBoundary(H3int edge, GeoBoundary *gb)
+
+    int h3LineSize(H3int start, H3int end)
+
+    int h3Line(H3int start, H3int end, H3int *out)
