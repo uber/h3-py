@@ -114,8 +114,8 @@ def api_functions(
         return h3core.cell_boundary(_in_scalar(h), geo_json)
 
 
-    def k_ring(h, k):
-        mv = h3core.k_ring(_in_scalar(h), k)
+    def disk(h, k):
+        mv = h3core.disk(_in_scalar(h), k)
 
         return _out_collection(mv)
 

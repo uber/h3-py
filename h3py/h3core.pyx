@@ -65,7 +65,7 @@ cpdef int distance(H3int h1, H3int h2) except -1:
 
     return d
 
-cpdef H3int[:] k_ring(H3int h, int ring_size):
+cpdef H3int[:] disk(H3int h, int ring_size):
     """ Return *disk* of hex radius ring_size
     todo: rename ring_size to k?
 
@@ -102,8 +102,8 @@ cpdef H3int[:] hex_ring(H3int h, int ring_size):
         # do we fall back to something slower?
         # fall back to `kRingDistances` and filter for appropriate distance. don't need to use sets
         pass
-        # s1 = k_ring(h, ring_size).set_int()
-        # s2 = k_ring(h, ring_size - 1).set_int() # todo: actually, these are probably broken right now
+        # s1 = disk(h, ring_size).set_int()
+        # s2 = disk(h, ring_size - 1).set_int() # todo: actually, these are probably broken right now
         # mv = from_ints(s1-s2)
 
     return mv

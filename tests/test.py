@@ -59,7 +59,7 @@ def test5():
         '89283082803ffff'
     }
 
-    out = h3.k_ring('8928308280fffff', 1)
+    out = h3.disk('8928308280fffff', 1)
     assert out == expected
 
 
@@ -328,7 +328,7 @@ def test_validation():
         h3.distance(h, h)
 
     with pytest.raises(InvalidH3Address):
-        h3.k_ring(h, 1)
+        h3.disk(h, 1)
 
     with pytest.raises(InvalidH3Address):
         h3.hex_ring(h, 1)
