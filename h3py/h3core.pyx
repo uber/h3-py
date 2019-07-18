@@ -12,13 +12,13 @@ from h3py.geo import (
     geo_to_h3,
     h3_to_geo,
     polyfill,
-    h3_to_geo_boundary,
-    uni_edge_boundary
+    cell_boundary,
+    edge_boundary
 )
 
 
 # bool is a python type, so we don't need the except clause
-cpdef bool is_valid(H3int h):
+cpdef bool is_cell(H3int h):
     """Validates an `h3_address`
 
     :returns: boolean
@@ -207,7 +207,7 @@ cpdef bool are_neighbors(H3int h1, H3int h2):
     return h3c.h3IndexesAreNeighbors(h1, h2) == 1
 
 
-cpdef H3int uni_edge(H3int origin, H3int destination) except 1:
+cpdef H3int edge(H3int origin, H3int destination) except 1:
     u.check_addr(origin)
     u.check_addr(destination)
 
@@ -217,27 +217,27 @@ cpdef H3int uni_edge(H3int origin, H3int destination) except 1:
     return h3c.getH3UnidirectionalEdge(origin, destination)
 
 
-cpdef bool is_uni_edge(H3int e):
+cpdef bool is_edge(H3int e):
     u.check_edge(e)
 
     return h3c.h3UnidirectionalEdgeIsValid(e) == 1
 
-cpdef H3int uni_edge_origin(H3int e) except 1:
+cpdef H3int edge_origin(H3int e) except 1:
     u.check_edge(e)
 
     return h3c.getOriginH3IndexFromUnidirectionalEdge(e)
 
-cpdef H3int uni_edge_destination(H3int e) except 1:
+cpdef H3int edge_destination(H3int e) except 1:
     u.check_edge(e)
 
     return h3c.getDestinationH3IndexFromUnidirectionalEdge(e)
 
-cpdef (H3int, H3int) uni_edge_hexes(H3int e) except *:
+cpdef (H3int, H3int) edge_hexes(H3int e) except *:
     u.check_edge(e)
 
-    return uni_edge_origin(e), uni_edge_destination(e)
+    return edge_origin(e), edge_destination(e)
 
-cpdef H3int[:] uni_edges_from_hex(H3int origin):
+cpdef H3int[:] edges_from_hex(H3int origin):
     """ Returns the 6 (or 5 for pentagons) edges associated with the hex
     """
     u.check_addr(origin)

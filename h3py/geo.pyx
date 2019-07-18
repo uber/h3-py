@@ -115,7 +115,7 @@ def polyfill(geos, int res):
     return mv
 
 
-def h3_to_geo_boundary(H3int h, geo_json=False):
+def cell_boundary(H3int h, geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
         h3c.GeoBoundary gb
@@ -136,7 +136,7 @@ def h3_to_geo_boundary(H3int h, geo_json=False):
 
     return verts
 
-def uni_edge_boundary(H3int edge):
+def edge_boundary(H3int edge):
     """ Returns the GeoBoundary containing the coordinates of the edge
     """
     cdef:

@@ -30,8 +30,8 @@ def api_functions(
     def edge_length(resolution, unit='km'):
         return h3core.edge_length(resolution, unit)
 
-    def is_valid(h):
-        """Validates an H3 address
+    def is_cell(h):
+        """Validates an H3 address (hexagon or pentagon)
 
         Returns
         -------
@@ -43,14 +43,14 @@ def api_functions(
 
         try:
             h = _in_scalar(h)
-            return h3core.is_valid(h)
+            return h3core.is_cell(h)
         except: # todo: maybe make a special Exception type?
             return False
 
-    def is_uni_edge(edge):
+    def is_edge(edge):
         try:
             e = _in_scalar(edge)
-            return h3core.is_uni_edge(e)
+            return h3core.is_edge(e)
         except: # todo: maybe make a special Exception type?
             return False
 
@@ -110,8 +110,8 @@ def api_functions(
 
         return d
 
-    def h3_to_geo_boundary(h, geo_json=False):
-        return h3core.h3_to_geo_boundary(_in_scalar(h), geo_json)
+    def cell_boundary(h, geo_json=False):
+        return h3core.cell_boundary(_in_scalar(h), geo_json)
 
 
     def k_ring(h, k):
@@ -163,7 +163,7 @@ def api_functions(
 
     def is_pentagon(h):
         """
-        a pentagon should still pass is_valid(), right?
+        a pentagon should still pass is_cell(), right?
 
         :returns: boolean
         """
@@ -181,43 +181,43 @@ def api_functions(
         """
         return h3core.are_neighbors(_in_scalar(h1), _in_scalar(h2))
 
-    def uni_edge(origin, destination):
+    def edge(origin, destination):
         o = _in_scalar(origin)
         d = _in_scalar(destination)
-        e = h3core.uni_edge(o, d)
+        e = h3core.edge(o, d)
         e = _out_scalar(e)
 
         return e
 
-    def uni_edge_origin(e):
+    def edge_origin(e):
         e = _in_scalar(e)
-        o = h3core.uni_edge_origin(e)
+        o = h3core.edge_origin(e)
         o = _out_scalar(o)
 
         return o
 
-    def uni_edge_destination(e):
+    def edge_destination(e):
         e = _in_scalar(e)
-        d = h3core.uni_edge_destination(e)
+        d = h3core.edge_destination(e)
         d = _out_scalar(d)
 
         return d
 
 
-    def uni_edge_hexes(e):
+    def edge_hexes(e):
         e = _in_scalar(e)
-        o,d = h3core.uni_edge_hexes(e)
+        o,d = h3core.edge_hexes(e)
         o,d = _out_scalar(o), _out_scalar(d)
 
         return o,d
 
-    def uni_edges_from_hex(origin):
-        mv = h3core.uni_edges_from_hex(_in_scalar(origin))
+    def edges_from_hex(origin):
+        mv = h3core.edges_from_hex(_in_scalar(origin))
 
         return _out_collection(mv)
 
-    def uni_edge_boundary(edge):
-        return h3core.uni_edge_boundary(_in_scalar(edge))
+    def edge_boundary(edge):
+        return h3core.edge_boundary(_in_scalar(edge))
 
     def line(start, end):
         mv = h3core.line(_in_scalar(start), _in_scalar(end))

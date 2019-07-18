@@ -29,7 +29,7 @@ def test3():
         (37.775019673792606, -122.4195306280734)
      )
 
-    out = h3.h3_to_geo_boundary('8928308280fffff')
+    out = h3.cell_boundary('8928308280fffff')
     assert approx2(out, expected)
 
 
@@ -44,7 +44,7 @@ def test4():
         (-122.41719971841658, 37.775197782893386)
     )
 
-    out = h3.h3_to_geo_boundary('8928308280fffff', geo_json=True)
+    out = h3.cell_boundary('8928308280fffff', geo_json=True)
     assert approx2(out, expected)
 
 
@@ -82,12 +82,12 @@ def test7():
     assert out == expected
 
 def test8():
-    assert h3.is_valid('89283082803ffff')
-    assert not h3.is_valid('abc')
+    assert h3.is_cell('89283082803ffff')
+    assert not h3.is_cell('abc')
 
     # looks like it might be valid, but it isn't!
     h_bad = '8a28308280fffff'
-    assert not h3.is_valid(h_bad)
+    assert not h3.is_cell(h_bad)
 
     # other methods should validate and raise exception if bad input
     with pytest.raises(InvalidH3Address):
@@ -270,43 +270,43 @@ def test_hex_edge_length():
     assert out == pytest.approx(expected_in_km)
 
 
-def test_uni_edge():
+def test_edge():
     h1 = '8928308280fffff'
     h2 = '89283082873ffff'
 
     assert not h3.are_neighbors(h1, h1)
     assert h3.are_neighbors(h1, h2)
 
-    e = h3.uni_edge(h1,h2)
+    e = h3.edge(h1,h2)
 
     assert e == '12928308280fffff'
-    assert h3.is_uni_edge(e)
-    assert not h3.is_valid(e)
+    assert h3.is_edge(e)
+    assert not h3.is_cell(e)
 
-    assert h3.uni_edge_origin(e) == h1
-    assert h3.uni_edge_destination(e) == h2
+    assert h3.edge_origin(e) == h1
+    assert h3.edge_destination(e) == h2
 
-    assert h3.uni_edge_hexes(e) == (h1,h2)
+    assert h3.edge_hexes(e) == (h1,h2)
 
-def test_uni_edges_from_hex():
+def test_edges_from_hex():
     h = '8928308280fffff'
-    edges = h3.uni_edges_from_hex(h)
-    destinations = {h3.uni_edge_destination(e) for e in edges}
+    edges = h3.edges_from_hex(h)
+    destinations = {h3.edge_destination(e) for e in edges}
     neighbors = h3.hex_ring(h, 1)
 
     assert neighbors == destinations
 
-def test_uni_edge_boundary():
+def test_edge_boundary():
     h1 = '8928308280fffff'
     h2 = '89283082873ffff'
-    e = h3.uni_edge(h1,h2)
+    e = h3.edge(h1,h2)
 
     expected = (
         (37.77688044840226, -122.41612835779266),
         (37.778385004930925, -122.41738797617619)
     )
 
-    out = h3.uni_edge_boundary(e)
+    out = h3.edge_boundary(e)
 
     assert out[0] == pytest.approx(expected[0])
     assert out[1] == pytest.approx(expected[1])
@@ -364,7 +364,7 @@ def test_validation_geo():
         h3.geo_to_h3(0,0,17)
 
     with pytest.raises(InvalidH3Address):
-        h3.h3_to_geo_boundary(h)
+        h3.cell_boundary(h)
 
     with pytest.raises(InvalidH3Address):
         h3.are_neighbors(h,h)
@@ -373,24 +373,24 @@ def test_edges():
     h = '8928308280fffff'
 
     with pytest.raises(H3ValueError):
-        h3.uni_edge(h,h)
+        h3.edge(h,h)
 
     h2 = h3.hex_ring(h,2).pop()
     with pytest.raises(H3ValueError):
-        h3.uni_edge(h, h2)
+        h3.edge(h, h2)
 
 
     e_bad = '14928308280ffff1'
-    assert not h3.is_uni_edge(e_bad)
+    assert not h3.is_edge(e_bad)
 
     with pytest.raises(InvalidH3Edge):
-        h3.uni_edge_origin(e_bad)
+        h3.edge_origin(e_bad)
 
     with pytest.raises(InvalidH3Edge):
-        h3.uni_edge_destination(e_bad)
+        h3.edge_destination(e_bad)
 
     with pytest.raises(InvalidH3Edge):
-        h3.uni_edge_hexes(e_bad)
+        h3.edge_hexes(e_bad)
 
 
 def test_line():
