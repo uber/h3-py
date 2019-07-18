@@ -99,16 +99,19 @@ cpdef H3int[:] ring(H3int h, int k):
     flag = h3c.hexRing(h, k, ptr)
     mv = create_mv(ptr, n)
 
-    # todo: maybe let something else do this...?
     # todo: we can do this much more efficiently by using kRingDistances
     if flag != 0:
-        # todo: raise error here
-        # do we fall back to something slower?
-        # fall back to `kRingDistances` and filter for appropriate distance. don't need to use sets
-        pass
-        # s1 = disk(h, ring_size).set_int()
-        # s2 = disk(h, ring_size - 1).set_int() # todo: actually, these are probably broken right now
-        # mv = from_ints(s1-s2)
+        raise H3ValueError("Couldn't run the fast version!")
+        # # fall back to `kRingDistances` and filter for appropriate distance. don't need to use sets
+        # n = h3c.maxKringSize(k)
+        # ptr = create_ptr(n)
+
+        # # hmmm. maybe use a cython array here instead
+        # cdef int[:n] distances
+        # distances[:] = 0
+
+
+        # h3c.kRingDistances(h, k, ptr, &distances[0])
 
     return mv
 
