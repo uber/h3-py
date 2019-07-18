@@ -65,7 +65,7 @@ def test5():
 
 def test6():
     expected = {'8928308280fffff'}
-    out = h3.hex_ring('8928308280fffff', 0)
+    out = h3.ring('8928308280fffff', 0)
     assert out == expected
 
 def test7():
@@ -78,7 +78,7 @@ def test7():
         '89283082877ffff'
     }
 
-    out = h3.hex_ring('8928308280fffff', 1)
+    out = h3.ring('8928308280fffff', 1)
     assert out == expected
 
 def test8():
@@ -127,10 +127,10 @@ def test_distance():
     h = '8a28308280c7fff'
     assert h3.distance(h,h) == 0
 
-    n = h3.hex_ring(h,1).pop()
+    n = h3.ring(h,1).pop()
     assert h3.distance(h,n) == 1
 
-    n = h3.hex_ring(h,2).pop()
+    n = h3.ring(h,2).pop()
     assert h3.distance(h,n) == 2
 
 
@@ -292,7 +292,7 @@ def test_edges_from_hex():
     h = '8928308280fffff'
     edges = h3.edges_from_hex(h)
     destinations = {h3.edge_destination(e) for e in edges}
-    neighbors = h3.hex_ring(h, 1)
+    neighbors = h3.ring(h, 1)
 
     assert neighbors == destinations
 
@@ -331,7 +331,7 @@ def test_validation():
         h3.disk(h, 1)
 
     with pytest.raises(InvalidH3Address):
-        h3.hex_ring(h, 1)
+        h3.ring(h, 1)
 
     with pytest.raises(InvalidH3Address):
         h3.children(h, 11)
@@ -375,7 +375,7 @@ def test_edges():
     with pytest.raises(H3ValueError):
         h3.edge(h,h)
 
-    h2 = h3.hex_ring(h,2).pop()
+    h2 = h3.ring(h,2).pop()
     with pytest.raises(H3ValueError):
         h3.edge(h, h2)
 

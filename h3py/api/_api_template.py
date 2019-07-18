@@ -119,8 +119,8 @@ def api_functions(
 
         return _out_collection(mv)
 
-    def hex_ring(h, k):
-        mv = h3core.hex_ring(_in_scalar(h), k)
+    def ring(h, k):
+        mv = h3core.ring(_in_scalar(h), k)
 
         return _out_collection(mv)
 

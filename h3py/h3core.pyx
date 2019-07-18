@@ -82,7 +82,7 @@ cpdef H3int[:] disk(H3int h, int ring_size):
 
     return mv
 
-cpdef H3int[:] hex_ring(H3int h, int ring_size):
+cpdef H3int[:] ring(H3int h, int ring_size):
     """
     Return *hollow* ring around h.
 
