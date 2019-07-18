@@ -1,4 +1,4 @@
-from h3py.api._api_template import api_functions
+from h3py.api._api_template import _api_functions
 
 # todo: how to write documentation once and have it carry over to each interface?
 
@@ -14,7 +14,7 @@ def _out_collection(mv):
     return set(mv)
 
 
-funcs = api_functions(
+funcs = _api_functions(
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _in_collection,

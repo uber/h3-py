@@ -9,7 +9,7 @@ import h3py.util as u
 # another approach: we could also just use `exec()`
 
 
-def api_functions(
+def _api_functions(
     _in_scalar,
     _out_scalar,
     _in_collection,
@@ -114,12 +114,12 @@ def api_functions(
         return h3core.cell_boundary(_in_scalar(h), geo_json)
 
 
-    def disk(h, k):
+    def disk(h, k=1):
         mv = h3core.disk(_in_scalar(h), k)
 
         return _out_collection(mv)
 
-    def ring(h, k):
+    def ring(h, k=1):
         mv = h3core.ring(_in_scalar(h), k)
 
         return _out_collection(mv)
