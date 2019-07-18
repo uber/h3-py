@@ -6,7 +6,7 @@ def _id(x):
     return x
 
 
-funcs = _api_functions(
+_funcs = _api_functions(
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _id,
@@ -17,4 +17,4 @@ funcs = _api_functions(
 # if too weird, we can always fall back to just cut-and-pasting the contents
 # of the `_api_functions` body. However, that isn't very DRY.
 # Something like a python #include macro would be nice here...
-globals().update(funcs)
+globals().update(_funcs)

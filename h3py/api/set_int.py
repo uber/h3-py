@@ -14,11 +14,11 @@ def _out_collection(mv):
     return set(mv)
 
 
-funcs = _api_functions(
+_funcs = _api_functions(
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _in_collection,
     _out_collection = _out_collection,
 )
 
-globals().update(funcs)
+globals().update(_funcs)
