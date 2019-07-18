@@ -33,7 +33,10 @@ def api_functions(
     def is_valid(h):
         """Validates an H3 address
 
-        :returns: boolean
+        Returns
+        -------
+        boolean
+
         """
         # todo: might think about renaming this function, since we can check if something is a valid hex or a valid edge (or if it is a pentagon...)
         # `is_h3_address()`?
