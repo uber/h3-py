@@ -241,7 +241,7 @@ cpdef (H3int, H3int) edge_cells(H3int e) except *:
 
     return edge_origin(e), edge_destination(e)
 
-cpdef H3int[:] edges_from_hex(H3int origin):
+cpdef H3int[:] edges_from_cell(H3int origin):
     """ Returns the 6 (or 5 for pentagons) directed edges
     for the given origin cell
     """

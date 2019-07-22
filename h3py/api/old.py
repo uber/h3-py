@@ -48,7 +48,7 @@ from .set_str import (
         as get_destination_h3_index_from_unidirectional_edge,
     edge_cells
         as get_h3_indexes_from_unidirectional_edge,
-    edges_from_hex
+    edges_from_cell
         as get_h3_unidirectional_edges_from_hexagon,
     edge_boundary
         as get_h3_unidirectional_edge_boundary,

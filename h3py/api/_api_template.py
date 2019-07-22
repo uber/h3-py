@@ -207,8 +207,8 @@ def _api_functions(
 
         return o,d
 
-    def edges_from_hex(origin):
-        mv = h3core.edges_from_hex(_in_scalar(origin))
+    def edges_from_cell(origin):
+        mv = h3core.edges_from_cell(_in_scalar(origin))
 
         return _out_collection(mv)
 

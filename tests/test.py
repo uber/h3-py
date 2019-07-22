@@ -288,9 +288,9 @@ def test_edge():
 
     assert h3.edge_cells(e) == (h1,h2)
 
-def test_edges_from_hex():
+def test_edges_from_cell():
     h = '8928308280fffff'
-    edges = h3.edges_from_hex(h)
+    edges = h3.edges_from_cell(h)
     destinations = {h3.edge_destination(e) for e in edges}
     neighbors = h3.ring(h, 1)
 
