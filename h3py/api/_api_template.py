@@ -200,9 +200,9 @@ def _api_functions(
         return d
 
 
-    def edge_hexes(e):
+    def edge_cells(e):
         e = _in_scalar(e)
-        o,d = h3core.edge_hexes(e)
+        o,d = h3core.edge_cells(e)
         o,d = _out_scalar(o), _out_scalar(d)
 
         return o,d

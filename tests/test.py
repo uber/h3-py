@@ -286,7 +286,7 @@ def test_edge():
     assert h3.edge_origin(e) == h1
     assert h3.edge_destination(e) == h2
 
-    assert h3.edge_hexes(e) == (h1,h2)
+    assert h3.edge_cells(e) == (h1,h2)
 
 def test_edges_from_hex():
     h = '8928308280fffff'
@@ -390,7 +390,7 @@ def test_edges():
         h3.edge_destination(e_bad)
 
     with pytest.raises(InvalidH3Edge):
-        h3.edge_hexes(e_bad)
+        h3.edge_cells(e_bad)
 
 
 def test_line():

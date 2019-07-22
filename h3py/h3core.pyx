@@ -236,7 +236,7 @@ cpdef H3int edge_destination(H3int e) except 1:
 
     return h3c.getDestinationH3IndexFromUnidirectionalEdge(e)
 
-cpdef (H3int, H3int) edge_hexes(H3int e) except *:
+cpdef (H3int, H3int) edge_cells(H3int e) except *:
     u.check_edge(e)
 
     return edge_origin(e), edge_destination(e)
