@@ -6,6 +6,7 @@ from cpython cimport bool
 
 from h3py.libh3 cimport H3int
 cimport h3py.libh3 as h3c
+from libc.stdint cimport int64_t
 
 
 from h3py.geo import (
@@ -22,9 +23,11 @@ from h3py.geo import (
 
 # bool is a python type, so we don't need the except clause
 cpdef bool is_cell(H3int h):
-    """Validates an `h3_address`
+    """Validates an H3 cell (hexagon or pentagon)
 
-    :returns: boolean
+    Returns
+    -------
+    boolean
     """
     return h3c.h3IsValid(h) == 1
 
@@ -70,8 +73,6 @@ cpdef int distance(H3int h1, H3int h2) except -1:
 
 cpdef H3int[:] disk(H3int h, int k):
     """ Return cells at grid distance `<= k` from `h`.
-
-
     """
     u.check_addr(h)
     if k < 0:
@@ -170,9 +171,7 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     return mv
 
 
-
-# weird return type here
-cpdef H3int num_hexagons(int resolution) except -1:
+cpdef int64_t num_hexagons(int resolution) except -1:
     u.check_res(resolution)
 
     return h3c.numHexagons(resolution)

@@ -31,20 +31,16 @@ def _api_functions(
         return h3core.edge_length(resolution, unit)
 
     def is_cell(h):
-        """Validates an H3 address (hexagon or pentagon)
+        """Validates an H3 cell (hexagon or pentagon)
 
         Returns
         -------
         boolean
-
         """
-        # todo: might think about renaming this function, since we can check if something is a valid hex or a valid edge (or if it is a pentagon...)
-        # `is_h3_address()`?
-
         try:
             h = _in_scalar(h)
             return h3core.is_cell(h)
-        except: # todo: maybe make a special Exception type?
+        except:
             return False
 
     def is_edge(edge):
