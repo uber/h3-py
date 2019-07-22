@@ -17,12 +17,15 @@ class H3ValueError(ValueError):
 
 class InvalidH3Address(H3ValueError):
     pass
+    # todo: rename to H3InvalidCellError?
 
 class InvalidH3Edge(H3ValueError):
     pass
+    # todo: rename to H3InvalidEdgeError?
 
 class InvalidH3Resolution(H3ValueError):
     pass
+    # todo: rename to H3ResolutionError?
 
 cdef check_addr(H3int h):
     if h3c.h3IsValid(h) == 0:
@@ -40,11 +43,6 @@ cdef check_res(int res):
 
 ## todo: can i turn these two into a context manager?
 cdef H3int* create_ptr(size_t n) except *:
-    if n <= 0:
-        # raise H3ValueError("Can't allocate an array of length 0!")
-        # actually, n=0 should be OK.
-        pass
-
     cdef H3int* ptr = <H3int*> stdlib.calloc(n, sizeof(H3int))
     if (n > 0) and (not ptr):
         raise MemoryError()
