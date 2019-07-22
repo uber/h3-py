@@ -24,11 +24,11 @@ def _api_functions(
     def num_hexagons(resolution):
         return h3core.num_hexagons(resolution)
 
-    def hex_area(resolution, unit='km'):
-        return h3core.hex_area(resolution, unit)
+    def mean_hex_area(resolution, unit='km2'):
+        return h3core.mean_hex_area(resolution, unit)
 
-    def edge_length(resolution, unit='km'):
-        return h3core.edge_length(resolution, unit)
+    def mean_edge_length(resolution, unit='km'):
+        return h3core.mean_edge_length(resolution, unit)
 
     def is_cell(h):
         """Validates an H3 cell (hexagon or pentagon)

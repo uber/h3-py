@@ -177,20 +177,20 @@ cpdef int64_t num_hexagons(int resolution) except -1:
     return h3c.numHexagons(resolution)
 
 
-cpdef double hex_area(int resolution, unit='km') except -1:
+cpdef double mean_hex_area(int resolution, unit='km2') except -1:
     u.check_res(resolution)
 
     area = h3c.hexAreaKm2(resolution)
 
     # todo: multiple units
     convert = {
-        'km': 1.0,
+        'km2': 1.0,
     }
     area *= convert[unit]
 
     return area
 
-cpdef double edge_length(int resolution, unit='km') except -1:
+cpdef double mean_edge_length(int resolution, unit='km') except -1:
     u.check_res(resolution)
 
     length = h3c.edgeLengthKm(resolution)

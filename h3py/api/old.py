@@ -27,8 +27,8 @@ from .set_str import (
     # hex_range
     # hex_range_distances
     # hex_ranges
-    hex_area,
-    edge_length,
+    mean_hex_area,
+    mean_edge_length,
     num_hexagons,
     base_cell
         as h3_get_base_cell,

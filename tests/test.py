@@ -247,7 +247,7 @@ def test_hex_area():
     }
 
     out = {
-        k: h3.hex_area(k, unit='km')
+        k: h3.mean_hex_area(k, unit='km2')
         for k in expected_in_km2
     }
 
@@ -263,7 +263,7 @@ def test_hex_edge_length():
     }
 
     out = {
-        res: h3.edge_length(res, unit='km')
+        res: h3.mean_edge_length(res, unit='km')
         for res in expected_in_km
     }
 
