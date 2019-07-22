@@ -30,7 +30,7 @@ from .set_str import (
     mean_hex_area,
     mean_edge_length,
     num_hexagons,
-    base_cell
+    get_base_cell
         as h3_get_base_cell,
     # h3_is_res_class_iii
     # h3_is_res_class_III

@@ -316,7 +316,7 @@ def test_validation():
     h = '8a28308280fffff' # invalid hex
 
     with pytest.raises(InvalidH3Address):
-        h3.base_cell(h)
+        h3.get_base_cell(h)
 
     with pytest.raises(InvalidH3Address):
         h3.resolution(h)

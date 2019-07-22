@@ -17,9 +17,6 @@ from h3py.geo import (
     edge_boundary
 )
 
-# todo: should we rename all `hex` things to `cell` if a pentagon is a possibility?
-# what's the difference between a `cell` and a `base cell`?
-
 
 # bool is a python type, so we don't need the except clause
 cpdef bool is_cell(H3int h):
@@ -34,8 +31,7 @@ cpdef bool is_cell(H3int h):
 cpdef bool is_pentagon(H3int h):
     return h3c.h3IsPentagon(h) == 1
 
-cpdef int base_cell(H3int h) except -1:
-    # todo: `get_base_cell` a better name?
+cpdef int get_base_cell(H3int h) except -1:
     u.check_addr(h)
 
     return h3c.h3GetBaseCell(h)
@@ -44,6 +40,8 @@ cpdef int base_cell(H3int h) except -1:
 cpdef int resolution(H3int h) except -1:
     """Returns the resolution of an `h3_address`
     0--15
+
+    todo: does this work for edges? or just cells?
     """
     u.check_addr(h)
 
@@ -218,7 +216,7 @@ cpdef H3int edge(H3int origin, H3int destination) except 1:
     u.check_addr(destination)
 
     if h3c.h3IndexesAreNeighbors(origin, destination) != 1:
-        raise H3ValueError('Hexes are not neighbors: {} and {}'.format(origin, destination))
+        raise H3ValueError('Cells are not neighbors: {} and {}'.format(origin, destination))
 
     return h3c.getH3UnidirectionalEdge(origin, destination)
 
@@ -244,7 +242,8 @@ cpdef (H3int, H3int) edge_hexes(H3int e) except *:
     return edge_origin(e), edge_destination(e)
 
 cpdef H3int[:] edges_from_hex(H3int origin):
-    """ Returns the 6 (or 5 for pentagons) edges associated with the hex
+    """ Returns the 6 (or 5 for pentagons) directed edges
+    for the given origin cell
     """
     u.check_addr(origin)
 
@@ -265,7 +264,7 @@ cpdef H3int[:] line(H3int start, H3int end):
     mv = create_mv(ptr, n)
 
     if flag != 0:
-        raise H3ValueError("Couldn't find line between hexes {} and {}".format(start, end))
+        raise H3ValueError("Couldn't find line between cells {} and {}".format(start, end))
 
     return mv
 

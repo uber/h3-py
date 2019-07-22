@@ -165,11 +165,11 @@ def _api_functions(
         """
         return h3core.is_pentagon(_in_scalar(h))
 
-    def base_cell(h):
+    def get_base_cell(h):
         """
         :returns: boolean
         """
-        return h3core.base_cell(_in_scalar(h))
+        return h3core.get_base_cell(_in_scalar(h))
 
     def are_neighbors(h1, h2):
         """
