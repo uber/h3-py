@@ -1,4 +1,4 @@
-import h3py.api.set_str as h3
+import h3py as h3
 from h3py.util import InvalidH3Address, InvalidH3Resolution, InvalidH3Edge, H3ValueError
 import pytest
 
