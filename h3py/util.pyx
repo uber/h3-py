@@ -9,7 +9,14 @@ cpdef H3int hex2int(H3str h):
     return int(h, 16)
 
 cpdef H3str int2hex(H3int x):
-    return hex(x)[2:].strip('L') # todo: this strip is... not ideal
+    """ Convert H3 integer to hex string representation
+
+    The `.rstrip('L')` is needed in Python 2 because "long"
+    integers (even in hex form) are represented with a trailing `L` character
+
+    The final `str` conversion converts from `unicode` to `str` in Python 2
+    """
+    return str(hex(x)[2:].rstrip('L'))
 
 
 class H3ValueError(ValueError):
