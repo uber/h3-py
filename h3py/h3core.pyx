@@ -38,10 +38,8 @@ cpdef int get_base_cell(H3int h) except -1:
 
 
 cpdef int resolution(H3int h) except -1:
-    """Returns the resolution of an `h3_address`
+    """Returns the resolution of an H3 Index
     0--15
-
-    todo: does this work for edges? or just cells?
     """
     u.check_addr(h)
 
