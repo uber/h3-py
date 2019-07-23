@@ -9,7 +9,7 @@ cpdef H3int hex2int(H3str h):
     return int(h, 16)
 
 cpdef H3str int2hex(H3int x):
-    return hex(x)[2:]
+    return hex(x)[2:].strip('L') # todo: this strip is... not ideal
 
 
 class H3ValueError(ValueError):

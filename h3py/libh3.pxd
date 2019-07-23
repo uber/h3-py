@@ -1,7 +1,7 @@
 from libc cimport stdint
 
 ctypedef stdint.uint64_t H3int
-ctypedef str H3str
+ctypedef basestring H3str
 
 cdef extern from "h3api.h":
     ctypedef struct GeoCoord:
