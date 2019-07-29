@@ -1,12 +1,14 @@
 cmake_minimum_required(VERSION 3.7.2)
 
+# todo: can we get rid of all this version-checking stuff if we can just do it in a Python test?
+
 set(version_regex "([0-9.]+)")
 file(STRINGS "h3/VERSION" h3_version
      REGEX "^${version_regex}$")
 message(STATUS "h3 version: ${h3_version}")
 
 set(py_version_regex "^version = '${version_regex}'$")
-file(STRINGS "version.py" version_line
+file(STRINGS "h3py/__version__.py" version_line
      REGEX "${py_version_regex}")
 string(REGEX MATCH "${py_version_regex}" _ "${version_line}")
 set(version "${CMAKE_MATCH_1}")
