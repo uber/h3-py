@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.7.2)
 
-# todo: can we get rid of all this version-checking stuff if we can just do it in a Python test?
+# todo: can we get rid of all the version-checking stuff below if
+# we can just do it in a Python test?
 
 set(version_regex "([0-9.]+)")
 file(STRINGS "h3/VERSION" h3_version
@@ -15,6 +16,8 @@ set(version "${CMAKE_MATCH_1}")
 message(STATUS "h3core-py version: ${version}")
 
 # project(h3core-py VERSION "${version}" LANGUAGES C)
+
+# question: why is `VERSION` needed here?
 project(h3-py VERSION "${version}" LANGUAGES C)
 
 # Build the core library as static
