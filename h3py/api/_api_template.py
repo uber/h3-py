@@ -1,5 +1,6 @@
 import h3py.h3core as h3core
 import h3py.util as u
+from ..__version__ import __version__
 
 # this module tries to DRY-up API code which is repeated across
 # modules. Not sure if this function closure is the best solution.
@@ -15,6 +16,15 @@ def _api_functions(
     _in_collection,
     _out_collection,
 ):
+    def versions():
+        v = {
+            'c': h3core._c_version(),
+            'python': __version__,
+        }
+
+        return v
+
+
     def string_to_h3(h):
         return u.hex2int(h)
 
