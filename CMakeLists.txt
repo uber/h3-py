@@ -18,6 +18,7 @@ message(STATUS "h3core-py version: ${version}")
 # project(h3core-py VERSION "${version}" LANGUAGES C)
 
 # question: why is `VERSION` needed here?
+# if not strictly needed, then we can drop the version-checking code above
 project(h3-py VERSION "${version}" LANGUAGES C)
 
 # Build the core library as static
