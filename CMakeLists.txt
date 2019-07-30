@@ -9,7 +9,7 @@ file(STRINGS "h3/VERSION" h3_version
 message(STATUS "h3 version: ${h3_version}")
 
 set(py_version_regex "^version = '${version_regex}'$")
-file(STRINGS "h3py/__version__.py" version_line
+file(STRINGS "h3py/_version.py" version_line
      REGEX "${py_version_regex}")
 string(REGEX MATCH "${py_version_regex}" _ "${version_line}")
 set(version "${CMAKE_MATCH_1}")

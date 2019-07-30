@@ -1,2 +1,2 @@
 from .api.set_str import *
-from .__version__ import __version__
+from ._version import __version__

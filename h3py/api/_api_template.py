@@ -1,6 +1,6 @@
 import h3py.h3core as h3core
 import h3py.util as u
-from ..__version__ import __version__
+from .._version import __version__
 
 # this module tries to DRY-up API code which is repeated across
 # modules. Not sure if this function closure is the best solution.
