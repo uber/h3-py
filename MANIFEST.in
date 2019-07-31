@@ -1,2 +1,2 @@
-include *.txt README.rst CHANGELOG .install.sh binding_version.py h3_version.py
+include *.txt README.rst CHANGELOG
 global-exclude *.pyc
