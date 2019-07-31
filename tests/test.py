@@ -408,6 +408,12 @@ def test_line():
     assert out == expected
 
 
+def test_versions():
+    v = h3.versions()
+    assert v['c'] == v['python']
+    assert v['python'] == h3.__version__
+
+
 
 
 

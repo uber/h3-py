@@ -17,6 +17,12 @@ from h3py.geo import (
     edge_boundary
 )
 
+cpdef basestring _c_version():
+    c = (h3c.H3_VERSION_MAJOR, h3c.H3_VERSION_MINOR, h3c.H3_VERSION_PATCH)
+    c = '{}.{}.{}'.format(*c)
+
+    return c
+
 
 # bool is a python type, so we don't need the except clause
 cpdef bool is_cell(H3int h):

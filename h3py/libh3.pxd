@@ -4,6 +4,10 @@ ctypedef stdint.uint64_t H3int
 ctypedef basestring H3str
 
 cdef extern from "h3api.h":
+    cdef int H3_VERSION_MAJOR
+    cdef int H3_VERSION_MINOR
+    cdef int H3_VERSION_PATCH
+
     ctypedef struct GeoCoord:
         double lat
         double lng "lon"

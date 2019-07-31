@@ -1,11 +1,17 @@
+import os
 from setuptools import find_packages
 from skbuild import setup
 
-from version import version
+
+here = os.path.abspath(os.path.dirname(__file__))
+
+about = {}
+with open(os.path.join(here, 'h3py', '_version.py')) as f:
+    exec(f.read(), about)
 
 setup(
     name='h3py',
-    version=version,
+    version=about['__version__'],
     description=
     'Python bindings for H3, a hierarchical hexagonal geospatial indexing system developed by Uber Technologies',
     long_description='long_description',
