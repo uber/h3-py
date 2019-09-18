@@ -4,6 +4,6 @@ python:
   - "3.6"
 install:
   - pip install -r requirements-dev.txt
-  - fab bootstrap
+  - CFLAGS='-fPIC' fab bootstrap
 script:
-  - fab test
+  - PYTHONPATH=src/ fab test
