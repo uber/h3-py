@@ -1,0 +1,9 @@
+# https://lintlyci.github.io/Flake8Rules/
+[flake8]
+max-line-length = 88
+include =
+    #W292 No newline at end of file
+    W292
+ignore =
+    #E251 unexpected spaces around keyword / parameter equals
+    #E251
