@@ -6,4 +6,4 @@ install:
   - pip install -r requirements-dev.txt
   - CFLAGS='-fPIC' fab bootstrap
 script:
-  - PYTHONPATH=src/ fab test
+  - flake8 src/h3 setup.py
