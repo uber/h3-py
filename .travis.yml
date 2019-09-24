@@ -4,6 +4,7 @@ python:
   - "3.6"
 install:
   - pip install -r requirements-dev.txt
-  - CFLAGS='-fPIC' fab bootstrap
+  - CFLAGS='-fPIC' python setup.py develop
 script:
   - flake8 src/h3 setup.py
+  - pytest tests/test.py

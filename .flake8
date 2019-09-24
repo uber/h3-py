@@ -7,3 +7,5 @@ include =
 ignore =
     #E251 unexpected spaces around keyword / parameter equals
     #E251
+    #E722 do not use bare 'except' # todo: should probably not ignore
+    E722
