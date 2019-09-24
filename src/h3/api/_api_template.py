@@ -41,6 +41,7 @@ def _api_functions(
 
     def h3_is_valid(h):
         """Validates an H3 cell (hexagon or pentagon)
+
         Returns
         -------
         boolean
@@ -73,12 +74,14 @@ def _api_functions(
 
     def h3_to_parent(h, res=None):
         """ Get the parent of a hexagon.
+
         Parameters
         ----------
         h : H3 address
         res : int or None, optional
             The resolution for the parent
             If `None`, then `res = resolution(h) - 1`
+
         Returns
         -------
         H3 address
