@@ -9,4 +9,4 @@ install:
   - CFLAGS='-fPIC' python setup.py install
 script:
   - flake8 src/h3 setup.py
-  - pytest tests/test.py
+  - pytest tests/*
