@@ -2,7 +2,7 @@
 # cmake version pinned because of the following cmake-python-distributions issue:
 # https://github.com/scikit-build/cmake-python-distributions/issues/60
 cython
-cmake>=3.14.4
+cmake==3.14.4
 scikit-build
 ipython
 
