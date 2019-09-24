@@ -26,7 +26,7 @@ purge:
 	-@rm -rf .pytest_cache tests/__pycache__ __pycache__ _skbuild dist
 
 test:
-	env/bin/pytest tests/test.py
+	env/bin/pytest tests/*
 
 lint:
 	flake8 src/h3 setup.py
