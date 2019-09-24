@@ -1,5 +1,5 @@
-import h3py as h3
-from h3py.util import InvalidH3Address, InvalidH3Resolution, InvalidH3Edge, H3ValueError
+import h3
+from h3.h3utils import InvalidH3Address, InvalidH3Resolution, InvalidH3Edge, H3ValueError
 import pytest
 
 
@@ -412,9 +412,3 @@ def test_versions():
     v = h3.versions()
     assert v['c'] == v['python']
     assert v['python'] == h3.__version__
-
-
-
-
-
-

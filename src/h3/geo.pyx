@@ -1,12 +1,6 @@
+cimport h3lib
+from .h3utils cimport check_addr, check_edge, check_res, create_mv, create_ptr
 from libc cimport stdlib
-
-cimport h3py.libh3 as h3c
-from h3py.libh3 cimport H3int, H3str
-
-from h3py.util cimport create_ptr, create_mv
-
-cimport h3py.util as u
-
 
 
 cdef (double, double) mercator(double lat, double lng):
@@ -17,32 +11,32 @@ cdef (double, double) mercator(double lat, double lng):
     return lat, lng
 
 
-cdef h3c.GeoCoord geo2coord(double lat, double lng):
+cdef h3lib.GeoCoord geo2coord(double lat, double lng):
     cdef:
-        h3c.GeoCoord c
+        h3lib.GeoCoord c
 
     lat, lng = mercator(lat, lng)
-    c.lat = h3c.degsToRads(lat)
-    c.lng = h3c.degsToRads(lng)
+    c.lat = h3lib.degsToRads(lat)
+    c.lng = h3lib.degsToRads(lng)
 
     return c
 
 
-cdef (double, double) coord2geo(h3c.GeoCoord c):
+cdef (double, double) coord2geo(h3lib.GeoCoord c):
     return mercator(
-        h3c.radsToDegs(c.lat),
-        h3c.radsToDegs(c.lng)
+        h3lib.radsToDegs(c.lat),
+        h3lib.radsToDegs(c.lng)
     )
 
 
-cdef h3c.Geofence make_geofence(geos):
+cdef h3lib.Geofence make_geofence(geos):
     cdef:
-        h3c.Geofence gf
+        h3lib.Geofence gf
 
     gf.numVerts = len(geos)
 
     # todo: figure out when/how to free this memory
-    gf.verts = <h3c.GeoCoord*> stdlib.calloc(gf.numVerts, sizeof(h3c.GeoCoord))
+    gf.verts = <h3lib.GeoCoord*> stdlib.calloc(gf.numVerts, sizeof(h3lib.GeoCoord))
 
     for i, (lat, lng) in enumerate(geos):
         gf.verts[i] = geo2coord(lat, lng)
@@ -52,11 +46,10 @@ cdef h3c.Geofence make_geofence(geos):
 
 cdef class GeoPolygon:
     """ Basic version of GeoPolygon
-
     Doesn't work with holes.
     """
     cdef:
-        h3c.GeoPolygon gp
+        h3lib.GeoPolygon gp
 
     def __cinit__(self, geos):
         self.gp.numHoles = 0
@@ -70,25 +63,25 @@ cdef class GeoPolygon:
 
 
 
-cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
+cpdef h3lib.H3int geo_to_h3(double lat, double lng, int res) except 1:
     cdef:
-        h3c.GeoCoord c
+        h3lib.GeoCoord c
 
-    u.check_res(res)
+    check_res(res)
 
     c = geo2coord(lat, lng)
 
-    return h3c.geoToH3(&c, res)
+    return h3lib.geoToH3(&c, res)
 
 
-cpdef (double, double) h3_to_geo(H3int h) except *:
+cpdef (double, double) h3_to_geo(h3lib.H3int h) except *:
     """Reverse lookup an h3 address into a geo-coordinate"""
     cdef:
-        h3c.GeoCoord c
+        h3lib.GeoCoord c
 
-    u.check_addr(h)
+    check_addr(h)
 
-    h3c.h3ToGeo(h, &c)
+    h3lib.h3ToGeo(h, &c)
 
     return coord2geo(c)
 
@@ -98,31 +91,29 @@ def polyfill(geos, int res):
     """ A quick implementation of polyfill
     I think it *should* properly free allocated memory.
     Doesn't work with GeoPolygons with holes.
-
     `geos` should be a list of (lat, lng) tuples.
-
     """
-    #u.check_res(res)
+    #check_res(res)
 
     gp = GeoPolygon(geos)
 
-    n = h3c.maxPolyfillSize(&gp.gp, res)
+    n = h3lib.maxPolyfillSize(&gp.gp, res)
     ptr = create_ptr(n)
 
-    h3c.polyfill(&gp.gp, res, ptr)
+    h3lib.polyfill(&gp.gp, res, ptr)
     mv = create_mv(ptr, n)
 
     return mv
 
 
-def cell_boundary(H3int h, geo_json=False):
+def cell_boundary(h3lib.H3int h, geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
-        h3c.GeoBoundary gb
+        h3lib.GeoBoundary gb
 
-    u.check_addr(h)
+    check_addr(h)
 
-    h3c.h3ToGeoBoundary(h, &gb)
+    h3lib.h3ToGeoBoundary(h, &gb)
 
     verts = tuple(
         coord2geo(gb.verts[i])
@@ -136,15 +127,15 @@ def cell_boundary(H3int h, geo_json=False):
 
     return verts
 
-def edge_boundary(H3int edge):
+def edge_boundary(h3lib.H3int edge):
     """ Returns the GeoBoundary containing the coordinates of the edge
     """
     cdef:
-        h3c.GeoBoundary gb
+        h3lib.GeoBoundary gb
 
-    u.check_edge(edge)
+    check_edge(edge)
 
-    h3c.getH3UnidirectionalEdgeBoundary(edge, &gb)
+    h3lib.getH3UnidirectionalEdgeBoundary(edge, &gb)
 
     # todo: move this verts transform into the GeoBoundary object
     verts = tuple(

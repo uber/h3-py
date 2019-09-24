@@ -1,8 +1,6 @@
 from libc cimport stdlib
 from cython.view cimport array
-
-from h3py.libh3 cimport H3int, H3str
-cimport h3py.libh3 as h3c
+from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
 
 # todo: should we use C API functions instead? (stringToH3 and h3ToString)
 cpdef H3int hex2int(H3str h):
@@ -10,10 +8,8 @@ cpdef H3int hex2int(H3str h):
 
 cpdef H3str int2hex(H3int x):
     """ Convert H3 integer to hex string representation
-
     The `.rstrip('L')` is needed in Python 2 because "long"
     integers (even in hex form) are represented with a trailing `L` character
-
     The final `str` conversion converts from `unicode` to `str` in Python 2
     """
     return str(hex(x)[2:].rstrip('L'))
@@ -35,11 +31,11 @@ class InvalidH3Resolution(H3ValueError):
     # todo: rename to H3ResolutionError?
 
 cdef check_addr(H3int h):
-    if h3c.h3IsValid(h) == 0:
+    if h3IsValid(h) == 0:
         raise InvalidH3Address(h)
 
 cdef check_edge(H3int e):
-    if h3c.h3UnidirectionalEdgeIsValid(e) == 0:
+    if h3UnidirectionalEdgeIsValid(e) == 0:
         raise InvalidH3Edge(e)
 
 cdef check_res(int res):
@@ -95,13 +91,10 @@ cpdef H3int[:] from_iter(hexes):
 
 cdef size_t move_nonzeros(H3int* a, size_t n):
     """ Move nonzero elements to front of array `a` of length `n`.
-
     Return the number of nonzero elements.
-
     | a | b | 0 | c | d | ... |
             ^           ^
             i           j
-
     | a | b | d | c | d | ... |
             ^       ^
             i       j
@@ -137,4 +130,3 @@ cdef inline H3int[:] empty_memory_view():
         H3int a[1]
 
     return (<H3int[:]>a)[:0]
-
