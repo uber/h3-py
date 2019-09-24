@@ -25,4 +25,4 @@ install:
   - python setup.py install
 
 test_script:
-  - pytest tests/*.py
+  - pytest tests/test.py
