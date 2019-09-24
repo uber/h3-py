@@ -12,33 +12,6 @@ else:
 
 
 @task
-def clean(ctx):
-    """Remove all .pyc files."""
-    print(Fore.GREEN + 'Clean up .pyc files')
-    run("find . -name '*.py[co]' -exec rm -f '{}' ';'")
-
-
-@task
-def lint(ctx):
-    """Check for lints"""
-    print(Fore.GREEN + 'Checking for lints')
-    result = run('flake8 src/h3 '
-                 '--ignore=E501,E702,E712,C901', warn=True)
-    if result.exited == 0:
-        print(Fore.GREEN + 'Linty fresh!')
-    else:
-        print(Fore.RED + 'Too much lint :(')
-
-
-@task
-def bootstrap(ctx):
-    """Bootstrap the environment."""
-    print(Fore.GREEN + '\nInstalling requirements')
-    run('pip install -r requirements-dev.txt')
-    run('python setup.py develop')
-
-
-@task
 def test(ctx,
          args='',
          cov_report='term-missing',
@@ -64,9 +37,3 @@ def test(ctx,
     else:
         print(Fore.RED + 'Test finished running with errors.')
         sys.exit(1)
-
-
-@task
-def shell(ctx):
-    """Run the shell in the environment."""
-    run("ipython -i -c 'from h3 import h3;'")
