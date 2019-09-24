@@ -4,10 +4,7 @@
 cython
 cmake==3.14.4
 scikit-build
-ipython
 
 # Testing
 pytest
-pytest-cov
-coverage
 flake8
