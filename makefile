@@ -1,7 +1,7 @@
 
 DOCKER_IMAGE ?= quay.io/pypa/manylinux1_x86_64
 
-.PHONY: purge init rebuild linux test
+.PHONY: purge init rebuild linux test lint
 
 init: purge
 	git submodule update --init
@@ -27,3 +27,6 @@ purge:
 
 test:
 	env/bin/pytest tests/test.py
+
+lint:
+	flake8 src/h3 setup.py

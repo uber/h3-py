@@ -11,12 +11,11 @@ with open(os.path.join(here, 'src', 'h3', '_version.py')) as f:
 setup(
     name='h3',
     version=about['__version__'],
-    description=
-    'Python bindings for H3, a hierarchical hexagonal geospatial indexing system developed by Uber Technologies',
+    description=about['__description__'],
     long_description='long_description',
     author='Uber Technologies',
     author_email='Niel Hu <hu.niel92@gmail.com>',
-    url='https://github.com/uber/h3-py.git',
+    url=about['__url__'],
     packages=find_packages('src', exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     package_dir={'': 'src'},
     classifiers=[
