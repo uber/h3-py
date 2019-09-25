@@ -1,5 +1,10 @@
 import h3
-from h3.h3utils import InvalidH3Address, InvalidH3Resolution, InvalidH3Edge, H3ValueError
+from h3.h3utils import (
+    H3ValueError,
+    H3CellError,
+    H3ResolutionError,
+    H3EdgeError
+)
 import pytest
 
 
@@ -90,7 +95,7 @@ def test8():
     assert not h3.h3_is_valid(h_bad)
 
     # other methods should validate and raise exception if bad input
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.h3_get_resolution(h_bad)
 
 def test9():
@@ -315,38 +320,38 @@ def test_edge_boundary():
 def test_validation():
     h = '8a28308280fffff' # invalid hex
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.h3_get_base_cell(h)
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.h3_get_resolution(h)
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.h3_to_parent(h, 9)
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.h3_distance(h, h)
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.k_ring(h, 1)
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.hex_ring(h, 1)
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.h3_to_children(h, 11)
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.compact({h})
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.uncompact({h}, 10)
 
 
 def test_validation2():
     h = '8928308280fffff'
 
-    with pytest.raises(InvalidH3Resolution):
+    with pytest.raises(H3ResolutionError):
         h3.h3_to_children(h, 17)
 
     assert not h3.h3_indexes_are_neighbors(h,h)
@@ -357,16 +362,16 @@ def test_validation2():
 def test_validation_geo():
     h = '8a28308280fffff' # invalid hex
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.h3_to_geo(h)
 
-    with pytest.raises(InvalidH3Resolution):
+    with pytest.raises(H3ResolutionError):
         h3.geo_to_h3(0,0,17)
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.h3_to_geo_boundary(h)
 
-    with pytest.raises(InvalidH3Address):
+    with pytest.raises(H3CellError):
         h3.h3_indexes_are_neighbors(h,h)
 
 def test_edges():
@@ -383,13 +388,13 @@ def test_edges():
     e_bad = '14928308280ffff1'
     assert not h3.h3_unidirectional_edge_is_valid(e_bad)
 
-    with pytest.raises(InvalidH3Edge):
+    with pytest.raises(H3EdgeError):
         h3.get_origin_h3_index_from_unidirectional_edge(e_bad)
 
-    with pytest.raises(InvalidH3Edge):
+    with pytest.raises(H3EdgeError):
         h3.get_destination_h3_index_from_unidirectional_edge(e_bad)
 
-    with pytest.raises(InvalidH3Edge):
+    with pytest.raises(H3EdgeError):
         h3.get_h3_indexes_from_unidirectional_edge(e_bad)
 
 

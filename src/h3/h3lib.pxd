@@ -1,4 +1,6 @@
 from libc cimport stdint
+from cpython cimport bool
+from libc.stdint cimport int64_t
 
 ctypedef stdint.uint64_t H3int
 ctypedef basestring H3str
@@ -130,7 +132,7 @@ cdef extern from "h3api.h":
     void getH3UnidirectionalEdgesFromHexagon(H3Index origin, H3Index *edges)
 
     void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
-    
+
     int h3LineSize(H3int start, H3int end)
 
     int h3Line(H3int start, H3int end, H3int *out)
