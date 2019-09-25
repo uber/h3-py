@@ -84,7 +84,6 @@ def test7():
 def test8():
     assert h3.h3_is_valid('89283082803ffff')
     assert not h3.h3_is_valid('abc')
-    assert not h3.h3_is_valid('zzz')
 
     # looks like it might be valid, but it isn't!
     h_bad = '8a28308280fffff'
