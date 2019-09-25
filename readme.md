@@ -17,4 +17,4 @@ Try from within `ipython`:
 ```
 
 # to run tests
-- `make test`
+- `make test
