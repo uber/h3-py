@@ -18,29 +18,26 @@ cpdef H3str int2hex(H3int x):
 class H3ValueError(ValueError):
     pass
 
-class InvalidH3Address(H3ValueError):
+class H3CellError(H3ValueError):
     pass
-    # todo: rename to H3InvalidCellError?
 
-class InvalidH3Edge(H3ValueError):
+class H3EdgeError(H3ValueError):
     pass
-    # todo: rename to H3InvalidEdgeError?
 
-class InvalidH3Resolution(H3ValueError):
+class H3ResolutionError(H3ValueError):
     pass
-    # todo: rename to H3ResolutionError?
 
 cdef check_addr(H3int h):
     if h3IsValid(h) == 0:
-        raise InvalidH3Address(h)
+        raise H3CellError(h)
 
 cdef check_edge(H3int e):
     if h3UnidirectionalEdgeIsValid(e) == 0:
-        raise InvalidH3Edge(e)
+        raise H3EdgeError(e)
 
 cdef check_res(int res):
-    if res < 0 or res > 15:
-        raise InvalidH3Resolution(res)
+    if (res < 0) or (res > 15):
+        raise H3ResolutionError(res)
 
 
 
@@ -92,9 +89,12 @@ cpdef H3int[:] from_iter(hexes):
 cdef size_t move_nonzeros(H3int* a, size_t n):
     """ Move nonzero elements to front of array `a` of length `n`.
     Return the number of nonzero elements.
+
     | a | b | 0 | c | d | ... |
             ^           ^
             i           j
+
+
     | a | b | d | c | d | ... |
             ^       ^
             i       j

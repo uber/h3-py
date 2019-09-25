@@ -1,8 +1,13 @@
 cimport h3lib
-from .h3utils cimport check_addr, check_edge, check_res, create_mv, create_ptr
+from h3lib cimport bool, int64_t, H3int
 
-from cpython cimport bool
-from libc.stdint cimport int64_t
+from .h3utils cimport (
+    check_addr,
+    check_edge,
+    check_res,
+    create_mv,
+    create_ptr
+)
 
 from h3.h3utils import H3ValueError
 from h3.geo import (
@@ -14,31 +19,37 @@ from h3.geo import (
 )
 
 cpdef basestring _c_version():
-    c = (h3lib.H3_VERSION_MAJOR, h3lib.H3_VERSION_MINOR, h3lib.H3_VERSION_PATCH)
-    c = '{}.{}.{}'.format(*c)
+    v = (
+        h3lib.H3_VERSION_MAJOR,
+        h3lib.H3_VERSION_MINOR,
+        h3lib.H3_VERSION_PATCH,
+    )
 
-    return c
+    return '{}.{}.{}'.format(*v)
+
+# todo: add notes about Cython exception handling
 
 
 # bool is a python type, so we don't need the except clause
-cpdef bool is_cell(h3lib.H3int h):
+cpdef bool is_cell(H3int h):
     """Validates an H3 cell (hexagon or pentagon)
+
     Returns
     -------
     boolean
     """
     return h3lib.h3IsValid(h) == 1
 
-cpdef bool is_pentagon(h3lib.H3int h):
+cpdef bool is_pentagon(H3int h):
     return h3lib.h3IsPentagon(h) == 1
 
-cpdef int get_base_cell(h3lib.H3int h) except -1:
+cpdef int get_base_cell(H3int h) except -1:
     check_addr(h)
 
     return h3lib.h3GetBaseCell(h)
 
 
-cpdef int resolution(h3lib.H3int h) except -1:
+cpdef int resolution(H3int h) except -1:
     """Returns the resolution of an H3 Index
     0--15
     """
@@ -47,7 +58,7 @@ cpdef int resolution(h3lib.H3int h) except -1:
     return h3lib.h3GetResolution(h)
 
 
-cpdef h3lib.H3int parent(h3lib.H3int h, res=None) except 1:
+cpdef H3int parent(H3int h, res=None) except 1:
     check_addr(h)
 
     if res is None:
@@ -58,7 +69,7 @@ cpdef h3lib.H3int parent(h3lib.H3int h, res=None) except 1:
     return h3lib.h3ToParent(h, res)
 
 
-cpdef int distance(h3lib.H3int h1, h3lib.H3int h2) except -1:
+cpdef int distance(H3int h1, H3int h2) except -1:
     """ compute the hex-distance between two hexagons
     """
     check_addr(h1)
@@ -68,7 +79,7 @@ cpdef int distance(h3lib.H3int h1, h3lib.H3int h2) except -1:
 
     return d
 
-cpdef h3lib.H3int[:] disk(h3lib.H3int h, int k):
+cpdef H3int[:] disk(H3int h, int k):
     """ Return cells at grid distance `<= k` from `h`.
     """
     check_addr(h)
@@ -83,7 +94,7 @@ cpdef h3lib.H3int[:] disk(h3lib.H3int h, int k):
 
     return mv
 
-cpdef h3lib.H3int[:] ring(h3lib.H3int h, int k):
+cpdef H3int[:] ring(H3int h, int k):
     """ Return cells at grid distance `== k` from `h`.
     Collection is "hollow" for k >= 1.
     """
@@ -113,7 +124,7 @@ cpdef h3lib.H3int[:] ring(h3lib.H3int h, int k):
 
 
 
-cpdef h3lib.H3int[:] children(h3lib.H3int h, res=None):
+cpdef H3int[:] children(H3int h, res=None):
     check_addr(h)
 
     if res is None:
@@ -131,7 +142,7 @@ cpdef h3lib.H3int[:] children(h3lib.H3int h, res=None):
 
 
 
-cpdef h3lib.H3int[:] compact(const h3lib.H3int[:] hu):
+cpdef H3int[:] compact(const H3int[:] hu):
     for h in hu:
         check_addr(h)
 
@@ -146,7 +157,7 @@ cpdef h3lib.H3int[:] compact(const h3lib.H3int[:] hu):
 
 # todo: https://stackoverflow.com/questions/50684977/cython-exception-type-for-a-function-returning-a-typed-memoryview
 # apparently, memoryviews are python objects, so we don't need to do the except clause
-cpdef h3lib.H3int[:] uncompact(const h3lib.H3int[:] hc, int res):
+cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     for h in hc:
         check_addr(h)
 
@@ -201,14 +212,14 @@ cpdef double mean_edge_length(int resolution, unit='km') except -1:
 
 
 
-cpdef bool are_neighbors(h3lib.H3int h1, h3lib.H3int h2):
+cpdef bool are_neighbors(H3int h1, H3int h2):
     check_addr(h1)
     check_addr(h2)
 
     return h3lib.h3IndexesAreNeighbors(h1, h2) == 1
 
 
-cpdef h3lib.H3int edge(h3lib.H3int origin, h3lib.H3int destination) except 1:
+cpdef H3int edge(H3int origin, H3int destination) except 1:
     check_addr(origin)
     check_addr(destination)
 
@@ -218,27 +229,27 @@ cpdef h3lib.H3int edge(h3lib.H3int origin, h3lib.H3int destination) except 1:
     return h3lib.getH3UnidirectionalEdge(origin, destination)
 
 
-cpdef bool is_edge(h3lib.H3int e):
+cpdef bool is_edge(H3int e):
     check_edge(e)
 
     return h3lib.h3UnidirectionalEdgeIsValid(e) == 1
 
-cpdef h3lib.H3int edge_origin(h3lib.H3int e) except 1:
+cpdef H3int edge_origin(H3int e) except 1:
     check_edge(e)
 
     return h3lib.getOriginH3IndexFromUnidirectionalEdge(e)
 
-cpdef h3lib.H3int edge_destination(h3lib.H3int e) except 1:
+cpdef H3int edge_destination(H3int e) except 1:
     check_edge(e)
 
     return h3lib.getDestinationH3IndexFromUnidirectionalEdge(e)
 
-cpdef (h3lib.H3int, h3lib.H3int) edge_cells(h3lib.H3int e) except *:
+cpdef (H3int, H3int) edge_cells(H3int e) except *:
     check_edge(e)
 
     return edge_origin(e), edge_destination(e)
 
-cpdef h3lib.H3int[:] edges_from_cell(h3lib.H3int origin):
+cpdef H3int[:] edges_from_cell(H3int origin):
     """ Returns the 6 (or 5 for pentagons) directed edges
     for the given origin cell
     """
@@ -250,7 +261,7 @@ cpdef h3lib.H3int[:] edges_from_cell(h3lib.H3int origin):
 
     return mv
 
-cpdef h3lib.H3int[:] line(h3lib.H3int start, h3lib.H3int end):
+cpdef H3int[:] line(H3int start, H3int end):
     check_addr(start)
     check_addr(end)
 

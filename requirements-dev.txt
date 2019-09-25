@@ -7,4 +7,6 @@ scikit-build
 
 # Testing
 pytest
+pytest-cov
+codecov
 flake8
