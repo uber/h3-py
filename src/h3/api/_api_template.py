@@ -41,6 +41,7 @@ def _api_functions(
 
     def h3_is_valid(h):
         """Validates an H3 cell (hexagon or pentagon)
+
         Returns
         -------
         boolean
@@ -48,14 +49,14 @@ def _api_functions(
         try:
             h = _in_scalar(h)
             return h3core.is_cell(h)
-        except:
+        except ValueError:
             return False
 
     def h3_unidirectional_edge_is_valid(edge):
         try:
             e = _in_scalar(edge)
             return h3core.is_edge(e)
-        except:  # todo: maybe make a special Exception type?
+        except ValueError:  # todo: maybe make a special Exception type?
             return False
 
     def geo_to_h3(lat, lng, resolution):
@@ -73,12 +74,14 @@ def _api_functions(
 
     def h3_to_parent(h, res=None):
         """ Get the parent of a hexagon.
+
         Parameters
         ----------
         h : H3 address
         res : int or None, optional
             The resolution for the parent
             If `None`, then `res = resolution(h) - 1`
+
         Returns
         -------
         H3 address

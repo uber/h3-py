@@ -1,7 +1,7 @@
 
 DOCKER_IMAGE ?= quay.io/pypa/manylinux1_x86_64
 
-.PHONY: purge init rebuild linux test
+.PHONY: purge init rebuild linux test lint
 
 init: purge
 	git submodule update --init
@@ -20,10 +20,13 @@ linux:
 
 purge:
 	-@rm -rf env
-	find src -type d -name '*.egg-info' | xargs rm -r
+	find . -type d -name '*.egg-info' | xargs rm -r
 	find . -type f -name '*.pyc' | xargs rm -r
 	find . -type d -name '*.ipynb_checkpoints' | xargs rm -r
 	-@rm -rf .pytest_cache tests/__pycache__ __pycache__ _skbuild dist
 
 test:
-	env/bin/pytest tests/test.py
+	env/bin/pytest tests/*
+
+lint:
+	flake8 src/h3 setup.py
