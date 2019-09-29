@@ -19,6 +19,7 @@ def test5():
     out = h3.k_ring(617700169958293503, 1)
     assert out == expected
 
+
 def test_compact():
     h = 617700169958293503
     hexes = h3.h3_to_children(h)
