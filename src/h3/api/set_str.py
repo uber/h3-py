@@ -16,10 +16,10 @@ def _out_collection(mv):
 
 
 _funcs = _api_functions(
-    _in_scalar=hex2int,
-    _out_scalar=int2hex,
-    _in_collection=_in_collection,
-    _out_collection=_out_collection,
+    _in_scalar = hex2int,
+    _out_scalar = int2hex,
+    _in_collection = _in_collection,
+    _out_collection = _out_collection,
 )
 
 # todo: not sure if this is the best way to do this...

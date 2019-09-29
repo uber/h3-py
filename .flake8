@@ -5,5 +5,5 @@ include =
     #W292 No newline at end of file
     W292
 ignore =
-    #E251 unexpected spaces around keyword / parameter equals
-    #E251
+    E251 unexpected spaces around keyword / parameter equals
+    E251

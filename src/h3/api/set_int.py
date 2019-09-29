@@ -19,10 +19,10 @@ def _out_collection(mv):
 
 
 _funcs = _api_functions(
-    _in_scalar=_id,
-    _out_scalar=_id,
-    _in_collection=_in_collection,
-    _out_collection=_out_collection,
+    _in_scalar = _id,
+    _out_scalar = _id,
+    _in_collection = _in_collection,
+    _out_collection = _out_collection,
 )
 
 globals().update(_funcs)

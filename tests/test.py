@@ -8,20 +8,25 @@ from h3.util import (
 import pytest
 
 
-def approx2(a,b):
+def approx2(a, b):
     if len(a) != len(b):
         return False
 
     return all(
-    x == pytest.approx(y)
-    for x,y in zip(a,b)
+        x == pytest.approx(y)
+        for x, y in zip(a, b)
     )
+
 
 def test1():
     assert h3.geo_to_h3(37.7752702151959, -122.418307270836, 9) == '8928308280fffff'
 
+
 def test2():
-    assert h3.h3_to_geo('8928308280fffff') == pytest.approx((37.77670234943567, -122.41845932318311))
+    h = '8928308280fffff'
+    expected = (37.77670234943567, -122.41845932318311)
+
+    assert h3.h3_to_geo(h) == pytest.approx(expected)
 
 
 def test3():
@@ -31,8 +36,8 @@ def test3():
         (37.778385004930925, -122.4173879761762),
         (37.77820687262238, -122.41971895414807),
         (37.77652420699321, -122.42079024541877),
-        (37.775019673792606, -122.4195306280734)
-     )
+        (37.775019673792606, -122.4195306280734),
+    )
 
     out = h3.h3_to_geo_boundary('8928308280fffff')
     assert approx2(out, expected)
@@ -73,6 +78,7 @@ def test6():
     out = h3.hex_ring('8928308280fffff', 0)
     assert out == expected
 
+
 def test7():
     expected = {
         '89283082803ffff',
@@ -86,6 +92,7 @@ def test7():
     out = h3.hex_ring('8928308280fffff', 1)
     assert out == expected
 
+
 def test8():
     assert h3.h3_is_valid('89283082803ffff')
     assert not h3.h3_is_valid('abc')
@@ -98,14 +105,18 @@ def test8():
     with pytest.raises(H3CellError):
         h3.h3_get_resolution(h_bad)
 
+
 def test9():
     assert h3.h3_get_resolution('8928308280fffff') == 9
     assert h3.h3_get_resolution('8a28308280f7fff') == 10
 
+
 def test_parent():
     assert h3.h3_to_parent('8928308280fffff', 8) == '8828308281fffff'
     assert h3.h3_to_parent('8928308280fffff', 7) == '872830828ffffff'
-    assert h3.h3_to_parent('8928308280fffff', 10) == '0' # todo: thsi should probably return None, eh?
+
+    # todo: this should probably return None, eh?
+    assert h3.h3_to_parent('8928308280fffff', 10) == '0'
 
 
 def test_children():
@@ -128,20 +139,21 @@ def test_children():
 
     assert out == expected
 
+
 def test_distance():
     h = '8a28308280c7fff'
-    assert h3.h3_distance(h,h) == 0
+    assert h3.h3_distance(h, h) == 0
 
-    n = h3.hex_ring(h,1).pop()
-    assert h3.h3_distance(h,n) == 1
+    n = h3.hex_ring(h, 1).pop()
+    assert h3.h3_distance(h, n) == 1
 
-    n = h3.hex_ring(h,2).pop()
-    assert h3.h3_distance(h,n) == 2
+    n = h3.hex_ring(h, 2).pop()
+    assert h3.h3_distance(h, n) == 2
 
 
 def test_polyfill():
 
-    #lat/lngs for State of Maine
+    # lat/lngs for State of Maine
     geos = [
         (45.137451890638886, -67.13734351262877),
         (44.8097, -66.96466),
@@ -182,7 +194,7 @@ def test_polyfill():
 
 def test_compact():
 
-    #lat/lngs for State of Maine
+    # lat/lngs for State of Maine
     maine = [
         (45.137451890638886, -67.13734351262877),
         (44.8097, -66.96466),
@@ -211,11 +223,12 @@ def test_compact():
     h_uncomp = h3.polyfill(maine, res)
     h_comp = h3.compact(h_uncomp)
 
-    expected = {'852b114ffffffff', '852b189bfffffff', '852b1163fffffff', '842ba9bffffffff', '842bad3ffffffff', '852ba9cffffffff', '842badbffffffff', '852b1e8bfffffff', '852a346ffffffff', '842b1e3ffffffff', '852b116ffffffff', '842b185ffffffff', '852b1bdbfffffff', '852bad47fffffff', '852ba9c3fffffff', '852b106bfffffff', '852a30d3fffffff', '842b1edffffffff', '852b12a7fffffff', '852b1027fffffff', '842baddffffffff', '852a349bfffffff', '852b1227fffffff', '852a3473fffffff', '852b117bfffffff', '842ba99ffffffff', '852a341bfffffff', '852ba9d3fffffff', '852b1067fffffff', '852a3463fffffff', '852baca7fffffff', '852b116bfffffff', '852b1c6bfffffff', '852a3493fffffff', '852ba9dbfffffff', '852b180bfffffff', '842bad7ffffffff', '852b1063fffffff', '842ba93ffffffff', '852a3693fffffff', '852ba977fffffff', '852b1e9bfffffff', '852bad53fffffff', '852b100ffffffff', '852b102bfffffff', '852a3413fffffff', '852ba8b7fffffff', '852bad43fffffff', '852b1c6ffffffff', '852a340bfffffff', '852b103bfffffff', '852b1813fffffff', '852b12affffffff', '842a34dffffffff', '852b1873fffffff', '852b106ffffffff', '852b115bfffffff', '852baca3fffffff', '852b114bfffffff', '852b1143fffffff', '852a348bfffffff', '852a30d7fffffff', '852b181bfffffff', '842a345ffffffff', '852b1e8ffffffff', '852b1883fffffff', '852b1147fffffff', '852a3483fffffff', '852b12a3fffffff', '852a346bfffffff', '852ba9d7fffffff', '842b18dffffffff', '852b188bfffffff', '852a36a7fffffff', '852bacb3fffffff', '852b187bfffffff', '852bacb7fffffff', '842b1ebffffffff', '842b1e5ffffffff', '852ba8a7fffffff', '842bad9ffffffff', '852a36b7fffffff', '852a347bfffffff', '832b13fffffffff', '852ba9c7fffffff', '832b1afffffffff', '842ba91ffffffff', '852bad57fffffff', '852ba8affffffff', '852b1803fffffff', '842b1e7ffffffff', '852bad4ffffffff', '852b102ffffffff', '852b1077fffffff', '852b1237fffffff', '852b1153fffffff', '852a3697fffffff', '852a36b3fffffff', '842bad1ffffffff', '842b1e1ffffffff', '852b186bfffffff', '852b1023fffffff'}
+    expected = {'852b114ffffffff', '852b189bfffffff', '852b1163fffffff', '842ba9bffffffff', '842bad3ffffffff', '852ba9cffffffff', '842badbffffffff', '852b1e8bfffffff', '852a346ffffffff', '842b1e3ffffffff', '852b116ffffffff', '842b185ffffffff', '852b1bdbfffffff', '852bad47fffffff', '852ba9c3fffffff', '852b106bfffffff', '852a30d3fffffff', '842b1edffffffff', '852b12a7fffffff', '852b1027fffffff', '842baddffffffff', '852a349bfffffff', '852b1227fffffff', '852a3473fffffff', '852b117bfffffff', '842ba99ffffffff', '852a341bfffffff', '852ba9d3fffffff', '852b1067fffffff', '852a3463fffffff', '852baca7fffffff', '852b116bfffffff', '852b1c6bfffffff', '852a3493fffffff', '852ba9dbfffffff', '852b180bfffffff', '842bad7ffffffff', '852b1063fffffff', '842ba93ffffffff', '852a3693fffffff', '852ba977fffffff', '852b1e9bfffffff', '852bad53fffffff', '852b100ffffffff', '852b102bfffffff', '852a3413fffffff', '852ba8b7fffffff', '852bad43fffffff', '852b1c6ffffffff', '852a340bfffffff', '852b103bfffffff', '852b1813fffffff', '852b12affffffff', '842a34dffffffff', '852b1873fffffff', '852b106ffffffff', '852b115bfffffff', '852baca3fffffff', '852b114bfffffff', '852b1143fffffff', '852a348bfffffff', '852a30d7fffffff', '852b181bfffffff', '842a345ffffffff', '852b1e8ffffffff', '852b1883fffffff', '852b1147fffffff', '852a3483fffffff', '852b12a3fffffff', '852a346bfffffff', '852ba9d7fffffff', '842b18dffffffff', '852b188bfffffff', '852a36a7fffffff', '852bacb3fffffff', '852b187bfffffff', '852bacb7fffffff', '842b1ebffffffff', '842b1e5ffffffff', '852ba8a7fffffff', '842bad9ffffffff', '852a36b7fffffff', '852a347bfffffff', '832b13fffffffff', '852ba9c7fffffff', '832b1afffffffff', '842ba91ffffffff', '852bad57fffffff', '852ba8affffffff', '852b1803fffffff', '842b1e7ffffffff', '852bad4ffffffff', '852b102ffffffff', '852b1077fffffff', '852b1237fffffff', '852b1153fffffff', '852a3697fffffff', '852a36b3fffffff', '842bad1ffffffff', '842b1e1ffffffff', '852b186bfffffff', '852b1023fffffff'} # noqa
 
     assert h_comp == expected
 
     return h_uncomp, h_comp, res
+
 
 def test_uncompact():
 
@@ -242,6 +255,7 @@ def test_num_hexagons():
 
     assert expected == out
 
+
 def test_hex_area():
     expected_in_km2 = {
         0: 4250546.848,
@@ -257,6 +271,7 @@ def test_hex_area():
     }
 
     assert out == pytest.approx(expected_in_km2)
+
 
 def test_hex_edge_length():
     expected_in_km = {
@@ -282,7 +297,7 @@ def test_edge():
     assert not h3.h3_indexes_are_neighbors(h1, h1)
     assert h3.h3_indexes_are_neighbors(h1, h2)
 
-    e = h3.get_h3_unidirectional_edge(h1,h2)
+    e = h3.get_h3_unidirectional_edge(h1, h2)
 
     assert e == '12928308280fffff'
     assert h3.h3_unidirectional_edge_is_valid(e)
@@ -291,20 +306,25 @@ def test_edge():
     assert h3.get_origin_h3_index_from_unidirectional_edge(e) == h1
     assert h3.get_destination_h3_index_from_unidirectional_edge(e) == h2
 
-    assert h3.get_h3_indexes_from_unidirectional_edge(e) == (h1,h2)
+    assert h3.get_h3_indexes_from_unidirectional_edge(e) == (h1, h2)
+
 
 def test_edges_from_cell():
     h = '8928308280fffff'
     edges = h3.get_h3_unidirectional_edges_from_hexagon(h)
-    destinations = {h3.get_destination_h3_index_from_unidirectional_edge(e) for e in edges}
+    destinations = {
+        h3.get_destination_h3_index_from_unidirectional_edge(e)
+        for e in edges
+    }
     neighbors = h3.hex_ring(h, 1)
 
     assert neighbors == destinations
 
+
 def test_edge_boundary():
     h1 = '8928308280fffff'
     h2 = '89283082873ffff'
-    e = h3.get_h3_unidirectional_edge(h1,h2)
+    e = h3.get_h3_unidirectional_edge(h1, h2)
 
     expected = (
         (37.77688044840226, -122.41612835779266),
@@ -318,7 +338,7 @@ def test_edge_boundary():
 
 
 def test_validation():
-    h = '8a28308280fffff' # invalid hex
+    h = '8a28308280fffff'  # invalid hex
 
     with pytest.raises(H3CellError):
         h3.h3_get_base_cell(h)
@@ -354,36 +374,34 @@ def test_validation2():
     with pytest.raises(H3ResolutionError):
         h3.h3_to_children(h, 17)
 
-    assert not h3.h3_indexes_are_neighbors(h,h)
-
-
+    assert not h3.h3_indexes_are_neighbors(h, h)
 
 
 def test_validation_geo():
-    h = '8a28308280fffff' # invalid hex
+    h = '8a28308280fffff'  # invalid hex
 
     with pytest.raises(H3CellError):
         h3.h3_to_geo(h)
 
     with pytest.raises(H3ResolutionError):
-        h3.geo_to_h3(0,0,17)
+        h3.geo_to_h3(0, 0, 17)
 
     with pytest.raises(H3CellError):
         h3.h3_to_geo_boundary(h)
 
     with pytest.raises(H3CellError):
-        h3.h3_indexes_are_neighbors(h,h)
+        h3.h3_indexes_are_neighbors(h, h)
+
 
 def test_edges():
     h = '8928308280fffff'
 
     with pytest.raises(H3ValueError):
-        h3.get_h3_unidirectional_edge(h,h)
+        h3.get_h3_unidirectional_edge(h, h)
 
-    h2 = h3.hex_ring(h,2).pop()
+    h2 = h3.hex_ring(h, 2).pop()
     with pytest.raises(H3ValueError):
         h3.get_h3_unidirectional_edge(h, h2)
-
 
     e_bad = '14928308280ffff1'
     assert not h3.h3_unidirectional_edge_is_valid(e_bad)
@@ -402,7 +420,7 @@ def test_line():
     h1 = '8928308280fffff'
     h2 = '8928308287bffff'
 
-    out = h3.h3_line(h1,h2)
+    out = h3.h3_line(h1, h2)
 
     expected = {
         '8928308280fffff',
