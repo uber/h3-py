@@ -16,4 +16,4 @@ endmacro()
 
 add_cython_file(util)
 add_cython_file(geo)
-add_cython_file(h3core)
+add_cython_file(memview_int)

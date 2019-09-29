@@ -5,8 +5,8 @@ from .util cimport (
     check_addr,
     check_edge,
     check_res,
+    create_ptr,
     create_mv,
-    create_ptr
 )
 
 from h3.util import H3ValueError
