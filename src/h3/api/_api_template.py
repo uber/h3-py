@@ -1,5 +1,5 @@
 import h3.h3core as h3core
-import h3.h3utils as u
+import h3.util as u
 from .._version import __version__
 
 

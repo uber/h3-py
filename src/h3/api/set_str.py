@@ -1,5 +1,5 @@
 from h3.api._api_template import _api_functions
-from h3.h3utils import hex2int, int2hex, from_iter
+from h3.util import hex2int, int2hex, from_iter
 
 
 # todo: how to write documentation once and have it carry over to each interface?

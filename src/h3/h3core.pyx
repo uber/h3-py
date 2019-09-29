@@ -1,7 +1,7 @@
 cimport h3lib
 from h3lib cimport bool, int64_t, H3int
 
-from .h3utils cimport (
+from .util cimport (
     check_addr,
     check_edge,
     check_res,
@@ -9,7 +9,7 @@ from .h3utils cimport (
     create_ptr
 )
 
-from h3.h3utils import H3ValueError
+from h3.util import H3ValueError
 from h3.geo import (
     geo_to_h3,
     h3_to_geo,

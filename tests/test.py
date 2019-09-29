@@ -1,5 +1,5 @@
 import h3
-from h3.h3utils import (
+from h3.util import (
     H3ValueError,
     H3CellError,
     H3ResolutionError,

@@ -1,5 +1,5 @@
 cimport h3lib
-from .h3utils cimport check_addr, check_edge, check_res, create_mv, create_ptr
+from .util cimport check_addr, check_edge, check_res, create_mv, create_ptr
 from libc cimport stdlib
 
 
