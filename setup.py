@@ -9,16 +9,16 @@ with open(os.path.join(here, 'src', 'h3', '_version.py')) as f:
     exec(f.read(), about)
 
 setup(
-    name='h3',
-    version=about['__version__'],
-    description=about['__description__'],
-    long_description='long_description',
-    author='Uber Technologies',
-    author_email='Niel Hu <hu.niel92@gmail.com>',
-    url=about['__url__'],
-    packages=find_packages('src', exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
-    package_dir={'': 'src'},
-    classifiers=[
+    name = 'h3',
+    version = about['__version__'],
+    description = about['__description__'],
+    long_description = 'long_description',
+    author = about['__author__'],
+    author_email = about['__author_email__'],
+    url = about['__url__'],
+    packages = find_packages('src', exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
+    package_dir = {'': 'src'},
+    classifiers = [
         "Development Status :: 2 - Beta",
         "Intended Audience :: Developers",
         "Intended Audience :: Science/Research",
@@ -31,5 +31,5 @@ setup(
         "Operating System :: POSIX :: Linux",
         "Topic :: Scientific/Engineering :: GIS",
     ],
-    cmake_languages=('C'),
+    cmake_languages = ('C'),
 )
