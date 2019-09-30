@@ -1,5 +1,5 @@
 from h3.api._api_template import _api_functions
-from h3.h3utils import from_iter
+from h3.util import from_iter
 
 
 # todo: how to write documentation once and have it carry over to each interface?
@@ -19,10 +19,10 @@ def _out_collection(mv):
 
 
 _funcs = _api_functions(
-    _in_scalar=_id,
-    _out_scalar=_id,
-    _in_collection=_in_collection,
-    _out_collection=_out_collection,
+    _in_scalar = _id,
+    _out_scalar = _id,
+    _in_collection = _in_collection,
+    _out_collection = _out_collection,
 )
 
 globals().update(_funcs)

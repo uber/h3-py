@@ -26,7 +26,7 @@ purge:
 	-@rm -rf .pytest_cache tests/__pycache__ __pycache__ _skbuild dist .coverage
 
 test:
-	env/bin/pytest tests/* --cov=h3
+	env/bin/pytest tests/* --cov=h3 --cov-report term-missing
 
 lint:
 	flake8 src/h3 setup.py tests

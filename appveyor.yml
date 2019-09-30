@@ -26,3 +26,7 @@ install:
 
 test_script:
   - pytest tests/test.py
+  - pytest tests/test_array_int.py
+  - pytest tests/test_memview_int.py
+  - pytest tests/test_set_int.py
+  - pytest tests/test_set_str.py

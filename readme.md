@@ -1,12 +1,13 @@
 # README for Cython development branch
 
-Based on @isaachier/h3-py https://github.com/isaachier/h3-py/blob/cython/src/h3core.pyx
+Based on https://github.com/uber/h3-py/tree/cython
 
-- `git clone git@github.com:ajfriend/h3-py.git`
+- `git clone git@github.com:uber/h3-py.git`
 - `cd h3-py`
-- `git checkout <branch name>`
+- `git checkout cython`
 - `make init`
-- `source env/bin/activate`
+- `make test`
+- `make lint`
 
 Try from within `ipython`:
 
@@ -16,5 +17,7 @@ Try from within `ipython`:
 '8075fffffffffff'
 ```
 
-# to run tests
-- `make test`
+
+# Workflow
+
+- [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)

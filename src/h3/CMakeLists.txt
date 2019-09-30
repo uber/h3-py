@@ -14,6 +14,6 @@ macro(add_cython_file filename)
     install(TARGETS ${filename} LIBRARY DESTINATION src/h3)
 endmacro()
 
-add_cython_file(h3utils)
+add_cython_file(util)
 add_cython_file(geo)
-add_cython_file(h3core)
+add_cython_file(memview_int)
