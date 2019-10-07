@@ -47,7 +47,7 @@ cpdef h3lib.H3int geo_to_h3(double lat, double lng, int res) except 1:
 
 
 cpdef (double, double) h3_to_geo(h3lib.H3int h) except *:
-    """Reverse lookup an h3 address into a geo-coordinate"""
+    """Map an H3 cell into its centroid geo-coordinate (lat/lng)"""
     cdef:
         h3lib.GeoCoord c
 
