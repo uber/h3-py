@@ -235,7 +235,7 @@ def test_polyfill_holes():
         h3.polyfill_polygon(exterior, res=5)
     )
 
-    for res in 1,2,3,4,5:
+    for res in 1, 2, 3, 4, 5:
         hexes_all = h3.polyfill_polygon(exterior, res=res)
         hexes_holes = h3.polyfill_polygon(exterior, holes=[hole1, hole2], res=res)
 
