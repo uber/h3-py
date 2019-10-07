@@ -13,6 +13,8 @@ from h3.util import H3ValueError
 from h3.geo import (
     geo_to_h3,
     h3_to_geo,
+    polyfill_polygon,
+    polyfill_geojson,
     polyfill,
     cell_boundary,
     edge_boundary

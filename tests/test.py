@@ -154,7 +154,7 @@ def test_distance():
 def test_polyfill():
 
     # lat/lngs for State of Maine
-    geos = [
+    maine = [
         (45.137451890638886, -67.13734351262877),
         (44.8097, -66.96466),
         (44.3252, -68.03252),
@@ -187,9 +187,63 @@ def test_polyfill():
         '832badfffffffff'
     }
 
-    out = h3.polyfill(geos, 3)
+    out = h3.polyfill_polygon(maine, res=3)
 
     assert out == expected
+
+
+def test_polyfill_order():
+    # big center chunk of the US in lng/lat order
+    lnglat = [
+        [-110.61, 42.68],
+        [-109.02, 32.17],
+        [ -94.26, 31.57],
+        [ -89.38, 42.94],
+        [-110.61, 42.68],
+    ]
+
+    out = h3.polyfill_polygon(lnglat, res=5, order='lnglat')
+
+    assert len(out) == 7063
+
+
+def test_polyfill_holes():
+    exterior = [
+        [42.68, -110.61],
+        [32.17, -109.02],
+        [31.57, -94.26],
+        [42.94, -89.38],
+        [42.68, -110.61]
+    ]
+
+    hole1 = [
+        [39.77, -105.07],
+        [34.81, -104.72],
+        [34.77, -98.39],
+        [40.14, -96.72],
+        [39.77, -105.07]
+    ]
+
+    hole2 = [
+        [41.37, -98.61],
+        [40.04, -91.80],
+        [42.32, -91.80],
+        [41.37, -98.61]
+    ]
+
+    assert 7063 == len(
+        h3.polyfill_polygon(exterior, res=5)
+    )
+
+    for res in 1,2,3,4,5:
+        hexes_all = h3.polyfill_polygon(exterior, res=res)
+        hexes_holes = h3.polyfill_polygon(exterior, holes=[hole1, hole2], res=res)
+
+        hexes_1 = h3.polyfill_polygon(hole1, res=res)
+        hexes_2 = h3.polyfill_polygon(hole2, res=res)
+
+        assert len(hexes_all) == len(hexes_holes) + len(hexes_1) + len(hexes_2)
+        assert hexes_all == set.union(hexes_holes, hexes_1, hexes_2)
 
 
 def test_compact():
@@ -220,7 +274,7 @@ def test_compact():
 
     res = 5
 
-    h_uncomp = h3.polyfill(maine, res)
+    h_uncomp = h3.polyfill_polygon(maine, res=res)
     h_comp = h3.compact(h_uncomp)
 
     expected = {'852b114ffffffff', '852b189bfffffff', '852b1163fffffff', '842ba9bffffffff', '842bad3ffffffff', '852ba9cffffffff', '842badbffffffff', '852b1e8bfffffff', '852a346ffffffff', '842b1e3ffffffff', '852b116ffffffff', '842b185ffffffff', '852b1bdbfffffff', '852bad47fffffff', '852ba9c3fffffff', '852b106bfffffff', '852a30d3fffffff', '842b1edffffffff', '852b12a7fffffff', '852b1027fffffff', '842baddffffffff', '852a349bfffffff', '852b1227fffffff', '852a3473fffffff', '852b117bfffffff', '842ba99ffffffff', '852a341bfffffff', '852ba9d3fffffff', '852b1067fffffff', '852a3463fffffff', '852baca7fffffff', '852b116bfffffff', '852b1c6bfffffff', '852a3493fffffff', '852ba9dbfffffff', '852b180bfffffff', '842bad7ffffffff', '852b1063fffffff', '842ba93ffffffff', '852a3693fffffff', '852ba977fffffff', '852b1e9bfffffff', '852bad53fffffff', '852b100ffffffff', '852b102bfffffff', '852a3413fffffff', '852ba8b7fffffff', '852bad43fffffff', '852b1c6ffffffff', '852a340bfffffff', '852b103bfffffff', '852b1813fffffff', '852b12affffffff', '842a34dffffffff', '852b1873fffffff', '852b106ffffffff', '852b115bfffffff', '852baca3fffffff', '852b114bfffffff', '852b1143fffffff', '852a348bfffffff', '852a30d7fffffff', '852b181bfffffff', '842a345ffffffff', '852b1e8ffffffff', '852b1883fffffff', '852b1147fffffff', '852a3483fffffff', '852b12a3fffffff', '852a346bfffffff', '852ba9d7fffffff', '842b18dffffffff', '852b188bfffffff', '852a36a7fffffff', '852bacb3fffffff', '852b187bfffffff', '852bacb7fffffff', '842b1ebffffffff', '842b1e5ffffffff', '852ba8a7fffffff', '842bad9ffffffff', '852a36b7fffffff', '852a347bfffffff', '832b13fffffffff', '852ba9c7fffffff', '832b1afffffffff', '842ba91ffffffff', '852bad57fffffff', '852ba8affffffff', '852b1803fffffff', '842b1e7ffffffff', '852bad4ffffffff', '852b102ffffffff', '852b1077fffffff', '852b1237fffffff', '852b1153fffffff', '852a3697fffffff', '852a36b3fffffff', '842bad1ffffffff', '842b1e1ffffffff', '852b186bfffffff', '852b1023fffffff'} # noqa
