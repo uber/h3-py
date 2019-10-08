@@ -187,7 +187,7 @@ def test_polyfill_polygon():
         '832badfffffffff'
     }
 
-    out = h3.polyfill_polygon(maine, res=3)
+    out = h3.polyfill_polygon(maine, 3)
 
     assert out == expected
 
@@ -195,7 +195,7 @@ def test_polyfill_polygon():
 def test_polyfill_polygon_order():
     lnglat, _, _ = get_us_box_coords(order='lnglat')
 
-    out = h3.polyfill_polygon(lnglat, res=5, order='lnglat')
+    out = h3.polyfill_polygon(lnglat, 5, order='lnglat')
 
     assert len(out) == 7063
 
@@ -246,15 +246,15 @@ def test_polyfill_polygon_holes():
     outer, hole1, hole2 = get_us_box_coords()
 
     assert 7063 == len(
-        h3.polyfill_polygon(outer, res=5)
+        h3.polyfill_polygon(outer, 5)
     )
 
     for res in 1, 2, 3, 4, 5:
-        hexes_all = h3.polyfill_polygon(outer, res=res)
-        hexes_holes = h3.polyfill_polygon(outer, holes=[hole1, hole2], res=res)
+        hexes_all = h3.polyfill_polygon(outer, res)
+        hexes_holes = h3.polyfill_polygon(outer, res, [hole1, hole2])
 
-        hexes_1 = h3.polyfill_polygon(hole1, res=res)
-        hexes_2 = h3.polyfill_polygon(hole2, res=res)
+        hexes_1 = h3.polyfill_polygon(hole1, res)
+        hexes_2 = h3.polyfill_polygon(hole2, res)
 
         assert len(hexes_all) == len(hexes_holes) + len(hexes_1) + len(hexes_2)
         assert hexes_all == set.union(hexes_holes, hexes_1, hexes_2)

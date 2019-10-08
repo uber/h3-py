@@ -135,7 +135,7 @@ def _swap_coord_order(linear_ring):
     return out
 
 
-def polyfill_polygon(outer, holes=None, int res=9, order='latlng'):
+def polyfill_polygon(outer, int res, holes=None, order='latlng'):
     """ Set of hexagons whose center is contained in a polygon.
 
     The polygon is defined as in the GeoJson standard, with an exterior
@@ -146,10 +146,10 @@ def polyfill_polygon(outer, holes=None, int res=9, order='latlng'):
     ----------
     outer : list or tuple
         A LinearRing, a sequence of (lat/lng) or (lng/lat) pairs
-    holes : list or tuple
-        A collection of LinearRings, describing any holes in the polygon
     res : int
         The resolution of the output hexagons
+    holes : list or tuple
+        A collection of LinearRings, describing any holes in the polygon
     order : str
         'latlng' or 'lnglat'
         Describe the expected order of the coordinate pairs
@@ -177,7 +177,7 @@ def polyfill_polygon(outer, holes=None, int res=9, order='latlng'):
     return mv
 
 
-def polyfill_geojson(geojson, int res=9):
+def polyfill_geojson(geojson, int res):
     """ Set of hexagons whose center is contained in a GeoJson Polygon object.
 
     The polygon is defined exactly as in the GeoJson standard, so
@@ -208,12 +208,9 @@ def polyfill_geojson(geojson, int res=9):
 
     coords = geojson['coordinates']
 
-    out = polyfill_polygon(coords[0], holes=coords[1:], res=res, order='lnglat')
+    out = polyfill_polygon(coords[0], res, holes=coords[1:], order='lnglat')
 
     return out
-
-
-
 
 
 def polyfill(geojson, int res, geo_json_conformant=False):
