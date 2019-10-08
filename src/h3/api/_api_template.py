@@ -150,8 +150,8 @@ def _api_functions(
 
         return _out_collection(hu)
 
-    def polyfill_polygon(outer, res, holes=None, order='latlng'):
-        mv = mvi.polyfill_polygon(outer, res, holes, order)
+    def polyfill_polygon(outer, res, holes=None, lnglat_order=False):
+        mv = mvi.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
 
         return _out_collection(mv)
 

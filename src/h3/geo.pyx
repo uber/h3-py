@@ -1,4 +1,5 @@
 cimport h3lib
+from h3lib cimport bool
 from .util cimport (
     check_addr,
     check_edge,
@@ -10,7 +11,7 @@ from libc cimport stdlib
 
 
 cdef (double, double) mercator(double lat, double lng):
-    """Helper coerce lat/lng range"""
+    """Helper to coerce lat/lng range"""
     lat = lat - 180 if lat > 90  else lat
     lng = lng - 360 if lng > 180 else lng
 
@@ -58,16 +59,31 @@ cpdef (double, double) h3_to_geo(h3lib.H3int h) except *:
     return coord2geo(c)
 
 
-cdef h3lib.Geofence make_geofence(geos):
+cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False):
+    """
+
+    Parameters
+    ----------
+    geos : list or tuple
+        A sequence of >= 4 (lat, lng) pairs where the last element
+        is the same as the first.
+    lnglat_order : bool
+        If True, assume coordinate pairs like (lng, lat)
+        If False, assume coordinate pairs like (lat, lng)
+    """
     cdef:
         h3lib.Geofence gf
 
     gf.numVerts = len(geos)
 
-    # todo: figure out when/how to free this memory
     gf.verts = <h3lib.GeoCoord*> stdlib.calloc(gf.numVerts, sizeof(h3lib.GeoCoord))
 
-    for i, (lat, lng) in enumerate(geos):
+    if lnglat_order:
+        latlng = (g[::-1] for g in geos)
+    else:
+        latlng = geos
+
+    for i, (lat, lng) in enumerate(latlng):
         gf.verts[i] = geo2coord(lat, lng)
 
     return gf
@@ -80,13 +96,10 @@ cdef free_geofence(h3lib.Geofence* gf):
 
 
 cdef class GeoPolygon:
-    """ Basic version of GeoPolygon
-
-    """
     cdef:
         h3lib.GeoPolygon gp
 
-    def __cinit__(self, outer, holes=None):
+    def __cinit__(self, outer, holes=None, bool lnglat_order=False):
         """
 
         Parameters
@@ -97,19 +110,22 @@ cdef class GeoPolygon:
             element is the same as the first.
         holes : list or tuple
             A sequence of GeoFences
+        lnglat_order : bool
+        If True, assume coordinate pairs like (lng, lat)
+        If False, assume coordinate pairs like (lat, lng)
 
         """
         if holes is None:
             holes = []
 
-        self.gp.geofence = make_geofence(outer)
+        self.gp.geofence = make_geofence(outer, lnglat_order)
         self.gp.numHoles = len(holes)
         self.gp.holes = NULL
 
         if len(holes) > 0:
             self.gp.holes =  <h3lib.Geofence*> stdlib.calloc(len(holes), sizeof(h3lib.Geofence))
             for i, hole in enumerate(holes):
-                self.gp.holes[i] = make_geofence(hole)
+                self.gp.holes[i] = make_geofence(hole, lnglat_order)
 
 
     def __dealloc__(self):
@@ -121,21 +137,7 @@ cdef class GeoPolygon:
         stdlib.free(self.gp.holes)
 
 
-def _swap_coord_order(linear_ring):
-    """ Swap order between lat/lng <=> lng/lat in sequence of coordinates.
-
-    A LinearRing (as defined by GeoJson) is a sequence of >= 4 (lat, lng) or
-    (lng, lat) pairs where the last pair is the same as the first.
-    """
-    out = [
-        p[::-1]
-        for p in linear_ring
-    ]
-
-    return out
-
-
-def polyfill_polygon(outer, int res, holes=None, order='latlng'):
+def polyfill_polygon(outer, int res, holes=None, bool lnglat_order=False):
     """ Set of hexagons whose center is contained in a polygon.
 
     The polygon is defined as in the GeoJson standard, with an exterior
@@ -150,23 +152,13 @@ def polyfill_polygon(outer, int res, holes=None, order='latlng'):
         The resolution of the output hexagons
     holes : list or tuple
         A collection of LinearRings, describing any holes in the polygon
-    order : str
-        'latlng' or 'lnglat'
-        Describe the expected order of the coordinate pairs
+    lnglat_order : bool
+        If True, assume coordinate pairs like (lng, lat)
+        If False, assume coordinate pairs like (lat, lng)
     """
 
     #check_res(res)
-
-    if order == 'latlng':
-        pass
-    elif order == 'lnglat':
-        outer = _swap_coord_order(outer)
-        if holes:
-            holes = [_swap_coord_order(h) for h in holes]
-    else:
-        raise ValueError("`order` parameter must be either 'latlng' or 'lnglat'.")
-
-    gp = GeoPolygon(outer, holes)
+    gp = GeoPolygon(outer, holes=holes, lnglat_order=lnglat_order)
 
     n = h3lib.maxPolyfillSize(&gp.gp, res)
     ptr = create_ptr(n)
@@ -208,23 +200,28 @@ def polyfill_geojson(geojson, int res):
 
     coords = geojson['coordinates']
 
-    out = polyfill_polygon(coords[0], res, holes=coords[1:], order='lnglat')
+    out = polyfill_polygon(coords[0], res, holes=coords[1:], lnglat_order=True)
 
     return out
 
 
-def polyfill(geojson, int res, geo_json_conformant=False):
+def polyfill(geojson, int res, bool geo_json_conformant=False):
     """ Light wrapper around `polyfill_geojson` to provide backward compatibility.
     """
 
-    gj = geojson.copy()
-    if not geo_json_conformant:
-        gj['coordinates'] = [_swap_coord_order(h) for h in gj['coordinates']]
+    if geojson['type'] != 'Polygon':
+        raise ValueError('Only Polygon GeoJSON supported')
 
-    return polyfill_geojson(gj, res)
+    if geo_json_conformant:
+        out =  polyfill_geojson(geojson, res)
+    else:
+        coords = geojson['coordinates']
+        out = polyfill_polygon(coords[0], res, holes=coords[1:], lnglat_order=False)
+
+    return out
 
 
-def cell_boundary(h3lib.H3int h, geo_json=False):
+def cell_boundary(h3lib.H3int h, bool geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
         h3lib.GeoBoundary gb

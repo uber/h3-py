@@ -192,20 +192,6 @@ def test_polyfill_polygon():
     assert out == expected
 
 
-def test_polyfill_polygon_order():
-    lnglat, _, _ = get_us_box_coords(order='lnglat')
-
-    out = h3.polyfill_polygon(lnglat, 5, order='lnglat')
-
-    assert len(out) == 7063
-
-
-# todo: we can generate segfaults with malformed input data to polyfill
-# need to test for this and avoid segfault
-# def test_polyfill_segfault():
-#     pass
-
-
 def get_us_box_coords(order='latlng'):
 
     # big center chunk of the US in lat/lng order
@@ -239,6 +225,20 @@ def get_us_box_coords(order='latlng'):
         outer, hole1, hole2 = map(swap_element_order, [outer, hole1, hole2])
 
     return outer, hole1, hole2
+
+
+def test_polyfill_polygon_order():
+    lnglat, _, _ = get_us_box_coords(order='lnglat')
+
+    out = h3.polyfill_polygon(lnglat, 5, lnglat_order=True)
+
+    assert len(out) == 7063
+
+
+# # todo: we can generate segfaults with malformed input data to polyfill
+# # need to test for this and avoid segfault
+# # def test_polyfill_segfault():
+# #     pass
 
 
 def test_polyfill_polygon_holes():
@@ -314,7 +314,7 @@ def test_compact():
 
     res = 5
 
-    h_uncomp = h3.polyfill_polygon(maine, res=res)
+    h_uncomp = h3.polyfill_polygon(maine, res)
     h_comp = h3.compact(h_uncomp)
 
     expected = {'852b114ffffffff', '852b189bfffffff', '852b1163fffffff', '842ba9bffffffff', '842bad3ffffffff', '852ba9cffffffff', '842badbffffffff', '852b1e8bfffffff', '852a346ffffffff', '842b1e3ffffffff', '852b116ffffffff', '842b185ffffffff', '852b1bdbfffffff', '852bad47fffffff', '852ba9c3fffffff', '852b106bfffffff', '852a30d3fffffff', '842b1edffffffff', '852b12a7fffffff', '852b1027fffffff', '842baddffffffff', '852a349bfffffff', '852b1227fffffff', '852a3473fffffff', '852b117bfffffff', '842ba99ffffffff', '852a341bfffffff', '852ba9d3fffffff', '852b1067fffffff', '852a3463fffffff', '852baca7fffffff', '852b116bfffffff', '852b1c6bfffffff', '852a3493fffffff', '852ba9dbfffffff', '852b180bfffffff', '842bad7ffffffff', '852b1063fffffff', '842ba93ffffffff', '852a3693fffffff', '852ba977fffffff', '852b1e9bfffffff', '852bad53fffffff', '852b100ffffffff', '852b102bfffffff', '852a3413fffffff', '852ba8b7fffffff', '852bad43fffffff', '852b1c6ffffffff', '852a340bfffffff', '852b103bfffffff', '852b1813fffffff', '852b12affffffff', '842a34dffffffff', '852b1873fffffff', '852b106ffffffff', '852b115bfffffff', '852baca3fffffff', '852b114bfffffff', '852b1143fffffff', '852a348bfffffff', '852a30d7fffffff', '852b181bfffffff', '842a345ffffffff', '852b1e8ffffffff', '852b1883fffffff', '852b1147fffffff', '852a3483fffffff', '852b12a3fffffff', '852a346bfffffff', '852ba9d7fffffff', '842b18dffffffff', '852b188bfffffff', '852a36a7fffffff', '852bacb3fffffff', '852b187bfffffff', '852bacb7fffffff', '842b1ebffffffff', '842b1e5ffffffff', '852ba8a7fffffff', '842bad9ffffffff', '852a36b7fffffff', '852a347bfffffff', '832b13fffffffff', '852ba9c7fffffff', '832b1afffffffff', '842ba91ffffffff', '852bad57fffffff', '852ba8affffffff', '852b1803fffffff', '842b1e7ffffffff', '852bad4ffffffff', '852b102ffffffff', '852b1077fffffff', '852b1237fffffff', '852b1153fffffff', '852a3697fffffff', '852a36b3fffffff', '842bad1ffffffff', '842b1e1ffffffff', '852b186bfffffff', '852b1023fffffff'} # noqa
