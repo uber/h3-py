@@ -3,10 +3,12 @@
 max-line-length = 88
 include =
     #W292 No newline at end of file
-    W292
+    W292,
 ignore =
     # E251 unexpected spaces around keyword / parameter equals
     E251,
-    # E201 whitespace after '['
     # sometimes I just want to line up decimal points...
-    E201
+    # E201 whitespace after '['
+    E201,
+    # E241 multiple spaces after ','
+    E241,

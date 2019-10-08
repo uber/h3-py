@@ -245,7 +245,6 @@ def test_polyfill_polygon_holes():
 
     outer, hole1, hole2 = get_us_box_coords()
 
-
     assert 7063 == len(
         h3.polyfill_polygon(outer, res=5)
     )
