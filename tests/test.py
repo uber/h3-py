@@ -151,7 +151,7 @@ def test_distance():
     assert h3.h3_distance(h, n) == 2
 
 
-def test_polyfill():
+def test_polyfill_polygon():
 
     # lat/lngs for State of Maine
     maine = [
@@ -192,35 +192,36 @@ def test_polyfill():
     assert out == expected
 
 
-def test_polyfill_order():
-    # big center chunk of the US in lng/lat order
-    lnglat = [
-        [-110.61, 42.68],
-        [-109.02, 32.17],
-        [ -94.26, 31.57],
-        [ -89.38, 42.94],
-        [-110.61, 42.68],
-    ]
+def test_polyfill_polygon_order():
+    lnglat, _, _ = get_us_box_coords(order='lnglat')
 
     out = h3.polyfill_polygon(lnglat, res=5, order='lnglat')
 
     assert len(out) == 7063
 
 
-def test_polyfill_holes():
-    exterior = [
+# todo: we can generate segfaults with malformed input data to polyfill
+# need to test for this and avoid segfault
+# def test_polyfill_segfault():
+#     pass
+
+
+def get_us_box_coords(order='latlng'):
+
+    # big center chunk of the US in lat/lng order
+    outer = [
         [42.68, -110.61],
         [32.17, -109.02],
-        [31.57, -94.26],
-        [42.94, -89.38],
+        [31.57,  -94.26],
+        [42.94,  -89.38],
         [42.68, -110.61]
     ]
 
     hole1 = [
         [39.77, -105.07],
         [34.81, -104.72],
-        [34.77, -98.39],
-        [40.14, -96.72],
+        [34.77,  -98.39],
+        [40.14,  -96.72],
         [39.77, -105.07]
     ]
 
@@ -231,19 +232,59 @@ def test_polyfill_holes():
         [41.37, -98.61]
     ]
 
+    def swap_element_order(seq):
+        return [e[::-1] for e in seq]
+
+    if order == 'lnglat':
+        outer, hole1, hole2 = map(swap_element_order, [outer, hole1, hole2])
+
+    return outer, hole1, hole2
+
+
+def test_polyfill_polygon_holes():
+
+    outer, hole1, hole2 = get_us_box_coords()
+
+
     assert 7063 == len(
-        h3.polyfill_polygon(exterior, res=5)
+        h3.polyfill_polygon(outer, res=5)
     )
 
     for res in 1, 2, 3, 4, 5:
-        hexes_all = h3.polyfill_polygon(exterior, res=res)
-        hexes_holes = h3.polyfill_polygon(exterior, holes=[hole1, hole2], res=res)
+        hexes_all = h3.polyfill_polygon(outer, res=res)
+        hexes_holes = h3.polyfill_polygon(outer, holes=[hole1, hole2], res=res)
 
         hexes_1 = h3.polyfill_polygon(hole1, res=res)
         hexes_2 = h3.polyfill_polygon(hole2, res=res)
 
         assert len(hexes_all) == len(hexes_holes) + len(hexes_1) + len(hexes_2)
         assert hexes_all == set.union(hexes_holes, hexes_1, hexes_2)
+
+
+def test_polyfill_geojson():
+    outer, hole1, hole2 = get_us_box_coords(order='lnglat')
+
+    d = {
+        'type': 'Polygon',
+        'coordinates': [outer],
+    }
+
+    out = h3.polyfill_geojson(d, 5)
+
+    assert len(out) == 7063
+
+
+def test_polyfill():
+    outer, hole1, hole2 = get_us_box_coords(order='lnglat')
+
+    d = {
+        'type': 'Polygon',
+        'coordinates': [outer],
+    }
+
+    out = h3.polyfill(d, 5, geo_json_conformant=True)
+
+    assert len(out) == 7063
 
 
 def test_compact():
