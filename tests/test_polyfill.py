@@ -173,6 +173,16 @@ def test_polyfill():
 
 
 def test_input_format():
+    """ Test that `polyfill_polygon` can take in polygon inputs
+    where the LinearRings may or may not follow the right hand rule,
+    and they may or may not be closed loops (where the last element
+    is equal to the first).
+
+    Test all permutations of these rules on polygons with
+    0, 1, and 2 holes. Ensure that for any polygon, each LinearRing
+    may follow a different subset of rules.
+    """
+
     poly = get_us_box_coords(order='latlng')
 
     for hexes in input_permutations(poly):
