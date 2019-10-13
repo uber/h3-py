@@ -2,11 +2,14 @@ import h3
 
 import itertools
 
+
 def reverse(loop):
     return list(reversed(loop))
 
+
 def drop_last(loop):
     return loop[:-1]
+
 
 def toggle_map(func, poly):
     """ Return all permuations of `func` being applied or not
@@ -18,11 +21,13 @@ def toggle_map(func, poly):
 
     return itertools.product(*zip(poly, mapped))
 
+
 def chain_toggle_map(func, seq):
     seq = (toggle_map(func, p) for p in seq)
     seq = itertools.chain(*seq)
 
     return seq
+
 
 def input_permutations(poly, res=5):
     g = [poly]
@@ -36,6 +41,7 @@ def input_permutations(poly, res=5):
 
 def swap_element_order(seq):
     return [e[::-1] for e in seq]
+
 
 def get_us_box_coords(order='latlng'):
 
@@ -108,9 +114,6 @@ def test_polyfill_polygon():
     out = h3.polyfill_polygon(maine, 3)
 
     assert out == expected
-
-
-
 
 
 def test_polyfill_polygon_order():
@@ -193,5 +196,3 @@ def test_input_format():
 
     for hexes in input_permutations(poly[:1]):
         assert len(hexes) == 7063
-
-
