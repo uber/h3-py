@@ -188,11 +188,16 @@ def test_input_format():
 
     poly = get_us_box_coords(order='latlng')
 
-    for hexes in input_permutations(poly):
+    assert len(poly) == 3
+
+    # two holes
+    for hexes in input_permutations(poly[:3]):
         assert len(hexes) == 5437
 
+    # one hole
     for hexes in input_permutations(poly[:2]):
         assert len(hexes) == 5726
 
+    # zero holes
     for hexes in input_permutations(poly[:1]):
         assert len(hexes) == 7063
