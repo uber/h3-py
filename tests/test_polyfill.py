@@ -1,5 +1,42 @@
 import h3
 
+import itertools
+
+def reverse(loop):
+    return list(reversed(loop))
+
+def drop_last(loop):
+    return loop[:-1]
+
+def toggle_map(func, poly):
+    """ Return all permuations of `func` being applied or not
+    to each element of `poly`
+
+    returns iterable of length 2**len(poly)
+    """
+    mapped = (list(func(loop)) for loop in poly)
+
+    return itertools.product(*zip(poly, mapped))
+
+def chain_toggle_map(func, seq):
+    seq = (toggle_map(func, p) for p in seq)
+    seq = itertools.chain(*seq)
+
+    return seq
+
+def input_permutations(poly, res=5):
+    g = [poly]
+    g = chain_toggle_map(drop_last, g)
+    g = chain_toggle_map(reverse, g)
+
+    for p in g:
+        hexes = h3.polyfill_polygon(p[0], res=res, holes=p[1:])
+        yield hexes
+
+
+def swap_element_order(seq):
+    return [e[::-1] for e in seq]
+
 def get_us_box_coords(order='latlng'):
 
     # big center chunk of the US in lat/lng order
@@ -25,9 +62,6 @@ def get_us_box_coords(order='latlng'):
         [42.32, -91.80],
         [41.37, -98.61]
     ]
-
-    def swap_element_order(seq):
-        return [e[::-1] for e in seq]
 
     if order == 'lnglat':
         outer, hole1, hole2 = map(swap_element_order, [outer, hole1, hole2])
@@ -136,3 +170,18 @@ def test_polyfill():
     out = h3.polyfill(d, 5, geo_json_conformant=True)
 
     assert len(out) == 7063
+
+
+def test_input_format():
+    poly = get_us_box_coords(order='latlng')
+
+    for hexes in input_permutations(poly):
+        assert len(hexes) == 5437
+
+    for hexes in input_permutations(poly[:2]):
+        assert len(hexes) == 5726
+
+    for hexes in input_permutations(poly[:1]):
+        assert len(hexes) == 7063
+
+
