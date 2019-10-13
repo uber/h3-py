@@ -65,8 +65,9 @@ cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False):
     Parameters
     ----------
     geos : list or tuple
-        A sequence of >= 4 (lat, lng) pairs where the last element
-        is the same as the first.
+        GeoFence: A sequence of >= 3 (lat, lng) pairs where the last
+        element may or may not be same as the first (to form a closed loop).
+        The order of the pairs may be either clockwise or counterclockwise.
     lnglat_order : bool
         If True, assume coordinate pairs like (lng, lat)
         If False, assume coordinate pairs like (lat, lng)
@@ -106,8 +107,9 @@ cdef class GeoPolygon:
         ----------
         outer : list or tuple
             GeoFence
-            A GeoFence is a sequence of >= 4 (lat, lng) pairs where the last
-            element is the same as the first.
+            A GeoFence is a sequence of >= 3 (lat, lng) pairs where the last
+            element may or may not be same as the first (to form a closed loop).
+            The order of the pairs may be either clockwise or counterclockwise.
         holes : list or tuple
             A sequence of GeoFences
         lnglat_order : bool
@@ -143,6 +145,12 @@ def polyfill_polygon(outer, int res, holes=None, bool lnglat_order=False):
     The polygon is defined as in the GeoJson standard, with an exterior
     LinearRing `outer` and a list of LinearRings `holes`, which define any
     holes in the polygon.
+
+    Each LinearRing may be in clockwise or counter-clockwise order
+    (right-hand rule or not), and may or may not be a closed loop (where the last
+    element is equal to the first).
+    The GeoJSON spec requires the right-hand rule, and a closed loop, but
+    this function will work with any input format.
 
     Parameters
     ----------
