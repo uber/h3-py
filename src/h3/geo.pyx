@@ -91,8 +91,7 @@ cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False):
 
 
 cdef free_geofence(h3lib.Geofence* gf):
-    if gf.verts:
-        stdlib.free(gf.verts)
+    stdlib.free(gf.verts)
     gf.verts = NULL
 
 
