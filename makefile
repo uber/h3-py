@@ -1,7 +1,7 @@
 
 DOCKER_IMAGE ?= quay.io/pypa/manylinux1_x86_64
 
-.PHONY: purge init rebuild linux test lint
+.PHONY: purge init rebuild linux test lint lab
 
 init: purge
 	git submodule update --init
@@ -30,3 +30,7 @@ test:
 
 lint:
 	flake8 src/h3 setup.py tests
+
+lab:
+	env/bin/pip install jupyterlab
+	env/bin/jupyter lab

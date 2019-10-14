@@ -151,47 +151,6 @@ def test_distance():
     assert h3.h3_distance(h, n) == 2
 
 
-def test_polyfill():
-
-    # lat/lngs for State of Maine
-    geos = [
-        (45.137451890638886, -67.13734351262877),
-        (44.8097, -66.96466),
-        (44.3252, -68.03252),
-        (43.98, -69.06),
-        (43.68405, -70.11617),
-        (43.090083319667144, -70.64573401557249),
-        (43.08003225358635, -70.75102474636725),
-        (43.21973948828747, -70.79761105007827),
-        (43.36789581966826, -70.98176001655037),
-        (43.46633942318431, -70.94416541205806),
-        (45.3052400000002, -71.08482),
-        (45.46022288673396, -70.6600225491012),
-        (45.914794623389355, -70.30495378282376),
-        (46.69317088478567, -70.00014034695016),
-        (47.44777598732787, -69.23708614772835),
-        (47.184794623394396, -68.90478084987546),
-        (47.35462921812177, -68.23430497910454),
-        (47.066248887716995, -67.79035274928509),
-        (45.702585354182816, -67.79141211614706),
-        (45.137451890638886, -67.13734351262877)
-    ]
-
-    # a very rough hexagonal approximation to the State of Maine
-    expected = {
-        '832b13fffffffff',
-        '832b18fffffffff',
-        '832b1afffffffff',
-        '832b1efffffffff',
-        '832ba9fffffffff',
-        '832badfffffffff'
-    }
-
-    out = h3.polyfill(geos, 3)
-
-    assert out == expected
-
-
 def test_compact():
 
     # lat/lngs for State of Maine
@@ -220,7 +179,7 @@ def test_compact():
 
     res = 5
 
-    h_uncomp = h3.polyfill(maine, res)
+    h_uncomp = h3.polyfill_polygon(maine, res)
     h_comp = h3.compact(h_uncomp)
 
     expected = {'852b114ffffffff', '852b189bfffffff', '852b1163fffffff', '842ba9bffffffff', '842bad3ffffffff', '852ba9cffffffff', '842badbffffffff', '852b1e8bfffffff', '852a346ffffffff', '842b1e3ffffffff', '852b116ffffffff', '842b185ffffffff', '852b1bdbfffffff', '852bad47fffffff', '852ba9c3fffffff', '852b106bfffffff', '852a30d3fffffff', '842b1edffffffff', '852b12a7fffffff', '852b1027fffffff', '842baddffffffff', '852a349bfffffff', '852b1227fffffff', '852a3473fffffff', '852b117bfffffff', '842ba99ffffffff', '852a341bfffffff', '852ba9d3fffffff', '852b1067fffffff', '852a3463fffffff', '852baca7fffffff', '852b116bfffffff', '852b1c6bfffffff', '852a3493fffffff', '852ba9dbfffffff', '852b180bfffffff', '842bad7ffffffff', '852b1063fffffff', '842ba93ffffffff', '852a3693fffffff', '852ba977fffffff', '852b1e9bfffffff', '852bad53fffffff', '852b100ffffffff', '852b102bfffffff', '852a3413fffffff', '852ba8b7fffffff', '852bad43fffffff', '852b1c6ffffffff', '852a340bfffffff', '852b103bfffffff', '852b1813fffffff', '852b12affffffff', '842a34dffffffff', '852b1873fffffff', '852b106ffffffff', '852b115bfffffff', '852baca3fffffff', '852b114bfffffff', '852b1143fffffff', '852a348bfffffff', '852a30d7fffffff', '852b181bfffffff', '842a345ffffffff', '852b1e8ffffffff', '852b1883fffffff', '852b1147fffffff', '852a3483fffffff', '852b12a3fffffff', '852a346bfffffff', '852ba9d7fffffff', '842b18dffffffff', '852b188bfffffff', '852a36a7fffffff', '852bacb3fffffff', '852b187bfffffff', '852bacb7fffffff', '842b1ebffffffff', '842b1e5ffffffff', '852ba8a7fffffff', '842bad9ffffffff', '852a36b7fffffff', '852a347bfffffff', '832b13fffffffff', '852ba9c7fffffff', '832b1afffffffff', '842ba91ffffffff', '852bad57fffffff', '852ba8affffffff', '852b1803fffffff', '842b1e7ffffffff', '852bad4ffffffff', '852b102ffffffff', '852b1077fffffff', '852b1237fffffff', '852b1153fffffff', '852a3697fffffff', '852a36b3fffffff', '842bad1ffffffff', '842b1e1ffffffff', '852b186bfffffff', '852b1023fffffff'} # noqa

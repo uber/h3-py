@@ -150,8 +150,18 @@ def _api_functions(
 
         return _out_collection(hu)
 
-    def polyfill(geos, res):
-        mv = mvi.polyfill(geos, res)
+    def polyfill_polygon(outer, res, holes=None, lnglat_order=False):
+        mv = mvi.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
+
+        return _out_collection(mv)
+
+    def polyfill_geojson(geojson, res):
+        mv = mvi.polyfill_geojson(geojson, res)
+
+        return _out_collection(mv)
+
+    def polyfill(geojson, res, geo_json_conformant=False):
+        mv = mvi.polyfill(geojson, res, geo_json_conformant=geo_json_conformant)
 
         return _out_collection(mv)
 
