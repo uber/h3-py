@@ -54,7 +54,7 @@ def _to_multi_polygon(const H3int[:] hexes):
 
     # todo: should we have a helper that checks a collection of inputs?
     for h in hexes:
-        check_addr(h) # todo: maybe should name this `check_index`?
+        check_addr(h) # todo: maybe should name this `check_cell`?
 
     h3lib.h3SetToLinkedGeo(&hexes[0], len(hexes), &polygon)
 
