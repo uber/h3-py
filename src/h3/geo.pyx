@@ -36,7 +36,7 @@ cdef (double, double) coord2geo(h3lib.GeoCoord c):
     )
 
 
-cpdef h3lib.H3int geo_to_h3(double lat, double lng, int res) except 1:
+cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
     cdef:
         h3lib.GeoCoord c
 
@@ -47,7 +47,7 @@ cpdef h3lib.H3int geo_to_h3(double lat, double lng, int res) except 1:
     return h3lib.geoToH3(&c, res)
 
 
-cpdef (double, double) h3_to_geo(h3lib.H3int h) except *:
+cpdef (double, double) h3_to_geo(H3int h) except *:
     """Map an H3 cell into its centroid geo-coordinate (lat/lng)"""
     cdef:
         h3lib.GeoCoord c
@@ -228,7 +228,7 @@ def polyfill(geojson, int res, bool geo_json_conformant=False):
     return out
 
 
-def cell_boundary(h3lib.H3int h, bool geo_json=False):
+def cell_boundary(H3int h, bool geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
         h3lib.GeoBoundary gb
@@ -249,7 +249,7 @@ def cell_boundary(h3lib.H3int h, bool geo_json=False):
 
     return verts
 
-def edge_boundary(h3lib.H3int edge):
+def edge_boundary(H3int edge):
     """ Returns the GeoBoundary containing the coordinates of the edge
     """
     cdef:
