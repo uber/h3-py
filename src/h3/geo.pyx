@@ -1,5 +1,5 @@
 cimport h3lib
-from h3lib cimport bool
+from h3lib cimport bool, H3int
 from .util cimport (
     check_addr,
     check_edge,
@@ -8,6 +8,7 @@ from .util cimport (
     create_mv,
 )
 from libc cimport stdlib
+from libc.stdint cimport uintptr_t
 
 
 cdef (double, double) mercator(double lat, double lng):
@@ -224,6 +225,59 @@ def polyfill(geojson, int res, bool geo_json_conformant=False):
     else:
         coords = geojson['coordinates']
         out = polyfill_polygon(coords[0], res, holes=coords[1:], lnglat_order=False)
+
+    return out
+
+
+cdef get_polys(const h3lib.LinkedGeoPolygon* polygon):
+    cdef:
+        h3lib.LinkedGeoLoop* loop
+
+    out = []
+    while polygon is not NULL:
+        loop = polygon.first
+        out += [get_loops(loop)]
+        polygon = polygon.next
+
+    return out
+
+
+cdef get_loops(const h3lib.LinkedGeoLoop* loop):
+    cdef:
+        h3lib.LinkedGeoCoord* coord
+
+    out = []
+    while loop is not NULL:
+        coord = loop.first
+        out += [get_coords(coord)]
+        loop = loop.next
+
+    return out
+
+
+cdef get_coords(const h3lib.LinkedGeoCoord* coord):
+
+    out = []
+    while coord is not NULL:
+        out += [coord2geo(coord.vertex)]
+        coord = coord.next
+
+    return out
+
+
+def h3_set_to_multi_polygon(const H3int[:] hexes):
+    cdef:
+        h3lib.LinkedGeoPolygon polygon
+
+    for h in hexes:
+        check_addr(h)
+
+    h3lib.h3SetToLinkedGeo(&hexes[0], len(hexes), &polygon)
+
+    out = get_polys(&polygon)
+
+    # does this thing dealloc the passed in poly address?
+    h3lib.destroyLinkedPolygon(&polygon)
 
     return out
 

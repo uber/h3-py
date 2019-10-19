@@ -17,7 +17,8 @@ from h3.geo import (
     polyfill_geojson,
     polyfill,
     cell_boundary,
-    edge_boundary
+    edge_boundary,
+    h3_set_to_multi_polygon,
 )
 
 cpdef basestring _c_version():
