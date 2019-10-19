@@ -201,3 +201,23 @@ def test_input_format():
     # zero holes
     for hexes in input_permutations(poly[:1]):
         assert len(hexes) == 7063
+
+
+def test_h3_set_to_multi_polygon():
+    hexes = {
+        '89283082873ffff',
+        '89283082877ffff',
+        '8928308283bffff',
+        '89283082807ffff',
+        '8928308280bffff',
+        '8928308280fffff',
+        '89283082803ffff',
+    }
+
+    mpoly = h3.h3_set_to_multi_polygon(hexes)
+
+    out = h3.polyfill_polygon(mpoly[0][0], 9, holes=None, lnglat_order=False)
+
+    assert out == hexes
+
+

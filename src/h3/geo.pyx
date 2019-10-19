@@ -229,52 +229,55 @@ def polyfill(geojson, int res, bool geo_json_conformant=False):
     return out
 
 
-cdef get_polys(const h3lib.LinkedGeoPolygon* polygon):
-    cdef:
-        h3lib.LinkedGeoLoop* loop
+# todo: it's driving me crazy that these three functions are all essentially the same linked list walker...
+# todo: kinda want to put these into their own file.. to organize, but also to SHAME
+# grumble: no way to do iterators in Cython!
+cdef walk_polys(const h3lib.LinkedGeoPolygon* L):
 
     out = []
-    while polygon is not NULL:
-        loop = polygon.first
-        out += [get_loops(loop)]
-        polygon = polygon.next
+    while L:
+        out += [walk_loops(L.data)]
+        L = L.next
 
     return out
 
 
-cdef get_loops(const h3lib.LinkedGeoLoop* loop):
-    cdef:
-        h3lib.LinkedGeoCoord* coord
+cdef walk_loops(const h3lib.LinkedGeoLoop* L):
 
     out = []
-    while loop is not NULL:
-        coord = loop.first
-        out += [get_coords(coord)]
-        loop = loop.next
+    while L:
+        out += [walk_coords(L.data)]
+        L = L.next
 
     return out
 
 
-cdef get_coords(const h3lib.LinkedGeoCoord* coord):
+cdef walk_coords(const h3lib.LinkedGeoCoord* L):
 
     out = []
-    while coord is not NULL:
-        out += [coord2geo(coord.vertex)]
-        coord = coord.next
+    while L:
+        out += [coord2geo(L.data)]
+        L = L.next
 
     return out
 
 
+# todo: loop_to_geojson
+# todo: poly_to_geojson
+# todo: multipoly_to_geojson
+# todo: blegh, move all this code to its own file?
+# todo: how do i get rid of this code repetition!
 def h3_set_to_multi_polygon(const H3int[:] hexes):
     cdef:
         h3lib.LinkedGeoPolygon polygon
 
+    # todo: should we have a helper that checks a collection of inputs?
     for h in hexes:
         check_addr(h)
 
     h3lib.h3SetToLinkedGeo(&hexes[0], len(hexes), &polygon)
 
-    out = get_polys(&polygon)
+    out = walk_polys(&polygon)
 
     # does this thing dealloc the passed in poly address?
     h3lib.destroyLinkedPolygon(&polygon)
