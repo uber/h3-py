@@ -18,8 +18,9 @@ from h3.geo import (
     polyfill,
     cell_boundary,
     edge_boundary,
-    h3_set_to_multi_polygon,
 )
+from h3.to_multipoly import h3_set_to_multi_polygon
+
 
 cpdef basestring _c_version():
     v = (

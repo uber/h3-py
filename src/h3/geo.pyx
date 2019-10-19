@@ -228,62 +228,6 @@ def polyfill(geojson, int res, bool geo_json_conformant=False):
     return out
 
 
-# todo: it's driving me crazy that these three functions are all essentially the same linked list walker...
-# todo: kinda want to put these into their own file.. to organize, but also to SHAME
-# grumble: no way to do iterators in Cython!
-cdef walk_polys(const h3lib.LinkedGeoPolygon* L):
-
-    out = []
-    while L:
-        out += [walk_loops(L.data)]
-        L = L.next
-
-    return out
-
-
-cdef walk_loops(const h3lib.LinkedGeoLoop* L):
-
-    out = []
-    while L:
-        out += [walk_coords(L.data)]
-        L = L.next
-
-    return out
-
-
-cdef walk_coords(const h3lib.LinkedGeoCoord* L):
-
-    out = []
-    while L:
-        out += [coord2geo(L.data)]
-        L = L.next
-
-    return out
-
-
-# todo: loop_to_geojson
-# todo: poly_to_geojson
-# todo: multipoly_to_geojson
-# todo: blegh, move all this code to its own file?
-# todo: how do i get rid of this code repetition!
-def h3_set_to_multi_polygon(const H3int[:] hexes):
-    cdef:
-        h3lib.LinkedGeoPolygon polygon
-
-    # todo: should we have a helper that checks a collection of inputs?
-    for h in hexes:
-        check_addr(h)
-
-    h3lib.h3SetToLinkedGeo(&hexes[0], len(hexes), &polygon)
-
-    out = walk_polys(&polygon)
-
-    # does this thing dealloc the passed in poly address?
-    h3lib.destroyLinkedPolygon(&polygon)
-
-    return out
-
-
 def cell_boundary(h3lib.H3int h, bool geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
