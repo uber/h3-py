@@ -3,7 +3,7 @@ from h3lib cimport H3int
 from .util cimport check_addr
 
 
-# need to define coord2geo here because of this Cython bug:
+# need to define `coord2geo` and `mercator` here due to Cython bug:
 # https://github.com/cython/cython/issues/2745
 cdef (double, double) mercator(double lat, double lng):
     """Helper to coerce lat/lng range"""
@@ -47,10 +47,6 @@ cdef walk_coords(const h3lib.LinkedGeoCoord* L):
 
     return out
 
-
-# todo: loop_to_geojson
-# todo: poly_to_geojson
-# todo: multipoly_to_geojson
 # todo: tuples instead of lists?
 def _to_multi_polygon(const H3int[:] hexes):
     cdef:

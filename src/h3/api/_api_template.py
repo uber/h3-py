@@ -150,11 +150,9 @@ def _api_functions(
 
         return _out_collection(hu)
 
-
     def h3_set_to_multi_polygon(hexes, geo_json=False):
         hexes = _in_collection(hexes)
         return mvi.h3_set_to_multi_polygon(hexes, geo_json=geo_json)
-
 
     def polyfill_polygon(outer, res, holes=None, lnglat_order=False):
         mv = mvi.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
