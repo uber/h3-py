@@ -51,7 +51,8 @@ cdef walk_coords(const h3lib.LinkedGeoCoord* L):
 # todo: loop_to_geojson
 # todo: poly_to_geojson
 # todo: multipoly_to_geojson
-def h3_set_to_multi_polygon(const H3int[:] hexes):
+# todo: tuples instead of lists?
+def _to_multi_polygon(const H3int[:] hexes):
     cdef:
         h3lib.LinkedGeoPolygon polygon
 
@@ -63,7 +64,29 @@ def h3_set_to_multi_polygon(const H3int[:] hexes):
 
     out = walk_polys(&polygon)
 
-    # does this thing dealloc the passed in poly address?
+    # does this thing dealloc the passed-in poly address?
     h3lib.destroyLinkedPolygon(&polygon)
 
     return out
+
+
+def _json_loop(loop):
+    """ Swap lat/lng order and close loop.
+    """
+    loop = [e[::-1] for e in loop]
+    loop += [loop[0]]
+
+    return loop
+
+
+def h3_set_to_multi_polygon(const H3int[:] hexes, geo_json=False):
+    multipoly = _to_multi_polygon(hexes)
+
+    if geo_json:
+        multipoly = [
+            [_json_loop(loop) for loop in poly]
+            for poly in multipoly
+        ]
+
+    return multipoly
+
