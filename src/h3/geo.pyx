@@ -8,7 +8,6 @@ from .util cimport (
     create_mv,
 )
 from libc cimport stdlib
-from libc.stdint cimport uintptr_t
 
 
 cdef (double, double) mercator(double lat, double lng):
