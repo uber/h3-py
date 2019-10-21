@@ -187,14 +187,15 @@ cpdef int64_t num_hexagons(int resolution) except -1:
     return h3lib.numHexagons(resolution)
 
 
-cpdef double mean_hex_area(int resolution, unit='km2') except -1:
+cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
     check_res(resolution)
 
     area = h3lib.hexAreaKm2(resolution)
 
     # todo: multiple units
     convert = {
-        'km2': 1.0,
+        'km^2': 1.0,
+        'm^2': 1000*1000.0
     }
     area *= convert[unit]
 
@@ -208,6 +209,7 @@ cpdef double mean_edge_length(int resolution, unit='km') except -1:
     # todo: multiple units
     convert = {
         'km': 1.0,
+        'm': 1000.0
     }
     length *= convert[unit]
 

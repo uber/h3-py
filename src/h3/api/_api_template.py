@@ -33,10 +33,10 @@ def _api_functions(
     def num_hexagons(resolution):
         return mvi.num_hexagons(resolution)
 
-    def mean_hex_area(resolution, unit='km2'):
+    def hex_area(resolution, unit='km^2'):
         return mvi.mean_hex_area(resolution, unit)
 
-    def mean_edge_length(resolution, unit='km'):
+    def edge_length(resolution, unit='km'):
         return mvi.mean_edge_length(resolution, unit)
 
     def h3_is_valid(h):
