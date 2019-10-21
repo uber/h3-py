@@ -1,5 +1,5 @@
 cimport h3lib
-from h3lib cimport bool, int64_t, H3int
+from .h3lib cimport bool, int64_t, H3int
 
 from .util cimport (
     check_addr,
@@ -7,6 +7,7 @@ from .util cimport (
     check_res,
     create_ptr,
     create_mv,
+    empty_memory_view, # want to drop this import if possible
 )
 
 from h3.util import H3ValueError
@@ -147,6 +148,10 @@ cpdef H3int[:] children(H3int h, res=None):
 
 
 cpdef H3int[:] compact(const H3int[:] hu):
+    # todo: gotta be a more elegant way to handle these...
+    if len(hu) == 0:
+        return empty_memory_view()
+
     for h in hu:
         check_addr(h)
 
@@ -162,6 +167,10 @@ cpdef H3int[:] compact(const H3int[:] hu):
 # todo: https://stackoverflow.com/questions/50684977/cython-exception-type-for-a-function-returning-a-typed-memoryview
 # apparently, memoryviews are python objects, so we don't need to do the except clause
 cpdef H3int[:] uncompact(const H3int[:] hc, int res):
+    # todo: gotta be a more elegant way to handle these...
+    if len(hc) == 0:
+        return empty_memory_view()
+
     for h in hc:
         check_addr(h)
 
@@ -197,7 +206,11 @@ cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
         'km^2': 1.0,
         'm^2': 1000*1000.0
     }
-    area *= convert[unit]
+
+    try:
+        area *= convert[unit]
+    except:
+        raise H3ValueError('Unknown unit: {}'.format(unit))
 
     return area
 
@@ -211,7 +224,11 @@ cpdef double mean_edge_length(int resolution, unit='km') except -1:
         'km': 1.0,
         'm': 1000.0
     }
-    length *= convert[unit]
+
+    try:
+        length *= convert[unit]
+    except:
+        raise H3ValueError('Unknown unit: {}'.format(unit))
 
     return length
 
@@ -273,6 +290,9 @@ cpdef H3int[:] line(H3int start, H3int end):
 
     n = h3lib.h3LineSize(start, end)
 
+    if n < 0:
+        raise H3ValueError("Couldn't find line between cells {} and {}".format(start, end))
+
     ptr = create_ptr(n)
     flag = h3lib.h3Line(start, end, ptr)
     mv = create_mv(ptr, n)
@@ -281,3 +301,6 @@ cpdef H3int[:] line(H3int start, H3int end):
         raise H3ValueError("Couldn't find line between cells {} and {}".format(start, end))
 
     return mv
+
+cpdef bool is_res_class_iii(H3int h):
+    return h3lib.h3IsResClassIII(h) == 1

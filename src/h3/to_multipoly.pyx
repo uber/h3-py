@@ -76,6 +76,10 @@ def _json_loop(loop):
 
 
 def h3_set_to_multi_polygon(const H3int[:] hexes, geo_json=False):
+    # todo: gotta be a more elegant way to handle these...
+    if len(hexes) == 0:
+        return []
+
     multipoly = _to_multi_polygon(hexes)
 
     if geo_json:

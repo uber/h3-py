@@ -116,10 +116,30 @@ def _api_functions(
 
         return _out_collection(mv)
 
+    def hex_range(h, k=1):
+        mv = mvi.disk(_in_scalar(h), k)
+
+        return _out_collection(mv)
+
     def hex_ring(h, k=1):
         mv = mvi.ring(_in_scalar(h), k)
 
         return _out_collection(mv)
+
+    def hex_range_distances(h, K):
+        h = _in_scalar(h)
+
+        out = [
+            _out_collection(mvi.ring(h, k))
+            for k in range(K+1)
+        ]
+
+        return out
+
+
+    def k_ring_distances(h, K):
+        return hex_range_distances(h, K)
+
 
     def h3_to_children(h, res=None):
         """ Get the children of a hexagon.
@@ -222,12 +242,19 @@ def _api_functions(
 
         return _out_collection(mv)
 
-    def get_h3_unidirectional_edge_boundary(edge):
-        return mvi.edge_boundary(_in_scalar(edge))
+    def get_h3_unidirectional_edge_boundary(edge, geo_json=False):
+        return mvi.edge_boundary(_in_scalar(edge), geo_json=geo_json)
 
     def h3_line(start, end):
         mv = mvi.line(_in_scalar(start), _in_scalar(end))
 
-        return _out_collection(mv)
+        # i guess a line is ordered...
+        return [_out_scalar(h) for h in mv]
+
+    def h3_is_res_class_iii(h):
+        return mvi.is_res_class_iii(_in_scalar(h))
+
+    def h3_is_res_class_III(h):
+        return mvi.is_res_class_iii(_in_scalar(h))
 
     return locals()

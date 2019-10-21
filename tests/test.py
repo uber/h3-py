@@ -381,11 +381,11 @@ def test_line():
 
     out = h3.h3_line(h1, h2)
 
-    expected = {
+    expected = [
         '8928308280fffff',
         '89283082873ffff',
         '8928308287bffff'
-    }
+    ]
 
     assert out == expected
 

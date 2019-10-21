@@ -77,6 +77,10 @@ cpdef H3int[:] from_iter(hexes):
         array x
         size_t n
     n = len(hexes)
+
+    if n == 0:
+        return empty_memory_view()
+
     x = <H3int[:n]> create_ptr(n)
     x.callback_free_data = stdlib.free
 
@@ -123,7 +127,7 @@ cdef size_t move_nonzeros(H3int* a, size_t n):
     return i
 
 
-cdef inline H3int[:] empty_memory_view():
+cdef H3int[:] empty_memory_view():
     # there's gotta be a better way to do this...
     # create an empty cython.view.array?
     cdef:
