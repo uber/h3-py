@@ -27,7 +27,11 @@ class H3EdgeError(H3ValueError):
 class H3ResolutionError(H3ValueError):
     pass
 
-cdef check_addr(H3int h):
+cdef check_cell(H3int h):
+    """ Check if valid H3 "cell" (hexagon or pentagon).
+
+    Does not check if a valid H3 edge, for example.
+    """
     if h3IsValid(h) == 0:
         raise H3CellError(h)
 

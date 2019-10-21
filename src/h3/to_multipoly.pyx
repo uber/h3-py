@@ -1,6 +1,6 @@
 cimport h3lib
 from h3lib cimport H3int
-from .util cimport check_addr
+from .util cimport check_cell
 
 
 # need to define `coord2geo` here due to Cython bug:
@@ -46,7 +46,7 @@ def _to_multi_polygon(const H3int[:] hexes):
 
     # todo: should we have a helper that checks a collection of inputs?
     for h in hexes:
-        check_addr(h) # todo: maybe should name this `check_cell`?
+        check_cell(h)
 
     h3lib.h3SetToLinkedGeo(&hexes[0], len(hexes), &polygon)
 

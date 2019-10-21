@@ -1,7 +1,7 @@
 cimport h3lib
 from h3lib cimport bool, H3int
 from .util cimport (
-    check_addr,
+    check_cell,
     check_edge,
     check_res,
     create_ptr,
@@ -43,7 +43,7 @@ cpdef (double, double) h3_to_geo(H3int h) except *:
     cdef:
         h3lib.GeoCoord c
 
-    check_addr(h)
+    check_cell(h)
 
     h3lib.h3ToGeo(h, &c)
 
@@ -224,7 +224,7 @@ def cell_boundary(H3int h, bool geo_json=False):
     cdef:
         h3lib.GeoBoundary gb
 
-    check_addr(h)
+    check_cell(h)
 
     h3lib.h3ToGeoBoundary(h, &gb)
 

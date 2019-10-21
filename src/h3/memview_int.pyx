@@ -2,7 +2,7 @@ cimport h3lib
 from h3lib cimport bool, int64_t, H3int
 
 from .util cimport (
-    check_addr,
+    check_cell,
     check_edge,
     check_res,
     create_ptr,
@@ -48,7 +48,7 @@ cpdef bool is_pentagon(H3int h):
     return h3lib.h3IsPentagon(h) == 1
 
 cpdef int get_base_cell(H3int h) except -1:
-    check_addr(h)
+    check_cell(h)
 
     return h3lib.h3GetBaseCell(h)
 
@@ -57,13 +57,13 @@ cpdef int resolution(H3int h) except -1:
     """Returns the resolution of an H3 Index
     0--15
     """
-    check_addr(h)
+    check_cell(h)
 
     return h3lib.h3GetResolution(h)
 
 
 cpdef H3int parent(H3int h, res=None) except 1:
-    check_addr(h)
+    check_cell(h)
 
     if res is None:
         res = resolution(h) - 1
@@ -76,8 +76,8 @@ cpdef H3int parent(H3int h, res=None) except 1:
 cpdef int distance(H3int h1, H3int h2) except -1:
     """ compute the hex-distance between two hexagons
     """
-    check_addr(h1)
-    check_addr(h2)
+    check_cell(h1)
+    check_cell(h2)
 
     d = h3lib.h3Distance(h1,h2)
 
@@ -86,7 +86,7 @@ cpdef int distance(H3int h1, H3int h2) except -1:
 cpdef H3int[:] disk(H3int h, int k):
     """ Return cells at grid distance `<= k` from `h`.
     """
-    check_addr(h)
+    check_cell(h)
     if k < 0:
         raise H3ValueError('Invalid ring size: {}'.format(k))
 
@@ -102,7 +102,7 @@ cpdef H3int[:] ring(H3int h, int k):
     """ Return cells at grid distance `== k` from `h`.
     Collection is "hollow" for k >= 1.
     """
-    check_addr(h)
+    check_cell(h)
 
     n = 6*k if k > 0 else 1
     ptr = create_ptr(n)
@@ -129,7 +129,7 @@ cpdef H3int[:] ring(H3int h, int k):
 
 
 cpdef H3int[:] children(H3int h, res=None):
-    check_addr(h)
+    check_cell(h)
 
     if res is None:
         res = resolution(h) + 1
@@ -148,7 +148,7 @@ cpdef H3int[:] children(H3int h, res=None):
 
 cpdef H3int[:] compact(const H3int[:] hu):
     for h in hu:
-        check_addr(h)
+        check_cell(h)
 
     ptr = create_ptr(len(hu))
     flag = h3lib.compact(&hu[0], ptr, len(hu))
@@ -163,7 +163,7 @@ cpdef H3int[:] compact(const H3int[:] hu):
 # apparently, memoryviews are python objects, so we don't need to do the except clause
 cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     for h in hc:
-        check_addr(h)
+        check_cell(h)
 
     N = h3lib.maxUncompactSize(&hc[0], len(hc), res)
 
@@ -217,15 +217,15 @@ cpdef double mean_edge_length(int resolution, unit='km') except -1:
 
 
 cpdef bool are_neighbors(H3int h1, H3int h2):
-    check_addr(h1)
-    check_addr(h2)
+    check_cell(h1)
+    check_cell(h2)
 
     return h3lib.h3IndexesAreNeighbors(h1, h2) == 1
 
 
 cpdef H3int edge(H3int origin, H3int destination) except 1:
-    check_addr(origin)
-    check_addr(destination)
+    check_cell(origin)
+    check_cell(destination)
 
     if h3lib.h3IndexesAreNeighbors(origin, destination) != 1:
         raise H3ValueError('Cells are not neighbors: {} and {}'.format(origin, destination))
@@ -257,7 +257,7 @@ cpdef H3int[:] edges_from_cell(H3int origin):
     """ Returns the 6 (or 5 for pentagons) directed edges
     for the given origin cell
     """
-    check_addr(origin)
+    check_cell(origin)
 
     ptr = create_ptr(6)
     h3lib.getH3UnidirectionalEdgesFromHexagon(origin, ptr)
@@ -266,8 +266,8 @@ cpdef H3int[:] edges_from_cell(H3int origin):
     return mv
 
 cpdef H3int[:] line(H3int start, H3int end):
-    check_addr(start)
-    check_addr(end)
+    check_cell(start)
+    check_cell(end)
 
     n = h3lib.h3LineSize(start, end)
 
