@@ -44,7 +44,6 @@ def _to_multi_polygon(const H3int[:] hexes):
     cdef:
         h3lib.LinkedGeoPolygon polygon
 
-    # todo: should we have a helper that checks a collection of inputs?
     for h in hexes:
         check_cell(h)
 
@@ -52,7 +51,8 @@ def _to_multi_polygon(const H3int[:] hexes):
 
     out = walk_polys(&polygon)
 
-    # does this thing dealloc the passed-in poly address?
+    # we're still responsible for cleaning up the passed in `polygon`,
+    # but not a problem here, since it is stack allocated
     h3lib.destroyLinkedPolygon(&polygon)
 
     return out
