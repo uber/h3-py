@@ -10,8 +10,8 @@ the `H3 Documentation <https://uber.github.io/h3/>`__.
 Installing
 ==========
 
-You need to have ``cc``, ``make``, and ``cmake`` in your ``$PATH`` when installing this
-package:
+You need to have ``cc``, ``make``, ``cmake`` (version 3.1 or above),
+and ``git`` in your ``$PATH`` when installing this package:
 
 .. code:: sh
 
@@ -21,10 +21,18 @@ package:
     /usr/bin/make
     which cmake
     /usr/bin/cmake
+    which git
+    /usr/bin/git
 
 .. code:: sh
 
     pip install h3
+
+Installing on Windows
+---------------------
+
+On Windows you will also need to have ``bash`` (for example from Git)
+installed.
 
 Development
 ===========
