@@ -10,19 +10,10 @@ from .util cimport (
 from libc cimport stdlib
 
 
-cdef (double, double) mercator(double lat, double lng):
-    """Helper to coerce lat/lng range"""
-    lat = lat - 180 if lat > 90  else lat
-    lng = lng - 360 if lng > 180 else lng
-
-    return lat, lng
-
-
 cdef h3lib.GeoCoord geo2coord(double lat, double lng):
     cdef:
         h3lib.GeoCoord c
 
-    lat, lng = mercator(lat, lng)
     c.lat = h3lib.degsToRads(lat)
     c.lng = h3lib.degsToRads(lng)
 
@@ -30,7 +21,7 @@ cdef h3lib.GeoCoord geo2coord(double lat, double lng):
 
 
 cdef (double, double) coord2geo(h3lib.GeoCoord c):
-    return mercator(
+    return (
         h3lib.radsToDegs(c.lat),
         h3lib.radsToDegs(c.lng)
     )

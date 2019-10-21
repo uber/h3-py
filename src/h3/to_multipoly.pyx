@@ -3,18 +3,10 @@ from h3lib cimport H3int
 from .util cimport check_addr
 
 
-# need to define `coord2geo` and `mercator` here due to Cython bug:
+# need to define `coord2geo` here due to Cython bug:
 # https://github.com/cython/cython/issues/2745
-cdef (double, double) mercator(double lat, double lng):
-    """Helper to coerce lat/lng range"""
-    lat = lat - 180 if lat > 90  else lat
-    lng = lng - 360 if lng > 180 else lng
-
-    return lat, lng
-
-
 cdef (double, double) coord2geo(h3lib.GeoCoord c):
-    return mercator(
+    return (
         h3lib.radsToDegs(c.lat),
         h3lib.radsToDegs(c.lng)
     )
@@ -66,7 +58,7 @@ def _to_multi_polygon(const H3int[:] hexes):
     return out
 
 
-def _json_loop(loop):
+def _geojson_loop(loop):
     """ Swap lat/lng order and close loop.
     """
     loop = [e[::-1] for e in loop]
@@ -80,7 +72,7 @@ def h3_set_to_multi_polygon(const H3int[:] hexes, geo_json=False):
 
     if geo_json:
         multipoly = [
-            [_json_loop(loop) for loop in poly]
+            [_geojson_loop(loop) for loop in poly]
             for poly in multipoly
         ]
 

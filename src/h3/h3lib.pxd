@@ -13,8 +13,8 @@ cdef extern from "h3api.h":
     ctypedef stdint.uint64_t H3Index
 
     ctypedef struct GeoCoord:
-        double lat
-        double lng "lon"
+        double lat  # in radians
+        double lng "lon"  # in radians
 
     ctypedef struct GeoBoundary:
         int num_verts "numVerts"
