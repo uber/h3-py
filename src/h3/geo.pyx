@@ -10,7 +10,7 @@ from .util cimport (
 from libc cimport stdlib
 
 
-cdef h3lib.GeoCoord geo2coord(double lat, double lng):
+cdef h3lib.GeoCoord deg2coord(double lat, double lng):
     cdef:
         h3lib.GeoCoord c
 
@@ -20,7 +20,7 @@ cdef h3lib.GeoCoord geo2coord(double lat, double lng):
     return c
 
 
-cdef (double, double) coord2geo(h3lib.GeoCoord c):
+cdef (double, double) coord2deg(h3lib.GeoCoord c):
     return (
         h3lib.radsToDegs(c.lat),
         h3lib.radsToDegs(c.lng)
@@ -33,7 +33,7 @@ cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
 
     check_res(res)
 
-    c = geo2coord(lat, lng)
+    c = deg2coord(lat, lng)
 
     return h3lib.geoToH3(&c, res)
 
@@ -47,7 +47,7 @@ cpdef (double, double) h3_to_geo(H3int h) except *:
 
     h3lib.h3ToGeo(h, &c)
 
-    return coord2geo(c)
+    return coord2deg(c)
 
 
 cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False):
@@ -76,7 +76,7 @@ cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False):
         latlng = geos
 
     for i, (lat, lng) in enumerate(latlng):
-        gf.verts[i] = geo2coord(lat, lng)
+        gf.verts[i] = deg2coord(lat, lng)
 
     return gf
 
@@ -229,7 +229,7 @@ def cell_boundary(H3int h, bool geo_json=False):
     h3lib.h3ToGeoBoundary(h, &gb)
 
     verts = tuple(
-        coord2geo(gb.verts[i])
+        coord2deg(gb.verts[i])
         for i in range(gb.num_verts)
     )
 
@@ -252,7 +252,7 @@ def edge_boundary(H3int edge):
 
     # todo: move this verts transform into the GeoBoundary object
     verts = tuple(
-        coord2geo(gb.verts[i])
+        coord2deg(gb.verts[i])
         for i in range(gb.num_verts)
     )
 

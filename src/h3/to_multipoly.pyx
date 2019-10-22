@@ -3,9 +3,9 @@ from h3lib cimport H3int
 from .util cimport check_cell
 
 
-# need to define `coord2geo` here due to Cython bug:
+# need to define `coord2deg` here due to Cython bug:
 # https://github.com/cython/cython/issues/2745
-cdef (double, double) coord2geo(h3lib.GeoCoord c):
+cdef (double, double) coord2deg(h3lib.GeoCoord c):
     return (
         h3lib.radsToDegs(c.lat),
         h3lib.radsToDegs(c.lng)
@@ -34,7 +34,7 @@ cdef walk_loops(const h3lib.LinkedGeoLoop* L):
 cdef walk_coords(const h3lib.LinkedGeoCoord* L):
     out = []
     while L:
-        out += [coord2geo(L.data)]
+        out += [coord2deg(L.data)]
         L = L.next
 
     return out
