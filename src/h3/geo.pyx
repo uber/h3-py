@@ -1,7 +1,7 @@
 cimport h3lib
-from h3lib cimport bool
+from h3lib cimport bool, H3int
 from .util cimport (
-    check_addr,
+    check_cell,
     check_edge,
     check_res,
     create_ptr,
@@ -10,53 +10,44 @@ from .util cimport (
 from libc cimport stdlib
 
 
-cdef (double, double) mercator(double lat, double lng):
-    """Helper to coerce lat/lng range"""
-    lat = lat - 180 if lat > 90  else lat
-    lng = lng - 360 if lng > 180 else lng
-
-    return lat, lng
-
-
-cdef h3lib.GeoCoord geo2coord(double lat, double lng):
+cdef h3lib.GeoCoord deg2coord(double lat, double lng):
     cdef:
         h3lib.GeoCoord c
 
-    lat, lng = mercator(lat, lng)
     c.lat = h3lib.degsToRads(lat)
     c.lng = h3lib.degsToRads(lng)
 
     return c
 
 
-cdef (double, double) coord2geo(h3lib.GeoCoord c):
-    return mercator(
+cdef (double, double) coord2deg(h3lib.GeoCoord c):
+    return (
         h3lib.radsToDegs(c.lat),
         h3lib.radsToDegs(c.lng)
     )
 
 
-cpdef h3lib.H3int geo_to_h3(double lat, double lng, int res) except 1:
+cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
     cdef:
         h3lib.GeoCoord c
 
     check_res(res)
 
-    c = geo2coord(lat, lng)
+    c = deg2coord(lat, lng)
 
     return h3lib.geoToH3(&c, res)
 
 
-cpdef (double, double) h3_to_geo(h3lib.H3int h) except *:
+cpdef (double, double) h3_to_geo(H3int h) except *:
     """Map an H3 cell into its centroid geo-coordinate (lat/lng)"""
     cdef:
         h3lib.GeoCoord c
 
-    check_addr(h)
+    check_cell(h)
 
     h3lib.h3ToGeo(h, &c)
 
-    return coord2geo(c)
+    return coord2deg(c)
 
 
 cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False):
@@ -85,7 +76,7 @@ cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False):
         latlng = geos
 
     for i, (lat, lng) in enumerate(latlng):
-        gf.verts[i] = geo2coord(lat, lng)
+        gf.verts[i] = deg2coord(lat, lng)
 
     return gf
 
@@ -228,17 +219,17 @@ def polyfill(geojson, int res, bool geo_json_conformant=False):
     return out
 
 
-def cell_boundary(h3lib.H3int h, bool geo_json=False):
+def cell_boundary(H3int h, bool geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
         h3lib.GeoBoundary gb
 
-    check_addr(h)
+    check_cell(h)
 
     h3lib.h3ToGeoBoundary(h, &gb)
 
     verts = tuple(
-        coord2geo(gb.verts[i])
+        coord2deg(gb.verts[i])
         for i in range(gb.num_verts)
     )
 
@@ -249,7 +240,7 @@ def cell_boundary(h3lib.H3int h, bool geo_json=False):
 
     return verts
 
-def edge_boundary(h3lib.H3int edge):
+def edge_boundary(H3int edge):
     """ Returns the GeoBoundary containing the coordinates of the edge
     """
     cdef:
@@ -261,7 +252,7 @@ def edge_boundary(h3lib.H3int edge):
 
     # todo: move this verts transform into the GeoBoundary object
     verts = tuple(
-        coord2geo(gb.verts[i])
+        coord2deg(gb.verts[i])
         for i in range(gb.num_verts)
     )
 

@@ -14,6 +14,9 @@ macro(add_cython_file filename)
     install(TARGETS ${filename} LIBRARY DESTINATION src/h3)
 endmacro()
 
+# GLOB pattern is reccomended against
+# https://cmake.org/cmake/help/v3.14/command/file.html?highlight=file#filesystem 
 add_cython_file(util)
 add_cython_file(geo)
 add_cython_file(memview_int)
+add_cython_file(to_multipoly)

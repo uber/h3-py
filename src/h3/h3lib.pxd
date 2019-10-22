@@ -13,8 +13,8 @@ cdef extern from "h3api.h":
     ctypedef stdint.uint64_t H3Index
 
     ctypedef struct GeoCoord:
-        double lat
-        double lng "lon"
+        double lat  # in radians
+        double lng "lon"  # in radians
 
     ctypedef struct GeoBoundary:
         int num_verts "numVerts"
@@ -34,17 +34,18 @@ cdef extern from "h3api.h":
         GeoPolygon *polygons
 
     ctypedef struct LinkedGeoCoord:
-        GeoCoord vertex
+        GeoCoord data "vertex"
         LinkedGeoCoord *next
 
+    # renaming these for clarity
     ctypedef struct LinkedGeoLoop:
-        LinkedGeoCoord *first
-        LinkedGeoCoord *last
+        LinkedGeoCoord *data "first"
+        LinkedGeoCoord *_data_last "last"  # not needed in Cython bindings
         LinkedGeoLoop *next
 
     ctypedef struct LinkedGeoPolygon:
-        LinkedGeoLoop *first
-        LinkedGeoLoop *last
+        LinkedGeoLoop *data "first"
+        LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
         LinkedGeoPolygon *next
 
     H3Index geoToH3(const GeoCoord *g, int res)
