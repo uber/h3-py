@@ -137,6 +137,15 @@ def _api_functions(
         return out
 
 
+    def hex_ranges(hexes, K):
+        out = {
+            h: hex_range_distances(h, K)
+            for h in hexes
+        }
+
+        return out
+
+
     def k_ring_distances(h, K):
         return hex_range_distances(h, K)
 

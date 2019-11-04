@@ -1,5 +1,6 @@
 cimport h3lib
 from .h3lib cimport bool, int64_t, H3int
+from libc cimport stdlib
 
 from .util cimport (
     check_cell,
@@ -109,21 +110,35 @@ cpdef H3int[:] ring(H3int h, int k):
     ptr = create_ptr(n)
 
     flag = h3lib.hexRing(h, k, ptr)
+
+    # if we drop into the failure state, we might be tempted to not create
+    # this mv, but creating the mv is exactly what guarantees that we'll free
+    # the memory. context manager would be better here, if we can figure out
+    # how to do that
     mv = create_mv(ptr, n)
 
+    # todo: this should totally be a separate function
     # todo: we can do this much more efficiently by using kRingDistances
     if flag != 0:
-        raise H3ValueError("Couldn't run the fast version!")
+        #raise H3ValueError("Couldn't run the fast version! Probably ran into a pentagon.")
         # # fall back to `kRingDistances` and filter for appropriate distance. don't need to use sets
-        # n = maxKringSize(k)
-        # ptr = create_ptr(n)
+        n = h3lib.maxKringSize(k)
+        ptr = create_ptr(n)
 
-        # # hmmm. maybe use a cython array here instead
-        # cdef int[:n] distances
-        # distances[:] = 0
+        dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
+        if dist_ptr is NULL:
+            raise MemoryError()
 
+        h3lib.kRingDistances(h, k, ptr, dist_ptr)
 
-        # kRingDistances(h, k, ptr, &distances[0])
+        distances = <int[:n]> dist_ptr
+        distances.callback_free_data = stdlib.free
+
+        for i,v in enumerate(distances):
+            if v != k:
+                ptr[i] = 0
+
+        mv = create_mv(ptr, n)
 
     return mv
 
