@@ -64,11 +64,16 @@ class TestH3Core(unittest.TestCase):
                 'Got the expected H3 resolution back'
             )
 
+    # note: changed from master
+    # note: not sure what the correct return value is here...
     def test_silly_geo_to_h3(self):
-        self.assertEqual(
-            h3.geo_to_h3(37.3615593 + 180.0, -122.0553238 + 360.0, 5),
-            '85283473fffffff', 'world-wrapping lat, lng corrected'
-        )
+        out = h3.geo_to_h3(37.3615593 + 180.0, -122.0553238 + 360.0, 5)
+
+        expected_master_branch = '85283473fffffff'
+        expected_cython_branch = '85ca2d53fffffff'
+
+        assert out == expected_master_branch
+
 
     def test_h3_to_geo(self):
         latlng = h3.h3_to_geo('85283473fffffff')
@@ -648,14 +653,21 @@ class TestH3Core(unittest.TestCase):
             'the fast and slow hex ring paths match'
         )
 
+    # note: changed from master
     def test_hex_ring_pentagon(self):
-        try:
-            hexagons = h3.hex_ring('821c07fffffffff', 1)
-        except Exception as err:
-            self.assertEqual(
-                str(err),
-                "Failed to get hexagon ring for pentagon 821c07fffffffff"
-            )
+        h = '821c07fffffffff'
+        out = h3.hex_ring(h, 1)
+
+        expected = {
+            '821c17fffffffff',
+            '821c1ffffffffff',
+            '821c27fffffffff',
+            '821c2ffffffffff',
+            '821c37fffffffff',
+        }
+
+        assert out == expected
+
 
     def test_compact_and_uncompact(self):
         hexagons = h3.polyfill(
@@ -780,11 +792,24 @@ class TestH3Core(unittest.TestCase):
         for hexagon in expected_hexagons:
             self.assertIn(hexagon, hexagons, 'found an expected hexagon')
 
-    def test_hex_range_pentagon(self):
-        with pytest.raises(ValueError) as e_info:
-            h3.hex_range('821c07fffffffff', 1)
 
-        self.assertTrue(isinstance(e_info.value, ValueError))
+    # note: changed from master
+    def test_hex_range_pentagon(self):
+        h = '821c07fffffffff'  # a pentagon
+
+        # should consist of `h` and it's 5 neighbors
+        out = h3.hex_range(h, 1)
+
+        expected = {
+            h,
+            '821c17fffffffff',
+            '821c1ffffffffff',
+            '821c27fffffffff',
+            '821c2ffffffffff',
+            '821c37fffffffff',
+        }
+
+        assert out == expected
 
     def test_hex_range_distances(self):
         hexagons = h3.hex_range_distances('8928308280fffff', 1)
@@ -801,11 +826,25 @@ class TestH3Core(unittest.TestCase):
         self.assertTrue('89283082873ffff' in hexagons[1])
         self.assertTrue('8928308283bffff' in hexagons[1])
 
+    # note: changed from master
     def test_hex_range_distances_pentagon(self):
-        with pytest.raises(ValueError) as e_info:
-            h3.hex_range_distances('821c07fffffffff', 1)
 
-        self.assertTrue(isinstance(e_info.value, ValueError))
+        h = '821c07fffffffff'
+        out = h3.hex_range_distances(h, 1)
+
+        expected = [
+            {h},
+            {
+                '821c17fffffffff',
+                '821c1ffffffffff',
+                '821c27fffffffff',
+                '821c2ffffffffff',
+                '821c37fffffffff',
+            }
+        ]
+
+        assert out[0] == expected[0]
+        assert out[1] == expected[1]
 
     def test_hex_ranges(self):
         hex_ranges = h3.hex_ranges(['8928308280fffff'], 1)
@@ -826,11 +865,25 @@ class TestH3Core(unittest.TestCase):
         self.assertTrue('89283082873ffff' in hexagons[1])
         self.assertTrue('8928308283bffff' in hexagons[1])
 
+    # note: changed from master
     def test_hex_ranges_pentagon(self):
-        with pytest.raises(ValueError) as e_info:
-            h3.hex_ranges(['821c07fffffffff'], 1)
+        h = '821c07fffffffff'
+        out = h3.hex_ranges([h], 1)
 
-        self.assertTrue(isinstance(e_info.value, ValueError))
+        expected = {
+            h: [
+                {h},
+                {
+                    '821c17fffffffff',
+                    '821c1ffffffffff',
+                    '821c27fffffffff',
+                    '821c2ffffffffff',
+                    '821c37fffffffff'
+                }
+            ]
+        }
+
+        assert out == expected
 
     def test_many_hex_ranges(self):
         hex_ranges = h3.hex_ranges(list(h3.k_ring('8928308280fffff', 2)), 2)

@@ -100,6 +100,38 @@ cpdef H3int[:] disk(H3int h, int k):
 
     return mv
 
+
+cpdef H3int[:] _ring_fallback(H3int h, int k):
+    """
+    `ring` tries to call `h3lib.hexRing` first; if that fails, we call
+    this function, which relies on `h3lib.kRingDistances`.
+
+    Failures for `h3lib.hexRing` happen when that alg runs into a pentagon.
+    """
+    check_cell(h)
+
+    n = h3lib.maxKringSize(k)
+    # array of h3 cells
+    ptr = create_ptr(n)
+
+    # array of cell distances from `h`
+    dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
+    if dist_ptr is NULL:
+        raise MemoryError()
+
+    h3lib.kRingDistances(h, k, ptr, dist_ptr)
+
+    distances = <int[:n]> dist_ptr
+    distances.callback_free_data = stdlib.free
+
+    for i,v in enumerate(distances):
+        if v != k:
+            ptr[i] = 0
+
+    mv = create_mv(ptr, n)
+
+    return mv
+
 cpdef H3int[:] ring(H3int h, int k):
     """ Return cells at grid distance `== k` from `h`.
     Collection is "hollow" for k >= 1.
@@ -117,28 +149,8 @@ cpdef H3int[:] ring(H3int h, int k):
     # how to do that
     mv = create_mv(ptr, n)
 
-    # todo: this should totally be a separate function
-    # todo: we can do this much more efficiently by using kRingDistances
     if flag != 0:
-        #raise H3ValueError("Couldn't run the fast version! Probably ran into a pentagon.")
-        # # fall back to `kRingDistances` and filter for appropriate distance. don't need to use sets
-        n = h3lib.maxKringSize(k)
-        ptr = create_ptr(n)
-
-        dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
-        if dist_ptr is NULL:
-            raise MemoryError()
-
-        h3lib.kRingDistances(h, k, ptr, dist_ptr)
-
-        distances = <int[:n]> dist_ptr
-        distances.callback_free_data = stdlib.free
-
-        for i,v in enumerate(distances):
-            if v != k:
-                ptr[i] = 0
-
-        mv = create_mv(ptr, n)
+        mv = _ring_fallback(h, k)
 
     return mv
 
