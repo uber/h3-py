@@ -65,14 +65,16 @@ class TestH3Core(unittest.TestCase):
             )
 
     # note: changed from master
-    # note: not sure what the correct return value is here...
     def test_silly_geo_to_h3(self):
-        out = h3.geo_to_h3(37.3615593 + 180.0, -122.0553238 + 360.0, 5)
+        lat, lng = 37.3615593, -122.0553238
 
-        expected_master_branch = '85283473fffffff'
-        expected_cython_branch = '85ca2d53fffffff'
+        expected0 = '85283473fffffff'
+        out0 = h3.geo_to_h3(lat, lng, 5)
+        assert out0 == expected0
 
-        assert out == expected_master_branch
+        out1 = h3.geo_to_h3(lat + 180.0, lng + 360.0, 5)
+        expected1 = '85ca2d53fffffff'
+        assert out1 == expected1
 
 
     def test_h3_to_geo(self):
