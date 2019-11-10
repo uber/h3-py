@@ -76,7 +76,6 @@ class TestH3Core(unittest.TestCase):
         expected1 = '85ca2d53fffffff'
         assert out1 == expected1
 
-
     def test_h3_to_geo(self):
         latlng = h3.h3_to_geo('85283473fffffff')
         self.assertAlmostEqual(
@@ -224,11 +223,11 @@ class TestH3Core(unittest.TestCase):
                     'Polygon',
                 'coordinates': [
                     [
-                        [37.813318999983238, -122.4089866999972145], [
-                        37.7866302000007224, -122.3805436999997056
-                    ], [37.7198061999978478, -122.3544736999993603], [
-                        37.7076131999975672, -122.5123436999983966
-                    ], [37.7835871999971715, -122.5247187000021967],
+                        [37.813318999983238, -122.4089866999972145],
+                        [37.7866302000007224, -122.3805436999997056],
+                        [37.7198061999978478, -122.3544736999993603],
+                        [37.7076131999975672, -122.5123436999983966],
+                        [37.7835871999971715, -122.5247187000021967],
                         [37.8151571999998453, -122.4798767000009008]
                     ]
                 ]
@@ -251,11 +250,11 @@ class TestH3Core(unittest.TestCase):
                     'Polygon',
                 'coordinates': [
                     [
-                        [37.813318999983238, -122.4089866999972145], [
-                        37.7866302000007224, -122.3805436999997056
-                    ], [37.7198061999978478, -122.3544736999993603], [
-                        37.7076131999975672, -122.5123436999983966
-                    ], [37.7835871999971715, -122.5247187000021967],
+                        [37.813318999983238, -122.4089866999972145],
+                        [37.7866302000007224, -122.3805436999997056],
+                        [37.7198061999978478, -122.3544736999993603],
+                        [37.7076131999975672, -122.5123436999983966],
+                        [37.7835871999971715, -122.5247187000021967],
                         [37.8151571999998453, -122.4798767000009008]
                     ], [
                         [37.7869802, -122.4471197], [37.7664102, -122.4590777],
@@ -275,11 +274,11 @@ class TestH3Core(unittest.TestCase):
                     'Polygon',
                 'coordinates': [
                     [
-                        [37.813318999983238, -122.4089866999972145], [
-                        37.7866302000007224, -122.3805436999997056
-                    ], [37.7198061999978478, -122.3544736999993603], [
-                        37.7076131999975672, -122.5123436999983966
-                    ], [37.7835871999971715, -122.5247187000021967],
+                        [37.813318999983238, -122.4089866999972145],
+                        [37.7866302000007224, -122.3805436999997056],
+                        [37.7198061999978478, -122.3544736999993603],
+                        [37.7076131999975672, -122.5123436999983966],
+                        [37.7835871999971715, -122.5247187000021967],
                         [37.8151571999998453, -122.4798767000009008]
                     ], [
                         [37.7869802, -122.4471197], [37.7664102, -122.4590777],
@@ -302,11 +301,11 @@ class TestH3Core(unittest.TestCase):
                     'Polygon',
                 'coordinates': [
                     [
-                        [-122.4089866999972145, 37.813318999983238], [
-                        -122.3805436999997056, 37.7866302000007224
-                    ], [-122.3544736999993603, 37.7198061999978478], [
-                        -122.5123436999983966, 37.7076131999975672
-                    ], [-122.5247187000021967, 37.7835871999971715],
+                        [-122.4089866999972145, 37.813318999983238],
+                        [-122.3805436999997056, 37.7866302000007224],
+                        [-122.3544736999993603, 37.7198061999978478],
+                        [-122.5123436999983966, 37.7076131999975672],
+                        [-122.5247187000021967, 37.7835871999971715],
                         [-122.4798767000009008, 37.8151571999998453]
                     ]
                 ]
@@ -323,26 +322,37 @@ class TestH3Core(unittest.TestCase):
                     'Polygon',
                 'coordinates': [
                     [
-                        [151.1979259, -33.8555555], [151.2074556, -33.8519779],
-                        [151.224743, -33.8579597], [151.2254986, -33.8582212], [
-                        151.235313348, -33.8564183032
-                    ], [151.234799568, -33.8594049408], [
-                        151.233485084, -33.8641069037
-                    ], [151.233181742, -33.8715791334], [
-                        151.223980353, -33.8876967719
-                    ], [151.219388501, -33.8873877027], [
-                        151.2189209, -33.8869995
-                    ], [151.2181177, -33.886283399999996
-                        ], [151.2157995, -33.8851287],
-                        [151.2156925, -33.8852471], [151.2141233, -33.8851287],
-                        [151.2116267, -33.8847438], [151.2083456, -33.8834707],
-                        [151.2080246, -33.8827601], [151.2059204, -33.8816053],
-                        [151.2043868, -33.8827601], [151.2028176, -33.8838556],
-                        [151.2022826, -33.8839148], [151.2011057, -33.8842405],
-                        [151.1986114, -33.8842819], [151.1986091, -33.8842405],
-                        [151.1948287, -33.8773416], [151.1923322, -33.8740845],
-                        [151.1850566, -33.8697019], [151.1902636, -33.8625354],
-                        [151.1986805, -33.8612915], [151.1979259, -33.8555555]
+                        [151.1979259, -33.8555555],
+                        [151.2074556, -33.8519779],
+                        [151.224743, -33.8579597],
+                        [151.2254986, -33.8582212],
+                        [151.235313348, -33.8564183032],
+                        [151.234799568, -33.8594049408],
+                        [151.233485084, -33.8641069037],
+                        [151.233181742, -33.8715791334],
+                        [151.223980353, -33.8876967719],
+                        [151.219388501, -33.8873877027],
+                        [151.2189209, -33.8869995],
+                        [151.2181177, -33.886283399999996],
+                        [151.2157995, -33.8851287],
+                        [151.2156925, -33.8852471],
+                        [151.2141233, -33.8851287],
+                        [151.2116267, -33.8847438],
+                        [151.2083456, -33.8834707],
+                        [151.2080246, -33.8827601],
+                        [151.2059204, -33.8816053],
+                        [151.2043868, -33.8827601],
+                        [151.2028176, -33.8838556],
+                        [151.2022826, -33.8839148],
+                        [151.2011057, -33.8842405],
+                        [151.1986114, -33.8842819],
+                        [151.1986091, -33.8842405],
+                        [151.1948287, -33.8773416],
+                        [151.1923322, -33.8740845],
+                        [151.1850566, -33.8697019],
+                        [151.1902636, -33.8625354],
+                        [151.1986805, -33.8612915],
+                        [151.1979259, -33.8555555]
                     ]
                 ]
             }, 9, True
@@ -358,11 +368,11 @@ class TestH3Core(unittest.TestCase):
                     "Polygon",
                 "coordinates": [
                     [
-                        [142.86483764648438, 41.92578147109541], [
-                        142.86483764648438, 42.29965889253408
-                    ], [143.41552734375, 42.29965889253408], [
-                        143.41552734375, 41.92578147109541
-                    ], [142.86483764648438, 41.92578147109541]
+                        [142.86483764648438, 41.92578147109541],
+                        [142.86483764648438, 42.29965889253408],
+                        [143.41552734375, 42.29965889253408],
+                        [143.41552734375, 41.92578147109541],
+                        [142.86483764648438, 41.92578147109541]
                     ]
                 ]
             }, 9, True
@@ -378,11 +388,11 @@ class TestH3Core(unittest.TestCase):
                     "Polygon",
                 "coordinates": [
                     [
-                        [-67.642822265625, -55.41654360858007], [
-                        -67.642822265625, -54.354955689554096
-                    ], [-64.742431640625, -54.354955689554096], [
-                        -64.742431640625, -55.41654360858007
-                    ], [-67.642822265625, -55.41654360858007]
+                        [-67.642822265625, -55.41654360858007],
+                        [-67.642822265625, -54.354955689554096],
+                        [-64.742431640625, -54.354955689554096],
+                        [-64.742431640625, -55.41654360858007],
+                        [-67.642822265625, -55.41654360858007]
                     ]
                 ]
             }, 9, True
@@ -398,11 +408,11 @@ class TestH3Core(unittest.TestCase):
                     "Polygon",
                 "coordinates": [
                     [
-                        [-3.218994140625, -3.0856655287215378], [
-                        -3.218994140625, 3.6888551431470478
-                    ], [3.5815429687499996, 3.6888551431470478], [
-                        3.5815429687499996, -3.0856655287215378
-                    ], [-3.218994140625, -3.0856655287215378]
+                        [-3.218994140625, -3.0856655287215378],
+                        [-3.218994140625, 3.6888551431470478],
+                        [3.5815429687499996, 3.6888551431470478],
+                        [3.5815429687499996, -3.0856655287215378],
+                        [-3.218994140625, -3.0856655287215378]
                     ]
                 ]
             }, 4, True
@@ -422,18 +432,18 @@ class TestH3Core(unittest.TestCase):
         multi_polygon = h3.h3_set_to_multi_polygon(h3_addresses)
         vertices = h3.h3_to_geo_boundary(h3_addresses[0])
 
-        # We shift the expected circular list so that it starts from multi_polygon[0][0][0],
-        # since output starting from any vertex would be correct as long as it's in order.
-        expected_coords = self.shift_circular_list(multi_polygon[0][0][0],
-                                                   [
-                                                       vertices[2], vertices[3], vertices[4], vertices[5],
-                                                       vertices[0], vertices[1]
-                                                   ])
-        expected = [
+        # We shift the expected circular list so that it starts from
+        # multi_polygon[0][0][0], since output starting from any vertex
+        # would be correct as long as it's in order.
+        expected_coords = self.shift_circular_list(
+            multi_polygon[0][0][0],
             [
-                expected_coords
+                vertices[2], vertices[3], vertices[4], vertices[5],
+                vertices[0], vertices[1]
             ]
-        ]
+        )
+
+        expected = [[expected_coords]]
 
         self.assertEqual(multi_polygon, expected, 'outline matches expected')
 
@@ -442,18 +452,18 @@ class TestH3Core(unittest.TestCase):
         multi_polygon = h3.h3_set_to_multi_polygon(h3_addresses, True)
         vertices = h3.h3_to_geo_boundary(h3_addresses[0], True)
 
-        # We shift the expected circular list so that it starts from multi_polygon[0][0][0],
-        # since output starting from any vertex would be correct as long as it's in order.
-        expected_coords = self.shift_circular_list(multi_polygon[0][0][0],
-                                                   [
-                                                       vertices[2], vertices[3], vertices[4], vertices[5],
-                                                       vertices[0], vertices[1]
-                                                   ])
-        expected = [
+        # We shift the expected circular list so that it starts from
+        # multi_polygon[0][0][0], since output starting from any vertex
+        # would be correct as long as it's in order.
+        expected_coords = self.shift_circular_list(
+            multi_polygon[0][0][0],
             [
-                expected_coords
+                vertices[2], vertices[3], vertices[4], vertices[5],
+                vertices[0], vertices[1]
             ]
-        ]
+        )
+
+        expected = [[expected_coords]]
 
         self.assertEqual(
             len(multi_polygon), 1, 'polygon count matches expected'
@@ -477,7 +487,8 @@ class TestH3Core(unittest.TestCase):
             multi_polygon[0][0][0][1], 37.77598951883773, None,
             'the coord should be (lng, lat) according to geojson format (2)'
         )
-        # Discard last coord for testing below, since last coord is the same as the first one
+        # Discard last coord for testing below, since last coord is
+        # the same as the first one
         multi_polygon[0][0].pop()
 
         self.assertEqual(multi_polygon, expected, 'outline matches expected')
@@ -490,20 +501,20 @@ class TestH3Core(unittest.TestCase):
         vertices0 = h3.h3_to_geo_boundary(h3_addresses[0])
         vertices1 = h3.h3_to_geo_boundary(h3_addresses[1])
 
-        # We shift the expected circular list so that it starts from multi_polygon[0][0][0],
-        # since output starting from any vertex would be correct as long as it's in order.
-        expected_coords = self.shift_circular_list(multi_polygon[0][0][0],
-                                                   [
-                                                       vertices1[0], vertices1[1], vertices1[2], vertices0[1],
-                                                       vertices0[2],
-                                                       vertices0[3], vertices0[4], vertices0[5], vertices1[4],
-                                                       vertices1[5],
-                                                   ])
-        expected = [
+        # We shift the expected circular list so that it starts from
+        # multi_polygon[0][0][0], since output starting from any vertex
+        # would be correct as long as it's in order.
+        expected_coords = self.shift_circular_list(
+            multi_polygon[0][0][0],
             [
-                expected_coords
+                vertices1[0], vertices1[1], vertices1[2], vertices0[1],
+                vertices0[2],
+                vertices0[3], vertices0[4], vertices0[5], vertices1[4],
+                vertices1[5],
             ]
-        ]
+        )
+
+        expected = [[expected_coords]]
 
         self.assertEqual(
             len(multi_polygon), 1, 'polygon count matches expected'
@@ -670,7 +681,6 @@ class TestH3Core(unittest.TestCase):
 
         assert out == expected
 
-
     def test_compact_and_uncompact(self):
         hexagons = h3.polyfill(
             {
@@ -678,11 +688,11 @@ class TestH3Core(unittest.TestCase):
                     'Polygon',
                 'coordinates': [
                     [
-                        [37.813318999983238, -122.4089866999972145], [
-                        37.7866302000007224, -122.3805436999997056
-                    ], [37.7198061999978478, -122.3544736999993603], [
-                        37.7076131999975672, -122.5123436999983966
-                    ], [37.7835871999971715, -122.5247187000021967],
+                        [37.813318999983238, -122.4089866999972145],
+                        [37.7866302000007224, -122.3805436999997056],
+                        [37.7198061999978478, -122.3544736999993603],
+                        [37.7076131999975672, -122.5123436999983966],
+                        [37.7835871999971715, -122.5247187000021967],
                         [37.8151571999998453, -122.4798767000009008]
                     ]
                 ]
@@ -793,7 +803,6 @@ class TestH3Core(unittest.TestCase):
         ]
         for hexagon in expected_hexagons:
             self.assertIn(hexagon, hexagons, 'found an expected hexagon')
-
 
     # note: changed from master
     def test_hex_range_pentagon(self):

@@ -131,11 +131,10 @@ def _api_functions(
 
         out = [
             _out_collection(mvi.ring(h, k))
-            for k in range(K+1)
+            for k in range(K + 1)
         ]
 
         return out
-
 
     def hex_ranges(hexes, K):
         out = {
@@ -145,10 +144,8 @@ def _api_functions(
 
         return out
 
-
     def k_ring_distances(h, K):
         return hex_range_distances(h, K)
-
 
     def h3_to_children(h, res=None):
         """ Get the children of a hexagon.
