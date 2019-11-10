@@ -958,14 +958,10 @@ class TestH3Core(unittest.TestCase):
             h3.h3_indexes_are_neighbors('821c07fffffffff', '8928308280fffff')
         )
 
+    # note: changed from master
     def test_get_h3_unidirectional_edge(self):
-        self.assertTrue(
-            isinstance(
-                h3.get_h3_unidirectional_edge(
-                    '8928308280fffff', '8928308280bffff'
-                ), str
-            )
-        )
+        out = h3.get_h3_unidirectional_edge('8928308280fffff', '8928308280bffff')
+        assert h3.h3_unidirectional_edge_is_valid(out)
 
         with pytest.raises(ValueError) as e_info:
             h3.get_h3_unidirectional_edge('821c07fffffffff', '8928308280fffff')
