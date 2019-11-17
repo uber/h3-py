@@ -175,7 +175,11 @@ cpdef H3int[:] children(H3int h, res=None):
 
 
 cpdef H3int[:] compact(const H3int[:] hu):
-    # todo: gotta be a more elegant way to handle these...
+    # todo: the Clib can handle 0-len arrays because it **avoids**
+    # dereferencing the pointer, but Cython's syntax of
+    # `&hu[0]` **requires** a dereference. For Cython, checking for array
+    # length of zero and returning early seems like the easiest solution.
+    # note: open to better ideas!
     if len(hu) == 0:
         return empty_memory_view()
 
@@ -194,7 +198,11 @@ cpdef H3int[:] compact(const H3int[:] hu):
 # todo: https://stackoverflow.com/questions/50684977/cython-exception-type-for-a-function-returning-a-typed-memoryview
 # apparently, memoryviews are python objects, so we don't need to do the except clause
 cpdef H3int[:] uncompact(const H3int[:] hc, int res):
-    # todo: gotta be a more elegant way to handle these...
+    # todo: the Clib can handle 0-len arrays because it **avoids**
+    # dereferencing the pointer, but Cython's syntax of
+    # `&hc[0]` **requires** a dereference. For Cython, checking for array
+    # length of zero and returning early seems like the easiest solution.
+    # note: open to better ideas!
     if len(hc) == 0:
         return empty_memory_view()
 
