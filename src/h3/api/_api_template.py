@@ -14,7 +14,8 @@ def _api_functions(
         _in_scalar,
         _out_scalar,
         _in_collection,
-        _out_collection,
+        _out_unordered,
+        _out_ordered,
 ):
     def versions():
         v = {
@@ -114,23 +115,23 @@ def _api_functions(
     def k_ring(h, k=1):
         mv = mvi.disk(_in_scalar(h), k)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     def hex_range(h, k=1):
         mv = mvi.disk(_in_scalar(h), k)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     def hex_ring(h, k=1):
         mv = mvi.ring(_in_scalar(h), k)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     def hex_range_distances(h, K):
         h = _in_scalar(h)
 
         out = [
-            _out_collection(mvi.ring(h, k))
+            _out_unordered(mvi.ring(h, k))
             for k in range(K + 1)
         ]
 
@@ -161,20 +162,20 @@ def _api_functions(
         """
         mv = mvi.children(_in_scalar(h), res)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     # todo: nogil for expensive C operation?
     def compact(hexes):
         hu = _in_collection(hexes)
         hc = mvi.compact(hu)
 
-        return _out_collection(hc)
+        return _out_unordered(hc)
 
     def uncompact(hexes, res):
         hc = _in_collection(hexes)
         hu = mvi.uncompact(hc, res)
 
-        return _out_collection(hu)
+        return _out_unordered(hu)
 
     def h3_set_to_multi_polygon(hexes, geo_json=False):
         hexes = _in_collection(hexes)
@@ -183,17 +184,17 @@ def _api_functions(
     def polyfill_polygon(outer, res, holes=None, lnglat_order=False):
         mv = mvi.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     def polyfill_geojson(geojson, res):
         mv = mvi.polyfill_geojson(geojson, res)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     def polyfill(geojson, res, geo_json_conformant=False):
         mv = mvi.polyfill(geojson, res, geo_json_conformant=geo_json_conformant)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     def h3_is_pentagon(h):
         """
@@ -246,7 +247,7 @@ def _api_functions(
     def get_h3_unidirectional_edges_from_hexagon(origin):
         mv = mvi.edges_from_cell(_in_scalar(origin))
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     def get_h3_unidirectional_edge_boundary(edge, geo_json=False):
         return mvi.edge_boundary(_in_scalar(edge), geo_json=geo_json)
@@ -254,8 +255,7 @@ def _api_functions(
     def h3_line(start, end):
         mv = mvi.line(_in_scalar(start), _in_scalar(end))
 
-        # i guess a line is ordered...
-        return [_out_scalar(h) for h in mv]
+        return _out_ordered(mv)
 
     def h3_is_res_class_iii(h):
         return mvi.is_res_class_iii(_in_scalar(h))

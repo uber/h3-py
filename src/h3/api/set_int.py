@@ -14,15 +14,12 @@ def _in_collection(hexes):
     return from_iter(it)
 
 
-def _out_collection(mv):
-    return set(mv)
-
-
 _funcs = _api_functions(
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _in_collection,
-    _out_collection = _out_collection,
+    _out_unordered = set,
+    _out_ordered = list,
 )
 
 globals().update(_funcs)
