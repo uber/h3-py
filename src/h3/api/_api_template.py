@@ -14,7 +14,8 @@ def _api_functions(
         _in_scalar,
         _out_scalar,
         _in_collection,
-        _out_collection,
+        _out_unordered,
+        _out_ordered,
 ):
     def versions():
         v = {
@@ -33,10 +34,10 @@ def _api_functions(
     def num_hexagons(resolution):
         return mvi.num_hexagons(resolution)
 
-    def mean_hex_area(resolution, unit='km2'):
+    def hex_area(resolution, unit='km^2'):
         return mvi.mean_hex_area(resolution, unit)
 
-    def mean_edge_length(resolution, unit='km'):
+    def edge_length(resolution, unit='km'):
         return mvi.mean_edge_length(resolution, unit)
 
     def h3_is_valid(h):
@@ -114,12 +115,38 @@ def _api_functions(
     def k_ring(h, k=1):
         mv = mvi.disk(_in_scalar(h), k)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
+
+    def hex_range(h, k=1):
+        mv = mvi.disk(_in_scalar(h), k)
+
+        return _out_unordered(mv)
 
     def hex_ring(h, k=1):
         mv = mvi.ring(_in_scalar(h), k)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
+
+    def hex_range_distances(h, K):
+        h = _in_scalar(h)
+
+        out = [
+            _out_unordered(mvi.ring(h, k))
+            for k in range(K + 1)
+        ]
+
+        return out
+
+    def hex_ranges(hexes, K):
+        out = {
+            h: hex_range_distances(h, K)
+            for h in hexes
+        }
+
+        return out
+
+    def k_ring_distances(h, K):
+        return hex_range_distances(h, K)
 
     def h3_to_children(h, res=None):
         """ Get the children of a hexagon.
@@ -135,20 +162,20 @@ def _api_functions(
         """
         mv = mvi.children(_in_scalar(h), res)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     # todo: nogil for expensive C operation?
     def compact(hexes):
         hu = _in_collection(hexes)
         hc = mvi.compact(hu)
 
-        return _out_collection(hc)
+        return _out_unordered(hc)
 
     def uncompact(hexes, res):
         hc = _in_collection(hexes)
         hu = mvi.uncompact(hc, res)
 
-        return _out_collection(hu)
+        return _out_unordered(hu)
 
     def h3_set_to_multi_polygon(hexes, geo_json=False):
         hexes = _in_collection(hexes)
@@ -157,17 +184,17 @@ def _api_functions(
     def polyfill_polygon(outer, res, holes=None, lnglat_order=False):
         mv = mvi.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     def polyfill_geojson(geojson, res):
         mv = mvi.polyfill_geojson(geojson, res)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     def polyfill(geojson, res, geo_json_conformant=False):
         mv = mvi.polyfill(geojson, res, geo_json_conformant=geo_json_conformant)
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
     def h3_is_pentagon(h):
         """
@@ -220,14 +247,20 @@ def _api_functions(
     def get_h3_unidirectional_edges_from_hexagon(origin):
         mv = mvi.edges_from_cell(_in_scalar(origin))
 
-        return _out_collection(mv)
+        return _out_unordered(mv)
 
-    def get_h3_unidirectional_edge_boundary(edge):
-        return mvi.edge_boundary(_in_scalar(edge))
+    def get_h3_unidirectional_edge_boundary(edge, geo_json=False):
+        return mvi.edge_boundary(_in_scalar(edge), geo_json=geo_json)
 
     def h3_line(start, end):
         mv = mvi.line(_in_scalar(start), _in_scalar(end))
 
-        return _out_collection(mv)
+        return _out_ordered(mv)
+
+    def h3_is_res_class_iii(h):
+        return mvi.is_res_class_iii(_in_scalar(h))
+
+    def h3_is_res_class_III(h):
+        return mvi.is_res_class_iii(_in_scalar(h))
 
     return locals()

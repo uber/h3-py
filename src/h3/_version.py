@@ -1,4 +1,4 @@
-__version__ = '3.6.0'
+__version__ = '3.6.1'
 __description__ = (
     'H3: A hierarchical hexagonal geospatial indexing system'
     ' developed by Uber Technologies'

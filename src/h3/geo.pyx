@@ -240,7 +240,8 @@ def cell_boundary(H3int h, bool geo_json=False):
 
     return verts
 
-def edge_boundary(H3int edge):
+
+def edge_boundary(H3int edge, bool geo_json=False):
     """ Returns the GeoBoundary containing the coordinates of the edge
     """
     cdef:
@@ -255,5 +256,10 @@ def edge_boundary(H3int edge):
         coord2deg(gb.verts[i])
         for i in range(gb.num_verts)
     )
+
+    if geo_json:
+        #lat/lng -> lng/lat and last point same as first
+        verts = tuple(tuple(reversed(v)) for v in verts)
+        verts += (verts[0],)
 
     return verts

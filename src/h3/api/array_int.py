@@ -10,7 +10,8 @@ _funcs = _api_functions(
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _id,
-    _out_collection = np.asarray,
+    _out_unordered = np.asarray,
+    _out_ordered = np.asarray,
 )
 
 globals().update(_funcs)

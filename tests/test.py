@@ -225,7 +225,7 @@ def test_hex_area():
     }
 
     out = {
-        k: h3.mean_hex_area(k, unit='km2')
+        k: h3.hex_area(k, unit='km^2')
         for k in expected_in_km2
     }
 
@@ -242,7 +242,7 @@ def test_hex_edge_length():
     }
 
     out = {
-        res: h3.mean_edge_length(res, unit='km')
+        res: h3.edge_length(res, unit='km')
         for res in expected_in_km
     }
 
@@ -381,11 +381,11 @@ def test_line():
 
     out = h3.h3_line(h1, h2)
 
-    expected = {
+    expected = [
         '8928308280fffff',
         '89283082873ffff',
         '8928308287bffff'
-    }
+    ]
 
     assert out == expected
 

@@ -1,5 +1,6 @@
 cimport h3lib
-from h3lib cimport bool, int64_t, H3int
+from .h3lib cimport bool, int64_t, H3int
+from libc cimport stdlib
 
 from .util cimport (
     check_cell,
@@ -7,6 +8,7 @@ from .util cimport (
     check_res,
     create_ptr,
     create_mv,
+    empty_memory_view, # want to drop this import if possible
 )
 
 from h3.util import H3ValueError
@@ -98,6 +100,38 @@ cpdef H3int[:] disk(H3int h, int k):
 
     return mv
 
+
+cpdef H3int[:] _ring_fallback(H3int h, int k):
+    """
+    `ring` tries to call `h3lib.hexRing` first; if that fails, we call
+    this function, which relies on `h3lib.kRingDistances`.
+
+    Failures for `h3lib.hexRing` happen when that alg runs into a pentagon.
+    """
+    check_cell(h)
+
+    n = h3lib.maxKringSize(k)
+    # array of h3 cells
+    ptr = create_ptr(n)
+
+    # array of cell distances from `h`
+    dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
+    if dist_ptr is NULL:
+        raise MemoryError()
+
+    h3lib.kRingDistances(h, k, ptr, dist_ptr)
+
+    distances = <int[:n]> dist_ptr
+    distances.callback_free_data = stdlib.free
+
+    for i,v in enumerate(distances):
+        if v != k:
+            ptr[i] = 0
+
+    mv = create_mv(ptr, n)
+
+    return mv
+
 cpdef H3int[:] ring(H3int h, int k):
     """ Return cells at grid distance `== k` from `h`.
     Collection is "hollow" for k >= 1.
@@ -108,21 +142,15 @@ cpdef H3int[:] ring(H3int h, int k):
     ptr = create_ptr(n)
 
     flag = h3lib.hexRing(h, k, ptr)
+
+    # if we drop into the failure state, we might be tempted to not create
+    # this mv, but creating the mv is exactly what guarantees that we'll free
+    # the memory. context manager would be better here, if we can figure out
+    # how to do that
     mv = create_mv(ptr, n)
 
-    # todo: we can do this much more efficiently by using kRingDistances
     if flag != 0:
-        raise H3ValueError("Couldn't run the fast version!")
-        # # fall back to `kRingDistances` and filter for appropriate distance. don't need to use sets
-        # n = maxKringSize(k)
-        # ptr = create_ptr(n)
-
-        # # hmmm. maybe use a cython array here instead
-        # cdef int[:n] distances
-        # distances[:] = 0
-
-
-        # kRingDistances(h, k, ptr, &distances[0])
+        mv = _ring_fallback(h, k)
 
     return mv
 
@@ -147,6 +175,14 @@ cpdef H3int[:] children(H3int h, res=None):
 
 
 cpdef H3int[:] compact(const H3int[:] hu):
+    # todo: the Clib can handle 0-len arrays because it **avoids**
+    # dereferencing the pointer, but Cython's syntax of
+    # `&hu[0]` **requires** a dereference. For Cython, checking for array
+    # length of zero and returning early seems like the easiest solution.
+    # note: open to better ideas!
+    if len(hu) == 0:
+        return empty_memory_view()
+
     for h in hu:
         check_cell(h)
 
@@ -162,6 +198,14 @@ cpdef H3int[:] compact(const H3int[:] hu):
 # todo: https://stackoverflow.com/questions/50684977/cython-exception-type-for-a-function-returning-a-typed-memoryview
 # apparently, memoryviews are python objects, so we don't need to do the except clause
 cpdef H3int[:] uncompact(const H3int[:] hc, int res):
+    # todo: the Clib can handle 0-len arrays because it **avoids**
+    # dereferencing the pointer, but Cython's syntax of
+    # `&hc[0]` **requires** a dereference. For Cython, checking for array
+    # length of zero and returning early seems like the easiest solution.
+    # note: open to better ideas!
+    if len(hc) == 0:
+        return empty_memory_view()
+
     for h in hc:
         check_cell(h)
 
@@ -187,16 +231,21 @@ cpdef int64_t num_hexagons(int resolution) except -1:
     return h3lib.numHexagons(resolution)
 
 
-cpdef double mean_hex_area(int resolution, unit='km2') except -1:
+cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
     check_res(resolution)
 
     area = h3lib.hexAreaKm2(resolution)
 
     # todo: multiple units
     convert = {
-        'km2': 1.0,
+        'km^2': 1.0,
+        'm^2': 1000*1000.0
     }
-    area *= convert[unit]
+
+    try:
+        area *= convert[unit]
+    except:
+        raise H3ValueError('Unknown unit: {}'.format(unit))
 
     return area
 
@@ -208,8 +257,13 @@ cpdef double mean_edge_length(int resolution, unit='km') except -1:
     # todo: multiple units
     convert = {
         'km': 1.0,
+        'm': 1000.0
     }
-    length *= convert[unit]
+
+    try:
+        length *= convert[unit]
+    except:
+        raise H3ValueError('Unknown unit: {}'.format(unit))
 
     return length
 
@@ -271,6 +325,9 @@ cpdef H3int[:] line(H3int start, H3int end):
 
     n = h3lib.h3LineSize(start, end)
 
+    if n < 0:
+        raise H3ValueError("Couldn't find line between cells {} and {}".format(start, end))
+
     ptr = create_ptr(n)
     flag = h3lib.h3Line(start, end, ptr)
     mv = create_mv(ptr, n)
@@ -279,3 +336,6 @@ cpdef H3int[:] line(H3int start, H3int end):
         raise H3ValueError("Couldn't find line between cells {} and {}".format(start, end))
 
     return mv
+
+cpdef bool is_res_class_iii(H3int h):
+    return h3lib.h3IsResClassIII(h) == 1
