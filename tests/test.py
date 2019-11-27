@@ -394,3 +394,16 @@ def test_versions():
     v = h3.versions()
     assert v['c'] == v['python']
     assert v['python'] == h3.__version__
+
+
+def test_str_int_convert():
+    s = '8928308280fffff'
+    i = h3.string_to_h3(s)
+
+    assert h3.h3_to_string(i) == s
+
+
+def test_hex2int_fail():
+    h_invalid = {}
+
+    assert not h3.h3_is_valid(h_invalid)

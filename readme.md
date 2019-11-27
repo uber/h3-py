@@ -1,5 +1,7 @@
 # README for Cython development branch
 
+[![codecov](https://codecov.io/gh/uber/h3-py/branch/cython/graph/badge.svg)](https://codecov.io/gh/uber/h3-py)
+
 Based on https://github.com/uber/h3-py/tree/cython
 
 - `git clone git@github.com:uber/h3-py.git`

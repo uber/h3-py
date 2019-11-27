@@ -50,7 +50,7 @@ def _api_functions(
         try:
             h = _in_scalar(h)
             return mvi.is_cell(h)
-        except ValueError:
+        except (ValueError, TypeError):
             return False
 
     def h3_unidirectional_edge_is_valid(edge):
