@@ -21,10 +21,3 @@ Try from within `ipython`:
 # Workflow
 
 - [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
-
-# trying to pip install from the repo
-
-- try `env/bin/pip install git+https://github.com/uber/h3-py.git@cython`
-- but we get a cython error
-
-
