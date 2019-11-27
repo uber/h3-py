@@ -11,8 +11,8 @@ from .util cimport (
     empty_memory_view, # want to drop this import if possible
 )
 
-from h3.util import H3ValueError
-from h3.geo import (
+from .util import H3ValueError
+from .geo import (
     geo_to_h3,
     h3_to_geo,
     polyfill_polygon,
@@ -21,7 +21,7 @@ from h3.geo import (
     cell_boundary,
     edge_boundary,
 )
-from h3.to_multipoly import h3_set_to_multi_polygon
+from .to_multipoly import h3_set_to_multi_polygon
 
 
 cpdef basestring _c_version():
