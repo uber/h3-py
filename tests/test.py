@@ -402,10 +402,11 @@ def test_str_int_convert():
 
     assert h3.h3_to_string(i) == s
 
+
 def test_hex2int_fail():
     h_invalid = {}
 
-    assert h3.h3_is_valid(h_invalid) == False
+    assert h3.h3_is_valid(h_invalid) is False
 
     # todo: h3._is_valid, hex2str, string_to_h3, h3_to_string
     # gotta figure these out!
