@@ -406,4 +406,4 @@ def test_str_int_convert():
 def test_hex2int_fail():
     h_invalid = {}
 
-    assert h3.h3_is_valid(h_invalid) is False
+    assert not h3.h3_is_valid(h_invalid)
