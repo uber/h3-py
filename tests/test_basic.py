@@ -408,6 +408,7 @@ def test_hex2int_fail():
 
     assert not h3.h3_is_valid(h_invalid)
 
+
 def test_edge_is_valid_fail():
     e_invalid = {}
     assert not h3.h3_unidirectional_edge_is_valid(e_invalid)
