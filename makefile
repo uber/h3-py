@@ -31,3 +31,7 @@ lint:
 lab:
 	env/bin/pip install jupyterlab
 	env/bin/jupyter lab
+
+ipython:
+	env/bin/pip install ipython
+	env/bin/ipython
