@@ -23,21 +23,11 @@ def _out_ordered(mv):
     return list(int2hex(h) for h in mv)
 
 
-_funcs = _api_functions(
+_api_functions(
     _in_scalar = hex2int,
     _out_scalar = int2hex,
     _in_collection = _in_collection,
     _out_unordered = _out_unordered,
     _out_ordered = _out_ordered,
+    _globals = globals(),
 )
-
-# todo: not sure if this is the best way to do this...
-# if too weird, we can always fall back to just cut-and-pasting the contents
-# of the `_api_functions` body. However, that isn't very DRY.
-# Something like a python #include macro would be nice here...
-globals().update(_funcs)
-
-# todo: would just using `exec()` be simpler?
-
-# todo: or should we create multiple copies of the base module,
-# and monkey patch the input/output functions?

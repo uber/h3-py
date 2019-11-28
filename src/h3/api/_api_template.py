@@ -16,6 +16,7 @@ def _api_functions(
         _in_collection,
         _out_unordered,
         _out_ordered,
+        _globals,
 ):
     def versions():
         v = {
@@ -263,4 +264,4 @@ def _api_functions(
     def h3_is_res_class_III(h):
         return mvi.is_res_class_iii(_in_scalar(h))
 
-    return locals()
+    _globals.update(locals())

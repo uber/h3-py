@@ -14,12 +14,11 @@ def _in_collection(hexes):
     return from_iter(it)
 
 
-_funcs = _api_functions(
+_api_functions(
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _in_collection,
     _out_unordered = set,
     _out_ordered = list,
+    _globals = globals(),
 )
-
-globals().update(_funcs)
