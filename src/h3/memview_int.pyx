@@ -183,7 +183,7 @@ cpdef H3int[:] compact(const H3int[:] hu):
     if len(hu) == 0:
         return empty_memory_view()
 
-    for h in hu:
+    for h in hu: ## todo: should we have an array version? would that be faster?
         check_cell(h)
 
     ptr = create_ptr(len(hu))
@@ -288,11 +288,10 @@ cpdef H3int edge(H3int origin, H3int destination) except 1:
 
 
 cpdef bool is_edge(H3int e):
-    check_edge(e)
-
     return h3lib.h3UnidirectionalEdgeIsValid(e) == 1
 
 cpdef H3int edge_origin(H3int e) except 1:
+    # without the check, with an invalid input, the function will just return 0
     check_edge(e)
 
     return h3lib.getOriginH3IndexFromUnidirectionalEdge(e)

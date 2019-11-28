@@ -57,7 +57,7 @@ def _api_functions(
         try:
             e = _in_scalar(edge)
             return mvi.is_edge(e)
-        except ValueError:  # todo: maybe make a special Exception type?
+        except ValueError:
             return False
 
     def geo_to_h3(lat, lng, resolution):
