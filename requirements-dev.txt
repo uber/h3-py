@@ -13,3 +13,4 @@ flake8
 
 # Optional dependencies
 numpy
+ipython
