@@ -26,3 +26,5 @@ Try from within `ipython`:
 
 - [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
 - [pyenv for multiple versions (to help with tox)](https://weknowinc.com/blog/running-multiple-python-versions-mac-osx)
+- [tox stuff](https://blog.frank-mich.com/recipe-testing-multiple-python-versions-with-pyenv-and-tox/)
+- [more tox stuff](https://blog.ionelmc.ro/2015/04/14/tox-tricks-and-patterns/)
