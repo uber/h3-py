@@ -1,4 +1,4 @@
-import h3.memview_int as mvi
+import h3.cells as mvi
 import h3.util as u
 from .._version import __version__
 
