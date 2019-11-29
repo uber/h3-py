@@ -11,36 +11,6 @@ from .util cimport (
 )
 
 from .util import H3ValueError
-from .geo import (
-    geo_to_h3,
-    h3_to_geo,
-    polyfill_polygon,
-    polyfill_geojson,
-    polyfill,
-    cell_boundary,
-    edge_boundary,
-)
-from .to_multipoly import h3_set_to_multi_polygon
-
-from .edges import (
-    are_neighbors,
-    edge,
-    is_edge,
-    edge_origin,
-    edge_destination,
-    edge_cells,
-    edges_from_cell,
-)
-
-
-cpdef basestring _c_version():
-    v = (
-        h3lib.H3_VERSION_MAJOR,
-        h3lib.H3_VERSION_MINOR,
-        h3lib.H3_VERSION_PATCH,
-    )
-
-    return '{}.{}.{}'.format(*v)
 
 # todo: add notes about Cython exception handling
 

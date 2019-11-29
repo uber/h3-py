@@ -2,6 +2,27 @@ from libc cimport stdlib
 from cython.view cimport array
 from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
 
+cimport h3lib
+from ._version import __version__
+
+cpdef basestring _c_version():
+    v = (
+        h3lib.H3_VERSION_MAJOR,
+        h3lib.H3_VERSION_MINOR,
+        h3lib.H3_VERSION_PATCH,
+    )
+
+    return '{}.{}.{}'.format(*v)
+
+
+def versions():
+    v = {
+        'c': _c_version(),
+        'python': __version__,
+    }
+
+    return v
+
 # todo: should we use C API functions instead? (stringToH3 and h3ToString)
 cpdef H3int hex2int(H3str h):
     return int(h, 16)
