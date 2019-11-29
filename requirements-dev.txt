@@ -10,6 +10,7 @@ pytest
 pytest-cov
 codecov
 flake8
+tox
 
 # Optional dependencies
 numpy
