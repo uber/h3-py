@@ -1,3 +1,5 @@
+# flake8: noqa
+
 from .cells import (
     is_cell,
     is_pentagon,
