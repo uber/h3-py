@@ -12,7 +12,7 @@ matrix:
       env:
         - TOX_ENV=py37
 script:
-  - flake8 src/h3 setup.py tests
   - tox -e $TOX_ENV
+  - flake8 src/h3 setup.py tests
 after_success:
   - codecov
