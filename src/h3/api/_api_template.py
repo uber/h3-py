@@ -1,15 +1,12 @@
 import h3.core as c
 
-# todo: make it so that everything comes from core?
-import h3.util as u
-
-
 # this module tries to DRY-up API code which is repeated across
 # modules. Not sure if this function closure is the best solution.
 # There doesn't seem to be any obvious best-practice for
 # programmatically/dynamically creating modules
 
 # another approach: we could also just use `exec()`
+
 
 def _api_functions(
         _in_scalar,
@@ -23,10 +20,10 @@ def _api_functions(
         return c.versions()
 
     def string_to_h3(h):
-        return u.hex2int(h)
+        return c.hex2int(h)
 
     def h3_to_string(x):
-        return u.int2hex(x)
+        return c.int2hex(x)
 
     def num_hexagons(resolution):
         return c.num_hexagons(resolution)

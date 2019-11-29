@@ -44,5 +44,7 @@ from .to_multipoly import (
 )
 
 from .util import (
-    versions
+    versions,
+    hex2int,
+    int2hex
 )
