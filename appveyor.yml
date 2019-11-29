@@ -25,11 +25,4 @@ install:
   - python setup.py install
 
 test_script:
-  - pytest tests/test_array_int.py
-  - pytest tests/test_basic.py
-  - pytest tests/test_h3.py
-  - pytest tests/test_memview_int.py
-  - pytest tests/test_polyfill.py
-  - pytest tests/test_set_int.py
-  - pytest tests/test_set_str.py
-  - pytest tests/test_to_multipoly.py
+  - pytest tests/*.py
