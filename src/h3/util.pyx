@@ -5,6 +5,7 @@ from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
 cimport h3lib
 from ._version import __version__
 
+
 cpdef basestring _c_version():
     v = (
         h3lib.H3_VERSION_MAJOR,
@@ -23,17 +24,21 @@ def versions():
 
     return v
 
-# todo: should we use C API functions instead? (stringToH3 and h3ToString)
+
 cpdef H3int hex2int(H3str h):
     return int(h, 16)
 
+
 cpdef H3str int2hex(H3int x):
     """ Convert H3 integer to hex string representation
-    The `.rstrip('L')` is needed in Python 2 because "long"
-    integers (even in hex form) are represented with a trailing `L` character
-    The final `str` conversion converts from `unicode` to `str` in Python 2
+
+    Need to be careful in Python 2 because `hex(x)` may return a string
+    with a trailing `L` character (denoting a "large" integer).
+    The formatting approach below avoids this.
+
+    Also need to be careful about unicode/str differences.
     """
-    return str(hex(x)[2:].rstrip('L'))
+    return '{:x}'.format(x)
 
 
 class H3ValueError(ValueError):
