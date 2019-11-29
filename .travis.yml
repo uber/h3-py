@@ -6,7 +6,7 @@ python:
   - 3.7
 install:
   - pip install -r requirements-dev.txt
-  - CFLAGS='-fPIC' python setup.py install
+  - pip install .
 script:
   - flake8 src/h3 setup.py tests
   - pytest tests/* --cov=h3
