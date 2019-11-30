@@ -1,3 +1,10 @@
+"""
+This module should serve as the interface between the C/Cython code and
+the Python code. That is, this module should import all the Cython functions we
+intend to expose to be used in pure Python code, and each of the h3 APIs should
+*only* reference functions listed here.
+"""
+
 # flake8: noqa
 
 from .cells import (
@@ -46,5 +53,6 @@ from .to_multipoly import (
 from .util import (
     versions,
     hex2int,
-    int2hex
+    int2hex,
+    from_iter,
 )
