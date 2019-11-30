@@ -124,6 +124,11 @@ cdef size_t move_nonzeros(H3int* a, size_t n):
     """ Move nonzero elements to front of array `a` of length `n`.
     Return the number of nonzero elements.
 
+    Loop invariant: Everything *before* `i` or *after* `j` is "done".
+    Move `i` and `j` inwards until they equal, and exit.
+    You can move `i` forward until there's a zero in front of it.
+    You can move `j` backward until there's a nonzero to the left of it.
+
     | a | b | 0 | c | d | ... |
             ^           ^
             i           j
