@@ -128,6 +128,7 @@ cdef size_t move_nonzeros(H3int* a, size_t n):
     Move `i` and `j` inwards until they equal, and exit.
     You can move `i` forward until there's a zero in front of it.
     You can move `j` backward until there's a nonzero to the left of it.
+    Anything to the right of `j` is "junk" that can be reallocated.
 
     | a | b | 0 | c | d | ... |
             ^           ^
@@ -155,7 +156,7 @@ cdef size_t move_nonzeros(H3int* a, size_t n):
         # a[i] == 0
         # a[j-1] != 0
         # i < j
-        # so we can swap!
+        # so we can swap! (actually, move a[j-1] -> a[i])
         a[i] = a[j-1]
         j -= 1
 
