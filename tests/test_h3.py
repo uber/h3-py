@@ -137,7 +137,7 @@ def test_k_ring2():
 
 
 def test_k_ring_pentagon():
-    h = '821c07fffffffff'
+    h = '821c07fffffffff'  # a pentagon cell
     out = h3.k_ring(h, 1)
 
     assert len(out) == 1 + 5
@@ -429,6 +429,7 @@ def test_h3_set_to_multi_polygon_single_geo_json():
 
     expected = [[expected_coords]]
 
+    # polygon count matches expected
     assert len(mp) == 1
 
     # loop count matches expected
@@ -519,9 +520,9 @@ def test_h3_set_to_multi_polygon_2k_ring():
     # multi_polygon
     mp = h3.h3_set_to_multi_polygon(hexes)
 
-    assert len(mp) == 1
-    assert len(mp[0]) == 1
-    assert len(mp[0][0]) == 6 * (2 * 2 + 1)
+    assert len(mp) == 1  # polygon count matches expected
+    assert len(mp[0]) == 1  # loop count matches expected
+    assert len(mp[0][0]) == 6 * (2 * 2 + 1)  # coord count matches expected
 
     hexes2 = {
         '89300628393ffff', '89300628383ffff', '89300628397ffff',
@@ -535,15 +536,15 @@ def test_h3_set_to_multi_polygon_2k_ring():
 
     mp2 = h3.h3_set_to_multi_polygon(hexes2)
 
-    assert len(mp2) == 1
-    assert len(mp2[0]) == 1
-    assert len(mp2[0][0]) == 6 * (2 * 2 + 1)
+    assert len(mp2) == 1  # polygon count matches expected
+    assert len(mp2[0]) == 1  # loop count matches expected
+    assert len(mp2[0][0]) == 6 * (2 * 2 + 1)  # coord count matches expected
 
     hexes3 = list(h3.k_ring(h, 6))
     hexes3.sort()
     mp3 = h3.h3_set_to_multi_polygon(hexes3)
 
-    assert len(mp3[0]) == 1
+    assert len(mp3[0]) == 1  # loop count matches expected
 
 
 def test_hex_ring():
@@ -724,6 +725,8 @@ def test_hex_range_pentagon():
 
 def test_hex_range_distances():
     h = '8928308280fffff'
+
+    # should consist of `h` and it's 5 neighbors
     out = h3.hex_range_distances(h, 1)
 
     expected = [
