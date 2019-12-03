@@ -638,26 +638,11 @@ def test_uncompact_error():
         h3.uncompact(hexagons, 5)
 
 
-# todo: what's wrong with this? add a comment
 def test_compact_malformed_input():
+    hexes = ['89283082813ffff']*13
+
     with pytest.raises(Exception):
-        h3.compact(
-            [
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-                '89283082813ffff',
-            ]
-        )
+        h3.compact(hexes)
 
 
 def test_h3_to_parent():
