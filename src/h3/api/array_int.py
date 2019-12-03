@@ -6,12 +6,11 @@ def _id(x):
     return x
 
 
-_funcs = _api_functions(
+_api_functions(
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _id,
     _out_unordered = np.asarray,
     _out_ordered = np.asarray,
+    _globals = globals(),
 )
-
-globals().update(_funcs)

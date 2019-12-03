@@ -1,7 +1,4 @@
-
-DOCKER_IMAGE ?= quay.io/pypa/manylinux1_x86_64
-
-.PHONY: purge init rebuild linux test lint lab
+.PHONY: purge init rebuild test lint lab tox
 
 init: purge
 	git submodule update --init
@@ -15,18 +12,18 @@ rebuild:
 	env/bin/pip uninstall -y h3
 	env/bin/pip install dist/*.whl
 
-linux:
-	docker run --rm -v `pwd`:/io ${DOCKER_IMAGE} /io/build-wheels-manylinux.sh
-
 purge:
-	-@rm -rf env
+	rm -rf env MANIFEST .tox
+	rm -rf .pytest_cache tests/__pycache__ __pycache__ _skbuild dist .coverage
 	find . -type d -name '*.egg-info' | xargs rm -r
 	find . -type f -name '*.pyc' | xargs rm -r
 	find . -type d -name '*.ipynb_checkpoints' | xargs rm -r
-	-@rm -rf .pytest_cache tests/__pycache__ __pycache__ _skbuild dist .coverage
 
 test:
 	env/bin/pytest tests/* --cov=h3 --cov-report term-missing
+
+tox:
+	tox
 
 lint:
 	flake8 src/h3 setup.py tests
@@ -34,3 +31,7 @@ lint:
 lab:
 	env/bin/pip install jupyterlab
 	env/bin/jupyter lab
+
+ipython:
+	env/bin/pip install ipython
+	env/bin/ipython

@@ -2,17 +2,43 @@ from libc cimport stdlib
 from cython.view cimport array
 from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
 
-# todo: should we use C API functions instead? (stringToH3 and h3ToString)
+cimport h3lib
+from ._version import __version__
+
+
+cpdef basestring _c_version():
+    v = (
+        h3lib.H3_VERSION_MAJOR,
+        h3lib.H3_VERSION_MINOR,
+        h3lib.H3_VERSION_PATCH,
+    )
+
+    return '{}.{}.{}'.format(*v)
+
+
+def versions():
+    v = {
+        'c': _c_version(),
+        'python': __version__,
+    }
+
+    return v
+
+
 cpdef H3int hex2int(H3str h):
     return int(h, 16)
 
+
 cpdef H3str int2hex(H3int x):
     """ Convert H3 integer to hex string representation
-    The `.rstrip('L')` is needed in Python 2 because "long"
-    integers (even in hex form) are represented with a trailing `L` character
-    The final `str` conversion converts from `unicode` to `str` in Python 2
+
+    Need to be careful in Python 2 because `hex(x)` may return a string
+    with a trailing `L` character (denoting a "large" integer).
+    The formatting approach below avoids this.
+
+    Also need to be careful about unicode/str differences.
     """
-    return str(hex(x)[2:].rstrip('L'))
+    return '{:x}'.format(x)
 
 
 class H3ValueError(ValueError):
@@ -98,6 +124,12 @@ cdef size_t move_nonzeros(H3int* a, size_t n):
     """ Move nonzero elements to front of array `a` of length `n`.
     Return the number of nonzero elements.
 
+    Loop invariant: Everything *before* `i` or *after* `j` is "done".
+    Move `i` and `j` inwards until they equal, and exit.
+    You can move `i` forward until there's a zero in front of it.
+    You can move `j` backward until there's a nonzero to the left of it.
+    Anything to the right of `j` is "junk" that can be reallocated.
+
     | a | b | 0 | c | d | ... |
             ^           ^
             i           j
@@ -124,7 +156,7 @@ cdef size_t move_nonzeros(H3int* a, size_t n):
         # a[i] == 0
         # a[j-1] != 0
         # i < j
-        # so we can swap!
+        # so we can swap! (actually, move a[j-1] -> a[i])
         a[i] = a[j-1]
         j -= 1
 

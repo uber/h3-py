@@ -62,3 +62,6 @@ bower_components/
 
 .ipynb_checkpoints/
 _skbuild/
+
+# might want to remove this later when distributing
+MANIFEST
