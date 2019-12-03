@@ -161,9 +161,7 @@ def test_k_ring_distances():
     assert tuple(map(len, out)) == (1, 6)
 
     expected = [
-        {
-            h
-        },
+        {h},
         {
             '8928308280bffff',
             '89283082807ffff',
@@ -729,9 +727,7 @@ def test_hex_range_distances():
     out = h3.hex_range_distances(h, 1)
 
     expected = [
-        {
-            h
-        },
+        {h},
         {
             '8928308280bffff',
             '89283082807ffff',
@@ -771,9 +767,7 @@ def test_hex_ranges():
     assert set(out.keys()) == {h}
 
     expected = [
-        {
-            h,
-        },
+        {h},
         {
             '8928308280bffff',
             '89283082807ffff',
