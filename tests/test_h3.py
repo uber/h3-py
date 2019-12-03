@@ -639,7 +639,7 @@ def test_uncompact_error():
 
 
 def test_compact_malformed_input():
-    hexes = ['89283082813ffff']*13
+    hexes = ['89283082813ffff'] * 13
 
     with pytest.raises(Exception):
         h3.compact(hexes)
