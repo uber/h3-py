@@ -9,6 +9,6 @@ install:
   - CFLAGS='-fPIC' python setup.py install
 script:
   - flake8 src/h3 setup.py tests
-  - pytest tests/* --cov=h3
+  - pytest tests/* --cov=h3 --full-trace
 after_success:
   - codecov
