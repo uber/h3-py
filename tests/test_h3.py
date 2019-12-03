@@ -932,8 +932,13 @@ def test_h3_distance():
 
 
 def test_h3_line():
+    h1 = '8a2a84730587fff'
+    h2 = '8a2a8471414ffff'
+
+    out = h3.h3_line(h1, h2)
+
     expected = [
-        '8a2a84730587fff',
+        h1,
         '8a2a8473059ffff',
         '8a2a847304b7fff',
         '8a2a84730487fff',
@@ -963,12 +968,10 @@ def test_h3_line():
         '8a2a847148cffff',
         '8a2a84714b97fff',
         '8a2a8471416ffff',
-        '8a2a8471414ffff',
+        h2,
     ]
-
-    out = h3.h3_line('8a2a84730587fff', '8a2a8471414ffff')
 
     assert out == expected
 
     with pytest.raises(ValueError):
-        h3.h3_line('8a2a84730587fff', '8001fffffffffff')
+        h3.h3_line(h1, '8001fffffffffff')
