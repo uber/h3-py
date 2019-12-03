@@ -87,15 +87,16 @@ def test_h3_to_geo_boundary_geo_json():
 
 
 def test_k_ring():
-    out = h3.k_ring('8928308280fffff', 1)
+    h = '8928308280fffff'
+    out = h3.k_ring(h, 1)
 
     assert len(out) == 1 + 6
 
     expected = {
-        '8928308280fffff',
         '8928308280bffff',
         '89283082807ffff',
         '89283082877ffff',
+        h,
         '89283082803ffff',
         '89283082873ffff',
         '8928308283bffff',
@@ -105,7 +106,8 @@ def test_k_ring():
 
 
 def test_k_ring2():
-    out = h3.k_ring('8928308280fffff', 2)
+    h = '8928308280fffff'
+    out = h3.k_ring(h, 2)
 
     assert len(out) == 1 + 6 + 12
 
@@ -117,6 +119,7 @@ def test_k_ring2():
         '89283082823ffff',
         '89283082873ffff',
         '89283082877ffff',
+        h,
         '8928308287bffff',
         '89283082833ffff',
         '8928308282bffff',
@@ -128,21 +131,21 @@ def test_k_ring2():
         '89283082803ffff',
         '89283082807ffff',
         '8928308280bffff',
-        '8928308280fffff',
     }
 
     assert out == expected
 
 
 def test_k_ring_pentagon():
-    out = h3.k_ring('821c07fffffffff', 1)
+    h = '821c07fffffffff'
+    out = h3.k_ring(h, 1)
 
     assert len(out) == 1 + 5
 
     expected = {
         '821c2ffffffffff',
         '821c27fffffffff',
-        '821c07fffffffff',
+        h,
         '821c17fffffffff',
         '821c1ffffffffff',
         '821c37fffffffff',
@@ -152,28 +155,30 @@ def test_k_ring_pentagon():
 
 
 def test_k_ring_distances():
-    out = h3.k_ring_distances('8928308280fffff', 1)
+    h = '8928308280fffff'
+    out = h3.k_ring_distances(h, 1)
 
-    assert len(out) == 2
-    assert len(out[0]) == 1
-    assert len(out[1]) == 6
+    assert tuple(map(len, out)) == (1, 6)
 
-    assert out[0] == {'8928308280fffff'}
-    assert out[1] == {
-        '8928308280bffff',
-        '89283082807ffff',
-        '89283082877ffff',
-        '89283082803ffff',
-        '89283082873ffff',
-        '8928308283bffff',
-    }
+    expected = [
+        {
+            h
+        },
+        {
+            '8928308280bffff',
+            '89283082807ffff',
+            '89283082877ffff',
+            '89283082803ffff',
+            '89283082873ffff',
+            '8928308283bffff',
+        }
+    ]
+
+    assert out == expected
 
     out = h3.k_ring_distances('870800003ffffff', 2)
 
-    assert len(out) == 3
-    assert len(out[0]) == 1
-    assert len(out[1]) == 6
-    assert len(out[2]) == 11
+    assert tuple(map(len, out)) == (1, 6, 11)
 
 
 def test_polyfill():
@@ -197,7 +202,8 @@ def test_polyfill():
 
 def test_polyfill_bogus_geo_json():
     with pytest.raises(ValueError):
-        h3.polyfill({'type': 'whatwhat'}, 9)
+        bad_geo = {'type': 'whatwhat'}
+        h3.polyfill(bad_geo, 9)
 
 
 def test_polyfill_with_hole():
@@ -210,11 +216,12 @@ def test_polyfill_with_hole():
                 [37.7198061999978478, -122.3544736999993603],
                 [37.7076131999975672, -122.5123436999983966],
                 [37.7835871999971715, -122.5247187000021967],
-                [37.8151571999998453, -122.4798767000009008]
+                [37.8151571999998453, -122.4798767000009008],
             ],
             [
-                [37.7869802, -122.4471197], [37.7664102, -122.4590777],
-                [37.7710682, -122.4137097]
+                [37.7869802, -122.4471197],
+                [37.7664102, -122.4590777],
+                [37.7710682, -122.4137097],
             ]
         ]
     }
@@ -233,15 +240,17 @@ def test_polyfill_with_two_holes():
                 [37.7198061999978478, -122.3544736999993603],
                 [37.7076131999975672, -122.5123436999983966],
                 [37.7835871999971715, -122.5247187000021967],
-                [37.8151571999998453, -122.4798767000009008]
+                [37.8151571999998453, -122.4798767000009008],
             ],
             [
-                [37.7869802, -122.4471197], [37.7664102, -122.4590777],
-                [37.7710682, -122.4137097]
+                [37.7869802, -122.4471197],
+                [37.7664102, -122.4590777],
+                [37.7710682, -122.4137097],
             ],
             [
-                [37.747976, -122.490025], [37.731550, -122.503758],
-                [37.725440, -122.452603]
+                [37.747976, -122.490025],
+                [37.731550, -122.503758],
+                [37.725440, -122.452603],
             ]
         ]
     }
@@ -260,7 +269,7 @@ def test_polyfill_geo_json_compliant():
                 [-122.3544736999993603, 37.7198061999978478],
                 [-122.5123436999983966, 37.7076131999975672],
                 [-122.5247187000021967, 37.7835871999971715],
-                [-122.4798767000009008, 37.8151571999998453]
+                [-122.4798767000009008, 37.8151571999998453],
             ]
         ]
     }
@@ -304,7 +313,7 @@ def test_polyfill_down_under():
                 [151.1850566, -33.8697019],
                 [151.1902636, -33.8625354],
                 [151.1986805, -33.8612915],
-                [151.1979259, -33.8555555]
+                [151.1979259, -33.8555555],
             ]
         ]
     }
@@ -322,7 +331,7 @@ def test_polyfill_far_east():
                 [142.86483764648438, 42.29965889253408],
                 [143.41552734375, 42.29965889253408],
                 [143.41552734375, 41.92578147109541],
-                [142.86483764648438, 41.92578147109541]
+                [142.86483764648438, 41.92578147109541],
             ]
         ]
     }
@@ -340,7 +349,7 @@ def test_polyfill_southern_tip():
                 [-67.642822265625, -54.354955689554096],
                 [-64.742431640625, -54.354955689554096],
                 [-64.742431640625, -55.41654360858007],
-                [-67.642822265625, -55.41654360858007]
+                [-67.642822265625, -55.41654360858007],
             ]
         ]
     }
@@ -358,7 +367,7 @@ def test_polyfill_null_island():
                 [-3.218994140625, 3.6888551431470478],
                 [3.5815429687499996, 3.6888551431470478],
                 [3.5815429687499996, -3.0856655287215378],
-                [-3.218994140625, -3.0856655287215378]
+                [-3.218994140625, -3.0856655287215378],
             ]
         ]
     }
@@ -496,7 +505,7 @@ def test_h3_set_to_multi_polygon_hole():
     # Six hexagons in a ring around a hole
     hexes = [
         '892830828c7ffff', '892830828d7ffff', '8928308289bffff',
-        '89283082813ffff', '8928308288fffff', '89283082883ffff'
+        '89283082813ffff', '8928308288fffff', '89283082883ffff',
     ]
     mp = h3.h3_set_to_multi_polygon(hexes)
 
@@ -629,6 +638,7 @@ def test_uncompact_error():
         h3.uncompact(hexagons, 5)
 
 
+# todo: what's wrong with this? add a comment
 def test_compact_malformed_input():
     with pytest.raises(Exception):
         h3.compact(
@@ -663,13 +673,14 @@ def test_h3_to_children():
 
 
 def test_hex_range():
-    out = h3.hex_range('8928308280fffff', 1)
+    h = '8928308280fffff'
+    out = h3.hex_range(h, 1)
     assert len(out) == 1 + 6
 
     expected = {
-        '8928308280fffff',
         '8928308280bffff',
         '89283082807ffff',
+        h,
         '89283082877ffff',
         '89283082803ffff',
         '89283082873ffff',
@@ -680,7 +691,8 @@ def test_hex_range():
 
 
 def test_hex_range2():
-    out = h3.hex_range('8928308280fffff', 2)
+    h = '8928308280fffff'
+    out = h3.hex_range(h, 2)
 
     assert len(out) == 1 + 6 + 12
 
@@ -701,9 +713,9 @@ def test_hex_range2():
         '89283082847ffff',
         '89283082867ffff',
         '89283082803ffff',
+        h,
         '89283082807ffff',
         '8928308280bffff',
-        '8928308280fffff',
     }
 
     assert out == expected
@@ -728,19 +740,24 @@ def test_hex_range_pentagon():
 
 
 def test_hex_range_distances():
-    out = h3.hex_range_distances('8928308280fffff', 1)
+    h = '8928308280fffff'
+    out = h3.hex_range_distances(h, 1)
 
-    assert len(out) == 2
+    expected = [
+        {
+            h
+        },
+        {
+            '8928308280bffff',
+            '89283082807ffff',
+            '89283082877ffff',
+            '89283082803ffff',
+            '89283082873ffff',
+            '8928308283bffff',
+        }
+    ]
 
-    assert out[0] == {'8928308280fffff'}
-    assert out[1] == {
-        '8928308280bffff',
-        '89283082807ffff',
-        '89283082877ffff',
-        '89283082803ffff',
-        '89283082873ffff',
-        '8928308283bffff',
-    }
+    assert out == expected
 
 
 def test_hex_range_distances_pentagon():
@@ -759,28 +776,30 @@ def test_hex_range_distances_pentagon():
         }
     ]
 
-    assert out[0] == expected[0]
-    assert out[1] == expected[1]
+    assert out == expected
 
 
 def test_hex_ranges():
-    out = h3.hex_ranges(['8928308280fffff'], 1)
+    h = '8928308280fffff'
+    out = h3.hex_ranges([h], 1)
 
-    assert len(out) == 1
+    assert set(out.keys()) == {h}
 
-    hexes = out['8928308280fffff']
+    expected = [
+        {
+            h,
+        },
+        {
+            '8928308280bffff',
+            '89283082807ffff',
+            '89283082877ffff',
+            '89283082803ffff',
+            '89283082873ffff',
+            '8928308283bffff',
+        }
+    ]
 
-    assert len(hexes) == 2
-
-    assert hexes[0] == {'8928308280fffff'}
-    assert hexes[1] == {
-        '8928308280bffff',
-        '89283082807ffff',
-        '89283082877ffff',
-        '89283082803ffff',
-        '89283082873ffff',
-        '8928308283bffff',
-    }
+    assert out[h] == expected
 
 
 def test_hex_ranges_pentagon():
