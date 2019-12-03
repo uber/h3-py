@@ -158,7 +158,7 @@ def test_k_ring_distances():
     h = '8928308280fffff'
     out = h3.k_ring_distances(h, 1)
 
-    assert tuple(map(len, out)) == (1, 6)
+    assert [len(x) for x in out] == [1, 6]
 
     expected = [
         {h},
@@ -176,7 +176,7 @@ def test_k_ring_distances():
 
     out = h3.k_ring_distances('870800003ffffff', 2)
 
-    assert tuple(map(len, out)) == (1, 6, 11)
+    assert [len(x) for x in out] == [1, 6, 11]
 
 
 def test_polyfill():
@@ -811,7 +811,7 @@ def test_many_hex_ranges():
     assert len(out) == 19
 
     hexes = out['8928308280fffff']
-    assert tuple(map(len, hexes)) == (1, 6, 12)
+    assert [len(x) for x in hexes] == [1, 6, 12]
 
 
 def test_many_hex_ranges2():
@@ -821,7 +821,7 @@ def test_many_hex_ranges2():
 
     hexes = out['8928308280fffff']
 
-    assert tuple(map(len, hexes)) == (1, 6, 12, 18, 24, 30)
+    assert [len(x) for x in hexes] == [1, 6, 12, 18, 24, 30]
 
 
 def test_hex_area():
