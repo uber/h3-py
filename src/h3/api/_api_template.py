@@ -96,10 +96,10 @@ def _api_functions(
         -------
         int
         """
-        d = c.distance(
-            _in_scalar(h1),
-            _in_scalar(h2)
-        )
+        h1 = _in_scalar(h1)
+        h2 = _in_scalar(h2)
+
+        d = c.distance(h1,h2)
 
         return d
 
@@ -207,7 +207,10 @@ def _api_functions(
         """
         :returns: boolean
         """
-        return c.are_neighbors(_in_scalar(h1), _in_scalar(h2))
+        h1 = _in_scalar(h1)
+        h2 = _in_scalar(h2)
+
+        return c.are_neighbors(h1, h2)
 
     def get_h3_unidirectional_edge(origin, destination):
         o = _in_scalar(origin)
