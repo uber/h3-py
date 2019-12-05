@@ -99,7 +99,7 @@ def _api_functions(
         h1 = _in_scalar(h1)
         h2 = _in_scalar(h2)
 
-        d = c.distance(h1,h2)
+        d = c.distance(h1, h2)
 
         return d
 
