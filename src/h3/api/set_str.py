@@ -1,5 +1,5 @@
 from h3.api._api_template import _api_functions
-import h3.core as c
+import h3._core as _c
 
 
 # `set` isn't the best name here, as we might return a list if the output is ordered
@@ -10,22 +10,22 @@ import h3.core as c
 
 
 def _in_collection(hexes):
-    it = [c.hex2int(h) for h in hexes]
+    it = [_c.hex2int(h) for h in hexes]
 
-    return c.from_iter(it)
+    return _c.from_iter(it)
 
 
 def _out_unordered(mv):
-    return set(c.int2hex(h) for h in mv)
+    return set(_c.int2hex(h) for h in mv)
 
 
 def _out_ordered(mv):
-    return list(c.int2hex(h) for h in mv)
+    return list(_c.int2hex(h) for h in mv)
 
 
 _api_functions(
-    _in_scalar = c.hex2int,
-    _out_scalar = c.int2hex,
+    _in_scalar = _c.hex2int,
+    _out_scalar = _c.int2hex,
     _in_collection = _in_collection,
     _out_unordered = _out_unordered,
     _out_ordered = _out_ordered,

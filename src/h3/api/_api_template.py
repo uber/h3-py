@@ -1,4 +1,4 @@
-import h3.core as _c
+import h3._core as _c
 
 # this module tries to DRY-up API code which is repeated across
 # modules. Not sure if this function closure is the best solution.

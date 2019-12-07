@@ -2,7 +2,7 @@ cimport h3lib
 from .h3lib cimport bool, int64_t, H3int
 from libc cimport stdlib
 
-from .util cimport (
+from ._util cimport (
     check_cell,
     check_res,
     create_ptr,
@@ -10,7 +10,7 @@ from .util cimport (
     empty_memory_view, # want to drop this import if possible
 )
 
-from .util import H3ValueError
+from ._util import H3ValueError
 
 # todo: add notes about Cython exception handling
 
