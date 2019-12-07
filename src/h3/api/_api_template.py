@@ -17,15 +17,35 @@ def _api_functions(
         _globals,
 ):
     def versions():
+        """ Return version numbers for both the Python library
+        and the underlying H3 C library.
+
+        Returns
+        -------
+        dict
+        """
         return _a.versions()
 
     def string_to_h3(h):
+        """ Converts a hexadecimal string to an H3 64-bit integer index
+        """
         return _a.hex2int(h)
 
     def h3_to_string(x):
+        """ Converts an H3 64-bit integer index to a hexadecimal string
+        """
         return _a.int2hex(x)
 
     def num_hexagons(resolution):
+        """ Return the total number of *cells* (hexagons and pentagons)
+        for the given resolution.
+
+        todo: is that right?
+
+        Returns
+        -------
+        int
+        """
         return _a.num_hexagons(resolution)
 
     def hex_area(resolution, unit='km^2'):
