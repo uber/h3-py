@@ -1,4 +1,4 @@
-import h3._internal_api as _a
+from .. import _internal_api as _a
 
 # this module tries to DRY-up API code which is repeated across
 # modules. Not sure if this function closure is the best solution.

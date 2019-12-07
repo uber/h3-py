@@ -1,4 +1,4 @@
-from h3.api._api_template import _api_functions
+from ._api_template import _api_functions
 
 
 def _id(x):

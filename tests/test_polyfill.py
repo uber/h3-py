@@ -1,5 +1,4 @@
 import h3
-
 import itertools
 
 

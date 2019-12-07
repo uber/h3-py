@@ -1,5 +1,5 @@
-from h3.api._api_template import _api_functions
-import h3._internal_api as _a
+from ._api_template import _api_functions
+from .. import _internal_api as _a
 
 
 # todo: how to write documentation once and have it carry over to each interface?

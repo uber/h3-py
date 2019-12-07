@@ -1,7 +1,7 @@
 import pytest
 from pytest import approx
 
-from h3 import h3
+import h3
 
 
 def shift_circular_list(start_element, elements_list):

@@ -55,4 +55,8 @@ from .util import (
     hex2int,
     int2hex,
     from_iter,
+    H3ValueError,
+    H3CellError,
+    H3ResolutionError,
+    H3EdgeError,
 )

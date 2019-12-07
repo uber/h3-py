@@ -1,5 +1,5 @@
-from h3.api._api_template import _api_functions
-import h3._internal_api as _a
+from ._api_template import _api_functions
+from .. import _internal_api as _a
 
 
 # `set` isn't the best name here, as we might return a list if the output is ordered
