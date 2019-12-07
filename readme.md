@@ -4,7 +4,7 @@
 [![AppVeyor Status](https://ci.appveyor.com/api/projects/status/github/uber/h3-py?branch=cython&svg=true)](https://ci.appveyor.com/project/Uber/h3-py)
 [![codecov](https://codecov.io/gh/uber/h3-py/branch/cython/graph/badge.svg)](https://codecov.io/gh/uber/h3-py)
 
-Based on https://github.com/uber/h3-py/tree/cython
+## Install for development
 
 - `git clone git@github.com:uber/h3-py.git`
 - `cd h3-py`
@@ -20,6 +20,11 @@ Try from within `ipython`:
 >>> h3.geo_to_h3(0, 0, 0)
 '8075fffffffffff'
 ```
+
+## Install from github
+
+- `pip install scikit-build`
+- `pip install git+https://github.com/uber/h3-py.git@cython`
 
 
 # Workflow
