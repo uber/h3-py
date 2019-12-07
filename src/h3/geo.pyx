@@ -1,6 +1,6 @@
 cimport h3lib
 from h3lib cimport bool, H3int
-from ._util cimport (
+from .util cimport (
     check_cell,
     check_edge,
     check_res,

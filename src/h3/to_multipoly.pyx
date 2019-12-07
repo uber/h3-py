@@ -1,6 +1,6 @@
 cimport h3lib
 from h3lib cimport H3int
-from ._util cimport check_cell
+from .util cimport check_cell
 
 
 # need to define `coord2deg` here due to Cython bug:

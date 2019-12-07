@@ -7,7 +7,7 @@ intend to expose to be used in pure Python code, and each of the h3 APIs should
 *only* reference functions listed here.
 """
 
-from ._cells import (
+from .cells import (
     is_cell,
     is_pentagon,
     get_base_cell,
@@ -26,7 +26,7 @@ from ._cells import (
     is_res_class_iii,
 )
 
-from ._edges import (
+from .edges import (
     are_neighbors,
     edge,
     is_edge,
@@ -36,7 +36,7 @@ from ._edges import (
     edges_from_cell,
 )
 
-from ._geo import (
+from .geo import (
     geo_to_h3,
     h3_to_geo,
     polyfill_polygon,
@@ -46,11 +46,11 @@ from ._geo import (
     edge_boundary,
 )
 
-from ._to_multipoly import (
+from .to_multipoly import (
     h3_set_to_multi_polygon
 )
 
-from ._util import (
+from .util import (
     versions,
     hex2int,
     int2hex,
