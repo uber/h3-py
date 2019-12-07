@@ -1,5 +1,5 @@
 from h3.api._api_template import _api_functions
-import h3._core as _c
+import h3._internal_api as _a
 
 
 # todo: how to write documentation once and have it carry over to each interface?
@@ -11,7 +11,7 @@ def _id(x):
 def _in_collection(hexes):
     it = list(hexes)
 
-    return _c.from_iter(it)
+    return _a.from_iter(it)
 
 
 _api_functions(
