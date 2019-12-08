@@ -20,9 +20,12 @@ def _api_functions(
         """ Return version numbers for both the Python library
         and the underlying H3 C library.
 
+        The two versions should match exactly.
+
         Returns
         -------
-        dict
+        Dict[str, str]
+            Consists of keys `'c'` and `'python'`.
         """
         return _a.versions()
 
@@ -39,8 +42,6 @@ def _api_functions(
     def num_hexagons(resolution):
         """ Return the total number of *cells* (hexagons and pentagons)
         for the given resolution.
-
-        todo: is that right?
 
         Returns
         -------

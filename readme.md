@@ -21,7 +21,7 @@ Try from within `ipython`:
 '8075fffffffffff'
 ```
 
-## Install from github
+## Install from GitHub
 
 - `pip install scikit-build`
 - `pip install git+https://github.com/uber/h3-py.git@cython`

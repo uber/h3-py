@@ -25,7 +25,7 @@ def versions():
     return v
 
 
-cpdef H3int hex2int(H3str h) except *:
+cpdef H3int hex2int(H3str h) except 0:
     return int(h, 16)
 
 
