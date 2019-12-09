@@ -16,8 +16,8 @@ endmacro()
 
 # GLOB pattern is reccomended against
 # https://cmake.org/cmake/help/v3.14/command/file.html?highlight=file#filesystem 
-add_cython_file(util)
-add_cython_file(geo)
-add_cython_file(cells)
-add_cython_file(edges)
-add_cython_file(to_multipoly)
+add_cython_file(_cy/util)
+add_cython_file(_cy/geo)
+add_cython_file(_cy/cells)
+add_cython_file(_cy/edges)
+add_cython_file(_cy/to_multipoly)
