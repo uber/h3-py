@@ -20,7 +20,9 @@ def _api_functions(
         """ Return version numbers for both the Python library
         and the underlying H3 C library.
 
-        The two versions should match exactly.
+        Versions are output as strings of the form `'X.Y.Z'`.
+        C and Python should match on `X` (major) and `Y` (minor),
+        but may differ on `Z` (patch).
 
         Returns
         -------
