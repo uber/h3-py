@@ -25,7 +25,7 @@ def versions():
     return v
 
 
-cpdef H3int hex2int(H3str h):
+cpdef H3int hex2int(H3str h) except 0:
     return int(h, 16)
 
 
@@ -59,25 +59,25 @@ cdef check_cell(H3int h):
     Does not check if a valid H3 edge, for example.
     """
     if h3IsValid(h) == 0:
-        raise H3CellError(h)
+        raise H3CellError('Integer is not a valid H3 cell: {}'.format(hex(h)))
 
 cdef check_edge(H3int e):
     if h3UnidirectionalEdgeIsValid(e) == 0:
-        raise H3EdgeError(e)
+        raise H3EdgeError('Integer is not a valid H3 edge: {}'.format(hex(e)))
 
 cdef check_res(int res):
     if (res < 0) or (res > 15):
         raise H3ResolutionError(res)
 
 
-
 ## todo: can i turn these two into a context manager?
-cdef H3int* create_ptr(size_t n) except *:
+cdef H3int* create_ptr(size_t n) except? NULL:
     cdef H3int* ptr = <H3int*> stdlib.calloc(n, sizeof(H3int))
     if (n > 0) and (not ptr):
         raise MemoryError()
 
     return ptr
+
 
 cdef H3int[:] create_mv(H3int* ptr, size_t n):
     cdef:

@@ -2,9 +2,10 @@
 
 """
 This module should serve as the interface between the C/Cython code and
-the Python code. That is, this module should import all the Cython functions we
-intend to expose to be used in pure Python code, and each of the h3 APIs should
-*only* reference functions listed here.
+the Python code. That is, it is an internal API.
+This module should import all the Cython functions we
+intend to expose to be used in pure Python code, and each of the H3-py
+APIs should *only* reference functions and symbols listed here.
 """
 
 from .cells import (
@@ -55,4 +56,8 @@ from .util import (
     hex2int,
     int2hex,
     from_iter,
+    H3ValueError,
+    H3CellError,
+    H3ResolutionError,
+    H3EdgeError,
 )

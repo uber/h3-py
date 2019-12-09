@@ -1,11 +1,12 @@
 import h3
-from h3.util import (
+import pytest
+
+from h3 import (
     H3ValueError,
     H3CellError,
     H3ResolutionError,
-    H3EdgeError
+    H3EdgeError,
 )
-import pytest
 
 
 def approx2(a, b):
