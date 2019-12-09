@@ -70,14 +70,14 @@ cdef check_res(int res):
         raise H3ResolutionError(res)
 
 
-
 ## todo: can i turn these two into a context manager?
-cdef H3int* create_ptr(size_t n) except *:
+cdef H3int* create_ptr(size_t n) except? NULL:
     cdef H3int* ptr = <H3int*> stdlib.calloc(n, sizeof(H3int))
     if (n > 0) and (not ptr):
         raise MemoryError()
 
     return ptr
+
 
 cdef H3int[:] create_mv(H3int* ptr, size_t n):
     cdef:
