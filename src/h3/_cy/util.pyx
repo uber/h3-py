@@ -3,10 +3,9 @@ from cython.view cimport array
 from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
 
 cimport h3lib
-from .._version import __version__  # todo: move this import and the `versions()` function outside of the `_cy` folder
 
 
-cpdef basestring _c_version():
+cpdef basestring c_version():
     v = (
         h3lib.H3_VERSION_MAJOR,
         h3lib.H3_VERSION_MINOR,
@@ -14,15 +13,6 @@ cpdef basestring _c_version():
     )
 
     return '{}.{}.{}'.format(*v)
-
-
-def versions():
-    v = {
-        'c': _c_version(),
-        'python': __version__,
-    }
-
-    return v
 
 
 cpdef H3int hex2int(H3str h) except 0:

@@ -1,4 +1,4 @@
-from .. import _internal_api as _a
+from .. import _cy
 
 # this module tries to DRY-up API code which is repeated across
 # modules. Not sure if this function closure is the best solution.
@@ -29,17 +29,24 @@ def _api_functions(
         Dict[str, str]
             Consists of keys `'c'` and `'python'`.
         """
-        return _a.versions()
+        from .._version import __version__
+
+        v = {
+            'c': _cy.c_version(),
+            'python': __version__,
+        }
+
+        return v
 
     def string_to_h3(h):
         """ Converts a hexadecimal string to an H3 64-bit integer index
         """
-        return _a.hex2int(h)
+        return _cy.hex2int(h)
 
     def h3_to_string(x):
         """ Converts an H3 64-bit integer index to a hexadecimal string
         """
-        return _a.int2hex(x)
+        return _cy.int2hex(x)
 
     def num_hexagons(resolution):
         """ Return the total number of *cells* (hexagons and pentagons)
@@ -49,13 +56,13 @@ def _api_functions(
         -------
         int
         """
-        return _a.num_hexagons(resolution)
+        return _cy.num_hexagons(resolution)
 
     def hex_area(resolution, unit='km^2'):
-        return _a.mean_hex_area(resolution, unit)
+        return _cy.mean_hex_area(resolution, unit)
 
     def edge_length(resolution, unit='km'):
-        return _a.mean_edge_length(resolution, unit)
+        return _cy.mean_edge_length(resolution, unit)
 
     def h3_is_valid(h):
         """Validates an H3 cell (hexagon or pentagon)
@@ -66,29 +73,29 @@ def _api_functions(
         """
         try:
             h = _in_scalar(h)
-            return _a.is_cell(h)
+            return _cy.is_cell(h)
         except (ValueError, TypeError):
             return False
 
     def h3_unidirectional_edge_is_valid(edge):
         try:
             e = _in_scalar(edge)
-            return _a.is_edge(e)
+            return _cy.is_edge(e)
         except (ValueError, TypeError):
             return False
 
     def geo_to_h3(lat, lng, resolution):
-        return _out_scalar(_a.geo_to_h3(lat, lng, resolution))
+        return _out_scalar(_cy.geo_to_h3(lat, lng, resolution))
 
     def h3_to_geo(h):
         """Reverse lookup an h3 address into a geo-coordinate"""
-        return _a.h3_to_geo(_in_scalar(h))
+        return _cy.h3_to_geo(_in_scalar(h))
 
     def h3_get_resolution(h):
         """Returns the resolution of an `h3_address`
         :return: nibble (0-15)
         """
-        return _a.resolution(_in_scalar(h))
+        return _cy.resolution(_in_scalar(h))
 
     def h3_to_parent(h, res=None):
         """ Get the parent of a hexagon.
@@ -105,7 +112,7 @@ def _api_functions(
         H3 address
         """
         h = _in_scalar(h)
-        p = _a.parent(h, res)
+        p = _cy.parent(h, res)
         p = _out_scalar(p)
 
         return p
@@ -122,25 +129,25 @@ def _api_functions(
         h1 = _in_scalar(h1)
         h2 = _in_scalar(h2)
 
-        d = _a.distance(h1, h2)
+        d = _cy.distance(h1, h2)
 
         return d
 
     def h3_to_geo_boundary(h, geo_json=False):
-        return _a.cell_boundary(_in_scalar(h), geo_json)
+        return _cy.cell_boundary(_in_scalar(h), geo_json)
 
     def k_ring(h, k=1):
-        mv = _a.disk(_in_scalar(h), k)
+        mv = _cy.disk(_in_scalar(h), k)
 
         return _out_unordered(mv)
 
     def hex_range(h, k=1):
-        mv = _a.disk(_in_scalar(h), k)
+        mv = _cy.disk(_in_scalar(h), k)
 
         return _out_unordered(mv)
 
     def hex_ring(h, k=1):
-        mv = _a.ring(_in_scalar(h), k)
+        mv = _cy.ring(_in_scalar(h), k)
 
         return _out_unordered(mv)
 
@@ -148,7 +155,7 @@ def _api_functions(
         h = _in_scalar(h)
 
         out = [
-            _out_unordered(_a.ring(h, k))
+            _out_unordered(_cy.ring(h, k))
             for k in range(K + 1)
         ]
 
@@ -177,39 +184,39 @@ def _api_functions(
         -------
         collection of h3 addresses
         """
-        mv = _a.children(_in_scalar(h), res)
+        mv = _cy.children(_in_scalar(h), res)
 
         return _out_unordered(mv)
 
     # todo: nogil for expensive C operation?
     def compact(hexes):
         hu = _in_collection(hexes)
-        hc = _a.compact(hu)
+        hc = _cy.compact(hu)
 
         return _out_unordered(hc)
 
     def uncompact(hexes, res):
         hc = _in_collection(hexes)
-        hu = _a.uncompact(hc, res)
+        hu = _cy.uncompact(hc, res)
 
         return _out_unordered(hu)
 
     def h3_set_to_multi_polygon(hexes, geo_json=False):
         hexes = _in_collection(hexes)
-        return _a.h3_set_to_multi_polygon(hexes, geo_json=geo_json)
+        return _cy.h3_set_to_multi_polygon(hexes, geo_json=geo_json)
 
     def polyfill_polygon(outer, res, holes=None, lnglat_order=False):
-        mv = _a.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
+        mv = _cy.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
 
         return _out_unordered(mv)
 
     def polyfill_geojson(geojson, res):
-        mv = _a.polyfill_geojson(geojson, res)
+        mv = _cy.polyfill_geojson(geojson, res)
 
         return _out_unordered(mv)
 
     def polyfill(geojson, res, geo_json_conformant=False):
-        mv = _a.polyfill(geojson, res, geo_json_conformant=geo_json_conformant)
+        mv = _cy.polyfill(geojson, res, geo_json_conformant=geo_json_conformant)
 
         return _out_unordered(mv)
 
@@ -218,13 +225,13 @@ def _api_functions(
         a pentagon should still pass is_cell(), right?
         :returns: boolean
         """
-        return _a.is_pentagon(_in_scalar(h))
+        return _cy.is_pentagon(_in_scalar(h))
 
     def h3_get_base_cell(h):
         """
         :returns: boolean
         """
-        return _a.get_base_cell(_in_scalar(h))
+        return _cy.get_base_cell(_in_scalar(h))
 
     def h3_indexes_are_neighbors(h1, h2):
         """
@@ -233,54 +240,54 @@ def _api_functions(
         h1 = _in_scalar(h1)
         h2 = _in_scalar(h2)
 
-        return _a.are_neighbors(h1, h2)
+        return _cy.are_neighbors(h1, h2)
 
     def get_h3_unidirectional_edge(origin, destination):
         o = _in_scalar(origin)
         d = _in_scalar(destination)
-        e = _a.edge(o, d)
+        e = _cy.edge(o, d)
         e = _out_scalar(e)
 
         return e
 
     def get_origin_h3_index_from_unidirectional_edge(e):
         e = _in_scalar(e)
-        o = _a.edge_origin(e)
+        o = _cy.edge_origin(e)
         o = _out_scalar(o)
 
         return o
 
     def get_destination_h3_index_from_unidirectional_edge(e):
         e = _in_scalar(e)
-        d = _a.edge_destination(e)
+        d = _cy.edge_destination(e)
         d = _out_scalar(d)
 
         return d
 
     def get_h3_indexes_from_unidirectional_edge(e):
         e = _in_scalar(e)
-        o, d = _a.edge_cells(e)
+        o, d = _cy.edge_cells(e)
         o, d = _out_scalar(o), _out_scalar(d)
 
         return o, d
 
     def get_h3_unidirectional_edges_from_hexagon(origin):
-        mv = _a.edges_from_cell(_in_scalar(origin))
+        mv = _cy.edges_from_cell(_in_scalar(origin))
 
         return _out_unordered(mv)
 
     def get_h3_unidirectional_edge_boundary(edge, geo_json=False):
-        return _a.edge_boundary(_in_scalar(edge), geo_json=geo_json)
+        return _cy.edge_boundary(_in_scalar(edge), geo_json=geo_json)
 
     def h3_line(start, end):
-        mv = _a.line(_in_scalar(start), _in_scalar(end))
+        mv = _cy.line(_in_scalar(start), _in_scalar(end))
 
         return _out_ordered(mv)
 
     def h3_is_res_class_iii(h):
-        return _a.is_res_class_iii(_in_scalar(h))
+        return _cy.is_res_class_iii(_in_scalar(h))
 
     def h3_is_res_class_III(h):
-        return _a.is_res_class_iii(_in_scalar(h))
+        return _cy.is_res_class_iii(_in_scalar(h))
 
     _globals.update(locals())
