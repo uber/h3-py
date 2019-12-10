@@ -1,4 +1,4 @@
-import h3.api.set_int as h3
+import h3.api.py_int as h3
 
 
 def test1():
