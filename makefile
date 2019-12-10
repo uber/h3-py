@@ -15,9 +15,9 @@ rebuild:
 purge:
 	rm -rf env MANIFEST .tox
 	rm -rf .pytest_cache tests/__pycache__ __pycache__ _skbuild dist .coverage
-	find . -type d -name '*.egg-info' | xargs rm -r
-	find . -type f -name '*.pyc' | xargs rm -r
-	find . -type d -name '*.ipynb_checkpoints' | xargs rm -r
+	find . -type d -name '*.egg-info' | xargs -r rm -r
+	find . -type f -name '*.pyc' | xargs -r rm -r
+	find . -type d -name '*.ipynb_checkpoints' | xargs -r rm -r
 
 test:
 	env/bin/pytest tests/* --cov=h3 --cov-report term-missing --durations=10
