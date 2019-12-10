@@ -3,7 +3,7 @@ from cython.view cimport array
 from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
 
 cimport h3lib
-from ._version import __version__
+from .._version import __version__  # todo: move this import and the `versions()` function outside of the `_cy` folder
 
 
 cpdef basestring _c_version():

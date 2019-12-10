@@ -11,7 +11,7 @@ macro(add_cython_file filename)
     target_compile_definitions(${filename} INTERFACE $<TARGET_PROPERTY:h3,COMPILE_DEFINITIONS>)
     target_include_directories(${filename} INTERFACE $<TARGET_PROPERTY:h3,INCLUDE_DIRECTORIES>)
     target_link_libraries(${filename} h3)
-    install(TARGETS ${filename} LIBRARY DESTINATION src/h3)
+    install(TARGETS ${filename} LIBRARY DESTINATION src/h3/_cy)
 endmacro()
 
 # GLOB pattern is reccomended against
