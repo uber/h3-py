@@ -2,8 +2,6 @@ from ._api_template import _api_functions
 from .. import _cy
 
 
-# todo: how to write documentation once and have it carry over to each interface?
-
 def _id(x):
     return x
 
