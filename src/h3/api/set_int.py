@@ -1,5 +1,5 @@
 from ._api_template import _api_functions
-from .. import _internal_api as _a
+from .. import _cy
 
 
 # todo: how to write documentation once and have it carry over to each interface?
@@ -11,7 +11,7 @@ def _id(x):
 def _in_collection(hexes):
     it = list(hexes)
 
-    return _a.from_iter(it)
+    return _cy.from_iter(it)
 
 
 _api_functions(
