@@ -1,5 +1,5 @@
 # flake8: noqa
 
-from . import py_int
-from . import py_str
+from . import basic_int
+from . import basic_str
 from . import memview_int
