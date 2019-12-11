@@ -3,11 +3,11 @@ from ._api_template import _api_functions
 """
 This API handles H3 Indexes of type `int` (specifically, `uint64`),
 using Python `memoryview` objects for collections.
-H3 will interpret these Indexes as unsigned 64-bit integers.
+`h3` will interpret these Indexes as unsigned 64-bit integers.
 
 Input collections:
 
-- `memoryview[uint64]`
+- `memoryview[uint64]`, i.e., anything that supports the buffer protocol
 
 Output collections:
 

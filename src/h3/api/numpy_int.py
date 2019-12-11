@@ -11,7 +11,7 @@ user has `numpy` installed.
 
 Input collections:
 
-- `np.ndarray[np.uint64]`
+- `memoryview[uint64]`
 
 Output collections:
 

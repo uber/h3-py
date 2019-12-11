@@ -4,8 +4,8 @@ from .. import _cy
 """
 This API handles H3 Indexes of type `str`, using
 basic Python collections (`set`, `list`, `tuple`).
-H3 will interpret these Indexes as hexadecimal representations
-of unsigned 64-bit integers.
+`h3` will interpret these Indexes as hexadecimal
+representations of unsigned 64-bit integers.
 
 Input collections:
 
