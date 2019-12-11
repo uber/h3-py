@@ -15,6 +15,7 @@ Output collections:
 - `memoryview[uint64]` for ordered
 """
 
+
 def _id(x):
     return x
 
