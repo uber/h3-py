@@ -1,6 +1,3 @@
-from ._api_template import _api_functions
-from .. import _cy
-
 """
 This API handles H3 Indexes of type `int`, using
 basic Python collections (`set`, `list`, `tuple`).
@@ -15,6 +12,9 @@ Output collections:
 - `Set[int]` for unordered
 - `List[int]` for ordered
 """
+
+from ._api_template import _api_functions
+from .. import _cy
 
 
 def _id(x):

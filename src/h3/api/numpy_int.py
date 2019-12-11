@@ -1,6 +1,3 @@
-from ._api_template import _api_functions
-import numpy as np
-
 """
 This API handles H3 Indexes of type `int` (specifically, `uint64`),
 using `numpy.array` objects for collections.
@@ -18,6 +15,9 @@ Output collections:
 - `np.ndarray[np.uint64]` for unordered
 - `np.ndarray[np.uint64]` for ordered
 """
+
+from ._api_template import _api_functions
+import numpy as np
 
 
 def _id(x):
