@@ -31,7 +31,7 @@ _api_functions(
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _in_collection,
-    _out_unordered = set,
-    _out_ordered = list,
+    _out_unordered = set,  ## todo: should this be an (immutable) frozenset?
+    _out_ordered = list,  ## todo: should this be an (immutable) tuple?
     _globals = globals(),
 )
