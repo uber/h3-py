@@ -25,12 +25,12 @@ def _in_collection(hexes):
 
 
 def _out_unordered(mv):
-    ## todo: should this be an (immutable) frozenset?
+    # todo: should this be an (immutable) frozenset?
     return set(_cy.int2hex(h) for h in mv)
 
 
 def _out_ordered(mv):
-    ## todo: should this be an (immutable) tuple?
+    # todo: should this be an (immutable) tuple?
     return list(_cy.int2hex(h) for h in mv)
 
 
