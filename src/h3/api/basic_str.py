@@ -1,6 +1,22 @@
 from ._api_template import _api_functions
 from .. import _cy
 
+"""
+This API handles H3 Indexes of type `str`, using
+basic Python collections (`set`, `list`, `tuple`).
+H3 will interpret these Indexes as hexadecimal representations
+of unsigned 64-bit integers.
+
+Input collections:
+
+- `Iterable[str]`
+
+Output collections:
+
+- `Set[str]` for unordered
+- `List[str]` for ordered
+"""
+
 
 def _in_collection(hexes):
     it = [_cy.hex2int(h) for h in hexes]

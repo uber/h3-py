@@ -1,6 +1,21 @@
 from ._api_template import _api_functions
 from .. import _cy
 
+"""
+This API handles H3 Indexes of type `int`, using
+basic Python collections (`set`, `list`, `tuple`).
+H3 will interpret these Indexes as unsigned 64-bit integers.
+
+Input collections:
+
+- `Iterable[int]`
+
+Output collections:
+
+- `Set[int]` for unordered
+- `List[int]` for ordered
+"""
+
 
 def _id(x):
     return x
