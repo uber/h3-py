@@ -6,6 +6,8 @@ using Python `memoryview` objects for collections.
 Input collections:
 
 - `memoryview[uint64]`, i.e., anything that supports the buffer protocol
+    - `dtype` must be `uint64`. for example, `long` will raise an error
+    - `list` or `set` inputs will not be accepted
 
 Output collections:
 
