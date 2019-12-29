@@ -5,6 +5,27 @@ There doesn't seem to be any obvious best-practice for
 programmatically/dynamically creating modules.
 
 Another approach: we could also just use `exec()`
+
+
+todo: look up numpydoc reccomendations on docstrings for modules
+
+Definitions of types
+--------------------
+H3Index:
+    An unsigned 64-bit integer representing a valid H3 cell or
+    unidirectional edge.
+    Depending on the API, an H3Index may be represented as an
+    unsigned integer type, or as a hexadecimal string.
+
+H3 cell:
+    A pentagon or hexagon that can be represented by an H3Index.
+
+H3Cell:
+    H3Index representation of an H3 cell.
+
+H3Edge:
+    H3Index representation of an H3 unidirectional edge.
+
 """
 
 from .. import _cy
@@ -240,8 +261,8 @@ def _api_functions(
 
     def h3_to_geo_boundary(h, geo_json=False):
         """
-        Return tuple of lat/lng paris describing
-        the cell boundary
+        Return tuple of lat/lng pairs describing
+        the cell boundary.
 
         Parameters
         ----------
@@ -251,6 +272,8 @@ def _api_functions(
             If `True`, return output in GeoJson format:
             lng/lat pairs (opposite order), and
             have the last pair be the same as the first.
+            If `False`, return lat/lng pairs, with the last
+            pair distinct from the first.
 
         Returns
         -------
@@ -284,6 +307,11 @@ def _api_functions(
         """
         Alias for `k_ring`.
         "Filled-in" disk.
+
+        Notes
+        -----
+        This name differs from the C API.
+
         """
         mv = _cy.disk(_in_scalar(h), k)
 
@@ -390,6 +418,8 @@ def _api_functions(
         smaller cells into larger cells, if all child cells
         are present.
 
+        todo: does compact work on mixed-resolution collections?
+
         Parameters
         ----------
         hexes : iterable of H3Index
@@ -407,7 +437,7 @@ def _api_functions(
 
     def uncompact(hexes, res):
         """ Reverse the `compact` operation and return a collection
-        of H3 Cells, all of resolution `res`.
+        of H3 cells, all of resolution `res`.
 
         what if uncompact input contains a hex samller than res?
 
@@ -422,6 +452,15 @@ def _api_functions(
         -------
         unordered collection of H3Index
             Collection type varies with API: `set`, `numpy.ndarray`, etc.
+
+
+        Raises
+        ------
+        todo: add test to make sure an error is returned when input
+        contains hex smaller than output res.
+        https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
+
+
         """
         hc = _in_collection(hexes)
         hu = _cy.uncompact(hc, res)
@@ -452,8 +491,6 @@ def _api_functions(
         Returns `True` if input is a valid H3 cell which is
         a pentagon.
 
-        todo: a pentagon should still pass is_cell(), right?
-
         Parameters
         ----------
         h : H3Index
@@ -462,6 +499,10 @@ def _api_functions(
         Returns
         -------
         bool
+
+        Notes
+        -----
+        A pentagon should *also* pass `h3_is_cell()`.
         """
         return _cy.is_pentagon(_in_scalar(h))
 
@@ -488,8 +529,8 @@ def _api_functions(
 
         Parameters
         ----------
-        h1 : H3Index
-        h2 : H3Index
+        h1 : H3Cell
+        h2 : H3Cell
             H3Index is a `str` or `int`, depending on API.
 
         Returns
@@ -600,13 +641,11 @@ def _api_functions(
         Parameters
         ----------
         origin : H3Cell
-            H3Cell is a `str` or `int`, depending on API.
 
         Returns
         -------
         unordered collection of H3Edge
             Collection type varies with API: `set`, `numpy.ndarray`, etc.
-            H3Edge is a `str` or `int`, depending on API.
         """
         mv = _cy.edges_from_cell(_in_scalar(origin))
 
