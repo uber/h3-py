@@ -10,6 +10,12 @@ Another approach: we could also just use `exec()`
 from .. import _cy
 
 
+# H3 address vs H3 cell vs H3 Idnex?
+# do we want a better type system here?
+# how to describe `Set[H3 Index]`, have type distinguish between
+# cells and edges?
+
+
 def _api_functions(
         _in_scalar,
         _out_scalar,
@@ -61,9 +67,21 @@ def _api_functions(
         return _cy.num_hexagons(resolution)
 
     def hex_area(resolution, unit='km^2'):
+        """ Return the average area of an H3 cell
+        for the given resolution.
+
+        todo: all cells, or just hexagons?
+        todo: `mean_hex_area`?
+        """
         return _cy.mean_hex_area(resolution, unit)
 
     def edge_length(resolution, unit='km'):
+        """ Return the average cell edge length
+        for the given resolution.
+
+        todo: all cells, or just hexagons?
+        todo: `mean_edge_length`?
+        """
         return _cy.mean_edge_length(resolution, unit)
 
     def h3_is_valid(h):
@@ -80,6 +98,12 @@ def _api_functions(
             return False
 
     def h3_unidirectional_edge_is_valid(edge):
+        """Validates an H3 unidirectional edge
+
+        Returns
+        -------
+        boolean
+        """
         try:
             e = _in_scalar(edge)
             return _cy.is_edge(e)
@@ -87,31 +111,47 @@ def _api_functions(
             return False
 
     def geo_to_h3(lat, lng, resolution):
+        """ Return the cell containing the (lat, lng) point
+        for a given resolution.
+
+        Returns
+        -------
+        H3 Index
+        """
         return _out_scalar(_cy.geo_to_h3(lat, lng, resolution))
 
     def h3_to_geo(h):
-        """Reverse lookup an h3 address into a geo-coordinate"""
+        """ Return the center point of an H3 cell
+        as a lat/lng pair
+
+        Returns
+        -------
+        lat, lng: (float, float)
+        """
         return _cy.h3_to_geo(_in_scalar(h))
 
     def h3_get_resolution(h):
-        """Returns the resolution of an `h3_address`
-        :return: nibble (0-15)
+        """Returns the resolution of an H3 cell
+
+        Returns
+        -------
+        int
         """
         return _cy.resolution(_in_scalar(h))
 
     def h3_to_parent(h, res=None):
-        """ Get the parent of a hexagon.
+        """ Get the parent of a cell.
 
         Parameters
         ----------
-        h : H3 address
+        h : H3 cell
         res : int or None, optional
             The resolution for the parent
             If `None`, then `res = resolution(h) - 1`
 
         Returns
         -------
-        H3 address
+        H3 cell
         """
         h = _in_scalar(h)
         p = _cy.parent(h, res)
@@ -120,10 +160,12 @@ def _api_functions(
         return p
 
     def h3_distance(h1, h2):
-        """ Compute the hex-distance between two hexagons
+        """ Compute the H3-distance between two cells
+
         Parameters
         ----------
-        h1, h2 : H3 address
+        h1, h2 : H3 cells
+
         Returns
         -------
         int
@@ -136,24 +178,65 @@ def _api_functions(
         return d
 
     def h3_to_geo_boundary(h, geo_json=False):
+        """ Return tuple of lat/lng paris describing
+        the cell boundary
+
+        If `geo_json` is True, return lng/lat pairs
+        and have the last pair be the same as the first.
+
+        Returns
+        -------
+        Tuple[(Float, Float)]
+
+        """
         return _cy.cell_boundary(_in_scalar(h), geo_json)
 
     def k_ring(h, k=1):
+        """ Return unordered set of cells with H3 distance
+        `<= k` from `h`. "Full" disk.
+
+        todo: how to describe different output collection format for different
+        interfaces?
+
+        Returns
+        -------
+        Set[H3 Index]
+        """
         mv = _cy.disk(_in_scalar(h), k)
 
         return _out_unordered(mv)
 
     def hex_range(h, k=1):
+        """ Alias for `k_ring`. "Full" disk.
+        """
         mv = _cy.disk(_in_scalar(h), k)
 
         return _out_unordered(mv)
 
     def hex_ring(h, k=1):
+        """ Return unordered set of cells with H3 distance
+        `== k` from `h`. "Hollow" ring.
+
+        todo: how to describe different output collection format for different
+        interfaces?
+
+        Returns
+        -------
+        Set[H3 Index]
+        """
         mv = _cy.ring(_in_scalar(h), k)
 
         return _out_unordered(mv)
 
     def hex_range_distances(h, K):
+        """ Ordered list of the "hollow" rings around `h`,
+        up to and including distance `K`.
+
+        Returns
+        -------
+        List[ UnorderedCollection[H3Cell] ]
+
+        """
         h = _in_scalar(h)
 
         out = [
@@ -164,6 +247,18 @@ def _api_functions(
         return out
 
     def hex_ranges(hexes, K):
+        """ Return a dictionary like
+
+        {h: h: hex_range_distances(h, K)}
+        for each h in hexes
+
+        todo: can we drop this function? the user can implement if needed.
+
+        Returns
+        -------
+        Dict[H3Cell, List[ UnorderedCollection[H3Cell] ]]
+
+        """
         out = {
             h: hex_range_distances(h, K)
             for h in hexes
@@ -172,19 +267,23 @@ def _api_functions(
         return out
 
     def k_ring_distances(h, K):
+        """ Alias for `hex_range_distances`.
+        """
         return hex_range_distances(h, K)
 
     def h3_to_children(h, res=None):
         """ Get the children of a hexagon.
+
         Parameters
         ----------
         h : H3 address
         res : int or None, optional
             The resolution for the children.
             If `None`, then `res = resolution(h) + 1`
+
         Returns
         -------
-        collection of h3 addresses
+        UnorderedCollection[H3Cells]
         """
         mv = _cy.children(_in_scalar(h), res)
 
@@ -192,12 +291,26 @@ def _api_functions(
 
     # todo: nogil for expensive C operation?
     def compact(hexes):
+        """ Compact a collection of H3 Cells by combining
+        smaller cells into larger cells, if all child cells
+        are present
+
+        Returns
+        -------
+        UnorderedCollection[H3 Cells]
+
+        """
         hu = _in_collection(hexes)
         hc = _cy.compact(hu)
 
         return _out_unordered(hc)
 
     def uncompact(hexes, res):
+        """ Reverse the `compact` operation and return a collection
+        of H3 Cells, all of resolution `res`.
+
+        what if uncompact input contains a hex samller than res?
+        """
         hc = _in_collection(hexes)
         hu = _cy.uncompact(hc, res)
 
@@ -223,21 +336,35 @@ def _api_functions(
         return _out_unordered(mv)
 
     def h3_is_pentagon(h):
-        """
-        a pentagon should still pass is_cell(), right?
-        :returns: boolean
+        """ Returns `True` if input is a valid H3 Cell which is
+        a pentagon.
+
+        todo: a pentagon should still pass is_cell(), right?
+
+        Returns
+        -------
+        bool
         """
         return _cy.is_pentagon(_in_scalar(h))
 
     def h3_get_base_cell(h):
-        """
-        :returns: boolean
+        """ Return the parenting cell of resolution `0`.
+
+        todo/question: overlap with the `get_parent()` function?
+
+        Returns
+        -------
+        bool
         """
         return _cy.get_base_cell(_in_scalar(h))
 
     def h3_indexes_are_neighbors(h1, h2):
-        """
-        :returns: boolean
+        """ Returns true if `h1` and `h2` are neighboring cells.
+
+        Returns
+        -------
+        bool
+
         """
         h1 = _in_scalar(h1)
         h2 = _in_scalar(h2)
@@ -245,6 +372,17 @@ def _api_functions(
         return _cy.are_neighbors(h1, h2)
 
     def get_h3_unidirectional_edge(origin, destination):
+        """ Return an H3 Index denoting the directed edge
+        between neighboring cells `origin` and `destination`.
+
+        Raises
+        ------
+        ValueError: when cells are not adjacent
+
+        Returns
+        -------
+        H3Edge
+        """
         o = _in_scalar(origin)
         d = _in_scalar(destination)
         e = _cy.edge(o, d)
@@ -253,6 +391,13 @@ def _api_functions(
         return e
 
     def get_origin_h3_index_from_unidirectional_edge(e):
+        """ Origin cell from an H3 directed edge.
+
+        Returns
+        -------
+        H3 Cell
+
+        """
         e = _in_scalar(e)
         o = _cy.edge_origin(e)
         o = _out_scalar(o)
@@ -260,6 +405,13 @@ def _api_functions(
         return o
 
     def get_destination_h3_index_from_unidirectional_edge(e):
+        """ Destination cell from an H3 directed edge.
+
+        Returns
+        -------
+        H3 Cell
+
+        """
         e = _in_scalar(e)
         d = _cy.edge_destination(e)
         d = _out_scalar(d)
@@ -267,6 +419,13 @@ def _api_functions(
         return d
 
     def get_h3_indexes_from_unidirectional_edge(e):
+        """ Return (origin, destination) tuple from H3 directed edge
+
+        Returns
+        -------
+        (H3 Cell, H3 Cell)
+
+        """
         e = _in_scalar(e)
         o, d = _cy.edge_cells(e)
         o, d = _out_scalar(o), _out_scalar(d)
@@ -274,6 +433,12 @@ def _api_functions(
         return o, d
 
     def get_h3_unidirectional_edges_from_hexagon(origin):
+        """ Return all directed edges starting from `origin` cell.
+
+        Returns
+        -------
+        UnorderedCollection[H3Cell]
+        """
         mv = _cy.edges_from_cell(_in_scalar(origin))
 
         return _out_unordered(mv)
@@ -282,6 +447,13 @@ def _api_functions(
         return _cy.edge_boundary(_in_scalar(edge), geo_json=geo_json)
 
     def h3_line(start, end):
+        """ Returns the ordered collection of hexagons denoting a
+        (non-unique) path between cells.
+
+        Returns
+        -------
+        OrderedCollection[H3Cell]
+        """
         mv = _cy.line(_in_scalar(start), _in_scalar(end))
 
         return _out_ordered(mv)
