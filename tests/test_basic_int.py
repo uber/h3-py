@@ -1,5 +1,4 @@
-import h3.api.array_int as h3
-import numpy as np  # only run this test suite if numpy is installed
+import h3.api.basic_int as h3
 
 
 def test1():
@@ -18,13 +17,11 @@ def test5():
     }
 
     out = h3.k_ring(617700169958293503, 1)
-    assert isinstance(out, np.ndarray)
-    assert set(out) == expected
+    assert out == expected
 
 
 def test_compact():
     h = 617700169958293503
     hexes = h3.h3_to_children(h)
-    assert isinstance(hexes, np.ndarray)
 
-    assert set(h3.compact(hexes)) == {h}
+    assert h3.compact(hexes) == {h}

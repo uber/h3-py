@@ -1,4 +1,4 @@
-import h3.api.set_str as h3
+import h3.api.basic_str as h3
 
 
 def test1():

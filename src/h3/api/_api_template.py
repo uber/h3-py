@@ -1,11 +1,13 @@
+"""
+This module tries to DRY-up API code which is repeated across
+modules. Not sure if this function closure is the best solution.
+There doesn't seem to be any obvious best-practice for
+programmatically/dynamically creating modules.
+
+Another approach: we could also just use `exec()`
+"""
+
 from .. import _cy
-
-# this module tries to DRY-up API code which is repeated across
-# modules. Not sure if this function closure is the best solution.
-# There doesn't seem to be any obvious best-practice for
-# programmatically/dynamically creating modules
-
-# another approach: we could also just use `exec()`
 
 
 def _api_functions(
