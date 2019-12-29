@@ -314,13 +314,21 @@ def _api_functions(
         return _out_unordered(mv)
 
     def hex_range_distances(h, K):
-        """ Ordered list of the "hollow" rings around `h`,
+        """
+        Ordered list of the "hollow" rings around `h`,
         up to and including distance `K`.
+
+        Parameters
+        ----------
+        h : H3Index
+            H3Index is a `str` or `int`, depending on API.
+        K : int
+            Largest distance considered.
 
         Returns
         -------
-        List[ UnorderedCollection[H3Cell] ]
-
+        ordered collection of (unordered collection of H3Index)
+            Collection type varies with API: `list`, `numpy.ndarray`, etc.
         """
         h = _in_scalar(h)
 
@@ -332,7 +340,8 @@ def _api_functions(
         return out
 
     def hex_ranges(hexes, K):
-        """ Return a dictionary like
+        """
+        Return a dictionary like
 
         {h: h: hex_range_distances(h, K)}
         for each h in hexes
@@ -357,18 +366,21 @@ def _api_functions(
         return hex_range_distances(h, K)
 
     def h3_to_children(h, res=None):
-        """ Get the children of a hexagon.
+        """
+        Children of a hexagon.
 
         Parameters
         ----------
-        h : H3 address
+        h : H3Index
+            H3Index is a `str` or `int`, depending on API.
         res : int or None, optional
             The resolution for the children.
             If `None`, then `res = resolution(h) + 1`
 
         Returns
         -------
-        UnorderedCollection[H3Cells]
+        unordered collection of H3Index
+            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.children(_in_scalar(h), res)
 
@@ -376,14 +388,20 @@ def _api_functions(
 
     # todo: nogil for expensive C operation?
     def compact(hexes):
-        """ Compact a collection of H3 Cells by combining
+        """
+        Compact a collection of H3 cells by combining
         smaller cells into larger cells, if all child cells
-        are present
+        are present.
+
+        Parameters
+        ----------
+        hexes : iterable of H3Index
+            H3Index is a `str` or `int`, depending on API.
 
         Returns
         -------
-        UnorderedCollection[H3 Cells]
-
+        unordered collection of H3Index
+            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         hu = _in_collection(hexes)
         hc = _cy.compact(hu)
@@ -395,6 +413,18 @@ def _api_functions(
         of H3 Cells, all of resolution `res`.
 
         what if uncompact input contains a hex samller than res?
+
+        Parameters
+        ----------
+        hexes : iterable of H3Index
+            H3Index is a `str` or `int`, depending on API.
+        res : int
+            Resolution of desired output cells.
+
+        Returns
+        -------
+        unordered collection of H3Index
+            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         hc = _in_collection(hexes)
         hu = _cy.uncompact(hc, res)
@@ -421,10 +451,16 @@ def _api_functions(
         return _out_unordered(mv)
 
     def h3_is_pentagon(h):
-        """ Returns `True` if input is a valid H3 Cell which is
+        """
+        Returns `True` if input is a valid H3 cell which is
         a pentagon.
 
         todo: a pentagon should still pass is_cell(), right?
+
+        Parameters
+        ----------
+        h : H3Index
+            H3Index is a `str` or `int`, depending on API.
 
         Returns
         -------
@@ -433,23 +469,35 @@ def _api_functions(
         return _cy.is_pentagon(_in_scalar(h))
 
     def h3_get_base_cell(h):
-        """ Return the parenting cell of resolution `0`.
+        """
+        Return the parent cell, having resolution `0`.
 
         todo/question: overlap with the `get_parent()` function?
 
+        Parameters
+        ----------
+        h : H3Index
+            H3Index is a `str` or `int`, depending on API.
+
         Returns
         -------
-        bool
+        H3Index
         """
         return _cy.get_base_cell(_in_scalar(h))
 
     def h3_indexes_are_neighbors(h1, h2):
-        """ Returns true if `h1` and `h2` are neighboring cells.
+        """
+        Returns true if `h1` and `h2` are neighboring cells.
+
+        Parameters
+        ----------
+        h1 : H3Index
+        h2 : H3Index
+            H3Index is a `str` or `int`, depending on API.
 
         Returns
         -------
         bool
-
         """
         h1 = _in_scalar(h1)
         h2 = _in_scalar(h2)
@@ -457,8 +505,17 @@ def _api_functions(
         return _cy.are_neighbors(h1, h2)
 
     def get_h3_unidirectional_edge(origin, destination):
-        """ Return an H3 Index denoting the directed edge
+        """
+        Return an H3 Index denoting the directed edge
         between neighboring cells `origin` and `destination`.
+
+        Parameters
+        ----------
+        h1 : H3Index
+            Must be an H3 cell.
+        h2 : H3Index
+            Must be an H3 cell.
+            H3Index is a `str` or `int`, depending on API.
 
         Raises
         ------
@@ -466,7 +523,8 @@ def _api_functions(
 
         Returns
         -------
-        H3Edge
+        H3Index
+            Specifically, an H3 edge
         """
         o = _in_scalar(origin)
         d = _in_scalar(destination)
@@ -476,12 +534,18 @@ def _api_functions(
         return e
 
     def get_origin_h3_index_from_unidirectional_edge(e):
-        """ Origin cell from an H3 directed edge.
+        """
+        Origin cell from an H3 directed edge.
+
+        Parameters
+        ----------
+        e : H3Index
+            Must be an H3 edge.
 
         Returns
         -------
-        H3 Cell
-
+        H3Index
+            Specifically, an H3 cell
         """
         e = _in_scalar(e)
         o = _cy.edge_origin(e)
@@ -490,11 +554,18 @@ def _api_functions(
         return o
 
     def get_destination_h3_index_from_unidirectional_edge(e):
-        """ Destination cell from an H3 directed edge.
+        """
+        Destination cell from an H3 directed edge.
+
+        Parameters
+        ----------
+        e : H3Index
+            Must be an H3 edge.
 
         Returns
         -------
-        H3 Cell
+        H3Index
+            Specifically, an H3 cell
 
         """
         e = _in_scalar(e)
@@ -504,12 +575,20 @@ def _api_functions(
         return d
 
     def get_h3_indexes_from_unidirectional_edge(e):
-        """ Return (origin, destination) tuple from H3 directed edge
+        """
+        Return (origin, destination) tuple from H3 directed edge
+
+        Parameters
+        ----------
+        e : H3Index
+            Must be an H3 edge.
 
         Returns
         -------
-        (H3 Cell, H3 Cell)
-
+        H3Index
+            Origin cell of edge
+        H3Index
+            Destination cell of edge
         """
         e = _in_scalar(e)
         o, d = _cy.edge_cells(e)
@@ -518,11 +597,19 @@ def _api_functions(
         return o, d
 
     def get_h3_unidirectional_edges_from_hexagon(origin):
-        """ Return all directed edges starting from `origin` cell.
+        """
+        Return all directed edges starting from `origin` cell.
+
+        Parameters
+        ----------
+        origin : H3Cell
+            H3Cell is a `str` or `int`, depending on API.
 
         Returns
         -------
-        UnorderedCollection[H3Cell]
+        unordered collection of H3Edge
+            Collection type varies with API: `set`, `numpy.ndarray`, etc.
+            H3Edge is a `str` or `int`, depending on API.
         """
         mv = _cy.edges_from_cell(_in_scalar(origin))
 
@@ -532,12 +619,21 @@ def _api_functions(
         return _cy.edge_boundary(_in_scalar(edge), geo_json=geo_json)
 
     def h3_line(start, end):
-        """ Returns the ordered collection of hexagons denoting a
-        (non-unique) path between cells.
+        """
+        Returns the ordered collection of cells denoting a
+        minimum-length non-unique path between cells.
+
+        Parameters
+        ----------
+        start : H3Cell
+        end : H3Cell
+            H3Cell is a `str` or `int`, depending on API.
 
         Returns
         -------
-        OrderedCollection[H3Cell]
+        ordered collection of H3Cell
+            Starting with `start`, and ending with `end`.
+            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.line(_in_scalar(start), _in_scalar(end))
 
