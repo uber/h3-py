@@ -15,6 +15,9 @@ from .. import _cy
 # how to describe `Set[H3 Index]`, have type distinguish between
 # cells and edges?
 
+# todo: how do we lint these functions and docstrings? it seems to currently
+# be skipped due to it being inside the `_api_functions` function.
+
 
 def _api_functions(
         _in_scalar,
@@ -25,7 +28,8 @@ def _api_functions(
         _globals,
 ):
     def versions():
-        """ Return version numbers for both the Python library
+        """
+        Return version numbers for both the Python library
         and the underlying H3 C library.
 
         Versions are output as strings of the form `'X.Y.Z'`.
@@ -34,8 +38,7 @@ def _api_functions(
 
         Returns
         -------
-        Dict[str, str]
-            Consists of keys `'c'` and `'python'`.
+        dict like `{'c': 'X.Y.Z', 'python': 'X.Y.Z'}`
         """
         from .._version import __version__
 
@@ -47,17 +50,40 @@ def _api_functions(
         return v
 
     def string_to_h3(h):
-        """ Converts a hexadecimal string to an H3 64-bit integer index
+        """
+        Converts a hexadecimal string to an H3 64-bit integer index
+
+        Parameters
+        ----------
+        h : str
+            Hexadecimal string like `'89754e64993ffff'`
+
+        Returns
+        -------
+        int
+            Unsigned 64-bit integer
         """
         return _cy.hex2int(h)
 
     def h3_to_string(x):
-        """ Converts an H3 64-bit integer index to a hexadecimal string
+        """
+        Converts an H3 64-bit integer index to a hexadecimal string
+
+        Parameters
+        ----------
+        x : int
+            Unsigned 64-bit integer
+
+        Returns
+        -------
+        str
+            Hexadecimal string like `'89754e64993ffff'`
         """
         return _cy.int2hex(x)
 
     def num_hexagons(resolution):
-        """ Return the total number of *cells* (hexagons and pentagons)
+        """
+        Return the total number of *cells* (hexagons and pentagons)
         for the given resolution.
 
         Returns
@@ -67,29 +93,40 @@ def _api_functions(
         return _cy.num_hexagons(resolution)
 
     def hex_area(resolution, unit='km^2'):
-        """ Return the average area of an H3 cell
+        """
+        Return the average area of an H3 cell
         for the given resolution.
 
         todo: all cells, or just hexagons?
         todo: `mean_hex_area`?
+
+        Returns
+        -------
+        float
         """
         return _cy.mean_hex_area(resolution, unit)
 
     def edge_length(resolution, unit='km'):
-        """ Return the average cell edge length
+        """
+        Return the average cell edge length
         for the given resolution.
 
         todo: all cells, or just hexagons?
         todo: `mean_edge_length`?
+
+        Returns
+        -------
+        float
         """
         return _cy.mean_edge_length(resolution, unit)
 
     def h3_is_valid(h):
-        """Validates an H3 cell (hexagon or pentagon)
+        """
+        Validates an H3 cell (hexagon or pentagon)
 
         Returns
         -------
-        boolean
+        bool
         """
         try:
             h = _in_scalar(h)
@@ -98,11 +135,12 @@ def _api_functions(
             return False
 
     def h3_unidirectional_edge_is_valid(edge):
-        """Validates an H3 unidirectional edge
+        """
+        Validates an H3 unidirectional edge
 
         Returns
         -------
-        boolean
+        bool
         """
         try:
             e = _in_scalar(edge)
@@ -111,27 +149,42 @@ def _api_functions(
             return False
 
     def geo_to_h3(lat, lng, resolution):
-        """ Return the cell containing the (lat, lng) point
+        """
+        Return the cell containing the (lat, lng) point
         for a given resolution.
 
         Returns
         -------
-        H3 Index
+        H3Index
+            Either `str` or `int`, depending on API.
+
         """
         return _out_scalar(_cy.geo_to_h3(lat, lng, resolution))
 
     def h3_to_geo(h):
-        """ Return the center point of an H3 cell
+        """
+        Return the center point of an H3 cell
         as a lat/lng pair
 
         Returns
         -------
-        lat, lng: (float, float)
+        lat : float
+            Latitude
+        lng : float
+            Longitude
         """
         return _cy.h3_to_geo(_in_scalar(h))
 
     def h3_get_resolution(h):
-        """Returns the resolution of an H3 cell
+        """
+        Returns the resolution of an H3 cell
+
+        todo: would this work on edges, in addition to cells?
+
+        Parameters
+        ----------
+        h : H3Index
+            H3Index is a `str` or `int`, depending on API
 
         Returns
         -------
@@ -140,18 +193,22 @@ def _api_functions(
         return _cy.resolution(_in_scalar(h))
 
     def h3_to_parent(h, res=None):
-        """ Get the parent of a cell.
+        """
+        Get the parent of a cell.
 
         Parameters
         ----------
-        h : H3 cell
+        h : H3Index
+            H3Index is a `str` or `int`, depending on API
         res : int or None, optional
             The resolution for the parent
             If `None`, then `res = resolution(h) - 1`
 
         Returns
         -------
-        H3 cell
+        H3Index
+            Specifically, an H3 cell.
+            H3Index is a `str` or `int`, depending on API
         """
         h = _in_scalar(h)
         p = _cy.parent(h, res)
@@ -160,11 +217,18 @@ def _api_functions(
         return p
 
     def h3_distance(h1, h2):
-        """ Compute the H3-distance between two cells
+        """
+        Compute the H3 distance between two cells.
+
+        The H3 distance is defined as the length of the shortest
+        path between the cells in the graph formed by connecting
+        adjacent cells.
 
         Parameters
         ----------
-        h1, h2 : H3 cells
+        h1 : H3Index
+        h2 : H3Index
+            H3Index is a `str` or `int`, depending on API
 
         Returns
         -------
@@ -178,51 +242,72 @@ def _api_functions(
         return d
 
     def h3_to_geo_boundary(h, geo_json=False):
-        """ Return tuple of lat/lng paris describing
+        """
+        Return tuple of lat/lng paris describing
         the cell boundary
 
-        If `geo_json` is True, return lng/lat pairs
-        and have the last pair be the same as the first.
+        Parameters
+        ----------
+        h : H3Index
+            H3Index is a `str` or `int`, depending on API
+        geo_json : bool, optional
+            If `True`, return output in GeoJson format:
+            lng/lat pairs (opposite order), and
+            have the last pair be the same as the first.
 
         Returns
         -------
-        Tuple[(Float, Float)]
+        tuple of (float, float) tuples
 
         """
         return _cy.cell_boundary(_in_scalar(h), geo_json)
 
     def k_ring(h, k=1):
-        """ Return unordered set of cells with H3 distance
-        `<= k` from `h`. "Full" disk.
+        """
+        Return unordered set of cells with H3 distance
+        `<= k` from `h`. That is, the "filled-in" disk.
 
-        todo: how to describe different output collection format for different
-        interfaces?
+        Parameters
+        ----------
+        h : H3Index
+            H3Index is a `str` or `int`, depending on API.
+        k : int
+            Size of disk.
 
         Returns
         -------
-        Set[H3 Index]
+        unordered collection of H3Index
+            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.disk(_in_scalar(h), k)
 
         return _out_unordered(mv)
 
     def hex_range(h, k=1):
-        """ Alias for `k_ring`. "Full" disk.
+        """
+        Alias for `k_ring`.
+        "Filled-in" disk.
         """
         mv = _cy.disk(_in_scalar(h), k)
 
         return _out_unordered(mv)
 
     def hex_ring(h, k=1):
-        """ Return unordered set of cells with H3 distance
-        `== k` from `h`. "Hollow" ring.
+        """
+        Return unordered set of cells with H3 distance
+        `== k` from `h`. That is, the "hollow" ring.
 
-        todo: how to describe different output collection format for different
-        interfaces?
+        Parameters
+        ----------
+        h : H3Index
+            H3Index is a `str` or `int`, depending on API.
+        k : int
+            Size of ring.
 
         Returns
         -------
-        Set[H3 Index]
+        unordered collection of H3Index
+            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.ring(_in_scalar(h), k)
 

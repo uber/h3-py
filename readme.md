@@ -26,6 +26,11 @@ Try from within `ipython`:
 - `pip install scikit-build`
 - `pip install git+https://github.com/uber/h3-py.git@cython`
 
+## Docstrings
+
+- Follow something like the [`numpydoc` docstring guide](https://numpydoc.readthedocs.io/en/latest/format.html)
+  or the [`pandas` docstring guide](https://python-sprints.github.io/pandas/guide/pandas_docstring.html)
+
 
 # Workflow
 
