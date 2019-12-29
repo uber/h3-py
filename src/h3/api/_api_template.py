@@ -10,11 +10,6 @@ Another approach: we could also just use `exec()`
 from .. import _cy
 
 
-# H3 address vs H3 cell vs H3 Idnex?
-# do we want a better type system here?
-# how to describe `Set[H3 Index]`, have type distinguish between
-# cells and edges?
-
 # todo: how do we lint these functions and docstrings? it seems to currently
 # be skipped due to it being inside the `_api_functions` function.
 
@@ -38,7 +33,7 @@ def _api_functions(
 
         Returns
         -------
-        dict like `{'c': 'X.Y.Z', 'python': 'X.Y.Z'}`
+        dict like `{'c': 'X.Y.Z', 'python': 'A.B.C'}`
         """
         from .._version import __version__
 
@@ -94,11 +89,12 @@ def _api_functions(
 
     def hex_area(resolution, unit='km^2'):
         """
-        Return the average area of an H3 cell
+        Return the average area of an H3 *hexagon*
         for the given resolution.
 
-        todo: all cells, or just hexagons?
-        todo: `mean_hex_area`?
+        This average *excludes* pentagons.
+
+        todo: `mean_hex_area` in 4.0
 
         Returns
         -------
@@ -108,11 +104,12 @@ def _api_functions(
 
     def edge_length(resolution, unit='km'):
         """
-        Return the average cell edge length
+        Return the average *hexagon* edge length
         for the given resolution.
 
-        todo: all cells, or just hexagons?
-        todo: `mean_edge_length`?
+        This average *excludes* pentagons.
+
+        todo: `mean_edge_length` in 4.0
 
         Returns
         -------
