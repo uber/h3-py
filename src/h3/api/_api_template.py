@@ -173,8 +173,7 @@ def _api_functions(
 
         Returns
         -------
-        H3Index
-            Either `str` or `int`, depending on API.
+        H3Cell
 
         """
         return _out_scalar(_cy.geo_to_h3(lat, lng, resolution))
@@ -182,7 +181,11 @@ def _api_functions(
     def h3_to_geo(h):
         """
         Return the center point of an H3 cell
-        as a lat/lng pair
+        as a lat/lng pair.
+
+        Parameters
+        ----------
+        h : H3Cell
 
         Returns
         -------
@@ -195,14 +198,11 @@ def _api_functions(
 
     def h3_get_resolution(h):
         """
-        Returns the resolution of an H3 cell
-
-        todo: would this work on edges, in addition to cells?
+        Returns the resolution of an H3 cell.
 
         Parameters
         ----------
-        h : H3Index
-            H3Index is a `str` or `int`, depending on API
+        h : H3Cell
 
         Returns
         -------
@@ -216,17 +216,14 @@ def _api_functions(
 
         Parameters
         ----------
-        h : H3Index
-            H3Index is a `str` or `int`, depending on API
+        h : H3Cell
         res : int or None, optional
             The resolution for the parent
             If `None`, then `res = resolution(h) - 1`
 
         Returns
         -------
-        H3Index
-            Specifically, an H3 cell.
-            H3Index is a `str` or `int`, depending on API
+        H3Cell
         """
         h = _in_scalar(h)
         p = _cy.parent(h, res)
@@ -244,9 +241,8 @@ def _api_functions(
 
         Parameters
         ----------
-        h1 : H3Index
-        h2 : H3Index
-            H3Index is a `str` or `int`, depending on API
+        h1 : H3Cell
+        h2 : H3Cell
 
         Returns
         -------
@@ -266,8 +262,7 @@ def _api_functions(
 
         Parameters
         ----------
-        h : H3Index
-            H3Index is a `str` or `int`, depending on API
+        h : H3Cell
         geo_json : bool, optional
             If `True`, return output in GeoJson format:
             lng/lat pairs (opposite order), and
@@ -278,7 +273,6 @@ def _api_functions(
         Returns
         -------
         tuple of (float, float) tuples
-
         """
         return _cy.cell_boundary(_in_scalar(h), geo_json)
 
@@ -289,14 +283,13 @@ def _api_functions(
 
         Parameters
         ----------
-        h : H3Index
-            H3Index is a `str` or `int`, depending on API.
+        h : H3Cell
         k : int
             Size of disk.
 
         Returns
         -------
-        unordered collection of H3Index
+        unordered collection of H3Cell
             Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.disk(_in_scalar(h), k)
@@ -311,7 +304,6 @@ def _api_functions(
         Notes
         -----
         This name differs from the C API.
-
         """
         mv = _cy.disk(_in_scalar(h), k)
 
@@ -324,14 +316,13 @@ def _api_functions(
 
         Parameters
         ----------
-        h : H3Index
-            H3Index is a `str` or `int`, depending on API.
+        h : H3Cell
         k : int
             Size of ring.
 
         Returns
         -------
-        unordered collection of H3Index
+        unordered collection of H3Cell
             Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.ring(_in_scalar(h), k)
@@ -345,14 +336,13 @@ def _api_functions(
 
         Parameters
         ----------
-        h : H3Index
-            H3Index is a `str` or `int`, depending on API.
+        h : H3Cell
         K : int
             Largest distance considered.
 
         Returns
         -------
-        ordered collection of (unordered collection of H3Index)
+        ordered collection of (unordered collection of H3Cell)
             Collection type varies with API: `list`, `numpy.ndarray`, etc.
         """
         h = _in_scalar(h)
@@ -396,15 +386,14 @@ def _api_functions(
 
         Parameters
         ----------
-        h : H3Index
-            H3Index is a `str` or `int`, depending on API.
+        h : H3Cell
         res : int or None, optional
             The resolution for the children.
             If `None`, then `res = resolution(h) + 1`
 
         Returns
         -------
-        unordered collection of H3Index
+        unordered collection of H3Cell
             Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.children(_in_scalar(h), res)
@@ -422,12 +411,11 @@ def _api_functions(
 
         Parameters
         ----------
-        hexes : iterable of H3Index
-            H3Index is a `str` or `int`, depending on API.
+        hexes : iterable of H3Cell
 
         Returns
         -------
-        unordered collection of H3Index
+        unordered collection of H3Cell
             Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         hu = _in_collection(hexes)
@@ -439,28 +427,22 @@ def _api_functions(
         """ Reverse the `compact` operation and return a collection
         of H3 cells, all of resolution `res`.
 
-        what if uncompact input contains a hex samller than res?
-
         Parameters
         ----------
-        hexes : iterable of H3Index
-            H3Index is a `str` or `int`, depending on API.
+        hexes : iterable of H3Cell
         res : int
             Resolution of desired output cells.
 
         Returns
         -------
-        unordered collection of H3Index
+        unordered collection of H3Cell
             Collection type varies with API: `set`, `numpy.ndarray`, etc.
-
 
         Raises
         ------
         todo: add test to make sure an error is returned when input
         contains hex smaller than output res.
         https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
-
-
         """
         hc = _in_collection(hexes)
         hu = _cy.uncompact(hc, res)
@@ -494,7 +476,6 @@ def _api_functions(
         Parameters
         ----------
         h : H3Index
-            H3Index is a `str` or `int`, depending on API.
 
         Returns
         -------
@@ -514,12 +495,11 @@ def _api_functions(
 
         Parameters
         ----------
-        h : H3Index
-            H3Index is a `str` or `int`, depending on API.
+        h : H3Cell
 
         Returns
         -------
-        H3Index
+        H3Cell
         """
         return _cy.get_base_cell(_in_scalar(h))
 
@@ -531,7 +511,6 @@ def _api_functions(
         ----------
         h1 : H3Cell
         h2 : H3Cell
-            H3Index is a `str` or `int`, depending on API.
 
         Returns
         -------
@@ -549,11 +528,8 @@ def _api_functions(
 
         Parameters
         ----------
-        h1 : H3Index
-            Must be an H3 cell.
-        h2 : H3Index
-            Must be an H3 cell.
-            H3Index is a `str` or `int`, depending on API.
+        h1 : H3Cell
+        h2 : H3Cell
 
         Raises
         ------
@@ -561,8 +537,7 @@ def _api_functions(
 
         Returns
         -------
-        H3Index
-            Specifically, an H3 edge
+        H3Edge
         """
         o = _in_scalar(origin)
         d = _in_scalar(destination)
@@ -577,13 +552,11 @@ def _api_functions(
 
         Parameters
         ----------
-        e : H3Index
-            Must be an H3 edge.
+        e : H3Edge
 
         Returns
         -------
-        H3Index
-            Specifically, an H3 cell
+        H3Cell
         """
         e = _in_scalar(e)
         o = _cy.edge_origin(e)
@@ -597,13 +570,11 @@ def _api_functions(
 
         Parameters
         ----------
-        e : H3Index
-            Must be an H3 edge.
+        e : H3Edge
 
         Returns
         -------
-        H3Index
-            Specifically, an H3 cell
+        H3Cell
 
         """
         e = _in_scalar(e)
@@ -618,14 +589,13 @@ def _api_functions(
 
         Parameters
         ----------
-        e : H3Index
-            Must be an H3 edge.
+        e : H3Edge
 
         Returns
         -------
-        H3Index
+        H3Cell
             Origin cell of edge
-        H3Index
+        H3Cell
             Destination cell of edge
         """
         e = _in_scalar(e)
@@ -663,7 +633,6 @@ def _api_functions(
         ----------
         start : H3Cell
         end : H3Cell
-            H3Cell is a `str` or `int`, depending on API.
 
         Returns
         -------
