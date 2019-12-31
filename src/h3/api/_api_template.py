@@ -484,14 +484,19 @@ def _api_functions(
         Notes
         -----
         A pentagon should *also* pass `h3_is_cell()`.
+        Will return `False` for valid H3Edge.
         """
         return _cy.is_pentagon(_in_scalar(h))
 
     def h3_get_base_cell(h):
         """
-        Return the parent cell, having resolution `0`.
+        Return the base cell *number* (`0` to `121`) of the given cell.
 
-        todo/question: overlap with the `get_parent()` function?
+        The base cell *number* and the H3Index are two different representations
+        of the same cell: the parent cell of resolution `0`.
+
+        The base cell *number* is encoded within the corresponding
+        H3Index.
 
         Parameters
         ----------
@@ -499,7 +504,7 @@ def _api_functions(
 
         Returns
         -------
-        H3Cell
+        int
         """
         return _cy.get_base_cell(_in_scalar(h))
 
