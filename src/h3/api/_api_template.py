@@ -649,10 +649,40 @@ def _api_functions(
 
         return _out_ordered(mv)
 
-    def h3_is_res_class_iii(h):
-        return _cy.is_res_class_iii(_in_scalar(h))
 
     def h3_is_res_class_III(h):
+        """
+        Determine if cell has orientation "Class II" or "Class III".
+
+        The orientation of pentagons/hexagons on the icosahedron can be one
+        of two types: "Class II" or "Class III".
+
+        All cells within a resolution have the same type, and the type
+        alternates between resolutions.
+
+        "Class II" cells have resolutions:  0,2,4,6,8,10,12,14
+        "Class III" cells have resolutions: 1,3,5,7,9,11,13,15
+
+        Parameters
+        ----------
+        h : H3Cell
+
+        Returns
+        -------
+        bool
+            `True` if `h` is "Class III".
+            `False` if `h` is "Class II".
+
+        References
+        ----------
+        1. https://uber.github.io/h3/#/documentation/core-library/coordinate-systems
+        """
         return _cy.is_res_class_iii(_in_scalar(h))
+
+
+    def h3_is_res_class_iii(h):
+        """ Alias for `h3_is_res_class_III()`.
+        """
+        return h3_is_res_class_III(h)
 
     _globals.update(locals())
