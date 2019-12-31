@@ -649,7 +649,6 @@ def _api_functions(
 
         return _out_ordered(mv)
 
-
     def h3_is_res_class_III(h):
         """
         Determine if cell has orientation "Class II" or "Class III".
@@ -678,7 +677,6 @@ def _api_functions(
         1. https://uber.github.io/h3/#/documentation/core-library/coordinate-systems
         """
         return _cy.is_res_class_iii(_in_scalar(h))
-
 
     def h3_is_res_class_iii(h):
         """ Alias for `h3_is_res_class_III()`.
