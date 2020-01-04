@@ -67,7 +67,7 @@ def _api_functions(
 
     def string_to_h3(h):
         """
-        Converts a hexadecimal string to an H3 64-bit integer index
+        Converts a hexadecimal string to an H3 64-bit integer index.
 
         Parameters
         ----------
@@ -83,7 +83,7 @@ def _api_functions(
 
     def h3_to_string(x):
         """
-        Converts an H3 64-bit integer index to a hexadecimal string
+        Converts an H3 64-bit integer index to a hexadecimal string.
 
         Parameters
         ----------
@@ -115,12 +115,11 @@ def _api_functions(
 
         This average *excludes* pentagons.
 
-        todo: `mean_hex_area` in 4.0
-
         Returns
         -------
         float
         """
+        # todo: `mean_hex_area` in 4.0
         return _cy.mean_hex_area(resolution, unit)
 
     def edge_length(resolution, unit='km'):
@@ -130,17 +129,16 @@ def _api_functions(
 
         This average *excludes* pentagons.
 
-        todo: `mean_edge_length` in 4.0
-
         Returns
         -------
         float
         """
+        # todo: `mean_edge_length` in 4.0
         return _cy.mean_edge_length(resolution, unit)
 
     def h3_is_valid(h):
         """
-        Validates an H3 cell (hexagon or pentagon)
+        Validates an H3 cell (hexagon or pentagon).
 
         Returns
         -------
@@ -154,7 +152,7 @@ def _api_functions(
 
     def h3_unidirectional_edge_is_valid(edge):
         """
-        Validates an H3 unidirectional edge
+        Validates an H3 unidirectional edge.
 
         Returns
         -------
@@ -180,8 +178,7 @@ def _api_functions(
 
     def h3_to_geo(h):
         """
-        Return the center point of an H3 cell
-        as a lat/lng pair.
+        Return the center point of an H3 cell as a lat/lng pair.
 
         Parameters
         ----------
@@ -198,7 +195,7 @@ def _api_functions(
 
     def h3_get_resolution(h):
         """
-        Returns the resolution of an H3 cell.
+        Return the resolution of an H3 cell.
 
         Parameters
         ----------
@@ -208,6 +205,7 @@ def _api_functions(
         -------
         int
         """
+        # todo: could also work for edges
         return _cy.resolution(_in_scalar(h))
 
     def h3_to_parent(h, res=None):
@@ -257,8 +255,7 @@ def _api_functions(
 
     def h3_to_geo_boundary(h, geo_json=False):
         """
-        Return tuple of lat/lng pairs describing
-        the cell boundary.
+        Return tuple of lat/lng pairs describing the cell boundary.
 
         Parameters
         ----------
@@ -280,6 +277,8 @@ def _api_functions(
         """
         Return unordered set of cells with H3 distance
         `<= k` from `h`. That is, the "filled-in" disk.
+
+        todo now: comment formatting
 
         Parameters
         ----------
@@ -313,6 +312,8 @@ def _api_functions(
         """
         Return unordered set of cells with H3 distance
         `== k` from `h`. That is, the "hollow" ring.
+
+        todo now: comment formatting
 
         Parameters
         ----------
@@ -356,18 +357,13 @@ def _api_functions(
 
     def hex_ranges(hexes, K):
         """
-        Return a dictionary like
-
-        {h: h: hex_range_distances(h, K)}
-        for each h in hexes
-
-        todo: can we drop this function? the user can implement if needed.
+        Returns the dictionary `{h: hex_range_distances(h, K) for h in hexes}`
 
         Returns
         -------
         Dict[H3Cell, List[ UnorderedCollection[H3Cell] ]]
-
         """
+        # todo: can we drop this function? the user can implement if needed.
         out = {
             h: hex_range_distances(h, K)
             for h in hexes
@@ -407,8 +403,6 @@ def _api_functions(
         smaller cells into larger cells, if all child cells
         are present.
 
-        todo: does compact work on mixed-resolution collections?
-
         Parameters
         ----------
         hexes : iterable of H3Cell
@@ -418,6 +412,7 @@ def _api_functions(
         unordered collection of H3Cell
             Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
+        # todo: does compact work on mixed-resolution collections?
         hu = _in_collection(hexes)
         hc = _cy.compact(hu)
 
@@ -497,6 +492,8 @@ def _api_functions(
 
         The base cell *number* is encoded within the corresponding
         H3Index.
+
+        todo: could work with edges
 
         Parameters
         ----------
@@ -580,7 +577,6 @@ def _api_functions(
         Returns
         -------
         H3Cell
-
         """
         e = _in_scalar(e)
         d = _cy.edge_destination(e)
@@ -679,7 +675,7 @@ def _api_functions(
         return _cy.is_res_class_iii(_in_scalar(h))
 
     def h3_is_res_class_iii(h):
-        """ Alias for `h3_is_res_class_III()`.
+        """ Alias for `h3_is_res_class_III`.
         """
         return h3_is_res_class_III(h)
 
