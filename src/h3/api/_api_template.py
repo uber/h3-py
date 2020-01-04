@@ -26,6 +26,19 @@ H3Cell:
 H3Edge:
     H3Index representation of an H3 unidirectional edge.
 
+
+Definitions of collections
+--------------------------
+
+Collection types vary between APIs. We'll use the following terms:
+
+unordered collection:
+    Inputs and outputs are interpreted as *unordered* collections.
+    Examples: `set`, `numpy.ndarray`.
+
+ordered collection:
+    Inputs and outputs are interpreted as *ordered* collections.
+    Examples: `list`, `numpy.ndarray`.
 """
 
 from .. import _cy
@@ -275,10 +288,8 @@ def _api_functions(
 
     def k_ring(h, k=1):
         """
-        Return unordered set of cells with H3 distance
-        `<= k` from `h`. That is, the "filled-in" disk.
-
-        todo now: comment formatting
+        Return unordered set of cells with H3 distance `<= k` from `h`.
+        That is, the "filled-in" disk.
 
         Parameters
         ----------
@@ -289,7 +300,6 @@ def _api_functions(
         Returns
         -------
         unordered collection of H3Cell
-            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.disk(_in_scalar(h), k)
 
@@ -310,10 +320,8 @@ def _api_functions(
 
     def hex_ring(h, k=1):
         """
-        Return unordered set of cells with H3 distance
-        `== k` from `h`. That is, the "hollow" ring.
-
-        todo now: comment formatting
+        Return unordered set of cells with H3 distance `== k` from `h`.
+        That is, the "hollow" ring.
 
         Parameters
         ----------
@@ -324,7 +332,6 @@ def _api_functions(
         Returns
         -------
         unordered collection of H3Cell
-            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.ring(_in_scalar(h), k)
 
@@ -344,7 +351,6 @@ def _api_functions(
         Returns
         -------
         ordered collection of (unordered collection of H3Cell)
-            Collection type varies with API: `list`, `numpy.ndarray`, etc.
         """
         h = _in_scalar(h)
 
@@ -390,7 +396,6 @@ def _api_functions(
         Returns
         -------
         unordered collection of H3Cell
-            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.children(_in_scalar(h), res)
 
@@ -410,7 +415,6 @@ def _api_functions(
         Returns
         -------
         unordered collection of H3Cell
-            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         # todo: does compact work on mixed-resolution collections?
         hu = _in_collection(hexes)
@@ -431,7 +435,6 @@ def _api_functions(
         Returns
         -------
         unordered collection of H3Cell
-            Collection type varies with API: `set`, `numpy.ndarray`, etc.
 
         Raises
         ------
@@ -616,7 +619,6 @@ def _api_functions(
         Returns
         -------
         unordered collection of H3Edge
-            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.edges_from_cell(_in_scalar(origin))
 
@@ -639,7 +641,6 @@ def _api_functions(
         -------
         ordered collection of H3Cell
             Starting with `start`, and ending with `end`.
-            Collection type varies with API: `set`, `numpy.ndarray`, etc.
         """
         mv = _cy.line(_in_scalar(start), _in_scalar(end))
 
