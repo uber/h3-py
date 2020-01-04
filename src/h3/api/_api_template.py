@@ -450,6 +450,30 @@ def _api_functions(
         return _out_unordered(hu)
 
     def h3_set_to_multi_polygon(hexes, geo_json=False):
+        """ Get GeoJSON-like MultiPolygon describing the outline of the area
+        covered by a set of H3 cells.
+
+        Parameters
+        ----------
+        hexes : unordered collection of H3Cell
+        geo_json : bool, optional
+            If `True`, output geo sequences will be lng/lat pairs, with the
+            last the same as the first.
+            If `False`, output geo sequences will be lat/lng pairs, with the
+            last distinct from the first.
+            Defaults to `False`
+
+        Returns
+        -------
+        list
+            List of "polygons".
+            Each polygon is a list of "geo sequences" like
+            `[outer, hole1, hole2, ...]`. The holes may not be present.
+            Each geo sequence is a list of lat/lng or lng/lat pairs.
+        """
+        # todo: this function output does not match with `polyfill`.
+        # This function returns a list of polygons, while `polyfill` returns
+        # a GeoJSON-like dictionary object.
         hexes = _in_collection(hexes)
         return _cy.h3_set_to_multi_polygon(hexes, geo_json=geo_json)
 
@@ -464,6 +488,38 @@ def _api_functions(
         return _out_unordered(mv)
 
     def polyfill(geojson, res, geo_json_conformant=False):
+        """ Get set of hexagons whose *centers* are contained within
+        a GeoJSON-style polygon.
+
+        Parameters
+        ----------
+        geojson : dict
+            GeoJSON-style input dictionary describing a polygon (optionally
+            including holes).
+
+            Dictionary should be formatted like:
+
+            ```
+            {
+                'type': 'Polygon',
+                'coordinates': [outer, hole1, hole2, ...],
+            }
+            ```
+            `outer`, `hole1`, etc., are lists of geo coordinate tuples.
+            The holes are optional.
+
+        res : int
+            Desired output resolution for cells.
+        geo_json_conformant : bool, optional
+            When `True`, `outer`, `hole1`, etc. must be sequences of
+            lng/lat pairs, with the last the same as the first.
+            When `False`, they must be sequences of lat/lng pairs,
+            with the last not needing to match the first.
+
+        Returns
+        -------
+        unordered collection of H3Cell
+        """
         mv = _cy.polyfill(geojson, res, geo_json_conformant=geo_json_conformant)
 
         return _out_unordered(mv)
