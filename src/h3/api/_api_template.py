@@ -1,9 +1,5 @@
 """
-Summary
--------
-This module tries to DRY-up API code which is repeated across
-modules.
-
+Module to DRY-up code which is repeated across API modules.
 
 Definitions of types
 --------------------
@@ -60,8 +56,7 @@ def _api_functions(
 ):
     def versions():
         """
-        Return version numbers for both the Python library
-        and the underlying H3 C library.
+        Return version numbers for both the Python anc C libraries.
 
         Versions are output as strings of the form `'X.Y.Z'`.
         C and Python should match on `X` (major) and `Y` (minor),
@@ -380,8 +375,7 @@ def _api_functions(
         return out
 
     def k_ring_distances(h, K):
-        """ Alias for `hex_range_distances`.
-        """
+        """Alias for `hex_range_distances`."""
         return hex_range_distances(h, K)
 
     def h3_to_children(h, res=None):
@@ -425,8 +419,10 @@ def _api_functions(
         return _out_unordered(hc)
 
     def uncompact(hexes, res):
-        """ Reverse the `compact` operation and return a collection
-        of H3 cells, all of resolution `res`.
+        """
+        Reverse the `compact` operation.
+
+        Return a collection of H3 cells, all of resolution `res`.
 
         Parameters
         ----------
@@ -450,7 +446,8 @@ def _api_functions(
         return _out_unordered(hu)
 
     def h3_set_to_multi_polygon(hexes, geo_json=False):
-        """ Get GeoJSON-like MultiPolygon describing the outline of the area
+        """
+        Get GeoJSON-like MultiPolygon describing the outline of the area
         covered by a set of H3 cells.
 
         Parameters
@@ -488,7 +485,8 @@ def _api_functions(
         return _out_unordered(mv)
 
     def polyfill(geojson, res, geo_json_conformant=False):
-        """ Get set of hexagons whose *centers* are contained within
+        """
+        Get set of hexagons whose *centers* are contained within
         a GeoJSON-style polygon.
 
         Parameters
@@ -526,8 +524,7 @@ def _api_functions(
 
     def h3_is_pentagon(h):
         """
-        Returns `True` if input is a valid H3 cell which is
-        a pentagon.
+        Identify if an H3 cell is a pentagon.
 
         Parameters
         ----------
@@ -536,6 +533,7 @@ def _api_functions(
         Returns
         -------
         bool
+            `True` if input is a valid H3 cell which is a pentagon.
 
         Notes
         -----
@@ -586,8 +584,10 @@ def _api_functions(
 
     def get_h3_unidirectional_edge(origin, destination):
         """
-        Return an H3 Index denoting the directed edge
-        between neighboring cells `origin` and `destination`.
+        Create an H3 Index denoting a unidirectional edge.
+
+        The edge is constructed from neighboring cells `origin` and
+        `destination`.
 
         Parameters
         ----------
@@ -734,8 +734,7 @@ def _api_functions(
         return _cy.is_res_class_iii(_in_scalar(h))
 
     def h3_is_res_class_iii(h):
-        """ Alias for `h3_is_res_class_III`.
-        """
+        """Alias for `h3_is_res_class_III`."""
         return h3_is_res_class_III(h)
 
     _globals.update(locals())
