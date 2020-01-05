@@ -1,5 +1,6 @@
 import h3
 import itertools
+import pytest
 
 
 def reverse(loop):
@@ -200,3 +201,16 @@ def test_input_format():
     # zero holes
     for hexes in input_permutations(poly[:1]):
         assert len(hexes) == 7063
+
+
+def test_resolution():
+    d = {
+        'type': 'Polygon',
+        'coordinates': [[]],
+    }
+
+    with pytest.raises(h3.H3ResolutionError):
+        h3.polyfill(d, -1)
+
+    with pytest.raises(h3.H3ResolutionError):
+        h3.polyfill(d, 16)
