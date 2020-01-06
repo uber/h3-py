@@ -56,7 +56,7 @@ def _api_functions(
 ):
     def versions():
         """
-        Return version numbers for both the Python anc C libraries.
+        Return version numbers for both the Python and C libraries.
 
         Versions are output as strings of the form `'X.Y.Z'`.
         C and Python should match on `X` (major) and `Y` (minor),
@@ -274,7 +274,7 @@ def _api_functions(
             If `True`, return output in GeoJson format:
             lng/lat pairs (opposite order), and
             have the last pair be the same as the first.
-            If `False`, return lat/lng pairs, with the last
+            If `False` (default), return lat/lng pairs, with the last
             pair distinct from the first.
 
         Returns
@@ -566,7 +566,7 @@ def _api_functions(
 
     def h3_indexes_are_neighbors(h1, h2):
         """
-        Returns true if `h1` and `h2` are neighboring cells.
+        Returns `True` if `h1` and `h2` are neighboring cells.
 
         Parameters
         ----------
@@ -591,12 +591,13 @@ def _api_functions(
 
         Parameters
         ----------
-        h1 : H3Cell
-        h2 : H3Cell
+        origin : H3Cell
+        destination : H3Cell
 
         Raises
         ------
-        ValueError: when cells are not adjacent
+        ValueError
+            When cells are not adjacent.
 
         Returns
         -------
