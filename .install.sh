@@ -37,7 +37,7 @@ if [ "Windows_NT" != "$OS" ]; then
 else
   # Assumed to be Windows, default to x86
   if [[ "True" == "$IS_64BITS" ]]; then
-    cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -G "Visual Studio 14 Win64"
+    cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON -G "Visual Studio 16 2019"
   else
     cmake . -DENABLE_FORMAT=OFF -DBUILD_SHARED_LIBS=ON
   fi

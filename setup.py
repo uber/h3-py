@@ -56,7 +56,7 @@ setup(
         'build_ext': CustomBuildExtCommand,
     },
     package_data={
-        'h-py':
+        'h3':
         ['out/*.dylib' if platform.system() == 'Darwin' else (
             'out/*.dll' if platform.system() == 'Windows' else
             'out/*.so.*')]
