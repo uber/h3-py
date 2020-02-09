@@ -214,3 +214,33 @@ def test_resolution():
 
     with pytest.raises(h3.H3ResolutionError):
         h3.polyfill(d, 16)
+
+
+def test_segfault1():
+    d = {
+        'type': 'Polygon',
+        'coordinates': [1, 2, 3],
+    }
+
+    with pytest.raises(TypeError):
+        h3.polyfill(d, 4)
+
+
+def test_segfault2():
+    d = {
+        'type': 'Polygon',
+        'coordinates': [[1, 2, 3]],
+    }
+
+    with pytest.raises(TypeError):
+        h3.polyfill(d, 4)
+
+
+def test_segfault3():
+    d = {
+        'type': 'Polygon',
+        'coordinates': [(1, 2), (2, 2), (2, 1), (1, 2)],
+    }
+
+    with pytest.raises(TypeError):
+        h3.polyfill(d, 4)

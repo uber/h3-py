@@ -50,7 +50,7 @@ cpdef (double, double) h3_to_geo(H3int h) except *:
     return coord2deg(c)
 
 
-cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False):
+cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False) except *:
     """
 
     Parameters
