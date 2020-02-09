@@ -118,6 +118,10 @@ cdef extern from "h3api.h":
 
     int h3IsPentagon(H3Index h)
 
+    int pentagonIndexCount()
+
+    void getPentagonIndexes(int res, H3Index *out)
+
     int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
 
     H3Index getH3UnidirectionalEdge(H3Index origin, H3Index destination)

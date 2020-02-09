@@ -413,3 +413,46 @@ def test_hex2int_fail():
 def test_edge_is_valid_fail():
     e_invalid = {}
     assert not h3.h3_unidirectional_edge_is_valid(e_invalid)
+
+
+def test_get_pentagons():
+    out = h3.get_pentagons(0)
+
+    expected = {
+        '8009fffffffffff',
+        '801dfffffffffff',
+        '8031fffffffffff',
+        '804dfffffffffff',
+        '8063fffffffffff',
+        '8075fffffffffff',
+        '807ffffffffffff',
+        '8091fffffffffff',
+        '80a7fffffffffff',
+        '80c3fffffffffff',
+        '80d7fffffffffff',
+        '80ebfffffffffff',
+    }
+
+    assert out == expected
+
+    out = h3.get_pentagons(5)
+
+    expected = {
+        '85080003fffffff',
+        '851c0003fffffff',
+        '85300003fffffff',
+        '854c0003fffffff',
+        '85620003fffffff',
+        '85740003fffffff',
+        '857e0003fffffff',
+        '85900003fffffff',
+        '85a60003fffffff',
+        '85c20003fffffff',
+        '85d60003fffffff',
+        '85ea0003fffffff',
+    }
+
+    assert out == expected
+
+    for i in range(16):
+        assert len(h3.get_pentagons(i)) == 12
