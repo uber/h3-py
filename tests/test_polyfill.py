@@ -1,5 +1,6 @@
 import h3
 import itertools
+import pytest
 
 
 def reverse(loop):
@@ -200,3 +201,48 @@ def test_input_format():
     # zero holes
     for hexes in input_permutations(poly[:1]):
         assert len(hexes) == 7063
+
+
+def test_resolution():
+    d = {
+        'type': 'Polygon',
+        'coordinates': [[]],
+    }
+
+    with pytest.raises(h3.H3ResolutionError):
+        h3.polyfill(d, -1)
+
+    with pytest.raises(h3.H3ResolutionError):
+        h3.polyfill(d, 16)
+
+
+def test_invalid_polygon():
+    """
+    We were previously seeing segfaults on data like
+    this because we weren't raising errors inside
+    some `cdef` functions.
+    """
+
+    # one
+    d = {
+        'type': 'Polygon',
+        'coordinates': [1, 2, 3],
+    }
+    with pytest.raises(TypeError):
+        h3.polyfill(d, 4)
+
+    # two
+    d = {
+        'type': 'Polygon',
+        'coordinates': [[1, 2, 3]],
+    }
+    with pytest.raises(TypeError):
+        h3.polyfill(d, 4)
+
+    # three
+    d = {
+        'type': 'Polygon',
+        'coordinates': [(1, 2), (2, 2), (2, 1), (1, 2)],
+    }
+    with pytest.raises(TypeError):
+        h3.polyfill(d, 4)

@@ -50,7 +50,7 @@ cpdef (double, double) h3_to_geo(H3int h) except *:
     return coord2deg(c)
 
 
-cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False):
+cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False) except *:
     """
 
     Parameters
@@ -155,7 +155,7 @@ def polyfill_polygon(outer, int res, holes=None, bool lnglat_order=False):
         If False, assume coordinate pairs like (lat, lng)
     """
 
-    #check_res(res)
+    check_res(res)
     gp = GeoPolygon(outer, holes=holes, lnglat_order=lnglat_order)
 
     n = h3lib.maxPolyfillSize(&gp.gp, res)
@@ -203,15 +203,20 @@ def polyfill_geojson(geojson, int res):
     return out
 
 
-def polyfill(geojson, int res, bool geo_json_conformant=False):
+def polyfill(dict geojson, int res, bool geo_json_conformant=False):
     """ Light wrapper around `polyfill_geojson` to provide backward compatibility.
     """
 
-    if geojson['type'] != 'Polygon':
+    try:
+        gj_type = geojson['type']
+    except KeyError:
+        raise KeyError("`geojson` dict must have key 'type'.") from None
+
+    if gj_type != 'Polygon':
         raise ValueError('Only Polygon GeoJSON supported')
 
     if geo_json_conformant:
-        out =  polyfill_geojson(geojson, res)
+        out = polyfill_geojson(geojson, res)
     else:
         coords = geojson['coordinates']
         out = polyfill_polygon(coords[0], res, holes=coords[1:], lnglat_order=False)
