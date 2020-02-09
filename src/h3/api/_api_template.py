@@ -738,7 +738,6 @@ def _api_functions(
         """Alias for `h3_is_res_class_III`."""
         return h3_is_res_class_III(h)
 
-
     def get_pentagons(resolution):
         """
         Return all pentagons at a given resolution.
