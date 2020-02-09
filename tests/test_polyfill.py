@@ -216,36 +216,33 @@ def test_resolution():
         h3.polyfill(d, 16)
 
 
-def test_segfault1():
+def test_test_invalid_polygon():
     """
     We were previously seeing segfaults on data like
     this because we weren't raising errors inside
     some `cdef` functions.
     """
+
+    # one
     d = {
         'type': 'Polygon',
         'coordinates': [1, 2, 3],
     }
-
     with pytest.raises(TypeError):
         h3.polyfill(d, 4)
 
-
-def test_segfault2():
+    # two
     d = {
         'type': 'Polygon',
         'coordinates': [[1, 2, 3]],
     }
-
     with pytest.raises(TypeError):
         h3.polyfill(d, 4)
 
-
-def test_segfault3():
+    # three
     d = {
         'type': 'Polygon',
         'coordinates': [(1, 2), (2, 2), (2, 1), (1, 2)],
     }
-
     with pytest.raises(TypeError):
         h3.polyfill(d, 4)
