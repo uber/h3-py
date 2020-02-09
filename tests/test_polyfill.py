@@ -216,7 +216,7 @@ def test_resolution():
         h3.polyfill(d, 16)
 
 
-def test_test_invalid_polygon():
+def test_invalid_polygon():
     """
     We were previously seeing segfaults on data like
     this because we weren't raising errors inside
