@@ -217,6 +217,11 @@ def test_resolution():
 
 
 def test_segfault1():
+    """
+    We were previously seeing segfaults on data like
+    this because we weren't raising errors inside
+    some `cdef` functions.
+    """
     d = {
         'type': 'Polygon',
         'coordinates': [1, 2, 3],
