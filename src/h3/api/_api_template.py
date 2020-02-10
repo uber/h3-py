@@ -738,7 +738,7 @@ def _api_functions(
         """Alias for `h3_is_res_class_III`."""
         return h3_is_res_class_III(h)
 
-    def get_pentagons(resolution):
+    def get_pentagon_indexes(resolution):
         """
         Return all pentagons at a given resolution.
 
@@ -750,7 +750,7 @@ def _api_functions(
         -------
         unordered collection of H3Cell
         """
-        mv = _cy.get_pentagons(resolution)
+        mv = _cy.get_pentagon_indexes(resolution)
 
         return _out_unordered(mv)
 

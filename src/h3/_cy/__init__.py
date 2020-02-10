@@ -30,7 +30,7 @@ from .cells import (
     mean_edge_length,
     line,
     is_res_class_iii,
-    get_pentagons,
+    get_pentagon_indexes,
 )
 
 from .edges import (
