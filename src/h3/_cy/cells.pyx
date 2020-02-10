@@ -267,3 +267,15 @@ cpdef H3int[:] line(H3int start, H3int end):
 
 cpdef bool is_res_class_iii(H3int h):
     return h3lib.h3IsResClassIII(h) == 1
+
+
+cpdef H3int[:] get_pentagon_indexes(int res):
+    check_res(res)
+
+    n = h3lib.pentagonIndexCount()
+
+    ptr = create_ptr(n)
+    h3lib.getPentagonIndexes(res, ptr)
+    mv = create_mv(ptr, n)
+
+    return mv
