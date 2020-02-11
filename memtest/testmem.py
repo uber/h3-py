@@ -1,27 +1,40 @@
 import h3
 import time
+import numpy as np
 
-def foo():
-    N = 5
+# todo: some of these functions have a much cleaner memory profile... leaks?
 
-    #h = h3.geo_to_h3(0,0,0)
-    #out = h3.h3_to_children(h, N)
-    #h2 = h3.compact(out)
+def dummy():
+    a = np.zeros(100000)
+    h = h3.geo_to_h3(0, 0, 10)
+    hexes = h3.k_ring(h, 70)
 
-    #assert {h} == h2
+def to_mulitpoly():
+    res = 10
 
-    # get s a weird asymptote
-    #poly = h3.h3_set_to_multi_polygon(out)
+    h = h3.geo_to_h3(0, 0, res)
+    hexes = h3.k_ring(h, 70)
 
-    h = h3.geo_to_h3(0,0,10)
-    out = h3.k_ring(h, 20)
+    poly = h3.h3_set_to_multi_polygon(hexes)
+
+def compact():
+    res = 10
+    h = h3.geo_to_h3(0, 0, res)
+    hexes = h3.k_ring(h, 70)
+
+    hc = h3.compact(hexes)
+    hu = h3.uncompact(hc, res)
+
+    assert hu == hexes
 
 
 
-time.sleep(1)
+#time.sleep(1)
 
-for _ in range(300):
-    foo()
+for _ in range(100):
+    #compact()
+    #to_mulitpoly()
+    dummy()
     time.sleep(.1)
 
-time.sleep(1)
+#time.sleep(1)
