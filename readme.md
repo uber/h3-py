@@ -1,3 +1,5 @@
+<img align="right" src="https://uber.github.io/img/h3Logo-color.svg" alt="H3 Logo" width="200">
+
 # `h3-py`
 
 [![Build Status](https://travis-ci.com/uber/h3-py.svg?branch=cython)](https://travis-ci.com/uber/h3-py)
