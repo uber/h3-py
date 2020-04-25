@@ -6,7 +6,6 @@ import h3
 
 def test_nested_import():
     """ Test that we can import `h3.h3`
-
     For backwards-compatibility
     """
     from h3 import h3
