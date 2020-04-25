@@ -4,7 +4,6 @@
 
 - `git clone git@github.com:uber/h3-py.git`
 - `cd h3-py`
-- `git checkout cython`
 - `make init`
 - `make test`
 - `make lint`
@@ -13,7 +12,7 @@
 ## Install from GitHub
 
 - `pip install scikit-build`
-- `pip install git+https://github.com/uber/h3-py.git@cython`
+- `pip install git+https://github.com/uber/h3-py.git`
 
 
 ## Docstrings
