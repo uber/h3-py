@@ -43,6 +43,9 @@ class H3EdgeError(H3ValueError):
 class H3ResolutionError(H3ValueError):
     pass
 
+class H3DistanceError(H3ValueError):
+    pass
+
 cdef check_cell(H3int h):
     """ Check if valid H3 "cell" (hexagon or pentagon).
 
@@ -67,6 +70,12 @@ cdef check_edge(H3int e):
 cdef check_res(int res):
     if (res < 0) or (res > 15):
         raise H3ResolutionError(res)
+
+cdef check_distance(int k):
+    if k < 0:
+        raise H3DistanceError(
+            'Grid distances must be nonnegative. Received: {}'.format(k)
+        )
 
 
 ## todo: can i turn these two into a context manager?

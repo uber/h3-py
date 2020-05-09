@@ -5,6 +5,7 @@ from libc cimport stdlib
 from .util cimport (
     check_cell,
     check_res,
+    check_distance,
     create_ptr,
     create_mv,
     empty_memory_view, # want to drop this import if possible
@@ -67,8 +68,7 @@ cpdef H3int[:] disk(H3int h, int k):
     """ Return cells at grid distance `<= k` from `h`.
     """
     check_cell(h)
-    if k < 0:
-        raise H3ValueError('Invalid ring size: {}'.format(k))
+    check_distance(k)
 
     n = h3lib.maxKringSize(k)
 
@@ -87,6 +87,7 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     Failures for `h3lib.hexRing` happen when the algortihm runs into a pentagon.
     """
     check_cell(h)
+    check_distance(k)
 
     n = h3lib.maxKringSize(k)
     # array of h3 cells
@@ -115,6 +116,7 @@ cpdef H3int[:] ring(H3int h, int k):
     Collection is "hollow" for k >= 1.
     """
     check_cell(h)
+    check_distance(k)
 
     n = 6*k if k > 0 else 1
     ptr = create_ptr(n)

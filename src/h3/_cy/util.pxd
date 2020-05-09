@@ -10,5 +10,6 @@ cdef H3int[:] create_mv(H3int* ptr, size_t n)
 cdef check_cell(H3int h)
 cdef check_edge(H3int e)
 cdef check_res(int res)
+cdef check_distance(int k)
 
 cdef H3int[:] empty_memory_view() # want to drop this if possible

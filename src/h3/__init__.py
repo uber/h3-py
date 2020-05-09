@@ -12,4 +12,5 @@ from ._cy import (
     H3CellError,
     H3ResolutionError,
     H3EdgeError,
+    H3DistanceError,
 )

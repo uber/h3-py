@@ -6,6 +6,7 @@ from h3 import (
     H3CellError,
     H3ResolutionError,
     H3EdgeError,
+    H3DistanceError,
 )
 
 
@@ -57,6 +58,16 @@ def test4():
 
     out = h3.h3_to_geo_boundary('8928308280fffff', geo_json=True)
     assert approx2(out, expected)
+
+
+def test_k_ring_distance():
+    with pytest.raises(H3DistanceError):
+        h3.k_ring('8928308280fffff', -10)
+
+
+def test_hex_ring_distance():
+    with pytest.raises(H3DistanceError):
+        h3.hex_ring('8928308280fffff', -10)
 
 
 def test5():
