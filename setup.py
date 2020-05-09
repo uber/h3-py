@@ -17,6 +17,7 @@ def long_desc():
 
     return long_description
 
+
 setup(
     name = 'h3',
     version = about['__version__'],
