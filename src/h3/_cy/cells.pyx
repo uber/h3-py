@@ -85,7 +85,7 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     `ring` tries to call `h3lib.hexRing` first; if that fails, we call
     this function, which relies on `h3lib.kRingDistances`.
 
-    Failures for `h3lib.hexRing` happen when that alg runs into a pentagon.
+    Failures for `h3lib.hexRing` happen when the algortihm runs into a pentagon.
     """
     check_cell(h)
 
