@@ -12,7 +12,7 @@ with open(os.path.join(here, 'src', 'h3', '_version.py')) as f:
 def long_desc():
     here = os.path.abspath(os.path.dirname(__file__))
     fname = os.path.join(here, 'readme.md')
-    with open(fname, encoding='utf-8') as f:
+    with open(fname) as f:
         long_description = f.read()
 
     return long_description
