@@ -13,16 +13,24 @@ avoid adding features or APIs which do not map onto the
 [H3 core API](https://uber.github.io/h3/#/documentation/api-reference/).
 
 
+## [3.6.1] - **Unreleased**
+
+- Switch to Cython wrapper implementation
+
+
 ## [3.4.3] - 2019-04-18
+
 - Removed null values in k_ring_distances.
 - Support on Windows Platform
 - Fixed some install problems
 
+
 ## [3.4.2] - 2019-03-13
+
 - Added h3_line support.
 
-## [3.1.0] - 2018-09-06
 
+## [3.1.0] - 2018-09-06
 
 ### Added
 - Added h3_distance function.
