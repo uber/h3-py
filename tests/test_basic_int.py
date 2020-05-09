@@ -1,11 +1,15 @@
 import h3.api.basic_int as h3
 
 
-def test1():
-    assert h3.geo_to_h3(37.7752702151959, -122.418307270836, 9) == 617700169958293503
+def test_int_output():
+    lat =   37.7752702151959
+    lng = -122.418307270836
+
+    assert h3.geo_to_h3(lat, lng, 9) == 617700169958293503
+    assert h3.geo_to_h3(lat, lng, 9) == 0x8928308280fffff
 
 
-def test5():
+def test_k_ring():
     expected = {
         617700169957507071,
         617700169957769215,
