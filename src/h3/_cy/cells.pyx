@@ -48,7 +48,6 @@ cpdef H3int parent(H3int h, res=None) except 1:
 
     if res is None:
         res = resolution(h) - 1
-    # todo: actually, do we want to raise an error if there are no children, or just return an empty set?
     check_res(res)
 
     return h3lib.h3ToParent(h, res)
