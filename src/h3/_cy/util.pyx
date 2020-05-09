@@ -47,6 +47,15 @@ cdef check_cell(H3int h):
     """ Check if valid H3 "cell" (hexagon or pentagon).
 
     Does not check if a valid H3 edge, for example.
+
+    Since this function is used by multiple interfaces (int or str),
+    we want the error message to be informative to the user
+    in either case.
+
+    We use the builtin `hex` function instead of `int2hex` to
+    prepend `0x` to indicate that this **integer** representation
+    is incorrect, but in a format that is easily compared to
+    `str` inputs.
     """
     if h3IsValid(h) == 0:
         raise H3CellError('Integer is not a valid H3 cell: {}'.format(hex(h)))
