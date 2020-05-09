@@ -53,6 +53,8 @@ cpdef (double, double) h3_to_geo(H3int h) except *:
 cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False) except *:
     """
 
+    The returned `Geofence` must be freed with a call to `free_geofence`.
+
     Parameters
     ----------
     geos : list or tuple
