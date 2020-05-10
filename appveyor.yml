@@ -1,18 +1,16 @@
 build: off
 environment:
+  CMAKE_GENERATOR_TOOLSET: "v140"
   matrix:
-    - PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7.x"
-      PYTHON_ARCH: "32"
+    # Python 2.7 is disabled due to not working
+    #- PYTHON: "C:\\Python27"
     - PYTHON: "C:\\Python36"
-      PYTHON_VERSION: "3.6.x"
-      PYTHON_ARCH: "32"
-    - PYTHON: "C:\\Python27-x64"
-      PYTHON_VERSION: "2.7.x"
-      PYTHON_ARCH: "64"
+      CMAKE_GENERATOR: "Visual Studio 14"
+      CMAKE_GENERATOR_PLATFORM: "Win32"
+    #- PYTHON: "C:\\Python27-x64"
     - PYTHON: "C:\\Python36-x64"
-      PYTHON_VERSION: "3.6.x"
-      PYTHON_ARCH: "64"
+      CMAKE_GENERATOR: "Visual Studio 14 Win64"
+      CMAKE_GENERATOR_PLATFORM: "x64"
 
 configuration: Release
 platform:
@@ -21,10 +19,18 @@ platform:
 install:
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
   - echo %PATH%
+  - python --version
+  - git submodule update --init
   - pip install -r requirements-dev.txt
-  - fab bootstrap
+  - python setup.py install
 
 test_script:
-  - python --version
-  - fab --version
-  - fab test
+  - pytest tests/test_basic_int.py
+  - pytest tests/test_basic_str.py
+  - pytest tests/test_cells_and_edges.py
+  - pytest tests/test_collection_inputs.py
+  - pytest tests/test_h3.py
+  - pytest tests/test_memview_int.py
+  - pytest tests/test_numpy_int.py
+  - pytest tests/test_polyfill.py
+  - pytest tests/test_to_multipoly.py

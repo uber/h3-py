@@ -60,4 +60,8 @@ bower_components/
 .idea/
 .unison.*
 
-docs/.ipynb_checkpoints/
+.ipynb_checkpoints/
+_skbuild/
+
+# might want to remove this later when distributing
+MANIFEST

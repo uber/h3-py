@@ -1,65 +1,38 @@
 import os
-import sys
-import platform
-import subprocess
-from setuptools import setup, find_packages
-from setuptools.command.build_ext import build_ext
-from setuptools.dist import Distribution
-from setuptools.extension import Extension
+from setuptools import find_packages
+from skbuild import setup
 
-from h3_version import h3_version
-from binding_version import binding_version
+here = os.path.abspath(os.path.dirname(__file__))
+
+about = {}
+with open(os.path.join(here, 'src', 'h3', '_version.py')) as f:
+    exec(f.read(), about)
 
 
-def install_h3(h3_version):
-    # Recommended by Python docs for determining the 64-bit-ness of the current
-    # interpreter. Needed for invoking CMake correctly on Windows.
-    is_64bits = sys.maxsize > 2**32
-    subprocess.check_call('bash ./.install.sh {} {}'.format(h3_version, is_64bits), shell=True)
+def long_desc():
+    here = os.path.abspath(os.path.dirname(__file__))
+    fname = os.path.join(here, 'readme.md')
+    with open(fname) as f:
+        long_description = f.read()
 
+    return long_description
 
-class CustomBuildExtCommand(build_ext):
-    """Overloads the run function of the standard `build_ext` command class"""
-
-    def run(self):
-        install_h3(h3_version)
-
-
-# Tested with wheel v0.29.0
-class BinaryDistribution(Distribution):
-    def __init__(self, attrs=None):
-        Distribution.__init__(self, attrs)
-        # The values used for the name and sources in the Extension below are
-        # not important, because we override the build_ext command above.
-        # The normal C extension building logic is never invoked, and is
-        # replaced with our own custom logic. However, ext_modules cannot be
-        # empty, because this signals to other parts of distutils that our
-        # package contains C extensions and thus needs to be built for
-        # different platforms separately.
-        self.ext_modules = [Extension('h3c', [])]
-
-
-long_description = open('README.rst').read()
 
 setup(
-    name='h3',
-    version=binding_version,
-    description=
-    'Python bindings for H3, a hierarchical hexagonal geospatial indexing system developed by Uber Technologies',
-    long_description=long_description,
-    author='Uber Technologies',
-    author_email='Niel Hu <hu.niel92@gmail.com>',
-    url='https://github.com/uber/h3-py.git',
-    packages=find_packages(exclude=['tests', 'tests.*']),
-    install_requires=[],
-    cmdclass={
-        'build_ext': CustomBuildExtCommand,
-    },
-    package_data={
-        'h3':
-        ['out/*.dylib' if platform.system() == 'Darwin' else (
-            'out/*.dll' if platform.system() == 'Windows' else
-            'out/*.so.*')]
-    },
-    license='Apache License 2.0',
-    distclass=BinaryDistribution)
+    name = 'h3',
+    version = about['__version__'],
+    description = about['__description__'],
+    long_description = long_desc(),
+    long_description_content_type = 'text/markdown',
+    license = about['__license__'],
+    author = about['__author__'],
+    author_email = about['__author_email__'],
+    url = about['__url__'],
+    classifiers = about['__classifiers__'],
+    packages = find_packages(
+        'src',
+        exclude = ["*.tests", "*.tests.*", "tests.*", "tests"],
+    ),
+    package_dir = {'': 'src'},
+    cmake_languages = ('C'),
+)
