@@ -2,12 +2,13 @@
 
 # h3-py
 
+[![PyPI version](https://badge.fury.io/py/h3.svg)](https://badge.fury.io/py/h3)
+[![version](https://img.shields.io/badge/h3-v3.6.1-blue.svg)](https://github.com/uber/h3/releases/tag/v3.6.1)
+[![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 [![Build Status](https://travis-ci.com/uber/h3-py.svg?branch=cython)](https://travis-ci.com/uber/h3-py)
 [![AppVeyor Status](https://ci.appveyor.com/api/projects/status/github/uber/h3-py?branch=cython&svg=true)](https://ci.appveyor.com/project/Uber/h3-py)
 [![codecov](https://codecov.io/gh/uber/h3-py/branch/cython/graph/badge.svg)](https://codecov.io/gh/uber/h3-py)
-[![version](https://img.shields.io/badge/h3-v3.6.1-blue.svg)](https://github.com/uber/h3/releases/tag/v3.6.1)
-[![PyPI version](https://badge.fury.io/py/h3.svg)](https://badge.fury.io/py/h3)
-[![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 Python bindings for the
 [H3 Core Library](https://github.com/uber/h3).
