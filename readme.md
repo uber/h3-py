@@ -16,7 +16,7 @@ For API reference, please see the
 [H3 Documentation](https://h3geo.org/).
 
 **NOTE: This version (v.3.6.1) corresponds to the new Cython
-bindings, which will replace the old bindings (v3.4.1).
+bindings, which will replace the old bindings (v3.4.3).
 This version is not yet published to PyPI.**
 
 ## Install from PyPI
