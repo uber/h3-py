@@ -21,10 +21,10 @@ install:
   - echo %PATH%
   - python --version
   - git submodule update --init
-  - pip install -r requirements-dev.txt
   - pip install .
 
 test_script:
+  - pip install -r requirements-dev.txt
   - pytest tests/test_basic_int.py
   - pytest tests/test_basic_str.py
   - pytest tests/test_cells_and_edges.py
@@ -34,3 +34,10 @@ test_script:
   - pytest tests/test_numpy_int.py
   - pytest tests/test_polyfill.py
   - pytest tests/test_to_multipoly.py
+
+
+test_script2:
+  - pytest
+
+test_script3:
+  - pytest tests\*
