@@ -1,4 +1,4 @@
-.PHONY: purge init rebuild test lint lab ipython
+.PHONY: init clear rebuild purge test lint lab ipython
 
 init: purge
 	git submodule update --init
