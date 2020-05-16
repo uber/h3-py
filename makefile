@@ -1,4 +1,4 @@
-.PHONY: purge init rebuild test lint tox lab ipython
+.PHONY: purge init rebuild test lint lab ipython
 
 init: purge
 	git submodule update --init
@@ -21,9 +21,6 @@ purge:
 
 test:
 	env/bin/pytest tests/* --cov=h3 --cov-report term-missing --durations=10
-
-tox: purge
-	tox
 
 lint:
 	flake8 src/h3 setup.py tests
