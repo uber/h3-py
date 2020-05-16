@@ -22,7 +22,7 @@ install:
   - python --version
   - git submodule update --init
   - pip install -r requirements-dev.txt
-  - python setup.py install
+  - pip install .
 
 test_script:
   - pytest tests/test_basic_int.py
