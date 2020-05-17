@@ -33,8 +33,7 @@ jobs:
           python -m pip install -r requirements-dev.txt
 
       - name: install from source
-        run: python setup.py install
-        #run: CFLAGS='-fPIC' python setup.py install
+        run: pip install .
 
       - name: lint
         run: flake8 src/h3 setup.py tests
