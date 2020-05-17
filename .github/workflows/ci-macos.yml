@@ -29,13 +29,15 @@ jobs:
           python -VV
           python -m site
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install -r requirements-dev.txt
 
-      - name: install from source
+      - name: Install from source
         run: pip install .
 
-      - name: lint
+      - name: Install dev requirements
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Lint
         run: flake8 src/h3 setup.py tests
 
-      - name: tests
+      - name: Tests
         run: pytest tests/* --cov=h3 --full-trace
