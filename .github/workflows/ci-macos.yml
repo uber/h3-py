@@ -41,4 +41,4 @@ jobs:
         run: flake8 src/h3 setup.py tests
 
       - name: Tests
-        run: pytest tests/* --cov=h3 --full-trace
+        run: pytest --cov=h3 --full-trace
