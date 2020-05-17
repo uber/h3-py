@@ -1,16 +1,21 @@
 language: python
 cache: pip
+
 os:
 - linux
+
 python:
   - 2.7
   - 3.6
   - 3.7
+
 install:
-  - pip install -r requirements-dev.txt
-  - CFLAGS='-fPIC' python setup.py install
+  - pip install .
+
 script:
+  - pip install -r requirements-dev.txt
   - flake8 src/h3 setup.py tests
   - pytest tests/* --cov=h3 --full-trace
+
 after_success:
   - codecov

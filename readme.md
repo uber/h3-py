@@ -29,7 +29,6 @@ TODO: instructions for installing from pre-built wheels
 You need to have `cc`, `make`, `cmake`, and `git` in your `$PATH` when installing this package.
 
 Then run:
-- `pip install scikit-build`
 - `pip install git+https://github.com/uber/h3-py.git`
 
 Try the library with:

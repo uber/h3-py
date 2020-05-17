@@ -9,12 +9,6 @@
 - `make lint`
 
 
-## Install from GitHub
-
-- `pip install scikit-build`
-- `pip install git+https://github.com/uber/h3-py.git`
-
-
 ## Docstrings
 
 - Follow something like the [`numpydoc` docstring guide](https://numpydoc.readthedocs.io/en/latest/format.html)
