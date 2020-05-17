@@ -1,0 +1,43 @@
+name: CI-linux
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  tests:
+    name: "Python ${{ matrix.python-version }}"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [2.7, 3.6, 3.7, 3.8]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - uses: seanmiddleditch/gha-setup-ninja@master
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "${{ matrix.python-version }}"
+      - name: Install dependencies
+        run: |
+          set -xe
+          python -VV
+          python -m site
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install -r requirements-dev.txt
+
+      - name: install from source
+        run: python setup.py install
+        #run: CFLAGS='-fPIC' python setup.py install
+
+      - name: lint
+        run: flake8 src/h3 setup.py tests
+
+      - name: tests
+        run: pytest tests/* --cov=h3 --full-trace
