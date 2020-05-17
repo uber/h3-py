@@ -20,7 +20,6 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: seanmiddleditch/gha-setup-ninja@master
       - uses: actions/setup-python@v2
         with:
           python-version: "${{ matrix.python-version }}"
