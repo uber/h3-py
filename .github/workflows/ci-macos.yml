@@ -41,4 +41,6 @@ jobs:
         run: flake8 src/h3 setup.py tests
 
       - name: Tests
-        run: pytest --cov=h3 --full-trace
+        run: |
+          pip install pytest-cov
+          pytest --cov=h3 --full-trace --cov-report=xml
