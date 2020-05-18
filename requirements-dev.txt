@@ -1,8 +1,7 @@
 # Testing
 pytest
 pytest-cov
-codecov
 flake8
 
-# Optional dependencies
+# Optional
 numpy
