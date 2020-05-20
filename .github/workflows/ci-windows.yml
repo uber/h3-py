@@ -38,3 +38,12 @@ jobs:
 
       - name: install from source
         run: pip install .
+
+      - name: Install dev requirements
+        run: pip install -r requirements-dev.txt
+
+      - name: Lint
+        run: flake8 src/h3 setup.py tests
+
+      - name: Tests
+        run: pytest --cov=h3 --full-trace --cov-report=xml
