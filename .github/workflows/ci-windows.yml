@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  CC: cl.exe
+  CXX: cl.exe
+
 jobs:
   tests:
     name: "Python ${{ matrix.python-version }}"
@@ -14,10 +18,6 @@ jobs:
     strategy:
       matrix:
         python-version: [3.6, 3.7, 3.8]
-
-    env:
-      CC: cl.exe
-      CXX: cl.exe
 
     steps:
       - uses: actions/checkout@v2
