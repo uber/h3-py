@@ -34,6 +34,8 @@ jobs:
         #   vs-version: [16.4, 16.5]
 
       - uses: ilammy/msvc-dev-cmd@v1.2.0
+        with:
+          toolset: 9.0
 
       - name: Install dependencies
         run: |
