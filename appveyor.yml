@@ -1,28 +1,28 @@
-build: off
-environment:
-  CMAKE_GENERATOR_TOOLSET: "v140"
-  matrix:
-    # Python 2.7 is disabled due to not working
-    #- PYTHON: "C:\\Python27"
-    - PYTHON: "C:\\Python36"
-      CMAKE_GENERATOR: "Visual Studio 14"
-      CMAKE_GENERATOR_PLATFORM: "Win32"
-    #- PYTHON: "C:\\Python27-x64"
-    - PYTHON: "C:\\Python36-x64"
-      CMAKE_GENERATOR: "Visual Studio 14 Win64"
-      CMAKE_GENERATOR_PLATFORM: "x64"
+# build: off
+# environment:
+#   CMAKE_GENERATOR_TOOLSET: "v140"
+#   matrix:
+#     # Python 2.7 is disabled due to not working
+#     #- PYTHON: "C:\\Python27"
+#     - PYTHON: "C:\\Python36"
+#       CMAKE_GENERATOR: "Visual Studio 14"
+#       CMAKE_GENERATOR_PLATFORM: "Win32"
+#     #- PYTHON: "C:\\Python27-x64"
+#     - PYTHON: "C:\\Python36-x64"
+#       CMAKE_GENERATOR: "Visual Studio 14 Win64"
+#       CMAKE_GENERATOR_PLATFORM: "x64"
 
-configuration: Release
-platform:
-  - x64
+# configuration: Release
+# platform:
+#   - x64
 
-install:
-  - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-  - echo %PATH%
-  - python --version
-  - git submodule update --init
-  - pip install .
+# install:
+#   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+#   - echo %PATH%
+#   - python --version
+#   - git submodule update --init
+#   - pip install .
 
-test_script:
-  - pip install -r requirements-dev.txt
-  - pytest
+# test_script:
+#   - pip install -r requirements-dev.txt
+#   - pytest
