@@ -16,8 +16,8 @@ jobs:
         python-version: [3.6, 3.7, 3.8]
 
     env:
-      CC: gcc
-      CXX: gcc
+      CC: cl.exe
+      CXX: cl.exe
 
     steps:
       - uses: actions/checkout@v2
