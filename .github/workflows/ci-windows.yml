@@ -30,7 +30,7 @@ jobs:
 
       - uses: ilammy/msvc-dev-cmd@v1.2.0
         with:
-          toolset: 9.xx
+          toolset: 14.xx
 
       - name: Install dependencies
         run: |
