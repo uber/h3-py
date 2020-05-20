@@ -1,4 +1,4 @@
-name: CI-linux
+name: CI-windows
 
 on:
   push:
@@ -6,14 +6,18 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  CC: cl.exe
+  CXX: cl.exe
+
 jobs:
   tests:
     name: "Python ${{ matrix.python-version }}"
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     strategy:
       matrix:
-        python-version: [2.7, 3.6, 3.7, 3.8]
+        python-version: [3.6, 3.7, 3.8]
 
     steps:
       - uses: actions/checkout@v2.1.1
@@ -24,14 +28,15 @@ jobs:
         with:
           python-version: "${{ matrix.python-version }}"
 
+      - uses: ilammy/msvc-dev-cmd@v1.2.0
+
       - name: Install dependencies
         run: |
-          set -xe
           python -VV
           python -m site
-          pip install --upgrade pip setuptools wheel
+          python -m pip install --upgrade pip setuptools wheel
 
-      - name: Install from source
+      - name: install from source
         run: pip install .
 
       - name: Install dev requirements
@@ -42,9 +47,3 @@ jobs:
 
       - name: Tests
         run: pytest --cov=h3 --full-trace --cov-report=xml
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.0.7
-        with:
-          file: ./coverage.xml
-          fail_ci_if_error: true
