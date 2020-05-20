@@ -30,8 +30,8 @@ jobs:
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.0
-          with:
-            vs-version: [9.0]
+        with:
+          vs-version: [9.0]
 
       - uses: ilammy/msvc-dev-cmd@v1.2.0
 
