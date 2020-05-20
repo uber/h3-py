@@ -15,6 +15,10 @@ jobs:
       matrix:
         python-version: [3.6, 3.7, 3.8]
 
+    env:
+      CC: cl.exe
+      CXX: cl.exe
+
     steps:
       - uses: actions/checkout@v2
         with:
@@ -28,6 +32,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          echo Hello $CC $CXX
           python -VV
           python -m site
           python -m pip install --upgrade pip setuptools wheel scikit-build cmake ninja
