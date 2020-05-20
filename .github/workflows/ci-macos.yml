@@ -1,44 +1,44 @@
-# name: CI-macos
+name: CI-macos
 
-# on:
-#   push:
-#     branches: [ master ]
-#   pull_request:
-#     branches: [ master ]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
-# jobs:
-#   tests:
-#     name: "Python ${{ matrix.python-version }}"
-#     runs-on: macos-latest
+jobs:
+  tests:
+    name: "Python ${{ matrix.python-version }}"
+    runs-on: macos-latest
 
-#     strategy:
-#       matrix:
-#         python-version: [2.7, 3.6, 3.7, 3.8]
+    strategy:
+      matrix:
+        python-version: [2.7, 3.6, 3.7, 3.8]
 
-#     steps:
-#       - uses: actions/checkout@v2.1.1
-#         with:
-#           submodules: recursive
+    steps:
+      - uses: actions/checkout@v2.1.1
+        with:
+          submodules: recursive
 
-#       - uses: actions/setup-python@v2
-#         with:
-#           python-version: "${{ matrix.python-version }}"
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "${{ matrix.python-version }}"
 
-#       - name: Install dependencies
-#         run: |
-#           set -xe
-#           python -VV
-#           python -m site
-#           pip install --upgrade pip setuptools wheel
+      - name: Install dependencies
+        run: |
+          set -xe
+          python -VV
+          python -m site
+          pip install --upgrade pip setuptools wheel
 
-#       - name: Install from source
-#         run: pip install .
+      - name: Install from source
+        run: pip install .
 
-#       - name: Install dev requirements
-#         run: pip install -r requirements-dev.txt
+      - name: Install dev requirements
+        run: pip install -r requirements-dev.txt
 
-#       - name: Lint
-#         run: flake8 src/h3 setup.py tests
+      - name: Lint
+        run: flake8 src/h3 setup.py tests
 
-#       - name: Tests
-#         run: pytest --cov=h3 --full-trace --cov-report=xml
+      - name: Tests
+        run: pytest --cov=h3 --full-trace --cov-report=xml
