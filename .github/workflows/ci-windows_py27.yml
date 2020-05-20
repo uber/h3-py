@@ -1,4 +1,4 @@
-name: CI-windows-py27
+name: CI-windows_py27
 
 on:
   push:
