@@ -21,14 +21,15 @@ jobs:
           submodules: recursive
 
       - uses: microsoft/setup-msbuild@v1
-      - uses: actions/setup-python@v2
-        with:
-          python-version: "${{ matrix.python-version }}"
 
       - name: Add Windows SDK
         shell: cmd
         run: |
           choco install windows-sdk-10.1
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "${{ matrix.python-version }}"
 
       - name: Install dependencies
         run: |
