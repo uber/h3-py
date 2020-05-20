@@ -33,4 +33,4 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel scikit-build cmake ninja
 
       - name: install from source
-        run: pip install . --global-option=build_ext --global-option="-DMS_WIN64"
+        run: pip install .
