@@ -25,7 +25,7 @@ jobs:
       - name: Add Windows SDK
         shell: cmd
         run: |
-          choco install windows-sdk-10.1
+          choco install windows-sdk-8.1
 
       - uses: actions/setup-python@v2
         with:
