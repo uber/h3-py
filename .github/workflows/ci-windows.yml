@@ -34,7 +34,7 @@ jobs:
         run: |
           python -VV
           python -m site
-          python -m pip install --upgrade pip setuptools wheel scikit-build cmake ninja
+          python -m pip install --upgrade pip setuptools wheel
 
       - name: install from source
         run: pip install .
