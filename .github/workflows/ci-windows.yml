@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [2.7]
+        python-version: [3.6, 3.7, 3.8]
 
     steps:
       - uses: actions/checkout@v2.1.1
@@ -28,14 +28,7 @@ jobs:
         with:
           python-version: "${{ matrix.python-version }}"
 
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1
-        # with:
-        #   vs-version: [16.4, 16.5]
-
       - uses: ilammy/msvc-dev-cmd@v1.2.0
-        with:
-          toolset: 9.0
 
       - name: Install dependencies
         run: |
