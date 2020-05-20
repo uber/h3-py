@@ -24,11 +24,11 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: microsoft/setup-msbuild@v1
-
       - uses: actions/setup-python@v2
         with:
           python-version: "${{ matrix.python-version }}"
+
+      - uses: ilammy/msvc-dev-cmd@v1
 
       - name: Install dependencies
         run: |
