@@ -12,12 +12,8 @@ env:
 
 jobs:
   tests:
-    name: "Python ${{ matrix.python-version }}"
+    name: Python 2.7
     runs-on: windows-latest
-
-    strategy:
-      matrix:
-        python-version: [2.7]
 
     steps:
       - uses: actions/checkout@v2.1.1
@@ -26,8 +22,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: "${{ matrix.python-version }}"
-
+          python-version: 2.7
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.0
