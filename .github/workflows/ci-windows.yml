@@ -32,7 +32,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          echo Hello $(CC) $(CXX)
+          echo Hello
+          cc --version
+          cxx --version
           python -VV
           python -m site
           python -m pip install --upgrade pip setuptools wheel scikit-build cmake ninja
