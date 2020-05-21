@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  CFLAGS: -lrt
+
 jobs:
   tests:
     name: Python Wheels Linux
