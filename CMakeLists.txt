@@ -6,6 +6,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # Always make a release build
 set(CMAKE_BUILD_TYPE Release)
 
+# Avoid building tooling we won't need for release
 set(BUILD_BENCHMARKS OFF CACHE BOOL "" FORCE)
 set(BUILD_FILTERS OFF CACHE BOOL "" FORCE)
 set(BUILD_GENERATORS OFF CACHE BOOL "" FORCE)
