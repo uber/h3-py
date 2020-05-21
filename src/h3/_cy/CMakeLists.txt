@@ -8,7 +8,7 @@ macro(add_cython_file filename)
     add_library(${filename} MODULE ${filename} ${LIB_SOURCE_FILES} ${CONFIGURED_API_HEADER})
     python_extension_module(${filename})
     set_property(TARGET ${filename} PROPERTY C_STANDARD 99)
-    target_link_libraries(${filename} h3)
+    target_link_libraries(${filename} h3 rt)
     install(TARGETS ${filename} LIBRARY DESTINATION src/h3/_cy)
 endmacro()
 
