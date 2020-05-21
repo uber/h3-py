@@ -8,8 +8,8 @@ on:
 
 jobs:
   tests:
-    name: Python Wheels Mac
-    runs-on: macos-latest
+    name: Python Wheels Linux
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2.1.1
