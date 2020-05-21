@@ -42,3 +42,9 @@ jobs:
         run: |
           python -m pip install cibuildwheel
           python -m cibuildwheel --output-dir wheelhouse --print-build-identifiers
+
+      - name: Upload artifacts to github
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheels
+          path: ./wheelhouse
