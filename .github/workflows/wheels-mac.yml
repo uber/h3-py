@@ -39,6 +39,8 @@ jobs:
       - name: Build wheels
         env:
           CIBW_SKIP: pp*
+          CIBW_TEST_REQUIRES: "pytest"
+          CIBW_TEST_COMMAND: "pytest {project}/tests"
         run: |
           python -m pip install cibuildwheel
           python -m cibuildwheel --output-dir wheelhouse
