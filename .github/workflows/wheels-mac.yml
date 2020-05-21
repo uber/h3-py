@@ -30,7 +30,7 @@ jobs:
           python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload artifacts to github
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: wheels
           path: ./wheelhouse
