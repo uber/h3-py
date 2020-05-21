@@ -1,0 +1,40 @@
+name: wheels-mac
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  tests:
+    name: Python Wheels Mac
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2.1.1
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          set -xe
+          python -VV
+          python -m site
+          pip install --upgrade pip setuptools wheel
+
+      - name: Install from source
+        run: pip install .
+
+      - name: Install dev requirements
+        run: pip install -r requirements-dev.txt
+
+      - name: Lint
+        run: flake8 src/h3 setup.py tests
+
+      - name: Tests
+        run: pytest --cov=h3 --full-trace --cov-report=xml
