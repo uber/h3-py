@@ -6,12 +6,13 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # Always make a release build
 set(CMAKE_BUILD_TYPE Release)
 
+set(BUILD_BENCHMARKS OFF CACHE BOOL "" FORCE)
+set(BUILD_FILTERS OFF CACHE BOOL "" FORCE)
+set(BUILD_GENERATORS OFF CACHE BOOL "" FORCE)
+set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
+
 # Build the core library as static
 set(BUILD_SHARED_LIBS OFF)
-set(BUILD_BENCHMARKS OFF)
-set(BUILD_FILTERS OFF)
-set(BUILD_GENERATORS OFF)
-set(BUILD_TESTING OFF)
 add_subdirectory(src/h3lib)
 
 # Build the rest (other than the core library dependency) as shared
