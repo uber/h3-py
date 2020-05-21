@@ -23,6 +23,7 @@ jobs:
       - name: Build wheels
         env:
           CIBW_SKIP: pp*
+          CIBW_MANYLINUX_X86_64_IMAGE: dockcross/manylinux2010-x64
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
         run: |
