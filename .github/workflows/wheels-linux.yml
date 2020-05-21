@@ -25,7 +25,7 @@ jobs:
 
       - name: Build wheels
         env:
-          CIBW_SKIP: pp*
+          CIBW_SKIP: pp* cp27*
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
         run: |
