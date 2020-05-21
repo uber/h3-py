@@ -8,10 +8,10 @@ set(CMAKE_BUILD_TYPE Release)
 
 # Build the core library as static
 set(BUILD_SHARED_LIBS OFF)
-set(ENABLE_BENCHMARKS OFF)
-set(ENABLE_FILTERS OFF)
-set(ENABLE_GENERATORS OFF)
-set(ENABLE_TESTING OFF)
+set(BUILD_BENCHMARKS OFF)
+set(BUILD_FILTERS OFF)
+set(BUILD_GENERATORS OFF)
+set(BUILD_TESTING OFF)
 add_subdirectory(src/h3lib)
 
 # Build the rest (other than the core library dependency) as shared
