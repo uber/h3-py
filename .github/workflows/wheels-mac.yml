@@ -1,0 +1,36 @@
+name: wheels-mac
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  tests:
+    name: Python Wheels Mac
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2.1.1
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Build wheels
+        env:
+          CIBW_SKIP: pp*
+          CIBW_TEST_REQUIRES: pytest numpy
+          CIBW_TEST_COMMAND: pytest {project}/tests
+        run: |
+          pip install --upgrade cibuildwheel pip setuptools wheel
+          python -m cibuildwheel --output-dir wheelhouse
+
+      # - name: Upload artifacts to github
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: wheels
+      #     path: ./wheelhouse
