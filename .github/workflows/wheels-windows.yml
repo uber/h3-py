@@ -33,7 +33,7 @@ jobs:
       - name: Build wheels
         env:
           CIBW_SKIP: pp* cp27*
-          CIBW_BEFORE_BUILD: pip install scikit-build cmake cython ninja wheel
+          CIBW_BEFORE_BUILD: pip install scikit-build cmake cython ninja wheel setuptools
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
         run: |
