@@ -36,6 +36,7 @@ jobs:
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
         run: |
+          pip install --upgrade scikit-build
           python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload artifacts to github
