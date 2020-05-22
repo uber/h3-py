@@ -27,7 +27,7 @@ jobs:
           CIBW_TEST_COMMAND: pytest {project}/tests
         run: |
           pip install --upgrade cibuildwheel pip setuptools wheel
-          cibuildwheel --output-dir wheelhouse
+          python -m cibuildwheel --output-dir wheelhouse
 
       - name: Build sdist
         run: |
