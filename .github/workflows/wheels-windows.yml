@@ -28,7 +28,7 @@ jobs:
 
       - name: Install packages
         run: |
-          pip install --upgrade cibuildwheel pip setuptools wheel scikit-build
+          pip install --upgrade cibuildwheel setuptools wheel scikit-build
 
       - name: Build wheels
         env:
