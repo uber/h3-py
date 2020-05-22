@@ -26,13 +26,16 @@ jobs:
 
       - uses: ilammy/msvc-dev-cmd@v1.2.0
 
+      - name: Install packages
+        run: |
+          pip install --upgrade cibuildwheel pip setuptools wheel scikit-build
+
       - name: Build wheels
         env:
           CIBW_SKIP: pp* cp27*
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
         run: |
-          pip install --upgrade cibuildwheel pip setuptools wheel
           python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload artifacts to github
