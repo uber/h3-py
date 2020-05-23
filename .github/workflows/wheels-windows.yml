@@ -24,8 +24,6 @@ jobs:
         with:
           python-version: 3.8
 
-      - uses: ilammy/msvc-dev-cmd@v1.2.0
-
       - name: Build wheels
         env:
           CIBW_SKIP: pp* cp27* *-win32
