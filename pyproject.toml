@@ -1,9 +1,7 @@
 [build-system]
 requires = [
-    'setuptools',
-    'wheel',
     'scikit-build',
+    'cython',
     'cmake',
     'ninja',
-    'cython',
 ]
