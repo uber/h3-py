@@ -24,12 +24,6 @@ jobs:
         with:
           python-version: 3.8
 
-      - uses: ilammy/msvc-dev-cmd@v1.2.0
-
-      - name: Install packages
-        run: |
-          pip install --upgrade cibuildwheel
-
       - name: Build wheels
         env:
           CIBW_SKIP: pp* cp27* *-win32
@@ -37,6 +31,7 @@ jobs:
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
         run: |
+          pip install --upgrade cibuildwheel
           python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload artifacts to github
