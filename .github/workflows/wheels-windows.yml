@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ master ]
 
-env:
-  CC: cl.exe
-  CXX: cl.exe
-
 jobs:
   tests:
     name: Python Wheels Windows
