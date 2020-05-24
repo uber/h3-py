@@ -1,4 +1,4 @@
-name: wheels-linux
+name: wheels-windows
 
 on:
   push:
@@ -6,10 +6,14 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  CC: cl.exe
+  CXX: cl.exe
+
 jobs:
   tests:
-    name: Python Wheels Linux
-    runs-on: ubuntu-latest
+    name: Python Wheels Windows
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2.1.1
@@ -20,19 +24,17 @@ jobs:
         with:
           python-version: 3.8
 
+      - uses: ilammy/msvc-dev-cmd@v1.2.0
+
       - name: Build wheels
         env:
-          CIBW_SKIP: pp* cp27* *-manylinux_i686
+          CIBW_SKIP: pp* cp27* *-win32
+          CIBW_BEFORE_BUILD: pip install scikit-build cython cmake
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
         run: |
           pip install --upgrade cibuildwheel
           python -m cibuildwheel --output-dir wheelhouse
-
-      - name: Build sdist
-        run: |
-          pip install scikit-build
-          python setup.py sdist --dist-dir=wheelhouse
 
       # - name: Upload artifacts to github
       #   uses: actions/upload-artifact@v2
