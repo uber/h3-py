@@ -21,16 +21,19 @@ For API reference, please see the
 bindings, which will replace the old bindings (v3.4.3).
 This version is not yet published to PyPI.**
 
+
 ## Install from PyPI
 
 TODO: instructions for installing from pre-built wheels
+
 
 ## Install from GitHub
 
 You need to have `cc`, `make`, `cmake`, and `git` in your `$PATH` when installing this package.
 
 Then run:
-- `pip install git+https://github.com/uber/h3-py.git`
+
+`pip install git+https://github.com/uber/h3-py.git`
 
 Try the library with:
 
@@ -39,6 +42,15 @@ Try the library with:
 >>> h3.geo_to_h3(0, 0, 0)
 '8075fffffffffff'
 ```
+
+To install `h3` with (optional) `numpy` support, run:
+
+`pip install git+https://github.com/uber/h3-py.git[numpy]`
+
+or
+
+`pip install git+https://github.com/uber/h3-py.git[all]`
+
 
 ## Example gallery
 
