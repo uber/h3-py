@@ -36,11 +36,8 @@ jobs:
           python -m site
           python -m pip install --upgrade pip setuptools wheel
 
-      - name: install from source
-        run: pip install .
-
-      - name: Install dev requirements
-        run: pip install -r requirements-dev.txt
+      - name: Install from source
+        run: pip install .[all]
 
       - name: Lint
         run: flake8 src/h3 setup.py tests
