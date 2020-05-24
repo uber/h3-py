@@ -35,4 +35,9 @@ setup(
     ),
     package_dir = {'': 'src'},
     cmake_languages = ('C'),
+    extras_require={
+        'numpy': ['numpy'],
+        'test': ['pytest', 'pytest-cov', 'flake8'],
+        'all': ['numpy', 'pytest', 'pytest-cov', 'flake8'],
+    },
 )
