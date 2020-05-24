@@ -43,6 +43,9 @@ Try the library with:
 '8075fffffffffff'
 ```
 
+
+## NumPy support
+
 To install `h3` with (optional) NumPy support, run:
 
 `pip install git+https://github.com/uber/h3-py.git[numpy]`
