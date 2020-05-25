@@ -3,8 +3,7 @@
 init: purge
 	git submodule update --init
 	virtualenv -p python3 env
-	env/bin/pip install .
-	env/bin/pip install -r requirements-dev.txt
+	env/bin/pip install .[all]
 
 clear:
 	-env/bin/pip uninstall -y h3
@@ -15,7 +14,7 @@ clear:
 	-@find . -type d -name '*.ipynb_checkpoints' | xargs rm -r
 
 rebuild: clear
-	env/bin/pip install .
+	env/bin/pip install .[all]
 
 purge: clear
 	-@rm -rf env

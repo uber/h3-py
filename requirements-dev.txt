@@ -1,7 +1,0 @@
-# Testing
-pytest
-pytest-cov
-flake8
-
-# Optional
-numpy
