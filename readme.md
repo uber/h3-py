@@ -46,7 +46,12 @@ Try the library with:
 
 ## NumPy support
 
-To install `h3` with (optional) NumPy support, run:
+`h3` has no runtime dependencies on other libraries, so a standard
+`pip install` will install no additional libraries.
+
+The optional `h3.api.numpy_int` API requires `numpy`.
+To have `numpy` installed (if it isn't already) along
+with `h3`, run:
 
 `pip install git+https://github.com/uber/h3-py.git[numpy]`
 
