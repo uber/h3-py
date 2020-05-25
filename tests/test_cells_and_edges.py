@@ -403,9 +403,17 @@ def test_line():
 
 
 def test_versions():
+    from packaging.version import Version
+
     v = h3.versions()
-    assert v['c'] == v['python']
+
     assert v['python'] == h3.__version__
+
+    v_c = Version(v['c'])
+    v_p = Version(v['python'])
+
+    # of X.Y.Z, X and Y must match
+    assert v_c.release[:2] == v_p.release[:2]
 
 
 def test_str_int_convert():
