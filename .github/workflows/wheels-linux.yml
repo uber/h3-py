@@ -35,8 +35,16 @@ jobs:
           python setup.py sdist --dist-dir=wheelhouse
 
       - name: Upload artifacts to github
-        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        if: startsWith(github.event.ref, 'refs/tags/v')
         uses: actions/upload-artifact@v2
         with:
           name: wheels
           path: ./wheelhouse
+
+      - name: Publish distribution to PyPI
+        if: startsWith(github.event.ref, 'refs/tags/v')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.pypi_password }}
+          packages_dir: ./wheelhouse
