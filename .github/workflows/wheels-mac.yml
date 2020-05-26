@@ -29,8 +29,17 @@ jobs:
           pip install --upgrade cibuildwheel
           python -m cibuildwheel --output-dir wheelhouse
 
-      # - name: Upload artifacts to github
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: wheels
-      #     path: ./wheelhouse
+      - name: Upload artifacts to github
+        if: startsWith(github.event.ref, 'refs/tags')
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheels
+          path: ./wheelhouse
+
+      - name: Publish distribution to PyPI
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.pypi_password }}
+          packages_dir: ./wheelhouse
