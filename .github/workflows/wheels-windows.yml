@@ -37,7 +37,7 @@ jobs:
           python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload artifacts to github
-        if: startsWith(github.event.ref, 'refs/tags/v')
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
         uses: actions/upload-artifact@v2
         with:
           name: wheels
