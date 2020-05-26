@@ -37,7 +37,7 @@ jobs:
           path: ./wheelhouse
 
       - name: Publish distribution to PyPI
-        if: startsWith(github.event.ref, 'refs/tags/v')
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
