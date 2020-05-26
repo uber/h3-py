@@ -34,4 +34,3 @@ jobs:
         run: |
           pip install --upgrade cibuildwheel
           python -m cibuildwheel --output-dir wheelhouse
-
