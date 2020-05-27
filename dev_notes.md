@@ -21,3 +21,15 @@
 - [pyenv for multiple versions (to help with tox)](https://weknowinc.com/blog/running-multiple-python-versions-mac-osx)
 - [tox stuff](https://blog.frank-mich.com/recipe-testing-multiple-python-versions-with-pyenv-and-tox/)
 - [more tox stuff](https://blog.ionelmc.ro/2015/04/14/tox-tricks-and-patterns/)
+
+
+# Updating the H3 submodule
+
+```sh
+cd src/h3lib
+git checkout master
+git pull
+cd ..
+git add h3lib
+git commit ...
+```
