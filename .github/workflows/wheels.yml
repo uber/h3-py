@@ -65,14 +65,14 @@ jobs:
 
       ## Upload
 
-      - name: Upload artifacts to github
+      - name: Upload artifacts to GitHub
         if: github.event_name == 'release'
         uses: actions/upload-artifact@v2
         with:
           name: wheels
           path: ./wheelhouse
 
-      - name: Release to pypi
+      - name: Release to PyPI
         if: github.event_name == 'release' && github.event.action == 'published'
         env:
           TWINE_USERNAME: __token__
