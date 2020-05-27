@@ -1,9 +1,12 @@
-name: wheels-all
+name: wheels
 
 on: [pull_request, release]
 
 env:
+  # only needed for Py3.5 on Windows for some reason
+  # ideally, would be picked up from pyproject.toml
   CIBW_BEFORE_BUILD: pip install scikit-build cython cmake
+
   CIBW_TEST_REQUIRES: pytest numpy
   CIBW_TEST_COMMAND: pytest {project}/tests
 
@@ -16,6 +19,9 @@ jobs:
         os: [macos-latest, windows-latest, ubuntu-latest]
 
     steps:
+
+      ## Setup Env
+
       - uses: actions/checkout@v2.1.1
         with:
           submodules: recursive
@@ -25,6 +31,7 @@ jobs:
           python-version: 3.8
 
       - name: Install Deps
+        # only need scikit-build for the linux sdist step
         run: pip install --upgrade cibuildwheel scikit-build
 
       - uses: ilammy/msvc-dev-cmd@v1.2.0
