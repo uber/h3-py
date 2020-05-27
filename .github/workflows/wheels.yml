@@ -66,7 +66,7 @@ jobs:
       ## Upload
 
       - name: Check with Twine
-        run: twine check dist/*
+        run: twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
         if: github.event_name == 'release'
