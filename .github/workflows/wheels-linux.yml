@@ -26,6 +26,7 @@ jobs:
           python -m cibuildwheel --output-dir wheelhouse
 
       - name: Build sdist
+        if: github.event_name == 'release'
         run: |
           pip install scikit-build
           python setup.py sdist --dist-dir=wheelhouse
