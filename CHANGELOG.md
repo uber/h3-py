@@ -16,6 +16,11 @@ avoid adding features or APIs which do not map onto the
 ## [3.6.1] - **Unreleased**
 
 - Switch to Cython wrapper implementation
+- Provide multiple APIs:
+    + `h3.api.basic_str`
+    + `h3.api.basic_int`
+    + `h3.api.memview_int`
+    + `h3.api.numpy_int`
 
 
 ## [3.4.3] - 2019-04-18
