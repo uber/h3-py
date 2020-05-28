@@ -12,7 +12,7 @@ env:
 
 jobs:
   make_wheels:
-    name: Wheels
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
