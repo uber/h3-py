@@ -31,6 +31,7 @@ jobs:
           CIBW_SKIP: pp* cp27* *-win32
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
+          CIBW_DEPENDENCY_VERSIONS: latest
         run: |
           pip install --upgrade cibuildwheel
           python -m cibuildwheel --output-dir wheelhouse
