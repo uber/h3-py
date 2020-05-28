@@ -1,0 +1,84 @@
+name: wheels
+
+on: [pull_request, release]
+
+env:
+  # only needed for Py3.5 on Windows for some reason
+  # ideally, would be picked up from pyproject.toml
+  CIBW_BEFORE_BUILD: pip install scikit-build cython cmake
+
+  CIBW_TEST_REQUIRES: pytest numpy
+  CIBW_TEST_COMMAND: pytest {project}/tests
+
+jobs:
+  make_wheels:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+
+    steps:
+
+      ## Setup Env
+
+      - uses: actions/checkout@v2.1.1
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install Deps
+        # only need scikit-build for the linux sdist step
+        run: pip install --upgrade cibuildwheel scikit-build twine
+
+      - uses: ilammy/msvc-dev-cmd@v1.2.0
+        if: startsWith(matrix.os, 'windows')
+
+      ## Build across platforms
+
+      - name: Build Windows
+        if: startsWith(matrix.os, 'windows')
+        env:
+          CC: cl.exe
+          CXX: cl.exe
+          CIBW_SKIP: pp* cp27* *-win32
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse
+
+      - name: Build Mac
+        if: startsWith(matrix.os, 'mac')
+        env:
+          CIBW_SKIP: pp*
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse
+
+      - name: Build Linux
+        if: startsWith(matrix.os, 'ubuntu')
+        env:
+          CIBW_SKIP: pp* cp27* *-manylinux_i686
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse
+          python setup.py sdist --dist-dir=wheelhouse
+
+      ## Upload
+
+      - name: Check with Twine
+        run: twine check wheelhouse/*
+
+      - name: Upload artifacts to GitHub
+        if: github.event_name == 'release'
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheels
+          path: ./wheelhouse
+
+      - name: Release to PyPI
+        if: github.event_name == 'release' && github.event.action == 'published'
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.pypi_password }}
+        run: |
+          twine upload wheelhouse/*
