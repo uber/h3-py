@@ -13,15 +13,15 @@ avoid adding features or APIs which do not map onto the
 [H3 core API](https://uber.github.io/h3/#/documentation/api-reference/).
 
 
-## [3.6.1] - 2020-05-28
+## [3.6.1] - 2020-05-29
 
 - Switch to Cython wrapper implementation
 - Pre-built wheels on PyPI for Linux/Mac/Windows
 - Provide multiple APIs:
     + `h3.api.basic_str`
     + `h3.api.basic_int`
-    + `h3.api.memview_int`
     + `h3.api.numpy_int`
+    + `h3.api.memview_int`
 
 
 ## [3.4.3] - 2019-04-18
