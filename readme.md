@@ -174,14 +174,14 @@ array([                 0, 578044049047420927, 577973680303243263,
 `h3-py` wraps the [H3 Core Library](https://github.com/uber/h3),
 which is written in C.
 Both projects employ [semantic versioning](https://semver.org/),
-with versions of the form X.Y.Z.
+with versions taking the form X.Y.Z.
 
-`h3-py` will match the version of the core library it is wrapping
+`h3-py` will match the C library
 in major (X) and minor (Y) numbers, but may be different on the
 patch (Z) number.
 
 You can use `h3.versions()` to see the version numbers for both
-`h3-py` and the core C library. For example,
+`h3-py` and the C library. For example,
 
 ```python
 >>> import h3
