@@ -121,7 +121,7 @@ H3 indexes are represented as `unit64`s, using Python
 for collections.
 
 This API has the same benefits as `numpy_int`, except it uses the
-(less well-known) `memoryview` object.
+(less well-known) `memoryview`.
 
 ```python
 >>> import h3.api.memview_int as h3
@@ -164,4 +164,24 @@ array([578782920861286399, 578044049047420927, 577973680303243263,
 >>> a
 array([                 0, 578044049047420927, 577973680303243263,
        578677367745019903, 579169948954263551], dtype=uint64)
+```
+
+## Versioning
+
+`h3-py` wraps the [H3 Core Library](https://github.com/uber/h3),
+which is written in C.
+Both projects employ [semantic versioning](https://semver.org/),
+with versions of the form X.Y.Z.
+
+`h3-py` will match the version of the core library it is wrapping
+in major (X) and minor (Y) numbers, but may be different on the
+patch (Z) number.
+
+You can use `h3.versions()` to see the version numbers for both
+`h3-py` and the core C library. For example,
+
+```python
+>>> import h3
+>>> h3.versions()
+{'c': '3.6.3', 'python': '3.6.1'}
 ```
