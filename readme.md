@@ -25,6 +25,10 @@ bindings, which have replaced the old bindings (v3.4.3).**
 
 `pip install h3`
 
+**New in v3.6.1**: We upload pre-built
+[Python Wheels to PyPI](https://pypi.org/project/h3) for Linux/Mac/Windows,
+which should avoid many previous installation issues.
+
 Try the library with:
 
 ```python
