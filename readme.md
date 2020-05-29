@@ -26,7 +26,7 @@ which should avoid many previous installation issues.
 
 `pip install h3`
 
-Usage:
+## Usage
 
 ```python
 >>> import h3
