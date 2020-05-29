@@ -3,7 +3,7 @@
 # h3-py
 
 [![PyPI version](https://badge.fury.io/py/h3.svg)](https://badge.fury.io/py/h3)
-[![version](https://img.shields.io/badge/h3-v3.6.3-blue.svg)](https://github.com/uber/h3/releases/tag/v3.6.1)
+[![version](https://img.shields.io/badge/h3-v3.6.3-blue.svg)](https://github.com/uber/h3/releases/tag/v3.6.3)
 [![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 [![CI-linux](https://github.com/uber/h3-py/workflows/CI-linux/badge.svg)](https://github.com/uber/h3-py/actions)
