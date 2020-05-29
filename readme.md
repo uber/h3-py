@@ -51,6 +51,8 @@ For more information, please see the [H3 Documentation](https://h3geo.org/).
 ## APIs
 
 We provide multiple APIs in `h3-py`.
+All APIs have the same set of functions, but they differ
+in their input/output formats.
 
 ### `h3.api.basic_str`
 
