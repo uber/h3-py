@@ -1,11 +1,11 @@
-__version__ = '3.6.1a5'
+__version__ = '3.6.1'
 __description__ = 'Hierarchical hexagonal geospatial indexing system'
 __url__ = 'https://github.com/uber/h3-py'
 __license__ = "Apache 2.0 License"
 __author__ = 'Uber Technologies'
 __author_email__ = 'AJ Friend <ajfriend@gmail.com>'
 __classifiers__ = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: Apache Software License",
