@@ -17,14 +17,14 @@ Python bindings for the
 For API reference, please see the
 [H3 Documentation](https://h3geo.org/).
 
+**New in v3.6.1**: We upload pre-built
+[Python Wheels to PyPI](https://pypi.org/project/h3) for Linux/Mac/Windows,
+which should avoid many previous installation issues.
+
 
 ## Install from PyPI
 
 `pip install h3`
-
-**New in v3.6.1**: We upload pre-built
-[Python Wheels to PyPI](https://pypi.org/project/h3) for Linux/Mac/Windows,
-which should avoid many previous installation issues.
 
 Usage:
 
@@ -174,11 +174,11 @@ array([                 0, 578044049047420927, 577973680303243263,
 `h3-py` wraps the [H3 Core Library](https://github.com/uber/h3),
 which is written in C.
 Both projects employ [semantic versioning](https://semver.org/),
-with versions taking the form X.Y.Z.
+with versions taking the form `X.Y.Z`.
 
 `h3-py` will match the C library
-in major (X) and minor (Y) numbers, but may be different on the
-patch (Z) number.
+in *major* and *minor* numbers (`X.Y`), but may be different on the
+*patch* (`Z`) number.
 
 You can use `h3.versions()` to see the version numbers for both
 `h3-py` and the C library. For example,
