@@ -180,7 +180,7 @@ with versions taking the form `X.Y.Z`.
 in *major* and *minor* numbers (`X.Y`), but may be different on the
 *patch* (`Z`) number.
 
-You can use `h3.versions()` to see the version numbers for both
+Use `h3.versions()` to see the version numbers for both
 `h3-py` and the C library. For example,
 
 ```python
