@@ -93,7 +93,7 @@ H3 indexes are represented as Python `int`s, using `list` and `set` for collecti
 
 ### `h3.api.numpy_int`
 
-H3 indexes are represented as `unit64`s, using `numpy.ndarray`
+H3 indexes are represented as `uint64`s, using `numpy.ndarray`
 for collections.
 
 The intention is for this API to be faster and more memory-efficient by
@@ -119,7 +119,7 @@ with `h3`, run `pip install h3[numpy]`.
 
 ### `h3.api.memview_int`
 
-H3 indexes are represented as `unit64`s, using Python
+H3 indexes are represented as `uint64`s, using Python
 [`memoryview` objects](https://docs.python.org/dev/library/stdtypes.html#memoryview)
 for collections.
 
