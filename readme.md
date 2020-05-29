@@ -123,8 +123,8 @@ H3 indexes are represented as `uint64`s, using Python
 [`memoryview` objects](https://docs.python.org/dev/library/stdtypes.html#memoryview)
 for collections.
 
-This API has the same benefits as `numpy_int`, except it uses the
-(less well-known but dependency-free) `memoryview`.
+This API has the same benefits as `numpy_int`, except it uses
+(the less well-known but dependency-free) `memoryview`.
 
 ```python
 >>> import h3.api.memview_int as h3
