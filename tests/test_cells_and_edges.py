@@ -475,3 +475,13 @@ def test_get_pentagons():
 
     for i in range(16):
         assert len(h3.get_pentagon_indexes(i)) == 12
+
+
+def test_uncompact_cell_input():
+    # `uncompact` takes in a collection of cells, not a single cell.
+    # Since a python string is seen as a Iterable collection,
+    # inputting a single cell string can raise weird errors.
+
+    # Ensure we get a reasonably helpful answer
+    with pytest.raises(H3CellError):
+        h3.uncompact('8001fffffffffff', 1)
