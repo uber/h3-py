@@ -6,25 +6,10 @@ from .util cimport (
     check_res,
     create_ptr,
     create_mv,
+    deg2coord,
+    coord2deg,
 )
 from libc cimport stdlib
-
-
-cdef h3lib.GeoCoord deg2coord(double lat, double lng):
-    cdef:
-        h3lib.GeoCoord c
-
-    c.lat = h3lib.degsToRads(lat)
-    c.lng = h3lib.degsToRads(lng)
-
-    return c
-
-
-cdef (double, double) coord2deg(h3lib.GeoCoord c):
-    return (
-        h3lib.radsToDegs(c.lat),
-        h3lib.radsToDegs(c.lng)
-    )
 
 
 cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:

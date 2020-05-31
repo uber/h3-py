@@ -1,15 +1,7 @@
 cimport h3lib
 from h3lib cimport H3int
-from .util cimport check_cell
+from .util cimport check_cell, coord2deg
 
-
-# need to define `coord2deg` here due to Cython bug:
-# https://github.com/cython/cython/issues/2745
-cdef (double, double) coord2deg(h3lib.GeoCoord c):
-    return (
-        h3lib.radsToDegs(c.lat),
-        h3lib.radsToDegs(c.lng)
-    )
 
 # todo: it's driving me crazy that these three functions are all essentially the same linked list walker...
 # grumble: no way to do iterators in with cdef functions!
