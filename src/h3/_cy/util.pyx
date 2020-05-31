@@ -15,7 +15,7 @@ cpdef basestring c_version():
     return '{}.{}.{}'.format(*v)
 
 
-cpdef H3int hex2int(H3str h) except 0:
+cpdef H3int hex2int(H3str h) except? 0:
     return int(h, 16)
 
 
