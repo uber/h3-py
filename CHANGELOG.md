@@ -12,6 +12,9 @@ Because H3-Py is versioned in lockstep with the H3 core library, please
 avoid adding features or APIs which do not map onto the
 [H3 core API](https://uber.github.io/h3/#/documentation/api-reference/).
 
+## Unreleased
+
+- Improve error reporting on `hex2int` (https://github.com/uber/h3-py/pull/127)
 
 ## [3.6.1] - 2020-05-29
 
@@ -23,18 +26,15 @@ avoid adding features or APIs which do not map onto the
     + `h3.api.numpy_int`
     + `h3.api.memview_int`
 
-
 ## [3.4.3] - 2019-04-18
 
 - Removed null values in k_ring_distances.
 - Support on Windows Platform
 - Fixed some install problems
 
-
 ## [3.4.2] - 2019-03-13
 
 - Added h3_line support.
-
 
 ## [3.1.0] - 2018-09-06
 
