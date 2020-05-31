@@ -5,6 +5,23 @@ from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
 cimport h3lib
 
 
+cdef h3lib.GeoCoord deg2coord(double lat, double lng):
+    cdef:
+        h3lib.GeoCoord c
+
+    c.lat = h3lib.degsToRads(lat)
+    c.lng = h3lib.degsToRads(lng)
+
+    return c
+
+
+cdef (double, double) coord2deg(h3lib.GeoCoord c):
+    return (
+        h3lib.radsToDegs(c.lat),
+        h3lib.radsToDegs(c.lng)
+    )
+
+
 cpdef basestring c_version():
     v = (
         h3lib.H3_VERSION_MAJOR,
