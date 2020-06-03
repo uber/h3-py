@@ -21,7 +21,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [ubuntu-latest]
 
     steps:
 
@@ -63,7 +63,7 @@ jobs:
       - name: Build Linux
         if: startsWith(matrix.os, 'ubuntu')
         env:
-          CIBW_SKIP: pp* cp27* *-manylinux_i686
+          CIBW_SKIP: pp* *-manylinux_i686
         run: |
           python -m cibuildwheel --output-dir wheelhouse
           python setup.py sdist --dist-dir=wheelhouse
