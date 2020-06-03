@@ -3,6 +3,7 @@
 # h3-py
 
 [![PyPI version](https://badge.fury.io/py/h3.svg)](https://badge.fury.io/py/h3)
+[![conda](https://img.shields.io/conda/vn/conda-forge/h3-py.svg)](https://anaconda.org/conda-forge/h3-py)
 [![version](https://img.shields.io/badge/h3-v3.6.3-blue.svg)](https://github.com/uber/h3/releases/tag/v3.6.3)
 [![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
@@ -22,9 +23,18 @@ For API reference, please see the
 which should avoid many previous installation issues.
 
 
-## Install from PyPI
+## Installation
+
+From [PyPI](https://pypi.org/project/h3/):
 
 `pip install h3`
+
+From [conda](https://github.com/conda-forge/h3-py-feedstock):
+
+```sh
+conda config --add channels conda-forge
+conda install h3-py
+```
 
 ## Usage
 
