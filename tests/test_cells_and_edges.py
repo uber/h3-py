@@ -485,3 +485,30 @@ def test_uncompact_cell_input():
     # Ensure we get a reasonably helpful answer
     with pytest.raises(H3CellError):
         h3.uncompact('8001fffffffffff', 1)
+
+
+def test_get_res0_indexes():
+    out = h3.get_res0_indexes()
+
+    assert len(out) == 122
+
+    # subset
+    pentagons = h3.get_pentagon_indexes(0)
+    assert pentagons < out
+
+    # all valid
+    assert all(map(h3.h3_is_valid, out))
+
+    # resolution
+    assert all(map(
+        lambda h: h3.h3_get_resolution(h) == 0,
+        out
+    ))
+
+    # few concrete cells
+    sub = {
+        '8001fffffffffff',
+        '8003fffffffffff',
+        '8005fffffffffff',
+    }
+    assert sub < out

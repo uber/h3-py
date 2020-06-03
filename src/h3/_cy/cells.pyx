@@ -280,3 +280,13 @@ cpdef H3int[:] get_pentagon_indexes(int res):
     mv = create_mv(ptr, n)
 
     return mv
+
+
+cpdef H3int[:] get_res0_indexes():
+    n = h3lib.res0IndexCount()
+
+    ptr = create_ptr(n)
+    h3lib.getRes0Indexes(ptr)
+    mv = create_mv(ptr, n)
+
+    return mv

@@ -31,6 +31,7 @@ from .cells import (
     line,
     is_res_class_iii,
     get_pentagon_indexes,
+    get_res0_indexes,
 )
 
 from .edges import (

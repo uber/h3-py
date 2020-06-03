@@ -754,4 +754,20 @@ def _api_functions(
 
         return _out_unordered(mv)
 
+    def get_res0_indexes():
+        """
+        Return all cells at a given resolution.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        unordered collection of H3Cell
+        """
+        mv = _cy.get_res0_indexes()
+
+        return _out_unordered(mv)
+
     _globals.update(locals())
