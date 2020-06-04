@@ -12,8 +12,13 @@ Because H3-Py is versioned in lockstep with the H3 core library, please
 avoid adding features or APIs which do not map onto the
 [H3 core API](https://uber.github.io/h3/#/documentation/api-reference/).
 
-## Unreleased
 
+## [3.6.3] - 2020-06-04
+
+- Add functions:
+    + `get_res0_indexes`
+    + `h3_to_center_child`
+    + `h3_get_faces`
 
 ## [3.6.2] - 2020-06-02
 

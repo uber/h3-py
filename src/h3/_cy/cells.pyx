@@ -11,7 +11,7 @@ from .util cimport (
     empty_memory_view, # want to drop this import if possible
 )
 
-from .util import H3ValueError
+from .util import H3ValueError, H3ResolutionError
 
 # todo: add notes about Cython exception handling
 
@@ -42,16 +42,6 @@ cpdef int resolution(H3int h) except -1:
     check_cell(h)
 
     return h3lib.h3GetResolution(h)
-
-
-cpdef H3int parent(H3int h, res=None) except 1:
-    check_cell(h)
-
-    if res is None:
-        res = resolution(h) - 1
-    check_res(res)
-
-    return h3lib.h3ToParent(h, res)
 
 
 cpdef int distance(H3int h1, H3int h2) except -1:
@@ -135,13 +125,30 @@ cpdef H3int[:] ring(H3int h, int k):
     return mv
 
 
+cpdef H3int parent(H3int h, res=None) except 0:
+    check_cell(h)
+
+    if res is None:
+        res = resolution(h) - 1
+    if res > resolution(h):
+        msg = 'Invalid parent resolution {} for cell {}.'
+        msg = msg.format(res, hex(h))
+        raise H3ResolutionError(msg)
+
+    check_res(res)
+
+    return h3lib.h3ToParent(h, res)
 
 cpdef H3int[:] children(H3int h, res=None):
     check_cell(h)
 
     if res is None:
         res = resolution(h) + 1
-    # todo: actually, do we want to raise an error if there are no children, or just return an empty set?
+    if res < resolution(h):
+        msg = 'Invalid child resolution {} for cell {}.'
+        msg = msg.format(res, hex(h))
+        raise H3ResolutionError(msg)
+
     check_res(res)
 
     n = h3lib.maxH3ToChildrenSize(h, res)
@@ -151,6 +158,20 @@ cpdef H3int[:] children(H3int h, res=None):
     mv = create_mv(ptr, n)
 
     return mv
+
+cpdef H3int center_child(H3int h, res=None) except 0:
+    check_cell(h)
+
+    if res is None:
+        res = resolution(h) + 1
+    if res < resolution(h):
+        msg = 'Invalid child resolution {} for cell {}.'
+        msg = msg.format(res, hex(h))
+        raise H3ResolutionError(msg)
+
+    check_res(res)
+
+    return h3lib.h3ToCenterChild(h, res)
 
 
 
@@ -255,14 +276,18 @@ cpdef H3int[:] line(H3int start, H3int end):
     n = h3lib.h3LineSize(start, end)
 
     if n < 0:
-        raise H3ValueError("Couldn't find line between cells {} and {}".format(start, end))
+        s = "Couldn't find line between cells {} and {}"
+        s = s.format(hex(start), hex(end))
+        raise H3ValueError(s)
 
     ptr = create_ptr(n)
     flag = h3lib.h3Line(start, end, ptr)
     mv = create_mv(ptr, n)
 
     if flag != 0:
-        raise H3ValueError("Couldn't find line between cells {} and {}".format(start, end))
+        s = "Couldn't find line between cells {} and {}"
+        s = s.format(hex(start), hex(end))
+        raise H3ValueError(s)
 
     return mv
 
@@ -280,3 +305,32 @@ cpdef H3int[:] get_pentagon_indexes(int res):
     mv = create_mv(ptr, n)
 
     return mv
+
+
+cpdef H3int[:] get_res0_indexes():
+    n = h3lib.res0IndexCount()
+
+    ptr = create_ptr(n)
+    h3lib.getRes0Indexes(ptr)
+    mv = create_mv(ptr, n)
+
+    return mv
+
+
+cpdef get_faces(H3int h):
+    check_cell(h)
+
+    n = h3lib.maxFaceCount(h)
+
+    cdef int* ptr = <int*> stdlib.calloc(n, sizeof(int))
+    if (n > 0) and (not ptr):
+        raise MemoryError()
+
+    h3lib.h3GetFaces(h, ptr)
+
+    faces = <int[:n]> ptr
+    faces = {f for f in faces if f >= 0}
+    stdlib.free(ptr)
+
+    return faces
+

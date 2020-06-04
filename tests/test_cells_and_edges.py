@@ -124,14 +124,28 @@ def test9():
 
 
 def test_parent():
-    assert h3.h3_to_parent('8928308280fffff', 8) == '8828308281fffff'
-    assert h3.h3_to_parent('8928308280fffff', 7) == '872830828ffffff'
+    h = '8928308280fffff'
 
-    # todo: this should probably return None, eh?
-    assert h3.h3_to_parent('8928308280fffff', 10) == '0'
+    assert h3.h3_to_parent(h, 7) == '872830828ffffff'
+    assert h3.h3_to_parent(h, 8) == '8828308281fffff'
+    assert h3.h3_to_parent(h, 9) == h
+
+    with pytest.raises(H3ResolutionError):
+        h3.h3_to_parent(h, 10)
 
 
 def test_children():
+    h = '8928308280fffff'
+
+    # one above should raise an exception
+    with pytest.raises(H3ResolutionError):
+        h3.h3_to_children(h, 8)
+
+    # same resolution is set of just cell itself
+    out = h3.h3_to_children(h, 9)
+    assert out == {h}
+
+    # one below should give children
     expected = {
         '8a28308280c7fff',
         '8a28308280cffff',
@@ -141,15 +155,33 @@ def test_children():
         '8a28308280effff',
         '8a28308280f7fff'
     }
-
-    out = h3.h3_to_children('8928308280fffff', 10)
-
+    out = h3.h3_to_children(h, 10)
     assert out == expected
 
-    expected = set()
-    out = h3.h3_to_children('8928308280fffff', 8)
+    # finest resolution cell should return error for children
+    h = '8f04ccb2c45e225'
+    with pytest.raises(H3ResolutionError):
+        h3.h3_to_children(h)
 
-    assert out == expected
+
+def test_center_child():
+    h = '8928308280fffff'
+
+    # one above should raise an exception
+    with pytest.raises(H3ResolutionError):
+        h3.h3_to_center_child(h, 8)
+
+    # same resolution should be same cell
+    assert h3.h3_to_center_child(h, 9) == h
+
+    # one below should give direct child
+    expected = '8a28308280c7fff'
+    assert h3.h3_to_center_child(h, 10) == expected
+
+    # finest resolution hex should return error for child
+    h = '8f04ccb2c45e225'
+    with pytest.raises(H3ResolutionError):
+        h3.h3_to_center_child(h)
 
 
 def test_distance():
@@ -309,7 +341,7 @@ def test_edge_boundary():
 
 
 def test_validation():
-    h = '8a28308280fffff'  # invalid hex
+    h = '8a28308280fffff'  # invalid cell
 
     with pytest.raises(H3CellError):
         h3.h3_get_base_cell(h)
@@ -349,7 +381,7 @@ def test_validation2():
 
 
 def test_validation_geo():
-    h = '8a28308280fffff'  # invalid hex
+    h = '8a28308280fffff'  # invalid cell
 
     with pytest.raises(H3CellError):
         h3.h3_to_geo(h)
@@ -485,3 +517,54 @@ def test_uncompact_cell_input():
     # Ensure we get a reasonably helpful answer
     with pytest.raises(H3CellError):
         h3.uncompact('8001fffffffffff', 1)
+
+
+def test_get_res0_indexes():
+    out = h3.get_res0_indexes()
+
+    assert len(out) == 122
+
+    # subset
+    pentagons = h3.get_pentagon_indexes(0)
+    assert pentagons < out
+
+    # all valid
+    assert all(map(h3.h3_is_valid, out))
+
+    # resolution
+    assert all(map(
+        lambda h: h3.h3_get_resolution(h) == 0,
+        out
+    ))
+
+    # verify a few concrete cells
+    sub = {
+        '8001fffffffffff',
+        '8003fffffffffff',
+        '8005fffffffffff',
+    }
+    assert sub < out
+
+
+def test_get_faces_invalid():
+    h = '8a28308280fffff'  # invalid cell
+
+    with pytest.raises(H3CellError):
+        h3.h3_get_faces(h)
+
+
+def test_get_faces():
+    h = '804dfffffffffff'
+    expected = {2, 3, 7, 8, 12}
+    out = h3.h3_get_faces(h)
+    assert out == expected
+
+    h = '80c1fffffffffff'
+    expected = {13}
+    out = h3.h3_get_faces(h)
+    assert out == expected
+
+    h = '80bbfffffffffff'
+    expected = {16, 15}
+    out = h3.h3_get_faces(h)
+    assert out == expected

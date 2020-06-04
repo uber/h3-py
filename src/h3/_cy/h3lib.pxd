@@ -122,6 +122,12 @@ cdef extern from "h3api.h":
 
     void getPentagonIndexes(int res, H3Index *out)
 
+    int res0IndexCount()
+
+    void getRes0Indexes(H3Index *out)
+
+    H3Index h3ToCenterChild(H3Index h, int res)
+
     int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
 
     H3Index getH3UnidirectionalEdge(H3Index origin, H3Index destination)
@@ -138,6 +144,10 @@ cdef extern from "h3api.h":
 
     void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
 
-    int h3LineSize(H3int start, H3int end)
+    int h3LineSize(H3Index start, H3Index end)
 
-    int h3Line(H3int start, H3int end, H3int *out)
+    int h3Line(H3Index start, H3Index end, H3Index *out)
+
+    int maxFaceCount(H3Index h3)
+
+    void h3GetFaces(H3Index h3, int *out)

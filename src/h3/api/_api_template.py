@@ -754,4 +754,62 @@ def _api_functions(
 
         return _out_unordered(mv)
 
+    def get_res0_indexes():
+        """
+        Return all cells at resolution 0.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        unordered collection of H3Cell
+        """
+        mv = _cy.get_res0_indexes()
+
+        return _out_unordered(mv)
+
+    def h3_to_center_child(h, res=None):
+        """
+        Get the center child of a cell at some finer resolution.
+
+        Parameters
+        ----------
+        h : H3Cell
+        res : int or None, optional
+            The resolution for the child cell
+            If `None`, then `res = resolution(h) + 1`
+
+        Returns
+        -------
+        H3Cell
+        """
+        h = _in_scalar(h)
+        p = _cy.center_child(h, res)
+        p = _out_scalar(p)
+
+        return p
+
+    def h3_get_faces(h):
+        """
+        Return icosahedron faces intersecting a given H3 cell.
+
+        There are twenty possible faces, ranging from 0--19.
+
+        Note: Every interface returns a Python `set` of `int`s.
+
+        Parameters
+        ----------
+        h : H3Cell
+
+        Returns
+        -------
+        Python `set` of `int`s
+        """
+        h = _in_scalar(h)
+        faces = _cy.get_faces(h)
+
+        return faces
+
     _globals.update(locals())
