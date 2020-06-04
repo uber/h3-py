@@ -791,4 +791,25 @@ def _api_functions(
 
         return p
 
+    def h3_get_faces(h):
+        """
+        Return icosahedron faces intersecting a given H3 cell.
+
+        There are twenty possible faces, ranging from 0--19.
+
+        Note: Every interface returns a Python `set` of `int`s.
+
+        Parameters
+        ----------
+        h : H3Cell
+
+        Returns
+        -------
+        Python `set` of `int`s
+        """
+        h = _in_scalar(h)
+        faces = _cy.get_faces(h)
+
+        return faces
+
     _globals.update(locals())

@@ -158,7 +158,7 @@ def test_children():
     out = h3.h3_to_children(h, 10)
     assert out == expected
 
-    # finest resolution hex should return error for children
+    # finest resolution cell should return error for children
     h = '8f04ccb2c45e225'
     with pytest.raises(H3ResolutionError):
         h3.h3_to_children(h)
@@ -341,7 +341,7 @@ def test_edge_boundary():
 
 
 def test_validation():
-    h = '8a28308280fffff'  # invalid hex
+    h = '8a28308280fffff'  # invalid cell
 
     with pytest.raises(H3CellError):
         h3.h3_get_base_cell(h)
@@ -381,7 +381,7 @@ def test_validation2():
 
 
 def test_validation_geo():
-    h = '8a28308280fffff'  # invalid hex
+    h = '8a28308280fffff'  # invalid cell
 
     with pytest.raises(H3CellError):
         h3.h3_to_geo(h)
@@ -537,10 +537,33 @@ def test_get_res0_indexes():
         out
     ))
 
-    # few concrete cells
+    # verify a few concrete cells
     sub = {
         '8001fffffffffff',
         '8003fffffffffff',
         '8005fffffffffff',
     }
     assert sub < out
+
+
+def test_get_faces_invalid():
+    h = '8a28308280fffff'  # invalid cell
+
+    with pytest.raises(H3CellError):
+        h3.h3_get_faces(h)
+
+def test_get_faces():
+    h = '804dfffffffffff'
+    expected = {2, 3, 7, 8, 12}
+    out = h3.h3_get_faces(h)
+    assert out == expected
+
+    h = '80c1fffffffffff'
+    expected = {13}
+    out = h3.h3_get_faces(h)
+    assert out == expected
+
+    h = '80bbfffffffffff'
+    expected = {16, 15}
+    out = h3.h3_get_faces(h)
+    assert out == expected

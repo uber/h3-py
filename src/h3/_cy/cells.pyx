@@ -313,4 +313,22 @@ cpdef H3int[:] get_res0_indexes():
     return mv
 
 
+cpdef get_faces(H3int h):
+    # test that errors raise correctly
+    # works on all interfaces?
+    check_cell(h)
+
+    n = h3lib.maxFaceCount(h)
+
+    cdef int* ptr = <int*> stdlib.calloc(n, sizeof(int))
+    if (n > 0) and (not ptr):
+        raise MemoryError()
+
+    h3lib.h3GetFaces(h, ptr)
+
+    faces = <int[:n]> ptr
+    faces = {f for f in faces if f >= 0}
+    stdlib.free(ptr)
+
+    return faces
 

@@ -144,6 +144,10 @@ cdef extern from "h3api.h":
 
     void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
 
-    int h3LineSize(H3int start, H3int end)
+    int h3LineSize(H3Index start, H3Index end)
 
-    int h3Line(H3int start, H3int end, H3int *out)
+    int h3Line(H3Index start, H3Index end, H3Index *out)
+
+    int maxFaceCount(H3Index h3)
+
+    void h3GetFaces(H3Index h3, int *out)

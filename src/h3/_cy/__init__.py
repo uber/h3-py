@@ -33,6 +33,7 @@ from .cells import (
     get_pentagon_indexes,
     get_res0_indexes,
     center_child,
+    get_faces,
 )
 
 from .edges import (
