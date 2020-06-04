@@ -22,7 +22,9 @@ cpdef H3int edge(H3int origin, H3int destination) except 1:
     check_cell(destination)
 
     if h3lib.h3IndexesAreNeighbors(origin, destination) != 1:
-        raise H3ValueError('Cells are not neighbors: {} and {}'.format(origin, destination))
+        s = 'Cells are not neighbors: {:x} and {:x}'
+        s = s.format(origin, destination)
+        raise H3ValueError(s)
 
     return h3lib.getH3UnidirectionalEdge(origin, destination)
 
