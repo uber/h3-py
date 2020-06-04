@@ -552,6 +552,7 @@ def test_get_faces_invalid():
     with pytest.raises(H3CellError):
         h3.h3_get_faces(h)
 
+
 def test_get_faces():
     h = '804dfffffffffff'
     expected = {2, 3, 7, 8, 12}
