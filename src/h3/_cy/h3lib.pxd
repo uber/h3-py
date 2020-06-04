@@ -126,6 +126,8 @@ cdef extern from "h3api.h":
 
     void getRes0Indexes(H3Index *out)
 
+    H3Index h3ToCenterChild(H3Index h, int res)
+
     int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
 
     H3Index getH3UnidirectionalEdge(H3Index origin, H3Index destination)

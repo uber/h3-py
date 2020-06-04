@@ -16,6 +16,7 @@ avoid adding features or APIs which do not map onto the
 
 - Add functions:
     + `get_res0_indexes`
+    + `h3_to_center_child`
 
 
 ## [3.6.2] - 2020-06-02

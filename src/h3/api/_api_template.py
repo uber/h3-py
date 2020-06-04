@@ -756,7 +756,7 @@ def _api_functions(
 
     def get_res0_indexes():
         """
-        Return all cells at a given resolution.
+        Return all cells at resolution 0.
 
         Parameters
         ----------
@@ -769,5 +769,26 @@ def _api_functions(
         mv = _cy.get_res0_indexes()
 
         return _out_unordered(mv)
+
+    def h3_to_center_child(h, res=None):
+        """
+        Get the center child of a cell at some finer resolution.
+
+        Parameters
+        ----------
+        h : H3Cell
+        res : int or None, optional
+            The resolution for the child cell
+            If `None`, then `res = resolution(h) + 1`
+
+        Returns
+        -------
+        H3Cell
+        """
+        h = _in_scalar(h)
+        p = _cy.center_child(h, res)
+        p = _out_scalar(p)
+
+        return p
 
     _globals.update(locals())

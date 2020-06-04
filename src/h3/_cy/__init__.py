@@ -32,6 +32,7 @@ from .cells import (
     is_res_class_iii,
     get_pentagon_indexes,
     get_res0_indexes,
+    center_child,
 )
 
 from .edges import (
