@@ -131,8 +131,8 @@ cpdef H3int parent(H3int h, res=None) except 0:
     if res is None:
         res = resolution(h) - 1
     if res > resolution(h):
-        msg = 'Invalid parent resolution {} for cell {:x}.'
-        msg = msg.format(res, h)
+        msg = 'Invalid parent resolution {} for cell {}.'
+        msg = msg.format(res, hex(h))
         raise H3ResolutionError(msg)
 
     check_res(res)
@@ -145,8 +145,8 @@ cpdef H3int[:] children(H3int h, res=None):
     if res is None:
         res = resolution(h) + 1
     if res < resolution(h):
-        msg = 'Invalid child resolution {} for cell {:x}.'
-        msg = msg.format(res, h)
+        msg = 'Invalid child resolution {} for cell {}.'
+        msg = msg.format(res, hex(h))
         raise H3ResolutionError(msg)
 
     check_res(res)
@@ -165,8 +165,8 @@ cpdef H3int center_child(H3int h, res=None) except 0:
     if res is None:
         res = resolution(h) + 1
     if res < resolution(h):
-        msg = 'Invalid child resolution {} for cell {:x}.'
-        msg = msg.format(res, h)
+        msg = 'Invalid child resolution {} for cell {}.'
+        msg = msg.format(res, hex(h))
         raise H3ResolutionError(msg)
 
     check_res(res)
@@ -276,8 +276,8 @@ cpdef H3int[:] line(H3int start, H3int end):
     n = h3lib.h3LineSize(start, end)
 
     if n < 0:
-        s = "Couldn't find line between cells {:x} and {:x}"
-        s = s.format(start, end)
+        s = "Couldn't find line between cells {} and {}"
+        s = s.format(hex(start), hex(end))
         raise H3ValueError(s)
 
     ptr = create_ptr(n)
@@ -285,8 +285,8 @@ cpdef H3int[:] line(H3int start, H3int end):
     mv = create_mv(ptr, n)
 
     if flag != 0:
-        s = "Couldn't find line between cells {:x} and {:x}"
-        s = s.format(start, end)
+        s = "Couldn't find line between cells {} and {}"
+        s = s.format(hex(start), hex(end))
         raise H3ValueError(s)
 
     return mv
