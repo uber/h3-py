@@ -19,7 +19,7 @@ Python bindings for the
 For API reference, please see the
 [H3 Documentation](https://h3geo.org/).
 
-**New in v3.6.1**: We upload pre-built
+**New since v3.6.1**: We upload pre-built
 [Python Wheels to PyPI](https://pypi.org/project/h3) for Linux/Mac/Windows,
 which should avoid many previous installation issues.
 
