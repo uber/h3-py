@@ -7,7 +7,7 @@ init: purge
 
 clear:
 	-env/bin/pip uninstall -y h3
-	-@rm -rf MANIFEST
+	-@rm -rf MANIFEST wheelhouse
 	-@rm -rf .pytest_cache tests/__pycache__ __pycache__ _skbuild dist .coverage
 	-@find . -type d -name '*.egg-info' | xargs rm -r
 	-@find . -type f -name '*.pyc' | xargs rm -r

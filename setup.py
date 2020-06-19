@@ -17,6 +17,13 @@ def long_desc():
 
     return long_description
 
+def cmake_process_manifest_hook(cmake_manifest):
+    print(cmake_manifest)
+    print('\n\n')
+    #cmake_manifest = list(filter(accept_file, cmake_manifest))
+    print(cmake_manifest)
+    return cmake_manifest
+
 
 setup(
     name = 'h3',
@@ -35,9 +42,11 @@ setup(
     ),
     package_dir = {'': 'src'},
     cmake_languages = ('C'),
-    extras_require={
+    extras_require = {
         'numpy': ['numpy'],
         'test': ['pytest', 'pytest-cov', 'flake8'],
         'all': ['numpy', 'pytest', 'pytest-cov', 'flake8'],
     },
+    cmake_with_sdist=True,
+    cmake_process_manifest_hook = cmake_process_manifest_hook,
 )
