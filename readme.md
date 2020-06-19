@@ -3,6 +3,7 @@
 # h3-py
 
 [![PyPI version](https://badge.fury.io/py/h3.svg)](https://badge.fury.io/py/h3)
+[![PyPI downloads](https://pypip.in/d/h3/badge.png)](https://pypistats.org/packages/h3)
 [![conda](https://img.shields.io/conda/vn/conda-forge/h3-py.svg)](https://anaconda.org/conda-forge/h3-py)
 [![version](https://img.shields.io/badge/h3-v3.6.3-blue.svg)](https://github.com/uber/h3/releases/tag/v3.6.3)
 [![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
@@ -18,7 +19,7 @@ Python bindings for the
 For API reference, please see the
 [H3 Documentation](https://h3geo.org/).
 
-**New in v3.6.1**: We upload pre-built
+**New since v3.6.1**: We upload pre-built
 [Python Wheels to PyPI](https://pypi.org/project/h3) for Linux/Mac/Windows,
 which should avoid many previous installation issues.
 
