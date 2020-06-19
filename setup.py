@@ -48,6 +48,6 @@ setup(
         'test': ['pytest', 'pytest-cov', 'flake8'],
         'all': ['numpy', 'pytest', 'pytest-cov', 'flake8'],
     },
-    #cmake_with_sdist = True,
-    #cmake_process_manifest_hook = cmake_process_manifest_hook,
+    # cmake_with_sdist = True,
+    cmake_process_manifest_hook = cmake_process_manifest_hook,
 )
