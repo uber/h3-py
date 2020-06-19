@@ -65,3 +65,4 @@ _skbuild/
 
 # might want to remove this later when distributing
 MANIFEST
+wheelhouse/

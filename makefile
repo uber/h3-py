@@ -32,3 +32,9 @@ lab:
 ipython:
 	env/bin/pip install ipython
 	env/bin/ipython
+
+sdist: purge
+	git submodule update --init
+	virtualenv -p python3 env
+	env/bin/pip install scikit-build cython cmake
+	env/bin/python setup.py sdist --dist-dir=wheelhouse
