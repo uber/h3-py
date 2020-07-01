@@ -1,5 +1,4 @@
-"""
-This module contains code that is experimental and unstable.
-"""
+import warnings
+warnings.warn('Modules under `h3.unstable` are experimental, and may change at any time.')
 
 from . import v4
