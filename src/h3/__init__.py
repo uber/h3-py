@@ -14,3 +14,5 @@ from ._cy import (
     H3EdgeError,
     H3DistanceError,
 )
+
+from . import unstable
