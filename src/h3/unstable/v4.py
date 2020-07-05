@@ -1,3 +1,5 @@
+# flake8: noqa
+
 # todo: what are the pythonic names?
 
 # what if we put this in an object? what would it look like?
