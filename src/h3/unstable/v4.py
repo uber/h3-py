@@ -7,7 +7,7 @@
 
 # what if we organized by module
 
-from ..api.basic_str import (
+from ..api.basic_str import (   # pragma: no cover
     compact as
         compact,
 
