@@ -5,7 +5,7 @@ from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
 cimport h3lib
 
 
-cdef h3lib.GeoCoord deg2coord(double lat, double lng):
+cdef h3lib.GeoCoord deg2coord(double lat, double lng) nogil:
     cdef:
         h3lib.GeoCoord c
 
@@ -15,7 +15,7 @@ cdef h3lib.GeoCoord deg2coord(double lat, double lng):
     return c
 
 
-cdef (double, double) coord2deg(h3lib.GeoCoord c):
+cdef (double, double) coord2deg(h3lib.GeoCoord c) nogil:
     return (
         h3lib.radsToDegs(c.lat),
         h3lib.radsToDegs(c.lng)

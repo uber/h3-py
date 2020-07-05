@@ -48,9 +48,9 @@ cdef extern from "h3api.h":
         LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
         LinkedGeoPolygon *next
 
-    H3Index geoToH3(const GeoCoord *g, int res)
+    H3Index geoToH3(const GeoCoord *g, int res) nogil
 
-    void h3ToGeo(H3Index h3, GeoCoord *g)
+    void h3ToGeo(H3Index h3, GeoCoord *g) nogil
 
     void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp)
 
@@ -78,9 +78,9 @@ cdef extern from "h3api.h":
 
     void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
 
-    double degsToRads(double degrees)
+    double degsToRads(double degrees) nogil
 
-    double radsToDegs(double radians)
+    double radsToDegs(double radians) nogil
 
     double hexAreaKm2(int res)
 
