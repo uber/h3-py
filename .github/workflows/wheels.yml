@@ -31,14 +31,14 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install Deps
-        # only need scikit-build for the linux sdist step
-        run: pip install --upgrade cibuildwheel scikit-build twine
-
       - uses: ilammy/msvc-dev-cmd@v1.2.0
         if: startsWith(matrix.os, 'windows')
 
+
       ## Build across platforms
+
+      - name: Install cibuildwheel
+        run: pip install --upgrade cibuildwheel
 
       - name: Build Windows
         if: startsWith(matrix.os, 'windows')
@@ -64,10 +64,19 @@ jobs:
           python -m cibuildwheel --output-dir wheelhouse
           python setup.py sdist --dist-dir=wheelhouse
 
+      - name: Make sdist
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          pip install --upgrade scikit-build
+          python setup.py sdist --dist-dir=wheelhouse
+
+
       ## Upload
 
       - name: Check with Twine
-        run: twine check wheelhouse/*
+        run: |
+          pip install --upgrade twine
+          twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
         if: github.event_name == 'release'
