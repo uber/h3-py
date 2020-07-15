@@ -8,10 +8,6 @@ on:
   release:
 
 env:
-  # only needed for Py3.5 on Windows for some reason
-  # ideally, would be picked up from pyproject.toml
-  CIBW_BEFORE_BUILD: pip install scikit-build cython cmake
-
   CIBW_TEST_REQUIRES: pytest numpy
   CIBW_TEST_COMMAND: pytest {project}/tests
 
