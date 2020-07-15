@@ -62,7 +62,6 @@ jobs:
           CIBW_SKIP: pp* *-manylinux_i686
         run: |
           python -m cibuildwheel --output-dir wheelhouse
-          python setup.py sdist --dist-dir=wheelhouse
 
       - name: Make sdist
         if: startsWith(matrix.os, 'ubuntu')
