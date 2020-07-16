@@ -32,17 +32,18 @@ cpdef void haversine_vect(
 
     cdef h3lib.GeoCoord p1, p2
 
-    # todo: add these back in when cython 3.0 comes out
-    #assert len(a) == len(b)
-    #assert len(a) <= len(out)
+    with nogil:
+        # todo: add these back in when cython 3.0 comes out
+        #assert len(a) == len(b)
+        #assert len(a) <= len(out)
 
-    for i in range(len(a)):
-        h3lib.h3ToGeo(a[i], &p1)
-        h3lib.h3ToGeo(b[i], &p2)
-        out[i] = haversineDistance(
-            p1.lat, p1.lng,
-            p2.lat, p2.lng
-        )
+        for i in range(len(a)):
+            h3lib.h3ToGeo(a[i], &p1)
+            h3lib.h3ToGeo(b[i], &p2)
+            out[i] = haversineDistance(
+                p1.lat, p1.lng,
+                p2.lat, p2.lng
+            )
 
 @boundscheck(False)
 @wraparound(False)
@@ -55,6 +56,7 @@ cpdef void geo_to_h3_vect(
 
     cdef h3lib.GeoCoord c
 
-    for i in range(len(lat)):
-        c = deg2coord(lat[i], lng[i])
-        out[i] = h3lib.geoToH3(&c, res)
+    with nogil:
+        for i in range(len(lat)):
+            c = deg2coord(lat[i], lng[i])
+            out[i] = h3lib.geoToH3(&c, res)
