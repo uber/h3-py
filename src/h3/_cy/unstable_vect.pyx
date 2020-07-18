@@ -1,9 +1,6 @@
 cimport h3lib
 from h3lib cimport H3int
-from .util cimport (
-    deg2coord,
-    coord2deg,
-)
+from .util cimport deg2coord
 
 from cython cimport boundscheck, wraparound
 from libc.math cimport sqrt, sin, cos, asin
