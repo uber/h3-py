@@ -812,4 +812,51 @@ def _api_functions(
 
         return faces
 
+    def experimental_h3_to_local_ij(origin, h):
+        """
+        Return local (i,j) coordinates of cell `h` in relation to `origin` cell
+
+
+        Parameters
+        ----------
+        origin : H3Cell
+            Origin/central cell for defining i,j coordinates.
+        h: H3Cell
+            Destination cell whose i,j coordinates we'd like, based off
+            of the origin cell.
+
+
+        Returns
+        -------
+        Tuple (i, j) of integer local coordinates of cell `h`
+        """
+        origin = _in_scalar(origin)
+        h = _in_scalar(h)
+
+        i, j = _cy.experimental_h3_to_local_ij(origin, h)
+
+        return i, j
+
+    def experimental_local_ij_to_h3(origin, i, j):
+        """
+        Return cell at local (i,j) position relative to the `origin` cell.
+
+        Parameters
+        ----------
+        origin : H3Cell
+            Origin/central cell for defining i,j coordinates.
+        i, j: int
+            Integer coordinates with respect to `origin` cell.
+
+        Returns
+        -------
+        H3Cell at local (i,j) position relative to the `origin` cell
+        """
+        origin = _in_scalar(origin)
+
+        h = _cy.experimental_local_ij_to_h3(origin, i, j)
+        h = _out_scalar(h)
+
+        return h
+
     _globals.update(locals())
