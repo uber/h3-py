@@ -5,7 +5,7 @@
 [![PyPI version](https://badge.fury.io/py/h3.svg)](https://badge.fury.io/py/h3)
 [![PyPI downloads](https://pypip.in/d/h3/badge.png)](https://pypistats.org/packages/h3)
 [![conda](https://img.shields.io/conda/vn/conda-forge/h3-py.svg)](https://anaconda.org/conda-forge/h3-py)
-[![version](https://img.shields.io/badge/h3-v3.6.3-blue.svg)](https://github.com/uber/h3/releases/tag/v3.6.3)
+[![version](https://img.shields.io/badge/h3-v3.6.4-blue.svg)](https://github.com/uber/h3/releases/tag/v3.6.4)
 [![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 [![CI-linux](https://github.com/uber/h3-py/workflows/CI-linux/badge.svg)](https://github.com/uber/h3-py/actions)
