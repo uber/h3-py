@@ -611,6 +611,3 @@ def test_to_local_ij_self():
     out = h3.experimental_h3_to_local_ij(h, h)
 
     assert out == (-858, -2766)
-
-    # weird, shouldn't it be:
-    # assert out == (0,0)

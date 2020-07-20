@@ -829,6 +829,19 @@ def _api_functions(
         Returns
         -------
         Tuple (i, j) of integer local coordinates of cell `h`
+
+
+        Implementation Notes
+        --------------------
+
+        The `origin` cell does not define (0, 0) for the IJ coordinate space.
+        (0, 0) refers to the center of the base cell containing origin at the
+        resolution of `origin`.
+        Subtracting the IJ coordinates of `origin` from every cell would get
+        you the property of (0, 0) being the `origin`.
+
+        This is done so we don't need to keep recomputing the coordinates of
+        `origin` if not needed.
         """
         origin = _in_scalar(origin)
         h = _in_scalar(h)
@@ -848,9 +861,23 @@ def _api_functions(
         i, j: int
             Integer coordinates with respect to `origin` cell.
 
+
         Returns
         -------
         H3Cell at local (i,j) position relative to the `origin` cell
+
+
+        Implementation Notes
+        --------------------
+
+        The `origin` cell does not define (0, 0) for the IJ coordinate space.
+        (0, 0) refers to the center of the base cell containing origin at the
+        resolution of `origin`.
+        Subtracting the IJ coordinates of `origin` from every cell would get
+        you the property of (0, 0) being the `origin`.
+
+        This is done so we don't need to keep recomputing the coordinates of
+        `origin` if not needed.
         """
         origin = _in_scalar(origin)
 
