@@ -22,7 +22,7 @@ avoid adding features or APIs which do not map onto the
     + `h3.unstable.vect.cell_haversine` (#147)
     + `h3.unstable.vect.geo_to_h3` (#147)
     + Prototype v4 names under `h3.unstable.v4` (#146)
-
+- Update `h3-c` to v3.6.4
 
 ## [3.6.3] - 2020-06-04
 
