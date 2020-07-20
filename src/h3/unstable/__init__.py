@@ -6,3 +6,4 @@ warnings.warn(
 )
 
 from . import v4
+from . import vect
