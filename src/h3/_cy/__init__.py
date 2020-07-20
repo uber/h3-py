@@ -34,6 +34,8 @@ from .cells import (
     get_res0_indexes,
     center_child,
     get_faces,
+    experimental_h3_to_local_ij,
+    experimental_local_ij_to_h3,
 )
 
 from .edges import (

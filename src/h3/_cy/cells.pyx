@@ -334,3 +334,40 @@ cpdef get_faces(H3int h):
 
     return faces
 
+
+cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
+    cdef:
+        int flag
+        h3lib.CoordIJ c
+
+    check_cell(origin)
+    check_cell(h)
+
+    flag = h3lib.experimentalH3ToLocalIj(origin, h, &c)
+
+    if flag != 0:
+        s = "Couldn't find local (i,j) between cells {} and {}."
+        s = s.format(hex(origin), hex(h))
+        raise H3ValueError(s)
+
+    return c.i, c.j
+
+
+cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
+    cdef:
+        int flag
+        h3lib.CoordIJ c
+        H3int out
+
+    check_cell(origin)
+
+    c.i, c.j = i, j
+
+    flag = h3lib.experimentalLocalIjToH3(origin, &c, &out)
+
+    if flag != 0:
+        s = "Couldn't find cell at local ({},{}) from cell {}."
+        s = s.format(i, j, hex(origin))
+        raise H3ValueError(s)
+
+    return out
