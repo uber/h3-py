@@ -48,12 +48,11 @@ cdef extern from "h3api.h":
         LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
         LinkedGeoPolygon *next
 
-    H3Index geoToH3(const GeoCoord *g, int res) nogil
     ctypedef struct CoordIJ:
         int i
         int j
 
-    H3Index geoToH3(const GeoCoord *g, int res)
+    H3Index geoToH3(const GeoCoord *g, int res) nogil
 
     void h3ToGeo(H3Index h3, GeoCoord *g) nogil
 
