@@ -52,7 +52,7 @@ conda install h3-py
 Browse [a collection of example notebooks](https://github.com/uber/h3-py-notebooks),
 and if you have examples or visualizations of your own, please feel free to contribute!
 
-We also have a simple [walkthrough of the API](https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/Usage.ipynb).
+We also have a simple [walkthrough of the API](https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/notebooks/usage.ipynb).
 For more information, please see the [H3 Documentation](https://h3geo.org/).
 
 
