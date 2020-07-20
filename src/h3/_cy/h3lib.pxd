@@ -49,6 +49,11 @@ cdef extern from "h3api.h":
         LinkedGeoPolygon *next
 
     H3Index geoToH3(const GeoCoord *g, int res) nogil
+    ctypedef struct CoordIJ:
+        int i
+        int j
+
+    H3Index geoToH3(const GeoCoord *g, int res)
 
     void h3ToGeo(H3Index h3, GeoCoord *g) nogil
 
@@ -151,3 +156,7 @@ cdef extern from "h3api.h":
     int maxFaceCount(H3Index h3)
 
     void h3GetFaces(H3Index h3, int *out)
+
+    int experimentalH3ToLocalIj(H3Index origin, H3Index h3, CoordIJ *out)
+
+    int experimentalLocalIjToH3(H3Index origin, const CoordIJ *ij, H3Index *out)
