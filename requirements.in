@@ -1,0 +1,9 @@
+# Required for pip-compile until
+# https://github.com/jazzband/pip-tools/issues/1047 is resolved.
+#
+# In the meantime, this information is duplicated from
+# pyproject.toml
+
+scikit-build
+cython
+cmake
