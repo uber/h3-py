@@ -1,8 +1,6 @@
 cimport h3lib
 from h3lib cimport H3int, GeoCoord, GeoBoundary
-from .util cimport deg2coord
 
-from cython cimport boundscheck, wraparound
 from libc.math cimport sqrt, sin, cos, tan, asin, atan
 
 # cdef double haversine_cells
@@ -58,20 +56,25 @@ cdef double cell_area_radians(H3int h) nogil:
     h3lib.h3ToGeo(h, &c)
     h3lib.h3ToGeoBoundary(h, &gb)
 
+    # can probably optimize this by re-using the shared edges
+
     A = 0.0
-    for i in range(gb.num_verts):
+    # how to clean up this for loop in C?
+    N = gb.num_verts
+    for i in range(N):
         j = i + 1
-        if j == gb.num_verts:
+        if j == N:
             j = 0
 
         A += area_triangle(gb.verts[i], gb.verts[j], c)
 
     return A
 
-cpdef double cell_area_km2(H3int h):
+cpdef double cell_area(H3int h, float unit_per_km = 1):
     # how about a `unit_per_km` factor, defaults to 1?
     # we really don't need two functions...
     # except, maybe, for radian functions
     cdef double earth_radius_km = 6371.007180918475
+    R = earth_radius_km*unit_per_km
 
-    return cell_area_radians(h)*earth_radius_km*earth_radius_km
+    return cell_area_radians(h)*R*R
