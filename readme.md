@@ -8,9 +8,7 @@
 [![version](https://img.shields.io/badge/h3-v3.6.4-blue.svg)](https://github.com/uber/h3/releases/tag/v3.6.4)
 [![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-[![CI-linux](https://github.com/uber/h3-py/workflows/CI-linux/badge.svg)](https://github.com/uber/h3-py/actions)
-[![CI-macos](https://github.com/uber/h3-py/workflows/CI-macos/badge.svg)](https://github.com/uber/h3-py/actions)
-[![CI-windows](https://github.com/uber/h3-py/workflows/CI-windows/badge.svg)](https://github.com/uber/h3-py/actions)
+[![Tests](https://github.com/uber/h3-py/workflows/tests/badge.svg)](https://github.com/uber/h3-py/actions)
 [![codecov](https://codecov.io/gh/uber/h3-py/branch/master/graph/badge.svg)](https://codecov.io/gh/uber/h3-py)
 
 Python bindings for the
