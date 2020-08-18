@@ -14,7 +14,7 @@
 Python bindings for the
 [H3 Core Library](https://github.com/uber/h3).
 
-For API reference, please see the
+For API reference, see the
 [H3 Documentation](https://h3geo.org/).
 
 
