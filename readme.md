@@ -17,10 +17,6 @@ Python bindings for the
 For API reference, please see the
 [H3 Documentation](https://h3geo.org/).
 
-**New since v3.6.1**: We upload pre-built
-[Python Wheels to PyPI](https://pypi.org/project/h3) for Linux/Mac/Windows,
-which should avoid many previous installation issues.
-
 
 ## Installation
 
@@ -34,6 +30,11 @@ From [conda](https://github.com/conda-forge/h3-py-feedstock):
 conda config --add channels conda-forge
 conda install h3-py
 ```
+
+**New since v3.6.1**: We upload pre-built
+[Python Wheels to PyPI](https://pypi.org/project/h3) for Linux/Mac/Windows,
+which should avoid many previous installation issues.
+
 
 ## Usage
 
