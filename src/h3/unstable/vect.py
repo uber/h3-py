@@ -2,6 +2,7 @@ from .._cy import unstable_vect as _vect
 
 import numpy as np
 
+
 def h3_to_parent(h, res):
     """
     Get parent of arrays of cells
@@ -22,6 +23,7 @@ def h3_to_parent(h, res):
     _vect.h3_to_parent_vect(h, res, out)
 
     return out
+
 
 def geo_to_h3(lats, lngs, res):
     """

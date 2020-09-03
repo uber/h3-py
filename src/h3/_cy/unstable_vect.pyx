@@ -66,8 +66,5 @@ cpdef void h3_to_parent_vect(
     H3Index[:] out
 ):
 
-    # cdef H3Index c
-
     for i in range(len(h)):
-        # c = h[i]
         out[i] = h3lib.h3ToParent(h[i], res)
