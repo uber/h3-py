@@ -2,10 +2,30 @@ from .._cy import unstable_vect as _vect
 
 import numpy as np
 
+def h3_to_parent(h, res):
+    """
+    Get parent of arrays of cells
+
+    Parameters
+    ----------
+    h : array of H3Cells
+
+    res: int
+        Resolution for output cells.
+
+    Returns
+    -------
+    array of H3Cells
+    """
+    out = np.zeros(len(h), dtype='uint64')
+
+    _vect.h3_to_parent_vect(h, res, out)
+
+    return out
 
 def geo_to_h3(lats, lngs, res):
     """
-    Convert arrays describing lat/lng paris to cells.
+    Convert arrays describing lat/lng pairs to cells.
 
     Parameters
     ----------

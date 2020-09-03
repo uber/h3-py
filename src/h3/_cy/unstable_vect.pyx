@@ -1,5 +1,5 @@
 cimport h3lib
-from h3lib cimport H3int
+from h3lib cimport H3int, H3Index
 from .util cimport deg2coord
 
 from cython cimport boundscheck, wraparound
@@ -57,3 +57,17 @@ cpdef void geo_to_h3_vect(
         for i in range(len(lat)):
             c = deg2coord(lat[i], lng[i])
             out[i] = h3lib.geoToH3(&c, res)
+
+@boundscheck(False)
+@wraparound(False)
+cpdef void h3_to_parent_vect(
+    const H3Index[:] h,
+    int res,
+    H3Index[:] out
+):
+
+    # cdef H3Index c
+
+    for i in range(len(h)):
+        # c = h[i]
+        out[i] = h3lib.h3ToParent(h[i], res)
