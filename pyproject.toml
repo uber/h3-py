@@ -3,4 +3,5 @@ requires = [
     'scikit-build',
     'cython',
     'cmake',
+    'numpy >= 1.15'
 ]

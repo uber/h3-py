@@ -7,3 +7,4 @@
 scikit-build
 cython
 cmake
+numpy

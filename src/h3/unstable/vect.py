@@ -18,9 +18,7 @@ def h3_to_parent(h, res):
     -------
     array of H3Cells
     """
-    out = np.zeros(len(h), dtype='uint64')
-
-    _vect.h3_to_parent_vect(h, res, out)
+    out = _vect.h3_to_parent_vect(h, res)
 
     return out
 

@@ -1,3 +1,10 @@
+#!python
+import numpy as np
+cimport numpy as np
+
+# https://github.com/cython/cython/wiki/tutorials-numpy#c-api-initialization
+np.import_array()
+
 cimport h3lib
 from h3lib cimport H3int, H3Index
 from .util cimport deg2coord
@@ -58,14 +65,30 @@ cpdef void geo_to_h3_vect(
             c = deg2coord(lat[i], lng[i])
             out[i] = h3lib.geoToH3(&c, res)
 
+# Ufunc example from
+# https://github.com/cython/cython/wiki/tutorials-numpy#dimensionally-simple-functions
 @boundscheck(False)
 @wraparound(False)
-cpdef void h3_to_parent_vect(
-    const H3Index[:] h,
-    int res,
-    H3Index[:] out
-) nogil:
+cpdef h3_to_parent_vect(
+    h,
+    int res
+):
+    # generate a new output array of the correct shape
+    out = np.empty(np.broadcast(h).shape, np.uint64)
 
-    with nogil:
-        for i in range(len(h)):
-            out[i] = h3lib.h3ToParent(h[i], res)
+    #generate the iterator over the input and output arrays, does the same thing as
+    # PyArray_MultiIterNew
+
+    cdef np.broadcast it = np.broadcast(h, out)
+
+    while np.PyArray_MultiIter_NOTDONE(it):
+        #PyArray_MultiIter_DATA is used to access the pointers the iterator points to
+        hval = (<H3Index*>np.PyArray_MultiIter_DATA(it, 0))[0]
+
+        # Set value
+        (<H3Index*>np.PyArray_MultiIter_DATA(it, 1))[0] = h3lib.h3ToParent(hval, res)
+
+        #PyArray_MultiIter_NEXT is used to advance the iterator
+        np.PyArray_MultiIter_NEXT(it)
+
+    return out
