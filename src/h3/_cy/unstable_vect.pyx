@@ -64,7 +64,8 @@ cpdef void h3_to_parent_vect(
     const H3Index[:] h,
     int res,
     H3Index[:] out
-):
+) nogil:
 
-    for i in range(len(h)):
-        out[i] = h3lib.h3ToParent(h[i], res)
+    with nogil:
+        for i in range(len(h)):
+            out[i] = h3lib.h3ToParent(h[i], res)

@@ -106,7 +106,7 @@ cdef extern from "h3api.h":
 
     int h3IsValid(H3Index h)
 
-    H3Index h3ToParent(H3Index h, int parentRes)
+    H3Index h3ToParent(H3Index h, int parentRes) nogil
 
     int maxH3ToChildrenSize(H3Index h, int childRes)
 
