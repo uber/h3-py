@@ -65,12 +65,13 @@ cpdef void h3_to_parent(
     H3Index[:] h,
     int res,
     H3Index[:] out
-):
+) nogil:
     # Py_ssize_t is the proper C type for Python array indices.
     cdef Py_ssize_t i
 
-    for i in range(len(h)):
-        out[i] = h3lib.h3ToParent(h[i], res)
+    with nogil:
+        for i in range(len(h)):
+            out[i] = h3lib.h3ToParent(h[i], res)
 
 @boundscheck(False)
 @wraparound(False)
