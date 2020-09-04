@@ -18,9 +18,31 @@ def h3_to_parent(h, res):
     -------
     array of H3Cells
     """
-    out = _vect.h3_to_parent_vect(h, res)
+    shape = h.shape
+    out = _vect.h3_to_parent(h.ravel(), res)
+    return out.reshape(shape)
 
-    return out
+def hex_ring(h, k=1):
+    """
+    Return unordered set of cells with H3 distance `== k` from `h`.
+    That is, the "hollow" ring.
+
+    Parameters
+    ----------
+    h : array of H3Cells
+    k : int
+        Size of ring.
+
+    Returns
+    -------
+    unordered collection of H3Cell
+    """
+    shape = h.shape
+    out = _vect.hex_ring(h.ravel(), k)
+    if len(out.shape) > 1:
+        shape = list(shape) + list(out.shape[1:])
+
+    return out.reshape(shape)
 
 
 def geo_to_h3(lats, lngs, res):

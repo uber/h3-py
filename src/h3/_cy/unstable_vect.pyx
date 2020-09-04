@@ -8,6 +8,7 @@ np.import_array()
 cimport h3lib
 from h3lib cimport H3int, H3Index
 from .util cimport deg2coord
+from .cells import ring
 
 from cython cimport boundscheck, wraparound
 from libc.math cimport sqrt, sin, cos, asin
@@ -65,30 +66,43 @@ cpdef void geo_to_h3_vect(
             c = deg2coord(lat[i], lng[i])
             out[i] = h3lib.geoToH3(&c, res)
 
-# Ufunc example from
-# https://github.com/cython/cython/wiki/tutorials-numpy#dimensionally-simple-functions
 @boundscheck(False)
 @wraparound(False)
-cpdef h3_to_parent_vect(
-    h,
+cpdef np.ndarray[H3Index, ndim=1] h3_to_parent(
+    np.ndarray[H3Index, ndim=1] h,
     int res
 ):
     # generate a new output array of the correct shape
-    out = np.empty(np.broadcast(h).shape, np.uint64)
+    cdef np.ndarray[H3Index, ndim=1] out = np.empty(len(h), np.uint64)
 
-    #generate the iterator over the input and output arrays, does the same thing as
-    # PyArray_MultiIterNew
+    # Py_ssize_t is the proper C type for Python array indices.
+    cdef Py_ssize_t i
 
-    cdef np.broadcast it = np.broadcast(h, out)
+    for i in range(len(h)):
+        out[i] = h3lib.h3ToParent(h[i], res)
 
-    while np.PyArray_MultiIter_NOTDONE(it):
-        #PyArray_MultiIter_DATA is used to access the pointers the iterator points to
-        hval = (<H3Index*>np.PyArray_MultiIter_DATA(it, 0))[0]
+    return out
 
-        # Set value
-        (<H3Index*>np.PyArray_MultiIter_DATA(it, 1))[0] = h3lib.h3ToParent(hval, res)
+@boundscheck(False)
+@wraparound(False)
+cpdef np.ndarray[H3Index, ndim=2] hex_ring(
+    np.ndarray[H3Index, ndim=1] h,
+    int k
+):
+    # new dimension size
+    cdef int newdim = k * 6
 
-        #PyArray_MultiIter_NEXT is used to advance the iterator
-        np.PyArray_MultiIter_NEXT(it)
+    cdef np.ndarray[H3Index, ndim=2] out = np.empty((len(h), newdim), np.uint64)
+    cdef H3Index [:, :] out_view = out
+    cdef H3Index [:] h_view = h
+
+    # Py_ssize_t is the proper C type for Python array indices.
+    cdef Py_ssize_t i, j
+    cdef H3int[:] ring_vals
+
+    for i in range(len(h)):
+        ring_vals = ring(h[i], k)
+        for j in range(newdim):
+            out[i, j] = ring_vals[j]
 
     return out
