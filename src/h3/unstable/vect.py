@@ -19,7 +19,8 @@ def h3_to_parent(h, res):
     array of H3Cells
     """
     shape = h.shape
-    out = _vect.h3_to_parent(h.ravel(), res)
+    out = np.zeros(np.prod(shape), dtype=np.uint64)
+    _vect.h3_to_parent(h.ravel(), res, out)
     return out.reshape(shape)
 
 def hex_ring(h, k=1):
@@ -38,9 +39,11 @@ def hex_ring(h, k=1):
     unordered collection of H3Cell
     """
     shape = h.shape
-    out = _vect.hex_ring(h.ravel(), k)
-    if len(out.shape) > 1:
-        shape = list(shape) + list(out.shape[1:])
+    newdim = k * 6
+    out = np.zeros((np.prod(shape), newdim), dtype=np.uint64)
+
+    _vect.hex_ring(h.ravel(), k, out)
+    shape = list(shape) + [newdim]
 
     return out.reshape(shape)
 

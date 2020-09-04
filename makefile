@@ -3,7 +3,6 @@
 init: purge
 	git submodule update --init
 	virtualenv -p python3 env
-	pip install numpy
 	env/bin/pip install .[all]
 
 clear:

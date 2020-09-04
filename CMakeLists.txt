@@ -19,8 +19,3 @@ add_subdirectory(src/h3lib)
 # Build the rest (other than the core library dependency) as shared
 set(BUILD_SHARED_LIBS ON)
 add_subdirectory(src/h3)
-
-# Include Numpy
-# TODO: make optional
-find_package(NumPy REQUIRED)
-target_include_directories(h3 PUBLIC ${NumPy_INCLUDE_DIRS})

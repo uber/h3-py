@@ -1,10 +1,3 @@
-#!python
-import numpy as np
-cimport numpy as np
-
-# https://github.com/cython/cython/wiki/tutorials-numpy#c-api-initialization
-np.import_array()
-
 cimport h3lib
 from h3lib cimport H3int, H3Index
 from .util cimport deg2coord
@@ -68,33 +61,26 @@ cpdef void geo_to_h3_vect(
 
 @boundscheck(False)
 @wraparound(False)
-cpdef np.ndarray[H3Index, ndim=1] h3_to_parent(
-    np.ndarray[H3Index, ndim=1] h,
-    int res
+cpdef void h3_to_parent(
+    H3Index[:] h,
+    int res,
+    H3Index[:] out
 ):
-    # generate a new output array of the correct shape
-    cdef np.ndarray[H3Index, ndim=1] out = np.empty(len(h), np.uint64)
-
     # Py_ssize_t is the proper C type for Python array indices.
     cdef Py_ssize_t i
 
     for i in range(len(h)):
         out[i] = h3lib.h3ToParent(h[i], res)
 
-    return out
-
 @boundscheck(False)
 @wraparound(False)
-cpdef np.ndarray[H3Index, ndim=2] hex_ring(
-    np.ndarray[H3Index, ndim=1] h,
-    int k
+cpdef void hex_ring(
+    const H3Index[:] h,
+    int k,
+    H3Index[:, :] out
 ):
     # new dimension size
     cdef int newdim = k * 6
-
-    cdef np.ndarray[H3Index, ndim=2] out = np.empty((len(h), newdim), np.uint64)
-    cdef H3Index [:, :] out_view = out
-    cdef H3Index [:] h_view = h
 
     # Py_ssize_t is the proper C type for Python array indices.
     cdef Py_ssize_t i, j
@@ -104,5 +90,3 @@ cpdef np.ndarray[H3Index, ndim=2] hex_ring(
         ring_vals = ring(h[i], k)
         for j in range(newdim):
             out[i, j] = ring_vals[j]
-
-    return out
