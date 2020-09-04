@@ -1,7 +1,7 @@
 cimport h3lib
 from h3lib cimport H3int, H3Index
 from .util cimport deg2coord
-from .cells import ring
+from .cells cimport ring
 
 from cython cimport boundscheck, wraparound
 from libc.math cimport sqrt, sin, cos, asin
@@ -85,9 +85,12 @@ cpdef void hex_ring(
 
     # Py_ssize_t is the proper C type for Python array indices.
     cdef Py_ssize_t i, j
-    cdef H3int[:] ring_vals
+    cdef H3Index[:] ring_vals_view
 
     for i in range(len(h)):
+        # Two steps necessary because you can't set ring() output directly onto
+        # a view
         ring_vals = ring(h[i], k)
+        ring_vals_view = ring_vals
         for j in range(newdim):
-            out[i, j] = ring_vals[j]
+            out[i, j] = ring_vals_view[j]
