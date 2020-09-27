@@ -13,6 +13,7 @@ def approx2(a, b):
         for x, y in zip(a, b)
     )
 
+
 def cell_perimiter1(h, unit='km'):
     edges = h3.get_h3_unidirectional_edges_from_hexagon(h)
 
@@ -32,7 +33,7 @@ def cell_perimiter2(h, unit='km'):
     verts += (verts[0],)
 
     dists = [
-        h3.point_dist(verts[i], verts[i+1], unit=unit)
+        h3.point_dist(verts[i], verts[i + 1], unit=unit)
         for i in range(N)
     ]
 
@@ -62,7 +63,7 @@ def test_areas_at_00():
     ]
 
     out = [
-        h3.cell_area(h3.geo_to_h3(0,0,r), unit='km^2')
+        h3.cell_area(h3.geo_to_h3(0, 0, r), unit='km^2')
         for r in range(16)
     ]
 
@@ -88,7 +89,7 @@ def test_areas_at_00():
     ]
 
     out = [
-        h3.cell_area(h3.geo_to_h3(0,0,r), unit='rads^2')
+        h3.cell_area(h3.geo_to_h3(0, 0, r), unit='rads^2')
         for r in range(16)
     ]
 
@@ -109,11 +110,11 @@ def test_bad_units():
         h3.exact_edge_length(h, unit='foot-pounds')
 
     with pytest.raises(H3ValueError):
-        h3.point_dist((0,0), (0,0), unit='foot-pounds')
+        h3.point_dist((0, 0), (0, 0), unit='foot-pounds')
 
 
 def test_point_dist():
-    lyon = (45.7597, 4.8422) # (lat, lon)
+    lyon = (45.7597, 4.8422)  # (lat, lon)
     paris = (48.8567, 2.3508)
 
     d = h3.point_dist(lyon, paris, unit='rads')
@@ -140,4 +141,3 @@ def test_cell_perimiter_calculations():
                 v2 = cell_perimiter2(h, unit)
 
                 assert v1 == pytest.approx(v2)
-
