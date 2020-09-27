@@ -886,4 +886,28 @@ def _api_functions(
 
         return h
 
+
+    def cell_area(h, unit='km^2'):
+        h = _in_scalar(h)
+
+        return _cy.cell_area(h, unit=unit)
+
+
+    def exact_edge_length(e, unit='km'):
+        e = _in_scalar(e)
+
+        return _cy.edge_length(e, unit=unit)
+
+
+    def point_dist(point1, point2, unit='km'):
+        lat1, lng1 = point1
+        lat2, lng2 = point2
+
+        return _cy.point_dist(
+            lat1, lng1,
+            lat2, lng2,
+            unit=unit
+        )
+
+
     _globals.update(locals())
