@@ -4,6 +4,7 @@ from .h3lib cimport bool, H3int
 from .util cimport (
     check_cell,
     check_edge,
+    check_res,
     create_ptr,
     create_mv,
 )
@@ -59,3 +60,41 @@ cpdef H3int[:] edges_from_cell(H3int origin):
     mv = create_mv(ptr, 6)
 
     return mv
+
+
+cpdef double mean_edge_length(int resolution, unit='km') except -1:
+    check_res(resolution)
+
+    length = h3lib.edgeLengthKm(resolution)
+
+    # todo: multiple units
+    convert = {
+        'km': 1.0,
+        'm': 1000.0
+    }
+
+    try:
+        length *= convert[unit]
+    except:
+        raise H3ValueError('Unknown unit: {}'.format(unit))
+
+    return length
+
+
+cpdef double edge_length(H3int e, unit='km') except -1:
+    check_edge(e)
+
+    # todo: maybe kick this logic up to the python level
+    # it might be a little cleaner, because we can do the "switch statement"
+    # with a dict, but would require exposing more C functions
+
+    if unit == 'rads':
+        length = h3lib.exactEdgeLengthRads(e)
+    elif unit == 'km':
+        length = h3lib.exactEdgeLengthKm(e)
+    elif unit == 'm':
+        length = h3lib.exactEdgeLengthM(e)
+    else:
+        raise H3ValueError('Unknown unit: {}'.format(unit))
+
+    return length
