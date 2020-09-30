@@ -52,7 +52,7 @@ jobs:
       - name: Build Mac
         if: startsWith(matrix.os, 'mac')
         env:
-          CIBW_SKIP: pp*
+          CIBW_SKIP: pp* cp39-*
         run: |
           python -m cibuildwheel --output-dir wheelhouse
 
