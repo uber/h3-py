@@ -887,16 +887,79 @@ def _api_functions(
         return h
 
     def cell_area(h, unit='km^2'):
+        """
+        Compute the spherical surface area of a specific H3 cell.
+
+        Parameters
+        ----------
+        h : H3Cell
+        unit: str
+            Unit for area result ('km^2', 'm^2', or 'rads^2')
+
+
+        Returns
+        -------
+        The area of the H3 cell in the given units
+
+
+        Implementation Notes
+        --------------------
+        This function breaks the cell into spherical triangles, and computes
+        their spherical area.
+        The function uses the spherical distance calculation given by
+        `point_dist`.
+        """
         h = _in_scalar(h)
 
         return _cy.cell_area(h, unit=unit)
 
     def exact_edge_length(e, unit='km'):
+        """
+        Compute the spherical length of a specific H3 edge.
+
+        Parameters
+        ----------
+        h : H3Cell
+        unit: str
+            Unit for length result ('km', 'm', or 'rads')
+
+
+        Returns
+        -------
+        The length of the edge in the given units
+
+
+        Implementation Notes
+        --------------------
+        This function uses the spherical distance calculation given by
+        `point_dist`.
+        """
         e = _in_scalar(e)
 
         return _cy.edge_length(e, unit=unit)
 
     def point_dist(point1, point2, unit='km'):
+        """
+        Compute the spherical distance between two (lat, lng) points.
+
+        todo: do we handle lat/lng points consistently in the api? what
+        about (lat1, lng1, lat2, lng2) as the input? How will this work
+        for vectorized versions?
+
+        Parameters
+        ----------
+        point1 : tuple
+            (lat, lng) tuple in degrees
+        point2 : tuple
+            (lat, lng) tuple in degrees
+        unit: str
+            Unit for distance result ('km', 'm', or 'rads')
+
+
+        Returns
+        -------
+        Spherical (or "haversine") distance between the points
+        """
         lat1, lng1 = point1
         lat2, lng2 = point2
 
