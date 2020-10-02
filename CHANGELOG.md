@@ -12,6 +12,12 @@ Because H3-Py is versioned in lockstep with the H3 core library, please
 avoid adding features or APIs which do not map onto the
 [H3 core API](https://uber.github.io/h3/#/documentation/api-reference/).
 
+## Unreleased
+
+- Add functions (#171)
+    + `cell_area`
+    + `exact_edge_length`
+    + `point_dist`
 
 ## [3.6.4] - 2020-07-20
 
