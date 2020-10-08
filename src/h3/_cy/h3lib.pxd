@@ -56,7 +56,7 @@ cdef extern from "h3api.h":
 
     void h3ToGeo(H3Index h3, GeoCoord *g) nogil
 
-    void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp) nogil
+    void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp)
 
     int maxKringSize(int k)
 
