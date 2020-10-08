@@ -5,23 +5,17 @@
 [![PyPI version](https://badge.fury.io/py/h3.svg)](https://badge.fury.io/py/h3)
 [![PyPI downloads](https://pypip.in/d/h3/badge.png)](https://pypistats.org/packages/h3)
 [![conda](https://img.shields.io/conda/vn/conda-forge/h3-py.svg)](https://anaconda.org/conda-forge/h3-py)
-[![version](https://img.shields.io/badge/h3-v3.6.4-blue.svg)](https://github.com/uber/h3/releases/tag/v3.6.4)
+[![version](https://img.shields.io/badge/h3-v3.7.0-blue.svg)](https://github.com/uber/h3/releases/tag/v3.7.0)
 [![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-[![CI-linux](https://github.com/uber/h3-py/workflows/CI-linux/badge.svg)](https://github.com/uber/h3-py/actions)
-[![CI-macos](https://github.com/uber/h3-py/workflows/CI-macos/badge.svg)](https://github.com/uber/h3-py/actions)
-[![CI-windows](https://github.com/uber/h3-py/workflows/CI-windows/badge.svg)](https://github.com/uber/h3-py/actions)
+[![Tests](https://github.com/uber/h3-py/workflows/tests/badge.svg)](https://github.com/uber/h3-py/actions)
 [![codecov](https://codecov.io/gh/uber/h3-py/branch/master/graph/badge.svg)](https://codecov.io/gh/uber/h3-py)
 
 Python bindings for the
 [H3 Core Library](https://github.com/uber/h3).
 
-For API reference, please see the
+For API reference, see the
 [H3 Documentation](https://h3geo.org/).
-
-**New since v3.6.1**: We upload pre-built
-[Python Wheels to PyPI](https://pypi.org/project/h3) for Linux/Mac/Windows,
-which should avoid many previous installation issues.
 
 
 ## Installation
@@ -36,6 +30,11 @@ From [conda](https://github.com/conda-forge/h3-py-feedstock):
 conda config --add channels conda-forge
 conda install h3-py
 ```
+
+**New since v3.6.1**: We upload pre-built
+[Python Wheels to PyPI](https://pypi.org/project/h3) for Linux/Mac/Windows,
+which should avoid many previous installation issues.
+
 
 ## Usage
 

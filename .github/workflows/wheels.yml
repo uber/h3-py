@@ -23,7 +23,7 @@ jobs:
 
       ## Setup Env
 
-      - uses: actions/checkout@v2.1.1
+      - uses: actions/checkout@v2.3.3
         with:
           submodules: recursive
 
@@ -31,7 +31,7 @@ jobs:
         with:
           python-version: 3.8
 
-      - uses: ilammy/msvc-dev-cmd@v1.2.0
+      - uses: ilammy/msvc-dev-cmd@v1.3.0
         if: startsWith(matrix.os, 'windows')
 
 
@@ -52,7 +52,7 @@ jobs:
       - name: Build Mac
         if: startsWith(matrix.os, 'mac')
         env:
-          CIBW_SKIP: pp*
+          CIBW_SKIP: pp* cp39-*
         run: |
           python -m cibuildwheel --output-dir wheelhouse
 

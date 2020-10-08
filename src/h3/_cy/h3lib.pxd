@@ -86,14 +86,6 @@ cdef extern from "h3api.h":
 
     double radsToDegs(double radians) nogil
 
-    double hexAreaKm2(int res)
-
-    double hexAreaM2(int res)
-
-    double edgeLengthKm(int res)
-
-    double edgeLengthM(int res)
-
     stdint.int64_t numHexagons(int res)
 
     int h3GetResolution(H3Index h)
@@ -149,13 +141,28 @@ cdef extern from "h3api.h":
     void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
 
     int h3LineSize(H3Index start, H3Index end)
-
     int h3Line(H3Index start, H3Index end, H3Index *out)
 
     int maxFaceCount(H3Index h3)
-
     void h3GetFaces(H3Index h3, int *out)
 
     int experimentalH3ToLocalIj(H3Index origin, H3Index h3, CoordIJ *out)
-
     int experimentalLocalIjToH3(H3Index origin, const CoordIJ *ij, H3Index *out)
+
+    double hexAreaKm2(int res) nogil
+    double hexAreaM2(int res) nogil
+
+    double cellAreaRads2(H3Index h) nogil
+    double cellAreaKm2(H3Index h) nogil
+    double cellAreaM2(H3Index h) nogil
+
+    double edgeLengthKm(int res) nogil
+    double edgeLengthM(int res) nogil
+
+    double exactEdgeLengthRads(H3Index edge) nogil
+    double exactEdgeLengthKm(H3Index edge) nogil
+    double exactEdgeLengthM(H3Index edge) nogil
+
+    double pointDistRads(const GeoCoord *a, const GeoCoord *b) nogil
+    double pointDistKm(const GeoCoord *a, const GeoCoord *b) nogil
+    double pointDistM(const GeoCoord *a, const GeoCoord *b) nogil

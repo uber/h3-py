@@ -11,6 +11,8 @@ from .util cimport (
 )
 from libc cimport stdlib
 
+from .util import H3ValueError
+
 
 cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
     cdef:
@@ -255,3 +257,22 @@ def edge_boundary(H3int edge, bool geo_json=False):
         verts = tuple(v[::-1] for v in verts)
 
     return verts
+
+
+cpdef double point_dist(
+    double lat1, double lng1,
+    double lat2, double lng2, unit='km') except -1:
+
+    a = deg2coord(lat1, lng1)
+    b = deg2coord(lat2, lng2)
+
+    if unit == 'rads':
+        d = h3lib.pointDistRads(&a, &b)
+    elif unit == 'km':
+        d = h3lib.pointDistKm(&a, &b)
+    elif unit == 'm':
+        d = h3lib.pointDistM(&a, &b)
+    else:
+        raise H3ValueError('Unknown unit: {}'.format(unit))
+
+    return d
