@@ -2,7 +2,7 @@
 
 init: purge
 	git submodule update --init
-	virtualenv -p python3 env
+	python -m venv env
 	env/bin/pip install .[all]
 
 clear:
