@@ -14,9 +14,11 @@ avoid adding features or APIs which do not map onto the
 
 ## unreleased
 
-- fix for #169: `h3_distance` error reporting
-- build Python 3.9 wheel for Mac
-- bump h3lib version to v3.7.1
+## [3.7.1] - 2020-12-18
+
+- fix for #169: `h3_distance` error reporting (#175)
+- build Python 3.9 wheel for Mac (#175)
+- bump h3lib version to v3.7.1 (#175)
 
 ## [3.7.0] - 2020-10-02
 
