@@ -1,4 +1,4 @@
-__version__ = '3.7.0'
+__version__ = '3.7.1'
 __description__ = 'Hierarchical hexagonal geospatial indexing system'
 __url__ = 'https://github.com/uber/h3-py'
 __license__ = "Apache 2.0 License"
