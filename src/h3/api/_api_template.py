@@ -247,6 +247,9 @@ def _api_functions(
         path between the cells in the graph formed by connecting
         adjacent cells.
 
+        This function will return an H3ValueError if the
+        cells are too far apart to compute the distance.
+
         Parameters
         ----------
         h1 : H3Cell
