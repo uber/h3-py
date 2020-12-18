@@ -35,8 +35,8 @@ jobs:
       - name: Set Windows Compiler
         if: startsWith(matrix.os, 'windows')
         run: |
-          echo "::set-env name=CC::cl.exe"
-          echo "::set-env name=CXX::cl.exe"
+          echo "CC=cl.exe" >> $GITHUB_ENV
+          echo "CXX=cl.exe" >> $GITHUB_ENV
       ## End Windows stuff
 
       - name: Install from source
