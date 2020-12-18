@@ -52,6 +52,11 @@ cpdef int distance(H3int h1, H3int h2) except -1:
 
     d = h3lib.h3Distance(h1,h2)
 
+    if d < 0:
+        s = 'Cells are too far apart to compute distance: {} and {}'
+        s = s.format(hex(h1), hex(h2))
+        raise H3ValueError(s)
+
     return d
 
 cpdef H3int[:] disk(H3int h, int k):

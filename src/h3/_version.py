@@ -1,4 +1,4 @@
-__version__ = '3.7.0'
+__version__ = '3.7.1'
 __description__ = 'Hierarchical hexagonal geospatial indexing system'
 __url__ = 'https://github.com/uber/h3-py'
 __license__ = "Apache 2.0 License"
@@ -16,6 +16,7 @@ __classifiers__ = [
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: POSIX :: Linux",
     "Operating System :: Microsoft :: Windows",

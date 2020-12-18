@@ -195,6 +195,14 @@ def test_distance():
     assert h3.h3_distance(h, n) == 2
 
 
+def test_distance_error():
+    h1 = '8353b0fffffffff'
+    h2 = '835804fffffffff'
+
+    with pytest.raises(H3ValueError):
+        h3.h3_distance(h1, h2)
+
+
 def test_compact():
 
     # lat/lngs for State of Maine

@@ -31,7 +31,7 @@ jobs:
         with:
           python-version: 3.8
 
-      - uses: ilammy/msvc-dev-cmd@v1.3.0
+      - uses: ilammy/msvc-dev-cmd@v1.5.0
         if: startsWith(matrix.os, 'windows')
 
 
@@ -52,7 +52,7 @@ jobs:
       - name: Build Mac
         if: startsWith(matrix.os, 'mac')
         env:
-          CIBW_SKIP: pp* cp39-*
+          CIBW_SKIP: pp*
         run: |
           python -m cibuildwheel --output-dir wheelhouse
 

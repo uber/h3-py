@@ -12,6 +12,14 @@ Because H3-Py is versioned in lockstep with the H3 core library, please
 avoid adding features or APIs which do not map onto the
 [H3 core API](https://uber.github.io/h3/#/documentation/api-reference/).
 
+## unreleased
+
+## [3.7.1] - 2020-12-18
+
+- fix for #169: `h3_distance` error reporting (#175)
+- build Python 3.9 wheel for Mac (#175)
+- bump h3lib version to v3.7.1 (#175)
+
 ## [3.7.0] - 2020-10-02
 
 - Add functions (#171)

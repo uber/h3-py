@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
-        python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
+        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9]
         exclude:
           - os: windows-latest
             python-version: 2.7
@@ -29,14 +29,14 @@ jobs:
           python-version: "${{ matrix.python-version }}"
 
       ## Start Windows stuff
-      - uses: ilammy/msvc-dev-cmd@v1.3.0
+      - uses: ilammy/msvc-dev-cmd@v1.5.0
         if: startsWith(matrix.os, 'windows')
 
       - name: Set Windows Compiler
         if: startsWith(matrix.os, 'windows')
         run: |
-          echo "::set-env name=CC::cl.exe"
-          echo "::set-env name=CXX::cl.exe"
+          echo "CC=cl.exe" >> $GITHUB_ENV
+          echo "CXX=cl.exe" >> $GITHUB_ENV
       ## End Windows stuff
 
       - name: Install from source
