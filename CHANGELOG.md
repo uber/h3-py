@@ -14,6 +14,7 @@ avoid adding features or APIs which do not map onto the
 
 ## unreleased
 
+- build Python 3.9 wheel for Mac
 - bump h3lib version to v3.7.1
 
 ## [3.7.0] - 2020-10-02
