@@ -3,24 +3,48 @@ from .._cy import unstable_vect as _vect
 import numpy as np
 
 
-def h3_to_parent(h, res):
+def h3_to_parent(h, res=None):
     """
-    Get parent of arrays of cells
+    Get parent of arrays of cells.
 
     Parameters
     ----------
     h : array of H3Cells
-
-    res: int
-        Resolution for output cells.
+    res: int or None, optional
+        The resolution for the parent
+        If `None`, then `res = resolution(h) - 1`
 
     Returns
     -------
     array of H3Cells
     """
-    out = np.zeros(len(h), dtype='uint64')
+    out = np.zeros(len(h), dtype=np.uint64)
+
+    if res is None:
+        res = h3_get_resolution(h) - 1
+    else:
+        res = np.full(h.shape, res, dtype=np.uint8)
 
     _vect.h3_to_parent_vect(h, res, out)
+
+    return out
+
+
+def h3_get_resolution(h):
+    """
+    Return the resolution of an array of H3 cells.
+
+    Parameters
+    ----------
+    h : H3Cell
+
+    Returns
+    -------
+    array of uint8
+    """
+    out = np.zeros(len(h), dtype=np.uint8)
+
+    _vect.h3_get_resolution_vect(h, out)
 
     return out
 

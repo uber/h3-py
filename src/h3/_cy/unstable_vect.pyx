@@ -1,5 +1,5 @@
 cimport h3lib
-from h3lib cimport H3int, H3Index
+from h3lib cimport H3int
 from .util cimport deg2coord
 
 from cython cimport boundscheck, wraparound
@@ -42,6 +42,7 @@ cpdef void haversine_vect(
                 p2.lat, p2.lng
             )
 
+
 @boundscheck(False)
 @wraparound(False)
 cpdef void geo_to_h3_vect(
@@ -58,14 +59,31 @@ cpdef void geo_to_h3_vect(
             c = deg2coord(lat[i], lng[i])
             out[i] = h3lib.geoToH3(&c, res)
 
+
 @boundscheck(False)
 @wraparound(False)
 cpdef void h3_to_parent_vect(
-    const H3Index[:] h,
-    int res,
-    H3Index[:] out
+    const H3int[:] h,
+    unsigned char[:] res,
+    H3int[:] out
 ) nogil:
+
+    cdef Py_ssize_t i
 
     with nogil:
         for i in range(len(h)):
-            out[i] = h3lib.h3ToParent(h[i], res)
+            out[i] = h3lib.h3ToParent(h[i], res[i])
+
+
+@boundscheck(False)
+@wraparound(False)
+cpdef void h3_get_resolution_vect(
+    const H3int[:] h,
+    unsigned char[:] out,
+) nogil:
+
+    cdef Py_ssize_t i
+
+    with nogil:
+        for i in range(len(h)):
+            out[i] = h3lib.h3GetResolution(h[i])

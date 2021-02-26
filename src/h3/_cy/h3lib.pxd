@@ -88,7 +88,7 @@ cdef extern from "h3api.h":
 
     stdint.int64_t numHexagons(int res)
 
-    int h3GetResolution(H3Index h)
+    int h3GetResolution(H3Index h) nogil
 
     int h3GetBaseCell(H3Index h)
 
