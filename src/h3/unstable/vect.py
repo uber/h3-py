@@ -18,6 +18,7 @@ def h3_to_parent(h, res=None):
     -------
     array of H3Cells
     """
+    h = np.array(h, dtype=np.uint64)
     out = np.zeros(len(h), dtype=np.uint64)
 
     if res is None:
@@ -42,6 +43,7 @@ def h3_get_resolution(h):
     -------
     array of uint8
     """
+    h = np.array(h, dtype=np.uint64)
     out = np.zeros(len(h), dtype=np.uint8)
 
     _vect.h3_get_resolution_vect(h, out)
@@ -64,6 +66,9 @@ def geo_to_h3(lats, lngs, res):
     -------
     array of H3Cells
     """
+    lats = np.array(lats, dtype=np.float64)
+    lngs = np.array(lngs, dtype=np.float64)
+
     assert len(lats) == len(lngs)
 
     out = np.zeros(len(lats), dtype='uint64')
@@ -88,6 +93,8 @@ def cell_haversine(a, b):
     float
         Haversine distance in kilometers
     """
+    a = np.array(a, dtype=np.uint64)
+    b = np.array(b, dtype=np.uint64)
 
     assert len(a) == len(b)
 

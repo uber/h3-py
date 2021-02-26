@@ -33,6 +33,11 @@ def test_h3_to_parent():
     assert np.array_equal(arr1, arr2)
     assert np.array_equal(arr1, np.array(arr3, dtype=np.uint64))
 
+    # Test with array-like (but not np.array) cell input
+    arr1 = h3_vect.h3_to_parent(list(h))
+    arr2 = np.array(list(map(h3.h3_to_parent, h)), dtype=np.uint64)
+    assert np.array_equal(arr1, arr2)
+
 
 def test_h3_to_parent_multiple_res():
     h = np.array([617700169958555647, 613196570331971583], np.uint64)
