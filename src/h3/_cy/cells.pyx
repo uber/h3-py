@@ -52,6 +52,11 @@ cpdef int distance(H3int h1, H3int h2) except -1:
 
     d = h3lib.h3Distance(h1,h2)
 
+    if d < 0:
+        s = 'Cells are too far apart to compute distance: {} and {}'
+        s = s.format(hex(h1), hex(h2))
+        raise H3ValueError(s)
+
     return d
 
 cpdef H3int[:] disk(H3int h, int k):
@@ -250,23 +255,20 @@ cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
 
     return area
 
-cpdef double mean_edge_length(int resolution, unit='km') except -1:
-    check_res(resolution)
 
-    length = h3lib.edgeLengthKm(resolution)
+cpdef double cell_area(H3int h, unit='km^2') except -1:
+    check_cell(h)
 
-    # todo: multiple units
-    convert = {
-        'km': 1.0,
-        'm': 1000.0
-    }
-
-    try:
-        length *= convert[unit]
-    except:
+    if unit == 'rads^2':
+        area = h3lib.cellAreaRads2(h)
+    elif unit == 'km^2':
+        area = h3lib.cellAreaKm2(h)
+    elif unit == 'm^2':
+        area = h3lib.cellAreaM2(h)
+    else:
         raise H3ValueError('Unknown unit: {}'.format(unit))
 
-    return length
+    return area
 
 
 cpdef H3int[:] line(H3int start, H3int end):

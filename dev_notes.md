@@ -33,3 +33,13 @@ cd ..
 git add h3lib
 git commit ...
 ```
+
+for a specific version tag:
+
+```sh
+cd src/h3lib
+git checkout v3.7.1  # or whatever version tag you'd like
+cd ..
+git add h3lib
+git commit ...
+```

@@ -27,7 +27,7 @@ from .cells import (
     uncompact,
     num_hexagons,
     mean_hex_area,
-    mean_edge_length,
+    cell_area,
     line,
     is_res_class_iii,
     get_pentagon_indexes,
@@ -46,6 +46,8 @@ from .edges import (
     edge_destination,
     edge_cells,
     edges_from_cell,
+    mean_edge_length,
+    edge_length,
 )
 
 from .geo import (
@@ -56,6 +58,7 @@ from .geo import (
     polyfill,
     cell_boundary,
     edge_boundary,
+    point_dist,
 )
 
 from .to_multipoly import (
