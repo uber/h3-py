@@ -10,12 +10,12 @@ def test_h3_to_parent():
     # Default to res - 1
     arr1 = h3_vect.h3_to_parent(h)
     arr2 = h3_vect.h3_to_parent(h, 8)
-    assert np.all(arr1 == arr2)
+    assert np.array_equal(arr1, arr2)
 
     # Same as other h3 bindings
     arr1 = h3_vect.h3_to_parent(h)
     arr2 = np.array(list(map(h3.h3_to_parent, h)), dtype=np.uint64)
-    assert np.all(arr1 == arr2)
+    assert np.array_equal(arr1, arr2)
 
 
 def test_h3_to_parent_multiple_res():
@@ -27,7 +27,7 @@ def test_h3_to_parent_multiple_res():
     # Same as other h3 bindings
     arr1 = h3_vect.h3_to_parent(h)
     arr2 = np.array(list(map(h3.h3_to_parent, h)), dtype=np.uint64)
-    assert np.all(arr1 == arr2)
+    assert np.array_equal(arr1, arr2)
 
     # Parent cells are 8, 7
     parents = h3_vect.h3_to_parent(h)
@@ -39,4 +39,4 @@ def test_h3_get_resolution():
 
     arr1 = h3_vect.h3_get_resolution(h)
     arr2 = np.array(list(map(h3.h3_get_resolution, h)), dtype=np.uint8)
-    assert np.all(arr1 == arr2)
+    assert np.array_equal(arr1, arr2)
