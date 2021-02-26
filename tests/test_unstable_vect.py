@@ -5,7 +5,7 @@ import numpy as np  # only run this test suite if numpy is installed
 
 def test_h3_to_parent():
     # At res 9
-    h = np.array([617700169958555647], np.uint64)
+    h = np.array([617700169958555647, 617700169958555647], np.uint64)
 
     # Default to res - 1
     arr1 = h3_vect.h3_to_parent(h)
@@ -16,6 +16,22 @@ def test_h3_to_parent():
     arr1 = h3_vect.h3_to_parent(h)
     arr2 = np.array(list(map(h3.h3_to_parent, h)), dtype=np.uint64)
     assert np.array_equal(arr1, arr2)
+
+    # Test with a number passed to res
+    arr1 = h3_vect.h3_to_parent(h, 7)
+    arr2 = np.array([h3.h3_to_parent(c, 7) for c in h], dtype=np.uint64)
+    assert np.array_equal(arr1, arr2)
+
+    # Test with an array passed to res
+    arr1 = h3_vect.h3_to_parent(h, np.array([7, 5], np.uint8))
+    arr2 = h3_vect.h3_to_parent(h, [7, 5])
+
+    arr3 = []
+    for c, res in zip(h, [7, 5]):
+        arr3.append(h3.h3_to_parent(c, res))
+
+    assert np.array_equal(arr1, arr2)
+    assert np.array_equal(arr1, np.array(arr3, dtype=np.uint64))
 
 
 def test_h3_to_parent_multiple_res():
