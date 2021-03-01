@@ -23,7 +23,7 @@ def test_h3_to_parent():
     assert np.array_equal(arr1, arr2)
 
     # Test with an array passed to res
-    arr1 = h3_vect.h3_to_parent(h, np.array([7, 5], np.int16))
+    arr1 = h3_vect.h3_to_parent(h, np.array([7, 5], np.intc))
     arr2 = h3_vect.h3_to_parent(h, [7, 5])
 
     arr3 = []
@@ -59,5 +59,5 @@ def test_h3_get_resolution():
     h = np.array([617700169958555647], np.uint64)
 
     arr1 = h3_vect.h3_get_resolution(h)
-    arr2 = np.array(list(map(h3.h3_get_resolution, h)), dtype=np.int16)
+    arr2 = np.array(list(map(h3.h3_get_resolution, h)), dtype=np.intc)
     assert np.array_equal(arr1, arr2)

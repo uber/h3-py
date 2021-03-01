@@ -24,7 +24,7 @@ def h3_to_parent(h, res=None):
     if res is None:
         res = h3_get_resolution(h) - 1
     else:
-        res = np.full(h.shape, res, dtype=np.int16)
+        res = np.full(h.shape, res, dtype=np.intc)
 
     _vect.h3_to_parent_vect(h, res, out)
 
@@ -44,7 +44,7 @@ def h3_get_resolution(h):
     array of uint8
     """
     h = np.array(h, dtype=np.uint64)
-    out = np.zeros(len(h), dtype=np.int16)
+    out = np.zeros(len(h), dtype=np.intc)
 
     _vect.h3_get_resolution_vect(h, out)
 
