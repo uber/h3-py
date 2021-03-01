@@ -64,7 +64,7 @@ cpdef void geo_to_h3_vect(
 @wraparound(False)
 cpdef void h3_to_parent_vect(
     const H3int[:] h,
-    unsigned char[:] res,
+    int[:] res,
     H3int[:] out
 ) nogil:
 
@@ -79,7 +79,7 @@ cpdef void h3_to_parent_vect(
 @wraparound(False)
 cpdef void h3_get_resolution_vect(
     const H3int[:] h,
-    unsigned char[:] out,
+    int[:] out,
 ) nogil:
 
     cdef Py_ssize_t i
