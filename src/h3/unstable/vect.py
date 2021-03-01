@@ -41,7 +41,7 @@ def h3_get_resolution(h):
 
     Returns
     -------
-    array of uint8
+    array of int
     """
     h = np.array(h, dtype=np.uint64)
     out = np.zeros(len(h), dtype=np.intc)
