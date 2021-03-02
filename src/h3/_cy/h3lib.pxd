@@ -88,7 +88,7 @@ cdef extern from "h3api.h":
 
     stdint.int64_t numHexagons(int res)
 
-    int h3GetResolution(H3Index h)
+    int h3GetResolution(H3Index h) nogil
 
     int h3GetBaseCell(H3Index h)
 
@@ -98,7 +98,7 @@ cdef extern from "h3api.h":
 
     int h3IsValid(H3Index h)
 
-    H3Index h3ToParent(H3Index h, int parentRes)
+    H3Index h3ToParent(H3Index h, int parentRes) nogil
 
     int maxH3ToChildrenSize(H3Index h, int childRes)
 

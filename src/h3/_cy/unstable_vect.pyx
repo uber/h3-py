@@ -42,6 +42,7 @@ cpdef void haversine_vect(
                 p2.lat, p2.lng
             )
 
+
 @boundscheck(False)
 @wraparound(False)
 cpdef void geo_to_h3_vect(
@@ -57,3 +58,32 @@ cpdef void geo_to_h3_vect(
         for i in range(len(lat)):
             c = deg2coord(lat[i], lng[i])
             out[i] = h3lib.geoToH3(&c, res)
+
+
+@boundscheck(False)
+@wraparound(False)
+cpdef void h3_to_parent_vect(
+    const H3int[:] h,
+    int[:] res,
+    H3int[:] out
+) nogil:
+
+    cdef Py_ssize_t i
+
+    with nogil:
+        for i in range(len(h)):
+            out[i] = h3lib.h3ToParent(h[i], res[i])
+
+
+@boundscheck(False)
+@wraparound(False)
+cpdef void h3_get_resolution_vect(
+    const H3int[:] h,
+    int[:] out,
+) nogil:
+
+    cdef Py_ssize_t i
+
+    with nogil:
+        for i in range(len(h)):
+            out[i] = h3lib.h3GetResolution(h[i])
