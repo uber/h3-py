@@ -42,6 +42,7 @@ git commit ...
 - create, get reviews, and merge a PR with these changes
 - go to https://github.com/uber/h3-py/releases and "Draft a new release"
     - set the tag version and the release to the version. e.g., `v3.7.2`
+      (alternatively: `git tag v3.7.2` && `git push origin --tags`)
     - add the updated `CHANGELOG.md` text to the release notes
     - publish release
 - GitHub actions should trigger on the release event and then go on to build
