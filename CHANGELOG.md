@@ -14,6 +14,12 @@ avoid adding features or APIs which do not map onto the
 
 ## unreleased
 
+None.
+
+## [3.7.2] - 2021-03-01
+
+- Add vectorized h3_to_parent and h3_get_resolution (#166)
+
 ## [3.7.1] - 2020-12-18
 
 - fix for #169: `h3_distance` error reporting (#175)
