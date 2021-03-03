@@ -14,16 +14,7 @@
 - Follow something like the [`numpydoc` docstring guide](https://numpydoc.readthedocs.io/en/latest/format.html)
   or the [`pandas` docstring guide](https://python-sprints.github.io/pandas/guide/pandas_docstring.html)
 
-
-# Workflow
-
-- [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
-- [pyenv for multiple versions (to help with tox)](https://weknowinc.com/blog/running-multiple-python-versions-mac-osx)
-- [tox stuff](https://blog.frank-mich.com/recipe-testing-multiple-python-versions-with-pyenv-and-tox/)
-- [more tox stuff](https://blog.ionelmc.ro/2015/04/14/tox-tricks-and-patterns/)
-
-
-# Updating the H3 submodule
+## Updating the H3 submodule
 
 ```sh
 cd src/h3lib
@@ -43,3 +34,16 @@ cd ..
 git add h3lib
 git commit ...
 ```
+
+## Releasing a new version
+
+- update `CHANGELOG.md` to reflect any changes since the last release
+- update the `h3-py` version in `src/h3/_version.py`
+- create, get reviews, and merge a PR with these changes
+- go to https://github.com/uber/h3-py/releases and "Draft a new release"
+    - set the tag version and the release to the version. e.g., `v3.7.2`
+      (alternatively: `git tag v3.7.2` && `git push origin --tags`)
+    - add the updated `CHANGELOG.md` text to the release notes
+    - publish release
+- GitHub actions should trigger on the release event and then go on to build
+  and upload the wheels to PyPI
