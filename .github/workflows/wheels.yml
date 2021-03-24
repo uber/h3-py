@@ -91,3 +91,55 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.pypi_password }}
         run: |
           twine upload wheelhouse/*
+
+  arm64_make_wheels:
+    name: build aarch64 wheel
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+       python_tag: [ "cp36-*", "cp37-*", "cp38-*", "cp39-*"]
+
+    steps:
+
+      ## Setup Env
+
+      - uses: actions/checkout@v2.3.3
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - uses: docker/setup-qemu-action@v1
+        name: Set up QEMU
+
+      - name: Install cibuildwheel
+        run: pip install --upgrade cibuildwheel
+
+      - name: Build Linux
+        env:
+          CIBW_ARCHS_LINUX: aarch64
+          CIBW_BUILD: ${{matrix.python_tag}}
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse
+      ## Upload
+
+      - name: Check with Twine
+        run: |
+          pip install --upgrade twine
+          twine check wheelhouse/*
+      - name: Upload artifacts to GitHub
+        if: github.event_name == 'release'
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheels
+          path: ./wheelhouse
+
+      - name: Release to PyPI
+        if: github.event_name == 'release' && github.event.action == 'published'
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.pypi_password }}
+        run: |
+          twine upload wheelhouse/*
