@@ -40,9 +40,7 @@ jobs:
           
       ## Build
 
-      - name: Build
-        run: |
-          pipx run --spec cibuildwheel==1.11.0 cibuildwheel --output-dir wheelhouse
+      - uses: pypa/cibuildwheel@v1.11.0
 
       - name: Make sdist
         if: startsWith(matrix.os, 'ubuntu')
