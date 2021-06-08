@@ -10,6 +10,7 @@ on:
 env:
   CIBW_TEST_REQUIRES: pytest numpy
   CIBW_TEST_COMMAND: pytest {project}/tests
+  CIBW_SKIP: pp* cp27*-win* *-win32 *-manylinux_i686
 
 jobs:
   make_wheels:
@@ -27,55 +28,31 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
       - uses: ilammy/msvc-dev-cmd@v1.5.0
         if: startsWith(matrix.os, 'windows')
 
-
-      ## Build across platforms
-
-      - name: Install cibuildwheel
-        run: pip install --upgrade cibuildwheel
-
-      - name: Build Windows
+      - name: Set Windows variables
         if: startsWith(matrix.os, 'windows')
-        env:
-          CC: cl.exe
-          CXX: cl.exe
-          CIBW_SKIP: pp* cp27* *-win32
+        shell: bash
         run: |
-          python -m cibuildwheel --output-dir wheelhouse
+          echo "CC=cl.exe" >> $GITHUB_ENV
+          echo "CXX=cl.exe" >> $GITHUB_ENV
+          
+      ## Build
 
-      - name: Build Mac
-        if: startsWith(matrix.os, 'mac')
-        env:
-          CIBW_SKIP: pp*
-        run: |
-          python -m cibuildwheel --output-dir wheelhouse
-
-      - name: Build Linux
-        if: startsWith(matrix.os, 'ubuntu')
-        env:
-          CIBW_SKIP: pp* *-manylinux_i686
-        run: |
-          python -m cibuildwheel --output-dir wheelhouse
+      - uses: pypa/cibuildwheel@v1.11.0
 
       - name: Make sdist
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          pip install --upgrade scikit-build
-          python setup.py sdist --dist-dir=wheelhouse
+          pipx run build --sdist --outdir=wheelhouse
 
 
       ## Upload
 
       - name: Check with Twine
         run: |
-          pip install --upgrade twine
-          twine check wheelhouse/*
+          pipx run twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
         if: github.event_name == 'release'
@@ -90,4 +67,4 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.pypi_password }}
         run: |
-          twine upload wheelhouse/*
+          pipx run twine upload wheelhouse/*
