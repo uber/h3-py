@@ -14,36 +14,52 @@ env:
 
 jobs:
   make_wheels:
-    name: ${{ matrix.os }}
+    name: ${{ matrix.os }} ${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        include:
+        - os: macos-latest
+          arch: "x86_64" # Need better support in scikit-build for universal2
+        - os: windows-latest
+          arch: auto
+        - os: ubuntu-latest
+          arch: auto
+        - os: ubuntu-latest
+          arch: aarch64
 
     steps:
 
-      ## Setup Env
-
-      - uses: actions/checkout@v2.3.3
+      - uses: actions/checkout@v2
         with:
           submodules: recursive
 
-      - uses: ilammy/msvc-dev-cmd@v1.5.0
-        if: startsWith(matrix.os, 'windows')
+      ## Setup Env
+
+      - uses: ilammy/msvc-dev-cmd@v1.9.0
+        if: runner.os == 'Windows'
 
       - name: Set Windows variables
-        if: startsWith(matrix.os, 'windows')
+        if: runner.os == 'Windows'
         shell: bash
         run: |
           echo "CC=cl.exe" >> $GITHUB_ENV
           echo "CXX=cl.exe" >> $GITHUB_ENV
-          
+
+      - name: Set up QEMU
+        if: runner.os == 'Linux' && matrix.arch != 'auto'
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: ${{ matrix.arch }}
+
       ## Build
 
-      - uses: pypa/cibuildwheel@v1.11.0
+      - uses: pypa/cibuildwheel@v1.11.1
+        env:
+          CIBW_ARCHS: ${{ matrix.arch }}
 
       - name: Make sdist
-        if: startsWith(matrix.os, 'ubuntu')
+        if: runner.os == 'Linux'
         run: |
           pipx run build --sdist --outdir=wheelhouse
 
