@@ -6,27 +6,58 @@ on:
   pull_request:
     branches: [master]
   release:
+    types:
+      - published
 
-env:
-  CIBW_TEST_REQUIRES: pytest numpy
-  CIBW_TEST_COMMAND: pytest {project}/tests
-  CIBW_SKIP: pp* cp27*-win* *-win32 *-manylinux_i686
 
 jobs:
+  make_sdist:
+    name: SDist
+    runs-on: ${{ matrix.os }}
+
+    steps:
+
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Make sdist
+        run: |
+          pipx run build --sdist
+
+      - name: Upload artifacts to GitHub
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./dist
+
+
   make_wheels:
-    name: ${{ matrix.os }} ${{ matrix.arch }}
+    name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         include:
         - os: macos-latest
-          arch: "x86_64" # Need better support in scikit-build for universal2
+          build: "cp*-macosx_x86_64"
+          name: macOS Intel
         - os: windows-latest
-          arch: auto
+          build: "cp3*-win_amd64"
+          name: Windows 64-bit
         - os: ubuntu-latest
-          arch: auto
+          build: "cp*-manylinux_x86_64"
+          name: Linux Intel 64-bit
         - os: ubuntu-latest
-          arch: aarch64
+          build: "cp36-manylinux_aarch64"
+          name: Linux Aarch64 3.6
+        - os: ubuntu-latest
+          build: "cp37-manylinux_aarch64"
+          name: Linux Aarch64 3.7
+        - os: ubuntu-latest
+          build: "cp38-manylinux_aarch64"
+          name: Linux Aarch64 3.8
+        - os: ubuntu-latest
+          build: "cp39-manylinux_aarch64"
+          name: Linux Aarch64 3.9
 
     steps:
 
@@ -47,40 +78,42 @@ jobs:
           echo "CXX=cl.exe" >> $GITHUB_ENV
 
       - name: Set up QEMU
-        if: runner.os == 'Linux' && matrix.arch != 'auto'
+        if: runner.os == 'Linux'
         uses: docker/setup-qemu-action@v1
         with:
-          platforms: ${{ matrix.arch }}
+          platforms: aarch64
 
       ## Build
 
       - uses: pypa/cibuildwheel@v1.11.1
         env:
-          CIBW_ARCHS: ${{ matrix.arch }}
-
-      - name: Make sdist
-        if: runner.os == 'Linux'
-        run: |
-          pipx run build --sdist --outdir=wheelhouse
-
-
-      ## Upload
+          CIBW_TEST_REQUIRES: pytest numpy
+          CIBW_TEST_COMMAND: pytest {project}/tests
+          CIBW_ARCHS_LINUX: auto aarch64
+          CIBW_BUILD: ${{ matrix.build }}
 
       - name: Check with Twine
         run: |
           pipx run twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
-        if: github.event_name == 'release'
         uses: actions/upload-artifact@v2
         with:
-          name: wheels
-          path: ./wheelhouse
+          path: wheelhouse/*.whl
 
-      - name: Release to PyPI
-        if: github.event_name == 'release' && github.event.action == 'published'
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.pypi_password }}
-        run: |
-          pipx run twine upload wheelhouse/*
+  upload_all:
+    needs: [make_sdist, make_wheels]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'published'
+
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@v1.4.2
+        with:
+          password: ${{ secrets.pypi_password }}
+
+
