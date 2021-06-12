@@ -18,7 +18,7 @@ None.
 
 ## [3.7.3] - 2021-06-12
 
-- Wheels for Linux Aarch64
+- Wheels for Linux Aarch64 (#189)
 
 ## [3.7.2] - 2021-03-01
 
