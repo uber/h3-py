@@ -16,6 +16,10 @@ avoid adding features or APIs which do not map onto the
 
 None.
 
+## [3.7.3] - 2021-06-12
+
+- Wheels for Linux Aarch64
+
 ## [3.7.2] - 2021-03-01
 
 - Add vectorized h3_to_parent and h3_get_resolution (#166)
