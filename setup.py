@@ -33,6 +33,20 @@ setup(
         'src',
         exclude = ["*.tests", "*.tests.*", "tests.*", "tests"],
     ),
+    package_data={
+        'h3': [
+            '__init__.pyi',
+            'api/__init__.pyi',
+            'api/_api.pyi',
+            'api/basic_int.pyi',
+            'api/basic_str.pyi',
+            'api/numpy_int.pyi',
+            'py.typed',
+            'unstable/__init__.pyi',
+            'unstable/vect.pyi',
+        ]
+    },
+    zip_safe=False,
     package_dir = {'': 'src'},
     cmake_languages = ('C'),
     extras_require={
