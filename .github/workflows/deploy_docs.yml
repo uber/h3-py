@@ -1,6 +1,5 @@
 name: deploy_docs
 
-
 on:
   push:
     branches:
