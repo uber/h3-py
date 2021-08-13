@@ -7,3 +7,8 @@
 scikit-build
 cython
 cmake
+
+# for docs
+
+jupyter-book
+flake8
