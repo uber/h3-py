@@ -33,7 +33,9 @@ jobs:
       # Build the book
       - name: Build the book
         run: |
-          jupyter-book build docs/ --warningiserror --keep-going --all
+          jupyter-book build docs/
+
+      # jupyter-book build docs/ --warningiserror --keep-going --all
 
       # Deploy the book's HTML to gh-pages branch
       - name: GitHub Pages action
