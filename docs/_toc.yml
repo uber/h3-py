@@ -1,6 +1,24 @@
 # Table of contents
 # Learn more at https://jupyterbook.org/customize/toc.html
-format: jb-article
+format: jb-book
 root: intro
-sections:
-- file: api
+parts:
+- caption: Getting started
+  chapters:
+  - file: api
+
+- caption: Contributing
+  chapters:
+  - file: contributing
+  - file: changelog
+
+- caption: External links
+  chapters:
+  - url: https://github.com/uber/h3-py-notebooks
+    title: Example Notebooks
+  - url: https://h3geo.org/
+    title: H3 Project Homepage
+  - url: https://github.com/uber/h3-py
+    title: h3-py on GitHub
+  - url: https://github.com/uber/h3
+    title: H3 on GitHub

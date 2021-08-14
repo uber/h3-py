@@ -36,7 +36,7 @@ ipython:
 	env/bin/ipython
 
 build-docs:
-	env/bin/jupyter-book build docs/
+	env/bin/jupyter-book build docs/ --warningiserror --keep-going --all
 
 open:
 	open docs/_build/html/index.html
