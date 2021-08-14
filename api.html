@@ -171,7 +171,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#definitions">
+  <a class="reference internal nav-link" href="#module-h3">
    Definitions
   </a>
  </li>
@@ -196,11 +196,950 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#h3.string_to_h3" title="h3.string_to_h3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">string_to_h3</span></code></a>(h)</p></td>
+<td><p>Converts a hexadecimal string to an H3 64-bit integer index.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#h3.versions" title="h3.versions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">versions</span></code></a>()</p></td>
+<td><p>Return version numbers for both the Python and C libraries.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#h3.h3_to_string" title="h3.h3_to_string"><code class="xref py py-obj docutils literal notranslate"><span class="pre">h3_to_string</span></code></a>(x)</p></td>
+<td><p>Converts an H3 64-bit integer index to a hexadecimal string.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#h3.num_hexagons" title="h3.num_hexagons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_hexagons</span></code></a>(resolution)</p></td>
+<td><p>Return the total number of <em>cells</em> (hexagons and pentagons) for the given resolution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#h3.hex_area" title="h3.hex_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hex_area</span></code></a>(resolution[, unit])</p></td>
+<td><p>Return the average area of an H3 <em>hexagon</em> for the given resolution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#h3.edge_length" title="h3.edge_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_length</span></code></a>(resolution[, unit])</p></td>
+<td><p>Return the average <em>hexagon</em> edge length for the given resolution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#h3.h3_is_valid" title="h3.h3_is_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">h3_is_valid</span></code></a>(h)</p></td>
+<td><p>Validates an H3 cell (hexagon or pentagon).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#h3.h3_unidirectional_edge_is_valid" title="h3.h3_unidirectional_edge_is_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">h3_unidirectional_edge_is_valid</span></code></a>(edge)</p></td>
+<td><p>Validates an H3 unidirectional edge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#h3.geo_to_h3" title="h3.geo_to_h3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_to_h3</span></code></a>(lat, lng, resolution)</p></td>
+<td><p>Return the cell containing the (lat, lng) point for a given resolution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#h3.h3_to_geo" title="h3.h3_to_geo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">h3_to_geo</span></code></a>(h)</p></td>
+<td><p>Return the center point of an H3 cell as a lat/lng pair.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#h3.h3_get_resolution" title="h3.h3_get_resolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">h3_get_resolution</span></code></a>(h)</p></td>
+<td><p>Return the resolution of an H3 cell.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="definitions">
-<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-h3">
+<span id="definitions"></span><h2>Definitions<a class="headerlink" href="#module-h3" title="Permalink to this headline">¶</a></h2>
+<dl class="py exception">
+<dt id="h3.H3CellError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">H3CellError</span></code><a class="headerlink" href="#h3.H3CellError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt id="h3.H3DistanceError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">H3DistanceError</span></code><a class="headerlink" href="#h3.H3DistanceError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt id="h3.H3EdgeError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">H3EdgeError</span></code><a class="headerlink" href="#h3.H3EdgeError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt id="h3.H3ResolutionError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">H3ResolutionError</span></code><a class="headerlink" href="#h3.H3ResolutionError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt id="h3.H3ValueError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">H3ValueError</span></code><a class="headerlink" href="#h3.H3ValueError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="h3.cell_area">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">cell_area</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km^2'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.cell_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the spherical surface area of a specific H3 cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit for area result (‘km^2’, ‘m^2’, or ‘rads^2’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>The area of the H3 cell in the given units</p>
+</dd>
+</dl>
+<p>This function breaks the cell into spherical triangles, and computes
+their spherical area.
+The function uses the spherical distance calculation given by
+<cite>point_dist</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.compact">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">compact</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hexes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.compact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compact a collection of H3 cells by combining
+smaller cells into larger cells, if all child cells
+are present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hexes</strong> (<em>iterable of H3Cell</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unordered collection of H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.edge_length">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">edge_length</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.edge_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the average <em>hexagon</em> edge length
+for the given resolution.</p>
+<p>This average <em>excludes</em> pentagons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.exact_edge_length">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">exact_edge_length</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.exact_edge_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the spherical length of a specific H3 edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit for length result (‘km’, ‘m’, or ‘rads’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>The length of the edge in the given units</p>
+</dd>
+</dl>
+<p>This function uses the spherical distance calculation given by
+<cite>point_dist</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.experimental_h3_to_local_ij">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">experimental_h3_to_local_ij</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.experimental_h3_to_local_ij" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return local (i,j) coordinates of cell <cite>h</cite> in relation to <cite>origin</cite> cell</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>origin</strong> (<em>H3Cell</em>) – Origin/central cell for defining i,j coordinates.</p></li>
+<li><p><strong>h</strong> (<em>H3Cell</em>) – Destination cell whose i,j coordinates we’d like, based off
+of the origin cell.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple (i, j) of integer local coordinates of cell <cite>h</cite></p>
+</dd>
+</dl>
+<p>The <cite>origin</cite> cell does not define (0, 0) for the IJ coordinate space.
+(0, 0) refers to the center of the base cell containing origin at the
+resolution of <cite>origin</cite>.
+Subtracting the IJ coordinates of <cite>origin</cite> from every cell would get
+you the property of (0, 0) being the <cite>origin</cite>.</p>
+<p>This is done so we don’t need to keep recomputing the coordinates of
+<cite>origin</cite> if not needed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.experimental_local_ij_to_h3">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">experimental_local_ij_to_h3</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.experimental_local_ij_to_h3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return cell at local (i,j) position relative to the <cite>origin</cite> cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>origin</strong> (<em>H3Cell</em>) – Origin/central cell for defining i,j coordinates.</p></li>
+<li><p><strong>i</strong> (<em>int</em>) – Integer coordinates with respect to <cite>origin</cite> cell.</p></li>
+<li><p><strong>j</strong> (<em>int</em>) – Integer coordinates with respect to <cite>origin</cite> cell.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>H3Cell at local (i,j) position relative to the <cite>origin</cite> cell</p>
+</dd>
+</dl>
+<p>The <cite>origin</cite> cell does not define (0, 0) for the IJ coordinate space.
+(0, 0) refers to the center of the base cell containing origin at the
+resolution of <cite>origin</cite>.
+Subtracting the IJ coordinates of <cite>origin</cite> from every cell would get
+you the property of (0, 0) being the <cite>origin</cite>.</p>
+<p>This is done so we don’t need to keep recomputing the coordinates of
+<cite>origin</cite> if not needed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.geo_to_h3">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">geo_to_h3</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.geo_to_h3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the cell containing the (lat, lng) point
+for a given resolution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.get_destination_h3_index_from_unidirectional_edge">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">get_destination_h3_index_from_unidirectional_edge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.get_destination_h3_index_from_unidirectional_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destination cell from an H3 directed edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>e</strong> (<em>H3Edge</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.get_h3_indexes_from_unidirectional_edge">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">get_h3_indexes_from_unidirectional_edge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.get_h3_indexes_from_unidirectional_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return (origin, destination) tuple from H3 directed edge</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>e</strong> (<em>H3Edge</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>H3Cell</em> – Origin cell of edge</p></li>
+<li><p><em>H3Cell</em> – Destination cell of edge</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.get_h3_unidirectional_edge">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">get_h3_unidirectional_edge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.get_h3_unidirectional_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an H3 Index denoting a unidirectional edge.</p>
+<p>The edge is constructed from neighboring cells <cite>origin</cite> and
+<cite>destination</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>origin</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>destination</strong> (<em>H3Cell</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – When cells are not adjacent.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>H3Edge</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.get_h3_unidirectional_edges_from_hexagon">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">get_h3_unidirectional_edges_from_hexagon</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.get_h3_unidirectional_edges_from_hexagon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all directed edges starting from <cite>origin</cite> cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>origin</strong> (<em>H3Cell</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unordered collection of H3Edge</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.get_origin_h3_index_from_unidirectional_edge">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">get_origin_h3_index_from_unidirectional_edge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.get_origin_h3_index_from_unidirectional_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Origin cell from an H3 directed edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>e</strong> (<em>H3Edge</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.get_pentagon_indexes">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">get_pentagon_indexes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.get_pentagon_indexes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all pentagons at a given resolution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resolution</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unordered collection of H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.get_res0_indexes">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">get_res0_indexes</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#h3.get_res0_indexes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all cells at resolution 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unordered collection of H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_distance">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_distance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the H3 distance between two cells.</p>
+<p>The H3 distance is defined as the length of the shortest
+path between the cells in the graph formed by connecting
+adjacent cells.</p>
+<p>This function will return an H3ValueError if the
+cells are too far apart to compute the distance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h1</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>h2</strong> (<em>H3Cell</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_get_base_cell">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_get_base_cell</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_get_base_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the base cell <em>number</em> (<cite>0</cite> to <cite>121</cite>) of the given cell.</p>
+<p>The base cell <em>number</em> and the H3Index are two different representations
+of the same cell: the parent cell of resolution <cite>0</cite>.</p>
+<p>The base cell <em>number</em> is encoded within the corresponding
+H3Index.</p>
+<p>todo: could work with edges</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_get_faces">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_get_faces</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_get_faces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return icosahedron faces intersecting a given H3 cell.</p>
+<p>There are twenty possible faces, ranging from 0–19.</p>
+<p>Note: Every interface returns a Python <cite>set</cite> of <a href="#id1"><span class="problematic" id="id2">`</span></a>int`s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Python <cite>set</cite> of <a href="#id3"><span class="problematic" id="id4">`</span></a>int`s</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_get_resolution">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_get_resolution</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_get_resolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the resolution of an H3 cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_indexes_are_neighbors">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_indexes_are_neighbors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_indexes_are_neighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <cite>True</cite> if <cite>h1</cite> and <cite>h2</cite> are neighboring cells.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h1</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>h2</strong> (<em>H3Cell</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_is_pentagon">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_is_pentagon</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_is_pentagon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identify if an H3 cell is a pentagon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Index</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> if input is a valid H3 cell which is a pentagon.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>A pentagon should <em>also</em> pass <cite>h3_is_cell()</cite>.
+Will return <cite>False</cite> for valid H3Edge.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_is_res_class_III">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_is_res_class_III</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_is_res_class_III" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine if cell has orientation “Class II” or “Class III”.</p>
+<p>The orientation of pentagons/hexagons on the icosahedron can be one
+of two types: “Class II” or “Class III”.</p>
+<p>All cells within a resolution have the same type, and the type
+alternates between resolutions.</p>
+<p>“Class II” cells have resolutions:  0,2,4,6,8,10,12,14
+“Class III” cells have resolutions: 1,3,5,7,9,11,13,15</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> if <cite>h</cite> is “Class III”.
+<cite>False</cite> if <cite>h</cite> is “Class II”.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://uber.github.io/h3/#/documentation/core-library/coordinate-systems">https://uber.github.io/h3/#/documentation/core-library/coordinate-systems</a></p></li>
+</ol>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_is_res_class_iii">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_is_res_class_iii</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_is_res_class_iii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for <cite>h3_is_res_class_III</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_is_valid">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_is_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates an H3 cell (hexagon or pentagon).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_line">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_line</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ordered collection of cells denoting a
+minimum-length non-unique path between cells.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>end</strong> (<em>H3Cell</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Starting with <cite>start</cite>, and ending with <cite>end</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ordered collection of H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_set_to_multi_polygon">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_set_to_multi_polygon</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geo_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_set_to_multi_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get GeoJSON-like MultiPolygon describing the outline of the area
+covered by a set of H3 cells.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hexes</strong> (<em>unordered collection of H3Cell</em>) – </p></li>
+<li><p><strong>geo_json</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <cite>True</cite>, output geo sequences will be lng/lat pairs, with the
+last the same as the first.
+If <cite>False</cite>, output geo sequences will be lat/lng pairs, with the
+last distinct from the first.
+Defaults to <cite>False</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of “polygons”.
+Each polygon is a list of “geo sequences” like
+<cite>[outer, hole1, hole2, …]</cite>. The holes may not be present.
+Each geo sequence is a list of lat/lng or lng/lat pairs.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_to_center_child">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_to_center_child</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_to_center_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the center child of a cell at some finer resolution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>res</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The resolution for the child cell
+If <cite>None</cite>, then <cite>res = resolution(h) + 1</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_to_children">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_to_children</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_to_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Children of a hexagon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>res</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The resolution for the children.
+If <cite>None</cite>, then <cite>res = resolution(h) + 1</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unordered collection of H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_to_geo">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_to_geo</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_to_geo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the center point of an H3 cell as a lat/lng pair.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>lat</strong> (<em>float</em>) – Latitude</p></li>
+<li><p><strong>lng</strong> (<em>float</em>) – Longitude</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_to_geo_boundary">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_to_geo_boundary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geo_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_to_geo_boundary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return tuple of lat/lng pairs describing the cell boundary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>geo_json</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <cite>True</cite>, return output in GeoJson format:
+lng/lat pairs (opposite order), and
+have the last pair be the same as the first.
+If <cite>False</cite> (default), return lat/lng pairs, with the last
+pair distinct from the first.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple of (float, float) tuples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_to_parent">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_to_parent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_to_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the parent of a cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>res</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The resolution for the parent
+If <cite>None</cite>, then <cite>res = resolution(h) - 1</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_to_string">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_to_string</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_to_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts an H3 64-bit integer index to a hexadecimal string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>int</em>) – Unsigned 64-bit integer</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Hexadecimal string like <cite>‘89754e64993ffff’</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.h3_unidirectional_edge_is_valid">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_unidirectional_edge_is_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_unidirectional_edge_is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates an H3 unidirectional edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.hex_area">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">hex_area</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km^2'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.hex_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the average area of an H3 <em>hexagon</em>
+for the given resolution.</p>
+<p>This average <em>excludes</em> pentagons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.hex_range">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">hex_range</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.hex_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for <cite>k_ring</cite>.
+“Filled-in” disk.</p>
+<p class="rubric">Notes</p>
+<p>This name differs from the C API.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.hex_range_distances">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">hex_range_distances</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.hex_range_distances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordered list of the “hollow” rings around <cite>h</cite>,
+up to and including distance <cite>K</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>K</strong> (<em>int</em>) – Largest distance considered.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ordered collection of (unordered collection of H3Cell)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.hex_ranges">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">hex_ranges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.hex_ranges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the dictionary <cite>{h: hex_range_distances(h, K) for h in hexes}</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[H3Cell, List[ UnorderedCollection[H3Cell] ]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.hex_ring">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">hex_ring</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.hex_ring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return unordered set of cells with H3 distance <cite>== k</cite> from <cite>h</cite>.
+That is, the “hollow” ring.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>k</strong> (<em>int</em>) – Size of ring.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unordered collection of H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.k_ring">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">k_ring</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.k_ring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return unordered set of cells with H3 distance <cite>&lt;= k</cite> from <cite>h</cite>.
+That is, the “filled-in” disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>k</strong> (<em>int</em>) – Size of disk.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unordered collection of H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.k_ring_distances">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">k_ring_distances</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.k_ring_distances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for <cite>hex_range_distances</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.num_hexagons">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">num_hexagons</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.num_hexagons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the total number of <em>cells</em> (hexagons and pentagons)
+for the given resolution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.point_dist">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">point_dist</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.point_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the spherical distance between two (lat, lng) points.</p>
+<p>todo: do we handle lat/lng points consistently in the api? what
+about (lat1, lng1, lat2, lng2) as the input? How will this work
+for vectorized versions?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point1</strong> (<em>tuple</em>) – (lat, lng) tuple in degrees</p></li>
+<li><p><strong>point2</strong> (<em>tuple</em>) – (lat, lng) tuple in degrees</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit for distance result (‘km’, ‘m’, or ‘rads’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Spherical (or “haversine”) distance between the points</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.polyfill">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">polyfill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geojson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geo_json_conformant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.polyfill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get set of hexagons whose <em>centers</em> are contained within
+a GeoJSON-style polygon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geojson</strong> (<em>dict</em>) – <p>GeoJSON-style input dictionary describing a polygon (optionally
+including holes).</p>
+<p>Dictionary should be formatted like:</p>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a>`
+{</p>
+<blockquote>
+<div><p>’type’: ‘Polygon’,
+‘coordinates’: [outer, hole1, hole2, …],</p>
+</div></blockquote>
+<p><cite>outer</cite>, <cite>hole1</cite>, etc., are lists of geo coordinate tuples.
+The holes are optional.</p>
+</p></li>
+<li><p><strong>res</strong> (<em>int</em>) – Desired output resolution for cells.</p></li>
+<li><p><strong>geo_json_conformant</strong> (<em>bool</em><em>, </em><em>optional</em>) – When <cite>True</cite>, <cite>outer</cite>, <cite>hole1</cite>, etc. must be sequences of
+lng/lat pairs, with the last the same as the first.
+When <cite>False</cite>, they must be sequences of lat/lng pairs,
+with the last not needing to match the first.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unordered collection of H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.string_to_h3">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">string_to_h3</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.string_to_h3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a hexadecimal string to an H3 64-bit integer index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h</strong> (<em>str</em>) – Hexadecimal string like <cite>‘89754e64993ffff’</cite></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unsigned 64-bit integer</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.uncompact">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">uncompact</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.uncompact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse the <cite>compact</cite> operation.</p>
+<p>Return a collection of H3 cells, all of resolution <cite>res</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hexes</strong> (<em>iterable of H3Cell</em>) – </p></li>
+<li><p><strong>res</strong> (<em>int</em>) – Resolution of desired output cells.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unordered collection of H3Cell</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>todo</strong> – add test to make sure an error is returned when input:</p></li>
+<li><p><strong>contains hex smaller than output res.</strong> – </p></li>
+<li><p><strong>https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="h3.versions">
+<code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">versions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#h3.versions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return version numbers for both the Python and C libraries.</p>
+<p>Versions are output as strings of the form <cite>‘X.Y.Z’</cite>.
+C and Python should match on <cite>X</cite> (major) and <cite>Y</cite> (minor),
+but may differ on <cite>Z</cite> (patch).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>dict like `{‘c’</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>‘X.Y.Z’, ‘python’: ‘A.B.C’}`</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 
