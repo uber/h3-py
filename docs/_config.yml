@@ -4,7 +4,7 @@
 # https://jupyterbook.org/customize/config.html
 
 title: h3-py  # The title of the book. Will be placed in the left navbar.
-author: 'AJ Friend'
+author: 'Uber Technologies'
 copyright: "2021"  # Copyright year to be placed in the footer
 logo: logo.svg  # A path to the book logo
 
