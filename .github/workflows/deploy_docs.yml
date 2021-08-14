@@ -24,7 +24,7 @@ jobs:
         run: |
           pip install --upgrade pip setuptools wheel
           pip install -r requirements.in
-          pip install -e .
+          pip install .[all]
 
       - name: Lint
         # run: flake8 --ignore=E501 h3.py
