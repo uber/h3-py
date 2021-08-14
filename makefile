@@ -5,6 +5,7 @@ init: purge
 	python -m venv env
 	env/bin/pip install --upgrade pip wheel setuptools
 	env/bin/pip install .[all]
+	env/bin/pip install -r requirements.in
 
 clear:
 	-env/bin/pip uninstall -y h3
@@ -33,3 +34,9 @@ lab:
 ipython:
 	env/bin/pip install ipython
 	env/bin/ipython
+
+build-docs:
+	env/bin/jupyter-book build docs/
+
+open:
+	open docs/_build/html/index.html

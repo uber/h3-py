@@ -1,0 +1,16 @@
+#######################################################################################
+# A default configuration that will be loaded for all jupyter books
+# See the documentation for help and more options:
+# https://jupyterbook.org/customize/config.html
+
+title: h3-py  # The title of the book. Will be placed in the left navbar.
+author: 'AJ Friend'
+copyright: "2021"  # Copyright year to be placed in the footer
+logo: logo.svg  # A path to the book logo
+
+sphinx:
+  extra_extensions:
+    - 'sphinx.ext.autodoc'
+    - 'sphinx.ext.autosummary'
+    - 'sphinx.ext.napoleon'
+    - 'sphinx.ext.viewcode'
