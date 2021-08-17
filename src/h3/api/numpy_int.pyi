@@ -3,8 +3,8 @@ from numpy.typing import NDArray
 
 from . import _api
 
-H3Cell = np.uint64
-H3Edge = np.uint64
+H3Cell = np.ulonglong
+H3Edge = np.ulonglong
 UnorderedH3Cell = NDArray[H3Cell]
 
 # Should be no changes in each API file below this line
