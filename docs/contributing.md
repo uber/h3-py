@@ -2,16 +2,22 @@
 
 ## Python and Cython
 
-## project organization
+todo
 
-## docstring conventions
+## Project organization
 
-## website
+todo
 
-release PDF version of docs with each library verison/release?
+## Docstring conventions
+
+https://numpydoc.readthedocs.io/en/latest/format.html
+
+## Website
+
+<!-- release PDF version of docs with each library verison/release? -->
 
 Other projects with nice docs:
 
-- https://toolz.readthedocs.io/
+- https://toolz.readthedocs.io/en/latest/api.html
 - http://xarray.pydata.org/
 - https://docs.dask.org/en/latest/api.html

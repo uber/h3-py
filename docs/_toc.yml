@@ -1,6 +1,8 @@
 # Table of contents
 # Learn more at https://jupyterbook.org/customize/toc.html
 format: jb-book
+
+# todo: how to remove the root from the TOC? https://github.com/executablebooks/jupyter-book/issues/1423
 root: intro
 parts:
 - caption: Getting started
@@ -10,7 +12,8 @@ parts:
 - caption: Contributing
   chapters:
   - file: contributing
-  - file: changelog
+  - file: _changelog
+    title: Change log
 
 - caption: External links
   chapters:
@@ -22,3 +25,9 @@ parts:
     title: h3-py on GitHub
   - url: https://github.com/uber/h3
     title: H3 on GitHub
+  - url: https://github.com/uber/h3/discussions
+    title: GitHub Discussions
+  - url: https://stackoverflow.com/questions/tagged/h3
+    title: H3 Stack Overflow
+  - url: https://join.slack.com/t/h3-core/shared_invite/zt-g6u5r1hf-W_~uVJmfeiWtMQuBGc1NNg
+    title: H3 Slack

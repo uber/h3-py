@@ -31,8 +31,8 @@ ordered collection:
     Inputs and outputs are interpreted as *ordered* collections.
     Examples: `list`, `numpy.ndarray`.
 
-Implementation notes
---------------------
+Notes
+-----
 Not sure if this function closure is the best solution.
 There doesn't seem to be any obvious best-practice for
 programmatically/dynamically creating modules.
@@ -835,8 +835,8 @@ def _api_functions(
         Tuple (i, j) of integer local coordinates of cell ``h``
 
 
-        Implementation Notes
-        --------------------
+        Notes
+        -----
 
         The ``origin`` cell does not define (0, 0) for the IJ coordinate space.
         (0, 0) refers to the center of the base cell containing origin at the
@@ -871,8 +871,8 @@ def _api_functions(
         H3Cell at local (i,j) position relative to the ``origin`` cell
 
 
-        Implementation Notes
-        --------------------
+        Notes
+        -----
 
         The ``origin`` cell does not define (0, 0) for the IJ coordinate space.
         (0, 0) refers to the center of the base cell containing origin at the
@@ -906,8 +906,8 @@ def _api_functions(
         The area of the H3 cell in the given units
 
 
-        Implementation Notes
-        --------------------
+        Notes
+        -----
         This function breaks the cell into spherical triangles, and computes
         their spherical area.
         The function uses the spherical distance calculation given by
@@ -933,8 +933,8 @@ def _api_functions(
         The length of the edge in the given units
 
 
-        Implementation Notes
-        --------------------
+        Notes
+        -----
         This function uses the spherical distance calculation given by
         `point_dist`.
         """
