@@ -3,10 +3,22 @@
 # See the documentation for help and more options:
 # https://jupyterbook.org/customize/config.html
 
-title: h3-py  # The title of the book. Will be placed in the left navbar.
+title: h3-py
 author: 'Uber Technologies'
-copyright: "2021"  # Copyright year to be placed in the footer
-logo: logo.svg  # A path to the book logo
+copyright: "2021"
+logo: logo.svg
+
+html:
+  favicon: logo.svg
+  home_page_in_navbar: false
+  use_edit_page_button: true
+  use_repository_button: true
+  baseurl: https://uber.github.io/h3-py/
+
+repository:
+  url: https://github.com/uber/h3-py
+  branch: master
+  path_to_book: docs
 
 sphinx:
   extra_extensions:
@@ -14,4 +26,3 @@ sphinx:
     - 'sphinx.ext.autosummary'
     - 'sphinx.ext.napoleon'
     - 'sphinx.ext.viewcode'
-
