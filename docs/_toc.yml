@@ -2,7 +2,6 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 format: jb-book
 
-# todo: how to remove the root from the TOC? https://github.com/executablebooks/jupyter-book/issues/1423
 root: intro
 parts:
 - caption: Getting started
