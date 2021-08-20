@@ -4,11 +4,14 @@
 This page is a work in progress and incomplete.
 ```
 
+This page lists the functions that are common to each of the standard APIs,
+and differ only by their input/output types (e.g., `int` vs. `str` or `set` vs `numpy.array`).
+
 ## Summaries
 
-### Functions
+We try for a logical/pedagogical grouping, no grouping perfect.
 
-#### Identification
+### Identification
 
 ```{eval-rst}
 .. currentmodule:: h3
@@ -22,30 +25,7 @@ This page is a work in progress and incomplete.
    versions
 ```
 
-#### Cells
-
-```{eval-rst}
-.. currentmodule:: h3
-
-.. autosummary::
-   compact
-   get_pentagon_indexes
-   get_res0_indexes
-   h3_distance
-   h3_get_base_cell
-   h3_get_faces
-   h3_get_resolution
-   h3_line
-   h3_to_center_child
-   h3_to_children
-   h3_to_parent
-   h3_to_string
-   num_hexagons
-   string_to_h3
-   uncompact
-```
-
-#### Lat/Lng Conversion
+### Cells
 
 ```{eval-rst}
 .. currentmodule:: h3
@@ -53,70 +33,79 @@ This page is a work in progress and incomplete.
 .. autosummary::
    geo_to_h3
    h3_to_geo
-   h3_to_geo_boundary
+   h3_to_string
+   string_to_h3
+   get_res0_indexes
+   get_pentagon_indexes
+   num_hexagons
+   h3_get_resolution
+   compact
+   uncompact
+```
+
+### Lat/Lng Conversion
+
+```{eval-rst}
+.. currentmodule:: h3
+
+.. autosummary::
    point_dist
-   cell_area
    hex_area
+   cell_area
    edge_length
    exact_edge_length
+   h3_to_geo_boundary
+   get_h3_unidirectional_edge_boundary
    polyfill
    polyfill_geojson
    polyfill_polygon
    h3_set_to_multi_polygon
 ```
 
-#### Grid Ring and Disk
+### Cell Grid Relationships
 
 ```{eval-rst}
 .. currentmodule:: h3
 
 .. autosummary::
+   h3_to_parent
+   h3_to_children
+   h3_to_center_child
    hex_range
    hex_range_distances
    hex_ranges
    hex_ring
    k_ring
    k_ring_distances
+   h3_distance
+   h3_indexes_are_neighbors
+   h3_line
 ```
 
-#### Edges
+### Edges
 
 ```{eval-rst}
 .. currentmodule:: h3
 
 .. autosummary::
+   get_h3_unidirectional_edge
    get_destination_h3_index_from_unidirectional_edge
    get_h3_indexes_from_unidirectional_edge
-   get_h3_unidirectional_edge
-   get_h3_unidirectional_edge_boundary
    get_h3_unidirectional_edges_from_hexagon
    get_origin_h3_index_from_unidirectional_edge
-   h3_indexes_are_neighbors
 ```
 
-#### Experimental
+### IJ-indexing
 
 ```{eval-rst}
 .. currentmodule:: h3
 
 .. autosummary::
+   h3_get_base_cell
+   h3_get_faces
    experimental_h3_to_local_ij
    experimental_local_ij_to_h3
 ```
-
-### Errors
-
-```{eval-rst}
-.. currentmodule:: h3
-
-.. autosummary::
-   H3CellError
-   H3DistanceError
-   H3EdgeError
-   H3ResolutionError
-   H3ValueError
-```
-
 
 
 ## Definitions
