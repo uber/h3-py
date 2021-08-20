@@ -49,9 +49,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://uber.github.io/h3-py/api.html" />
+    <link rel="shortcut icon" href="_static/logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="h3-py" href="intro.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="h3-py: Uber’s H3 Hexagonal Hierarchical Geospatial Indexing System in Python" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -81,17 +84,74 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
-   h3-py
-  </a>
- </li>
-</ul>
+        <p class="caption">
+ <span class="caption-text">
+  Getting started
+ </span>
+</p>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    APIs
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Contributing
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="contributing.html">
+   Contributing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="_changelog.html">
+   Change log
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  External links
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://github.com/uber/h3-py-notebooks">
+   Example Notebooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://h3geo.org/">
+   H3 Project Homepage
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://github.com/uber/h3-py">
+   h3-py on GitHub
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://github.com/uber/h3">
+   H3 on GitHub
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://github.com/uber/h3/discussions">
+   GitHub Discussions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://stackoverflow.com/questions/tagged/h3">
+   H3 Stack Overflow
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://join.slack.com/t/h3-core/shared_invite/zt-g6u5r1hf-W_~uVJmfeiWtMQuBGc1NNg">
+   H3 Slack
   </a>
  </li>
 </ul>
@@ -146,6 +206,21 @@
 
             <!-- Source interaction buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/uber/h3-py"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        <a class="edit-button" href="https://github.com/uber/h3-py/edit/master/docs/api.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
             <!-- Full screen (wrap in <a> to have style consistency -->
 
 <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
@@ -188,6 +263,10 @@
                 
   <div class="section" id="apis">
 <h1>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This page is a work in progress and incomplete.</p>
+</div>
 <div class="section" id="function-summaries">
 <h2>Function Summaries<a class="headerlink" href="#function-summaries" title="Permalink to this headline">¶</a></h2>
 <table class="longtable table autosummary">
@@ -267,7 +346,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
-<li><p><strong>unit</strong> (<em>str</em>) – Unit for area result (‘km^2’, ‘m^2’, or ‘rads^2’)</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit for area result (<code class="docutils literal notranslate"><span class="pre">'km^2'</span></code>, ‘m^2’, or ‘rads^2’)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -277,6 +356,7 @@
 <dd class="field-odd"><p>The area of the H3 cell in the given units</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
 <p>This function breaks the cell into spherical triangles, and computes
 their spherical area.
 The function uses the spherical distance calculation given by
@@ -336,6 +416,7 @@ for the given resolution.</p>
 <dd class="field-odd"><p>The length of the edge in the given units</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
 <p>This function uses the spherical distance calculation given by
 <cite>point_dist</cite>.</p>
 </dd></dl>
@@ -343,7 +424,7 @@ for the given resolution.</p>
 <dl class="py function">
 <dt id="h3.experimental_h3_to_local_ij">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">experimental_h3_to_local_ij</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.experimental_h3_to_local_ij" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return local (i,j) coordinates of cell <cite>h</cite> in relation to <cite>origin</cite> cell</p>
+<dd><p>Return local (i,j) coordinates of cell <code class="docutils literal notranslate"><span class="pre">h</span></code> in relation to <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -356,44 +437,46 @@ of the origin cell.</p></li>
 <dd class="field-even"><p></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Tuple (i, j) of integer local coordinates of cell <cite>h</cite></p>
+<dd class="field-odd"><p>Tuple (i, j) of integer local coordinates of cell <code class="docutils literal notranslate"><span class="pre">h</span></code></p>
 </dd>
 </dl>
-<p>The <cite>origin</cite> cell does not define (0, 0) for the IJ coordinate space.
+<p class="rubric">Notes</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell does not define (0, 0) for the IJ coordinate space.
 (0, 0) refers to the center of the base cell containing origin at the
 resolution of <cite>origin</cite>.
-Subtracting the IJ coordinates of <cite>origin</cite> from every cell would get
-you the property of (0, 0) being the <cite>origin</cite>.</p>
+Subtracting the IJ coordinates of <code class="docutils literal notranslate"><span class="pre">origin</span></code> from every cell would get
+you the property of (0, 0) being the <code class="docutils literal notranslate"><span class="pre">origin</span></code>.</p>
 <p>This is done so we don’t need to keep recomputing the coordinates of
-<cite>origin</cite> if not needed.</p>
+<code class="docutils literal notranslate"><span class="pre">origin</span></code> if not needed.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="h3.experimental_local_ij_to_h3">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">experimental_local_ij_to_h3</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.experimental_local_ij_to_h3" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return cell at local (i,j) position relative to the <cite>origin</cite> cell.</p>
+<dd><p>Return cell at local (i,j) position relative to the <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>origin</strong> (<em>H3Cell</em>) – Origin/central cell for defining i,j coordinates.</p></li>
-<li><p><strong>i</strong> (<em>int</em>) – Integer coordinates with respect to <cite>origin</cite> cell.</p></li>
-<li><p><strong>j</strong> (<em>int</em>) – Integer coordinates with respect to <cite>origin</cite> cell.</p></li>
+<li><p><strong>i</strong> (<em>int</em>) – Integer coordinates with respect to <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p></li>
+<li><p><strong>j</strong> (<em>int</em>) – Integer coordinates with respect to <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>H3Cell at local (i,j) position relative to the <cite>origin</cite> cell</p>
+<dd class="field-odd"><p>H3Cell at local (i,j) position relative to the <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell</p>
 </dd>
 </dl>
-<p>The <cite>origin</cite> cell does not define (0, 0) for the IJ coordinate space.
+<p class="rubric">Notes</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell does not define (0, 0) for the IJ coordinate space.
 (0, 0) refers to the center of the base cell containing origin at the
-resolution of <cite>origin</cite>.
-Subtracting the IJ coordinates of <cite>origin</cite> from every cell would get
-you the property of (0, 0) being the <cite>origin</cite>.</p>
+resolution of <code class="docutils literal notranslate"><span class="pre">origin</span></code>.
+Subtracting the IJ coordinates of <code class="docutils literal notranslate"><span class="pre">origin</span></code> from every cell would get
+you the property of (0, 0) being the <code class="docutils literal notranslate"><span class="pre">origin</span></code>.</p>
 <p>This is done so we don’t need to keep recomputing the coordinates of
-<cite>origin</cite> if not needed.</p>
+<code class="docutils literal notranslate"><span class="pre">origin</span></code> if not needed.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -450,8 +533,8 @@ for a given resolution.</p>
 <dt id="h3.get_h3_unidirectional_edge">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">get_h3_unidirectional_edge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.get_h3_unidirectional_edge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an H3 Index denoting a unidirectional edge.</p>
-<p>The edge is constructed from neighboring cells <cite>origin</cite> and
-<cite>destination</cite>.</p>
+<p>The edge is constructed from neighboring cells <code class="docutils literal notranslate"><span class="pre">origin</span></code> and
+<code class="docutils literal notranslate"><span class="pre">destination</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -474,7 +557,7 @@ for a given resolution.</p>
 <dl class="py function">
 <dt id="h3.get_h3_unidirectional_edges_from_hexagon">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">get_h3_unidirectional_edges_from_hexagon</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.get_h3_unidirectional_edges_from_hexagon" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return all directed edges starting from <cite>origin</cite> cell.</p>
+<dd><p>Return all directed edges starting from <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>origin</strong> (<em>H3Cell</em>) – </p>
@@ -567,9 +650,9 @@ cells are too far apart to compute the distance.</p>
 <dl class="py function">
 <dt id="h3.h3_get_base_cell">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_get_base_cell</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_get_base_cell" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the base cell <em>number</em> (<cite>0</cite> to <cite>121</cite>) of the given cell.</p>
+<dd><p>Return the base cell <em>number</em> (<code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">121</span></code>) of the given cell.</p>
 <p>The base cell <em>number</em> and the H3Index are two different representations
-of the same cell: the parent cell of resolution <cite>0</cite>.</p>
+of the same cell: the parent cell of resolution <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 <p>The base cell <em>number</em> is encoded within the corresponding
 H3Index.</p>
 <p>todo: could work with edges</p>
@@ -591,7 +674,7 @@ H3Index.</p>
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_get_faces</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_get_faces" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return icosahedron faces intersecting a given H3 cell.</p>
 <p>There are twenty possible faces, ranging from 0–19.</p>
-<p>Note: Every interface returns a Python <cite>set</cite> of <a href="#id1"><span class="problematic" id="id2">`</span></a>int`s.</p>
+<p>Note: Every interface returns a Python <code class="docutils literal notranslate"><span class="pre">set</span></code> of <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
@@ -600,7 +683,7 @@ H3Index.</p>
 <dd class="field-even"><p></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Python <cite>set</cite> of <a href="#id3"><span class="problematic" id="id4">`</span></a>int`s</p>
+<dd class="field-odd"><p>Python <code class="docutils literal notranslate"><span class="pre">set</span></code> of <code class="docutils literal notranslate"><span class="pre">int</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -625,7 +708,7 @@ H3Index.</p>
 <dl class="py function">
 <dt id="h3.h3_indexes_are_neighbors">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">h3_indexes_are_neighbors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3_indexes_are_neighbors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns <cite>True</cite> if <cite>h1</cite> and <cite>h2</cite> are neighboring cells.</p>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">h1</span></code> and <code class="docutils literal notranslate"><span class="pre">h2</span></code> are neighboring cells.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -651,15 +734,15 @@ H3Index.</p>
 <dd class="field-odd"><p><strong>h</strong> (<em>H3Index</em>) – </p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>True</cite> if input is a valid H3 cell which is a pentagon.</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if input is a valid H3 cell which is a pentagon.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>A pentagon should <em>also</em> pass <cite>h3_is_cell()</cite>.
-Will return <cite>False</cite> for valid H3Edge.</p>
+<p>A pentagon should <em>also</em> pass <code class="docutils literal notranslate"><span class="pre">h3_is_cell()</span></code>.
+Will return <code class="docutils literal notranslate"><span class="pre">False</span></code> for valid H3Edge.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -677,8 +760,8 @@ alternates between resolutions.</p>
 <dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>True</cite> if <cite>h</cite> is “Class III”.
-<cite>False</cite> if <cite>h</cite> is “Class II”.</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">h</span></code> is “Class III”.
+<code class="docutils literal notranslate"><span class="pre">False</span></code> if <code class="docutils literal notranslate"><span class="pre">h</span></code> is “Class II”.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bool</p>
@@ -723,7 +806,7 @@ minimum-length non-unique path between cells.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Starting with <cite>start</cite>, and ending with <cite>end</cite>.</p>
+<dd class="field-even"><p>Starting with <code class="docutils literal notranslate"><span class="pre">start</span></code>, and ending with <code class="docutils literal notranslate"><span class="pre">end</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>ordered collection of H3Cell</p>
@@ -750,7 +833,7 @@ Defaults to <cite>False</cite></p></li>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>List of “polygons”.
 Each polygon is a list of “geo sequences” like
-<cite>[outer, hole1, hole2, …]</cite>. The holes may not be present.
+<code class="docutils literal notranslate"><span class="pre">[outer,</span> <span class="pre">hole1,</span> <span class="pre">hole2,</span> <span class="pre">...]</span></code>. The holes may not be present.
 Each geo sequence is a list of lat/lng or lng/lat pairs.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
@@ -768,7 +851,7 @@ Each geo sequence is a list of lat/lng or lng/lat pairs.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
 <li><p><strong>res</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The resolution for the child cell
-If <cite>None</cite>, then <cite>res = resolution(h) + 1</cite></p></li>
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, then <code class="docutils literal notranslate"><span class="pre">res</span> <span class="pre">=</span> <span class="pre">resolution(h)</span> <span class="pre">+</span> <span class="pre">1</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -789,7 +872,7 @@ If <cite>None</cite>, then <cite>res = resolution(h) + 1</cite></p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
 <li><p><strong>res</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The resolution for the children.
-If <cite>None</cite>, then <cite>res = resolution(h) + 1</cite></p></li>
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, then <code class="docutils literal notranslate"><span class="pre">res</span> <span class="pre">=</span> <span class="pre">resolution(h)</span> <span class="pre">+</span> <span class="pre">1</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -827,10 +910,10 @@ If <cite>None</cite>, then <cite>res = resolution(h) + 1</cite></p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
-<li><p><strong>geo_json</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <cite>True</cite>, return output in GeoJson format:
+<li><p><strong>geo_json</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, return output in GeoJson format:
 lng/lat pairs (opposite order), and
 have the last pair be the same as the first.
-If <cite>False</cite> (default), return lat/lng pairs, with the last
+If <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), return lat/lng pairs, with the last
 pair distinct from the first.</p></li>
 </ul>
 </dd>
@@ -852,7 +935,7 @@ pair distinct from the first.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
 <li><p><strong>res</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The resolution for the parent
-If <cite>None</cite>, then <cite>res = resolution(h) - 1</cite></p></li>
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, then <code class="docutils literal notranslate"><span class="pre">res</span> <span class="pre">=</span> <span class="pre">resolution(h)</span> <span class="pre">-</span> <span class="pre">1</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -873,7 +956,7 @@ If <cite>None</cite>, then <cite>res = resolution(h) - 1</cite></p></li>
 <dd class="field-odd"><p><strong>x</strong> (<em>int</em>) – Unsigned 64-bit integer</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Hexadecimal string like <cite>‘89754e64993ffff’</cite></p>
+<dd class="field-even"><p>Hexadecimal string like <code class="docutils literal notranslate"><span class="pre">'89754e64993ffff'</span></code></p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
@@ -923,8 +1006,8 @@ for the given resolution.</p>
 <dl class="py function">
 <dt id="h3.hex_range_distances">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">hex_range_distances</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.hex_range_distances" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ordered list of the “hollow” rings around <cite>h</cite>,
-up to and including distance <cite>K</cite>.</p>
+<dd><p>Ordered list of the “hollow” rings around <code class="docutils literal notranslate"><span class="pre">h</span></code>,
+up to and including distance <code class="docutils literal notranslate"><span class="pre">K</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -944,7 +1027,7 @@ up to and including distance <cite>K</cite>.</p>
 <dl class="py function">
 <dt id="h3.hex_ranges">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">hex_ranges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.hex_ranges" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the dictionary <cite>{h: hex_range_distances(h, K) for h in hexes}</cite></p>
+<dd><p>Returns the dictionary <code class="docutils literal notranslate"><span class="pre">{h:</span> <span class="pre">hex_range_distances(h,</span> <span class="pre">K)</span> <span class="pre">for</span> <span class="pre">h</span> <span class="pre">in</span> <span class="pre">hexes}</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p></p>
@@ -958,7 +1041,7 @@ up to and including distance <cite>K</cite>.</p>
 <dl class="py function">
 <dt id="h3.hex_ring">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">hex_ring</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.hex_ring" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return unordered set of cells with H3 distance <cite>== k</cite> from <cite>h</cite>.
+<dd><p>Return unordered set of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.
 That is, the “hollow” ring.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -979,7 +1062,7 @@ That is, the “hollow” ring.</p>
 <dl class="py function">
 <dt id="h3.k_ring">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">k_ring</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.k_ring" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return unordered set of cells with H3 distance <cite>&lt;= k</cite> from <cite>h</cite>.
+<dd><p>Return unordered set of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">&lt;=</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.
 That is, the “filled-in” disk.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1053,19 +1136,19 @@ a GeoJSON-style polygon.</p>
 <li><p><strong>geojson</strong> (<em>dict</em>) – <p>GeoJSON-style input dictionary describing a polygon (optionally
 including holes).</p>
 <p>Dictionary should be formatted like:</p>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a>`
-{</p>
-<blockquote>
-<div><p>’type’: ‘Polygon’,
-‘coordinates’: [outer, hole1, hole2, …],</p>
-</div></blockquote>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    &#39;type&#39;: &#39;Polygon&#39;,
+    &#39;coordinates&#39;: [outer, hole1, hole2, ...],
+}
+</pre></div>
+</div>
 <p><cite>outer</cite>, <cite>hole1</cite>, etc., are lists of geo coordinate tuples.
 The holes are optional.</p>
 </p></li>
 <li><p><strong>res</strong> (<em>int</em>) – Desired output resolution for cells.</p></li>
-<li><p><strong>geo_json_conformant</strong> (<em>bool</em><em>, </em><em>optional</em>) – When <cite>True</cite>, <cite>outer</cite>, <cite>hole1</cite>, etc. must be sequences of
+<li><p><strong>geo_json_conformant</strong> (<em>bool</em><em>, </em><em>optional</em>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">outer</span></code>, <code class="docutils literal notranslate"><span class="pre">hole1</span></code>, etc. must be sequences of
 lng/lat pairs, with the last the same as the first.
-When <cite>False</cite>, they must be sequences of lat/lng pairs,
+When <code class="docutils literal notranslate"><span class="pre">False</span></code>, they must be sequences of lat/lng pairs,
 with the last not needing to match the first.</p></li>
 </ul>
 </dd>
@@ -1084,7 +1167,7 @@ with the last not needing to match the first.</p></li>
 <dd><p>Converts a hexadecimal string to an H3 64-bit integer index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>h</strong> (<em>str</em>) – Hexadecimal string like <cite>‘89754e64993ffff’</cite></p>
+<dd class="field-odd"><p><strong>h</strong> (<em>str</em>) – Hexadecimal string like <code class="docutils literal notranslate"><span class="pre">'89754e64993ffff'</span></code></p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Unsigned 64-bit integer</p>
@@ -1099,7 +1182,7 @@ with the last not needing to match the first.</p></li>
 <dt id="h3.uncompact">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">uncompact</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.uncompact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reverse the <cite>compact</cite> operation.</p>
-<p>Return a collection of H3 cells, all of resolution <cite>res</cite>.</p>
+<p>Return a collection of H3 cells, all of resolution <code class="docutils literal notranslate"><span class="pre">res</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1127,15 +1210,15 @@ with the last not needing to match the first.</p></li>
 <dt id="h3.versions">
 <code class="sig-prename descclassname"><span class="pre">h3.</span></code><code class="sig-name descname"><span class="pre">versions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#h3.versions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return version numbers for both the Python and C libraries.</p>
-<p>Versions are output as strings of the form <cite>‘X.Y.Z’</cite>.
-C and Python should match on <cite>X</cite> (major) and <cite>Y</cite> (minor),
-but may differ on <cite>Z</cite> (patch).</p>
+<p>Versions are output as strings of the form <code class="docutils literal notranslate"><span class="pre">'X.Y.Z'</span></code>.
+C and Python should match on <code class="docutils literal notranslate"><span class="pre">X</span></code> (major) and <code class="docutils literal notranslate"><span class="pre">Y</span></code> (minor),
+but may differ on <code class="docutils literal notranslate"><span class="pre">Z</span></code> (patch).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>dict like `{‘c’</strong></p>
+<dd class="field-odd"><p></p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>‘X.Y.Z’, ‘python’: ‘A.B.C’}`</p>
+<dd class="field-even"><p>dict like <code class="docutils literal notranslate"><span class="pre">{'c':</span> <span class="pre">'X.Y.Z',</span> <span class="pre">'python':</span> <span class="pre">'A.B.C'}</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1168,7 +1251,8 @@ but may differ on <cite>Z</cite> (patch).</p>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">h3-py</a>
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page"><strong>h3-py</strong>: Uber’s H3 Hexagonal Hierarchical Geospatial Indexing System in Python</a>
+    <a class='right-next' id="next-link" href="contributing.html" title="next page">Contributing</a>
 
         </div>
         

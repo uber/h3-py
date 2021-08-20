@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>h3-py: Uber’s H3 Hexagonal Hierarchical Geospatial Indexing System in Python &#8212; h3-py</title>
+    <title>Versioning &#8212; h3-py</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -49,11 +49,11 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://uber.github.io/h3-py/intro.html" />
+    <link rel="canonical" href="https://uber.github.io/h3-py/_changelog.html" />
     <link rel="shortcut icon" href="_static/logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="APIs" href="api.html" />
+    <link rel="prev" title="Contributing" href="contributing.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -100,14 +100,14 @@
   Contributing
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="contributing.html">
    Contributing
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="_changelog.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Change log
   </a>
  </li>
@@ -194,7 +194,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/intro.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/_changelog.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -214,7 +214,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         
-        <a class="edit-button" href="https://github.com/uber/h3-py/edit/master/docs/intro.md"><button
+        <a class="edit-button" href="https://github.com/uber/h3-py/edit/master/docs/_changelog.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -240,19 +240,88 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installation">
-   Installation
+  <a class="reference internal nav-link" href="#unreleased">
+   Unreleased
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#usage">
-   Usage
+  <a class="reference internal nav-link" href="#id1">
+   [3.7.3] - 2021-06-12
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example-gallery">
-   Example gallery
+  <a class="reference internal nav-link" href="#id2">
+   [3.7.2] - 2021-03-01
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   [3.7.1] - 2020-12-18
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   [3.7.0] - 2020-10-02
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   [3.6.4] - 2020-07-20
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   [3.6.3] - 2020-06-04
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   [3.6.2] - 2020-06-02
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   [3.6.1] - 2020-05-29
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   [3.4.3] - 2019-04-18
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   [3.4.2] - 2019-03-13
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   [3.1.0] - 2018-09-06
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#added">
+     Added
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#changed">
+     Changed
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   [3.0.0] - 2018-07-24
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     Added
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -265,44 +334,140 @@
         
               <div>
                 
-  <div class="section" id="h3-py-uber-s-h3-hexagonal-hierarchical-geospatial-indexing-system-in-python">
-<h1><strong>h3-py</strong>: Uber’s H3 Hexagonal Hierarchical Geospatial Indexing System in Python<a class="headerlink" href="#h3-py-uber-s-h3-hexagonal-hierarchical-geospatial-indexing-system-in-python" title="Permalink to this headline">¶</a></h1>
-<p>Python bindings for the
-<a class="reference external" href="https://github.com/uber/h3">H3 Core Library</a>.</p>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>From <a class="reference external" href="https://pypi.org/project/h3/">PyPI</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">h3</span>
-</pre></div>
+  <div class="section" id="versioning">
+<h1>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h1>
+<p>The H3 core library adheres to <a class="reference external" href="http://semver.org/">Semantic Versioning</a>.
+H3-Py has a <code class="docutils literal notranslate"><span class="pre">major.minor.patch</span></code> version scheme. The major and minor version
+numbers of H3-Py are the major and minor version of the bound core library,
+respectively. The patch version is incremented independently of the core
+library.</p>
+<p>We use <a class="reference external" href="http://keepachangelog.com/">this changelog structure</a>.</p>
+<p>Because H3-Py is versioned in lockstep with the H3 core library, please
+avoid adding features or APIs which do not map onto the
+<a class="reference external" href="https://uber.github.io/h3/#/documentation/api-reference/">H3 core API</a>.</p>
+<div class="section" id="unreleased">
+<h2>Unreleased<a class="headerlink" href="#unreleased" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
 </div>
-<p>From <a class="reference external" href="https://github.com/conda-forge/h3-py-feedstock">conda</a>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda config --add channels conda-forge
-conda install h3-py
-</pre></div>
+<div class="section" id="id1">
+<h2>[3.7.3] - 2021-06-12<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Wheels for Linux Aarch64 (#189)</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>[3.7.2] - 2021-03-01<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add vectorized h3_to_parent and h3_get_resolution (#166)</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>[3.7.1] - 2020-12-18<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>fix for #169: <code class="docutils literal notranslate"><span class="pre">h3_distance</span></code> error reporting (#175)</p></li>
+<li><p>build Python 3.9 wheel for Mac (#175)</p></li>
+<li><p>bump h3lib version to v3.7.1 (#175)</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>[3.7.0] - 2020-10-02<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add functions (#171)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell_area</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exact_edge_length</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">point_dist</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>[3.6.4] - 2020-07-20<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">requirements.in</span></code> for <code class="docutils literal notranslate"><span class="pre">pip-compile</span></code> usage (#157)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">h3-c</span></code> to v3.6.4 (#157)</p></li>
+<li><p>Add functions:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">experimental_local_ij_to_h3</span></code> (#155)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">experimental_h3_to_local_ij</span></code> (#155)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3.unstable.vect.cell_haversine</span></code> (#147)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3.unstable.vect.geo_to_h3</span></code> (#147)</p></li>
+<li><p>Prototype v4 names under <code class="docutils literal notranslate"><span class="pre">h3.unstable.v4</span></code> (#146)</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2>[3.6.3] - 2020-06-04<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add functions:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_res0_indexes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3_to_center_child</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3_get_faces</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>[3.6.2] - 2020-06-02<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Improve error reporting on <code class="docutils literal notranslate"><span class="pre">hex2int</span></code> (<a class="reference external" href="https://github.com/uber/h3-py/pull/127">https://github.com/uber/h3-py/pull/127</a>)</p></li>
+<li><p>Build Linux wheels for Python 2.7</p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2>[3.6.1] - 2020-05-29<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Switch to Cython wrapper implementation</p></li>
+<li><p>Pre-built wheels on PyPI for Linux/Mac/Windows</p></li>
+<li><p>Provide multiple APIs:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3.api.basic_str</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3.api.basic_int</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3.api.memview_int</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h2>[3.4.3] - 2019-04-18<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Removed null values in k_ring_distances.</p></li>
+<li><p>Support on Windows Platform</p></li>
+<li><p>Fixed some install problems</p></li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h2>[3.4.2] - 2019-03-13<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Added h3_line support.</p></li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h2>[3.1.0] - 2018-09-06<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="added">
+<h3>Added<a class="headerlink" href="#added" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Added h3_distance function.</p></li>
+</ul>
+</div>
+<div class="section" id="changed">
+<h3>Changed<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Updated the core library to v3.1.0.</p></li>
+</ul>
 </div>
 </div>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">h3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span><span class="p">,</span> <span class="n">lng</span> <span class="o">=</span> <span class="mf">37.769377</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.388903</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">9</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">geo_to_h3</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lng</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
-<span class="go">&#39;89283082e73ffff&#39;</span>
-</pre></div>
+<div class="section" id="id12">
+<h2>[3.0.0] - 2018-07-24<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h3>Added<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>First public release.</p></li>
+</ul>
 </div>
-</div>
-<div class="section" id="example-gallery">
-<h2>Example gallery<a class="headerlink" href="#example-gallery" title="Permalink to this headline">¶</a></h2>
-<p>Browse <a class="reference external" href="https://github.com/uber/h3-py-notebooks">a collection of example notebooks</a>,
-and if you have examples or visualizations of your own, please feel free to contribute!</p>
-<p>We also have a simple <a class="reference external" href="https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/notebooks/usage.ipynb">walkthrough of the API</a>.
-For more information, please see the <a class="reference external" href="https://h3geo.org/">H3 Documentation</a>.</p>
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -331,7 +496,7 @@ For more information, please see the <a class="reference external" href="https:/
         
         <div class='prev-next-bottom'>
             
-    <a class='right-next' id="next-link" href="api.html" title="next page">APIs</a>
+    <a class='left-prev' id="prev-link" href="contributing.html" title="previous page">Contributing</a>
 
         </div>
         
