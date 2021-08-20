@@ -1,5 +1,7 @@
 name: deploy_docs
 
+# todo: we want to build on PRs, but keep it from pushing to deploy...
+
 on:
   push:
     branches:
