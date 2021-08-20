@@ -1,4 +1,4 @@
-# h3-py
+# **h3-py**: Uber's H3 Hexagonal Hierarchical Geospatial Indexing System in Python
 
 Python bindings for the
 [H3 Core Library](https://github.com/uber/h3).
@@ -22,10 +22,10 @@ conda install h3-py
 
 ```python
 >>> import h3
->>> lat, lng = 0, 0
->>> resolution = 0
+>>> lat, lng = 37.769377, -122.388903
+>>> resolution = 9
 >>> h3.geo_to_h3(lat, lng, resolution)
-'8075fffffffffff'
+'89283082e73ffff'
 ```
 
 ## Example gallery

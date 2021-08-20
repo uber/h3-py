@@ -31,8 +31,8 @@ ordered collection:
     Inputs and outputs are interpreted as *ordered* collections.
     Examples: `list`, `numpy.ndarray`.
 
-Implementation notes
---------------------
+Notes
+-----
 Not sure if this function closure is the best solution.
 There doesn't seem to be any obvious best-practice for
 programmatically/dynamically creating modules.
@@ -58,13 +58,13 @@ def _api_functions(
         """
         Return version numbers for both the Python and C libraries.
 
-        Versions are output as strings of the form `'X.Y.Z'`.
-        C and Python should match on `X` (major) and `Y` (minor),
-        but may differ on `Z` (patch).
+        Versions are output as strings of the form ``'X.Y.Z'``.
+        C and Python should match on ``X`` (major) and ``Y`` (minor),
+        but may differ on ``Z`` (patch).
 
         Returns
         -------
-        dict like `{'c': 'X.Y.Z', 'python': 'A.B.C'}`
+        dict like ``{'c': 'X.Y.Z', 'python': 'A.B.C'}``
         """
         from .._version import __version__
 
@@ -82,7 +82,7 @@ def _api_functions(
         Parameters
         ----------
         h : str
-            Hexadecimal string like `'89754e64993ffff'`
+            Hexadecimal string like ``'89754e64993ffff'``
 
         Returns
         -------
@@ -103,7 +103,7 @@ def _api_functions(
         Returns
         -------
         str
-            Hexadecimal string like `'89754e64993ffff'`
+            Hexadecimal string like ``'89754e64993ffff'``
         """
         return _cy.int2hex(x)
 
@@ -227,7 +227,7 @@ def _api_functions(
         h : H3Cell
         res : int or None, optional
             The resolution for the parent
-            If `None`, then `res = resolution(h) - 1`
+            If ``None``, then ``res = resolution(h) - 1``
 
         Returns
         -------
@@ -274,10 +274,10 @@ def _api_functions(
         ----------
         h : H3Cell
         geo_json : bool, optional
-            If `True`, return output in GeoJson format:
+            If ``True``, return output in GeoJson format:
             lng/lat pairs (opposite order), and
             have the last pair be the same as the first.
-            If `False` (default), return lat/lng pairs, with the last
+            If ``False`` (default), return lat/lng pairs, with the last
             pair distinct from the first.
 
         Returns
@@ -288,7 +288,7 @@ def _api_functions(
 
     def k_ring(h, k=1):
         """
-        Return unordered set of cells with H3 distance `<= k` from `h`.
+        Return unordered set of cells with H3 distance ``<= k`` from ``h``.
         That is, the "filled-in" disk.
 
         Parameters
@@ -320,7 +320,7 @@ def _api_functions(
 
     def hex_ring(h, k=1):
         """
-        Return unordered set of cells with H3 distance `== k` from `h`.
+        Return unordered set of cells with H3 distance ``== k`` from ``h``.
         That is, the "hollow" ring.
 
         Parameters
@@ -339,8 +339,8 @@ def _api_functions(
 
     def hex_range_distances(h, K):
         """
-        Ordered list of the "hollow" rings around `h`,
-        up to and including distance `K`.
+        Ordered list of the "hollow" rings around ``h``,
+        up to and including distance ``K``.
 
         Parameters
         ----------
@@ -363,7 +363,7 @@ def _api_functions(
 
     def hex_ranges(hexes, K):
         """
-        Returns the dictionary `{h: hex_range_distances(h, K) for h in hexes}`
+        Returns the dictionary ``{h: hex_range_distances(h, K) for h in hexes}``
 
         Returns
         -------
@@ -390,7 +390,7 @@ def _api_functions(
         h : H3Cell
         res : int or None, optional
             The resolution for the children.
-            If `None`, then `res = resolution(h) + 1`
+            If ``None``, then ``res = resolution(h) + 1``
 
         Returns
         -------
@@ -425,7 +425,7 @@ def _api_functions(
         """
         Reverse the `compact` operation.
 
-        Return a collection of H3 cells, all of resolution `res`.
+        Return a collection of H3 cells, all of resolution ``res``.
 
         Parameters
         ----------
@@ -468,7 +468,7 @@ def _api_functions(
         list
             List of "polygons".
             Each polygon is a list of "geo sequences" like
-            `[outer, hole1, hole2, ...]`. The holes may not be present.
+            ``[outer, hole1, hole2, ...]``. The holes may not be present.
             Each geo sequence is a list of lat/lng or lng/lat pairs.
         """
         # todo: this function output does not match with `polyfill`.
@@ -500,21 +500,22 @@ def _api_functions(
 
             Dictionary should be formatted like:
 
-            ```
-            {
-                'type': 'Polygon',
-                'coordinates': [outer, hole1, hole2, ...],
-            }
-            ```
+            .. code-block:: text
+
+                {
+                    'type': 'Polygon',
+                    'coordinates': [outer, hole1, hole2, ...],
+                }
+
             `outer`, `hole1`, etc., are lists of geo coordinate tuples.
             The holes are optional.
 
         res : int
             Desired output resolution for cells.
         geo_json_conformant : bool, optional
-            When `True`, `outer`, `hole1`, etc. must be sequences of
+            When ``True``, ``outer``, ``hole1``, etc. must be sequences of
             lng/lat pairs, with the last the same as the first.
-            When `False`, they must be sequences of lat/lng pairs,
+            When ``False``, they must be sequences of lat/lng pairs,
             with the last not needing to match the first.
 
         Returns
@@ -536,21 +537,21 @@ def _api_functions(
         Returns
         -------
         bool
-            `True` if input is a valid H3 cell which is a pentagon.
+            ``True`` if input is a valid H3 cell which is a pentagon.
 
         Notes
         -----
-        A pentagon should *also* pass `h3_is_cell()`.
-        Will return `False` for valid H3Edge.
+        A pentagon should *also* pass ``h3_is_cell()``.
+        Will return ``False`` for valid H3Edge.
         """
         return _cy.is_pentagon(_in_scalar(h))
 
     def h3_get_base_cell(h):
         """
-        Return the base cell *number* (`0` to `121`) of the given cell.
+        Return the base cell *number* (``0`` to ``121``) of the given cell.
 
         The base cell *number* and the H3Index are two different representations
-        of the same cell: the parent cell of resolution `0`.
+        of the same cell: the parent cell of resolution ``0``.
 
         The base cell *number* is encoded within the corresponding
         H3Index.
@@ -569,7 +570,7 @@ def _api_functions(
 
     def h3_indexes_are_neighbors(h1, h2):
         """
-        Returns `True` if `h1` and `h2` are neighboring cells.
+        Returns ``True`` if ``h1`` and ``h2`` are neighboring cells.
 
         Parameters
         ----------
@@ -589,8 +590,8 @@ def _api_functions(
         """
         Create an H3 Index denoting a unidirectional edge.
 
-        The edge is constructed from neighboring cells `origin` and
-        `destination`.
+        The edge is constructed from neighboring cells ``origin`` and
+        ``destination``.
 
         Parameters
         ----------
@@ -672,7 +673,7 @@ def _api_functions(
 
     def get_h3_unidirectional_edges_from_hexagon(origin):
         """
-        Return all directed edges starting from `origin` cell.
+        Return all directed edges starting from ``origin`` cell.
 
         Parameters
         ----------
@@ -702,7 +703,7 @@ def _api_functions(
         Returns
         -------
         ordered collection of H3Cell
-            Starting with `start`, and ending with `end`.
+            Starting with ``start``, and ending with ``end``.
         """
         mv = _cy.line(_in_scalar(start), _in_scalar(end))
 
@@ -728,8 +729,8 @@ def _api_functions(
         Returns
         -------
         bool
-            `True` if `h` is "Class III".
-            `False` if `h` is "Class II".
+            ``True`` if ``h`` is "Class III".
+            ``False`` if ``h`` is "Class II".
 
         References
         ----------
@@ -782,7 +783,7 @@ def _api_functions(
         h : H3Cell
         res : int or None, optional
             The resolution for the child cell
-            If `None`, then `res = resolution(h) + 1`
+            If ``None``, then ``res = resolution(h) + 1``
 
         Returns
         -------
@@ -800,7 +801,7 @@ def _api_functions(
 
         There are twenty possible faces, ranging from 0--19.
 
-        Note: Every interface returns a Python `set` of `int`s.
+        Note: Every interface returns a Python ``set`` of ``int``.
 
         Parameters
         ----------
@@ -808,7 +809,7 @@ def _api_functions(
 
         Returns
         -------
-        Python `set` of `int`s
+        Python ``set`` of ``int``
         """
         h = _in_scalar(h)
         faces = _cy.get_faces(h)
@@ -817,7 +818,7 @@ def _api_functions(
 
     def experimental_h3_to_local_ij(origin, h):
         """
-        Return local (i,j) coordinates of cell `h` in relation to `origin` cell
+        Return local (i,j) coordinates of cell ``h`` in relation to ``origin`` cell
 
 
         Parameters
@@ -831,20 +832,20 @@ def _api_functions(
 
         Returns
         -------
-        Tuple (i, j) of integer local coordinates of cell `h`
+        Tuple (i, j) of integer local coordinates of cell ``h``
 
 
-        Implementation Notes
-        --------------------
+        Notes
+        -----
 
-        The `origin` cell does not define (0, 0) for the IJ coordinate space.
+        The ``origin`` cell does not define (0, 0) for the IJ coordinate space.
         (0, 0) refers to the center of the base cell containing origin at the
         resolution of `origin`.
-        Subtracting the IJ coordinates of `origin` from every cell would get
-        you the property of (0, 0) being the `origin`.
+        Subtracting the IJ coordinates of ``origin`` from every cell would get
+        you the property of (0, 0) being the ``origin``.
 
         This is done so we don't need to keep recomputing the coordinates of
-        `origin` if not needed.
+        ``origin`` if not needed.
         """
         origin = _in_scalar(origin)
         h = _in_scalar(h)
@@ -855,32 +856,32 @@ def _api_functions(
 
     def experimental_local_ij_to_h3(origin, i, j):
         """
-        Return cell at local (i,j) position relative to the `origin` cell.
+        Return cell at local (i,j) position relative to the ``origin`` cell.
 
         Parameters
         ----------
         origin : H3Cell
             Origin/central cell for defining i,j coordinates.
         i, j: int
-            Integer coordinates with respect to `origin` cell.
+            Integer coordinates with respect to ``origin`` cell.
 
 
         Returns
         -------
-        H3Cell at local (i,j) position relative to the `origin` cell
+        H3Cell at local (i,j) position relative to the ``origin`` cell
 
 
-        Implementation Notes
-        --------------------
+        Notes
+        -----
 
-        The `origin` cell does not define (0, 0) for the IJ coordinate space.
+        The ``origin`` cell does not define (0, 0) for the IJ coordinate space.
         (0, 0) refers to the center of the base cell containing origin at the
-        resolution of `origin`.
-        Subtracting the IJ coordinates of `origin` from every cell would get
-        you the property of (0, 0) being the `origin`.
+        resolution of ``origin``.
+        Subtracting the IJ coordinates of ``origin`` from every cell would get
+        you the property of (0, 0) being the ``origin``.
 
         This is done so we don't need to keep recomputing the coordinates of
-        `origin` if not needed.
+        ``origin`` if not needed.
         """
         origin = _in_scalar(origin)
 
@@ -897,7 +898,7 @@ def _api_functions(
         ----------
         h : H3Cell
         unit: str
-            Unit for area result ('km^2', 'm^2', or 'rads^2')
+            Unit for area result (``'km^2'``, 'm^2', or 'rads^2')
 
 
         Returns
@@ -905,8 +906,8 @@ def _api_functions(
         The area of the H3 cell in the given units
 
 
-        Implementation Notes
-        --------------------
+        Notes
+        -----
         This function breaks the cell into spherical triangles, and computes
         their spherical area.
         The function uses the spherical distance calculation given by
@@ -932,8 +933,8 @@ def _api_functions(
         The length of the edge in the given units
 
 
-        Implementation Notes
-        --------------------
+        Notes
+        -----
         This function uses the spherical distance calculation given by
         `point_dist`.
         """
