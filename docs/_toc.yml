@@ -6,6 +6,7 @@ root: intro
 parts:
 - caption: Getting started
   chapters:
+  - file: api_types
   - file: api
 
 - caption: Contributing
