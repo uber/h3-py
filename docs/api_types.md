@@ -1,10 +1,17 @@
 # API Types
 
+## Why are there multiple APIs?
+
+TODO: if i make this a notebook, do i get to have the headings i want?
+BETTER: keep as markdown, but let the launcher convert the markdown to a notebook for people to run and test!
+
 We provide multiple APIs in `h3-py`.
 All APIs have the same set of functions, but differ
 in their input/output formats.
 
-## `h3.api.basic_str`
+## API Options
+
+### `h3.api.basic_str`
 
 H3 indexes are represented as Python `str`s, using `list` and `set` for collections.
 
@@ -26,7 +33,7 @@ are basically equivalent.
  '8099fffffffffff'}
 ```
 
-## `h3.api.basic_int`
+### `h3.api.basic_int`
 
 H3 indexes are represented as Python `int`s, using `list` and `set` for collections.
 
@@ -44,7 +51,7 @@ H3 indexes are represented as Python `int`s, using `list` and `set` for collecti
  579169948954263551}
 ```
 
-## `h3.api.numpy_int`
+### `h3.api.numpy_int`
 
 H3 indexes are represented as `uint64`s, using `numpy.ndarray`
 for collections.
@@ -70,7 +77,7 @@ However, `h3.api.numpy_int` requires `numpy`. To have `numpy` installed (if it i
 with `h3`, run `pip install h3[numpy]`.
 
 
-## `h3.api.memview_int`
+### `h3.api.memview_int`
 
 H3 indexes are represented as `uint64`s, using Python
 [`memoryview` objects](https://docs.python.org/dev/library/stdtypes.html#memoryview)
@@ -100,13 +107,18 @@ This API has the same benefits as `numpy_int`, except it uses
  579169948954263551]
 ```
 
-When using this API with `numpy`, note that `numpy.array` **creates a copy**
+```{warning}
+When using the `memview_int` API with the `numpy` library, note that
+`numpy.array` **creates a copy**
 of the data, while `numpy.asarray` **does not create a copy** and the
 result points to the same memory location as the `memoryview` object.
+```
+
 
 Continuing from the example above,
 
 ```python
+...
 >>> mv = h3.hex_ring(h, 1)
 >>> a = np.array(mv)
 >>> mv[0] = 0

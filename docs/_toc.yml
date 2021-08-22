@@ -12,6 +12,7 @@ parts:
 - caption: Contributing
   chapters:
   - file: contributing
+  # - file: jupyter_book_notes
   - file: _changelog
     title: Change log
 

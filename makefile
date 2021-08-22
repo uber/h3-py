@@ -1,5 +1,10 @@
 .PHONY: init clear rebuild purge test lint lab ipython
 
+
+build-docs:
+	env/bin/jupyter-book build docs/ --warningiserror --keep-going --all
+
+
 init: purge
 	git submodule update --init
 	python -m venv env
@@ -35,8 +40,7 @@ ipython:
 	env/bin/pip install ipython
 	env/bin/ipython
 
-build-docs:
-	env/bin/jupyter-book build docs/ --warningiserror --keep-going --all
+
 
 open:
 	open docs/_build/html/index.html
