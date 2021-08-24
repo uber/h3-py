@@ -211,7 +211,44 @@ array([                 0, 578044049047420927, 577973680303243263,
 
 ## API speed comparison
 
-todo: maybe a speed example? k-ring to compact to output?
+Here's an example task to compare compute times across APIs:
 
-`import h3` and an `import ... as h3i` for the numpy one. give a third that does the integer core/str shell version
-mentioned above.
+```python
+import h3
+import h3.api.numpy_int
+
+def foo(h3_lib, N=100):
+    h   = h3_lib.geo_to_h3(0, 0, 9)
+    out = h3_lib.k_ring(h, N)
+    out = h3_lib.compact(out)
+    
+    return out
+```
+
+Using the standard API with Python `str` and `set` objects:
+
+```python
+>>> %%timeit
+... out = foo(h3.api.basic_str)
+53.3 ms ± 473 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+```
+
+Using `h3.api.numpy_int`:
+
+```python
+>>> %%timeit
+... out = foo(h3.api.numpy_int)
+6.99 ms ± 14.2 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+```
+
+Using `h3.api.numpy_int`, but converting the result back to `str` and `list`:
+
+```python
+>>> %%timeit
+... out = foo(h3.api.numpy_int)
+... out = [h3.h3_to_string(h) for h in out]
+7.68 ms ± 136 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+```
+
+We see about a **7x speedup** by using `h3.api.numpy_int`, even after converting
+the H3 indices back to hexadecimal strings.
