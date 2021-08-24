@@ -9,7 +9,8 @@ and differ only by their input/output types (e.g., `int` vs. `str` or `set` vs `
 
 ## Summaries
 
-We try for a logical/pedagogical grouping, no grouping perfect.
+Below, we try to group functions in a reasonably logical manner, but any such grouping
+will be imperfect.
 
 ### Identification
 
@@ -43,7 +44,7 @@ We try for a logical/pedagogical grouping, no grouping perfect.
    uncompact
 ```
 
-### Lat/Lng Conversion
+### Geographic coordinates
 
 ```{eval-rst}
 .. currentmodule:: h3
@@ -62,7 +63,7 @@ We try for a logical/pedagogical grouping, no grouping perfect.
    h3_set_to_multi_polygon
 ```
 
-### Cell Grid Relationships
+### Hierarchical relationships
 
 ```{eval-rst}
 .. currentmodule:: h3
@@ -71,6 +72,14 @@ We try for a logical/pedagogical grouping, no grouping perfect.
    h3_to_parent
    h3_to_children
    h3_to_center_child
+```
+
+### Cell grid relationships
+
+```{eval-rst}
+.. currentmodule:: h3
+
+.. autosummary::
    hex_range
    hex_range_distances
    hex_ranges
