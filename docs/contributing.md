@@ -21,6 +21,7 @@ https://numpydoc.readthedocs.io/en/latest/format.html
 ### TODOs
 
 - release PDF version of docs with each library verison/release?
+- page on "anatomy of an H3 index"
 
 ### Other projects with nice docs
 

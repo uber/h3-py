@@ -64,8 +64,6 @@ tip
 ```
 
 
-
-
 ### Custom admonitions
 
 ```{admonition} Custom!

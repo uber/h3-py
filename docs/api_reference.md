@@ -1,4 +1,4 @@
-# APIs
+# API reference
 
 ```{warning}
 This page is a work in progress and incomplete.

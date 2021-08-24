@@ -1,10 +1,11 @@
 # **h3-py**: Uber's H3 Hexagonal Hierarchical Geospatial Indexing System in Python
 
-TODO: have this guy read from the README, just like we do with the changelog
-Nice and DRY!
+<!-- TODO: have this guy read from the README, just like we do with the changelog
+Nice and DRY! -->
 
-Python bindings for the
-[H3 Core Library](https://github.com/uber/h3).
+<!-- TODO: have a nice 3d image of hexagons up front -->
+
+Python bindings for the [H3 Core Library](https://h3geo.org/).
 
 ## Installation
 
