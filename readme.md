@@ -50,13 +50,15 @@ conda install h3-py
 
 ## APIs
 
-We provide [multiple APIs](https://uber.github.io/h3-py/api_comparison)
-in `h3-py`.
+[api_comparison]: https://uber.github.io/h3-py/api_comparison
+[api_reference]: https://uber.github.io/h3-py/api_reference
 
-- All APIs have the same set of functions; see the
-  [API reference](https://uber.github.io/h3-py/api_reference).
-- The APIs differ only in their input/output formats; see the
-  [API comparison page](https://uber.github.io/h3-py/api_comparison).
+We provide [multiple APIs][api_comparison] in `h3-py`.
+
+- All APIs have the same set of functions;
+  see the [API reference][api_reference].
+- The APIs differ only in their input/output formats;
+  see the [API comparison page][api_comparison].
 
 
 ## Example gallery
@@ -65,8 +67,9 @@ Browse [a collection of example notebooks](https://github.com/uber/h3-py-noteboo
 and if you have examples or visualizations of your own, please feel free
 to contribute!
 
-We also have an introductory
-[walkthrough of the API](https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/notebooks/usage.ipynb).
+[walkthrough]: https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/notebooks/usage.ipynb
+
+We also have an introductory [walkthrough of the API][walkthrough].
 
 
 ## Versioning
