@@ -25,13 +25,13 @@ See the `h3-py`:
 
 From [PyPI](https://pypi.org/project/h3/):
 
-```
+```console
 pip install h3
 ```
 
 From [conda](https://github.com/conda-forge/h3-py-feedstock):
 
-```sh
+```console
 conda config --add channels conda-forge
 conda install h3-py
 ```
@@ -61,7 +61,7 @@ We provide [multiple APIs](api_comparison) in `h3-py`.
 Browse [a collection of example notebooks](https://github.com/uber/h3-py-notebooks),
 and if you have examples or visualizations of your own, please feel free to contribute!
 
-We also have a simple
+We also have an introductory
 [walkthrough of the API](https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/notebooks/usage.ipynb).
 
 
