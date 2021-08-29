@@ -50,16 +50,20 @@ conda install h3-py
 
 ## APIs
 
-We provide [multiple APIs](api_comparison) in `h3-py`.
+We provide [multiple APIs](https://uber.github.io/h3-py/api_comparison)
+in `h3-py`.
 
-- All APIs have the same set of functions; see the [API reference](api_reference).
-- The APIs differ only in their input/output formats; see the [API comparison page](api_comparison).
+- All APIs have the same set of functions; see the
+  [API reference](https://uber.github.io/h3-py/api_reference).
+- The APIs differ only in their input/output formats; see the
+  [API comparison page](https://uber.github.io/h3-py/api_comparison).
 
 
 ## Example gallery
 
 Browse [a collection of example notebooks](https://github.com/uber/h3-py-notebooks),
-and if you have examples or visualizations of your own, please feel free to contribute!
+and if you have examples or visualizations of your own, please feel free
+to contribute!
 
 We also have an introductory
 [walkthrough of the API](https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/notebooks/usage.ipynb).
@@ -67,7 +71,7 @@ We also have an introductory
 
 ## Versioning
 
-`h3-py` wraps the [H3 Core Library](https://github.com/uber/h3),
+`h3-py` wraps the [H3 core library](https://github.com/uber/h3),
 which is written in C.
 Both projects employ [semantic versioning](https://semver.org/),
 with versions taking the form `X.Y.Z`.
