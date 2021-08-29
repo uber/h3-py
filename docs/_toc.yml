@@ -6,7 +6,7 @@ root: intro
 parts:
 - caption: Getting started
   chapters:
-  - file: apis
+  - file: api_comparison
   - file: api_reference
 
 - caption: Contributing

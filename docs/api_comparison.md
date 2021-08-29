@@ -1,4 +1,4 @@
-# APIs
+# API comparison
 
 The `h3-py` library provides several APIs which share the same functions,
 but differ in their input and output types:

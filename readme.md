@@ -47,10 +47,10 @@ conda install h3-py
 
 ## APIs
 
-We provide [multiple APIs](apis) in `h3-py`.
+We provide [multiple APIs](api_comparison) in `h3-py`.
 
 - All APIs have the same set of functions; see the [API reference](api_reference).
-- The APIs differ only in their input/output formats; see the [API comparison page](apis).
+- The APIs differ only in their input/output formats; see the [API comparison page](api_comparison).
 
 
 ## Example gallery

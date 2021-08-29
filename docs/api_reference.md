@@ -1,7 +1,7 @@
 # API reference
 
 This page lists the functions that are common to each of the
-[provided APIs](apis).
+[provided APIs](api_comparison).
 The APIs differ only in their input/output types
 (e.g., `int` vs. `str` or `set` vs `numpy.array`).
 
