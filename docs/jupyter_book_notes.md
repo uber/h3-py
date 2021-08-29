@@ -19,7 +19,7 @@ if the page isn't included in the main TOC:
 
 ## RHS or Secondary Sidebar expansion
 
-TODO: I'd like these sections to expand automatically; waiting on https://github.com/executablebooks/sphinx-book-theme/issues/383
+https://github.com/uber/h3-py/issues/198
 
 
 ## Admonition Options

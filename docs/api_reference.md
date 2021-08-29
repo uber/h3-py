@@ -1,16 +1,17 @@
 # API reference
 
-```{warning}
-This page is a work in progress and incomplete.
-```
+This page lists the functions that are common to each of the
+[provided APIs](apis).
+The APIs differ only in their input/output types
+(e.g., `int` vs. `str` or `set` vs `numpy.array`).
 
-This page lists the functions that are common to each of the standard APIs,
-and differ only by their input/output types (e.g., `int` vs. `str` or `set` vs `numpy.array`).
+These functions align with those explained in the
+[core H3 documenation](https://h3geo.org/docs/api/indexing).
 
 ## Summaries
 
-Below, we try to group functions in a reasonably logical manner, but any such grouping
-will be imperfect.
+There is no strict hierarchy for H3 functions,
+but we'll try to group functions in a reasonably logical manner.
 
 ### Identification
 
@@ -45,6 +46,8 @@ will be imperfect.
 ```
 
 ### Geographic coordinates
+
+Functions relating H3 objects to geographic (lat/lng) coordinates.
 
 ```{eval-rst}
 .. currentmodule:: h3
