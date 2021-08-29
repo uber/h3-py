@@ -74,14 +74,20 @@ We also have an introductory [walkthrough of the API][walkthrough].
 
 ## Versioning
 
+<!-- todo: this should just be the h3.versions() docstring, yeah? -->
+
 `h3-py` wraps the [H3 core library](https://github.com/uber/h3),
 which is written in C.
-Both projects employ [semantic versioning](https://semver.org/),
-with versions taking the form `X.Y.Z`.
+The C and Python projects each employ
+[semantic versioning](https://semver.org/),
+where versions take the form `X.Y.Z`.
 
-`h3-py` will match the C library
-in *major* and *minor* numbers (`X.Y`), but may be different on the
+The `h3-py` version string is guaranteed to match the C library string
+in both *major* and *minor* numbers (`X.Y`), but may differ on the
 *patch* (`Z`) number.
+This convention provides users with information on breaking changes and
+feature additions, while providing bindings the versioning freedom
+to fix bugs.
 
 Use `h3.versions()` to see the version numbers for both
 `h3-py` and the C library. For example,
