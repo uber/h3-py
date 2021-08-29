@@ -87,7 +87,7 @@ in both *major* and *minor* numbers (`X.Y`), but may differ on the
 *patch* (`Z`) number.
 This convention provides users with information on breaking changes and
 feature additions, while providing downstream bindings (like this one!)
-the versioning freedom to fix bugs.
+with the versioning freedom to fix bugs.
 
 Use `h3.versions()` to see the version numbers for both
 `h3-py` and the C library. For example,
