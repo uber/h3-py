@@ -20,6 +20,7 @@ See the `h3-py`:
 - documentation at <https://uber.github.io/h3-py>
 - GitHub repo at <https://github.com/uber/h3-py>
 
+
 ## Installation
 
 From [PyPI](https://pypi.org/project/h3/):
@@ -35,6 +36,7 @@ conda config --add channels conda-forge
 conda install h3-py
 ```
 
+
 ## Usage
 
 ```python
@@ -44,6 +46,7 @@ conda install h3-py
 >>> h3.geo_to_h3(lat, lng, resolution)
 '89283082e73ffff'
 ```
+
 
 ## APIs
 
@@ -58,8 +61,8 @@ We provide [multiple APIs](api_comparison) in `h3-py`.
 Browse [a collection of example notebooks](https://github.com/uber/h3-py-notebooks),
 and if you have examples or visualizations of your own, please feel free to contribute!
 
-We also have a simple [walkthrough of the API](https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/notebooks/usage.ipynb).
-For more information, please see the [H3 Documentation](https://h3geo.org/).
+We also have a simple
+[walkthrough of the API](https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/notebooks/usage.ipynb).
 
 
 ## Versioning
