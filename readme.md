@@ -17,8 +17,8 @@ Python bindings for the [H3 core library](https://h3geo.org/).
 
 See the `h3-py`:
 
-- documentation at <https://uber.github.io/h3-py>
-- GitHub repo at <https://github.com/uber/h3-py>
+- documentation at [uber.github.io/h3-py](https://uber.github.io/h3-py)
+- GitHub repo at [github.com/uber/h3-py](https://github.com/uber/h3-py)
 
 
 ## Installation
