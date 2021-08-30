@@ -20,7 +20,7 @@ def long_desc():
 
 numpy_requires = ['numpy']
 test_requires = [
-    'pytest', 'pytest-cov', 'flake8', 'pytest-mypy-plugins;python_version>="3"']
+    'pytest', 'pytest-cov', 'flake8', 'pytest-mypy-plugins;python_version>="3.6"']
 
 setup(
     name = 'h3',
