@@ -18,7 +18,7 @@ def long_desc():
     return long_description
 
 numpy_requires = ['numpy']
-test_requires = ['pytest', 'pytest-cov', 'flake8', 'pytest-mypy-plugins']
+test_requires = ['pytest', 'pytest-cov', 'flake8', 'pytest-mypy-plugins;python_version>=3']
 
 setup(
     name = 'h3',
@@ -54,6 +54,6 @@ setup(
     extras_require={
         'numpy': ['numpy'],
         'test': ['pytest', 'pytest-cov', 'flake8'],
-        'all': numpy_requires + test_requires, 
+        'all': numpy_requires + test_requires,
     },
 )
