@@ -17,8 +17,10 @@ def long_desc():
 
     return long_description
 
+
 numpy_requires = ['numpy']
-test_requires = ['pytest', 'pytest-cov', 'flake8', 'pytest-mypy-plugins;python_version>="3"']
+test_requires = [
+    'pytest', 'pytest-cov', 'flake8', 'pytest-mypy-plugins;python_version>="3"']
 
 setup(
     name = 'h3',
