@@ -1,0 +1,21 @@
+- case: constructor_checks_with_6_args
+  main: |
+    from h3.api.basic_str import k_ring
+    from typing import List, Set
+    out: Set[int] = k_ring(1, 2)
+
+
+
+
+# # error: Incompatible types in assignment (expression has type "Set[str]", variable has type "Set[int]")
+# # error: Argument 1 has incompatible type "int"; expected "str"
+#
+# out2: Set[str] = k_ring(1, 2)
+# # error: Argument 1 has incompatible type "int"; expected "str"
+#
+# out3: List[int] = k_ring(1, 2)
+# # error: Incompatible types in assignment (expression has type "Set[str]", variable has type "List[int]")
+# # error: Argument 1 has incompatible type "int"; expected "str"
+#
+# out4 = k_ring('a', 2)
+# # Passes
