@@ -54,6 +54,6 @@ setup(
     extras_require={
         'numpy': ['numpy'],
         'test': ['pytest', 'pytest-cov', 'flake8'],
-        'all': [*numpy_requires, *test_requires],
+        'all': numpy_requires + test_requires, 
     },
 )
