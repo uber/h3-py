@@ -21,7 +21,7 @@ purge: clear
 	-@rm -rf env
 
 test:
-	env/bin/pytest tests/* --cov=h3 --cov-report term-missing --durations=10
+	env/bin/pytest tests/* --cov=h3 --cov-report term-missing --durations=10 --mypy-ini-file=mypy.ini
 
 lint:
 	env/bin/flake8 src/h3 setup.py tests

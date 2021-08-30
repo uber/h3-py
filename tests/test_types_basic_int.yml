@@ -1,0 +1,13 @@
+- case: test_k_ring
+  main: |
+    from h3.api.basic_int import k_ring
+    from typing import List, Set
+
+    out: Set[int] = k_ring(1, 2)
+    out2: Set[str] = k_ring(1, 2)
+    out3: List[int] = k_ring(1, 2)
+    out4 = k_ring('a', 2)
+  out: |
+    main:5: error: Incompatible types in assignment (expression has type "Set[int]", variable has type "Set[str]")
+    main:6: error: Incompatible types in assignment (expression has type "Set[int]", variable has type "List[int]")
+    main:7: error: Argument 1 to "k_ring" has incompatible type "str"; expected "int"
