@@ -29,7 +29,7 @@ jobs:
         run: flake8 src/h3 setup.py tests
 
       - name: Coverage
-        run: pytest --cov=h3 --full-trace --cov-report=xml
+        run: pytest --cov=h3 --full-trace --cov-report=xml --mypy-ini-file=mypy.ini
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.13

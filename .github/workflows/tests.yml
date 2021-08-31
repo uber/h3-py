@@ -45,4 +45,4 @@ jobs:
           pip install .[all]
 
       - name: Tests
-        run: pytest --cov=h3 --full-trace
+        run: pytest --cov=h3 --full-trace --mypy-ini-file=mypy.ini
