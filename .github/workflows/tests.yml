@@ -44,5 +44,11 @@ jobs:
           pip install --upgrade pip setuptools wheel
           pip install .[all]
 
+      - name: Set mypy config for versions that do typing tests
+        if: contains('3.6 3.7 3.8 3.9', matrix.python-version)
+        run: |
+          echo "PYTEST_OPTS=--mypy-ini-file=mypy.ini" >> $GITHUB_ENV
+
       - name: Tests
-        run: pytest --cov=h3 --full-trace --mypy-ini-file=mypy.ini
+        run: |
+          pytest --cov=h3 --full-trace $PYTEST_OPTS
