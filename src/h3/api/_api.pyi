@@ -1,4 +1,6 @@
-from typing import Dict, Iterable, List, Literal, Optional, Set, Tuple, TypeVar
+from typing import Dict, Iterable, List, Optional, Set, Tuple, TypeVar
+
+from typing_extensions import Literal
 
 # Static Types
 AreaUnits = Literal['km^2', 'm^2', 'rads^2']

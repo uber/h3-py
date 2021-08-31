@@ -1,4 +1,6 @@
-from typing import Dict, Iterable, List, Literal, Optional, Set, Tuple
+from typing import Dict, Iterable, List, Optional, Set, Tuple
+
+from typing_extensions import Literal
 
 from . import _api
 

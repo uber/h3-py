@@ -21,6 +21,7 @@ def long_desc():
 numpy_requires = ['numpy']
 test_requires = [
     'pytest', 'pytest-cov', 'flake8', 'pytest-mypy-plugins;python_version>="3.6"']
+typing_requires = ['typing_extensions']
 
 setup(
     name = 'h3',
@@ -54,8 +55,9 @@ setup(
     package_dir = {'': 'src'},
     cmake_languages = ('C'),
     extras_require={
-        'numpy': ['numpy'],
-        'test': ['pytest', 'pytest-cov', 'flake8'],
-        'all': numpy_requires + test_requires,
+        'numpy': numpy_requires,
+        'test': test_requires,
+        'types': typing_requires,
+        'all': numpy_requires + test_requires + typing_requires,
     },
 )
