@@ -4,6 +4,9 @@
 build-docs:
 	env/bin/jupyter-book build docs/ --warningiserror --keep-going --all
 
+open:
+	open docs/_build/html/index.html
+
 
 init: purge
 	git submodule update --init
@@ -35,12 +38,3 @@ lint:
 lab:
 	env/bin/pip install jupyterlab
 	env/bin/jupyter lab
-
-ipython:
-	env/bin/pip install ipython
-	env/bin/ipython
-
-
-
-open:
-	open docs/_build/html/index.html
