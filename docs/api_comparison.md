@@ -17,7 +17,7 @@ Under the hood in the C library, H3 indices are represented as
 unsigned 64-bit integers (`uint64_t`), and collections of indexes
 are represented with C arrays.
 
-For human readability and interpretability, we'll often represent integer
+For human readability, we often represent integer
 indices (`578536630256664575`) in their
 hexadecimal format (`8075fffffffffff`).
 
