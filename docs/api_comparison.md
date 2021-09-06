@@ -218,12 +218,6 @@ faster APIs (using the `int` representation of H3 indexes),
 and then converting the results to the more familiar
 format of Python `str` objects.
 
-```{attention}
-These are example timings on a single computer; you can run the
-benchmarks yourself with the
-[original notebook](https://ajfriend.github.io/h3-py/intro.html).
-```
-
 
 ### Example code
 
@@ -246,29 +240,22 @@ def compute_and_convert(h3_lib, N=100):
     return out
 ```
 
-### Compute with each API
+### Timing results
 
-Timings for `compute()` with the four standard APIs:
+```{attention}
+These are example timings on a single computer; you can run the
+benchmarks yourself with the
+[original notebook](https://github.com/uber/h3-py-notebooks/blob/master/notebooks/time_h3_apis.ipynb).
+```
 
-|         API          |    time   |
-|----------------------|-----------|
-| `h3.api.basic_str`   | `59.8 ms` |
-| `h3.api.basic_int`   | `35.4 ms` |
-| `h3.api.memview_int` | `7.12 ms` |
-| `h3.api.numpy_int`   | `7.06 ms` |
 
-### Compute with faster `int` APIs and convert to `str`
+|         API          | `compute()` | `compute_and_convert()` |
+|----------------------|-------------|-------------------------|
+| `h3.api.basic_str`   | `59.8 ms`   | n/a                     |
+| `h3.api.basic_int`   | `35.4 ms`   | `35.6 ms`               |
+| `h3.api.memview_int` | `7.12 ms`   | `7.76 ms`               |
+| `h3.api.numpy_int`   | `7.06 ms`   | `7.61 ms`               |
 
-Timings for computing with the faster `int` APIs and then converting
-back to the `str` representation, using `compute_and_convert()`: 
-
-|         API          |    time   |
-|----------------------|-----------|
-| `h3.api.basic_int`   | `35.6 ms` |
-| `h3.api.memview_int` | `7.76 ms` |
-| `h3.api.numpy_int`   | `7.61 ms` |
-
-### Result comparison
 
 ```{note}
 We typically see, for example, about a 6--8x speedup between:
