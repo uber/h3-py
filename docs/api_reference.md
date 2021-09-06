@@ -6,7 +6,7 @@ The APIs differ only in their input/output types
 (e.g., `int` vs. `str` or `set` vs `numpy.array`).
 
 These functions align with those explained in the
-[core H3 documenation](https://h3geo.org/docs/api/indexing).
+[core H3 documentation](https://h3geo.org/docs/api/indexing).
 
 ## Summaries
 
