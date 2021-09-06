@@ -3,7 +3,7 @@
 The `h3-py` library provides several APIs which share the same functions,
 but differ in their input and output types:
 
-- `h3.api.basic_str`
+- `h3.api.basic_str` (the *default* `import h3` is equivalent to `import h3.api.basic_str as h3`)
 - `h3.api.basic_int`
 - `h3.api.numpy_int`
 - `h3.api.memview_int`
@@ -21,7 +21,8 @@ For human readability, we often represent integer
 indices (`578536630256664575`) in their
 hexadecimal format (`8075fffffffffff`).
 
-In Python, by default (`h3.api.basic_str`), `h3-py` represents indices in their hexadecimal
+The *default* Python API (via `import h3` or `import h3.api.basic_str`),
+represents indices in their hexadecimal
 format as a Python `str`s and uses standard Python collection types like
 `set` and `list`. These conventions make it more natural to work with
 `h3-py` objects in Python, but come at the cost of converting back and forth
