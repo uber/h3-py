@@ -211,44 +211,68 @@ array([                 0, 578044049047420927, 577973680303243263,
 
 ## API speed comparison
 
-Here's an example task to compare compute times across APIs:
+We time an example task to compare across APIs.
+
+We also compare the option of doing most of the computation in one of the
+faster APIs (using the `int` representation of H3 indexes),
+and then converting the results to the more familiar
+format of Python `str` objects.
+
+```{attention}
+These are example timings on a single computer; you can run the
+benchmarks yourself with the
+[original notebook](https://ajfriend.github.io/h3-py/intro.html).
+```
+
+
+### Example code
 
 ```python
 import h3
 import h3.api.numpy_int
 
-def foo(h3_lib, N=100):
+
+def compute(h3_lib, N=100):
     h   = h3_lib.geo_to_h3(0, 0, 9)
     out = h3_lib.k_ring(h, N)
     out = h3_lib.compact(out)
     
     return out
+
+def compute_and_convert(h3_lib, N=100):
+    out = compute(h3_lib, N)
+    out = [h3.h3_to_string(h) for h in out]
+    
+    return out
 ```
 
-Using the standard API with Python `str` and `set` objects:
+### Compute with each API
 
-```python
->>> %%timeit
-... out = foo(h3.api.basic_str)
-53.3 ms ± 473 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+Timings for `compute()` with the four standard APIs:
+
+|         API          |    time   |
+|----------------------|-----------|
+| `h3.api.basic_str`   | `59.8 ms` |
+| `h3.api.basic_int`   | `35.4 ms` |
+| `h3.api.memview_int` | `7.12 ms` |
+| `h3.api.numpy_int`   | `7.06 ms` |
+
+### Compute with faster `int` APIs and convert to `str`
+
+Timings for computing with the faster `int` APIs and then converting
+back to the `str` representation, using `compute_and_convert()`: 
+
+|         API          |    time   |
+|----------------------|-----------|
+| `h3.api.basic_int`   | `35.6 ms` |
+| `h3.api.memview_int` | `7.76 ms` |
+| `h3.api.numpy_int`   | `7.61 ms` |
+
+### Result comparison
+
+```{note}
+We typically see, for example, about a 6--8x speedup between:
+
+- computing with the `h3.api.basic_str` interface
+- computing with the `h3.api.numpy_int` interface, and then converting the results back to `str`
 ```
-
-Using `h3.api.numpy_int`:
-
-```python
->>> %%timeit
-... out = foo(h3.api.numpy_int)
-6.99 ms ± 14.2 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
-```
-
-Using `h3.api.numpy_int`, but converting the result back to `str` and `list`:
-
-```python
->>> %%timeit
-... out = foo(h3.api.numpy_int)
-... out = [h3.h3_to_string(h) for h in out]
-7.68 ms ± 136 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
-```
-
-We see about a **7x speedup** by using `h3.api.numpy_int`, even after converting
-the H3 indices back to hexadecimal strings.
