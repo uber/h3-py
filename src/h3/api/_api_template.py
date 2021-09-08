@@ -56,7 +56,7 @@ def _api_functions(
 ):
     def versions():
         """
-        Return version numbers for both the Python and C libraries.
+        Version numbers for the Python (wrapper) and C (wrapped) libraries.
 
         Versions are output as strings of the form ``'X.Y.Z'``.
         C and Python should match on ``X`` (major) and ``Y`` (minor),

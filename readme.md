@@ -1,194 +1,93 @@
 <img align="right" src="https://uber.github.io/img/h3Logo-color.svg" alt="H3 Logo" width="200">
 
-# h3-py
+# **h3-py**: Uber's H3 Hexagonal Hierarchical Geospatial Indexing System in Python
+
+<!-- TODO: have a nice 3d image of hexagons up front -->
 
 [![PyPI version](https://badge.fury.io/py/h3.svg)](https://badge.fury.io/py/h3)
 [![PyPI downloads](https://pypip.in/d/h3/badge.png)](https://pypistats.org/packages/h3)
 [![conda](https://img.shields.io/conda/vn/conda-forge/h3-py.svg)](https://anaconda.org/conda-forge/h3-py)
 [![version](https://img.shields.io/badge/h3-v3.7.1-blue.svg)](https://github.com/uber/h3/releases/tag/v3.7.1)
-[![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/uber/h3-py/blob/master/LICENSE)
 
 [![Tests](https://github.com/uber/h3-py/workflows/tests/badge.svg)](https://github.com/uber/h3-py/actions)
 [![codecov](https://codecov.io/gh/uber/h3-py/branch/master/graph/badge.svg)](https://codecov.io/gh/uber/h3-py)
 
-Python bindings for the
-[H3 Core Library](https://github.com/uber/h3).
+Python bindings for the [H3 core library](https://h3geo.org/).
 
-For API reference, see the
-[H3 Documentation](https://h3geo.org/).
+See the `h3-py`:
+
+- documentation at [uber.github.io/h3-py](https://uber.github.io/h3-py)
+- GitHub repo at [github.com/uber/h3-py](https://github.com/uber/h3-py)
 
 
 ## Installation
 
 From [PyPI](https://pypi.org/project/h3/):
 
-`pip install h3`
+```console
+pip install h3
+```
 
 From [conda](https://github.com/conda-forge/h3-py-feedstock):
 
-```sh
+```console
 conda config --add channels conda-forge
 conda install h3-py
 ```
-
-**New since v3.6.1**: We upload pre-built
-[Python Wheels to PyPI](https://pypi.org/project/h3) for Linux/Mac/Windows,
-which should avoid many previous installation issues.
 
 
 ## Usage
 
 ```python
 >>> import h3
->>> lat, lng = 0, 0
->>> resolution = 0
+>>> lat, lng = 37.769377, -122.388903
+>>> resolution = 9
 >>> h3.geo_to_h3(lat, lng, resolution)
-'8075fffffffffff'
+'89283082e73ffff'
 ```
-
-## Example gallery
-
-Browse [a collection of example notebooks](https://github.com/uber/h3-py-notebooks),
-and if you have examples or visualizations of your own, please feel free to contribute!
-
-We also have a simple [walkthrough of the API](https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/notebooks/usage.ipynb).
-For more information, please see the [H3 Documentation](https://h3geo.org/).
 
 
 ## APIs
 
-We provide multiple APIs in `h3-py`.
-All APIs have the same set of functions, but differ
-in their input/output formats.
+[api_comparison]: https://uber.github.io/h3-py/api_comparison
+[api_reference]: https://uber.github.io/h3-py/api_reference
 
-### `h3.api.basic_str`
+We provide [multiple APIs][api_comparison] in `h3-py`.
 
-H3 indexes are represented as Python `str`s, using `list` and `set` for collections.
-
-This is the default API provided when you `import h3`.
-That is, `import h3.api.basic_str as h3` and `import h3`
-are basically equivalent.
-
-```python
->>> import h3
->>> h = h3.geo_to_h3(0, 0, 0)
->>> h
-'8075fffffffffff'
-
->>> h3.hex_ring(h, 1)
-{'8055fffffffffff',
- '8059fffffffffff',
- '807dfffffffffff',
- '8083fffffffffff',
- '8099fffffffffff'}
-```
-
-### `h3.api.basic_int`
-
-H3 indexes are represented as Python `int`s, using `list` and `set` for collections.
-
-```python
->>> import h3.api.basic_int as h3
->>> h = h3.geo_to_h3(0, 0, 0)
->>> h
-578536630256664575
-
->>> h3.hex_ring(h, 1)
-{577973680303243263,
- 578044049047420927,
- 578677367745019903,
- 578782920861286399,
- 579169948954263551}
-```
-
-### `h3.api.numpy_int`
-
-H3 indexes are represented as `uint64`s, using `numpy.ndarray`
-for collections.
-
-The intention is for this API to be faster and more memory-efficient by
-not requiring `int` to `str` conversion and by using
-no-copy `numpy` arrays instead of Python `list`s and `set`s.
-
-```python
->>> import h3.api.numpy_int as h3
->>> h = h3.geo_to_h3(0, 0, 0)
->>> h
-578536630256664575
-
->>> h3.hex_ring(h, 1)
-array([578782920861286399, 578044049047420927, 577973680303243263,
-       578677367745019903, 579169948954263551], dtype=uint64)
-```
-
-Note that `h3` has no runtime dependencies on other libraries, so a standard
-`pip install` will install no additional libraries.
-However, `h3.api.numpy_int` requires `numpy`. To have `numpy` installed (if it isn't already) along
-with `h3`, run `pip install h3[numpy]`.
+- All APIs have the same set of functions;
+  see the [API reference][api_reference].
+- The APIs differ only in their input/output formats;
+  see the [API comparison page][api_comparison].
 
 
-### `h3.api.memview_int`
+## Example gallery
 
-H3 indexes are represented as `uint64`s, using Python
-[`memoryview` objects](https://docs.python.org/dev/library/stdtypes.html#memoryview)
-for collections.
+Browse [a collection of example notebooks](https://github.com/uber/h3-py-notebooks),
+and if you have examples or visualizations of your own, please feel free
+to contribute!
 
-This API has the same benefits as `numpy_int`, except it uses
-(the less well-known but dependency-free) `memoryview`.
+[walkthrough]: https://nbviewer.jupyter.org/github/uber/h3-py-notebooks/blob/master/notebooks/usage.ipynb
 
-```python
->>> import h3.api.memview_int as h3
->>> h = h3.geo_to_h3(0, 0, 0)
->>> h
-578536630256664575
+We also have an introductory [walkthrough of the API][walkthrough].
 
->>> mv = h3.hex_ring(h, 1)
->>> mv
-<MemoryView of 'array' at 0x11188c710>
-
->>> mv[0]
-578782920861286399
-
->>> list(mv)
-[578782920861286399,
- 578044049047420927,
- 577973680303243263,
- 578677367745019903,
- 579169948954263551]
-```
-
-When using this API with `numpy`, note that `numpy.array` **creates a copy**
-of the data, while `numpy.asarray` **does not create a copy** and the
-result points to the same memory location as the `memoryview` object.
-
-Continuing from the example above,
-
-```python
->>> mv = h3.hex_ring(h, 1)
->>> a = np.array(mv)
->>> mv[0] = 0
->>> a
-array([578782920861286399, 578044049047420927, 577973680303243263,
-       578677367745019903, 579169948954263551], dtype=uint64)
-
->>> mv = h3.hex_ring(h, 1)
->>> a = np.asarray(mv)
->>> mv[0] = 0
->>> a
-array([                 0, 578044049047420927, 577973680303243263,
-       578677367745019903, 579169948954263551], dtype=uint64)
-```
 
 ## Versioning
 
-`h3-py` wraps the [H3 Core Library](https://github.com/uber/h3),
-which is written in C.
-Both projects employ [semantic versioning](https://semver.org/),
-with versions taking the form `X.Y.Z`.
+<!-- todo: this should just be the h3.versions() docstring, yeah? -->
 
-`h3-py` will match the C library
-in *major* and *minor* numbers (`X.Y`), but may be different on the
+`h3-py` wraps the [H3 core library](https://github.com/uber/h3),
+which is written in C.
+The C and Python projects each employ
+[semantic versioning](https://semver.org/),
+where versions take the form `X.Y.Z`.
+
+The `h3-py` version string is guaranteed to match the C library string
+in both *major* and *minor* numbers (`X.Y`), but may differ on the
 *patch* (`Z`) number.
+This convention provides users with information on breaking changes and
+feature additions, while providing downstream bindings (like this one!)
+with the versioning freedom to fix bugs.
 
 Use `h3.versions()` to see the version numbers for both
 `h3-py` and the C library. For example,
