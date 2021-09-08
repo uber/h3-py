@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -42,7 +42,7 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
@@ -54,7 +54,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Versioning" href="_changelog.html" />
-    <link rel="prev" title="APIs" href="api.html" />
+    <link rel="prev" title="API reference" href="api_reference.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -82,7 +82,7 @@
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <p class="caption">
  <span class="caption-text">
@@ -91,8 +91,13 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="api.html">
-   APIs
+  <a class="reference internal" href="api_comparison.html">
+   API comparison
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="api_reference.html">
+   API reference
   </a>
  </li>
 </ul>
@@ -238,7 +243,7 @@
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#python-and-cython">
@@ -259,6 +264,18 @@
   <a class="reference internal nav-link" href="#website">
    Website
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#todos">
+     TODOs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-projects-with-nice-docs">
+     Other projects with nice docs
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -273,6 +290,10 @@
                 
   <div class="section" id="contributing">
 <h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This page still a work in progress.</p>
+</div>
 <div class="section" id="python-and-cython">
 <h2>Python and Cython<a class="headerlink" href="#python-and-cython" title="Permalink to this headline">¶</a></h2>
 <p>todo</p>
@@ -287,13 +308,23 @@
 </div>
 <div class="section" id="website">
 <h2>Website<a class="headerlink" href="#website" title="Permalink to this headline">¶</a></h2>
-<!-- release PDF version of docs with each library verison/release? -->
-<p>Other projects with nice docs:</p>
+<div class="section" id="todos">
+<h3>TODOs<a class="headerlink" href="#todos" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>release PDF version of docs with each library verison/release?</p></li>
+<li><p>page on “anatomy of an H3 index”</p></li>
+</ul>
+</div>
+<div class="section" id="other-projects-with-nice-docs">
+<h3>Other projects with nice docs<a class="headerlink" href="#other-projects-with-nice-docs" title="Permalink to this headline">¶</a></h3>
+<p>For reference, here are some other projects whose docs we should
+consider when styling our own:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://toolz.readthedocs.io/en/latest/api.html">https://toolz.readthedocs.io/en/latest/api.html</a></p></li>
 <li><p><a class="reference external" href="http://xarray.pydata.org/">http://xarray.pydata.org/</a></p></li>
 <li><p><a class="reference external" href="https://docs.dask.org/en/latest/api.html">https://docs.dask.org/en/latest/api.html</a></p></li>
 </ul>
+</div>
 </div>
 </div>
 
@@ -320,12 +351,32 @@
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="api.html" title="previous page">APIs</a>
-    <a class='right-next' id="next-link" href="_changelog.html" title="next page">Versioning</a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="api_reference.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">API reference</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="_changelog.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Versioning</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>
