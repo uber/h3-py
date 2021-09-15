@@ -67,7 +67,7 @@ using `list` and `set` for collections.
 ```
 
 ````{note}
-`basic_str` is the default API provided when you `import h3`; that is,
+`basic_str` is the default API provided when you `import h3`. That is,
 
 ```python
 import h3.api.basic_str as h3
@@ -259,7 +259,7 @@ benchmarks yourself with the
 
 
 ```{note}
-We typically see, for example, about a 6--8x speedup between:
+For this example, we typically see about a 6--8x speedup between:
 
 - computing with the `h3.api.basic_str` interface
 - computing with the `h3.api.numpy_int` interface, and then converting the results back to `str`
