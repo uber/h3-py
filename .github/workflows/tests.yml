@@ -47,9 +47,11 @@ jobs:
 
       - name: Tests
         run: |
-          pytest --cov=h3 --full-trace "tests/*.py"
+          pytest --cov=h3 --full-trace tests/*.py
+        shell: bash
 
       - name: Type Tests
         if: contains('3.6 3.7 3.8 3.9', matrix.python-version) && matrix.os == 'ubuntu-latest'
         run: |
-          pytest --mypy-ini-file=mypy.ini --full-trace "tests/*.yml"
+          pytest --mypy-ini-file=mypy.ini --full-trace tests/*.yml
+        shell: bash
