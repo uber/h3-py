@@ -67,7 +67,7 @@ jobs:
 
       ## Setup Env
 
-      - uses: ilammy/msvc-dev-cmd@v1.9.0
+      - uses: ilammy/msvc-dev-cmd@v1.10.0
         if: runner.os == 'Windows'
 
       - name: Set Windows variables
