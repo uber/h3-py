@@ -1,3 +1,6 @@
 [submodule "src/h3lib"]
 	path = src/h3lib
 	url = https://github.com/uber/h3
+[submodule "src/h3lib4"]
+	path = src/h3lib4
+	url = https://github.com/uber/h3
