@@ -15,6 +15,7 @@ set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
 # Build the core library as static
 set(BUILD_SHARED_LIBS OFF)
 add_subdirectory(src/h3lib)
+add_subdirectory(src/h3lib4)
 
 # Build the rest (other than the core library dependency) as shared
 set(BUILD_SHARED_LIBS ON)
