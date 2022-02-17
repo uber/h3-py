@@ -12,6 +12,7 @@ init: purge
 	git submodule update --init
 	python -m venv env
 	env/bin/pip install --upgrade pip wheel setuptools
+	env/bin/pip install git+https://github.com/ajfriend/h3fake.git
 	env/bin/pip install .[all]
 	env/bin/pip install -r requirements.in
 

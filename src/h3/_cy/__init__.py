@@ -13,3 +13,4 @@ management. The API wrapping code around this should focus on the cosmetic
 function interface and input conversion (string to int, for instance).
 """
 
+from h3fake._cy import *
