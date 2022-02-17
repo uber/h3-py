@@ -14,8 +14,11 @@ Output collections:
 - `List[str]` for ordered
 """
 
-from ._api_template import _api_functions
+from typing import Set
+
 from .. import _cy
+from ._api_template import _API_FUNCTIONS
+from ._util import _update_globals
 
 
 def _in_collection(hexes):
@@ -34,11 +37,12 @@ def _out_ordered(mv):
     return list(_cy.int2hex(h) for h in mv)
 
 
-_api_functions(
+basic_str= _API_FUNCTIONS[str, Set[str]](
     _in_scalar = _cy.hex2int,
     _out_scalar = _cy.int2hex,
     _in_collection = _in_collection,
     _out_unordered = _out_unordered,
     _out_ordered = _out_ordered,
-    _globals = globals(),
 )
+
+_update_globals(basic_str, globals())

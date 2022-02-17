@@ -33,6 +33,12 @@ setup(
         'src',
         exclude = ["*.tests", "*.tests.*", "tests.*", "tests"],
     ),
+    package_data={
+        'h3': [
+            'py.typed',
+        ]
+    },
+    zip_safe=False,
     package_dir = {'': 'src'},
     cmake_languages = ('C'),
     extras_require={

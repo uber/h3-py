@@ -19,8 +19,11 @@ Output collections:
 - `np.ndarray[np.uint64]` for ordered
 """
 
-from ._api_template import _api_functions
 import numpy as np
+from numpy.typing import NDArray
+
+from ._api_template import _API_FUNCTIONS
+from ._util import _update_globals
 
 
 def _id(x):
@@ -33,11 +36,12 @@ def _in_collection(x):
     return np.asarray(x, dtype='uint64')
 
 
-_api_functions(
+numpy_int = _API_FUNCTIONS[NDArray[np.uint64], NDArray[np.uint64]](
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _in_collection,
     _out_unordered = np.asarray,
     _out_ordered = np.asarray,
-    _globals = globals(),
 )
+
+_update_globals(numpy_int, globals())

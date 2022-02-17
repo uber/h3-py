@@ -15,18 +15,20 @@ Output collections:
 - `memoryview[uint64]` for ordered
 """
 
-from ._api_template import _api_functions
+from ._api_template import _API_FUNCTIONS
+from ._util import _update_globals
 
 
 def _id(x):
     return x
 
 
-_api_functions(
+memview_int = _API_FUNCTIONS[memoryview, memoryview](
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _id,
     _out_unordered = _id,
     _out_ordered = _id,
-    _globals = globals(),
 )
+
+_update_globals(memview_int, globals())
