@@ -16,7 +16,6 @@ Output collections:
 """
 
 from ._api_template import _API_FUNCTIONS
-from ._util import _update_globals
 
 
 def _id(x):
@@ -31,4 +30,7 @@ memview_int = _API_FUNCTIONS[memoryview, memoryview](
     _out_ordered = _id,
 )
 
-_update_globals(memview_int, globals())
+###############################
+# Automatically generated API
+# Do not edit below these lines
+###############################

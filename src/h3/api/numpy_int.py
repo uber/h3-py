@@ -23,7 +23,6 @@ import numpy as np
 from numpy.typing import NDArray
 
 from ._api_template import _API_FUNCTIONS
-from ._util import _update_globals
 
 
 def _id(x):
@@ -44,4 +43,7 @@ numpy_int = _API_FUNCTIONS[NDArray[np.uint64], NDArray[np.uint64]](
     _out_ordered = np.asarray,
 )
 
-_update_globals(numpy_int, globals())
+###############################
+# Automatically generated API
+# Do not edit below these lines
+###############################

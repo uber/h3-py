@@ -17,7 +17,6 @@ from typing import Set
 
 from .. import _cy
 from ._api_template import _API_FUNCTIONS
-from ._util import _update_globals
 
 
 def _id(x):
@@ -38,4 +37,7 @@ basic_int = _API_FUNCTIONS[int, Set[int]](
     _out_ordered=list,  # todo: should this be an (immutable) tuple?
 )
 
-_update_globals(basic_int, globals())
+###############################
+# Automatically generated API
+# Do not edit below these lines
+###############################

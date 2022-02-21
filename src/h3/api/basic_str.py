@@ -18,7 +18,6 @@ from typing import Set
 
 from .. import _cy
 from ._api_template import _API_FUNCTIONS
-from ._util import _update_globals
 
 
 def _in_collection(hexes):
@@ -45,4 +44,7 @@ basic_str= _API_FUNCTIONS[str, Set[str]](
     _out_ordered = _out_ordered,
 )
 
-_update_globals(basic_str, globals())
+###############################
+# Automatically generated API
+# Do not edit below these lines
+###############################
