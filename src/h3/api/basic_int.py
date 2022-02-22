@@ -13,7 +13,7 @@ Output collections:
 - `List[int]` for ordered
 """
 
-from typing import Set
+from typing import List, Set
 
 from .. import _cy
 from ._api_template import _API_FUNCTIONS
@@ -29,7 +29,7 @@ def _in_collection(hexes):
     return _cy.from_iter(it)
 
 
-basic_int = _API_FUNCTIONS[int, Set[int]](
+basic_int = _API_FUNCTIONS[int, Set[int], List[int]](
     _in_scalar=_id,
     _out_scalar=_id,
     _in_collection=_in_collection,

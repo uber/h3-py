@@ -22,7 +22,7 @@ def _id(x):
     return x
 
 
-memview_int = _API_FUNCTIONS[memoryview, memoryview](
+memview_int = _API_FUNCTIONS[memoryview, memoryview, memoryview](
     _in_scalar = _id,
     _out_scalar = _id,
     _in_collection = _id,

@@ -14,7 +14,7 @@ Output collections:
 - `List[str]` for ordered
 """
 
-from typing import Set
+from typing import List, Set
 
 from .. import _cy
 from ._api_template import _API_FUNCTIONS
@@ -36,7 +36,7 @@ def _out_ordered(mv):
     return list(_cy.int2hex(h) for h in mv)
 
 
-basic_str= _API_FUNCTIONS[str, Set[str]](
+basic_str= _API_FUNCTIONS[str, Set[str], List[str]](
     _in_scalar = _cy.hex2int,
     _out_scalar = _cy.int2hex,
     _in_collection = _in_collection,
