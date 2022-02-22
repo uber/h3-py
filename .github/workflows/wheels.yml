@@ -42,7 +42,7 @@ jobs:
           name: macOS Intel
         - os: windows-latest
           build: "cp3*-win_amd64"
-          skip: "cp35-win_am64"
+          skip: "cp35-win_amd64"
           name: Windows 64-bit
         - os: ubuntu-latest
           build: "cp*-manylinux_x86_64"
