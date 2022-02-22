@@ -29,13 +29,13 @@ def _in_collection(hexes):
     return _cy.from_iter(it)
 
 
-basic_int = _API_FUNCTIONS[int, Set[int], List[int]](
+basic_int = _API_FUNCTIONS(
     _in_scalar=_id,
     _out_scalar=_id,
     _in_collection=_in_collection,
     _out_unordered=set,  # todo: should this be an (immutable) frozenset?
     _out_ordered=list,  # todo: should this be an (immutable) tuple?
-)
+)  # type: _API_FUNCTIONS[int, Set[int], List[int]]
 
 ###############################
 # Automatically generated API

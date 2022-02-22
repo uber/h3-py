@@ -36,13 +36,13 @@ def _out_ordered(mv):
     return list(_cy.int2hex(h) for h in mv)
 
 
-basic_str= _API_FUNCTIONS[str, Set[str], List[str]](
+basic_str = _API_FUNCTIONS(
     _in_scalar = _cy.hex2int,
     _out_scalar = _cy.int2hex,
     _in_collection = _in_collection,
     _out_unordered = _out_unordered,
     _out_ordered = _out_ordered,
-)
+)  # type: _API_FUNCTIONS[str, Set[str], List[str]]
 
 ###############################
 # Automatically generated API
