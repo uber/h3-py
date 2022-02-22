@@ -18,6 +18,8 @@ jobs:
         exclude:
           - os: windows-latest
             python-version: 2.7
+          - os: windows-latest
+            python-version: 3.5
 
     steps:
       - uses: actions/checkout@v2.3.3
