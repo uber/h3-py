@@ -14,7 +14,7 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-None.
+- Website and API documentation; along with docstring cleanup.
 
 ## [3.7.3] - 2021-06-12
 

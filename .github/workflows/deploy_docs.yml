@@ -1,11 +1,13 @@
 name: deploy_docs
 
+# todo: we want to build on PRs, but keep it from pushing to deploy...
+
 on:
   push:
     branches:
       - master
 
-# This job installs dependencies, build the book, and pushes it to `gh-pages`
+# This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
   build-docs:
     name: Build docs
@@ -33,7 +35,7 @@ jobs:
       # Build the book
       - name: Build the book
         run: |
-          jupyter-book build docs/
+          jupyter-book build docs/ --warningiserror --keep-going --all
 
       # Deploy the book's HTML to gh-pages branch
       - name: GitHub Pages action
