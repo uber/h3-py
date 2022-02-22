@@ -37,7 +37,13 @@ todo: how do we lint these functions and docstrings? it seems to currently
 be skipped due to it being inside the `_api_functions` function.
 """
 
-from typing import Dict, Generic, List, Literal, Iterable, Optional, Tuple, TypeVar, Set
+import sys
+from typing import Dict, Generic, List, Iterable, Optional, Tuple, TypeVar, Set
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 from .. import _cy
 
@@ -392,10 +398,8 @@ class _API_FUNCTIONS(Generic[ScalarType, UnorderedScalarType, OrderedScalarType]
         Dict[H3Cell, List[ UnorderedCollection[H3Cell] ]]
         """
         # todo: can we drop this function? the user can implement if needed.
-        out = {
-            self._out_scalar(h): self.hex_range_distances(h, K)
-            for h in hexes
-        }
+        # TODO: should we call `out_scalar` on the dict keys?
+        out = {h: self.hex_range_distances(h, K) for h in hexes}
 
         return out
 
