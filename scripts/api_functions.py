@@ -1,6 +1,7 @@
-import re
 from pathlib import Path
 from typing import List
+
+from h3.api.basic_int import basic_int
 
 APIS = ["basic_int", "basic_str", "memview_int", "numpy_int"]
 
@@ -12,33 +13,11 @@ SEPARATOR_TEXT = """\
 """
 
 
-def read_api(api_template_path: Path) -> List[str]:
-    """Read public API from _api_template.py"""
-    with open(api_template_path) as f:
-        lines = f.readlines()
-
-    # Methods within _API_FUNCTIONS class
-    method_lines = [line for line in lines if line.startswith("    def")]
-
-    # Names of methods (strip `def`)
-    method_names = []
-    for line in method_lines:
-        match = re.match(r"    def (\w+)\(", line)
-        assert match, "Could not match function definition"
-        method_names.append(match.group(1))
-
-    # Public methods (remove `__init__`)
-    public_method_names = [name for name in method_names if not name.startswith("_")]
-
-    return public_method_names
-
-
-def create_api_binding(api_name: str, public_method_names: List[str]) -> List[str]:
+def create_api_binding(api_name: str) -> List[str]:
     """Formulate API bindings to paste into API files
 
     Args:
         api_name: should be one of 'basic_int', 'basic_str', 'memview_int', 'numpy_int'
-        public_method_names: list of method names to export
 
     Returns:
 
@@ -46,6 +25,11 @@ def create_api_binding(api_name: str, public_method_names: List[str]) -> List[st
 
             string_to_h3 = basic_int.string_to_h3
     """
+    # Use introspection in the basic_int instance of _API_FUNCTIONS
+    public_method_names = sorted(
+        [name for name in dir(basic_int) if not name.startswith("_")]
+    )
+
     return [
         f"{method_name} = {api_name}.{method_name}"
         for method_name in public_method_names
@@ -78,12 +62,9 @@ def write_api(api_path: Path, api_binding: List[str]) -> None:
 
 
 def main(h3_root: Path = Path(".")) -> None:
-    api_template_path = h3_root / "src/h3/api/_api_template.py"
-    public_method_names = read_api(api_template_path)
-
     for api_name in APIS:
         api_path = h3_root / f"src/h3/api/{api_name}.py"
-        api_binding = create_api_binding(api_name, public_method_names)
+        api_binding = create_api_binding(api_name)
         write_api(api_path=api_path, api_binding=api_binding)
 
 
