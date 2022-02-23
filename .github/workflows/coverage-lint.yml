@@ -26,7 +26,7 @@ jobs:
           pip install .[all]
 
       - name: Lint
-        run: flake8 src/h3 setup.py tests
+        run: pre-commit run --all-files
 
       - name: Coverage
         run: pytest --cov=h3 --full-trace --cov-report=xml
