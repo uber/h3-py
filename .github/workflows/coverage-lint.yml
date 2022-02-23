@@ -26,7 +26,9 @@ jobs:
           pip install .[all]
 
       - name: Lint
-        run: pre-commit run --all-files
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files
 
       - name: Coverage
         run: pytest --cov=h3 --full-trace --cov-report=xml
