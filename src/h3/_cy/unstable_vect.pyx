@@ -1,9 +1,11 @@
+from cython cimport boundscheck, wraparound
+from libc.math cimport asin, cos, sin, sqrt
+
 cimport h3lib
 from h3lib cimport H3int
+
 from .util cimport deg2coord
 
-from cython cimport boundscheck, wraparound
-from libc.math cimport sqrt, sin, cos, asin
 
 cdef double haversineDistance(double th1, double ph1, double th2, double ph2) nogil:
     cdef:

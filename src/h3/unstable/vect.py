@@ -1,6 +1,6 @@
-from .._cy import unstable_vect as _vect
-
 import numpy as np
+
+from .._cy import unstable_vect as _vect
 
 
 def h3_to_parent(h, res=None):

@@ -1,8 +1,9 @@
-from libc cimport stdlib
 from cython.view cimport array
-from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
+from libc cimport stdlib
 
 cimport h3lib
+
+from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
 
 
 cdef h3lib.GeoCoord deg2coord(double lat, double lng) nogil:

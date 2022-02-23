@@ -1,5 +1,5 @@
-from libc cimport stdint
 from cpython cimport bool
+from libc cimport stdint
 from libc.stdint cimport int64_t
 
 ctypedef stdint.uint64_t H3int

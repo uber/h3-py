@@ -1,10 +1,11 @@
-import h3.api.numpy_int as h3
 import numpy as np  # only run this test suite if numpy is installed
 import pytest
 
+import h3.api.numpy_int as h3
+
 with pytest.warns(
     UserWarning,
-    match = 'Modules under `h3.unstable` are experimental',
+    match='Modules under `h3.unstable` are experimental',
 ):
     import h3.unstable.vect as h3_vect
 

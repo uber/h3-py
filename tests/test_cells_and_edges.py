@@ -1,12 +1,12 @@
-import h3
 import pytest
 
+import h3
 from h3 import (
-    H3ValueError,
     H3CellError,
-    H3ResolutionError,
-    H3EdgeError,
     H3DistanceError,
+    H3EdgeError,
+    H3ResolutionError,
+    H3ValueError,
 )
 
 
@@ -14,10 +14,7 @@ def approx2(a, b):
     if len(a) != len(b):
         return False
 
-    return all(
-        x == pytest.approx(y)
-        for x, y in zip(a, b)
-    )
+    return all(x == pytest.approx(y) for x, y in zip(a, b))
 
 
 def test1():
@@ -53,7 +50,7 @@ def test4():
         (-122.41971895414807, 37.77820687262238),
         (-122.42079024541877, 37.77652420699321),
         (-122.4195306280734, 37.775019673792606),
-        (-122.41719971841658, 37.775197782893386)
+        (-122.41719971841658, 37.775197782893386),
     )
 
     out = h3.h3_to_geo_boundary('8928308280fffff', geo_json=True)
@@ -78,7 +75,7 @@ def test5():
         '89283082807ffff',
         '8928308280bffff',
         '8928308280fffff',
-        '89283082803ffff'
+        '89283082803ffff',
     }
 
     out = h3.k_ring('8928308280fffff', 1)
@@ -98,7 +95,7 @@ def test7():
         '8928308280bffff',
         '8928308283bffff',
         '89283082873ffff',
-        '89283082877ffff'
+        '89283082877ffff',
     }
 
     out = h3.hex_ring('8928308280fffff', 1)
@@ -153,7 +150,7 @@ def test_children():
         '8a28308280dffff',
         '8a28308280e7fff',
         '8a28308280effff',
-        '8a28308280f7fff'
+        '8a28308280f7fff',
     }
     out = h3.h3_to_children(h, 10)
     assert out == expected
@@ -226,7 +223,7 @@ def test_compact():
         (47.35462921812177, -68.23430497910454),
         (47.066248887716995, -67.79035274928509),
         (45.702585354182816, -67.79141211614706),
-        (45.137451890638886, -67.13734351262877)
+        (45.137451890638886, -67.13734351262877),
     ]
 
     res = 5
@@ -234,7 +231,110 @@ def test_compact():
     h_uncomp = h3.polyfill_polygon(maine, res)
     h_comp = h3.compact(h_uncomp)
 
-    expected = {'852b114ffffffff', '852b189bfffffff', '852b1163fffffff', '842ba9bffffffff', '842bad3ffffffff', '852ba9cffffffff', '842badbffffffff', '852b1e8bfffffff', '852a346ffffffff', '842b1e3ffffffff', '852b116ffffffff', '842b185ffffffff', '852b1bdbfffffff', '852bad47fffffff', '852ba9c3fffffff', '852b106bfffffff', '852a30d3fffffff', '842b1edffffffff', '852b12a7fffffff', '852b1027fffffff', '842baddffffffff', '852a349bfffffff', '852b1227fffffff', '852a3473fffffff', '852b117bfffffff', '842ba99ffffffff', '852a341bfffffff', '852ba9d3fffffff', '852b1067fffffff', '852a3463fffffff', '852baca7fffffff', '852b116bfffffff', '852b1c6bfffffff', '852a3493fffffff', '852ba9dbfffffff', '852b180bfffffff', '842bad7ffffffff', '852b1063fffffff', '842ba93ffffffff', '852a3693fffffff', '852ba977fffffff', '852b1e9bfffffff', '852bad53fffffff', '852b100ffffffff', '852b102bfffffff', '852a3413fffffff', '852ba8b7fffffff', '852bad43fffffff', '852b1c6ffffffff', '852a340bfffffff', '852b103bfffffff', '852b1813fffffff', '852b12affffffff', '842a34dffffffff', '852b1873fffffff', '852b106ffffffff', '852b115bfffffff', '852baca3fffffff', '852b114bfffffff', '852b1143fffffff', '852a348bfffffff', '852a30d7fffffff', '852b181bfffffff', '842a345ffffffff', '852b1e8ffffffff', '852b1883fffffff', '852b1147fffffff', '852a3483fffffff', '852b12a3fffffff', '852a346bfffffff', '852ba9d7fffffff', '842b18dffffffff', '852b188bfffffff', '852a36a7fffffff', '852bacb3fffffff', '852b187bfffffff', '852bacb7fffffff', '842b1ebffffffff', '842b1e5ffffffff', '852ba8a7fffffff', '842bad9ffffffff', '852a36b7fffffff', '852a347bfffffff', '832b13fffffffff', '852ba9c7fffffff', '832b1afffffffff', '842ba91ffffffff', '852bad57fffffff', '852ba8affffffff', '852b1803fffffff', '842b1e7ffffffff', '852bad4ffffffff', '852b102ffffffff', '852b1077fffffff', '852b1237fffffff', '852b1153fffffff', '852a3697fffffff', '852a36b3fffffff', '842bad1ffffffff', '842b1e1ffffffff', '852b186bfffffff', '852b1023fffffff'} # noqa
+    expected = {
+        '852b114ffffffff',
+        '852b189bfffffff',
+        '852b1163fffffff',
+        '842ba9bffffffff',
+        '842bad3ffffffff',
+        '852ba9cffffffff',
+        '842badbffffffff',
+        '852b1e8bfffffff',
+        '852a346ffffffff',
+        '842b1e3ffffffff',
+        '852b116ffffffff',
+        '842b185ffffffff',
+        '852b1bdbfffffff',
+        '852bad47fffffff',
+        '852ba9c3fffffff',
+        '852b106bfffffff',
+        '852a30d3fffffff',
+        '842b1edffffffff',
+        '852b12a7fffffff',
+        '852b1027fffffff',
+        '842baddffffffff',
+        '852a349bfffffff',
+        '852b1227fffffff',
+        '852a3473fffffff',
+        '852b117bfffffff',
+        '842ba99ffffffff',
+        '852a341bfffffff',
+        '852ba9d3fffffff',
+        '852b1067fffffff',
+        '852a3463fffffff',
+        '852baca7fffffff',
+        '852b116bfffffff',
+        '852b1c6bfffffff',
+        '852a3493fffffff',
+        '852ba9dbfffffff',
+        '852b180bfffffff',
+        '842bad7ffffffff',
+        '852b1063fffffff',
+        '842ba93ffffffff',
+        '852a3693fffffff',
+        '852ba977fffffff',
+        '852b1e9bfffffff',
+        '852bad53fffffff',
+        '852b100ffffffff',
+        '852b102bfffffff',
+        '852a3413fffffff',
+        '852ba8b7fffffff',
+        '852bad43fffffff',
+        '852b1c6ffffffff',
+        '852a340bfffffff',
+        '852b103bfffffff',
+        '852b1813fffffff',
+        '852b12affffffff',
+        '842a34dffffffff',
+        '852b1873fffffff',
+        '852b106ffffffff',
+        '852b115bfffffff',
+        '852baca3fffffff',
+        '852b114bfffffff',
+        '852b1143fffffff',
+        '852a348bfffffff',
+        '852a30d7fffffff',
+        '852b181bfffffff',
+        '842a345ffffffff',
+        '852b1e8ffffffff',
+        '852b1883fffffff',
+        '852b1147fffffff',
+        '852a3483fffffff',
+        '852b12a3fffffff',
+        '852a346bfffffff',
+        '852ba9d7fffffff',
+        '842b18dffffffff',
+        '852b188bfffffff',
+        '852a36a7fffffff',
+        '852bacb3fffffff',
+        '852b187bfffffff',
+        '852bacb7fffffff',
+        '842b1ebffffffff',
+        '842b1e5ffffffff',
+        '852ba8a7fffffff',
+        '842bad9ffffffff',
+        '852a36b7fffffff',
+        '852a347bfffffff',
+        '832b13fffffffff',
+        '852ba9c7fffffff',
+        '832b1afffffffff',
+        '842ba91ffffffff',
+        '852bad57fffffff',
+        '852ba8affffffff',
+        '852b1803fffffff',
+        '842b1e7ffffffff',
+        '852bad4ffffffff',
+        '852b102ffffffff',
+        '852b1077fffffff',
+        '852b1237fffffff',
+        '852b1153fffffff',
+        '852a3697fffffff',
+        '852a36b3fffffff',
+        '842bad1ffffffff',
+        '842b1e1ffffffff',
+        '852b186bfffffff',
+        '852b1023fffffff',
+    }  # noqa
 
     assert h_comp == expected
 
@@ -259,10 +359,7 @@ def test_num_hexagons():
         15: 569707381193162,
     }
 
-    out = {
-        k: h3.num_hexagons(k)
-        for k in expected
-    }
+    out = {k: h3.num_hexagons(k) for k in expected}
 
     assert expected == out
 
@@ -276,10 +373,7 @@ def test_hex_area():
         15: 9e-07,
     }
 
-    out = {
-        k: h3.hex_area(k, unit='km^2')
-        for k in expected_in_km2
-    }
+    out = {k: h3.hex_area(k, unit='km^2') for k in expected_in_km2}
 
     assert out == pytest.approx(expected_in_km2)
 
@@ -293,10 +387,7 @@ def test_hex_edge_length():
         15: 0.000509713,
     }
 
-    out = {
-        res: h3.edge_length(res, unit='km')
-        for res in expected_in_km
-    }
+    out = {res: h3.edge_length(res, unit='km') for res in expected_in_km}
 
     assert out == pytest.approx(expected_in_km)
 
@@ -324,8 +415,7 @@ def test_edges_from_cell():
     h = '8928308280fffff'
     edges = h3.get_h3_unidirectional_edges_from_hexagon(h)
     destinations = {
-        h3.get_destination_h3_index_from_unidirectional_edge(e)
-        for e in edges
+        h3.get_destination_h3_index_from_unidirectional_edge(e) for e in edges
     }
     neighbors = h3.hex_ring(h, 1)
 
@@ -339,7 +429,7 @@ def test_edge_boundary():
 
     expected = (
         (37.77688044840226, -122.41612835779266),
-        (37.778385004930925, -122.41738797617619)
+        (37.778385004930925, -122.41738797617619),
     )
 
     out = h3.get_h3_unidirectional_edge_boundary(e)
@@ -433,11 +523,7 @@ def test_line():
 
     out = h3.h3_line(h1, h2)
 
-    expected = [
-        '8928308280fffff',
-        '89283082873ffff',
-        '8928308287bffff'
-    ]
+    expected = ['8928308280fffff', '89283082873ffff', '8928308287bffff']
 
     assert out == expected
 
@@ -540,10 +626,7 @@ def test_get_res0_indexes():
     assert all(map(h3.h3_is_valid, out))
 
     # resolution
-    assert all(map(
-        lambda h: h3.h3_get_resolution(h) == 0,
-        out
-    ))
+    assert all(map(lambda h: h3.h3_get_resolution(h) == 0, out))
 
     # verify a few concrete cells
     sub = {
@@ -606,10 +689,7 @@ def test_from_local_ij_error():
     nb = h3.hex_ring(h, k=1)
     goodies = {h3.experimental_h3_to_local_ij(h, p) for p in nb}
 
-    out = {
-        h3.experimental_local_ij_to_h3(h, i, j)
-        for i, j in goodies
-    }
+    out = {h3.experimental_local_ij_to_h3(h, i, j) for i, j in goodies}
 
     assert out == nb
 

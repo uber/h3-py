@@ -1,6 +1,8 @@
-import h3
 import itertools
+
 import pytest
+
+import h3
 
 
 def reverse(loop):
@@ -12,7 +14,7 @@ def drop_last(loop):
 
 
 def toggle_map(func, poly):
-    """ Return all permuations of `func` being applied or not
+    """Return all permuations of `func` being applied or not
     to each element of `poly`
 
     returns iterable of length 2**len(poly)
@@ -49,25 +51,20 @@ def get_us_box_coords(order='latlng'):
     outer = [
         [42.68, -110.61],
         [32.17, -109.02],
-        [31.57,  -94.26],
-        [42.94,  -89.38],
-        [42.68, -110.61]
+        [31.57, -94.26],
+        [42.94, -89.38],
+        [42.68, -110.61],
     ]
 
     hole1 = [
         [39.77, -105.07],
         [34.81, -104.72],
-        [34.77,  -98.39],
-        [40.14,  -96.72],
-        [39.77, -105.07]
+        [34.77, -98.39],
+        [40.14, -96.72],
+        [39.77, -105.07],
     ]
 
-    hole2 = [
-        [41.37, -98.61],
-        [40.04, -91.80],
-        [42.32, -91.80],
-        [41.37, -98.61]
-    ]
+    hole2 = [[41.37, -98.61], [40.04, -91.80], [42.32, -91.80], [41.37, -98.61]]
 
     if order == 'lnglat':
         outer, hole1, hole2 = map(swap_element_order, [outer, hole1, hole2])
@@ -98,7 +95,7 @@ def test_polyfill_polygon():
         (47.35462921812177, -68.23430497910454),
         (47.066248887716995, -67.79035274928509),
         (45.702585354182816, -67.79141211614706),
-        (45.137451890638886, -67.13734351262877)
+        (45.137451890638886, -67.13734351262877),
     ]
 
     # a very rough hexagonal approximation to the State of Maine
@@ -108,7 +105,7 @@ def test_polyfill_polygon():
         '832b1afffffffff',
         '832b1efffffffff',
         '832ba9fffffffff',
-        '832badfffffffff'
+        '832badfffffffff',
     }
 
     out = h3.polyfill_polygon(maine, 3)
@@ -134,9 +131,7 @@ def test_polyfill_polygon_holes():
 
     outer, hole1, hole2 = get_us_box_coords()
 
-    assert 7063 == len(
-        h3.polyfill_polygon(outer, 5)
-    )
+    assert 7063 == len(h3.polyfill_polygon(outer, 5))
 
     for res in 1, 2, 3, 4, 5:
         hexes_all = h3.polyfill_polygon(outer, res)
@@ -176,7 +171,7 @@ def test_polyfill():
 
 
 def test_input_format():
-    """ Test that `polyfill_polygon` can take in polygon inputs
+    """Test that `polyfill_polygon` can take in polygon inputs
     where the LinearRings may or may not follow the right hand rule,
     and they may or may not be closed loops (where the last element
     is equal to the first).
