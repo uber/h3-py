@@ -13,8 +13,8 @@ Output collections:
 - `List[int]` for ordered
 """
 
-from ._api_template import _api_functions
 from .. import _cy
+from ._api_template import _api_functions
 
 
 def _id(x):
@@ -28,10 +28,10 @@ def _in_collection(hexes):
 
 
 _api_functions(
-    _in_scalar = _id,
-    _out_scalar = _id,
-    _in_collection = _in_collection,
-    _out_unordered = set,  # todo: should this be an (immutable) frozenset?
-    _out_ordered = list,  # todo: should this be an (immutable) tuple?
-    _globals = globals(),
+    _in_scalar=_id,
+    _out_scalar=_id,
+    _in_collection=_in_collection,
+    _out_unordered=set,  # todo: should this be an (immutable) frozenset?
+    _out_ordered=list,  # todo: should this be an (immutable) tuple?
+    _globals=globals(),
 )

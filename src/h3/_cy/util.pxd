@@ -1,4 +1,5 @@
-from .h3lib cimport H3int, H3str, GeoCoord
+from .h3lib cimport GeoCoord, H3int, H3str
+
 
 cdef GeoCoord deg2coord(double lat, double lng) nogil
 cdef (double, double) coord2deg(GeoCoord c) nogil

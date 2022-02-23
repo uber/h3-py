@@ -1,0 +1,31 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+# Default to Python 3
+default_language_version:
+  python: python3
+
+# Optionally both commit and push
+default_stages: [commit]
+
+# Regex for files to include
+files: "(src/h3/|setup.py|tests)"
+
+repos:
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/psf/black
+    rev: 22.1.0
+    hooks:
+      - id: black
+        args: [
+          --skip-string-normalization
+        ]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: '4.0.1'
+    hooks:
+    -   id: flake8

@@ -1,15 +1,17 @@
+from libc cimport stdlib
+
 cimport h3lib
-from h3lib cimport bool, H3int
+from h3lib cimport H3int, bool
+
 from .util cimport (
     check_cell,
     check_edge,
     check_res,
-    create_ptr,
-    create_mv,
-    deg2coord,
     coord2deg,
+    create_mv,
+    create_ptr,
+    deg2coord,
 )
-from libc cimport stdlib
 
 from .util import H3ValueError
 

@@ -1,15 +1,10 @@
 cimport h3lib
-from .h3lib cimport bool, H3int
 
-from .util cimport (
-    check_cell,
-    check_edge,
-    check_res,
-    create_ptr,
-    create_mv,
-)
+from .h3lib cimport H3int, bool
+from .util cimport check_cell, check_edge, check_res, create_mv, create_ptr
 
 from .util import H3ValueError
+
 
 cpdef bool are_neighbors(H3int h1, H3int h2):
     check_cell(h1)

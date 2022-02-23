@@ -47,12 +47,12 @@ from .. import _cy
 
 
 def _api_functions(
-        _in_scalar,
-        _out_scalar,
-        _in_collection,
-        _out_unordered,
-        _out_ordered,
-        _globals,
+    _in_scalar,
+    _out_scalar,
+    _in_collection,
+    _out_unordered,
+    _out_ordered,
+    _globals,
 ):
     def versions():
         """
@@ -354,10 +354,7 @@ def _api_functions(
         """
         h = _in_scalar(h)
 
-        out = [
-            _out_unordered(_cy.ring(h, k))
-            for k in range(K + 1)
-        ]
+        out = [_out_unordered(_cy.ring(h, k)) for k in range(K + 1)]
 
         return out
 
@@ -370,10 +367,7 @@ def _api_functions(
         Dict[H3Cell, List[ UnorderedCollection[H3Cell] ]]
         """
         # todo: can we drop this function? the user can implement if needed.
-        out = {
-            h: hex_range_distances(h, K)
-            for h in hexes
-        }
+        out = {h: hex_range_distances(h, K) for h in hexes}
 
         return out
 
@@ -967,10 +961,6 @@ def _api_functions(
         lat1, lng1 = point1
         lat2, lng2 = point2
 
-        return _cy.point_dist(
-            lat1, lng1,
-            lat2, lng2,
-            unit=unit
-        )
+        return _cy.point_dist(lat1, lng1, lat2, lng2, unit=unit)
 
     _globals.update(locals())

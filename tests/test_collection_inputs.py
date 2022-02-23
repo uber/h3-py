@@ -1,10 +1,7 @@
 import numpy as np  # only run this test suite if numpy is installed
 import pytest
-from h3.api import (
-    basic_int,
-    numpy_int,
-    memview_int,
-)
+
+from h3.api import basic_int, memview_int, numpy_int
 
 # todo: check when a copy is made, and when it isn't
 
@@ -62,15 +59,18 @@ def test_list():
 
 
 def test_np_array():
-    ints = np.array([
-        619056821839331327,
-        619056821839593471,
-        619056821839855615,
-        619056821840117759,
-        619056821840379903,
-        619056821840642047,
-        619056821840904191,
-    ], dtype='uint64')
+    ints = np.array(
+        [
+            619056821839331327,
+            619056821839593471,
+            619056821839855615,
+            619056821840117759,
+            619056821840379903,
+            619056821840642047,
+            619056821840904191,
+        ],
+        dtype='uint64',
+    )
 
     h = 614553222213795839
 
@@ -111,17 +111,18 @@ def test_list_to_array():
 
 
 def test_iterator():
-
     def foo():
-        ints = iter([
-            619056821839331327,
-            619056821839593471,
-            619056821839855615,
-            619056821840117759,
-            619056821840379903,
-            619056821840642047,
-            619056821840904191,
-        ])
+        ints = iter(
+            [
+                619056821839331327,
+                619056821839593471,
+                619056821839855615,
+                619056821840117759,
+                619056821840379903,
+                619056821840642047,
+                619056821840904191,
+            ]
+        )
 
         return ints
 

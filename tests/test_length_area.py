@@ -1,6 +1,6 @@
-import h3
 import pytest
 
+import h3
 from h3 import H3ValueError
 
 
@@ -8,19 +8,13 @@ def approx2(a, b):
     if len(a) != len(b):
         return False
 
-    return all(
-        x == pytest.approx(y)
-        for x, y in zip(a, b)
-    )
+    return all(x == pytest.approx(y) for x, y in zip(a, b))
 
 
 def cell_perimiter1(h, unit='km'):
     edges = h3.get_h3_unidirectional_edges_from_hexagon(h)
 
-    dists = [
-        h3.exact_edge_length(e, unit=unit)
-        for e in edges
-    ]
+    dists = [h3.exact_edge_length(e, unit=unit) for e in edges]
 
     assert all(d > 0 for d in dists)
 
@@ -32,10 +26,7 @@ def cell_perimiter2(h, unit='km'):
     N = len(verts)
     verts += (verts[0],)
 
-    dists = [
-        h3.point_dist(verts[i], verts[i + 1], unit=unit)
-        for i in range(N)
-    ]
+    dists = [h3.point_dist(verts[i], verts[i + 1], unit=unit) for i in range(N)]
 
     assert all(d > 0 for d in dists)
 
@@ -44,14 +35,14 @@ def cell_perimiter2(h, unit='km'):
 
 def test_areas_at_00():
     areas_km2 = [
-        2.562182162955495529e+06,
-        4.476842018179409206e+05,
-        6.596162242711056024e+04,
-        9.228872919002589697e+03,
-        1.318694490797110348e+03,
-        1.879593512281297762e+02,
-        2.687164354763186225e+01,
-        3.840848847060638782e+00,
+        2.562182162955495529e06,
+        4.476842018179409206e05,
+        6.596162242711056024e04,
+        9.228872919002589697e03,
+        1.318694490797110348e03,
+        1.879593512281297762e02,
+        2.687164354763186225e01,
+        3.840848847060638782e00,
         5.486939641329895423e-01,
         7.838600808637447015e-02,
         1.119834221989390345e-02,
@@ -62,10 +53,7 @@ def test_areas_at_00():
         6.662957615868890711e-07,
     ]
 
-    out = [
-        h3.cell_area(h3.geo_to_h3(0, 0, r), unit='km^2')
-        for r in range(16)
-    ]
+    out = [h3.cell_area(h3.geo_to_h3(0, 0, r), unit='km^2') for r in range(16)]
 
     assert approx2(out, areas_km2)
 
@@ -88,10 +76,7 @@ def test_areas_at_00():
         1.641537700693487648e-14,
     ]
 
-    out = [
-        h3.cell_area(h3.geo_to_h3(0, 0, r), unit='rads^2')
-        for r in range(16)
-    ]
+    out = [h3.cell_area(h3.geo_to_h3(0, 0, r), unit='rads^2') for r in range(16)]
 
     assert approx2(out, areas_rads2)
 

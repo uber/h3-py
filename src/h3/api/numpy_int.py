@@ -19,8 +19,9 @@ Output collections:
 - `np.ndarray[np.uint64]` for ordered
 """
 
-from ._api_template import _api_functions
 import numpy as np
+
+from ._api_template import _api_functions
 
 
 def _id(x):
@@ -34,10 +35,10 @@ def _in_collection(x):
 
 
 _api_functions(
-    _in_scalar = _id,
-    _out_scalar = _id,
-    _in_collection = _in_collection,
-    _out_unordered = np.asarray,
-    _out_ordered = np.asarray,
-    _globals = globals(),
+    _in_scalar=_id,
+    _out_scalar=_id,
+    _in_collection=_in_collection,
+    _out_unordered=np.asarray,
+    _out_ordered=np.asarray,
+    _globals=globals(),
 )

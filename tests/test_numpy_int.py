@@ -1,5 +1,6 @@
-import h3.api.numpy_int as h3
 import numpy as np  # only run this test suite if numpy is installed
+
+import h3.api.numpy_int as h3
 
 
 def test1():

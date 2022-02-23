@@ -1,17 +1,12 @@
-cimport h3lib
-from .h3lib cimport bool, int64_t, H3int
 from libc cimport stdlib
 
-from .util cimport (
-    check_cell,
-    check_res,
-    check_distance,
-    create_ptr,
-    create_mv,
-    empty_memory_view, # want to drop this import if possible
-)
+cimport h3lib
 
-from .util import H3ValueError, H3ResolutionError
+from .h3lib cimport H3int, bool, int64_t
+from .util cimport empty_memory_view  # want to drop this import if possible
+from .util cimport check_cell, check_distance, check_res, create_mv, create_ptr
+
+from .util import H3ResolutionError, H3ValueError
 
 # todo: add notes about Cython exception handling
 

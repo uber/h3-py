@@ -6,7 +6,7 @@ def test_int_output():
     lng = -122.418307270836
 
     assert h3.geo_to_h3(lat, lng, 9) == 617700169958293503
-    assert h3.geo_to_h3(lat, lng, 9) == 0x8928308280fffff
+    assert h3.geo_to_h3(lat, lng, 9) == 0x8928308280FFFFF
 
 
 def test_k_ring():
