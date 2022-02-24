@@ -124,7 +124,7 @@ class _API_FUNCTIONS(object):
         return _cy.num_hexagons(resolution)
 
     @staticmethod
-    def hex_area(resolution, unit = 'km^2'):
+    def hex_area(resolution, unit='km^2'):
         """
         Return the average area of an H3 *hexagon*
         for the given resolution.
@@ -139,7 +139,7 @@ class _API_FUNCTIONS(object):
         return _cy.mean_hex_area(resolution, unit)
 
     @staticmethod
-    def edge_length(resolution, unit = 'km'):
+    def edge_length(resolution, unit='km'):
         """
         Return the average *hexagon* edge length
         for the given resolution.
@@ -225,7 +225,7 @@ class _API_FUNCTIONS(object):
         # todo: could also work for edges
         return _cy.resolution(self._in_scalar(h))
 
-    def h3_to_parent(self, h, res = None):
+    def h3_to_parent(self, h, res=None):
         """
         Get the parent of a cell.
 
@@ -273,7 +273,7 @@ class _API_FUNCTIONS(object):
 
         return d
 
-    def h3_to_geo_boundary(self, h, geo_json = False):
+    def h3_to_geo_boundary(self, h, geo_json=False):
         """
         Return tuple of lat/lng pairs describing the cell boundary.
 
@@ -293,7 +293,7 @@ class _API_FUNCTIONS(object):
         """
         return _cy.cell_boundary(self._in_scalar(h), geo_json)
 
-    def k_ring(self, h, k = 1):
+    def k_ring(self, h, k=1):
         """
         Return unordered set of cells with H3 distance ``<= k`` from ``h``.
         That is, the "filled-in" disk.
@@ -312,7 +312,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def hex_range(self, h, k = 1):
+    def hex_range(self, h, k=1):
         """
         Alias for `k_ring`.
         "Filled-in" disk.
@@ -325,7 +325,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def hex_ring(self, h, k = 1):
+    def hex_ring(self, h, k=1):
         """
         Return unordered set of cells with H3 distance ``== k`` from ``h``.
         That is, the "hollow" ring.
@@ -386,7 +386,7 @@ class _API_FUNCTIONS(object):
         """Alias for `hex_range_distances`."""
         return self.hex_range_distances(h, K)
 
-    def h3_to_children(self, h, res = None):
+    def h3_to_children(self, h, res=None):
         """
         Children of a hexagon.
 
@@ -455,8 +455,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(hu)
 
-    # TODO: Check input type across APIs, should this be UnorderedScalarType?
-    def h3_set_to_multi_polygon(self, hexes, geo_json = False):
+    def h3_set_to_multi_polygon(self, hexes, geo_json=False):
         """
         Get GeoJSON-like MultiPolygon describing the outline of the area
         covered by a set of H3 cells.
@@ -485,7 +484,7 @@ class _API_FUNCTIONS(object):
         hexes = self._in_collection(hexes)
         return _cy.h3_set_to_multi_polygon(hexes, geo_json=geo_json)
 
-    def polyfill_polygon(self, outer, res, holes=None, lnglat_order = False):
+    def polyfill_polygon(self, outer, res, holes=None, lnglat_order=False):
         mv = _cy.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
 
         return self._out_unordered(mv)
@@ -495,7 +494,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def polyfill(self, geojson, res, geo_json_conformant = False):
+    def polyfill(self, geojson, res, geo_json_conformant=False):
         """
         Get set of hexagons whose *centers* are contained within
         a GeoJSON-style polygon.
@@ -695,7 +694,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def get_h3_unidirectional_edge_boundary(self, edge, geo_json = False):
+    def get_h3_unidirectional_edge_boundary(self, edge, geo_json=False):
         return _cy.edge_boundary(self._in_scalar(edge), geo_json=geo_json)
 
     def h3_line(self, start, end):
@@ -782,7 +781,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def h3_to_center_child(self, h, res = None):
+    def h3_to_center_child(self, h, res=None):
         """
         Get the center child of a cell at some finer resolution.
 
@@ -898,7 +897,7 @@ class _API_FUNCTIONS(object):
 
         return h
 
-    def cell_area(self, h, unit = 'km^2'):
+    def cell_area(self, h, unit='km^2'):
         """
         Compute the spherical surface area of a specific H3 cell.
 
@@ -925,7 +924,7 @@ class _API_FUNCTIONS(object):
 
         return _cy.cell_area(h, unit=unit)
 
-    def exact_edge_length(self, e, unit = 'km'):
+    def exact_edge_length(self, e, unit='km'):
         """
         Compute the spherical length of a specific H3 edge.
 
@@ -951,7 +950,7 @@ class _API_FUNCTIONS(object):
         return _cy.edge_length(e, unit=unit)
 
     @staticmethod
-    def point_dist(point1, point2, unit = 'km'):
+    def point_dist(point1, point2, unit='km'):
         """
         Compute the spherical distance between two (lat, lng) points.
 

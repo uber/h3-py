@@ -35,7 +35,6 @@ setup(
     ),
     package_dir = {'': 'src'},
     cmake_languages = ('C'),
-    install_requires=['typing_extensions;python_version<"3.8"'],
     extras_require={
         'numpy': ['numpy'],
         'test': ['pytest', 'pytest-cov', 'flake8'],
