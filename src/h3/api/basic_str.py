@@ -14,8 +14,6 @@ Output collections:
 - `List[str]` for ordered
 """
 
-from typing import List, Set
-
 from .. import _cy
 from ._api_template import _API_FUNCTIONS
 
@@ -42,7 +40,7 @@ basic_str = _API_FUNCTIONS(
     _in_collection = _in_collection,
     _out_unordered = _out_unordered,
     _out_ordered = _out_ordered,
-)  # type: _API_FUNCTIONS[str, Set[str], List[str]]
+)
 
 ###############################
 # Automatically generated API

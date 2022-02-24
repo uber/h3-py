@@ -21,12 +21,6 @@ Output collections:
 
 import numpy as np
 
-try:
-    from numpy.typing import NDArray
-    ArrayType = NDArray[np.uint64]
-except ImportError:
-    ArrayType = np.ndarray
-
 from ._api_template import _API_FUNCTIONS
 
 
@@ -50,7 +44,7 @@ numpy_int = _API_FUNCTIONS(
     _in_collection = _in_collection,
     _out_unordered = np.asarray,
     _out_ordered = np.asarray,
-)  # type: _API_FUNCTIONS[np.uint64, ArrayType, ArrayType]
+)
 
 ###############################
 # Automatically generated API

@@ -13,8 +13,6 @@ Output collections:
 - `List[int]` for ordered
 """
 
-from typing import List, Set
-
 from .. import _cy
 from ._api_template import _API_FUNCTIONS
 
@@ -35,7 +33,7 @@ basic_int = _API_FUNCTIONS(
     _in_collection=_in_collection,
     _out_unordered=set,  # todo: should this be an (immutable) frozenset?
     _out_ordered=list,  # todo: should this be an (immutable) tuple?
-)  # type: _API_FUNCTIONS[int, Set[int], List[int]]
+)
 
 ###############################
 # Automatically generated API
