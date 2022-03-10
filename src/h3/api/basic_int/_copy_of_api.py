@@ -34,7 +34,7 @@ def versions():
     -------
     dict like ``{'c': 'X.Y.Z', 'python': 'A.B.C'}``
     """
-    from .._version import __version__
+    from ..._version import __version__
 
     v = {
         'c': _cy.c_version(),

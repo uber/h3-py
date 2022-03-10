@@ -14,7 +14,7 @@ Output collections:
 - `List[str]` for ordered
 """
 
-from .. import _cy
+from ... import _cy
 
 
 def _in_collection(hexes):

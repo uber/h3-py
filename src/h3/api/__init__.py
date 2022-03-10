@@ -3,7 +3,7 @@
 from . import basic_int
 from . import basic_str
 from . import memview_int
-
+# todo: add a try/catch for numpy_int so that users don't need to import it as a special case?
 
 """
 Module to DRY-up code which is repeated across API modules.
