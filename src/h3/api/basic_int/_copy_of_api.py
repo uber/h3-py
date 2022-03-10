@@ -1,4 +1,4 @@
-### <<< Some obvious separator here >>>
+# <<< Some obvious separator here >>>
 #
 # Anything below (and including) these lines must be an **exact** copy across
 # the various APIs:
@@ -43,6 +43,7 @@ def versions():
 
     return v
 
+
 def string_to_h3(h):
     """
     Converts a hexadecimal string to an H3 64-bit integer index.
@@ -58,6 +59,7 @@ def string_to_h3(h):
         Unsigned 64-bit integer
     """
     return _cy.hex2int(h)
+
 
 def h3_to_string(x):
     """
@@ -75,6 +77,7 @@ def h3_to_string(x):
     """
     return _cy.int2hex(x)
 
+
 def num_hexagons(resolution):
     """
     Return the total number of *cells* (hexagons and pentagons)
@@ -85,6 +88,7 @@ def num_hexagons(resolution):
     int
     """
     return _cy.num_hexagons(resolution)
+
 
 def hex_area(resolution, unit='km^2'):
     """
@@ -100,6 +104,7 @@ def hex_area(resolution, unit='km^2'):
     # todo: `mean_hex_area` in 4.0
     return _cy.mean_hex_area(resolution, unit)
 
+
 def edge_length(resolution, unit='km'):
     """
     Return the average *hexagon* edge length
@@ -113,6 +118,7 @@ def edge_length(resolution, unit='km'):
     """
     # todo: `mean_edge_length` in 4.0
     return _cy.mean_edge_length(resolution, unit)
+
 
 def h3_is_valid(h):
     """
@@ -128,6 +134,7 @@ def h3_is_valid(h):
     except (ValueError, TypeError):
         return False
 
+
 def h3_unidirectional_edge_is_valid(edge):
     """
     Validates an H3 unidirectional edge.
@@ -142,6 +149,7 @@ def h3_unidirectional_edge_is_valid(edge):
     except (ValueError, TypeError):
         return False
 
+
 def geo_to_h3(lat, lng, resolution):
     """
     Return the cell containing the (lat, lng) point
@@ -153,6 +161,7 @@ def geo_to_h3(lat, lng, resolution):
 
     """
     return _out_scalar(_cy.geo_to_h3(lat, lng, resolution))
+
 
 def h3_to_geo(h):
     """
@@ -171,6 +180,7 @@ def h3_to_geo(h):
     """
     return _cy.h3_to_geo(_in_scalar(h))
 
+
 def h3_get_resolution(h):
     """
     Return the resolution of an H3 cell.
@@ -185,6 +195,7 @@ def h3_get_resolution(h):
     """
     # todo: could also work for edges
     return _cy.resolution(_in_scalar(h))
+
 
 def h3_to_parent(h, res=None):
     """
@@ -206,6 +217,7 @@ def h3_to_parent(h, res=None):
     p = _out_scalar(p)
 
     return p
+
 
 def h3_distance(h1, h2):
     """
@@ -234,6 +246,7 @@ def h3_distance(h1, h2):
 
     return d
 
+
 def h3_to_geo_boundary(h, geo_json=False):
     """
     Return tuple of lat/lng pairs describing the cell boundary.
@@ -254,6 +267,7 @@ def h3_to_geo_boundary(h, geo_json=False):
     """
     return _cy.cell_boundary(_in_scalar(h), geo_json)
 
+
 def k_ring(h, k=1):
     """
     Return unordered set of cells with H3 distance ``<= k`` from ``h``.
@@ -273,6 +287,7 @@ def k_ring(h, k=1):
 
     return _out_unordered(mv)
 
+
 def hex_range(h, k=1):
     """
     Alias for `k_ring`.
@@ -285,6 +300,7 @@ def hex_range(h, k=1):
     mv = _cy.disk(_in_scalar(h), k)
 
     return _out_unordered(mv)
+
 
 def hex_ring(h, k=1):
     """
@@ -304,6 +320,7 @@ def hex_ring(h, k=1):
     mv = _cy.ring(_in_scalar(h), k)
 
     return _out_unordered(mv)
+
 
 def hex_range_distances(h, K):
     """
@@ -329,6 +346,7 @@ def hex_range_distances(h, K):
 
     return out
 
+
 def hex_ranges(hexes, K):
     """
     Returns the dictionary ``{h: hex_range_distances(h, K) for h in hexes}``
@@ -345,9 +363,11 @@ def hex_ranges(hexes, K):
 
     return out
 
+
 def k_ring_distances(h, K):
     """Alias for `hex_range_distances`."""
     return hex_range_distances(h, K)
+
 
 def h3_to_children(h, res=None):
     """
@@ -367,6 +387,7 @@ def h3_to_children(h, res=None):
     mv = _cy.children(_in_scalar(h), res)
 
     return _out_unordered(mv)
+
 
 # todo: nogil for expensive C operation?
 def compact(hexes):
@@ -388,6 +409,7 @@ def compact(hexes):
     hc = _cy.compact(hu)
 
     return _out_unordered(hc)
+
 
 def uncompact(hexes, res):
     """
@@ -415,6 +437,7 @@ def uncompact(hexes, res):
     hu = _cy.uncompact(hc, res)
 
     return _out_unordered(hu)
+
 
 def h3_set_to_multi_polygon(hexes, geo_json=False):
     """
@@ -445,15 +468,18 @@ def h3_set_to_multi_polygon(hexes, geo_json=False):
     hexes = _in_collection(hexes)
     return _cy.h3_set_to_multi_polygon(hexes, geo_json=geo_json)
 
+
 def polyfill_polygon(outer, res, holes=None, lnglat_order=False):
     mv = _cy.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
 
     return _out_unordered(mv)
 
+
 def polyfill_geojson(geojson, res):
     mv = _cy.polyfill_geojson(geojson, res)
 
     return _out_unordered(mv)
+
 
 def polyfill(geojson, res, geo_json_conformant=False):
     """
@@ -494,6 +520,7 @@ def polyfill(geojson, res, geo_json_conformant=False):
 
     return _out_unordered(mv)
 
+
 def h3_is_pentagon(h):
     """
     Identify if an H3 cell is a pentagon.
@@ -513,6 +540,7 @@ def h3_is_pentagon(h):
     Will return ``False`` for valid H3Edge.
     """
     return _cy.is_pentagon(_in_scalar(h))
+
 
 def h3_get_base_cell(h):
     """
@@ -536,6 +564,7 @@ def h3_get_base_cell(h):
     """
     return _cy.get_base_cell(_in_scalar(h))
 
+
 def h3_indexes_are_neighbors(h1, h2):
     """
     Returns ``True`` if ``h1`` and ``h2`` are neighboring cells.
@@ -553,6 +582,7 @@ def h3_indexes_are_neighbors(h1, h2):
     h2 = _in_scalar(h2)
 
     return _cy.are_neighbors(h1, h2)
+
 
 def get_h3_unidirectional_edge(origin, destination):
     """
@@ -582,6 +612,7 @@ def get_h3_unidirectional_edge(origin, destination):
 
     return e
 
+
 def get_origin_h3_index_from_unidirectional_edge(e):
     """
     Origin cell from an H3 directed edge.
@@ -600,6 +631,7 @@ def get_origin_h3_index_from_unidirectional_edge(e):
 
     return o
 
+
 def get_destination_h3_index_from_unidirectional_edge(e):
     """
     Destination cell from an H3 directed edge.
@@ -617,6 +649,7 @@ def get_destination_h3_index_from_unidirectional_edge(e):
     d = _out_scalar(d)
 
     return d
+
 
 def get_h3_indexes_from_unidirectional_edge(e):
     """
@@ -639,6 +672,7 @@ def get_h3_indexes_from_unidirectional_edge(e):
 
     return o, d
 
+
 def get_h3_unidirectional_edges_from_hexagon(origin):
     """
     Return all directed edges starting from ``origin`` cell.
@@ -655,8 +689,10 @@ def get_h3_unidirectional_edges_from_hexagon(origin):
 
     return _out_unordered(mv)
 
+
 def get_h3_unidirectional_edge_boundary(edge, geo_json=False):
     return _cy.edge_boundary(_in_scalar(edge), geo_json=geo_json)
+
 
 def h3_line(start, end):
     """
@@ -676,6 +712,7 @@ def h3_line(start, end):
     mv = _cy.line(_in_scalar(start), _in_scalar(end))
 
     return _out_ordered(mv)
+
 
 def h3_is_res_class_III(h):
     """
@@ -706,9 +743,11 @@ def h3_is_res_class_III(h):
     """
     return _cy.is_res_class_iii(_in_scalar(h))
 
+
 def h3_is_res_class_iii(h):
     """Alias for `h3_is_res_class_III`."""
     return h3_is_res_class_III(h)
+
 
 def get_pentagon_indexes(resolution):
     """
@@ -726,6 +765,7 @@ def get_pentagon_indexes(resolution):
 
     return _out_unordered(mv)
 
+
 def get_res0_indexes():
     """
     Return all cells at resolution 0.
@@ -741,6 +781,7 @@ def get_res0_indexes():
     mv = _cy.get_res0_indexes()
 
     return _out_unordered(mv)
+
 
 def h3_to_center_child(h, res=None):
     """
@@ -763,6 +804,7 @@ def h3_to_center_child(h, res=None):
 
     return p
 
+
 def h3_get_faces(h):
     """
     Return icosahedron faces intersecting a given H3 cell.
@@ -783,6 +825,7 @@ def h3_get_faces(h):
     faces = _cy.get_faces(h)
 
     return faces
+
 
 def experimental_h3_to_local_ij(origin, h):
     """
@@ -822,6 +865,7 @@ def experimental_h3_to_local_ij(origin, h):
 
     return i, j
 
+
 def experimental_local_ij_to_h3(origin, i, j):
     """
     Return cell at local (i,j) position relative to the ``origin`` cell.
@@ -858,6 +902,7 @@ def experimental_local_ij_to_h3(origin, i, j):
 
     return h
 
+
 def cell_area(h, unit='km^2'):
     """
     Compute the spherical surface area of a specific H3 cell.
@@ -885,6 +930,7 @@ def cell_area(h, unit='km^2'):
 
     return _cy.cell_area(h, unit=unit)
 
+
 def exact_edge_length(e, unit='km'):
     """
     Compute the spherical length of a specific H3 edge.
@@ -909,6 +955,7 @@ def exact_edge_length(e, unit='km'):
     e = _in_scalar(e)
 
     return _cy.edge_length(e, unit=unit)
+
 
 def point_dist(point1, point2, unit='km'):
     """
