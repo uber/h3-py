@@ -26,18 +26,6 @@ def _in_collection(hexes):
     return _cy.from_iter(it)
 
 
-
-# maybe standardized these expected input functions?
-# in a function, class, dict?
-# this just makes the "input" to the module explicit
-# say what we expect to be defined above the separator for the module to
-# work!
-# "translator" object? "serialization" object?
-# we can even define a "main" interface that doesn't get used.
-# if any of the translator object methods are called, it raises an error!
-# so it is a module, technically, but it never gets called/used by the user.
-# "dummy" api module. "stub". "prototype"
-
 _in_scalar = _id
 _out_scalar = _id
 # _in_collection = _in_collection
