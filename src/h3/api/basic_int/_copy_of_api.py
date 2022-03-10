@@ -1,39 +1,3 @@
-"""
-This API handles H3 Indexes of type `int`, using
-basic Python collections (`set`, `list`, `tuple`).
-`h3` will interpret these Indexes as unsigned 64-bit integers.
-
-Input collections:
-
-- `Iterable[int]`
-
-Output collections:
-
-- `Set[int]` for unordered
-- `List[int]` for ordered
-"""
-
-from .. import _cy
-
-
-def _id(x):
-    return x
-
-
-def _in_collection(hexes):
-    it = list(hexes)
-
-    return _cy.from_iter(it)
-
-
-_in_scalar = _id
-_out_scalar = _id
-# _in_collection = _in_collection
-_out_unordered = set  # todo: should this be an (immutable) frozenset?
-_out_ordered = list  # todo: should this be an (immutable) tuple?
-
-
-
 ### <<< Some obvious separator here >>>
 #
 # Anything below (and including) these lines must be an **exact** copy across
@@ -48,7 +12,14 @@ _out_ordered = list  # todo: should this be an (immutable) tuple?
 # in the test suite.
 
 
-from .. import _cy
+from ... import _cy
+from .inputs_outputs import (
+    _in_scalar,
+    _out_scalar,
+    _in_collection,
+    _out_unordered,
+    _out_ordered,
+)
 
 
 def versions():
