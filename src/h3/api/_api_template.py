@@ -406,7 +406,6 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     # todo: nogil for expensive C operation?
-    # TODO: Check input type across APIs, should this be UnorderedScalarType?
     def compact(self, hexes):
         """
         Compact a collection of H3 cells by combining
@@ -427,7 +426,6 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(hc)
 
-    # TODO: Check input type across APIs, should this be UnorderedScalarType?
     def uncompact(self, hexes, res):
         """
         Reverse the `compact` operation.
