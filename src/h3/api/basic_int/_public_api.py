@@ -1,11 +1,11 @@
 """Binding of public API names to module scope
 
-Prior to binding the API to module scope explicitly, we dynamically modified the `globals` object
-when `h3` was imported, which caused problems with static tooling not being able to understand the
-H3 API.
+Prior to binding the API to module scope explicitly, we dynamically modified the
+`globals` object when `h3` was imported, which caused problems with static tooling not
+being able to understand the H3 API.
 
-This file exists to avoid dynamically modifying `globals` and support static tooling. Any changes to
-one `_public_api.py` file must be copied to the other files.
+This file exists to avoid dynamically modifying `globals` and support static tooling.
+Any changes to one `_public_api.py` file must be copied to the other files.
 """
 from ._binding import _binding
 
