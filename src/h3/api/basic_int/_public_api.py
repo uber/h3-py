@@ -5,7 +5,6 @@ Prior to binding the API to module scope explicitly, we dynamically modified the
 being able to understand the H3 API.
 
 This file exists to avoid dynamically modifying `globals` and support static tooling.
-Any changes to one `_public_api.py` file must be copied to the other files.
 """
 from ._binding import _binding
 
