@@ -32,7 +32,7 @@ jobs:
 
 
   make_cibw_v1_wheels:
-    name: ${{ matrix.name }}
+    name: "cibuildwheel v1: ${{ matrix.name }}"
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -93,7 +93,7 @@ jobs:
           path: wheelhouse/*.whl
 
   make_cibw_v2_wheels:
-    name: ${{ matrix.name }}
+    name: "cibuildwheel v2: ${{ matrix.name }}"
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
