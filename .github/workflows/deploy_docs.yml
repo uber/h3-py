@@ -2,10 +2,10 @@ name: deploy_docs
 
 # todo: we want to build on PRs, but keep it from pushing to deploy...
 
-# on:
-#   push:
-#     branches:
-#       - master
+on:
+  push:
+    branches:
+      - master
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
