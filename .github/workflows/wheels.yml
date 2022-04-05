@@ -39,9 +39,6 @@ jobs:
           - os: macos-latest
             build: "cp27-macosx_x86_64"
             name: macOS Intel
-          - os: windows-latest
-            build: "cp27-win_amd64"
-            name: Windows 64-bit
           - os: ubuntu-latest
             build: "cp27-manylinux_x86_64"
             name: Linux Intel 64-bit
@@ -50,18 +47,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
-
-      ## Setup Env
-
-      - uses: ilammy/msvc-dev-cmd@v1.10.0
-        if: runner.os == 'Windows'
-
-      - name: Set Windows variables
-        if: runner.os == 'Windows'
-        shell: bash
-        run: |
-          echo "CC=cl.exe" >> $GITHUB_ENV
-          echo "CXX=cl.exe" >> $GITHUB_ENV
 
       ## Build
 
