@@ -9,14 +9,12 @@ on:
     types:
       - published
 
-
 jobs:
   make_sdist:
     name: SDist
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: actions/checkout@v2
         with:
           submodules: recursive
@@ -30,7 +28,6 @@ jobs:
         with:
           path: ./dist
 
-
   make_cibw_v1_wheels:
     name: "cibuildwheel v1: ${{ matrix.name }}"
     runs-on: ${{ matrix.os }}
@@ -39,18 +36,17 @@ jobs:
       matrix:
         # Only build for platforms that cibw v2 doesn't support
         include:
-        - os: macos-latest
-          build: "cp27-macosx_x86_64"
-          name: macOS Intel
-        - os: windows-latest
-          build: "cp27-win_amd64"
-          name: Windows 64-bit
-        - os: ubuntu-latest
-          build: "cp27-manylinux_x86_64"
-          name: Linux Intel 64-bit
+          - os: macos-latest
+            build: "cp27-macosx_x86_64"
+            name: macOS Intel
+          - os: windows-latest
+            build: "cp27-win_amd64"
+            name: Windows 64-bit
+          - os: ubuntu-latest
+            build: "cp27-manylinux_x86_64"
+            name: Linux Intel 64-bit
 
     steps:
-
       - uses: actions/checkout@v2
         with:
           submodules: recursive
@@ -67,12 +63,6 @@ jobs:
           echo "CC=cl.exe" >> $GITHUB_ENV
           echo "CXX=cl.exe" >> $GITHUB_ENV
 
-      - name: Set up QEMU
-        if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v1
-        with:
-          platforms: aarch64
-
       ## Build
 
       - uses: pypa/cibuildwheel@v1.12.0
@@ -81,7 +71,6 @@ jobs:
           CIBW_TEST_COMMAND: pytest {project}/tests
           CIBW_ARCHS_LINUX: auto aarch64
           CIBW_BUILD: ${{ matrix.build }}
-          CIBW_SKIP: ${{ matrix.skip }}
 
       - name: Check with Twine
         run: |
@@ -99,30 +88,29 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - os: macos-latest
-          build: "cp*-macosx_x86_64"
-          name: macOS Intel
-        - os: windows-latest
-          build: "cp3*-win_amd64"
-          name: Windows 64-bit
-        - os: ubuntu-latest
-          build: "cp*-manylinux_x86_64"
-          name: Linux Intel 64-bit
-        - os: ubuntu-latest
-          build: "cp36-manylinux_aarch64"
-          name: Linux Aarch64 3.6
-        - os: ubuntu-latest
-          build: "cp37-manylinux_aarch64"
-          name: Linux Aarch64 3.7
-        - os: ubuntu-latest
-          build: "cp38-manylinux_aarch64"
-          name: Linux Aarch64 3.8
-        - os: ubuntu-latest
-          build: "cp39-manylinux_aarch64"
-          name: Linux Aarch64 3.9
+          - os: macos-latest
+            build: "cp*-macosx_x86_64"
+            name: macOS Intel
+          - os: windows-latest
+            build: "cp3*-win_amd64"
+            name: Windows 64-bit
+          - os: ubuntu-latest
+            build: "cp*-manylinux_x86_64"
+            name: Linux Intel 64-bit
+          - os: ubuntu-latest
+            build: "cp36-manylinux_aarch64"
+            name: Linux Aarch64 3.6
+          - os: ubuntu-latest
+            build: "cp37-manylinux_aarch64"
+            name: Linux Aarch64 3.7
+          - os: ubuntu-latest
+            build: "cp38-manylinux_aarch64"
+            name: Linux Aarch64 3.8
+          - os: ubuntu-latest
+            build: "cp39-manylinux_aarch64"
+            name: Linux Aarch64 3.9
 
     steps:
-
       - uses: actions/checkout@v2
         with:
           submodules: recursive
@@ -178,5 +166,3 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           password: ${{ secrets.pypi_password }}
-
-
