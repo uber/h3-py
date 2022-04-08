@@ -2,12 +2,12 @@ name: wheels
 
 on:
   push:
-  #   branches: [master]
-  # pull_request:
-  #   branches: [master]
-  # release:
-  #   types:
-  #     - published
+    branches: [master]
+  pull_request:
+    branches: [master]
+  release:
+    types:
+      - published
 
 jobs:
   make_sdist:
@@ -75,7 +75,7 @@ jobs:
         include:
           - os: macos-latest
             build: "cp*-macosx*"
-            name: macOS Intel
+            name: macOS
           - os: windows-latest
             build: "cp3*-win_amd64"
             name: Windows 64-bit
