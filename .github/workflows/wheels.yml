@@ -2,12 +2,12 @@ name: wheels
 
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
-  release:
-    types:
-      - published
+  #   branches: [master]
+  # pull_request:
+  #   branches: [master]
+  # release:
+  #   types:
+  #     - published
 
 jobs:
   make_sdist:
@@ -74,7 +74,7 @@ jobs:
       matrix:
         include:
           - os: macos-latest
-            build: "cp*-macosx_x86_64"
+            build: "cp*-macosx*"
             name: macOS Intel
           - os: windows-latest
             build: "cp3*-win_amd64"
@@ -125,6 +125,7 @@ jobs:
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
           CIBW_ARCHS_LINUX: auto aarch64
+          CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_BUILD: ${{ matrix.build }}
           CIBW_SKIP: ${{ matrix.skip }}
 
