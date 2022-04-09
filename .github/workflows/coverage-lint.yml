@@ -28,6 +28,11 @@ jobs:
       - name: Lint
         run: flake8 src/h3 setup.py tests
 
+      - name: Pylint
+        # As a test for visibility of API bindings, we want to ensure that pylint has no
+        # `import-error` warnings for h3 imports.
+        run: pylint --disable=all --enable=import-error tests/
+
       - name: Coverage
         run: pytest --cov=h3 --full-trace --cov-report=xml
 

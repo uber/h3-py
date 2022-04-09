@@ -44,7 +44,7 @@ setup(
     install_requires=['typing_extensions;python_version<"3.8"'],
     extras_require={
         'numpy': ['numpy'],
-        'test': ['pytest', 'pytest-cov', 'flake8'],
-        'all': ['numpy', 'pytest', 'pytest-cov', 'flake8'],
+        'test': ['pytest', 'pytest-cov', 'flake8', 'pylint'],
+        'all': ['numpy', 'pytest', 'pytest-cov', 'flake8', 'pylint'],
     },
 )
