@@ -34,6 +34,7 @@ test:
 
 lint:
 	env/bin/flake8 src/h3 setup.py tests
+	env/bin/pylint --disable=all --enable=import-error tests/
 
 lab:
 	env/bin/pip install jupyterlab
