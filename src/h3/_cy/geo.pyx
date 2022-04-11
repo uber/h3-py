@@ -261,7 +261,7 @@ def edge_boundary(H3int edge, bool geo_json=False):
 
 cpdef double point_dist(
     double lat1, double lng1,
-    double lat2, double lng2, str unit='km') except -1:
+    double lat2, double lng2, unit='km') except -1:
 
     a = deg2coord(lat1, lng1)
     b = deg2coord(lat2, lng2)

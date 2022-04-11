@@ -4,4 +4,4 @@ cpdef H3int geo_to_h3(double lat, double lng, int res) except 1
 cpdef (double, double) h3_to_geo(H3int h) except *
 cpdef double point_dist(
     double lat1, double lng1,
-    double lat2, double lng2, str unit=*) except -1
+    double lat2, double lng2, unit=*) except -1

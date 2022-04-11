@@ -237,7 +237,7 @@ cpdef int64_t num_hexagons(int resolution) except -1:
     return h3lib.numHexagons(resolution)
 
 
-cpdef double mean_hex_area(int resolution, str unit='km^2') except -1:
+cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
     check_res(resolution)
 
     area = h3lib.hexAreaKm2(resolution)
@@ -256,7 +256,7 @@ cpdef double mean_hex_area(int resolution, str unit='km^2') except -1:
     return area
 
 
-cpdef double cell_area(H3int h, str unit='km^2') except -1:
+cpdef double cell_area(H3int h, unit='km^2') except -1:
     check_cell(h)
 
     if unit == 'rads^2':

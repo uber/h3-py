@@ -62,7 +62,7 @@ cpdef H3int[:] edges_from_cell(H3int origin):
     return mv
 
 
-cpdef double mean_edge_length(int resolution, str unit='km') except -1:
+cpdef double mean_edge_length(int resolution, unit='km') except -1:
     check_res(resolution)
 
     length = h3lib.edgeLengthKm(resolution)
@@ -81,7 +81,7 @@ cpdef double mean_edge_length(int resolution, str unit='km') except -1:
     return length
 
 
-cpdef double edge_length(H3int e, str unit='km') except -1:
+cpdef double edge_length(H3int e, unit='km') except -1:
     check_edge(e)
 
     # todo: maybe kick this logic up to the python level
