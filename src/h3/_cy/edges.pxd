@@ -7,5 +7,5 @@ cpdef H3int edge_origin(H3int e) except 1
 cpdef H3int edge_destination(H3int e) except 1
 cpdef (H3int, H3int) edge_cells(H3int e) except *
 cpdef H3int[:] edges_from_cell(H3int origin)
-cpdef double mean_edge_length(int resolution, unit='km') except -1
-cpdef double edge_length(H3int e, unit='km') except -1
+cpdef double mean_edge_length(int resolution, str unit=*) except -1
+cpdef double edge_length(H3int e, str unit=*) except -1

@@ -8,14 +8,14 @@ cpdef int distance(H3int h1, H3int h2) except -1
 cpdef H3int[:] disk(H3int h, int k)
 cpdef H3int[:] _ring_fallback(H3int h, int k)
 cpdef H3int[:] ring(H3int h, int k)
-cpdef H3int parent(H3int h, res=None) except 0
-cpdef H3int[:] children(H3int h, res=None)
-cpdef H3int center_child(H3int h, res=None) except 0
+cpdef H3int parent(H3int h, int res=*) except 0
+cpdef H3int[:] children(H3int h, int res=*)
+cpdef H3int center_child(H3int h, int res=*) except 0
 cpdef H3int[:] compact(const H3int[:] hu)
 cpdef H3int[:] uncompact(const H3int[:] hc, int res)
 cpdef int64_t num_hexagons(int resolution) except -1
-cpdef double mean_hex_area(int resolution, unit='km^2') except -1
-cpdef double cell_area(H3int h, unit='km^2') except -1
+cpdef double mean_hex_area(int resolution, str unit=*) except -1
+cpdef double cell_area(H3int h, str unit=*) except -1
 cpdef H3int[:] line(H3int start, H3int end)
 cpdef bool is_res_class_iii(H3int h)
 cpdef H3int[:] get_pentagon_indexes(int res)

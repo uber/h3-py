@@ -130,10 +130,10 @@ cpdef H3int[:] ring(H3int h, int k):
     return mv
 
 
-cpdef H3int parent(H3int h, res=None) except 0:
+cpdef H3int parent(H3int h, int res=-1) except 0:
     check_cell(h)
 
-    if res is None:
+    if res < 0:
         res = resolution(h) - 1
     if res > resolution(h):
         msg = 'Invalid parent resolution {} for cell {}.'
@@ -144,10 +144,10 @@ cpdef H3int parent(H3int h, res=None) except 0:
 
     return h3lib.h3ToParent(h, res)
 
-cpdef H3int[:] children(H3int h, res=None):
+cpdef H3int[:] children(H3int h, int res=-1):
     check_cell(h)
 
-    if res is None:
+    if res < 0:
         res = resolution(h) + 1
     if res < resolution(h):
         msg = 'Invalid child resolution {} for cell {}.'
@@ -164,10 +164,10 @@ cpdef H3int[:] children(H3int h, res=None):
 
     return mv
 
-cpdef H3int center_child(H3int h, res=None) except 0:
+cpdef H3int center_child(H3int h, int res=-1) except 0:
     check_cell(h)
 
-    if res is None:
+    if res < 0:
         res = resolution(h) + 1
     if res < resolution(h):
         msg = 'Invalid child resolution {} for cell {}.'
@@ -237,7 +237,7 @@ cpdef int64_t num_hexagons(int resolution) except -1:
     return h3lib.numHexagons(resolution)
 
 
-cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
+cpdef double mean_hex_area(int resolution, str unit='km^2') except -1:
     check_res(resolution)
 
     area = h3lib.hexAreaKm2(resolution)
@@ -256,7 +256,7 @@ cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
     return area
 
 
-cpdef double cell_area(H3int h, unit='km^2') except -1:
+cpdef double cell_area(H3int h, str unit='km^2') except -1:
     check_cell(h)
 
     if unit == 'rads^2':
