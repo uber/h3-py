@@ -72,8 +72,8 @@ jobs:
       matrix:
         include:
           - os: macos-latest
-            build: "cp*-macosx_x86_64"
-            name: macOS Intel
+            build: "cp*-macosx*"
+            name: macOS
           - os: windows-latest
             build: "cp3*-win_amd64"
             name: Windows 64-bit
@@ -126,6 +126,7 @@ jobs:
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
           CIBW_ARCHS_LINUX: auto aarch64
+          CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_BUILD: ${{ matrix.build }}
           CIBW_SKIP: ${{ matrix.skip }}
 
