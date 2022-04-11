@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
 
@@ -24,7 +24,7 @@ jobs:
           pipx run build --sdist
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           path: ./dist
 
@@ -43,7 +43,7 @@ jobs:
             name: Linux Intel 64-bit
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
 
@@ -61,7 +61,7 @@ jobs:
           pipx run twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           path: wheelhouse/*.whl
 
@@ -94,7 +94,7 @@ jobs:
             name: Linux Aarch64 3.9
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
 
@@ -131,7 +131,7 @@ jobs:
           pipx run twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           path: wheelhouse/*.whl
 
@@ -141,11 +141,11 @@ jobs:
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: artifact
           path: dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.4.2
+      - uses: pypa/gh-action-pypi-publish@v1.5.0
         with:
           password: ${{ secrets.pypi_password }}
