@@ -79,7 +79,10 @@ jobs:
             name: Windows 64-bit
           - os: ubuntu-latest
             build: "cp*-manylinux_x86_64"
-            name: Linux Intel 64-bit
+            name: Linux Intel glibc 64-bit
+          - os: ubuntu-latest
+            build: "cp*-musllinux_x86_64"
+            name: Linux Intel musl 64-bit
           - os: ubuntu-latest
             build: "cp36-manylinux_aarch64"
             name: Linux Aarch64 3.6
