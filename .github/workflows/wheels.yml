@@ -92,6 +92,9 @@ jobs:
           - os: ubuntu-latest
             build: "cp39-manylinux_aarch64"
             name: Linux Aarch64 3.9
+          - os: ubuntu-latest
+            build: "cp310-manylinux_aarch64"
+            name: Linux Aarch64 3.10
 
     steps:
       - uses: actions/checkout@v3
