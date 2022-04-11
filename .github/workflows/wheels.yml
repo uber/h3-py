@@ -32,7 +32,6 @@ jobs:
     name: "cibuildwheel v1: ${{ matrix.name }}"
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
       matrix:
         # Only build for platforms that cibw v2 doesn't support
         include:
