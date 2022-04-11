@@ -130,10 +130,10 @@ cpdef H3int[:] ring(H3int h, int k):
     return mv
 
 
-cpdef H3int parent(H3int h, int res=-1) except 0:
+cpdef H3int parent(H3int h, res=None) except 0:
     check_cell(h)
 
-    if res < 0:
+    if res is None:
         res = resolution(h) - 1
     if res > resolution(h):
         msg = 'Invalid parent resolution {} for cell {}.'
@@ -144,10 +144,10 @@ cpdef H3int parent(H3int h, int res=-1) except 0:
 
     return h3lib.h3ToParent(h, res)
 
-cpdef H3int[:] children(H3int h, int res=-1):
+cpdef H3int[:] children(H3int h, res=None):
     check_cell(h)
 
-    if res < 0:
+    if res is None:
         res = resolution(h) + 1
     if res < resolution(h):
         msg = 'Invalid child resolution {} for cell {}.'
@@ -164,10 +164,10 @@ cpdef H3int[:] children(H3int h, int res=-1):
 
     return mv
 
-cpdef H3int center_child(H3int h, int res=-1) except 0:
+cpdef H3int center_child(H3int h, res=None) except 0:
     check_cell(h)
 
-    if res < 0:
+    if res is None:
         res = resolution(h) + 1
     if res < resolution(h):
         msg = 'Invalid child resolution {} for cell {}.'
