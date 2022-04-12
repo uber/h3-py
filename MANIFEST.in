@@ -9,8 +9,14 @@ include pyproject.toml
 include readme.md
 include requirements.in
 include setup.py
+exclude .coveragerc
+exclude .flake8
+exclude .gitignore
+exclude .gitmodules
 
 prune tests/
+prune docs/
+prune .github/
 
 graft src/h3/
 
