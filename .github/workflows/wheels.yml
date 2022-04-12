@@ -32,6 +32,10 @@ jobs:
         run: |
           pipx run build --sdist
 
+      - name: Test that sdist installs correctly
+        run: |
+          pip install dist/h3-*.tar.gz
+
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v3
         with:
