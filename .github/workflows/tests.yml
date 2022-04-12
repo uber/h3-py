@@ -41,10 +41,15 @@ jobs:
           echo "CXX=cl.exe" >> $GITHUB_ENV
       ## End Windows stuff
 
-      - name: Install from source
+      - name: Make sdist
+        run: |
+          pipx run build --sdist
+
+      - name: Install from sdist
         run: |
           pip install --upgrade pip setuptools wheel
-          pip install .[all]
+          mv dist/h3-*.tar.gz dist/h3.tar.gz
+          pip install dist/h3.tar.gz[all]
 
       - name: Tests
         run: pytest --cov=h3 --full-trace
