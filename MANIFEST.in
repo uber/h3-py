@@ -18,8 +18,6 @@ include src/h3lib/LICENSE
 include src/h3lib/README.md
 include src/h3lib/VERSION
 include src/h3lib/CMakeLists.txt
-include src/h3lib/.clang-format
-include src/h3lib/.clang-tidy
 
 graft src/h3lib/scripts
 graft src/h3lib/examples
