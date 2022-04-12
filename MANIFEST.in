@@ -22,6 +22,7 @@ include src/h3lib/.clang-format
 include src/h3lib/.clang-tidy
 
 graft src/h3lib/scripts
+graft src/h3lib/examples
 graft src/h3lib/cmake
 graft src/h3lib/src/h3lib
 graft src/h3lib/src/apps
