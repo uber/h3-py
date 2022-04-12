@@ -34,6 +34,7 @@ jobs:
 
       - name: Test that sdist installs correctly
         run: |
+          sudo apt-get install -y cmake make gcc libtool
           pip install dist/h3-*.tar.gz
 
       - name: Upload artifacts to GitHub
