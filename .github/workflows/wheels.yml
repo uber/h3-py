@@ -43,133 +43,133 @@ jobs:
         with:
           path: ./dist
 
-  make_cibw_v1_wheels:
-    name: "cibuildwheel v1: ${{ matrix.name }}"
-    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        # Only build for platforms that cibw v2 doesn't support
-        include:
-          - os: macos-latest
-            build: "cp27-macosx_x86_64"
-            name: macOS Intel
-          - os: ubuntu-latest
-            build: "cp27-manylinux_x86_64"
-            name: Linux Intel 64-bit
+  # make_cibw_v1_wheels:
+  #   name: "cibuildwheel v1: ${{ matrix.name }}"
+  #   if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       # Only build for platforms that cibw v2 doesn't support
+  #       include:
+  #         - os: macos-latest
+  #           build: "cp27-macosx_x86_64"
+  #           name: macOS Intel
+  #         - os: ubuntu-latest
+  #           build: "cp27-manylinux_x86_64"
+  #           name: Linux Intel 64-bit
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         submodules: recursive
 
-      ## Build
+  #     ## Build
 
-      - uses: pypa/cibuildwheel@v1.12.0
-        env:
-          CIBW_TEST_REQUIRES: pytest numpy
-          CIBW_TEST_COMMAND: pytest {project}/tests
-          CIBW_ARCHS_LINUX: auto aarch64
-          CIBW_BUILD: ${{ matrix.build }}
+  #     - uses: pypa/cibuildwheel@v1.12.0
+  #       env:
+  #         CIBW_TEST_REQUIRES: pytest numpy
+  #         CIBW_TEST_COMMAND: pytest {project}/tests
+  #         CIBW_ARCHS_LINUX: auto aarch64
+  #         CIBW_BUILD: ${{ matrix.build }}
 
-      - name: Check with Twine
-        run: |
-          pipx run twine check wheelhouse/*
+  #     - name: Check with Twine
+  #       run: |
+  #         pipx run twine check wheelhouse/*
 
-      - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
-        with:
-          path: wheelhouse/*.whl
+  #     - name: Upload artifacts to GitHub
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         path: wheelhouse/*.whl
 
-  make_cibw_v2_wheels:
-    name: "cibuildwheel v2: ${{ matrix.name }}"
-    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: macos-latest
-            build: "cp*-macosx*"
-            name: macOS
-          - os: windows-latest
-            build: "cp3*-win_amd64"
-            name: Windows 64-bit
-          - os: ubuntu-latest
-            build: "cp*-manylinux_x86_64"
-            name: Linux Intel glibc 64-bit
-          - os: ubuntu-latest
-            build: "cp*-musllinux_x86_64"
-            name: Linux Intel musl 64-bit
-          - os: ubuntu-latest
-            build: "cp36-manylinux_aarch64"
-            name: Linux Aarch64 3.6
-          - os: ubuntu-latest
-            build: "cp37-manylinux_aarch64"
-            name: Linux Aarch64 3.7
-          - os: ubuntu-latest
-            build: "cp38-manylinux_aarch64"
-            name: Linux Aarch64 3.8
-          - os: ubuntu-latest
-            build: "cp39-manylinux_aarch64"
-            name: Linux Aarch64 3.9
-          - os: ubuntu-latest
-            build: "cp310-manylinux_aarch64"
-            name: Linux Aarch64 3.10
+  # make_cibw_v2_wheels:
+  #   name: "cibuildwheel v2: ${{ matrix.name }}"
+  #   if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       include:
+  #         - os: macos-latest
+  #           build: "cp*-macosx*"
+  #           name: macOS
+  #         - os: windows-latest
+  #           build: "cp3*-win_amd64"
+  #           name: Windows 64-bit
+  #         - os: ubuntu-latest
+  #           build: "cp*-manylinux_x86_64"
+  #           name: Linux Intel glibc 64-bit
+  #         - os: ubuntu-latest
+  #           build: "cp*-musllinux_x86_64"
+  #           name: Linux Intel musl 64-bit
+  #         - os: ubuntu-latest
+  #           build: "cp36-manylinux_aarch64"
+  #           name: Linux Aarch64 3.6
+  #         - os: ubuntu-latest
+  #           build: "cp37-manylinux_aarch64"
+  #           name: Linux Aarch64 3.7
+  #         - os: ubuntu-latest
+  #           build: "cp38-manylinux_aarch64"
+  #           name: Linux Aarch64 3.8
+  #         - os: ubuntu-latest
+  #           build: "cp39-manylinux_aarch64"
+  #           name: Linux Aarch64 3.9
+  #         - os: ubuntu-latest
+  #           build: "cp310-manylinux_aarch64"
+  #           name: Linux Aarch64 3.10
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         submodules: recursive
 
-      ## Setup Env
+  #     ## Setup Env
 
-      - uses: ilammy/msvc-dev-cmd@v1.10.0
-        if: runner.os == 'Windows'
+  #     - uses: ilammy/msvc-dev-cmd@v1.10.0
+  #       if: runner.os == 'Windows'
 
-      - name: Set Windows variables
-        if: runner.os == 'Windows'
-        shell: bash
-        run: |
-          echo "CC=cl.exe" >> $GITHUB_ENV
-          echo "CXX=cl.exe" >> $GITHUB_ENV
+  #     - name: Set Windows variables
+  #       if: runner.os == 'Windows'
+  #       shell: bash
+  #       run: |
+  #         echo "CC=cl.exe" >> $GITHUB_ENV
+  #         echo "CXX=cl.exe" >> $GITHUB_ENV
 
-      - name: Set up QEMU
-        if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v1.2.0
-        with:
-          platforms: aarch64
+  #     - name: Set up QEMU
+  #       if: runner.os == 'Linux'
+  #       uses: docker/setup-qemu-action@v1.2.0
+  #       with:
+  #         platforms: aarch64
 
-      ## Build
+  #     ## Build
 
-      - uses: pypa/cibuildwheel@v2.4.0
-        env:
-          CIBW_TEST_REQUIRES: pytest numpy
-          CIBW_TEST_COMMAND: pytest {project}/tests
-          CIBW_ARCHS_LINUX: auto aarch64
-          CIBW_ARCHS_MACOS: x86_64 arm64
-          CIBW_BUILD: ${{ matrix.build }}
-          CIBW_SKIP: ${{ matrix.skip }}
+  #     - uses: pypa/cibuildwheel@v2.4.0
+  #       env:
+  #         CIBW_TEST_REQUIRES: pytest numpy
+  #         CIBW_TEST_COMMAND: pytest {project}/tests
+  #         CIBW_ARCHS_LINUX: auto aarch64
+  #         CIBW_ARCHS_MACOS: x86_64 arm64
+  #         CIBW_BUILD: ${{ matrix.build }}
+  #         CIBW_SKIP: ${{ matrix.skip }}
 
-      - name: Check with Twine
-        run: |
-          pipx run twine check wheelhouse/*
+  #     - name: Check with Twine
+  #       run: |
+  #         pipx run twine check wheelhouse/*
 
-      - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
-        with:
-          path: wheelhouse/*.whl
+  #     - name: Upload artifacts to GitHub
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         path: wheelhouse/*.whl
 
-  upload_all:
-    needs: [make_sdist, make_cibw_v1_wheels, make_cibw_v2_wheels]
-    runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published'
+  # upload_all:
+  #   needs: [make_sdist, make_cibw_v1_wheels, make_cibw_v2_wheels]
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'release' && github.event.action == 'published'
 
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: artifact
-          path: dist
+  #   steps:
+  #     - uses: actions/download-artifact@v3
+  #       with:
+  #         name: artifact
+  #         path: dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.5.0
-        with:
-          password: ${{ secrets.pypi_password }}
+  #     - uses: pypa/gh-action-pypi-publish@v1.5.0
+  #       with:
+  #         password: ${{ secrets.pypi_password }}
