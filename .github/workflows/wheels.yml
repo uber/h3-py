@@ -35,8 +35,9 @@ jobs:
       - name: Install from sdist
         run: |
           pip install --upgrade pip setuptools wheel
-          pip install dist/h3-*.tar.gz[all]
-
+          cp dist/h3-*.tar.gz h3.tar.gz
+          pip install h3.tar.gz[all]
+          
       - name: Test sdist
         run: pytest --cov=h3 --full-trace
 
