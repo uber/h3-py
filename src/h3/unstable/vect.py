@@ -7,9 +7,11 @@ try:
     from numpy.typing import NDArray
     H3Array = NDArray[np.uint64]
     FloatArray = NDArray[np.floating]
+    IntArray = NDArray[np.int32]
 except ImportError:
     H3Array = np.ndarray
     FloatArray = np.ndarray
+    IntArray = np.ndarray
 
 
 def h3_to_parent(h, res=None):
@@ -42,7 +44,7 @@ def h3_to_parent(h, res=None):
 
 
 def h3_get_resolution(h):
-    # type: (H3Array) -> H3Array
+    # type: (H3Array) -> IntArray
     """
     Return the resolution of an array of H3 cells.
 
