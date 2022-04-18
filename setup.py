@@ -18,6 +18,16 @@ def long_desc():
     return long_description
 
 
+numpy_requires = ['numpy']
+test_requires = [
+    'pytest',
+    'pytest-cov',
+    'flake8',
+    'pylint',
+    'pytest-mypy-plugins==1.9.3;python_version>="3.6"',
+]
+install_requires = ['typing_extensions;python_version<"3.8"']
+
 setup(
     name = 'h3',
     version = about['__version__'],
@@ -42,10 +52,10 @@ setup(
     zip_safe=False,
     package_dir = {'': 'src'},
     cmake_languages = ('C'),
-    install_requires=['typing_extensions;python_version<"3.8"'],
+    install_requires=install_requires,
     extras_require={
-        'numpy': ['numpy'],
-        'test': ['pytest', 'pytest-cov', 'flake8', 'pylint'],
-        'all': ['numpy', 'pytest', 'pytest-cov', 'flake8', 'pylint'],
+        'numpy': numpy_requires,
+        'test': test_requires,
+        'all': numpy_requires + test_requires,
     },
 )

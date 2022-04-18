@@ -48,4 +48,11 @@ jobs:
           pip install .[all]
 
       - name: Tests
-        run: pytest --cov=h3 --full-trace
+        run: pytest --cov=h3 --full-trace tests/*.py
+        shell: bash
+
+      - name: Type Tests
+        if: matrix.python-version != '2.7'
+        run: |
+          pytest --mypy-same-process --mypy-ini-file=mypy.ini tests/*.yml
+        shell: bash
