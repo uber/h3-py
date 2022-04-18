@@ -1,9 +1,19 @@
+from typing import Optional
 from .._cy import unstable_vect as _vect
 
 import numpy as np
 
+try:
+    from numpy.typing import NDArray
+    H3Array = NDArray[np.uint64]
+    FloatArray = NDArray[np.floating]
+except ImportError:
+    H3Array = np.ndarray
+    FloatArray = np.ndarray
+
 
 def h3_to_parent(h, res=None):
+    # type: (H3Array, Optional[int]) -> H3Array
     """
     Get parent of arrays of cells.
 
@@ -32,6 +42,7 @@ def h3_to_parent(h, res=None):
 
 
 def h3_get_resolution(h):
+    # type: (H3Array) -> H3Array
     """
     Return the resolution of an array of H3 cells.
 
@@ -52,6 +63,7 @@ def h3_get_resolution(h):
 
 
 def geo_to_h3(lats, lngs, res):
+    # type: (FloatArray, FloatArray, int) -> H3Array
     """
     Convert arrays describing lat/lng pairs to cells.
 
@@ -79,6 +91,7 @@ def geo_to_h3(lats, lngs, res):
 
 
 def cell_haversine(a, b):
+    # type: (H3Array, H3Array) -> float
     """
     Compute haversine distance between the centers of cells given in
     arrays a and b.
