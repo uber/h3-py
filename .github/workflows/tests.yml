@@ -52,7 +52,7 @@ jobs:
         shell: bash
 
       - name: Type Tests
-        if: matrix.python-version != '2.7'
+        if: matrix.python-version != '2.7' && matrix.python-version != '3.5'
         run: |
           pytest --mypy-same-process --mypy-ini-file=mypy.ini tests/*.yml
         shell: bash
