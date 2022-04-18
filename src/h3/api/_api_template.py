@@ -408,7 +408,7 @@ class _API_FUNCTIONS(Generic[ScalarType, UnorderedScalarType, OrderedScalarType]
         return out
 
     def hex_ranges(self, hexes, K):
-        # type: (Iterable[ScalarType], int) -> Dict[ScalarType, List[UnorderedScalarType]]
+        # type: (Iterable[ScalarType], int) -> Dict[ScalarType, List[UnorderedScalarType]] # noqa
         """
         Returns the dictionary ``{h: hex_range_distances(h, K) for h in hexes}``
 
