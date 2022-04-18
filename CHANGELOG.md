@@ -14,7 +14,15 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
+- None
+
+## [3.7.4] - 2022-04-14
+
 - Website and API documentation; along with docstring cleanup.
+- Add support for linters and IDE tooling (#213)
+- Remove Py 3.5 wheel for Windows (#214)
+- Py 3.10 wheels and on more architectures (#220, #221, #223, #225) 
+- Greatly reduce sdist size (#227, #229)
 
 ## [3.7.3] - 2021-06-12
 

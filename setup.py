@@ -29,6 +29,7 @@ setup(
     author_email = about['__author_email__'],
     url = about['__url__'],
     classifiers = about['__classifiers__'],
+    include_package_data=True,
     packages = find_packages(
         'src',
         exclude = ["*.tests", "*.tests.*", "tests.*", "tests"],
