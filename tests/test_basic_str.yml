@@ -42,12 +42,11 @@
     h = "8928308280fffff"
     reveal_type(h3_distance(h, h)) # N: Revealed type is "builtins.float"
 
-# - case: h3_to_geo_boundary
-#   main: |
-#   from h3.api.basic_str import h3_to_geo_boundary
-#   reveal_type(h3_to_geo_boundary())
-#   h, geo_json=False):
-#   (ScalarType, bool) -> GeoBoundary
+- case: h3_to_geo_boundary
+  main: |
+    from h3.api.basic_str import h3_to_geo_boundary
+    h = "8928308280fffff"
+    reveal_type(h3_to_geo_boundary(h)) # N: Revealed type is "builtins.tuple[Tuple[builtins.float, builtins.float], ...]"
 
 - case: k_ring
   main: |
@@ -199,44 +198,39 @@
 #   start, end):
 #   (ScalarType, ScalarType) -> OrderedScalarType
 
-# - case: h3_is_res_class_III
-#   main: |
-#   from h3.api.basic_str import h3_is_res_class_III
-#   reveal_type(h3_is_res_class_III())
-#   h):
-#   (ScalarType) # N: Revealed type is "builtins.bool"
+- case: h3_is_res_class_III
+  main: |
+    from h3.api.basic_str import h3_is_res_class_III
+    h = "8928308280fffff"
+    reveal_type(h3_is_res_class_III(h)) # N: Revealed type is "builtins.bool"
 
-# - case: h3_is_res_class_iii
-#   main: |
-#   from h3.api.basic_str import h3_is_res_class_iii
-#   reveal_type(h3_is_res_class_iii())
-#   h):
-#   (ScalarType) # N: Revealed type is "builtins.bool"
+- case: h3_is_res_class_iii
+  main: |
+    from h3.api.basic_str import h3_is_res_class_iii
+    h = "8928308280fffff"
+    reveal_type(h3_is_res_class_iii(h)) # N: Revealed type is "builtins.bool"
 
-# - case: get_pentagon_indexes
-#   main: |
-#   from h3.api.basic_str import get_pentagon_indexes
-#   reveal_type(get_pentagon_indexes())
-#   resolution):
-#   (int) # N: Revealed type is "builtins.set[builtins.str]"
+- case: get_pentagon_indexes
+  main: |
+    from h3.api.basic_str import get_pentagon_indexes
+    reveal_type(get_pentagon_indexes(1)) # N: Revealed type is "builtins.set[builtins.str]"
 
-# - case: get_res0_indexes
-#   main: |
-#   from h3.api.basic_str import get_res0_indexes
-#   reveal_type(get_res0_indexes())
-#           # type: () # N: Revealed type is "builtins.set[builtins.str]"
-# h3_to_center_child
-#   main: |
-#   from h3.api.basic_str import h3_to_center_child
-#   h, res=None):
-#   (ScalarType, Optional[int]) # N: Revealed type is "builtins.str"
+- case: get_res0_indexes
+  main: |
+    from h3.api.basic_str import get_res0_indexes
+    reveal_type(get_res0_indexes()) # N: Revealed type is "builtins.set[builtins.str]"
 
-# - case: h3_get_faces
-#   main: |
-#   from h3.api.basic_str import h3_get_faces
-#   reveal_type(h3_get_faces())
-#   h):
-#   (ScalarType) -> Set[int]
+- case: h3_to_center_child
+  main: |
+    from h3.api.basic_str import h3_to_center_child
+    h = "8928308280fffff"
+    reveal_type(h3_to_center_child(h)) # N: Revealed type is "builtins.str"
+
+- case: h3_get_faces
+  main: |
+    from h3.api.basic_str import h3_get_faces
+    h = "8928308280fffff"
+    reveal_type(h3_get_faces(h)) # N: Revealed type is "builtins.set[builtins.int]"
 
 # - case: experimental_h3_to_local_ij
 #   main: |
