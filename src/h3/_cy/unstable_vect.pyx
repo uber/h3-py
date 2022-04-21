@@ -1,9 +1,13 @@
+from cython cimport boundscheck, wraparound
+from libc.math cimport asin, cos, sin, sqrt
+
 cimport h3lib
 from h3lib cimport H3int
+
+from .cells cimport parent, resolution
+from .geo cimport geo_to_h3
 from .util cimport deg2coord
 
-from cython cimport boundscheck, wraparound
-from libc.math cimport sqrt, sin, cos, asin
 
 cdef double haversineDistance(double th1, double ph1, double th2, double ph2) nogil:
     cdef:
@@ -50,14 +54,12 @@ cpdef void geo_to_h3_vect(
     const double[:] lng,
     int res,
     H3int[:] out
-) nogil:
+):
 
-    cdef h3lib.GeoCoord c
+    cdef Py_ssize_t i
 
-    with nogil:
-        for i in range(len(lat)):
-            c = deg2coord(lat[i], lng[i])
-            out[i] = h3lib.geoToH3(&c, res)
+    for i in range(len(lat)):
+        out[i] = geo_to_h3(lat[i], lng[i], res)
 
 
 @boundscheck(False)
@@ -66,13 +68,12 @@ cpdef void h3_to_parent_vect(
     const H3int[:] h,
     int[:] res,
     H3int[:] out
-) nogil:
+):
 
     cdef Py_ssize_t i
 
-    with nogil:
-        for i in range(len(h)):
-            out[i] = h3lib.h3ToParent(h[i], res[i])
+    for i in range(len(h)):
+        out[i] = parent(h[i], res[i])
 
 
 @boundscheck(False)
@@ -80,10 +81,9 @@ cpdef void h3_to_parent_vect(
 cpdef void h3_get_resolution_vect(
     const H3int[:] h,
     int[:] out,
-) nogil:
+):
 
     cdef Py_ssize_t i
 
-    with nogil:
-        for i in range(len(h)):
-            out[i] = h3lib.h3GetResolution(h[i])
+    for i in range(len(h)):
+        out[i] = resolution(h[i])
