@@ -130,10 +130,10 @@ cpdef H3int[:] ring(H3int h, int k):
     return mv
 
 
-cpdef H3int parent(H3int h, res=None) except 0:
+cpdef H3int parent(H3int h, int res = -1) except 0:
     check_cell(h)
 
-    if res is None:
+    if res == -1:
         res = resolution(h) - 1
     if res > resolution(h):
         msg = 'Invalid parent resolution {} for cell {}.'
