@@ -1,0 +1,265 @@
+- case: h3_is_valid
+  main: |
+    from h3.api.basic_str import h3_is_valid
+    h = "8928308280fffff"
+    reveal_type(h3_is_valid(h)) # N: Revealed type is "builtins.bool"
+
+- case: h3_unidirectional_edge_is_valid
+  main: |
+    from h3.api.basic_str import h3_unidirectional_edge_is_valid
+    h = "8928308280fffff"
+    reveal_type(h3_unidirectional_edge_is_valid(h)) # N: Revealed type is "builtins.bool"
+
+- case: geo_to_h3
+  main: |
+    from h3.api.basic_str import geo_to_h3
+    lat = 0.0
+    lng = 0.0
+    resolution = 5
+    reveal_type(geo_to_h3(lat, lng, resolution)) # N: Revealed type is "builtins.str"
+
+- case: h3_to_geo
+  main: |
+    from h3.api.basic_str import h3_to_geo
+    h = "8928308280fffff"
+    reveal_type(h3_to_geo(h)) # N: Revealed type is "Tuple[builtins.float, builtins.float]"
+
+- case: h3_get_resolution
+  main: |
+    from h3.api.basic_str import h3_get_resolution
+    h = "8928308280fffff"
+    reveal_type(h3_get_resolution(h)) # N: Revealed type is "builtins.int"
+
+- case: h3_to_parent
+  main: |
+    from h3.api.basic_str import h3_to_parent
+    h = "8928308280fffff"
+    reveal_type(h3_to_parent(h)) # N: Revealed type is "builtins.str"
+
+- case: h3_distance
+  main: |
+    from h3.api.basic_str import h3_distance
+    h = "8928308280fffff"
+    reveal_type(h3_distance(h, h)) # N: Revealed type is "builtins.float"
+
+# - case: h3_to_geo_boundary
+#   main: |
+#   from h3.api.basic_str import h3_to_geo_boundary
+#   reveal_type(h3_to_geo_boundary())
+#   h, geo_json=False):
+#   (ScalarType, bool) -> GeoBoundary
+
+- case: k_ring
+  main: |
+    from h3.api.basic_str import k_ring
+    h = "8928308280fffff"
+    reveal_type(k_ring(h)) # N: Revealed type is "builtins.set[builtins.str]"
+
+- case: hex_range
+  main: |
+    from h3.api.basic_str import hex_range
+    h = "8928308280fffff"
+    reveal_type(hex_range(h)) # N: Revealed type is "builtins.set[builtins.str]"
+
+- case: hex_ring
+  main: |
+    from h3.api.basic_str import hex_ring
+    h = "8928308280fffff"
+    reveal_type(hex_ring(h)) # N: Revealed type is "builtins.set[builtins.str]"
+
+- case: hex_range_distances
+  main: |
+    from h3.api.basic_str import hex_range_distances
+    h = "8928308280fffff"
+    reveal_type(hex_range_distances(h, 1)) # N: Revealed type is "builtins.list[builtins.set[builtins.str]]"
+
+# - case: hex_ranges
+#   main: |
+#     from h3.api.basic_str import hex_ranges
+#     reveal_type(hex_ranges())
+#     hexes, K):
+#     (Iterable[ScalarType], int) -> Dict[ScalarType, List[UnorderedScalarType]] # noqa
+
+- case: k_ring_distances
+  main: |
+    from h3.api.basic_str import k_ring_distances
+    h = "8928308280fffff"
+    reveal_type(k_ring_distances(h, 1)) # N: Revealed type is "builtins.list[builtins.set[builtins.str]]"
+
+- case: h3_to_children
+  main: |
+    from h3.api.basic_str import h3_to_children
+    h = "8928308280fffff"
+    reveal_type(h3_to_children(h)) # N: Revealed type is "builtins.set[builtins.str]"
+
+- case: compact
+  main: |
+    from h3.api.basic_str import compact
+    hexes = ["8928308280fffff"]
+    reveal_type(compact(hexes)) # N: Revealed type is "builtins.set[builtins.str]"
+
+- case: uncompact
+  main: |
+    from h3.api.basic_str import uncompact
+    hexes = ["8928308280fffff"]
+    reveal_type(uncompact(hexes, 1)) # N: Revealed type is "builtins.set[builtins.str]"
+
+# - case: h3_set_to_multi_polygon
+#   main: |
+#   from h3.api.basic_str import h3_set_to_multi_polygon
+#   reveal_type(h3_set_to_multi_polygon())
+#   hexes, geo_json=False):
+#   (Iterable[ScalarType], bool) -> MultiPolygon
+
+# - case: polyfill_polygon
+#   main: |
+#   from h3.api.basic_str import polyfill_polygon
+#   reveal_type(polyfill_polygon())
+#   outer, res, holes=None, lnglat_order=False):
+#   (Any, int, Any, bool) # N: Revealed type is "builtins.set[builtins.str]"
+
+# - case: polyfill_geojson
+#   main: |
+#   from h3.api.basic_str import polyfill_geojson
+#   reveal_type(polyfill_geojson())
+#   geojson, res):
+#   (Any, int) # N: Revealed type is "builtins.set[builtins.str]"
+
+# - case: polyfill
+#   main: |
+#   from h3.api.basic_str import polyfill
+#   reveal_type(polyfill())
+#   geojson, res, geo_json_conformant=False):
+#   (Dict, int, bool) # N: Revealed type is "builtins.set[builtins.str]"
+
+- case: h3_is_pentagon
+  main: |
+    from h3.api.basic_str import h3_is_pentagon
+    h = "8928308280fffff"
+    reveal_type(h3_is_pentagon(h)) # N: Revealed type is "builtins.bool"
+
+- case: h3_get_base_cell
+  main: |
+    from h3.api.basic_str import h3_get_base_cell
+    h = "8928308280fffff"
+    reveal_type(h3_get_base_cell(h)) # N: Revealed type is "builtins.int"
+
+- case: h3_indexes_are_neighbors
+  main: |
+    from h3.api.basic_str import h3_indexes_are_neighbors
+    h = "8928308280fffff"
+    reveal_type(h3_indexes_are_neighbors(h, h)) # N: Revealed type is "builtins.bool"
+
+# - case: get_h3_unidirectional_edge
+#   main: |
+#   from h3.api.basic_str import get_h3_unidirectional_edge
+#   reveal_type(get_h3_unidirectional_edge())
+#   origin, destination):
+#   (ScalarType, ScalarType) # N: Revealed type is "builtins.str"
+
+# - case: get_origin_h3_index_from_unidirectional_edge
+#   main: |
+#   from h3.api.basic_str import get_origin_h3_index_from_unidirectional_edge
+#   reveal_type(get_origin_h3_index_from_unidirectional_edge())
+#   e):
+#   (ScalarType) # N: Revealed type is "builtins.str"
+
+# - case: get_destination_h3_index_from_unidirectional_edge
+#   main: |
+#   from h3.api.basic_str import get_destination_h3_index_from_unidirectional_edge
+#   reveal_type(get_destination_h3_index_from_unidirectional_edge())
+#   e):
+#   (ScalarType) # N: Revealed type is "builtins.str"
+
+# - case: get_h3_indexes_from_unidirectional_edge
+#   main: |
+#   from h3.api.basic_str import get_h3_indexes_from_unidirectional_edge
+#   reveal_type(get_h3_indexes_from_unidirectional_edge())
+#   e):
+#   (ScalarType) -> Tuple[ScalarType, ScalarType]
+
+# - case: get_h3_unidirectional_edges_from_hexagon
+#   main: |
+#   from h3.api.basic_str import get_h3_unidirectional_edges_from_hexagon
+#   reveal_type(get_h3_unidirectional_edges_from_hexagon())
+#   origin):
+#   (ScalarType) # N: Revealed type is "builtins.set[builtins.str]"
+
+# - case: get_h3_unidirectional_edge_boundary
+#   main: |
+#   from h3.api.basic_str import get_h3_unidirectional_edge_boundary
+#   reveal_type(get_h3_unidirectional_edge_boundary())
+#   edge, geo_json=False):
+#   (ScalarType, bool) # N: Revealed type is "builtins.set[builtins.str]"
+
+# - case: h3_line
+#   main: |
+#   from h3.api.basic_str import h3_line
+#   reveal_type(h3_line())
+#   start, end):
+#   (ScalarType, ScalarType) -> OrderedScalarType
+
+# - case: h3_is_res_class_III
+#   main: |
+#   from h3.api.basic_str import h3_is_res_class_III
+#   reveal_type(h3_is_res_class_III())
+#   h):
+#   (ScalarType) # N: Revealed type is "builtins.bool"
+
+# - case: h3_is_res_class_iii
+#   main: |
+#   from h3.api.basic_str import h3_is_res_class_iii
+#   reveal_type(h3_is_res_class_iii())
+#   h):
+#   (ScalarType) # N: Revealed type is "builtins.bool"
+
+# - case: get_pentagon_indexes
+#   main: |
+#   from h3.api.basic_str import get_pentagon_indexes
+#   reveal_type(get_pentagon_indexes())
+#   resolution):
+#   (int) # N: Revealed type is "builtins.set[builtins.str]"
+
+# - case: get_res0_indexes
+#   main: |
+#   from h3.api.basic_str import get_res0_indexes
+#   reveal_type(get_res0_indexes())
+#           # type: () # N: Revealed type is "builtins.set[builtins.str]"
+# h3_to_center_child
+#   main: |
+#   from h3.api.basic_str import h3_to_center_child
+#   h, res=None):
+#   (ScalarType, Optional[int]) # N: Revealed type is "builtins.str"
+
+# - case: h3_get_faces
+#   main: |
+#   from h3.api.basic_str import h3_get_faces
+#   reveal_type(h3_get_faces())
+#   h):
+#   (ScalarType) -> Set[int]
+
+# - case: experimental_h3_to_local_ij
+#   main: |
+#   from h3.api.basic_str import experimental_h3_to_local_ij
+#   reveal_type(experimental_h3_to_local_ij())
+#   origin, h):
+#   (ScalarType, ScalarType) # N: Revealed type is "builtins.tuple[builtins.int, builtins.int]"
+
+# - case: experimental_local_ij_to_h3
+#   main: |
+#   from h3.api.basic_str import experimental_local_ij_to_h3
+#   reveal_type(experimental_local_ij_to_h3())
+#   origin, i, j):
+#   (ScalarType, int, int) # N: Revealed type is "builtins.str"
+
+- case: cell_area
+  main: |
+    from h3.api.basic_str import cell_area
+    h = "8928308280fffff"
+    reveal_type(cell_area(h)) # N: Revealed type is "builtins.float"
+
+- case: exact_edge_length
+  main: |
+    from h3.api.basic_str import exact_edge_length
+    h = "8928308280fffff"
+    reveal_type(exact_edge_length(h)) # N: Revealed type is "builtins.float"
