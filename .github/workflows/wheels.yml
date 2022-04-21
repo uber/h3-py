@@ -32,6 +32,15 @@ jobs:
         run: |
           pipx run build --sdist
 
+      - name: Install from sdist
+        run: |
+          pip install --upgrade pip setuptools wheel
+          cp dist/h3-*.tar.gz h3.tar.gz
+          pip install h3.tar.gz[all]
+
+      - name: Test sdist
+        run: pytest --cov=h3 --full-trace
+
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v3
         with:
@@ -90,7 +99,10 @@ jobs:
             name: Windows 64-bit
           - os: ubuntu-latest
             build: "cp*-manylinux_x86_64"
-            name: Linux Intel 64-bit
+            name: Linux Intel glibc 64-bit
+          - os: ubuntu-latest
+            build: "cp*-musllinux_x86_64"
+            name: Linux Intel musl 64-bit
           - os: ubuntu-latest
             build: "cp36-manylinux_aarch64"
             name: Linux Aarch64 3.6
