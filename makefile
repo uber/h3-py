@@ -30,6 +30,7 @@ purge: clear
 	-@rm -rf env
 
 test:
+	cd tests && cythonize -i test_cython_cy.pyx && cd ..
 	env/bin/pytest tests/* --cov=h3 --cov-report term-missing --durations=10
 
 lint:
