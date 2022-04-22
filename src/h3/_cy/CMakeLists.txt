@@ -23,3 +23,18 @@ add_cython_file(cells)
 add_cython_file(edges)
 add_cython_file(to_multipoly)
 add_cython_file(unstable_vect)
+
+install(
+    FILES
+        cells.pxd
+        cells.pyx
+        edges.pxd
+        edges.pyx
+        geo.pxd
+        geo.pyx
+        h3lib.pxd
+        util.pxd
+        util.pyx
+    DESTINATION
+        src/h3/_cy
+)
