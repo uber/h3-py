@@ -41,3 +41,13 @@ jobs:
         with:
           file: ./coverage.xml
           fail_ci_if_error: true
+
+      - name: Copy Cython annotations to project dir
+        run: |
+          mkdir annotations
+          cp _skbuild/*/cmake-build/src/h3/_cy/*.html ./annotations
+
+      - name: Upload artifacts to GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          path: ./annotations

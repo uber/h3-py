@@ -3,6 +3,9 @@ find_package(PythonExtensions MODULE REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
+# Build Cython annotations
+set(CYTHON_ANNOTATE TRUE)
+
 macro(add_cython_file filename)
     add_cython_target(${filename} C PY3)
     add_library(${filename} MODULE ${filename} ${LIB_SOURCE_FILES} ${CONFIGURED_API_HEADER})
