@@ -31,7 +31,7 @@ purge: clear
 
 test:
 	cd tests && cythonize -i test_cython_cy.pyx && cd ..
-	env/bin/pytest tests/* --cov=h3 --cov-report term-missing --durations=10
+	env/bin/pytest tests/*.py --cov=h3 --cov-report term-missing --durations=10
 
 lint:
 	env/bin/flake8 src/h3 setup.py tests
