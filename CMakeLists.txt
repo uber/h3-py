@@ -19,3 +19,10 @@ add_subdirectory(src/h3lib)
 # Build the rest (other than the core library dependency) as shared
 set(BUILD_SHARED_LIBS ON)
 add_subdirectory(src/h3)
+
+# Include built h3api.h for Cython API
+install(
+    FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/src/h3lib/src/h3lib/include/h3api.h"
+    DESTINATION
+        src/h3/_cy)
