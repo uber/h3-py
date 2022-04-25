@@ -50,4 +50,4 @@ jobs:
         run: |
           pip install Cython
           cythonize -i tests/cython_example.pyx
-          pytest tests/*.py --cov=h3 --full-trace
+          pytest tests --cov=h3 --full-trace
