@@ -6,7 +6,7 @@ np.random.seed(0)
 
 
 def test_cython_api():
-    N = 100_000
+    N = 100000
 
     lats, lngs = np.random.uniform(0, 90, N), np.random.uniform(0, 90, N)
     res = 9
