@@ -1,6 +1,7 @@
 import numpy as np
 
-from .cython_example import geo_to_h3_vect
+# Avoid checking for import-error here because cython_example may not have been compiled yet.
+from .cython_example import geo_to_h3_vect  # pylint: disable=import-error
 
 np.random.seed(0)
 
