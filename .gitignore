@@ -3,6 +3,9 @@ h3c/
 .cache/
 h3/out/
 
+# Cython HTML annotations
+*.html
+
 # C extensions
 *.so
 
