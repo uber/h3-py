@@ -37,10 +37,31 @@ todo: how do we lint these functions and docstrings? it seems to currently
 be skipped due to it being inside the `_api_functions` function.
 """
 
+import sys
+from typing import Any, Dict, Generic, List, Iterable, Optional, Tuple, TypeVar, Set
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
 from .. import _cy
 
+ScalarType = TypeVar("ScalarType")
+# Type variables can't yet be used with arguments, so we need to create unordered and
+# ordered types explicitly, instead of an Unordered type where we could do
+# Unordered[ScalarType]
+# https://github.com/python/typing/issues/548
+UnorderedScalarType = TypeVar("UnorderedScalarType")
+OrderedScalarType = TypeVar("OrderedScalarType")
+DistanceUnit = Literal['km', 'm', 'rads']
+AreaUnit = Literal['km^2', 'm^2', 'rads^2']
+Position = Tuple[float, float]
+GeoBoundary = Tuple[Position, ...]
+MultiPolygon = List[List[List[Position]]]
 
-class _API_FUNCTIONS(object):
+
+class _API_FUNCTIONS(Generic[ScalarType, UnorderedScalarType, OrderedScalarType]):
     def __init__(
         self,
         _in_scalar,
@@ -57,6 +78,7 @@ class _API_FUNCTIONS(object):
 
     @staticmethod
     def versions():
+        # type: () -> Dict[str, str]
         """
         Version numbers for the Python (wrapper) and C (wrapped) libraries.
 
@@ -79,6 +101,7 @@ class _API_FUNCTIONS(object):
 
     @staticmethod
     def string_to_h3(h):
+        # type: (str) -> int
         """
         Converts a hexadecimal string to an H3 64-bit integer index.
 
@@ -96,6 +119,7 @@ class _API_FUNCTIONS(object):
 
     @staticmethod
     def h3_to_string(x):
+        # type: (int) -> str
         """
         Converts an H3 64-bit integer index to a hexadecimal string.
 
@@ -113,6 +137,7 @@ class _API_FUNCTIONS(object):
 
     @staticmethod
     def num_hexagons(resolution):
+        # type: (int) -> int
         """
         Return the total number of *cells* (hexagons and pentagons)
         for the given resolution.
@@ -125,6 +150,7 @@ class _API_FUNCTIONS(object):
 
     @staticmethod
     def hex_area(resolution, unit='km^2'):
+        # type: (int, AreaUnit) -> float
         """
         Return the average area of an H3 *hexagon*
         for the given resolution.
@@ -140,6 +166,7 @@ class _API_FUNCTIONS(object):
 
     @staticmethod
     def edge_length(resolution, unit='km'):
+        # type: (int, DistanceUnit) -> float
         """
         Return the average *hexagon* edge length
         for the given resolution.
@@ -154,6 +181,7 @@ class _API_FUNCTIONS(object):
         return _cy.mean_edge_length(resolution, unit)
 
     def h3_is_valid(self, h):
+        # type: (ScalarType) -> bool
         """
         Validates an H3 cell (hexagon or pentagon).
 
@@ -168,6 +196,7 @@ class _API_FUNCTIONS(object):
             return False
 
     def h3_unidirectional_edge_is_valid(self, edge):
+        # type: (ScalarType) -> bool
         """
         Validates an H3 unidirectional edge.
 
@@ -182,6 +211,7 @@ class _API_FUNCTIONS(object):
             return False
 
     def geo_to_h3(self, lat, lng, resolution):
+        # type: (float, float, int) -> ScalarType
         """
         Return the cell containing the (lat, lng) point
         for a given resolution.
@@ -194,6 +224,7 @@ class _API_FUNCTIONS(object):
         return self._out_scalar(_cy.geo_to_h3(lat, lng, resolution))
 
     def h3_to_geo(self, h):
+        # type: (ScalarType) -> Position
         """
         Return the center point of an H3 cell as a lat/lng pair.
 
@@ -211,6 +242,7 @@ class _API_FUNCTIONS(object):
         return _cy.h3_to_geo(self._in_scalar(h))
 
     def h3_get_resolution(self, h):
+        # type: (ScalarType) -> int
         """
         Return the resolution of an H3 cell.
 
@@ -226,6 +258,7 @@ class _API_FUNCTIONS(object):
         return _cy.resolution(self._in_scalar(h))
 
     def h3_to_parent(self, h, res=None):
+        # type: (ScalarType, Optional[int]) -> ScalarType
         """
         Get the parent of a cell.
 
@@ -247,6 +280,7 @@ class _API_FUNCTIONS(object):
         return p
 
     def h3_distance(self, h1, h2):
+        # type: (ScalarType, ScalarType) -> float
         """
         Compute the H3 distance between two cells.
 
@@ -274,6 +308,7 @@ class _API_FUNCTIONS(object):
         return d
 
     def h3_to_geo_boundary(self, h, geo_json=False):
+        # type: (ScalarType, bool) -> GeoBoundary
         """
         Return tuple of lat/lng pairs describing the cell boundary.
 
@@ -294,6 +329,7 @@ class _API_FUNCTIONS(object):
         return _cy.cell_boundary(self._in_scalar(h), geo_json)
 
     def k_ring(self, h, k=1):
+        # type: (ScalarType, int) -> UnorderedScalarType
         """
         Return unordered set of cells with H3 distance ``<= k`` from ``h``.
         That is, the "filled-in" disk.
@@ -313,6 +349,7 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     def hex_range(self, h, k=1):
+        # type: (ScalarType, int) -> UnorderedScalarType
         """
         Alias for `k_ring`.
         "Filled-in" disk.
@@ -326,6 +363,7 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     def hex_ring(self, h, k=1):
+        # type: (ScalarType, int) -> UnorderedScalarType
         """
         Return unordered set of cells with H3 distance ``== k`` from ``h``.
         That is, the "hollow" ring.
@@ -345,6 +383,7 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     def hex_range_distances(self, h, K):
+        # type: (ScalarType, int) -> List[UnorderedScalarType]
         """
         Ordered list of the "hollow" rings around ``h``,
         up to and including distance ``K``.
@@ -369,6 +408,7 @@ class _API_FUNCTIONS(object):
         return out
 
     def hex_ranges(self, hexes, K):
+        # type: (Iterable[ScalarType], int) -> Dict[ScalarType, List[UnorderedScalarType]] # noqa
         """
         Returns the dictionary ``{h: hex_range_distances(h, K) for h in hexes}``
 
@@ -383,10 +423,12 @@ class _API_FUNCTIONS(object):
         return out
 
     def k_ring_distances(self, h, K):
+        # type: (ScalarType, int) -> List[UnorderedScalarType]
         """Alias for `hex_range_distances`."""
         return self.hex_range_distances(h, K)
 
     def h3_to_children(self, h, res=None):
+        # type: (ScalarType, Optional[int]) -> UnorderedScalarType
         """
         Children of a hexagon.
 
@@ -406,7 +448,9 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     # todo: nogil for expensive C operation?
+    # TODO: Check input type across APIs, should this be UnorderedScalarType?
     def compact(self, hexes):
+        # type: (Iterable[ScalarType]) -> UnorderedScalarType
         """
         Compact a collection of H3 cells by combining
         smaller cells into larger cells, if all child cells
@@ -426,7 +470,9 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(hc)
 
+    # TODO: Check input type across APIs, should this be UnorderedScalarType?
     def uncompact(self, hexes, res):
+        # type: (Iterable[ScalarType], int) -> UnorderedScalarType
         """
         Reverse the `compact` operation.
 
@@ -453,7 +499,9 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(hu)
 
+    # TODO: Check input type across APIs, should this be UnorderedScalarType?
     def h3_set_to_multi_polygon(self, hexes, geo_json=False):
+        # type: (Iterable[ScalarType], bool) -> MultiPolygon
         """
         Get GeoJSON-like MultiPolygon describing the outline of the area
         covered by a set of H3 cells.
@@ -483,16 +531,19 @@ class _API_FUNCTIONS(object):
         return _cy.h3_set_to_multi_polygon(hexes, geo_json=geo_json)
 
     def polyfill_polygon(self, outer, res, holes=None, lnglat_order=False):
+        # type: (Any, int, Any, bool) -> UnorderedScalarType
         mv = _cy.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
 
         return self._out_unordered(mv)
 
     def polyfill_geojson(self, geojson, res):
+        # type: (Any, int) -> UnorderedScalarType
         mv = _cy.polyfill_geojson(geojson, res)
 
         return self._out_unordered(mv)
 
     def polyfill(self, geojson, res, geo_json_conformant=False):
+        # type: (Dict, int, bool) -> UnorderedScalarType
         """
         Get set of hexagons whose *centers* are contained within
         a GeoJSON-style polygon.
@@ -532,6 +583,7 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     def h3_is_pentagon(self, h):
+        # type: (ScalarType) -> bool
         """
         Identify if an H3 cell is a pentagon.
 
@@ -552,6 +604,7 @@ class _API_FUNCTIONS(object):
         return _cy.is_pentagon(self._in_scalar(h))
 
     def h3_get_base_cell(self, h):
+        # type: (ScalarType) -> int
         """
         Return the base cell *number* (``0`` to ``121``) of the given cell.
 
@@ -574,6 +627,7 @@ class _API_FUNCTIONS(object):
         return _cy.get_base_cell(self._in_scalar(h))
 
     def h3_indexes_are_neighbors(self, h1, h2):
+        # type: (ScalarType, ScalarType) -> bool
         """
         Returns ``True`` if ``h1`` and ``h2`` are neighboring cells.
 
@@ -592,6 +646,7 @@ class _API_FUNCTIONS(object):
         return _cy.are_neighbors(h1, h2)
 
     def get_h3_unidirectional_edge(self, origin, destination):
+        # type: (ScalarType, ScalarType) -> ScalarType
         """
         Create an H3 Index denoting a unidirectional edge.
 
@@ -620,6 +675,7 @@ class _API_FUNCTIONS(object):
         return e
 
     def get_origin_h3_index_from_unidirectional_edge(self, e):
+        # type: (ScalarType) -> ScalarType
         """
         Origin cell from an H3 directed edge.
 
@@ -638,6 +694,7 @@ class _API_FUNCTIONS(object):
         return o
 
     def get_destination_h3_index_from_unidirectional_edge(self, e):
+        # type: (ScalarType) -> ScalarType
         """
         Destination cell from an H3 directed edge.
 
@@ -656,6 +713,7 @@ class _API_FUNCTIONS(object):
         return d
 
     def get_h3_indexes_from_unidirectional_edge(self, e):
+        # type: (ScalarType) -> Tuple[ScalarType, ScalarType]
         """
         Return (origin, destination) tuple from H3 directed edge
 
@@ -677,6 +735,7 @@ class _API_FUNCTIONS(object):
         return o, d
 
     def get_h3_unidirectional_edges_from_hexagon(self, origin):
+        # type: (ScalarType) -> UnorderedScalarType
         """
         Return all directed edges starting from ``origin`` cell.
 
@@ -693,9 +752,11 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     def get_h3_unidirectional_edge_boundary(self, edge, geo_json=False):
+        # type: (ScalarType, bool) -> UnorderedScalarType
         return _cy.edge_boundary(self._in_scalar(edge), geo_json=geo_json)
 
     def h3_line(self, start, end):
+        # type: (ScalarType, ScalarType) -> OrderedScalarType
         """
         Returns the ordered collection of cells denoting a
         minimum-length non-unique path between cells.
@@ -715,6 +776,7 @@ class _API_FUNCTIONS(object):
         return self._out_ordered(mv)
 
     def h3_is_res_class_III(self, h):
+        # type: (ScalarType) -> bool
         """
         Determine if cell has orientation "Class II" or "Class III".
 
@@ -744,10 +806,12 @@ class _API_FUNCTIONS(object):
         return _cy.is_res_class_iii(self._in_scalar(h))
 
     def h3_is_res_class_iii(self, h):
+        # type: (ScalarType) -> bool
         """Alias for `h3_is_res_class_III`."""
         return self.h3_is_res_class_III(h)
 
     def get_pentagon_indexes(self, resolution):
+        # type: (int) -> UnorderedScalarType
         """
         Return all pentagons at a given resolution.
 
@@ -764,6 +828,7 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     def get_res0_indexes(self):
+        # type: () -> UnorderedScalarType
         """
         Return all cells at resolution 0.
 
@@ -780,6 +845,7 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     def h3_to_center_child(self, h, res=None):
+        # type: (ScalarType, Optional[int]) -> ScalarType
         """
         Get the center child of a cell at some finer resolution.
 
@@ -801,6 +867,7 @@ class _API_FUNCTIONS(object):
         return p
 
     def h3_get_faces(self, h):
+        # type: (ScalarType) -> Set[int]
         """
         Return icosahedron faces intersecting a given H3 cell.
 
@@ -822,6 +889,7 @@ class _API_FUNCTIONS(object):
         return faces
 
     def experimental_h3_to_local_ij(self, origin, h):
+        # type: (ScalarType, ScalarType) -> Tuple[int, int]
         """
         Return local (i,j) coordinates of cell ``h`` in relation to ``origin`` cell
 
@@ -860,6 +928,7 @@ class _API_FUNCTIONS(object):
         return i, j
 
     def experimental_local_ij_to_h3(self, origin, i, j):
+        # type: (ScalarType, int, int) -> ScalarType
         """
         Return cell at local (i,j) position relative to the ``origin`` cell.
 
@@ -896,6 +965,7 @@ class _API_FUNCTIONS(object):
         return h
 
     def cell_area(self, h, unit='km^2'):
+        # type: (ScalarType, AreaUnit) -> float
         """
         Compute the spherical surface area of a specific H3 cell.
 
@@ -923,6 +993,7 @@ class _API_FUNCTIONS(object):
         return _cy.cell_area(h, unit=unit)
 
     def exact_edge_length(self, e, unit='km'):
+        # type: (ScalarType, DistanceUnit) -> float
         """
         Compute the spherical length of a specific H3 edge.
 
@@ -949,6 +1020,7 @@ class _API_FUNCTIONS(object):
 
     @staticmethod
     def point_dist(point1, point2, unit='km'):
+        # type: (Tuple[float, float], Tuple[float, float], DistanceUnit) -> float
         """
         Compute the spherical distance between two (lat, lng) points.
 

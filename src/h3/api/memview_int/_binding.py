@@ -28,4 +28,4 @@ _binding = _API_FUNCTIONS(
     _in_collection = _id,
     _out_unordered = _id,
     _out_ordered = _id,
-)
+)  # type: _API_FUNCTIONS[memoryview, memoryview, memoryview]

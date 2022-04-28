@@ -1,0 +1,38 @@
+- case: versions
+  main: |
+    from h3.api.basic_str import versions
+    reveal_type(versions()) # N: Revealed type is "builtins.dict[builtins.str, builtins.str]"
+- case: string_to_h3
+  main: |
+    from h3.api.basic_str import string_to_h3
+    reveal_type(string_to_h3("8928308280fffff")) # N: Revealed type is "builtins.int"
+- case: h3_to_string
+  main: |
+    from h3.api.basic_str import h3_to_string
+    reveal_type(h3_to_string(617700169958293503)) # N: Revealed type is "builtins.str"
+- case: num_hexagons
+  main: |
+    from h3.api.basic_str import num_hexagons
+    reveal_type(num_hexagons(5)) # N: Revealed type is "builtins.int"
+- case: hex_area
+  main: |
+    from h3.api.basic_str import hex_area
+    reveal_type(hex_area(5)) # N: Revealed type is "builtins.float"
+- case: hex_area_fails_with_other_string_unit
+  main: |
+    from h3.api.basic_str import hex_area
+    hex_area(5, "km") # E: Argument 2 has incompatible type "Literal['km']"; expected "Literal['km^2', 'm^2', 'rads^2']"
+- case: edge_length
+  main: |
+    from h3.api.basic_str import edge_length
+    reveal_type(edge_length(5)) # N: Revealed type is "builtins.float"
+- case: edge_length_fails_with_other_string_unit
+  main: |
+    from h3.api.basic_str import edge_length
+    edge_length(5, "km^2") # E: Argument 2 has incompatible type "Literal['km^2']"; expected "Literal['km', 'm', 'rads']"
+- case: point_dist
+  main: |
+    from h3.api.basic_str import point_dist
+    point1 = (1.0, 2.0)
+    point2 = (3.0, 4.0)
+    reveal_type(point_dist(point1, point2)) # N: Revealed type is "builtins.float"

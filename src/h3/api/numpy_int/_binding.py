@@ -21,11 +21,21 @@ Output collections:
 
 import numpy as np
 
+try:
+    from numpy.typing import NDArray
+    ArrayType = NDArray[np.uint64]
+except ImportError:
+    ArrayType = np.ndarray
+
 from .._api_template import _API_FUNCTIONS
 
 
 def _id(x):
     return x
+
+
+def _to_uint64_scalar(x):
+    return np.uint64(x)
 
 
 def _in_collection(x):
@@ -36,8 +46,8 @@ def _in_collection(x):
 
 _binding = _API_FUNCTIONS(
     _in_scalar = _id,
-    _out_scalar = _id,
+    _out_scalar = _to_uint64_scalar,
     _in_collection = _in_collection,
     _out_unordered = np.asarray,
     _out_ordered = np.asarray,
-)
+)  # type: _API_FUNCTIONS[np.uint64, ArrayType, ArrayType]

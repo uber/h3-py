@@ -35,7 +35,10 @@ annotations: rebuild
 	cp _skbuild/*/cmake-build/src/h3/_cy/*.html ./annotations
 
 test:
-	env/bin/pytest tests/* --cov=h3 --cov-report term-missing --durations=10
+	env/bin/pytest tests/*.py --cov=h3 --cov-report term-missing --durations=10
+
+test-types:
+	env/bin/pytest tests/*.yml --mypy-same-process --durations=10 --mypy-ini-file=mypy.ini
 
 lint:
 	env/bin/flake8 src/h3 setup.py tests
