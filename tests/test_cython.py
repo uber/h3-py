@@ -4,7 +4,7 @@ import numpy as np
 # been compiled yet.
 try:
     from .cython_example import geo_to_h3_vect  # pylint: disable=import-error
-except:
+except ImportError:
     geo_to_h3_vect = None
 
 np.random.seed(0)
