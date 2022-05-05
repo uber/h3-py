@@ -18,6 +18,7 @@ init: purge
 clear:
 	-env/bin/pip uninstall -y h3
 	-@rm -rf MANIFEST
+	-@rm -rf annotations
 	-@rm -rf .pytest_cache tests/__pycache__ __pycache__ _skbuild dist .coverage
 	-@find . -type d -name '*.egg-info' | xargs rm -r
 	-@find . -type f -name '*.pyc' | xargs rm -r
@@ -28,6 +29,10 @@ rebuild: clear
 
 purge: clear
 	-@rm -rf env
+
+annotations: rebuild
+	mkdir -p annotations
+	cp _skbuild/*/cmake-build/src/h3/_cy/*.html ./annotations
 
 test:
 	env/bin/cythonize -i tests/cython_example.pyx
