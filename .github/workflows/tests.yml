@@ -47,4 +47,7 @@ jobs:
           pip install .[all]
 
       - name: Tests
-        run: pytest --cov=h3 --full-trace
+        run: |
+          pip install Cython
+          cythonize -i tests/cython_example.pyx
+          pytest tests --cov=h3 --full-trace
