@@ -1,7 +1,5 @@
 from .h3lib cimport H3int, H3str, GeoCoord
 
-cimport h3fake2._cy.h3lib  # not working?
-
 cdef GeoCoord deg2coord(double lat, double lng) nogil
 cdef (double, double) coord2deg(GeoCoord c) nogil
 
