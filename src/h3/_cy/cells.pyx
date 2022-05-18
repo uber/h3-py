@@ -17,7 +17,7 @@ from libc cimport stdlib
 
 
 # bool is a python type, so we don't need the except clause
-cpdef bool isValidCell(H3int h):
+cpdef bool is_cell(H3int h):
     """Validates an H3 cell (hexagon or pentagon)
 
     Returns

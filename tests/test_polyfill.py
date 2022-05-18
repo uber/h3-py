@@ -2,13 +2,7 @@ import h3
 import itertools
 import pytest
 
-
-import h3fake2
-H3ValueError      = (h3.H3ValueError,      h3fake2.H3ValueError)
-H3CellError       = (h3.H3CellError,       h3fake2.H3CellError)
-H3ResolutionError = (h3.H3ResolutionError, h3fake2.H3ResolutionError)
-H3EdgeError       = (h3.H3EdgeError,       h3fake2.H3EdgeError)
-H3DistanceError   = (h3.H3DistanceError,   h3fake2.H3DistanceError)
+from .h3fake2_errors import H3ResolutionError
 
 
 def reverse(loop):

@@ -14,7 +14,7 @@ function interface and input conversion (string to int, for instance).
 """
 
 from .cells import (
-    isValidCell,
+    is_cell,
 )
 
 from h3fake2._cy import (
