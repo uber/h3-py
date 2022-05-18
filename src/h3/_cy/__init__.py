@@ -21,6 +21,9 @@ from .cells import (
     is_res_class_iii,
     distance,
     disk,
+    parent,
+    children,
+    center_child,
 )
 
 from h3fake2._cy import (
@@ -28,11 +31,11 @@ from h3fake2._cy import (
     # is_pentagon,
     # get_base_cell,
     # resolution,
-    parent,
+    # parent,
     # distance,
     # disk,
     ring,
-    children,
+    # children,
     compact,
     uncompact,
     num_hexagons,
@@ -42,7 +45,7 @@ from h3fake2._cy import (
     # is_res_class_iii,
     get_pentagon_indexes,
     get_res0_indexes,
-    center_child,
+    # center_child,
     get_faces,
     experimental_h3_to_local_ij,
     experimental_local_ij_to_h3,

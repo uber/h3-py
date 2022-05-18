@@ -141,53 +141,69 @@ cpdef H3int[:] disk(H3int h, int k):
 #     return mv
 
 
-# cpdef H3int parent(H3int h, res=None) except 0:
-#     check_cell(h)
+cpdef H3int parent(H3int h, res=None) except 0:
+    cdef:
+        H3int parent
+        h3lib.H3Error err
 
-#     if res is None:
-#         res = resolution(h) - 1
-#     if res > resolution(h):
-#         msg = 'Invalid parent resolution {} for cell {}.'
-#         msg = msg.format(res, hex(h))
-#         raise H3ResolutionError(msg)
+    check_cell(h)
 
-#     check_res(res)
+    if res is None:
+        res = resolution(h) - 1
+    if res > resolution(h):
+        msg = 'Invalid parent resolution {} for cell {}.'
+        msg = msg.format(res, hex(h))
+        raise H3ResolutionError(msg)
 
-#     return h3lib.h3ToParent(h, res)
+    check_res(res)
+    err = h3lib.cellToParent(h, res, &parent)
 
-# cpdef H3int[:] children(H3int h, res=None):
-#     check_cell(h)
+    return parent
 
-#     if res is None:
-#         res = resolution(h) + 1
-#     if res < resolution(h):
-#         msg = 'Invalid child resolution {} for cell {}.'
-#         msg = msg.format(res, hex(h))
-#         raise H3ResolutionError(msg)
 
-#     check_res(res)
+cpdef H3int[:] children(H3int h, res=None):
+    cdef:
+        H3int child
+        h3lib.H3Error err
+        int64_t N
 
-#     n = h3lib.maxH3ToChildrenSize(h, res)
+    check_cell(h)
 
-#     ptr = create_ptr(n)
-#     h3lib.h3ToChildren(h, res, ptr)
-#     mv = create_mv(ptr, n)
+    if res is None:
+        res = resolution(h) + 1
+    if res < resolution(h):
+        msg = 'Invalid child resolution {} for cell {}.'
+        msg = msg.format(res, hex(h))
+        raise H3ResolutionError(msg)
 
-#     return mv
+    check_res(res)
+    err = h3lib.cellToChildrenSize(h, res, &N)
 
-# cpdef H3int center_child(H3int h, res=None) except 0:
-#     check_cell(h)
+    ptr = create_ptr(N)
+    err = h3lib.cellToChildren(h, res, ptr)
+    mv = create_mv(ptr, N)
 
-#     if res is None:
-#         res = resolution(h) + 1
-#     if res < resolution(h):
-#         msg = 'Invalid child resolution {} for cell {}.'
-#         msg = msg.format(res, hex(h))
-#         raise H3ResolutionError(msg)
+    return mv
 
-#     check_res(res)
 
-#     return h3lib.h3ToCenterChild(h, res)
+cpdef H3int center_child(H3int h, res=None) except 0:
+    cdef:
+        H3int child
+        h3lib.H3Error err
+
+    check_cell(h)
+
+    if res is None:
+        res = resolution(h) + 1
+    if res < resolution(h):
+        msg = 'Invalid child resolution {} for cell {}.'
+        msg = msg.format(res, hex(h))
+        raise H3ResolutionError(msg)
+
+    check_res(res)
+    err = h3lib.cellToCenterChild(h, res, &child)
+
+    return child
 
 
 

@@ -20,7 +20,7 @@ cdef extern from "h3api.h":
     int isValidCell(H3Index h) nogil
     int isPentagon(H3Index h) nogil
     int isResClassIII(H3Index h) nogil
-    int isValidDirectedEdge(H3Index edge)
+    int isValidDirectedEdge(H3Index edge) nogil
 
     double degsToRads(double degrees) nogil
     double radsToDegs(double radians) nogil
@@ -32,8 +32,15 @@ cdef extern from "h3api.h":
     H3Error cellToLatLng(H3Index h, LatLng *) nogil
     H3Error gridDistance(H3Index h1, H3Index h2, int64_t *distance) nogil
 
-    H3Error maxGridDiskSize(int k, int64_t *out)
-    H3Error gridDisk(H3Index h, int k, H3Index *out)
+    H3Error maxGridDiskSize(int k, int64_t *out) nogil # num/out/N?
+    H3Error gridDisk(H3Index h, int k, H3Index *out) nogil
+
+    H3Error cellToParent(     H3Index h, int parentRes, H3Index *parent) nogil
+    H3Error cellToCenterChild(H3Index h, int childRes,  H3Index *child) nogil
+
+    H3Error cellToChildrenSize(H3Index h, int childRes, int64_t *num) nogil # num/out/N?
+    H3Error cellToChildren(    H3Index h, int childRes, H3Index *children) nogil
+
 
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
@@ -97,12 +104,6 @@ cdef extern from "h3api.h":
 
     # void h3ToString(H3Index h, char *str, size_t sz)
 
-    # H3Index h3ToParent(H3Index h, int parentRes) nogil
-
-    # int maxH3ToChildrenSize(H3Index h, int childRes)
-
-    # void h3ToChildren(H3Index h, int childRes, H3Index *children)
-
     # int compact(const H3Index *h3Set, H3Index *compactedSet, const int numHexes)
 
     # int maxUncompactSize(const H3Index *compactedSet, const int numHexes, const int res)
@@ -116,8 +117,6 @@ cdef extern from "h3api.h":
     # int res0IndexCount()
 
     # void getRes0Indexes(H3Index *out)
-
-    # H3Index h3ToCenterChild(H3Index h, int res)
 
     # int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
 

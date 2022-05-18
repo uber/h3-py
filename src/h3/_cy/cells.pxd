@@ -8,9 +8,9 @@ cpdef int distance(H3int h1, H3int h2) except -1
 cpdef H3int[:] disk(H3int h, int k)
 # cpdef H3int[:] _ring_fallback(H3int h, int k)
 # cpdef H3int[:] ring(H3int h, int k)
-# cpdef H3int parent(H3int h, res=*) except 0
-# cpdef H3int[:] children(H3int h, res=*)
-# cpdef H3int center_child(H3int h, res=*) except 0
+cpdef H3int parent(H3int h, res=*) except 0
+cpdef H3int[:] children(H3int h, res=*)
+cpdef H3int center_child(H3int h, res=*) except 0
 # cpdef H3int[:] compact(const H3int[:] hu)
 # cpdef H3int[:] uncompact(const H3int[:] hc, int res)
 # cpdef int64_t num_hexagons(int resolution) except -1
