@@ -19,6 +19,10 @@ cdef extern from "h3api.h":
     int isValidCell(H3Index h)
     int isPentagon(H3Index h)
     int isResClassIII(H3Index h)
+    int isValidDirectedEdge(H3Index edge)
+
+    double degsToRads(double degrees) nogil
+    double radsToDegs(double radians) nogil
 
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
@@ -86,10 +90,6 @@ cdef extern from "h3api.h":
 
     # void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
 
-    # double degsToRads(double degrees) nogil
-
-    # double radsToDegs(double radians) nogil
-
     # stdint.int64_t numHexagons(int res)
 
     # int h3GetResolution(H3Index h) nogil
@@ -125,8 +125,6 @@ cdef extern from "h3api.h":
     # int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
 
     # H3Index getH3UnidirectionalEdge(H3Index origin, H3Index destination)
-
-    # int h3UnidirectionalEdgeIsValid(H3Index edge)
 
     # H3Index getOriginH3IndexFromUnidirectionalEdge(H3Index edge)
 

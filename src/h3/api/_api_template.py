@@ -163,7 +163,7 @@ class _API_FUNCTIONS(object):
         """
         try:
             h = self._in_scalar(h)
-            return _cy.is_cell(h)
+            return _cy.isValidCell(h)
         except (ValueError, TypeError):
             return False
 

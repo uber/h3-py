@@ -13,9 +13,12 @@ management. The API wrapping code around this should focus on the cosmetic
 function interface and input conversion (string to int, for instance).
 """
 
-# from .cells import (
+from .cells import (
+    isValidCell,
+)
+
 from h3fake2._cy import (
-    is_cell,
+    # is_cell,
     is_pentagon,
     get_base_cell,
     resolution,
@@ -71,13 +74,21 @@ from h3fake2._cy import (
 
 from .util import (
     c_version,
+    hex2int,
+    int2hex,
+    from_iter,
+    # H3ValueError,
+    # H3CellError,
+    # H3ResolutionError,
+    # H3EdgeError,
+    # H3DistanceError,
 )
 
 from h3fake2._cy import (
     # c_version,
-    hex2int,
-    int2hex,
-    from_iter,
+    # hex2int,
+    # int2hex,
+    # from_iter,
     H3ValueError,
     H3CellError,
     H3ResolutionError,
