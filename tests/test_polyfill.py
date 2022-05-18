@@ -3,6 +3,14 @@ import itertools
 import pytest
 
 
+import h3fake2
+H3ValueError      = (h3.H3ValueError,      h3fake2.H3ValueError)
+H3CellError       = (h3.H3CellError,       h3fake2.H3CellError)
+H3ResolutionError = (h3.H3ResolutionError, h3fake2.H3ResolutionError)
+H3EdgeError       = (h3.H3EdgeError,       h3fake2.H3EdgeError)
+H3DistanceError   = (h3.H3DistanceError,   h3fake2.H3DistanceError)
+
+
 def reverse(loop):
     return list(reversed(loop))
 
@@ -209,10 +217,10 @@ def test_resolution():
         'coordinates': [[]],
     }
 
-    with pytest.raises(h3.H3ResolutionError):
+    with pytest.raises(H3ResolutionError):
         h3.polyfill(d, -1)
 
-    with pytest.raises(h3.H3ResolutionError):
+    with pytest.raises(H3ResolutionError):
         h3.polyfill(d, 16)
 
 

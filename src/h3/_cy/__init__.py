@@ -77,18 +77,6 @@ from .util import (
     hex2int,
     int2hex,
     from_iter,
-    # H3ValueError,
-    # H3CellError,
-    # H3ResolutionError,
-    # H3EdgeError,
-    # H3DistanceError,
-)
-
-from h3fake2._cy import (
-    # c_version,
-    # hex2int,
-    # int2hex,
-    # from_iter,
     H3ValueError,
     H3CellError,
     H3ResolutionError,
