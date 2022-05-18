@@ -46,20 +46,24 @@ cpdef int resolution(H3int h) except -1:
     return h3lib.getResolution(h)
 
 
-# cpdef int distance(H3int h1, H3int h2) except -1:
-#     """ compute the hex-distance between two hexagons
-#     """
-#     check_cell(h1)
-#     check_cell(h2)
+cpdef int distance(H3int h1, H3int h2) except -1:
+    """ Compute the grid distance between two cells
+    """
+    cdef:
+        int64_t distance
+        h3lib.H3Error err
 
-#     d = h3lib.h3Distance(h1,h2)
+    check_cell(h1)
+    check_cell(h2)
 
-#     if d < 0:
-#         s = 'Cells are too far apart to compute distance: {} and {}'
-#         s = s.format(hex(h1), hex(h2))
-#         raise H3ValueError(s)
+    err = h3lib.gridDistance(h1, h2, &distance)
+    if err:
+        # todo: do error handling later
+        s = 'Cells are too far apart to compute distance: {} and {}'
+        s = s.format(hex(h1), hex(h2))
+        raise H3ValueError(s)
 
-#     return d
+    return distance
 
 # cpdef H3int[:] disk(H3int h, int k):
 #     """ Return cells at grid distance `<= k` from `h`.

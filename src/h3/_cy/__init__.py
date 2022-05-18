@@ -19,6 +19,7 @@ from .cells import (
     get_base_cell,
     resolution,
     is_res_class_iii,
+    distance,
 )
 
 from h3fake2._cy import (
@@ -27,7 +28,7 @@ from h3fake2._cy import (
     # get_base_cell,
     # resolution,
     parent,
-    distance,
+    # distance,
     disk,
     ring,
     children,

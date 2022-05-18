@@ -29,7 +29,9 @@ cdef extern from "h3api.h":
     int getBaseCellNumber(H3Index h) nogil
 
     H3Error latLngToCell(const LatLng *g, int res, H3Index *out) nogil
-    H3Error cellToLatLng(H3Index h3, LatLng *) nogil
+    H3Error cellToLatLng(H3Index h, LatLng *) nogil
+    H3Error gridDistance(H3Index h1, H3Index h2, int64_t *distance) nogil
+
 
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
@@ -74,8 +76,6 @@ cdef extern from "h3api.h":
     # int hexRange(H3Index origin, int k, H3Index *out)
 
     # int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
-
-    # int h3Distance(H3Index origin, H3Index h3)
 
     # int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
 
