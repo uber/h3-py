@@ -17,7 +17,7 @@ init: purge
 	env/bin/pip install -r requirements.in
 
 clear:
-	-env/bin/pip uninstall -y h3 h3fake2
+	-env/bin/pip uninstall -y h3
 	-@rm -rf MANIFEST
 	-@rm -rf annotations
 	-@rm -rf .pytest_cache tests/__pycache__ __pycache__ _skbuild dist .coverage
