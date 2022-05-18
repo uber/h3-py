@@ -69,9 +69,12 @@ from h3fake2._cy import (
     h3_set_to_multi_polygon
 )
 
-# from .util import (
-from h3fake2._cy import (
+from .util import (
     c_version,
+)
+
+from h3fake2._cy import (
+    # c_version,
     hex2int,
     int2hex,
     from_iter,

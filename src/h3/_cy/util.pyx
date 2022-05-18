@@ -1,8 +1,8 @@
-# from libc cimport stdlib
-# from cython.view cimport array
+from libc cimport stdlib
+from cython.view cimport array
 # from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
 
-# cimport h3lib
+cimport h3lib
 
 
 # cdef h3lib.GeoCoord deg2coord(double lat, double lng) nogil:
@@ -22,14 +22,14 @@
 #     )
 
 
-# cpdef basestring c_version():
-#     v = (
-#         h3lib.H3_VERSION_MAJOR,
-#         h3lib.H3_VERSION_MINOR,
-#         h3lib.H3_VERSION_PATCH,
-#     )
+cpdef basestring c_version():
+    v = (
+        h3lib.H3_VERSION_MAJOR,
+        h3lib.H3_VERSION_MINOR,
+        h3lib.H3_VERSION_PATCH,
+    )
 
-#     return '{}.{}.{}'.format(*v)
+    return '{}.{}.{}'.format(*v)
 
 
 # cpdef H3int hex2int(H3str h) except? 0:
