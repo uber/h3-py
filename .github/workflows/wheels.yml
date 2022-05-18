@@ -75,6 +75,7 @@ jobs:
           CIBW_TEST_COMMAND: pytest {project}/tests
           CIBW_ARCHS_LINUX: auto aarch64
           CIBW_BUILD: ${{ matrix.build }}
+          CIBW_BEFORE_BUILD: pip install git+https://github.com/ajfriend/h3fake2.git
 
       - name: Check with Twine
         run: |
@@ -153,6 +154,7 @@ jobs:
           CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_BUILD: ${{ matrix.build }}
           CIBW_SKIP: ${{ matrix.skip }}
+          CIBW_BEFORE_BUILD: pip install git+https://github.com/ajfriend/h3fake2.git
 
       - name: Check with Twine
         run: |
