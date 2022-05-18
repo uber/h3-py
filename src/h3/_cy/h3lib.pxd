@@ -24,6 +24,9 @@ cdef extern from "h3api.h":
     double degsToRads(double degrees) nogil
     double radsToDegs(double radians) nogil
 
+    int getResolution(H3Index h) nogil
+    int getBaseCellNumber(H3Index h)
+
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
     #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
@@ -91,10 +94,6 @@ cdef extern from "h3api.h":
     # void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
 
     # stdint.int64_t numHexagons(int res)
-
-    # int h3GetResolution(H3Index h) nogil
-
-    # int h3GetBaseCell(H3Index h)
 
     # H3Index stringToH3(const char *str)
 

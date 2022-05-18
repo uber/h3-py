@@ -15,13 +15,17 @@ function interface and input conversion (string to int, for instance).
 
 from .cells import (
     is_cell,
+    is_pentagon,
+    get_base_cell,
+    resolution,
+    is_res_class_iii,
 )
 
 from h3fake2._cy import (
     # is_cell,
-    is_pentagon,
-    get_base_cell,
-    resolution,
+    # is_pentagon,
+    # get_base_cell,
+    # resolution,
     parent,
     distance,
     disk,
@@ -33,7 +37,7 @@ from h3fake2._cy import (
     mean_hex_area,
     cell_area,
     line,
-    is_res_class_iii,
+    # is_res_class_iii,
     get_pentagon_indexes,
     get_res0_indexes,
     center_child,

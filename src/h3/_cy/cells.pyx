@@ -2,18 +2,18 @@ cimport h3lib
 from .h3lib cimport bool, int64_t, H3int
 from libc cimport stdlib
 
-# from .util cimport (
-#     check_cell,
-#     check_res,
-#     check_distance,
-#     create_ptr,
-#     create_mv,
-#     empty_memory_view, # want to drop this import if possible
-# )
+from .util cimport (
+    check_cell,
+    check_res,
+    check_distance,
+    create_ptr,
+    create_mv,
+    empty_memory_view, # want to drop this import if possible
+)
 
-# from .util import H3ValueError, H3ResolutionError
+from .util import H3ValueError, H3ResolutionError
 
-# # todo: add notes about Cython exception handling
+# todo: add notes about Cython exception handling
 
 
 # bool is a python type, so we don't need the except clause
@@ -26,22 +26,24 @@ cpdef bool is_cell(H3int h):
     """
     return h3lib.isValidCell(h) == 1
 
+
 cpdef bool is_pentagon(H3int h):
     return h3lib.isPentagon(h) == 1
 
-# cpdef int get_base_cell(H3int h) except -1:
-#     check_cell(h)
 
-#     return h3lib.h3GetBaseCell(h)
+cpdef int get_base_cell(H3int h) except -1:
+    check_cell(h)
+
+    return h3lib.getBaseCellNumber(h)
 
 
-# cpdef int resolution(H3int h) except -1:
-#     """Returns the resolution of an H3 Index
-#     0--15
-#     """
-#     check_cell(h)
+cpdef int resolution(H3int h) except -1:
+    """Returns the resolution of an H3 Index
+    0--15
+    """
+    check_cell(h)
 
-#     return h3lib.h3GetResolution(h)
+    return h3lib.getResolution(h)
 
 
 # cpdef int distance(H3int h1, H3int h2) except -1:
@@ -293,8 +295,8 @@ cpdef bool is_pentagon(H3int h):
 
 #     return mv
 
-# cpdef bool is_res_class_iii(H3int h):
-#     return h3lib.h3IsResClassIII(h) == 1
+cpdef bool is_res_class_iii(H3int h):
+    return h3lib.isResClassIII(h) == 1
 
 
 # cpdef H3int[:] get_pentagon_indexes(int res):
