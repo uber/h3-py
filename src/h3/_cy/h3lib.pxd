@@ -32,6 +32,8 @@ cdef extern from "h3api.h":
     H3Error cellToLatLng(H3Index h, LatLng *) nogil
     H3Error gridDistance(H3Index h1, H3Index h2, int64_t *distance) nogil
 
+    H3Error maxGridDiskSize(int k, int64_t *out)
+    H3Error gridDisk(H3Index h, int k, H3Index *out)
 
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
@@ -71,15 +73,11 @@ cdef extern from "h3api.h":
 
     # void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp)
 
-    # int maxKringSize(int k)
-
     # int hexRange(H3Index origin, int k, H3Index *out)
 
     # int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
 
     # int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
-
-    # void kRing(H3Index origin, int k, H3Index *out)
 
     # void kRingDistances(H3Index origin, int k, H3Index *out, int *distances)
 

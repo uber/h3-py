@@ -20,6 +20,7 @@ from .cells import (
     resolution,
     is_res_class_iii,
     distance,
+    disk,
 )
 
 from h3fake2._cy import (
@@ -29,7 +30,7 @@ from h3fake2._cy import (
     # resolution,
     parent,
     # distance,
-    disk,
+    # disk,
     ring,
     children,
     compact,

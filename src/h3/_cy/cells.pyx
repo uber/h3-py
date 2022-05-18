@@ -65,19 +65,24 @@ cpdef int distance(H3int h1, H3int h2) except -1:
 
     return distance
 
-# cpdef H3int[:] disk(H3int h, int k):
-#     """ Return cells at grid distance `<= k` from `h`.
-#     """
-#     check_cell(h)
-#     check_distance(k)
+cpdef H3int[:] disk(H3int h, int k):
+    """ Return cells at grid distance `<= k` from `h`.
+    """
+    cdef:
+        int64_t n
+        h3lib.H3Error err
 
-#     n = h3lib.maxKringSize(k)
+    check_cell(h)
+    check_distance(k)
 
-#     ptr = create_ptr(n) # todo: return a "smart" pointer that knows its length?
-#     h3lib.kRing(h, k, ptr)
-#     mv = create_mv(ptr, n)
+    # ignoring error for now
+    err = h3lib.maxGridDiskSize(k, &n)
 
-#     return mv
+    ptr = create_ptr(n) # todo: return a "smart" pointer that knows its length?
+    err = h3lib.gridDisk(h, k, ptr) # ignoring error again!
+    mv = create_mv(ptr, n)
+
+    return mv
 
 
 # cpdef H3int[:] _ring_fallback(H3int h, int k):
