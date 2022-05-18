@@ -13,7 +13,8 @@ management. The API wrapping code around this should focus on the cosmetic
 function interface and input conversion (string to int, for instance).
 """
 
-from .cells import (
+# from .cells import (
+from h3fake2._cy import (
     is_cell,
     is_pentagon,
     get_base_cell,
@@ -38,7 +39,8 @@ from .cells import (
     experimental_local_ij_to_h3,
 )
 
-from .edges import (
+# from .edges import (
+from h3fake2._cy import (
     are_neighbors,
     edge,
     is_edge,
@@ -50,7 +52,8 @@ from .edges import (
     edge_length,
 )
 
-from .geo import (
+# from .geo import (
+from h3fake2._cy import (
     geo_to_h3,
     h3_to_geo,
     polyfill_polygon,
@@ -61,11 +64,13 @@ from .geo import (
     point_dist,
 )
 
-from .to_multipoly import (
+# from .to_multipoly import (
+from h3fake2._cy import (
     h3_set_to_multi_polygon
 )
 
-from .util import (
+# from .util import (
+from h3fake2._cy import (
     c_version,
     hex2int,
     int2hex,
