@@ -1,40 +1,45 @@
-# cimport h3lib
-# from h3lib cimport bool, H3int
-# from .util cimport (
-#     check_cell,
-#     check_edge,
-#     check_res,
-#     create_ptr,
-#     create_mv,
-#     deg2coord,
-#     coord2deg,
-# )
-# from libc cimport stdlib
+cimport h3lib
+from h3lib cimport bool, H3int
+from .util cimport (
+    check_cell,
+    check_edge,
+    check_res,
+    create_ptr,
+    create_mv,
+    deg2coord,
+    coord2deg,
+)
+from libc cimport stdlib
 
-# from .util import H3ValueError
-
-
-# cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
-#     cdef:
-#         h3lib.GeoCoord c
-
-#     check_res(res)
-
-#     c = deg2coord(lat, lng)
-
-#     return h3lib.geoToH3(&c, res)
+from .util import H3ValueError
 
 
-# cpdef (double, double) h3_to_geo(H3int h) except *:
-#     """Map an H3 cell into its centroid geo-coordinate (lat/lng)"""
-#     cdef:
-#         h3lib.GeoCoord c
+cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
+    cdef:
+        h3lib.LatLng c
+        H3int out
+        h3lib.H3Error err
 
-#     check_cell(h)
+    check_res(res)
+    c = deg2coord(lat, lng)
 
-#     h3lib.h3ToGeo(h, &c)
+    # todo: just ignoring the error for now, check in the future
+    err = h3lib.latLngToCell(&c, res, &out)
 
-#     return coord2deg(c)
+    return out
+
+
+cpdef (double, double) h3_to_geo(H3int h) except *:
+    """Map an H3 cell into its centroid geo-coordinate (lat/lng)"""
+    cdef:
+        h3lib.LatLng c
+        h3lib.H3Error err
+
+    check_cell(h)
+
+    err = h3lib.cellToLatLng(h, &c)
+
+    return coord2deg(c)
 
 
 # cdef h3lib.Geofence make_geofence(geos, bool lnglat_order=False) except *:

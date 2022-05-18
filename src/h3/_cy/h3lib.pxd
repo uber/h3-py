@@ -3,6 +3,7 @@ from cpython cimport bool
 from libc.stdint cimport int64_t
 
 ctypedef stdint.uint64_t H3int
+ctypedef stdint.uint32_t H3Error
 ctypedef basestring H3str
 
 cdef extern from "h3api.h":
@@ -16,16 +17,19 @@ cdef extern from "h3api.h":
         double lat  # in radians
         double lng  # in radians
 
-    int isValidCell(H3Index h)
-    int isPentagon(H3Index h)
-    int isResClassIII(H3Index h)
+    int isValidCell(H3Index h) nogil
+    int isPentagon(H3Index h) nogil
+    int isResClassIII(H3Index h) nogil
     int isValidDirectedEdge(H3Index edge)
 
     double degsToRads(double degrees) nogil
     double radsToDegs(double radians) nogil
 
     int getResolution(H3Index h) nogil
-    int getBaseCellNumber(H3Index h)
+    int getBaseCellNumber(H3Index h) nogil
+
+    H3Error latLngToCell(const LatLng *g, int res, H3Index *out) nogil
+    H3Error cellToLatLng(H3Index h3, LatLng *) nogil
 
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
@@ -62,10 +66,6 @@ cdef extern from "h3api.h":
     # ctypedef struct CoordIJ:
     #     int i
     #     int j
-
-    # H3Index geoToH3(const GeoCoord *g, int res) nogil
-
-    # void h3ToGeo(H3Index h3, GeoCoord *g) nogil
 
     # void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp)
 
