@@ -12,9 +12,13 @@ cdef extern from "h3api.h":
 
     ctypedef stdint.uint64_t H3Index
 
-    # ctypedef struct GeoCoord:
-    #     double lat  # in radians
-    #     double lng "lon"  # in radians
+    ctypedef struct LatLng:
+        double lat  # in radians
+        double lng  # in radians
+
+    int isValidCell(H3Index h)
+    int isPentagon(H3Index h)
+    int isResClassIII(H3Index h)
 
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
@@ -96,8 +100,6 @@ cdef extern from "h3api.h":
 
     # void h3ToString(H3Index h, char *str, size_t sz)
 
-    # int h3IsValid(H3Index h)
-
     # H3Index h3ToParent(H3Index h, int parentRes) nogil
 
     # int maxH3ToChildrenSize(H3Index h, int childRes)
@@ -109,10 +111,6 @@ cdef extern from "h3api.h":
     # int maxUncompactSize(const H3Index *compactedSet, const int numHexes, const int res)
 
     # int uncompact(const H3Index *compactedSet, const int numHexes, H3Index *h3Set, const int maxHexes, const int res)
-
-    # int h3IsResClassIII(H3Index h)
-
-    # int h3IsPentagon(H3Index h)
 
     # int pentagonIndexCount()
 

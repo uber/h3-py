@@ -1,6 +1,6 @@
-# cimport h3lib
-# from .h3lib cimport bool, int64_t, H3int
-# from libc cimport stdlib
+cimport h3lib
+from .h3lib cimport bool, int64_t, H3int
+from libc cimport stdlib
 
 # from .util cimport (
 #     check_cell,
@@ -16,18 +16,18 @@
 # # todo: add notes about Cython exception handling
 
 
-# # bool is a python type, so we don't need the except clause
-# cpdef bool is_cell(H3int h):
-#     """Validates an H3 cell (hexagon or pentagon)
+# bool is a python type, so we don't need the except clause
+cpdef bool is_cell(H3int h):
+    """Validates an H3 cell (hexagon or pentagon)
 
-#     Returns
-#     -------
-#     boolean
-#     """
-#     return h3lib.h3IsValid(h) == 1
+    Returns
+    -------
+    boolean
+    """
+    return h3lib.isValidCell(h) == 1
 
-# cpdef bool is_pentagon(H3int h):
-#     return h3lib.h3IsPentagon(h) == 1
+cpdef bool is_pentagon(H3int h):
+    return h3lib.isPentagon(h) == 1
 
 # cpdef int get_base_cell(H3int h) except -1:
 #     check_cell(h)
