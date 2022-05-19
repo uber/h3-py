@@ -2,9 +2,9 @@ name: wheels
 
 on:
   push:
-    branches: [master]
+    branches: [master, dev_v4]
   pull_request:
-    branches: [master]
+    branches: [master, dev_v4]
     types:
       # Opened, synchronize, and reopened are the default types
       # We add ready_for_review to additionally trigger when converting from draft to non-draft
