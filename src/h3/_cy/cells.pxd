@@ -11,8 +11,8 @@ cpdef H3int[:] disk(H3int h, int k)
 cpdef H3int parent(H3int h, res=*) except 0
 cpdef H3int[:] children(H3int h, res=*)
 cpdef H3int center_child(H3int h, res=*) except 0
-# cpdef H3int[:] compact(const H3int[:] hu)
-# cpdef H3int[:] uncompact(const H3int[:] hc, int res)
+cpdef H3int[:] compact(const H3int[:] hu)
+cpdef H3int[:] uncompact(const H3int[:] hc, int res)
 # cpdef int64_t num_hexagons(int resolution) except -1
 # cpdef double mean_hex_area(int resolution, unit=*) except -1
 # cpdef double cell_area(H3int h, unit=*) except -1

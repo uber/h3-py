@@ -207,56 +207,67 @@ cpdef H3int center_child(H3int h, res=None) except 0:
 
 
 
-# cpdef H3int[:] compact(const H3int[:] hu):
-#     # todo: the Clib can handle 0-len arrays because it **avoids**
-#     # dereferencing the pointer, but Cython's syntax of
-#     # `&hu[0]` **requires** a dereference. For Cython, checking for array
-#     # length of zero and returning early seems like the easiest solution.
-#     # note: open to better ideas!
-#     if len(hu) == 0:
-#         return empty_memory_view()
+cpdef H3int[:] compact(const H3int[:] hu):
+    # todo: the Clib can handle 0-len arrays because it **avoids**
+    # dereferencing the pointer, but Cython's syntax of
+    # `&hu[0]` **requires** a dereference. For Cython, checking for array
+    # length of zero and returning early seems like the easiest solution.
+    # note: open to better ideas!
+    cdef:
+        h3lib.H3Error err
 
-#     for h in hu: ## todo: should we have an array version? would that be faster?
-#         check_cell(h)
+    if len(hu) == 0:
+        return empty_memory_view()
 
-#     ptr = create_ptr(len(hu))
-#     flag = h3lib.compact(&hu[0], ptr, len(hu))
-#     mv = create_mv(ptr, len(hu))
+    for h in hu: ## todo: should we have an array version? would that be faster?
+        check_cell(h)
 
-#     if flag != 0:
-#         raise H3ValueError('Could not compact set of hexagons!')
+    ptr = create_ptr(len(hu))
+    err = h3lib.compactCells(&hu[0], ptr, len(hu))
+    mv = create_mv(ptr, len(hu))
 
-#     return mv
+    if err:
+        # todo: additional error processing
+        raise H3ValueError('Could not compact set of hexagons!')
 
-# # todo: https://stackoverflow.com/questions/50684977/cython-exception-type-for-a-function-returning-a-typed-memoryview
-# # apparently, memoryviews are python objects, so we don't need to do the except clause
-# cpdef H3int[:] uncompact(const H3int[:] hc, int res):
-#     # todo: the Clib can handle 0-len arrays because it **avoids**
-#     # dereferencing the pointer, but Cython's syntax of
-#     # `&hc[0]` **requires** a dereference. For Cython, checking for array
-#     # length of zero and returning early seems like the easiest solution.
-#     # note: open to better ideas!
-#     if len(hc) == 0:
-#         return empty_memory_view()
+    return mv
 
-#     for h in hc:
-#         check_cell(h)
 
-#     N = h3lib.maxUncompactSize(&hc[0], len(hc), res)
+# todo: https://stackoverflow.com/questions/50684977/cython-exception-type-for-a-function-returning-a-typed-memoryview
+# apparently, memoryviews are python objects, so we don't need to do the except clause
+cpdef H3int[:] uncompact(const H3int[:] hc, int res):
+    # todo: the Clib can handle 0-len arrays because it **avoids**
+    # dereferencing the pointer, but Cython's syntax of
+    # `&hc[0]` **requires** a dereference. For Cython, checking for array
+    # length of zero and returning early seems like the easiest solution.
+    # note: open to better ideas!
+    cdef:
+        h3lib.H3Error err
+        int64_t N
 
-#     ptr = create_ptr(N)
-#     flag = h3lib.uncompact(
-#         &hc[0], len(hc),
-#            ptr, N,
-#         res
-#     )
-#     mv = create_mv(ptr, N)
+    if len(hc) == 0:
+        return empty_memory_view()
 
-#     if flag != 0:
-#         raise H3ValueError('Could not uncompact set of hexagons!')
+    for h in hc:
+        check_cell(h)
 
-#     return mv
+    # ignoring error for now
+    err = h3lib.uncompactCellsSize(&hc[0], len(hc), res, &N)
 
+    ptr = create_ptr(N)
+    err = h3lib.uncompactCells(
+        &hc[0],
+        len(hc),
+        ptr,
+        N,
+        res
+    )
+    mv = create_mv(ptr, N)
+
+    if err:
+        raise H3ValueError('Could not uncompact set of hexagons!')
+
+    return mv
 
 # cpdef int64_t num_hexagons(int resolution) except -1:
 #     check_res(resolution)

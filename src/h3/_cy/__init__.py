@@ -24,6 +24,8 @@ from .cells import (
     parent,
     children,
     center_child,
+    compact,
+    uncompact,
 )
 
 from h3fake2._cy import (
@@ -36,8 +38,8 @@ from h3fake2._cy import (
     # disk,
     ring,
     # children,
-    compact,
-    uncompact,
+    # compact,
+    # uncompact,
     num_hexagons,
     mean_hex_area,
     cell_area,

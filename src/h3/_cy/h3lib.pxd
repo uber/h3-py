@@ -41,6 +41,24 @@ cdef extern from "h3api.h":
     H3Error cellToChildrenSize(H3Index h, int childRes, int64_t *num) nogil # num/out/N?
     H3Error cellToChildren(    H3Index h, int childRes, H3Index *children) nogil
 
+    H3Error compactCells(
+        const H3Index *cells_u,
+              H3Index *cells_c,
+        const int num_u
+    ) nogil
+    H3Error uncompactCellsSize(
+        const H3Index *cells_c,
+        const int64_t    num_c,
+        const int res,
+        int64_t *num_u
+    ) nogil
+    H3Error uncompactCells(
+        const H3Index *cells_c,
+        const int        num_c,
+        H3Index       *cells_u,
+        const int        num_u,
+        const int res
+    ) nogil
 
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
@@ -103,12 +121,6 @@ cdef extern from "h3api.h":
     # H3Index stringToH3(const char *str)
 
     # void h3ToString(H3Index h, char *str, size_t sz)
-
-    # int compact(const H3Index *h3Set, H3Index *compactedSet, const int numHexes)
-
-    # int maxUncompactSize(const H3Index *compactedSet, const int numHexes, const int res)
-
-    # int uncompact(const H3Index *compactedSet, const int numHexes, H3Index *h3Set, const int maxHexes, const int res)
 
     # int pentagonIndexCount()
 
