@@ -1,7 +1,7 @@
-from .h3lib cimport H3int, H3str, GeoCoord
+from .h3lib cimport H3int, H3str, LatLng
 
-cdef GeoCoord deg2coord(double lat, double lng) nogil
-cdef (double, double) coord2deg(GeoCoord c) nogil
+cdef LatLng deg2coord(double lat, double lng) nogil
+cdef (double, double) coord2deg(LatLng c) nogil
 
 cpdef H3int hex2int(H3str h) except? 0
 cpdef H3str int2hex(H3int x)

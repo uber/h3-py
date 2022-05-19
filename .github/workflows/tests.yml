@@ -2,9 +2,9 @@ name: tests
 
 on:
   push:
-    branches: [master]
+    branches: [master, dev_v4]
   pull_request:
-    branches: [master]
+    branches: [master, dev_v4]
 
 jobs:
   tests:
@@ -44,6 +44,7 @@ jobs:
       - name: Install from source
         run: |
           pip install --upgrade pip setuptools wheel
+          pip install git+https://github.com/ajfriend/h3fake2.git
           pip install .[all]
 
       - name: Tests

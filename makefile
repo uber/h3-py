@@ -12,6 +12,7 @@ init: purge
 	git submodule update --init
 	python -m venv env
 	env/bin/pip install --upgrade pip wheel setuptools
+	env/bin/pip install git+https://github.com/ajfriend/h3fake2.git
 	env/bin/pip install .[all]
 	env/bin/pip install -r requirements.in
 
@@ -23,6 +24,7 @@ clear:
 	-@find . -type d -name '*.egg-info' | xargs rm -r
 	-@find . -type f -name '*.pyc' | xargs rm -r
 	-@find . -type d -name '*.ipynb_checkpoints' | xargs rm -r
+	-@find ./tests -type f -name '*.c' | xargs rm -r
 
 rebuild: clear
 	env/bin/pip install .[all]

@@ -3,6 +3,7 @@ from cpython cimport bool
 from libc.stdint cimport int64_t
 
 ctypedef stdint.uint64_t H3int
+ctypedef stdint.uint32_t H3Error
 ctypedef basestring H3str
 
 cdef extern from "h3api.h":
@@ -12,157 +13,160 @@ cdef extern from "h3api.h":
 
     ctypedef stdint.uint64_t H3Index
 
-    ctypedef struct GeoCoord:
+    ctypedef struct LatLng:
         double lat  # in radians
-        double lng "lon"  # in radians
+        double lng  # in radians
 
-    ctypedef struct GeoBoundary:
-        int num_verts "numVerts"
-        GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
-
-    ctypedef struct Geofence:
-        int numVerts
-        GeoCoord *verts
-
-    ctypedef struct GeoPolygon:
-        Geofence geofence
-        int numHoles
-        Geofence *holes
-
-    ctypedef struct GeoMultiPolygon:
-        int numPolygons
-        GeoPolygon *polygons
-
-    ctypedef struct LinkedGeoCoord:
-        GeoCoord data "vertex"
-        LinkedGeoCoord *next
-
-    # renaming these for clarity
-    ctypedef struct LinkedGeoLoop:
-        LinkedGeoCoord *data "first"
-        LinkedGeoCoord *_data_last "last"  # not needed in Cython bindings
-        LinkedGeoLoop *next
-
-    ctypedef struct LinkedGeoPolygon:
-        LinkedGeoLoop *data "first"
-        LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
-        LinkedGeoPolygon *next
-
-    ctypedef struct CoordIJ:
-        int i
-        int j
-
-    H3Index geoToH3(const GeoCoord *g, int res) nogil
-
-    void h3ToGeo(H3Index h3, GeoCoord *g) nogil
-
-    void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp)
-
-    int maxKringSize(int k)
-
-    int hexRange(H3Index origin, int k, H3Index *out)
-
-    int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
-
-    int h3Distance(H3Index origin, H3Index h3)
-
-    int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
-
-    void kRing(H3Index origin, int k, H3Index *out)
-
-    void kRingDistances(H3Index origin, int k, H3Index *out, int *distances)
-
-    int hexRing(H3Index origin, int k, H3Index *out)
-
-    int maxPolyfillSize(const GeoPolygon *geoPolygon, int res)
-
-    void polyfill(const GeoPolygon *geoPolygon, int res, H3Index *out)
-
-    void h3SetToLinkedGeo(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
-
-    void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
+    int isValidCell(H3Index h) nogil
+    int isPentagon(H3Index h) nogil
+    int isResClassIII(H3Index h) nogil
+    int isValidDirectedEdge(H3Index edge) nogil
 
     double degsToRads(double degrees) nogil
-
     double radsToDegs(double radians) nogil
 
-    stdint.int64_t numHexagons(int res)
+    int getResolution(H3Index h) nogil
+    int getBaseCellNumber(H3Index h) nogil
 
-    int h3GetResolution(H3Index h) nogil
+    H3Error latLngToCell(const LatLng *g, int res, H3Index *out) nogil
+    H3Error cellToLatLng(H3Index h, LatLng *) nogil
+    H3Error gridDistance(H3Index h1, H3Index h2, int64_t *distance) nogil
 
-    int h3GetBaseCell(H3Index h)
+    H3Error maxGridDiskSize(int k, int64_t *out) nogil # num/out/N?
+    H3Error gridDisk(H3Index h, int k, H3Index *out) nogil
 
-    H3Index stringToH3(const char *str)
+    H3Error cellToParent(     H3Index h, int parentRes, H3Index *parent) nogil
+    H3Error cellToCenterChild(H3Index h, int childRes,  H3Index *child) nogil
 
-    void h3ToString(H3Index h, char *str, size_t sz)
+    H3Error cellToChildrenSize(H3Index h, int childRes, int64_t *num) nogil # num/out/N?
+    H3Error cellToChildren(    H3Index h, int childRes, H3Index *children) nogil
 
-    int h3IsValid(H3Index h)
+    H3Error compactCells(
+        const H3Index *cells_u,
+              H3Index *cells_c,
+        const int num_u
+    ) nogil
+    H3Error uncompactCellsSize(
+        const H3Index *cells_c,
+        const int64_t    num_c,
+        const int res,
+        int64_t *num_u
+    ) nogil
+    H3Error uncompactCells(
+        const H3Index *cells_c,
+        const int        num_c,
+        H3Index       *cells_u,
+        const int        num_u,
+        const int res
+    ) nogil
 
-    H3Index h3ToParent(H3Index h, int parentRes) nogil
+    H3Error getNumCells(int res, int64_t *out)
 
-    int maxH3ToChildrenSize(H3Index h, int childRes)
+    # ctypedef struct GeoBoundary:
+    #     int num_verts "numVerts"
+    #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
 
-    void h3ToChildren(H3Index h, int childRes, H3Index *children)
+    # ctypedef struct Geofence:
+    #     int numVerts
+    #     GeoCoord *verts
 
-    int compact(const H3Index *h3Set, H3Index *compactedSet, const int numHexes)
+    # ctypedef struct GeoPolygon:
+    #     Geofence geofence
+    #     int numHoles
+    #     Geofence *holes
 
-    int maxUncompactSize(const H3Index *compactedSet, const int numHexes, const int res)
+    # ctypedef struct GeoMultiPolygon:
+    #     int numPolygons
+    #     GeoPolygon *polygons
 
-    int uncompact(const H3Index *compactedSet, const int numHexes, H3Index *h3Set, const int maxHexes, const int res)
+    # ctypedef struct LinkedGeoCoord:
+    #     GeoCoord data "vertex"
+    #     LinkedGeoCoord *next
 
-    int h3IsResClassIII(H3Index h)
+    # # renaming these for clarity
+    # ctypedef struct LinkedGeoLoop:
+    #     LinkedGeoCoord *data "first"
+    #     LinkedGeoCoord *_data_last "last"  # not needed in Cython bindings
+    #     LinkedGeoLoop *next
 
-    int h3IsPentagon(H3Index h)
+    # ctypedef struct LinkedGeoPolygon:
+    #     LinkedGeoLoop *data "first"
+    #     LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
+    #     LinkedGeoPolygon *next
 
-    int pentagonIndexCount()
+    # ctypedef struct CoordIJ:
+    #     int i
+    #     int j
 
-    void getPentagonIndexes(int res, H3Index *out)
+    # void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp)
 
-    int res0IndexCount()
+    # int hexRange(H3Index origin, int k, H3Index *out)
 
-    void getRes0Indexes(H3Index *out)
+    # int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
 
-    H3Index h3ToCenterChild(H3Index h, int res)
+    # int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
 
-    int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
+    # void kRingDistances(H3Index origin, int k, H3Index *out, int *distances)
 
-    H3Index getH3UnidirectionalEdge(H3Index origin, H3Index destination)
+    # int hexRing(H3Index origin, int k, H3Index *out)
 
-    int h3UnidirectionalEdgeIsValid(H3Index edge)
+    # int maxPolyfillSize(const GeoPolygon *geoPolygon, int res)
 
-    H3Index getOriginH3IndexFromUnidirectionalEdge(H3Index edge)
+    # void polyfill(const GeoPolygon *geoPolygon, int res, H3Index *out)
 
-    H3Index getDestinationH3IndexFromUnidirectionalEdge(H3Index edge)
+    # void h3SetToLinkedGeo(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
 
-    void getH3IndexesFromUnidirectionalEdge(H3Index edge, H3Index *originDestination)
+    # void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
 
-    void getH3UnidirectionalEdgesFromHexagon(H3Index origin, H3Index *edges)
+    # H3Index stringToH3(const char *str)
 
-    void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
+    # void h3ToString(H3Index h, char *str, size_t sz)
 
-    int h3LineSize(H3Index start, H3Index end)
-    int h3Line(H3Index start, H3Index end, H3Index *out)
+    # int pentagonIndexCount()
 
-    int maxFaceCount(H3Index h3)
-    void h3GetFaces(H3Index h3, int *out)
+    # void getPentagonIndexes(int res, H3Index *out)
 
-    int experimentalH3ToLocalIj(H3Index origin, H3Index h3, CoordIJ *out)
-    int experimentalLocalIjToH3(H3Index origin, const CoordIJ *ij, H3Index *out)
+    # int res0IndexCount()
 
-    double hexAreaKm2(int res) nogil
-    double hexAreaM2(int res) nogil
+    # void getRes0Indexes(H3Index *out)
 
-    double cellAreaRads2(H3Index h) nogil
-    double cellAreaKm2(H3Index h) nogil
-    double cellAreaM2(H3Index h) nogil
+    # int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
 
-    double edgeLengthKm(int res) nogil
-    double edgeLengthM(int res) nogil
+    # H3Index getH3UnidirectionalEdge(H3Index origin, H3Index destination)
 
-    double exactEdgeLengthRads(H3Index edge) nogil
-    double exactEdgeLengthKm(H3Index edge) nogil
-    double exactEdgeLengthM(H3Index edge) nogil
+    # H3Index getOriginH3IndexFromUnidirectionalEdge(H3Index edge)
 
-    double pointDistRads(const GeoCoord *a, const GeoCoord *b) nogil
-    double pointDistKm(const GeoCoord *a, const GeoCoord *b) nogil
-    double pointDistM(const GeoCoord *a, const GeoCoord *b) nogil
+    # H3Index getDestinationH3IndexFromUnidirectionalEdge(H3Index edge)
+
+    # void getH3IndexesFromUnidirectionalEdge(H3Index edge, H3Index *originDestination)
+
+    # void getH3UnidirectionalEdgesFromHexagon(H3Index origin, H3Index *edges)
+
+    # void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
+
+    # int h3LineSize(H3Index start, H3Index end)
+    # int h3Line(H3Index start, H3Index end, H3Index *out)
+
+    # int maxFaceCount(H3Index h3)
+    # void h3GetFaces(H3Index h3, int *out)
+
+    # int experimentalH3ToLocalIj(H3Index origin, H3Index h3, CoordIJ *out)
+    # int experimentalLocalIjToH3(H3Index origin, const CoordIJ *ij, H3Index *out)
+
+    # double hexAreaKm2(int res) nogil
+    # double hexAreaM2(int res) nogil
+
+    # double cellAreaRads2(H3Index h) nogil
+    # double cellAreaKm2(H3Index h) nogil
+    # double cellAreaM2(H3Index h) nogil
+
+    # double edgeLengthKm(int res) nogil
+    # double edgeLengthM(int res) nogil
+
+    # double exactEdgeLengthRads(H3Index edge) nogil
+    # double exactEdgeLengthKm(H3Index edge) nogil
+    # double exactEdgeLengthM(H3Index edge) nogil
+
+    # double pointDistRads(const GeoCoord *a, const GeoCoord *b) nogil
+    # double pointDistKm(const GeoCoord *a, const GeoCoord *b) nogil
+    # double pointDistM(const GeoCoord *a, const GeoCoord *b) nogil

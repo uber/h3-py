@@ -1,7 +1,7 @@
 import h3
 import pytest
 
-from h3 import (
+from .h3fake2_errors import (
     H3ValueError,
     H3CellError,
     H3ResolutionError,

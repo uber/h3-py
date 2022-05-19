@@ -24,15 +24,17 @@ cpdef bool is_cell(H3int h):
     -------
     boolean
     """
-    return h3lib.h3IsValid(h) == 1
+    return h3lib.isValidCell(h) == 1
+
 
 cpdef bool is_pentagon(H3int h):
-    return h3lib.h3IsPentagon(h) == 1
+    return h3lib.isPentagon(h) == 1
+
 
 cpdef int get_base_cell(H3int h) except -1:
     check_cell(h)
 
-    return h3lib.h3GetBaseCell(h)
+    return h3lib.getBaseCellNumber(h)
 
 
 cpdef int resolution(H3int h) except -1:
@@ -41,96 +43,109 @@ cpdef int resolution(H3int h) except -1:
     """
     check_cell(h)
 
-    return h3lib.h3GetResolution(h)
+    return h3lib.getResolution(h)
 
 
 cpdef int distance(H3int h1, H3int h2) except -1:
-    """ compute the hex-distance between two hexagons
+    """ Compute the grid distance between two cells
     """
+    cdef:
+        int64_t distance
+        h3lib.H3Error err
+
     check_cell(h1)
     check_cell(h2)
 
-    d = h3lib.h3Distance(h1,h2)
-
-    if d < 0:
+    err = h3lib.gridDistance(h1, h2, &distance)
+    if err:
+        # todo: do error handling later
         s = 'Cells are too far apart to compute distance: {} and {}'
         s = s.format(hex(h1), hex(h2))
         raise H3ValueError(s)
 
-    return d
+    return distance
 
 cpdef H3int[:] disk(H3int h, int k):
     """ Return cells at grid distance `<= k` from `h`.
     """
+    cdef:
+        int64_t n
+        h3lib.H3Error err
+
     check_cell(h)
     check_distance(k)
 
-    n = h3lib.maxKringSize(k)
+    # ignoring error for now
+    err = h3lib.maxGridDiskSize(k, &n)
 
     ptr = create_ptr(n) # todo: return a "smart" pointer that knows its length?
-    h3lib.kRing(h, k, ptr)
+    err = h3lib.gridDisk(h, k, ptr) # ignoring error again!
     mv = create_mv(ptr, n)
 
     return mv
 
 
-cpdef H3int[:] _ring_fallback(H3int h, int k):
-    """
-    `ring` tries to call `h3lib.hexRing` first; if that fails, we call
-    this function, which relies on `h3lib.kRingDistances`.
+# cpdef H3int[:] _ring_fallback(H3int h, int k):
+#     """
+#     `ring` tries to call `h3lib.hexRing` first; if that fails, we call
+#     this function, which relies on `h3lib.kRingDistances`.
 
-    Failures for `h3lib.hexRing` happen when the algortihm runs into a pentagon.
-    """
-    check_cell(h)
-    check_distance(k)
+#     Failures for `h3lib.hexRing` happen when the algortihm runs into a pentagon.
+#     """
+#     check_cell(h)
+#     check_distance(k)
 
-    n = h3lib.maxKringSize(k)
-    # array of h3 cells
-    ptr = create_ptr(n)
+#     n = h3lib.maxKringSize(k)
+#     # array of h3 cells
+#     ptr = create_ptr(n)
 
-    # array of cell distances from `h`
-    dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
-    if dist_ptr is NULL:
-        raise MemoryError()
+#     # array of cell distances from `h`
+#     dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
+#     if dist_ptr is NULL:
+#         raise MemoryError()
 
-    h3lib.kRingDistances(h, k, ptr, dist_ptr)
+#     h3lib.kRingDistances(h, k, ptr, dist_ptr)
 
-    distances = <int[:n]> dist_ptr
-    distances.callback_free_data = stdlib.free
+#     distances = <int[:n]> dist_ptr
+#     distances.callback_free_data = stdlib.free
 
-    for i,v in enumerate(distances):
-        if v != k:
-            ptr[i] = 0
+#     for i,v in enumerate(distances):
+#         if v != k:
+#             ptr[i] = 0
 
-    mv = create_mv(ptr, n)
+#     mv = create_mv(ptr, n)
 
-    return mv
+#     return mv
 
-cpdef H3int[:] ring(H3int h, int k):
-    """ Return cells at grid distance `== k` from `h`.
-    Collection is "hollow" for k >= 1.
-    """
-    check_cell(h)
-    check_distance(k)
+# cpdef H3int[:] ring(H3int h, int k):
+#     """ Return cells at grid distance `== k` from `h`.
+#     Collection is "hollow" for k >= 1.
+#     """
+#     check_cell(h)
+#     check_distance(k)
 
-    n = 6*k if k > 0 else 1
-    ptr = create_ptr(n)
+#     n = 6*k if k > 0 else 1
+#     ptr = create_ptr(n)
 
-    flag = h3lib.hexRing(h, k, ptr)
+#     flag = h3lib.hexRing(h, k, ptr)
 
-    # if we drop into the failure state, we might be tempted to not create
-    # this mv, but creating the mv is exactly what guarantees that we'll free
-    # the memory. context manager would be better here, if we can figure out
-    # how to do that
-    mv = create_mv(ptr, n)
+#     # if we drop into the failure state, we might be tempted to not create
+#     # this mv, but creating the mv is exactly what guarantees that we'll free
+#     # the memory. context manager would be better here, if we can figure out
+#     # how to do that
+#     mv = create_mv(ptr, n)
 
-    if flag != 0:
-        mv = _ring_fallback(h, k)
+#     if flag != 0:
+#         mv = _ring_fallback(h, k)
 
-    return mv
+#     return mv
 
 
 cpdef H3int parent(H3int h, res=None) except 0:
+    cdef:
+        H3int parent
+        h3lib.H3Error err
+
     check_cell(h)
 
     if res is None:
@@ -141,10 +156,17 @@ cpdef H3int parent(H3int h, res=None) except 0:
         raise H3ResolutionError(msg)
 
     check_res(res)
+    err = h3lib.cellToParent(h, res, &parent)
 
-    return h3lib.h3ToParent(h, res)
+    return parent
+
 
 cpdef H3int[:] children(H3int h, res=None):
+    cdef:
+        H3int child
+        h3lib.H3Error err
+        int64_t N
+
     check_cell(h)
 
     if res is None:
@@ -155,16 +177,20 @@ cpdef H3int[:] children(H3int h, res=None):
         raise H3ResolutionError(msg)
 
     check_res(res)
+    err = h3lib.cellToChildrenSize(h, res, &N)
 
-    n = h3lib.maxH3ToChildrenSize(h, res)
-
-    ptr = create_ptr(n)
-    h3lib.h3ToChildren(h, res, ptr)
-    mv = create_mv(ptr, n)
+    ptr = create_ptr(N)
+    err = h3lib.cellToChildren(h, res, ptr)
+    mv = create_mv(ptr, N)
 
     return mv
 
+
 cpdef H3int center_child(H3int h, res=None) except 0:
+    cdef:
+        H3int child
+        h3lib.H3Error err
+
     check_cell(h)
 
     if res is None:
@@ -175,8 +201,9 @@ cpdef H3int center_child(H3int h, res=None) except 0:
         raise H3ResolutionError(msg)
 
     check_res(res)
+    err = h3lib.cellToCenterChild(h, res, &child)
 
-    return h3lib.h3ToCenterChild(h, res)
+    return child
 
 
 
@@ -186,6 +213,9 @@ cpdef H3int[:] compact(const H3int[:] hu):
     # `&hu[0]` **requires** a dereference. For Cython, checking for array
     # length of zero and returning early seems like the easiest solution.
     # note: open to better ideas!
+    cdef:
+        h3lib.H3Error err
+
     if len(hu) == 0:
         return empty_memory_view()
 
@@ -193,13 +223,15 @@ cpdef H3int[:] compact(const H3int[:] hu):
         check_cell(h)
 
     ptr = create_ptr(len(hu))
-    flag = h3lib.compact(&hu[0], ptr, len(hu))
+    err = h3lib.compactCells(&hu[0], ptr, len(hu))
     mv = create_mv(ptr, len(hu))
 
-    if flag != 0:
+    if err:
+        # todo: additional error processing
         raise H3ValueError('Could not compact set of hexagons!')
 
     return mv
+
 
 # todo: https://stackoverflow.com/questions/50684977/cython-exception-type-for-a-function-returning-a-typed-memoryview
 # apparently, memoryviews are python objects, so we don't need to do the except clause
@@ -209,23 +241,30 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     # `&hc[0]` **requires** a dereference. For Cython, checking for array
     # length of zero and returning early seems like the easiest solution.
     # note: open to better ideas!
+    cdef:
+        h3lib.H3Error err
+        int64_t N
+
     if len(hc) == 0:
         return empty_memory_view()
 
     for h in hc:
         check_cell(h)
 
-    N = h3lib.maxUncompactSize(&hc[0], len(hc), res)
+    # ignoring error for now
+    err = h3lib.uncompactCellsSize(&hc[0], len(hc), res, &N)
 
     ptr = create_ptr(N)
-    flag = h3lib.uncompact(
-        &hc[0], len(hc),
-           ptr, N,
+    err = h3lib.uncompactCells(
+        &hc[0],
+        len(hc),
+        ptr,
+        N,
         res
     )
     mv = create_mv(ptr, N)
 
-    if flag != 0:
+    if err:
         raise H3ValueError('Could not uncompact set of hexagons!')
 
     return mv
@@ -233,143 +272,148 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
 
 cpdef int64_t num_hexagons(int resolution) except -1:
     check_res(resolution)
+    cdef:
+        h3lib.H3Error err
+        int64_t num_cells
 
-    return h3lib.numHexagons(resolution)
+    err = h3lib.getNumCells(resolution, &num_cells)
 
-
-cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
-    check_res(resolution)
-
-    area = h3lib.hexAreaKm2(resolution)
-
-    # todo: multiple units
-    convert = {
-        'km^2': 1.0,
-        'm^2': 1000*1000.0
-    }
-
-    try:
-        area *= convert[unit]
-    except:
-        raise H3ValueError('Unknown unit: {}'.format(unit))
-
-    return area
+    return num_cells
 
 
-cpdef double cell_area(H3int h, unit='km^2') except -1:
-    check_cell(h)
+# cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
+#     check_res(resolution)
 
-    if unit == 'rads^2':
-        area = h3lib.cellAreaRads2(h)
-    elif unit == 'km^2':
-        area = h3lib.cellAreaKm2(h)
-    elif unit == 'm^2':
-        area = h3lib.cellAreaM2(h)
-    else:
-        raise H3ValueError('Unknown unit: {}'.format(unit))
+#     area = h3lib.hexAreaKm2(resolution)
 
-    return area
+#     # todo: multiple units
+#     convert = {
+#         'km^2': 1.0,
+#         'm^2': 1000*1000.0
+#     }
+
+#     try:
+#         area *= convert[unit]
+#     except:
+#         raise H3ValueError('Unknown unit: {}'.format(unit))
+
+#     return area
 
 
-cpdef H3int[:] line(H3int start, H3int end):
-    check_cell(start)
-    check_cell(end)
+# cpdef double cell_area(H3int h, unit='km^2') except -1:
+#     check_cell(h)
 
-    n = h3lib.h3LineSize(start, end)
+#     if unit == 'rads^2':
+#         area = h3lib.cellAreaRads2(h)
+#     elif unit == 'km^2':
+#         area = h3lib.cellAreaKm2(h)
+#     elif unit == 'm^2':
+#         area = h3lib.cellAreaM2(h)
+#     else:
+#         raise H3ValueError('Unknown unit: {}'.format(unit))
 
-    if n < 0:
-        s = "Couldn't find line between cells {} and {}"
-        s = s.format(hex(start), hex(end))
-        raise H3ValueError(s)
+#     return area
 
-    ptr = create_ptr(n)
-    flag = h3lib.h3Line(start, end, ptr)
-    mv = create_mv(ptr, n)
 
-    if flag != 0:
-        s = "Couldn't find line between cells {} and {}"
-        s = s.format(hex(start), hex(end))
-        raise H3ValueError(s)
+# cpdef H3int[:] line(H3int start, H3int end):
+#     check_cell(start)
+#     check_cell(end)
 
-    return mv
+#     n = h3lib.h3LineSize(start, end)
+
+#     if n < 0:
+#         s = "Couldn't find line between cells {} and {}"
+#         s = s.format(hex(start), hex(end))
+#         raise H3ValueError(s)
+
+#     ptr = create_ptr(n)
+#     flag = h3lib.h3Line(start, end, ptr)
+#     mv = create_mv(ptr, n)
+
+#     if flag != 0:
+#         s = "Couldn't find line between cells {} and {}"
+#         s = s.format(hex(start), hex(end))
+#         raise H3ValueError(s)
+
+#     return mv
 
 cpdef bool is_res_class_iii(H3int h):
-    return h3lib.h3IsResClassIII(h) == 1
+    return h3lib.isResClassIII(h) == 1
 
 
-cpdef H3int[:] get_pentagon_indexes(int res):
-    check_res(res)
+# cpdef H3int[:] get_pentagon_indexes(int res):
+#     check_res(res)
 
-    n = h3lib.pentagonIndexCount()
+#     n = h3lib.pentagonIndexCount()
 
-    ptr = create_ptr(n)
-    h3lib.getPentagonIndexes(res, ptr)
-    mv = create_mv(ptr, n)
+#     ptr = create_ptr(n)
+#     h3lib.getPentagonIndexes(res, ptr)
+#     mv = create_mv(ptr, n)
 
-    return mv
-
-
-cpdef H3int[:] get_res0_indexes():
-    n = h3lib.res0IndexCount()
-
-    ptr = create_ptr(n)
-    h3lib.getRes0Indexes(ptr)
-    mv = create_mv(ptr, n)
-
-    return mv
+#     return mv
 
 
-cpdef get_faces(H3int h):
-    check_cell(h)
+# cpdef H3int[:] get_res0_indexes():
+#     n = h3lib.res0IndexCount()
 
-    n = h3lib.maxFaceCount(h)
+#     ptr = create_ptr(n)
+#     h3lib.getRes0Indexes(ptr)
+#     mv = create_mv(ptr, n)
 
-    cdef int* ptr = <int*> stdlib.calloc(n, sizeof(int))
-    if (n > 0) and (not ptr):
-        raise MemoryError()
-
-    h3lib.h3GetFaces(h, ptr)
-
-    faces = <int[:n]> ptr
-    faces = {f for f in faces if f >= 0}
-    stdlib.free(ptr)
-
-    return faces
+#     return mv
 
 
-cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
-    cdef:
-        int flag
-        h3lib.CoordIJ c
+# cpdef get_faces(H3int h):
+#     check_cell(h)
 
-    check_cell(origin)
-    check_cell(h)
+#     n = h3lib.maxFaceCount(h)
 
-    flag = h3lib.experimentalH3ToLocalIj(origin, h, &c)
+#     cdef int* ptr = <int*> stdlib.calloc(n, sizeof(int))
+#     if (n > 0) and (not ptr):
+#         raise MemoryError()
 
-    if flag != 0:
-        s = "Couldn't find local (i,j) between cells {} and {}."
-        s = s.format(hex(origin), hex(h))
-        raise H3ValueError(s)
+#     h3lib.h3GetFaces(h, ptr)
 
-    return c.i, c.j
+#     faces = <int[:n]> ptr
+#     faces = {f for f in faces if f >= 0}
+#     stdlib.free(ptr)
+
+#     return faces
 
 
-cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
-    cdef:
-        int flag
-        h3lib.CoordIJ c
-        H3int out
+# cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
+#     cdef:
+#         int flag
+#         h3lib.CoordIJ c
 
-    check_cell(origin)
+#     check_cell(origin)
+#     check_cell(h)
 
-    c.i, c.j = i, j
+#     flag = h3lib.experimentalH3ToLocalIj(origin, h, &c)
 
-    flag = h3lib.experimentalLocalIjToH3(origin, &c, &out)
+#     if flag != 0:
+#         s = "Couldn't find local (i,j) between cells {} and {}."
+#         s = s.format(hex(origin), hex(h))
+#         raise H3ValueError(s)
 
-    if flag != 0:
-        s = "Couldn't find cell at local ({},{}) from cell {}."
-        s = s.format(i, j, hex(origin))
-        raise H3ValueError(s)
+#     return c.i, c.j
 
-    return out
+
+# cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
+#     cdef:
+#         int flag
+#         h3lib.CoordIJ c
+#         H3int out
+
+#     check_cell(origin)
+
+#     c.i, c.j = i, j
+
+#     flag = h3lib.experimentalLocalIjToH3(origin, &c, &out)
+
+#     if flag != 0:
+#         s = "Couldn't find cell at local ({},{}) from cell {}."
+#         s = s.format(i, j, hex(origin))
+#         raise H3ValueError(s)
+
+#     return out

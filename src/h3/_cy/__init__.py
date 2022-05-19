@@ -18,27 +18,44 @@ from .cells import (
     is_pentagon,
     get_base_cell,
     resolution,
-    parent,
+    is_res_class_iii,
     distance,
     disk,
-    ring,
+    parent,
     children,
+    center_child,
     compact,
     uncompact,
     num_hexagons,
+)
+
+from h3fake2._cy import (
+    # is_cell,
+    # is_pentagon,
+    # get_base_cell,
+    # resolution,
+    # parent,
+    # distance,
+    # disk,
+    ring,
+    # children,
+    # compact,
+    # uncompact,
+    # num_hexagons,
     mean_hex_area,
     cell_area,
     line,
-    is_res_class_iii,
+    # is_res_class_iii,
     get_pentagon_indexes,
     get_res0_indexes,
-    center_child,
+    # center_child,
     get_faces,
     experimental_h3_to_local_ij,
     experimental_local_ij_to_h3,
 )
 
-from .edges import (
+# from .edges import (
+from h3fake2._cy import (
     are_neighbors,
     edge,
     is_edge,
@@ -53,6 +70,17 @@ from .edges import (
 from .geo import (
     geo_to_h3,
     h3_to_geo,
+    # polyfill_polygon,
+    # polyfill_geojson,
+    # polyfill,
+    # cell_boundary,
+    # edge_boundary,
+    # point_dist,
+)
+
+from h3fake2._cy import (
+    # geo_to_h3,
+    # h3_to_geo,
     polyfill_polygon,
     polyfill_geojson,
     polyfill,
@@ -61,7 +89,8 @@ from .geo import (
     point_dist,
 )
 
-from .to_multipoly import (
+# from .to_multipoly import (
+from h3fake2._cy import (
     h3_set_to_multi_polygon
 )
 

@@ -1,13 +1,13 @@
 from libc cimport stdlib
 from cython.view cimport array
-from .h3lib cimport H3int, H3str, h3IsValid, h3UnidirectionalEdgeIsValid
+from .h3lib cimport H3int, H3str, isValidCell, isValidDirectedEdge
 
 cimport h3lib
 
 
-cdef h3lib.GeoCoord deg2coord(double lat, double lng) nogil:
+cdef h3lib.LatLng deg2coord(double lat, double lng) nogil:
     cdef:
-        h3lib.GeoCoord c
+        h3lib.LatLng c
 
     c.lat = h3lib.degsToRads(lat)
     c.lng = h3lib.degsToRads(lng)
@@ -15,7 +15,7 @@ cdef h3lib.GeoCoord deg2coord(double lat, double lng) nogil:
     return c
 
 
-cdef (double, double) coord2deg(h3lib.GeoCoord c) nogil:
+cdef (double, double) coord2deg(h3lib.LatLng c) nogil:
     return (
         h3lib.radsToDegs(c.lat),
         h3lib.radsToDegs(c.lng)
@@ -77,11 +77,11 @@ cdef check_cell(H3int h):
     is incorrect, but in a format that is easily compared to
     `str` inputs.
     """
-    if h3IsValid(h) == 0:
+    if isValidCell(h) == 0:
         raise H3CellError('Integer is not a valid H3 cell: {}'.format(hex(h)))
 
 cdef check_edge(H3int e):
-    if h3UnidirectionalEdgeIsValid(e) == 0:
+    if isValidDirectedEdge(e) == 0:
         raise H3EdgeError('Integer is not a valid H3 edge: {}'.format(hex(e)))
 
 cdef check_res(int res):

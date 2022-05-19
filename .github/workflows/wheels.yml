@@ -2,9 +2,9 @@ name: wheels
 
 on:
   push:
-    branches: [master]
+    branches: [master, dev_v4]
   pull_request:
-    branches: [master]
+    branches: [master, dev_v4]
     types:
       # Opened, synchronize, and reopened are the default types
       # We add ready_for_review to additionally trigger when converting from draft to non-draft
@@ -18,33 +18,34 @@ on:
       - published
 
 jobs:
-  make_sdist:
-    name: SDist
-    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+  # make_sdist:
+  #   name: SDist
+  #   if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         submodules: recursive
 
-      - name: Make sdist
-        run: |
-          pipx run build --sdist
+  #     - name: Make sdist
+  #       run: |
+  #         pipx run build --sdist
 
-      - name: Install from sdist
-        run: |
-          pip install --upgrade pip setuptools wheel
-          cp dist/h3-*.tar.gz h3.tar.gz
-          pip install h3.tar.gz[all]
+  #     - name: Install from sdist
+  #       run: |
+  #         pip install --upgrade pip setuptools wheel
+  #         pip install git+https://github.com/ajfriend/h3fake2.git
+  #         cp dist/h3-*.tar.gz h3.tar.gz
+  #         pip install h3.tar.gz[all]
 
-      - name: Test sdist
-        run: pytest --cov=h3 --full-trace
+  #     - name: Test sdist
+  #       run: pytest --cov=h3 --full-trace
 
-      - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
-        with:
-          path: ./dist
+  #     - name: Upload artifacts to GitHub
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         path: ./dist
 
   make_cibw_v1_wheels:
     name: "cibuildwheel v1: ${{ matrix.name }}"
@@ -74,6 +75,8 @@ jobs:
           CIBW_TEST_COMMAND: pytest {project}/tests
           CIBW_ARCHS_LINUX: auto aarch64
           CIBW_BUILD: ${{ matrix.build }}
+          CIBW_BEFORE_BUILD: pip install git+https://github.com/ajfriend/h3fake2.git
+          CIBW_BEFORE_TEST: pip install git+https://github.com/ajfriend/h3fake2.git
 
       - name: Check with Twine
         run: |
@@ -152,6 +155,8 @@ jobs:
           CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_BUILD: ${{ matrix.build }}
           CIBW_SKIP: ${{ matrix.skip }}
+          CIBW_BEFORE_BUILD: pip install git+https://github.com/ajfriend/h3fake2.git
+          CIBW_BEFORE_TEST: pip install git+https://github.com/ajfriend/h3fake2.git
 
       - name: Check with Twine
         run: |
