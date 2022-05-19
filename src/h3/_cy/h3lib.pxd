@@ -60,6 +60,8 @@ cdef extern from "h3api.h":
         const int res
     ) nogil
 
+    H3Error getNumCells(int res, int64_t *out)
+
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
     #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
@@ -115,8 +117,6 @@ cdef extern from "h3api.h":
     # void h3SetToLinkedGeo(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
 
     # void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
-
-    # stdint.int64_t numHexagons(int res)
 
     # H3Index stringToH3(const char *str)
 

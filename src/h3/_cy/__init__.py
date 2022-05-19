@@ -26,6 +26,7 @@ from .cells import (
     center_child,
     compact,
     uncompact,
+    num_hexagons,
 )
 
 from h3fake2._cy import (
@@ -40,7 +41,7 @@ from h3fake2._cy import (
     # children,
     # compact,
     # uncompact,
-    num_hexagons,
+    # num_hexagons,
     mean_hex_area,
     cell_area,
     line,

@@ -269,10 +269,16 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
 
     return mv
 
-# cpdef int64_t num_hexagons(int resolution) except -1:
-#     check_res(resolution)
 
-#     return h3lib.numHexagons(resolution)
+cpdef int64_t num_hexagons(int resolution) except -1:
+    check_res(resolution)
+    cdef:
+        h3lib.H3Error err
+        int64_t num_cells
+
+    err = h3lib.getNumCells(resolution, &num_cells)
+
+    return num_cells
 
 
 # cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
