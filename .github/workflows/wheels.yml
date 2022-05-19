@@ -18,35 +18,6 @@ on:
       - published
 
 jobs:
-  # make_sdist:
-  #   name: SDist
-  #   if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         submodules: recursive
-
-  #     - name: Make sdist
-  #       run: |
-  #         pipx run build --sdist
-
-  #     - name: Install from sdist
-  #       run: |
-  #         pip install --upgrade pip setuptools wheel
-  #         pip install git+https://github.com/ajfriend/h3fake2.git
-  #         cp dist/h3-*.tar.gz h3.tar.gz
-  #         pip install h3.tar.gz[all]
-
-  #     - name: Test sdist
-  #       run: pytest --cov=h3 --full-trace
-
-  #     - name: Upload artifacts to GitHub
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         path: ./dist
-
   make_cibw_v1_wheels:
     name: "cibuildwheel v1: ${{ matrix.name }}"
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
