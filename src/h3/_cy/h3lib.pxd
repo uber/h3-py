@@ -66,6 +66,9 @@ cdef extern from "h3api.h":
     H3Error getPentagons(int res, H3Index *out) nogil
     H3Error getRes0Cells(H3Index *out) nogil
 
+    H3Error gridPathCellsSize(H3Index start, H3Index end, int64_t *size) nogil
+    H3Error gridPathCells(H3Index start, H3Index end, H3Index *out) nogil
+
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
     #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
@@ -139,9 +142,6 @@ cdef extern from "h3api.h":
     # void getH3UnidirectionalEdgesFromHexagon(H3Index origin, H3Index *edges)
 
     # void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
-
-    # int h3LineSize(H3Index start, H3Index end)
-    # int h3Line(H3Index start, H3Index end, H3Index *out)
 
     # int maxFaceCount(H3Index h3)
     # void h3GetFaces(H3Index h3, int *out)

@@ -29,6 +29,7 @@ from .cells import (
     num_hexagons,
     get_pentagon_indexes,
     get_res0_indexes,
+    line,
 )
 
 from h3fake2._cy import (
@@ -46,7 +47,7 @@ from h3fake2._cy import (
     # num_hexagons,
     mean_hex_area,
     cell_area,
-    line,
+    # line,
     # is_res_class_iii,
     # get_pentagon_indexes,
     # get_res0_indexes,

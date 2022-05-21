@@ -314,28 +314,31 @@ cpdef int64_t num_hexagons(int resolution) except -1:
 
 #     return area
 
+cpdef H3int[:] line(H3int start, H3int end):
+    cdef:
+        h3lib.H3Error err
+        int64_t n
 
-# cpdef H3int[:] line(H3int start, H3int end):
-#     check_cell(start)
-#     check_cell(end)
+    check_cell(start)
+    check_cell(end)
 
-#     n = h3lib.h3LineSize(start, end)
+    err = h3lib.gridPathCellsSize(start, end, &n)
 
-#     if n < 0:
-#         s = "Couldn't find line between cells {} and {}"
-#         s = s.format(hex(start), hex(end))
-#         raise H3ValueError(s)
+    if err:
+        s = "Couldn't find line between cells {} and {}"
+        s = s.format(hex(start), hex(end))
+        raise H3ValueError(s)
 
-#     ptr = create_ptr(n)
-#     flag = h3lib.h3Line(start, end, ptr)
-#     mv = create_mv(ptr, n)
+    ptr = create_ptr(n)
+    err = h3lib.gridPathCells(start, end, ptr)
+    mv = create_mv(ptr, n)
 
-#     if flag != 0:
-#         s = "Couldn't find line between cells {} and {}"
-#         s = s.format(hex(start), hex(end))
-#         raise H3ValueError(s)
+    if err:
+        s = "Couldn't find line between cells {} and {}"
+        s = s.format(hex(start), hex(end))
+        raise H3ValueError(s)
 
-#     return mv
+    return mv
 
 cpdef bool is_res_class_iii(H3int h):
     return h3lib.isResClassIII(h) == 1
