@@ -1,6 +1,6 @@
 from libc cimport stdint
 from cpython cimport bool
-from libc.stdint cimport int64_t
+from libc.stdint cimport int64_t, uint32_t
 
 ctypedef stdint.uint64_t H3int
 ctypedef stdint.uint32_t H3Error
@@ -94,9 +94,9 @@ cdef extern from "h3api.h":
     #     LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
     #     LinkedGeoPolygon *next
 
-    # ctypedef struct CoordIJ:
-    #     int i
-    #     int j
+    ctypedef struct CoordIJ:
+        int i
+        int j
 
     # void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp)
 
@@ -150,8 +150,8 @@ cdef extern from "h3api.h":
     # int maxFaceCount(H3Index h3)
     # void h3GetFaces(H3Index h3, int *out)
 
-    # int experimentalH3ToLocalIj(H3Index origin, H3Index h3, CoordIJ *out)
-    # int experimentalLocalIjToH3(H3Index origin, const CoordIJ *ij, H3Index *out)
+    H3Error cellToLocalIj(H3Index origin, H3Index h3, uint32_t mode, CoordIJ *out) nogil
+    H3Error localIjToCell(H3Index origin, const CoordIJ *ij, uint32_t mode, H3Index *out) nogil
 
     # double hexAreaKm2(int res) nogil
     # double hexAreaM2(int res) nogil

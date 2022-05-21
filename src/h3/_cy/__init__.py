@@ -27,6 +27,8 @@ from .cells import (
     compact,
     uncompact,
     num_hexagons,
+    cell_to_local_ij,
+    local_ij_to_cell,
 )
 
 from h3fake2._cy import (
@@ -50,8 +52,6 @@ from h3fake2._cy import (
     get_res0_indexes,
     # center_child,
     get_faces,
-    experimental_h3_to_local_ij,
-    experimental_local_ij_to_h3,
 )
 
 # from .edges import (
