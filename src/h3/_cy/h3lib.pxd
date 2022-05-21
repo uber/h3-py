@@ -69,6 +69,13 @@ cdef extern from "h3api.h":
     H3Error gridPathCellsSize(H3Index start, H3Index end, int64_t *size) nogil
     H3Error gridPathCells(H3Index start, H3Index end, H3Index *out) nogil
 
+    H3Error getHexagonAreaAvgKm2(int res, double *out) nogil
+    H3Error getHexagonAreaAvgM2(int res, double *out) nogil
+
+    H3Error cellAreaRads2(H3Index h, double *out) nogil
+    H3Error cellAreaKm2(H3Index h, double *out) nogil
+    H3Error cellAreaM2(H3Index h, double *out) nogil
+
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
     #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
@@ -148,13 +155,6 @@ cdef extern from "h3api.h":
 
     # int experimentalH3ToLocalIj(H3Index origin, H3Index h3, CoordIJ *out)
     # int experimentalLocalIjToH3(H3Index origin, const CoordIJ *ij, H3Index *out)
-
-    # double hexAreaKm2(int res) nogil
-    # double hexAreaM2(int res) nogil
-
-    # double cellAreaRads2(H3Index h) nogil
-    # double cellAreaKm2(H3Index h) nogil
-    # double cellAreaM2(H3Index h) nogil
 
     # double edgeLengthKm(int res) nogil
     # double edgeLengthM(int res) nogil

@@ -281,38 +281,47 @@ cpdef int64_t num_hexagons(int resolution) except -1:
     return num_cells
 
 
-# cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
-#     check_res(resolution)
+cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
+    cdef:
+        h3lib.H3Error err
+        double area
 
-#     area = h3lib.hexAreaKm2(resolution)
+    check_res(resolution)
 
-#     # todo: multiple units
-#     convert = {
-#         'km^2': 1.0,
-#         'm^2': 1000*1000.0
-#     }
+    err = h3lib.getHexagonAreaAvgKm2(resolution, &area)
 
-#     try:
-#         area *= convert[unit]
-#     except:
-#         raise H3ValueError('Unknown unit: {}'.format(unit))
+    # todo: multiple units
+    convert = {
+        'km^2': 1.0,
+        'm^2': 1000*1000.0
+    }
 
-#     return area
+    try:
+        area *= convert[unit]
+    except:
+        raise H3ValueError('Unknown unit: {}'.format(unit))
+
+    return area
 
 
-# cpdef double cell_area(H3int h, unit='km^2') except -1:
-#     check_cell(h)
+cpdef double cell_area(H3int h, unit='km^2') except -1:
+    cdef:
+        h3lib.H3Error err
+        double area
 
-#     if unit == 'rads^2':
-#         area = h3lib.cellAreaRads2(h)
-#     elif unit == 'km^2':
-#         area = h3lib.cellAreaKm2(h)
-#     elif unit == 'm^2':
-#         area = h3lib.cellAreaM2(h)
-#     else:
-#         raise H3ValueError('Unknown unit: {}'.format(unit))
+    check_cell(h)
 
-#     return area
+    if unit == 'rads^2':
+        err = h3lib.cellAreaRads2(h, &area)
+    elif unit == 'km^2':
+        err = h3lib.cellAreaKm2(h, &area)
+    elif unit == 'm^2':
+        err = h3lib.cellAreaM2(h, &area)
+    else:
+        raise H3ValueError('Unknown unit: {}'.format(unit))
+
+    return area
+
 
 cpdef H3int[:] line(H3int start, H3int end):
     cdef:
