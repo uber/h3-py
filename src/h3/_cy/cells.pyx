@@ -341,27 +341,32 @@ cpdef bool is_res_class_iii(H3int h):
     return h3lib.isResClassIII(h) == 1
 
 
-# cpdef H3int[:] get_pentagon_indexes(int res):
-#     check_res(res)
+cpdef H3int[:] get_pentagon_indexes(int res):
+    cdef:
+        h3lib.H3Error err
 
-#     n = h3lib.pentagonIndexCount()
+    check_res(res)
 
-#     ptr = create_ptr(n)
-#     h3lib.getPentagonIndexes(res, ptr)
-#     mv = create_mv(ptr, n)
+    n = h3lib.pentagonCount()
 
-#     return mv
+    ptr = create_ptr(n)
+    err = h3lib.getPentagons(res, ptr)
+    mv = create_mv(ptr, n)
+
+    return mv
 
 
-# cpdef H3int[:] get_res0_indexes():
-#     n = h3lib.res0IndexCount()
+cpdef H3int[:] get_res0_indexes():
+    cdef:
+        h3lib.H3Error err
 
-#     ptr = create_ptr(n)
-#     h3lib.getRes0Indexes(ptr)
-#     mv = create_mv(ptr, n)
+    n = h3lib.res0CellCount()
 
-#     return mv
+    ptr = create_ptr(n)
+    err = h3lib.getRes0Cells(ptr)
+    mv = create_mv(ptr, n)
 
+    return mv
 
 # cpdef get_faces(H3int h):
 #     check_cell(h)

@@ -27,6 +27,8 @@ from .cells import (
     compact,
     uncompact,
     num_hexagons,
+    get_pentagon_indexes,
+    get_res0_indexes,
 )
 
 from h3fake2._cy import (
@@ -46,8 +48,8 @@ from h3fake2._cy import (
     cell_area,
     line,
     # is_res_class_iii,
-    get_pentagon_indexes,
-    get_res0_indexes,
+    # get_pentagon_indexes,
+    # get_res0_indexes,
     # center_child,
     get_faces,
     experimental_h3_to_local_ij,

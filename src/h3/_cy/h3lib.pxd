@@ -60,7 +60,11 @@ cdef extern from "h3api.h":
         const int res
     ) nogil
 
-    H3Error getNumCells(int res, int64_t *out)
+    H3Error getNumCells(int res, int64_t *out) nogil
+    int pentagonCount() nogil
+    int res0CellCount() nogil
+    H3Error getPentagons(int res, H3Index *out) nogil
+    H3Error getRes0Cells(H3Index *out) nogil
 
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
@@ -121,14 +125,6 @@ cdef extern from "h3api.h":
     # H3Index stringToH3(const char *str)
 
     # void h3ToString(H3Index h, char *str, size_t sz)
-
-    # int pentagonIndexCount()
-
-    # void getPentagonIndexes(int res, H3Index *out)
-
-    # int res0IndexCount()
-
-    # void getRes0Indexes(H3Index *out)
 
     # int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
 
