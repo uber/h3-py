@@ -380,22 +380,26 @@ cpdef H3int[:] get_res0_indexes():
 
     return mv
 
-# cpdef get_faces(H3int h):
-#     check_cell(h)
+cpdef get_faces(H3int h):
+    cdef:
+        h3lib.H3Error err
+        int n
 
-#     n = h3lib.maxFaceCount(h)
+    check_cell(h)
 
-#     cdef int* ptr = <int*> stdlib.calloc(n, sizeof(int))
-#     if (n > 0) and (not ptr):
-#         raise MemoryError()
+    err = h3lib.maxFaceCount(h, &n) #ignore error for now
 
-#     h3lib.h3GetFaces(h, ptr)
+    cdef int* ptr = <int*> stdlib.calloc(n, sizeof(int))
+    if (n > 0) and (not ptr):
+        raise MemoryError()
 
-#     faces = <int[:n]> ptr
-#     faces = {f for f in faces if f >= 0}
-#     stdlib.free(ptr)
+    err = h3lib.getIcosahedronFaces(h, ptr) # handle error?
 
-#     return faces
+    faces = <int[:n]> ptr
+    faces = {f for f in faces if f >= 0}
+    stdlib.free(ptr)
+
+    return faces
 
 
 # cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:

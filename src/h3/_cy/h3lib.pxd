@@ -76,6 +76,17 @@ cdef extern from "h3api.h":
     H3Error cellAreaKm2(H3Index h, double *out) nogil
     H3Error cellAreaM2(H3Index h, double *out) nogil
 
+    # names within pair don't match
+    # count vs size in function names?
+    # getX() function
+    # should have a getX_size() function?
+    # what about max_ prefix? should we just coordinate on *_size?
+    # if a C lib function has a companion "size" function, should we just always append with `_size`? if it is "max" size or "exact" size? who cares? its just memory management
+    # 'Max'/"size"/"count"
+    # prefix makes the function's function more obvious?
+    H3Error maxFaceCount(H3Index h, int *out)
+    H3Error getIcosahedronFaces(H3Index h3, int *out)
+
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
     #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
@@ -149,9 +160,6 @@ cdef extern from "h3api.h":
     # void getH3UnidirectionalEdgesFromHexagon(H3Index origin, H3Index *edges)
 
     # void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
-
-    # int maxFaceCount(H3Index h3)
-    # void h3GetFaces(H3Index h3, int *out)
 
     # int experimentalH3ToLocalIj(H3Index origin, H3Index h3, CoordIJ *out)
     # int experimentalLocalIjToH3(H3Index origin, const CoordIJ *ij, H3Index *out)
