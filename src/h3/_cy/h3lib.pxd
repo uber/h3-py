@@ -87,8 +87,8 @@ cdef extern from "h3api.h":
     # postfix makes it lexicographically sort with the associated function? (i like this one)
     #
     # is 'getNumCells' a special case? or should it also conform?
-    H3Error maxFaceCount(H3Index h, int *out)
-    H3Error getIcosahedronFaces(H3Index h3, int *out)
+    H3Error maxFaceCount(H3Index h, int *out) nogil
+    H3Error getIcosahedronFaces(H3Index h3, int *out) nogil
 
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
