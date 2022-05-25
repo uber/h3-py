@@ -27,6 +27,9 @@ from .cells import (
     compact,
     uncompact,
     num_hexagons,
+    line,
+    experimental_h3_to_local_ij,
+    experimental_local_ij_to_h3,
 )
 
 from h3fake2._cy import (
@@ -44,14 +47,14 @@ from h3fake2._cy import (
     # num_hexagons,
     mean_hex_area,
     cell_area,
-    line,
+    # line,
     # is_res_class_iii,
     get_pentagon_indexes,
     get_res0_indexes,
     # center_child,
     get_faces,
-    experimental_h3_to_local_ij,
-    experimental_local_ij_to_h3,
+    # experimental_h3_to_local_ij,
+    # experimental_local_ij_to_h3,
 )
 
 # from .edges import (
