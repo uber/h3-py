@@ -1,9 +1,8 @@
-from libc cimport stdint
 from cpython cimport bool
-from libc.stdint cimport int64_t, uint32_t
+from libc.stdint cimport uint64_t, int64_t, uint32_t
 
-ctypedef stdint.uint64_t H3int
-ctypedef stdint.uint32_t H3Error
+ctypedef uint64_t H3int
+ctypedef uint32_t H3Error
 ctypedef basestring H3str
 
 cdef extern from "h3api.h":
@@ -11,7 +10,7 @@ cdef extern from "h3api.h":
     cdef int H3_VERSION_MINOR
     cdef int H3_VERSION_PATCH
 
-    ctypedef stdint.uint64_t H3Index
+    ctypedef uint64_t H3Index
 
     ctypedef struct LatLng:
         double lat  # in radians
@@ -144,8 +143,8 @@ cdef extern from "h3api.h":
 
     # void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
 
-    # int h3LineSize(H3Index start, H3Index end)
-    # int h3Line(H3Index start, H3Index end, H3Index *out)
+    H3Error gridPathCellsSize(H3Index start, H3Index end, int64_t *size) nogil
+    H3Error gridPathCells(H3Index start, H3Index end, H3Index *out) nogil
 
     # int maxFaceCount(H3Index h3)
     # void h3GetFaces(H3Index h3, int *out)

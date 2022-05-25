@@ -315,27 +315,30 @@ cpdef int64_t num_hexagons(int resolution) except -1:
 #     return area
 
 
-# cpdef H3int[:] line(H3int start, H3int end):
-#     check_cell(start)
-#     check_cell(end)
+cpdef H3int[:] line(H3int start, H3int end):
+    cdef:
+        int64_t n
 
-#     n = h3lib.h3LineSize(start, end)
+    check_cell(start)
+    check_cell(end)
 
-#     if n < 0:
-#         s = "Couldn't find line between cells {} and {}"
-#         s = s.format(hex(start), hex(end))
-#         raise H3ValueError(s)
+    err = h3lib.gridPathCellsSize(start, end, &n)
 
-#     ptr = create_ptr(n)
-#     flag = h3lib.h3Line(start, end, ptr)
-#     mv = create_mv(ptr, n)
+    if err != 0:
+        s = "Couldn't find line between cells {} and {}"
+        s = s.format(hex(start), hex(end))
+        raise H3ValueError(s)
 
-#     if flag != 0:
-#         s = "Couldn't find line between cells {} and {}"
-#         s = s.format(hex(start), hex(end))
-#         raise H3ValueError(s)
+    ptr = create_ptr(n)
+    flag = h3lib.gridPathCells(start, end, ptr)
+    mv = create_mv(ptr, n)
 
-#     return mv
+    if flag != 0:
+        s = "Couldn't find line between cells {} and {}"
+        s = s.format(hex(start), hex(end))
+        raise H3ValueError(s)
+
+    return mv
 
 cpdef bool is_res_class_iii(H3int h):
     return h3lib.isResClassIII(h) == 1
@@ -381,7 +384,7 @@ cpdef bool is_res_class_iii(H3int h):
 #     return faces
 
 
-cpdef (int, int) cell_to_local_ij(H3int origin, H3int h) except *:
+cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
     cdef:
         int flag
         h3lib.CoordIJ c
@@ -389,17 +392,16 @@ cpdef (int, int) cell_to_local_ij(H3int origin, H3int h) except *:
     check_cell(origin)
     check_cell(h)
 
-    err = h3lib.cellToLocalIj(origin, h, 0, &c)
+    flag = h3lib.cellToLocalIj(origin, h, 0, &c)
 
-    if err != 0:
+    if flag != 0:
         s = "Couldn't find local (i,j) between cells {} and {}."
         s = s.format(hex(origin), hex(h))
         raise H3ValueError(s)
 
     return c.i, c.j
 
-
-cpdef H3int local_ij_to_cell(H3int origin, int i, int j) except 0:
+cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
     cdef:
         int flag
         h3lib.CoordIJ c
@@ -409,9 +411,9 @@ cpdef H3int local_ij_to_cell(H3int origin, int i, int j) except 0:
 
     c.i, c.j = i, j
 
-    err = h3lib.localIjToCell(origin, &c, 0, &out)
+    flag = h3lib.localIjToCell(origin, &c, 0, &out)
 
-    if err != 0:
+    if flag != 0:
         s = "Couldn't find cell at local ({},{}) from cell {}."
         s = s.format(i, j, hex(origin))
         raise H3ValueError(s)
