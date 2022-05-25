@@ -76,18 +76,6 @@ cdef extern from "h3api.h":
     H3Error cellAreaKm2(H3Index h, double *out) nogil
     H3Error cellAreaM2(H3Index h, double *out) nogil
 
-    # names within pair don't match
-    # count vs size in function names?
-    # getX() function
-    # should have a getX_size() function?
-    # what about max_ prefix? should we just coordinate on *_size?
-    # if a C lib function has a companion "size" function, should we just always append with `_size`? if it is "max" size or "exact" size? who cares? its just memory management
-    # 'Max'/"size"/"count"
-    # prefix makes the function's function more obvious?
-    # conjunction junction!
-    # postfix makes it lexicographically sort with the associated function? (i like this one)
-    #
-    # is 'getNumCells' a special case? or should it also conform?
     H3Error maxFaceCount(H3Index h, int *out) nogil
     H3Error getIcosahedronFaces(H3Index h3, int *out) nogil
 
