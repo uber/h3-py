@@ -76,6 +76,9 @@ cdef extern from "h3api.h":
     H3Error cellAreaKm2(H3Index h, double *out) nogil
     H3Error cellAreaM2(H3Index h, double *out) nogil
 
+    H3Error maxFaceCount(H3Index h, int *out) nogil
+    H3Error getIcosahedronFaces(H3Index h3, int *out) nogil
+
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
     #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
@@ -149,9 +152,6 @@ cdef extern from "h3api.h":
     # void getH3UnidirectionalEdgesFromHexagon(H3Index origin, H3Index *edges)
 
     # void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
-
-    # int maxFaceCount(H3Index h3)
-    # void h3GetFaces(H3Index h3, int *out)
 
     # int experimentalH3ToLocalIj(H3Index origin, H3Index h3, CoordIJ *out)
     # int experimentalLocalIjToH3(H3Index origin, const CoordIJ *ij, H3Index *out)

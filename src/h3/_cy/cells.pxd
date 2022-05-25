@@ -20,6 +20,6 @@ cpdef H3int[:] line(H3int start, H3int end)
 cpdef bool is_res_class_iii(H3int h)
 cpdef H3int[:] get_pentagon_indexes(int res)
 cpdef H3int[:] get_res0_indexes()
-# cpdef get_faces(H3int h)
+cpdef get_faces(H3int h)
 # cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *
 # cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0

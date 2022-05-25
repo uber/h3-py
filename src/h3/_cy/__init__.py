@@ -32,6 +32,7 @@ from .cells import (
     line,
     mean_hex_area,
     cell_area,
+    get_faces,
 )
 
 from h3fake2._cy import (
@@ -54,7 +55,7 @@ from h3fake2._cy import (
     # get_pentagon_indexes,
     # get_res0_indexes,
     # center_child,
-    get_faces,
+    # get_faces,
     experimental_h3_to_local_ij,
     experimental_local_ij_to_h3,
 )
