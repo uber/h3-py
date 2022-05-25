@@ -143,8 +143,8 @@ cdef extern from "h3api.h":
 
     # void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
 
-    H3Error gridPathCellsSize(H3Index start, H3Index end, int64_t *size) nogil
-    H3Error gridPathCells(H3Index start, H3Index end, H3Index *out) nogil
+    # int h3LineSize(H3Index start, H3Index end)
+    # int h3Line(H3Index start, H3Index end, H3Index *out)
 
     # int maxFaceCount(H3Index h3)
     # void h3GetFaces(H3Index h3, int *out)
