@@ -84,7 +84,9 @@ cdef extern from "h3api.h":
     # if a C lib function has a companion "size" function, should we just always append with `_size`? if it is "max" size or "exact" size? who cares? its just memory management
     # 'Max'/"size"/"count"
     # prefix makes the function's function more obvious?
-    # postfix makes it lexicographically sort with the following function?
+    # postfix makes it lexicographically sort with the following function? (i like this one)
+    #
+    # is 'getNumCells' a special case? or should it also conform?
     H3Error maxFaceCount(H3Index h, int *out)
     H3Error getIcosahedronFaces(H3Index h3, int *out)
 
