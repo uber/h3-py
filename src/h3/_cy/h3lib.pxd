@@ -60,7 +60,21 @@ cdef extern from "h3api.h":
         const int res
     ) nogil
 
-    H3Error getNumCells(int res, int64_t *out)
+    H3Error getNumCells(int res, int64_t *out) nogil
+    int pentagonCount() nogil
+    int res0CellCount() nogil
+    H3Error getPentagons(int res, H3Index *out) nogil
+    H3Error getRes0Cells(H3Index *out) nogil
+
+    H3Error gridPathCellsSize(H3Index start, H3Index end, int64_t *size) nogil
+    H3Error gridPathCells(H3Index start, H3Index end, H3Index *out) nogil
+
+    H3Error getHexagonAreaAvgKm2(int res, double *out) nogil
+    H3Error getHexagonAreaAvgM2(int res, double *out) nogil
+
+    H3Error cellAreaRads2(H3Index h, double *out) nogil
+    H3Error cellAreaKm2(H3Index h, double *out) nogil
+    H3Error cellAreaM2(H3Index h, double *out) nogil
 
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
@@ -122,14 +136,6 @@ cdef extern from "h3api.h":
 
     # void h3ToString(H3Index h, char *str, size_t sz)
 
-    # int pentagonIndexCount()
-
-    # void getPentagonIndexes(int res, H3Index *out)
-
-    # int res0IndexCount()
-
-    # void getRes0Indexes(H3Index *out)
-
     # int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
 
     # H3Index getH3UnidirectionalEdge(H3Index origin, H3Index destination)
@@ -144,21 +150,11 @@ cdef extern from "h3api.h":
 
     # void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
 
-    # int h3LineSize(H3Index start, H3Index end)
-    # int h3Line(H3Index start, H3Index end, H3Index *out)
-
     # int maxFaceCount(H3Index h3)
     # void h3GetFaces(H3Index h3, int *out)
 
     # int experimentalH3ToLocalIj(H3Index origin, H3Index h3, CoordIJ *out)
     # int experimentalLocalIjToH3(H3Index origin, const CoordIJ *ij, H3Index *out)
-
-    # double hexAreaKm2(int res) nogil
-    # double hexAreaM2(int res) nogil
-
-    # double cellAreaRads2(H3Index h) nogil
-    # double cellAreaKm2(H3Index h) nogil
-    # double cellAreaM2(H3Index h) nogil
 
     # double edgeLengthKm(int res) nogil
     # double edgeLengthM(int res) nogil
