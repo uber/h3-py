@@ -85,6 +85,9 @@ cdef extern from "h3api.h":
     H3Error cellToLocalIj(H3Index origin, H3Index h3, uint32_t mode, CoordIJ *out) nogil
     H3Error localIjToCell(H3Index origin, const CoordIJ *ij, uint32_t mode, H3Index *out) nogil
 
+    H3Error gridDiskDistances(H3Index origin, int k, H3Index *out, int *distances) nogil
+    H3Error gridRingUnsafe(H3Index origin, int k, H3Index *out) nogil
+
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
     #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
@@ -124,10 +127,6 @@ cdef extern from "h3api.h":
     # int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
 
     # int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
-
-    # void kRingDistances(H3Index origin, int k, H3Index *out, int *distances)
-
-    # int hexRing(H3Index origin, int k, H3Index *out)
 
     # int maxPolyfillSize(const GeoPolygon *geoPolygon, int res)
 
