@@ -85,61 +85,67 @@ cpdef H3int[:] disk(H3int h, int k):
     return mv
 
 
-# cpdef H3int[:] _ring_fallback(H3int h, int k):
-#     """
-#     `ring` tries to call `h3lib.hexRing` first; if that fails, we call
-#     this function, which relies on `h3lib.kRingDistances`.
+cpdef H3int[:] _ring_fallback(H3int h, int k):
+    """
+    `ring` tries to call `h3lib.hexRing` first; if that fails, we call
+    this function, which relies on `h3lib.kRingDistances`.
 
-#     Failures for `h3lib.hexRing` happen when the algortihm runs into a pentagon.
-#     """
-#     check_cell(h)
-#     check_distance(k)
+    Failures for `h3lib.hexRing` happen when the algortihm runs into a pentagon.
+    """
+    cdef:
+        int64_t n
+        h3lib.H3Error err
 
-#     n = h3lib.maxKringSize(k)
-#     # array of h3 cells
-#     ptr = create_ptr(n)
+    check_cell(h)
+    check_distance(k)
 
-#     # array of cell distances from `h`
-#     dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
-#     if dist_ptr is NULL:
-#         raise MemoryError()
+    err = h3lib.maxGridDiskSize(k, &n)
+    # array of h3 cells
+    ptr = create_ptr(n)
 
-#     h3lib.kRingDistances(h, k, ptr, dist_ptr)
+    # array of cell distances from `h`
+    dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
+    if dist_ptr is NULL:
+        raise MemoryError()
 
-#     distances = <int[:n]> dist_ptr
-#     distances.callback_free_data = stdlib.free
+    err = h3lib.gridDiskDistances(h, k, ptr, dist_ptr)
 
-#     for i,v in enumerate(distances):
-#         if v != k:
-#             ptr[i] = 0
+    distances = <int[:n]> dist_ptr
+    distances.callback_free_data = stdlib.free
 
-#     mv = create_mv(ptr, n)
+    for i,v in enumerate(distances):
+        if v != k:
+            ptr[i] = 0
 
-#     return mv
+    mv = create_mv(ptr, n)
 
-# cpdef H3int[:] ring(H3int h, int k):
-#     """ Return cells at grid distance `== k` from `h`.
-#     Collection is "hollow" for k >= 1.
-#     """
-#     check_cell(h)
-#     check_distance(k)
+    return mv
 
-#     n = 6*k if k > 0 else 1
-#     ptr = create_ptr(n)
+cpdef H3int[:] ring(H3int h, int k):
+    """ Return cells at grid distance `== k` from `h`.
+    Collection is "hollow" for k >= 1.
+    """
+    cdef:
+        h3lib.H3Error err
 
-#     flag = h3lib.hexRing(h, k, ptr)
+    check_cell(h)
+    check_distance(k)
 
-#     # if we drop into the failure state, we might be tempted to not create
-#     # this mv, but creating the mv is exactly what guarantees that we'll free
-#     # the memory. context manager would be better here, if we can figure out
-#     # how to do that
-#     mv = create_mv(ptr, n)
+    n = 6*k if k > 0 else 1
+    ptr = create_ptr(n)
 
-#     if flag != 0:
-#         mv = _ring_fallback(h, k)
+    err = h3lib.gridRingUnsafe(h, k, ptr)
 
-#     return mv
+    # if we drop into the failure state, we might be tempted to not create
+    # this mv, but creating the mv is exactly what guarantees that we'll free
+    # the memory. context manager would be better here, if we can figure out
+    # how to do that
+    mv = create_mv(ptr, n)
 
+    if err:
+        mv = _ring_fallback(h, k)
+
+    return mv
 
 cpdef H3int parent(H3int h, res=None) except 0:
     cdef:
