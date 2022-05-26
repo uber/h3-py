@@ -1,9 +1,8 @@
-from libc cimport stdint
 from cpython cimport bool
-from libc.stdint cimport int64_t
+from libc.stdint cimport uint64_t, int64_t, uint32_t
 
-ctypedef stdint.uint64_t H3int
-ctypedef stdint.uint32_t H3Error
+ctypedef uint64_t H3int
+ctypedef uint32_t H3Error
 ctypedef basestring H3str
 
 cdef extern from "h3api.h":
@@ -11,11 +10,15 @@ cdef extern from "h3api.h":
     cdef int H3_VERSION_MINOR
     cdef int H3_VERSION_PATCH
 
-    ctypedef stdint.uint64_t H3Index
+    ctypedef uint64_t H3Index
 
     ctypedef struct LatLng:
         double lat  # in radians
         double lng  # in radians
+
+    ctypedef struct CoordIJ:
+        int i
+        int j
 
     int isValidCell(H3Index h) nogil
     int isPentagon(H3Index h) nogil
@@ -79,6 +82,9 @@ cdef extern from "h3api.h":
     H3Error maxFaceCount(H3Index h, int *out) nogil
     H3Error getIcosahedronFaces(H3Index h3, int *out) nogil
 
+    H3Error cellToLocalIj(H3Index origin, H3Index h3, uint32_t mode, CoordIJ *out) nogil
+    H3Error localIjToCell(H3Index origin, const CoordIJ *ij, uint32_t mode, H3Index *out) nogil
+
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
     #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
@@ -110,10 +116,6 @@ cdef extern from "h3api.h":
     #     LinkedGeoLoop *data "first"
     #     LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
     #     LinkedGeoPolygon *next
-
-    # ctypedef struct CoordIJ:
-    #     int i
-    #     int j
 
     # void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp)
 
@@ -152,9 +154,6 @@ cdef extern from "h3api.h":
     # void getH3UnidirectionalEdgesFromHexagon(H3Index origin, H3Index *edges)
 
     # void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
-
-    # int experimentalH3ToLocalIj(H3Index origin, H3Index h3, CoordIJ *out)
-    # int experimentalLocalIjToH3(H3Index origin, const CoordIJ *ij, H3Index *out)
 
     # double edgeLengthKm(int res) nogil
     # double edgeLengthM(int res) nogil

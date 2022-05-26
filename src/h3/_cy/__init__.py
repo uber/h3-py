@@ -33,6 +33,8 @@ from .cells import (
     mean_hex_area,
     cell_area,
     get_faces,
+    experimental_h3_to_local_ij,
+    experimental_local_ij_to_h3,
 )
 
 from h3fake2._cy import (
@@ -56,8 +58,8 @@ from h3fake2._cy import (
     # get_res0_indexes,
     # center_child,
     # get_faces,
-    experimental_h3_to_local_ij,
-    experimental_local_ij_to_h3,
+    # experimental_h3_to_local_ij,
+    # experimental_local_ij_to_h3,
 )
 
 # from .edges import (
