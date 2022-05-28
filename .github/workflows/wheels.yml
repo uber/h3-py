@@ -168,8 +168,7 @@ jobs:
           path: wheelhouse/*.whl
 
   upload_all:
-    # needs: [make_sdist, make_cibw_v1_wheels, make_cibw_v2_wheels]
-    needs: [make_cibw_v1_wheels, make_cibw_v2_wheels]
+    needs: [make_sdist, make_cibw_v1_wheels, make_cibw_v2_wheels]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
 
