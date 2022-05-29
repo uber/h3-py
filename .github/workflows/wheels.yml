@@ -19,9 +19,13 @@ on:
 
 jobs:
   make_sdist:
-    name: SDist
+    name: SDist ${{ matrix.os }}
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v3
