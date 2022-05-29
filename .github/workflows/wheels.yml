@@ -32,8 +32,13 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Setup Python
+        uses: actions/setup-python@v3.1.2
+
       - name: Make sdist
         run: |
+          python --version
+          pipx --version
           pipx run build --sdist
 
       - name: Install from sdist
