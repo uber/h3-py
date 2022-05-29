@@ -12,6 +12,7 @@ sdist: purge
 	python -m venv env
 	env/bin/pip install --upgrade pip wheel setuptools
 	env/bin/pip install --upgrade pipx scikit-build cython cmake
+	env/bin/pipx ensurepath
 	env/bin/pip install git+https://github.com/ajfriend/h3fake2.git
 	env/bin/pipx run build --sdist
 	env/bin/pip install dist/h3-4.0.0.tar.gz
