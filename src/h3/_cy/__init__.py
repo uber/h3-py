@@ -38,8 +38,7 @@ from .cells import (
     experimental_local_ij_to_h3,
 )
 
-# from .edges import (
-from h3fake2._cy import (
+from .edges import (
     are_neighbors,
     edge,
     is_edge,

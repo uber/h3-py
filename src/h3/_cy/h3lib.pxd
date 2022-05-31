@@ -88,6 +88,19 @@ cdef extern from "h3api.h":
     H3Error gridDiskDistances(H3Index origin, int k, H3Index *out, int *distances) nogil
     H3Error gridRingUnsafe(H3Index origin, int k, H3Index *out) nogil
 
+    H3Error areNeighborCells(H3Index origin, H3Index destination, int *out) nogil
+    H3Error cellsToDirectedEdge(H3Index origin, H3Index destination, H3Index *out) nogil
+    H3Error getDirectedEdgeOrigin(H3Index edge, H3Index *out) nogil
+    H3Error getDirectedEdgeDestination(H3Index edge, H3Index *out) nogil
+    H3Error originToDirectedEdges(H3Index origin, H3Index *edges) nogil
+
+    H3Error getHexagonEdgeLengthAvgKm(int res, double *out) nogil
+    H3Error getHexagonEdgeLengthAvgM(int res, double *out) nogil
+
+    H3Error exactEdgeLengthRads(H3Index edge, double *out) nogil
+    H3Error exactEdgeLengthKm(H3Index edge, double *out) nogil
+    H3Error exactEdgeLengthM(H3Index edge, double *out) nogil
+
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
     #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
@@ -140,26 +153,9 @@ cdef extern from "h3api.h":
 
     # void h3ToString(H3Index h, char *str, size_t sz)
 
-    # int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
-
-    # H3Index getH3UnidirectionalEdge(H3Index origin, H3Index destination)
-
-    # H3Index getOriginH3IndexFromUnidirectionalEdge(H3Index edge)
-
-    # H3Index getDestinationH3IndexFromUnidirectionalEdge(H3Index edge)
-
     # void getH3IndexesFromUnidirectionalEdge(H3Index edge, H3Index *originDestination)
 
-    # void getH3UnidirectionalEdgesFromHexagon(H3Index origin, H3Index *edges)
-
     # void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
-
-    # double edgeLengthKm(int res) nogil
-    # double edgeLengthM(int res) nogil
-
-    # double exactEdgeLengthRads(H3Index edge) nogil
-    # double exactEdgeLengthKm(H3Index edge) nogil
-    # double exactEdgeLengthM(H3Index edge) nogil
 
     # double pointDistRads(const GeoCoord *a, const GeoCoord *b) nogil
     # double pointDistKm(const GeoCoord *a, const GeoCoord *b) nogil
