@@ -18,7 +18,9 @@ cpdef bool are_neighbors(H3int h1, H3int h2):
     check_cell(h1)
     check_cell(h2)
 
-    h3lib.areNeighborCells(h1, h2, &out)
+    error = h3lib.areNeighborCells(h1, h2, &out)
+    if error != 0:
+        return False
     return out == 1
 
 
