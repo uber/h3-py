@@ -57,9 +57,9 @@ from .geo import (
     # polyfill_polygon,
     # polyfill_geojson,
     # polyfill,
-    # cell_boundary,
-    # edge_boundary,
-    # point_dist,
+    cell_boundary,
+    edge_boundary,
+    point_dist,
 )
 
 from h3fake2._cy import (
@@ -68,9 +68,9 @@ from h3fake2._cy import (
     polyfill_polygon,
     polyfill_geojson,
     polyfill,
-    cell_boundary,
-    edge_boundary,
-    point_dist,
+    # cell_boundary,
+    # edge_boundary,
+    # point_dist,
 )
 
 # from .to_multipoly import (
