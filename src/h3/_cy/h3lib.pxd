@@ -39,6 +39,15 @@ cdef extern from "h3api.h":
         LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
         LinkedGeoPolygon *next
 
+    ctypedef struct GeoLoop:
+        int numVerts
+        LatLng *verts
+
+    ctypedef struct GeoPolygon:
+        GeoLoop geoloop
+        int numHoles
+        GeoLoop *holes
+
     int isValidCell(H3Index h) nogil
     int isPentagon(H3Index h) nogil
     int isResClassIII(H3Index h) nogil
@@ -118,14 +127,8 @@ cdef extern from "h3api.h":
     H3Error cellsToLinkedMultiPolygon(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
     void destroyLinkedMultiPolygon(LinkedGeoPolygon *polygon)
 
-    # ctypedef struct Geofence:
-    #     int numVerts
-    #     GeoCoord *verts
-
-    # ctypedef struct GeoPolygon:
-    #     Geofence geofence
-    #     int numHoles
-    #     Geofence *holes
+    H3Error maxPolygonToCellsSize(const GeoPolygon *geoPolygon, int res, uint32_t flags, uint64_t *count)
+    H3Error polygonToCells(const GeoPolygon *geoPolygon, int res, uint32_t flags, H3Index *out)
 
     # ctypedef struct GeoMultiPolygon:
     #     int numPolygons
@@ -137,9 +140,9 @@ cdef extern from "h3api.h":
 
     # int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
 
-    # int maxPolyfillSize(const GeoPolygon *geoPolygon, int res)
+    # void h3SetToLinkedGeo(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
 
-    # void polyfill(const GeoPolygon *geoPolygon, int res, H3Index *out)
+    # void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
 
     # H3Index stringToH3(const char *str)
 
