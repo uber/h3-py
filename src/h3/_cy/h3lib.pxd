@@ -24,6 +24,21 @@ cdef extern from "h3api.h":
         int i
         int j
 
+    ctypedef struct LinkedLatLng:
+        LatLng data "vertex"
+        LinkedLatLng *next
+
+    # renaming these for clarity
+    ctypedef struct LinkedGeoLoop:
+        LinkedLatLng *data "first"
+        LinkedLatLng *_data_last "last"  # not needed in Cython bindings
+        LinkedGeoLoop *next
+
+    ctypedef struct LinkedGeoPolygon:
+        LinkedGeoLoop *data "first"
+        LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
+        LinkedGeoPolygon *next
+
     int isValidCell(H3Index h) nogil
     int isPentagon(H3Index h) nogil
     int isResClassIII(H3Index h) nogil
@@ -100,6 +115,9 @@ cdef extern from "h3api.h":
     double distanceKm(const LatLng *a, const LatLng *b) nogil
     double distanceM(const LatLng *a, const LatLng *b) nogil
 
+    H3Error cellsToLinkedMultiPolygon(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
+    void destroyLinkedMultiPolygon(LinkedGeoPolygon *polygon)
+
     # ctypedef struct Geofence:
     #     int numVerts
     #     GeoCoord *verts
@@ -113,21 +131,6 @@ cdef extern from "h3api.h":
     #     int numPolygons
     #     GeoPolygon *polygons
 
-    # ctypedef struct LinkedGeoCoord:
-    #     GeoCoord data "vertex"
-    #     LinkedGeoCoord *next
-
-    # # renaming these for clarity
-    # ctypedef struct LinkedGeoLoop:
-    #     LinkedGeoCoord *data "first"
-    #     LinkedGeoCoord *_data_last "last"  # not needed in Cython bindings
-    #     LinkedGeoLoop *next
-
-    # ctypedef struct LinkedGeoPolygon:
-    #     LinkedGeoLoop *data "first"
-    #     LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
-    #     LinkedGeoPolygon *next
-
     # int hexRange(H3Index origin, int k, H3Index *out)
 
     # int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
@@ -137,10 +140,6 @@ cdef extern from "h3api.h":
     # int maxPolyfillSize(const GeoPolygon *geoPolygon, int res)
 
     # void polyfill(const GeoPolygon *geoPolygon, int res, H3Index *out)
-
-    # void h3SetToLinkedGeo(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
-
-    # void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
 
     # H3Index stringToH3(const char *str)
 

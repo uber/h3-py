@@ -73,8 +73,7 @@ from h3fake2._cy import (
     # point_dist,
 )
 
-# from .to_multipoly import (
-from h3fake2._cy import (
+from .to_multipoly import (
     h3_set_to_multi_polygon
 )
 
