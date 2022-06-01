@@ -20,6 +20,15 @@ cdef extern from "h3api.h":
         int i
         int j
 
+    ctypedef struct GeoLoop:
+        int numVerts
+        LatLng *verts
+
+    ctypedef struct GeoPolygon:
+        GeoLoop geoloop
+        int numHoles
+        GeoLoop *holes
+
     int isValidCell(H3Index h) nogil
     int isPentagon(H3Index h) nogil
     int isResClassIII(H3Index h) nogil
@@ -101,18 +110,12 @@ cdef extern from "h3api.h":
     H3Error exactEdgeLengthKm(H3Index edge, double *out) nogil
     H3Error exactEdgeLengthM(H3Index edge, double *out) nogil
 
+    H3Error maxPolygonToCellsSize(const GeoPolygon *geoPolygon, int res, uint32_t flags, uint64_t *count)
+    H3Error polygonToCells(const GeoPolygon *geoPolygon, int res, uint32_t flags, H3Index *out)
+
     # ctypedef struct GeoBoundary:
     #     int num_verts "numVerts"
     #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
-
-    # ctypedef struct Geofence:
-    #     int numVerts
-    #     GeoCoord *verts
-
-    # ctypedef struct GeoPolygon:
-    #     Geofence geofence
-    #     int numHoles
-    #     Geofence *holes
 
     # ctypedef struct GeoMultiPolygon:
     #     int numPolygons
@@ -140,10 +143,6 @@ cdef extern from "h3api.h":
     # int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
 
     # int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
-
-    # int maxPolyfillSize(const GeoPolygon *geoPolygon, int res)
-
-    # void polyfill(const GeoPolygon *geoPolygon, int res, H3Index *out)
 
     # void h3SetToLinkedGeo(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
 
