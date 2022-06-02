@@ -16,9 +16,37 @@ cdef extern from "h3api.h":
         double lat  # in radians
         double lng  # in radians
 
+    ctypedef struct CellBoundary:
+        int num_verts "numVerts"
+        LatLng verts[10]  # MAX_CELL_BNDRY_VERTS
+
     ctypedef struct CoordIJ:
         int i
         int j
+
+    ctypedef struct LinkedLatLng:
+        LatLng data "vertex"
+        LinkedLatLng *next
+
+    # renaming these for clarity
+    ctypedef struct LinkedGeoLoop:
+        LinkedLatLng *data "first"
+        LinkedLatLng *_data_last "last"  # not needed in Cython bindings
+        LinkedGeoLoop *next
+
+    ctypedef struct LinkedGeoPolygon:
+        LinkedGeoLoop *data "first"
+        LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
+        LinkedGeoPolygon *next
+
+    ctypedef struct GeoLoop:
+        int numVerts
+        LatLng *verts
+
+    ctypedef struct GeoPolygon:
+        GeoLoop geoloop
+        int numHoles
+        GeoLoop *holes
 
     int isValidCell(H3Index h) nogil
     int isPentagon(H3Index h) nogil
@@ -88,49 +116,41 @@ cdef extern from "h3api.h":
     H3Error gridDiskDistances(H3Index origin, int k, H3Index *out, int *distances) nogil
     H3Error gridRingUnsafe(H3Index origin, int k, H3Index *out) nogil
 
-    # ctypedef struct GeoBoundary:
-    #     int num_verts "numVerts"
-    #     GeoCoord verts[10]  # MAX_CELL_BNDRY_VERTS
+    H3Error areNeighborCells(H3Index origin, H3Index destination, int *out) nogil
+    H3Error cellsToDirectedEdge(H3Index origin, H3Index destination, H3Index *out) nogil
+    H3Error getDirectedEdgeOrigin(H3Index edge, H3Index *out) nogil
+    H3Error getDirectedEdgeDestination(H3Index edge, H3Index *out) nogil
+    H3Error originToDirectedEdges(H3Index origin, H3Index *edges) nogil
 
-    # ctypedef struct Geofence:
-    #     int numVerts
-    #     GeoCoord *verts
+    H3Error getHexagonEdgeLengthAvgKm(int res, double *out) nogil
+    H3Error getHexagonEdgeLengthAvgM(int res, double *out) nogil
 
-    # ctypedef struct GeoPolygon:
-    #     Geofence geofence
-    #     int numHoles
-    #     Geofence *holes
+    H3Error exactEdgeLengthRads(H3Index edge, double *out) nogil
+    H3Error exactEdgeLengthKm(H3Index edge, double *out) nogil
+    H3Error exactEdgeLengthM(H3Index edge, double *out) nogil
+
+    H3Error cellToBoundary(H3Index h3, CellBoundary *gp) nogil
+    H3Error directedEdgeToBoundary(H3Index edge, CellBoundary *gb) nogil
+
+    double distanceRads(const LatLng *a, const LatLng *b) nogil
+    double distanceKm(const LatLng *a, const LatLng *b) nogil
+    double distanceM(const LatLng *a, const LatLng *b) nogil
+
+    H3Error cellsToLinkedMultiPolygon(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
+    void destroyLinkedMultiPolygon(LinkedGeoPolygon *polygon)
+
+    H3Error maxPolygonToCellsSize(const GeoPolygon *geoPolygon, int res, uint32_t flags, uint64_t *count)
+    H3Error polygonToCells(const GeoPolygon *geoPolygon, int res, uint32_t flags, H3Index *out)
 
     # ctypedef struct GeoMultiPolygon:
     #     int numPolygons
     #     GeoPolygon *polygons
-
-    # ctypedef struct LinkedGeoCoord:
-    #     GeoCoord data "vertex"
-    #     LinkedGeoCoord *next
-
-    # # renaming these for clarity
-    # ctypedef struct LinkedGeoLoop:
-    #     LinkedGeoCoord *data "first"
-    #     LinkedGeoCoord *_data_last "last"  # not needed in Cython bindings
-    #     LinkedGeoLoop *next
-
-    # ctypedef struct LinkedGeoPolygon:
-    #     LinkedGeoLoop *data "first"
-    #     LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
-    #     LinkedGeoPolygon *next
-
-    # void h3ToGeoBoundary(H3Index h3, GeoBoundary *gp)
 
     # int hexRange(H3Index origin, int k, H3Index *out)
 
     # int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
 
     # int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
-
-    # int maxPolyfillSize(const GeoPolygon *geoPolygon, int res)
-
-    # void polyfill(const GeoPolygon *geoPolygon, int res, H3Index *out)
 
     # void h3SetToLinkedGeo(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
 
@@ -140,27 +160,4 @@ cdef extern from "h3api.h":
 
     # void h3ToString(H3Index h, char *str, size_t sz)
 
-    # int h3IndexesAreNeighbors(H3Index origin, H3Index destination)
-
-    # H3Index getH3UnidirectionalEdge(H3Index origin, H3Index destination)
-
-    # H3Index getOriginH3IndexFromUnidirectionalEdge(H3Index edge)
-
-    # H3Index getDestinationH3IndexFromUnidirectionalEdge(H3Index edge)
-
     # void getH3IndexesFromUnidirectionalEdge(H3Index edge, H3Index *originDestination)
-
-    # void getH3UnidirectionalEdgesFromHexagon(H3Index origin, H3Index *edges)
-
-    # void getH3UnidirectionalEdgeBoundary(H3Index edge, GeoBoundary *gb)
-
-    # double edgeLengthKm(int res) nogil
-    # double edgeLengthM(int res) nogil
-
-    # double exactEdgeLengthRads(H3Index edge) nogil
-    # double exactEdgeLengthKm(H3Index edge) nogil
-    # double exactEdgeLengthM(H3Index edge) nogil
-
-    # double pointDistRads(const GeoCoord *a, const GeoCoord *b) nogil
-    # double pointDistKm(const GeoCoord *a, const GeoCoord *b) nogil
-    # double pointDistM(const GeoCoord *a, const GeoCoord *b) nogil

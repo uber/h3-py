@@ -38,8 +38,7 @@ from .cells import (
     experimental_local_ij_to_h3,
 )
 
-# from .edges import (
-from h3fake2._cy import (
+from .edges import (
     are_neighbors,
     edge,
     is_edge,
@@ -54,17 +53,6 @@ from h3fake2._cy import (
 from .geo import (
     geo_to_h3,
     h3_to_geo,
-    # polyfill_polygon,
-    # polyfill_geojson,
-    # polyfill,
-    # cell_boundary,
-    # edge_boundary,
-    # point_dist,
-)
-
-from h3fake2._cy import (
-    # geo_to_h3,
-    # h3_to_geo,
     polyfill_polygon,
     polyfill_geojson,
     polyfill,
@@ -73,8 +61,7 @@ from h3fake2._cy import (
     point_dist,
 )
 
-# from .to_multipoly import (
-from h3fake2._cy import (
+from .to_multipoly import (
     h3_set_to_multi_polygon
 )
 
