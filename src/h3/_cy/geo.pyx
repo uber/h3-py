@@ -221,66 +221,66 @@ def polyfill(dict geojson, int res, bool geo_json_conformant=False):
     return out
 
 
-# def cell_boundary(H3int h, bool geo_json=False):
-#     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
-#     cdef:
-#         h3lib.GeoBoundary gb
+def cell_boundary(H3int h, bool geo_json=False):
+    """Compose an array of geo-coordinates that outlines a hexagonal cell"""
+    cdef:
+        h3lib.CellBoundary gb
 
-#     check_cell(h)
+    check_cell(h)
 
-#     h3lib.h3ToGeoBoundary(h, &gb)
+    h3lib.cellToBoundary(h, &gb)
 
-#     verts = tuple(
-#         coord2deg(gb.verts[i])
-#         for i in range(gb.num_verts)
-#     )
+    verts = tuple(
+        coord2deg(gb.verts[i])
+        for i in range(gb.num_verts)
+    )
 
-#     if geo_json:
-#         #lat/lng -> lng/lat and last point same as first
-#         verts += (verts[0],)
-#         verts = tuple(v[::-1] for v in verts)
+    if geo_json:
+        #lat/lng -> lng/lat and last point same as first
+        verts += (verts[0],)
+        verts = tuple(v[::-1] for v in verts)
 
-#     return verts
-
-
-# def edge_boundary(H3int edge, bool geo_json=False):
-#     """ Returns the GeoBoundary containing the coordinates of the edge
-#     """
-#     cdef:
-#         h3lib.GeoBoundary gb
-
-#     check_edge(edge)
-
-#     h3lib.getH3UnidirectionalEdgeBoundary(edge, &gb)
-
-#     # todo: move this verts transform into the GeoBoundary object
-#     verts = tuple(
-#         coord2deg(gb.verts[i])
-#         for i in range(gb.num_verts)
-#     )
-
-#     if geo_json:
-#         #lat/lng -> lng/lat and last point same as first
-#         verts += (verts[0],)
-#         verts = tuple(v[::-1] for v in verts)
-
-#     return verts
+    return verts
 
 
-# cpdef double point_dist(
-#     double lat1, double lng1,
-#     double lat2, double lng2, unit='km') except -1:
+def edge_boundary(H3int edge, bool geo_json=False):
+    """ Returns the CellBoundary containing the coordinates of the edge
+    """
+    cdef:
+        h3lib.CellBoundary gb
 
-#     a = deg2coord(lat1, lng1)
-#     b = deg2coord(lat2, lng2)
+    check_edge(edge)
 
-#     if unit == 'rads':
-#         d = h3lib.pointDistRads(&a, &b)
-#     elif unit == 'km':
-#         d = h3lib.pointDistKm(&a, &b)
-#     elif unit == 'm':
-#         d = h3lib.pointDistM(&a, &b)
-#     else:
-#         raise H3ValueError('Unknown unit: {}'.format(unit))
+    h3lib.directedEdgeToBoundary(edge, &gb)
 
-#     return d
+    # todo: move this verts transform into the CellBoundary object
+    verts = tuple(
+        coord2deg(gb.verts[i])
+        for i in range(gb.num_verts)
+    )
+
+    if geo_json:
+        #lat/lng -> lng/lat and last point same as first
+        verts += (verts[0],)
+        verts = tuple(v[::-1] for v in verts)
+
+    return verts
+
+
+cpdef double point_dist(
+    double lat1, double lng1,
+    double lat2, double lng2, unit='km') except -1:
+
+    a = deg2coord(lat1, lng1)
+    b = deg2coord(lat2, lng2)
+
+    if unit == 'rads':
+        d = h3lib.distanceRads(&a, &b)
+    elif unit == 'km':
+        d = h3lib.distanceKm(&a, &b)
+    elif unit == 'm':
+        d = h3lib.distanceM(&a, &b)
+    else:
+        raise H3ValueError('Unknown unit: {}'.format(unit))
+
+    return d
