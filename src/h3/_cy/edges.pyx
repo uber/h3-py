@@ -24,7 +24,7 @@ cpdef bool are_neighbors(H3int h1, H3int h2):
     return out == 1
 
 
-cpdef H3int edge(H3int origin, H3int destination) except 1:
+cpdef H3int edge(H3int origin, H3int destination) except *:
     cdef:
         int neighbor_out
         H3int out
