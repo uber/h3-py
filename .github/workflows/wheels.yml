@@ -19,7 +19,7 @@ on:
 
 jobs:
   make_sdist:
-    name: SDist ${{ matrix.os }}
+    name: "SDist: ${{ matrix.os }}"
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
     runs-on: ${{ matrix.os }}
 
