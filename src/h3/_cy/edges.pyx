@@ -32,8 +32,8 @@ cpdef H3int edge(H3int origin, H3int destination) except *:
     check_cell(origin)
     check_cell(destination)
 
-    h3lib.areNeighborCells(origin, destination, &neighbor_out)
-    if neighbor_out != 1:
+    error = h3lib.areNeighborCells(origin, destination, &neighbor_out)
+    if error != 0 or neighbor_out != 1:
         s = 'Cells are not neighbors: {} and {}'
         s = s.format(hex(origin), hex(destination))
         raise H3ValueError(s)
