@@ -2,7 +2,7 @@ import h3
 import itertools
 import pytest
 
-from .h3fake2_errors import H3ResolutionError
+from h3 import H3ResolutionError
 
 
 def reverse(loop):
