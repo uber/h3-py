@@ -7,7 +7,6 @@ build-docs:
 open:
 	open docs/_build/html/index.html
 
-
 init: purge
 	git submodule update --init
 	python -m venv env
