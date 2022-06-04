@@ -108,7 +108,9 @@ jobs:
 
       ## Build
       - uses: pypa/cibuildwheel@v2.6.0
-        # todo: how to build from sdist?
+        with:
+          package-dir: dist/h3-*.tar.gz
+          output-dir: dist
         env:
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
@@ -120,7 +122,7 @@ jobs:
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v3
         with:
-          path: wheelhouse/*.whl
+          path: dist/*.whl
 
   upload_all:
     needs: [make_sdist, make_cibw_v2_wheels]
