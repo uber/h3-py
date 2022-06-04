@@ -183,8 +183,10 @@ jobs:
           name: artifact
           path: dist
 
-      - name: Check with Twine
+      - name: Setup Python
         uses: actions/setup-python@v3
+
+      - name: Check with Twine
         run: |
           pipx run twine check dist/*
 
