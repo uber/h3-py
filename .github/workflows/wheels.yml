@@ -36,20 +36,6 @@ jobs:
           pip install build
           python -m build --sdist
 
-      - name: Install from sdist
-        run: |
-          pip install --upgrade pip setuptools wheel
-          pip install pytest
-          cp dist/h3-*.tar.gz h3.tar.gz
-          pip install h3.tar.gz[all]
-
-      - name: Test sdist
-        run: pytest --cov=h3 --full-trace
-
-      - name: Check with Twine
-        run: |
-          pipx run twine check dist/*
-
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v3
         with:
@@ -83,10 +69,6 @@ jobs:
           CIBW_TEST_COMMAND: pytest {project}/tests
           CIBW_ARCHS_LINUX: auto aarch64
           CIBW_BUILD: ${{ matrix.build }}
-
-      - name: Check with Twine
-        run: |
-          pipx run twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v3
@@ -162,10 +144,6 @@ jobs:
           CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_BUILD: ${{ matrix.build }}
           CIBW_SKIP: ${{ matrix.skip }}
-
-      - name: Check with Twine
-        run: |
-          pipx run twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v3
