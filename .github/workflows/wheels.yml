@@ -33,7 +33,8 @@ jobs:
 
       - name: Make sdist
         run: |
-          pip install build
+          pip install --upgrade pip setuptools
+          pip install --upgrade build
           python -m build --sdist
 
       - name: Upload artifacts to GitHub
@@ -130,13 +131,13 @@ jobs:
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
+      - name: Setup Python
+        uses: actions/setup-python@v3
+
       - uses: actions/download-artifact@v3
         with:
           name: artifact
           path: dist
-
-      - name: Setup Python
-        uses: actions/setup-python@v3
 
       - name: Check with Twine
         run: |
