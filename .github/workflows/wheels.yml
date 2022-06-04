@@ -37,9 +37,8 @@ jobs:
 
       - name: Make sdist
         run: |
-          python --version
-          pipx --version
-          pipx run build --sdist
+          pip install build
+          python -m build --sdist
 
       - name: Install from sdist
         run: |
