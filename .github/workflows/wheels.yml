@@ -50,6 +50,10 @@ jobs:
       - name: Test sdist
         run: pytest --cov=h3 --full-trace
 
+      - name: Check with Twine
+        run: |
+          pipx run twine check dist/*
+
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v3
         with:
@@ -95,6 +99,7 @@ jobs:
 
   make_cibw_v2_wheels:
     name: "cibuildwheel v2: ${{ matrix.name }}"
+    needs: [make_sdist]
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
     runs-on: ${{ matrix.os }}
     strategy:
