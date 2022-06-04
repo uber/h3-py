@@ -19,13 +19,9 @@ on:
 
 jobs:
   make_sdist:
-    name: "SDist: ${{ matrix.os }}"
+    name: SDist
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -33,7 +29,7 @@ jobs:
           submodules: recursive
 
       - name: Setup Python
-        uses: actions/setup-python@v3.1.2
+        uses: actions/setup-python@v3
 
       - name: Make sdist
         run: |
@@ -186,6 +182,11 @@ jobs:
         with:
           name: artifact
           path: dist
+
+      - name: Check with Twine
+        uses: actions/setup-python@v3
+        run: |
+          pipx run twine check dist/*
 
       - uses: pypa/gh-action-pypi-publish@v1.5.0
         with:
