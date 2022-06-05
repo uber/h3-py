@@ -350,13 +350,13 @@ cpdef H3int[:] line(H3int start, H3int end):
     hmm = H3MemoryManager(n)
     err = h3lib.gridPathCells(start, end, hmm.ptr)
 
+    # todo: probably here too?
+    mv = hmm.create_mv()
+
     if err:
         s = "Couldn't find line between cells {} and {}"
         s = s.format(hex(start), hex(end))
         raise H3ValueError(s)
-
-    # todo: probably here too?
-    mv = hmm.create_mv()
 
     return mv
 
