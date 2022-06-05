@@ -269,10 +269,10 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
         res
     )
 
+    mv = hmm.create_mv()
+
     if err:
         raise H3ValueError('Could not uncompact set of hexagons!')
-
-    mv = hmm.create_mv()
 
     return mv
 
