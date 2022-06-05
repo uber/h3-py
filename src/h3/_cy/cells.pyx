@@ -208,6 +208,8 @@ cpdef H3int center_child(H3int h, res=None) except 0:
 
 
 cpdef H3int[:] compact(const H3int[:] hu):
+    # todo: fix this with my own Cython object "wrapper" class?
+    #   everything has a .ptr interface?
     # todo: the Clib can handle 0-len arrays because it **avoids**
     # dereferencing the pointer, but Cython's syntax of
     # `&hu[0]` **requires** a dereference. For Cython, checking for array
