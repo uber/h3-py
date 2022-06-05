@@ -8,6 +8,12 @@ cdef class H3MemoryManager:
     cdef H3int[:] create_mv(self)
 
 
+cdef int[:] int_mv(size_t n)
+
+
 """
 todo: read: https://cython.readthedocs.io/en/latest/src/tutorial/pxd_files.html
+
+todo: should i be allocating with python memory functions?
+https://cython.readthedocs.io/en/latest/src/tutorial/memory_allocation.html
 """

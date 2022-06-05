@@ -94,3 +94,21 @@ cdef class H3MemoryManager:
         stdlib.free(self.ptr)
 
 
+"""
+Can someone please swoop in and find a much cleaner way to do all of this Cython memory management baloney?
+"""
+cdef int[:] int_mv(size_t n):
+    cdef:
+        int* ptr
+        array arr
+
+    if n <= 0:
+        raise MemoryError()
+    ptr = <int*>stdlib.calloc(n, sizeof(int))
+    if ptr is NULL:
+        raise MemoryError()
+
+    arr = <int[:n]> ptr
+    arr.callback_free_data = stdlib.free
+
+    return arr
