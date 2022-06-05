@@ -9,10 +9,10 @@ from .util cimport (
     create_ptr,
     create_mv,
     empty_memory_view, # want to drop this import if possible
-    check_for_error,
 )
 
-from .util import H3ValueError, H3ResolutionError
+from .error_system cimport check_for_error
+from .error_system import H3ValueError, H3ResolutionError
 
 # todo: add notes about Cython exception handling
 

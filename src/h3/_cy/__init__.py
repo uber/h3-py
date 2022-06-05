@@ -70,6 +70,9 @@ from .util import (
     hex2int,
     int2hex,
     from_iter,
+)
+
+from .error_system import (
     H3ValueError,
     H3CellError,
     H3ResolutionError,

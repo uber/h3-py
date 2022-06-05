@@ -1,8 +1,16 @@
 from libc cimport stdlib
 from cython.view cimport array
-from .h3lib cimport H3int, H3str, H3Error, isValidCell, isValidDirectedEdge
+from .h3lib cimport H3int, H3str, isValidCell, isValidDirectedEdge
 
 cimport h3lib
+
+from .error_system import (
+    H3ValueError,
+    H3CellError,
+    H3ResolutionError,
+    H3EdgeError,
+    H3DistanceError,
+)
 
 
 cdef h3lib.LatLng deg2coord(double lat, double lng) nogil:
@@ -46,57 +54,6 @@ cpdef H3str int2hex(H3int x):
     Also need to be careful about unicode/str differences.
     """
     return '{:x}'.format(x)
-
-
-class H3Exception(Exception):
-    pass
-
-class H3ValueError(H3Exception, ValueError):
-    pass
-
-class H3CellError(H3ValueError):
-    pass
-
-class H3EdgeError(H3ValueError):
-    pass
-
-class H3ResolutionError(H3ValueError):
-    pass
-
-class H3DistanceError(H3ValueError):
-    pass
-
-cdef check_for_error(H3Error err):
-    """
-    todo: more descriptive message
-    todo: add error codes as property
-    todo: allow passing in extra args for the error message?
-    """
-
-    d = {
-        H3Error.E_SUCCESS: None,
-        H3Error.E_FAILED: H3ValueError(), # H3Exception(),
-        H3Error.E_DOMAIN: H3ValueError(),
-        H3Error.E_LATLNG_DOMAIN: H3ValueError(),
-        H3Error.E_RES_DOMAIN: H3ResolutionError(),
-        H3Error.E_CELL_INVALID: H3CellError(),
-        H3Error.E_DIR_EDGE_INVALID: H3EdgeError(),
-        H3Error.E_UNDIR_EDGE_INVALID: H3EdgeError(),
-        H3Error.E_VERTEX_INVALID: H3ValueError(),
-        H3Error.E_PENTAGON: H3ValueError(),
-        H3Error.E_DUPLICATE_INPUT: H3ValueError(),
-        H3Error.E_NOT_NEIGHBORS: H3ValueError(),
-        H3Error.E_RES_MISMATCH: H3ResolutionError(),
-        H3Error.E_MEMORY: H3Exception(),
-        H3Error.E_MEMORY_BOUNDS: H3Exception(),
-        H3Error.E_OPTION_INVALID: H3Exception(),
-    }
-
-    e = d[err]
-
-    if e:
-        raise e
-
 
 
 cdef check_cell(H3int h):
