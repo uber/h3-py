@@ -160,14 +160,21 @@ def polyfill_polygon(outer, int res, holes=None, bool lnglat_order=False):
     """
     cdef:
         uint64_t n
+        H3Error err
 
     check_res(res)
     gp = GeoPolygon(outer, holes=holes, lnglat_order=lnglat_order)
 
-    h3lib.maxPolygonToCellsSize(&gp.gp, res, 0, &n)
+    err = h3lib.maxPolygonToCellsSize(&gp.gp, res, 0, &n)
+    if err:
+        raise H3ValueError()
+
     ptr = create_ptr(n)
 
-    h3lib.polygonToCells(&gp.gp, res, 0, ptr)
+    err = h3lib.polygonToCells(&gp.gp, res, 0, ptr)
+    if err:
+        raise H3ValueError()
+
     mv = create_mv(ptr, n)
 
     return mv
