@@ -47,6 +47,7 @@ cdef size_t move_nonzeros(H3int* a, size_t n):
 
 
 cdef H3int[:] empty_memory_view():
+    # todo: get rid of this?
     # there's gotta be a better way to do this...
     # create an empty cython.view.array?
     cdef:

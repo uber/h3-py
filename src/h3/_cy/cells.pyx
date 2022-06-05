@@ -6,14 +6,14 @@ from .util cimport (
     check_cell,
     check_res,
     check_distance,
-    create_ptr,
-    create_mv,
-    empty_memory_view, # want to drop this import if possible
 )
-
-from .memory cimport H3MemoryManager, int_mv
-
 from .util import H3ValueError, H3ResolutionError
+
+from .memory cimport (
+    H3MemoryManager,
+    int_mv,
+    empty_memory_view, # todo: want to get rid of this!
+)
 
 # todo: add notes about Cython exception handling
 
