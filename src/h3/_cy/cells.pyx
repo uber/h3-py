@@ -269,10 +269,12 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
         res
     )
 
-    mv = hmm.create_mv()
-
     if err:
         raise H3ValueError('Could not uncompact set of hexagons!')
+
+    # todo: again! doesn't work if i have this before the error check!
+    # why isn't hmm.create_mv() robust to failures before it?
+    mv = hmm.create_mv()
 
     return mv
 
