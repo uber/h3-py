@@ -262,7 +262,7 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
 
     hmm = H3MemoryManager(n)
     err = h3lib.uncompactCells(
-        &hc[0],
+        &hc[0], # todo: symmetry here with the wrapper object might be nice. hc.ptr / hc.n
         len(hc),
         hmm.ptr,
         hmm.n,
