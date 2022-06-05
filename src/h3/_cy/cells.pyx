@@ -11,6 +11,8 @@ from .util cimport (
     empty_memory_view, # want to drop this import if possible
 )
 
+from .memory cimport H3MemoryManager
+
 from .util import H3ValueError, H3ResolutionError
 
 # todo: add notes about Cython exception handling
@@ -78,9 +80,9 @@ cpdef H3int[:] disk(H3int h, int k):
     # ignoring error for now
     err = h3lib.maxGridDiskSize(k, &n)
 
-    ptr = create_ptr(n) # todo: return a "smart" pointer that knows its length?
-    err = h3lib.gridDisk(h, k, ptr) # ignoring error again!
-    mv = create_mv(ptr, n)
+    hmm = H3MemoryManager(n)
+    err = h3lib.gridDisk(h, k, <H3int*>hmm.get_ptr())
+    mv = hmm.create_mv()
 
     return mv
 
