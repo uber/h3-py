@@ -249,7 +249,7 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     # note: open to better ideas!
     cdef:
         h3lib.H3Error err
-        int64_t N
+        int64_t n
 
     if len(hc) == 0:
         return empty_memory_view()
@@ -258,20 +258,21 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
         check_cell(h)
 
     # ignoring error for now
-    err = h3lib.uncompactCellsSize(&hc[0], len(hc), res, &N)
+    err = h3lib.uncompactCellsSize(&hc[0], len(hc), res, &n)
 
-    ptr = create_ptr(N)
+    hmm = H3MemoryManager(n)
     err = h3lib.uncompactCells(
         &hc[0],
         len(hc),
-        ptr,
-        N,
+        hmm.ptr,
+        hmm.n,
         res
     )
-    mv = create_mv(ptr, N)
 
     if err:
         raise H3ValueError('Could not uncompact set of hexagons!')
+
+    mv = hmm.create_mv()
 
     return mv
 
