@@ -391,26 +391,26 @@ cpdef H3int[:] get_res0_indexes():
 
     return mv
 
+# oh, this is returning a set??
+# todo: convert to int[:]?
 cpdef get_faces(H3int h):
     cdef:
         h3lib.H3Error err
         int n
+        int[:] faces  ## todo: weird, this needs to be specified to avoid errors. cython bug?
 
     check_cell(h)
 
     err = h3lib.maxFaceCount(h, &n) #ignore error for now
 
-    cdef int* ptr = <int*> stdlib.calloc(n, sizeof(int))
-    if (n > 0) and (not ptr):
-        raise MemoryError()
+    faces = int_mv(n)
+    err = h3lib.getIcosahedronFaces(h, &faces[0]) # handle error?
 
-    err = h3lib.getIcosahedronFaces(h, ptr) # handle error?
+    # todo: wait? do faces start from 0 or 1?
+    # we could do this check/processing in the int_mv object
+    out = {f for f in faces if f >= 0}
 
-    faces = <int[:n]> ptr
-    faces = {f for f in faces if f >= 0}
-    stdlib.free(ptr)
-
-    return faces
+    return out
 
 
 cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
