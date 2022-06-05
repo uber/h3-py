@@ -1,5 +1,9 @@
+from libc cimport stdlib
+from libc.stdint cimport uint64_t
+
 cimport h3lib
-from h3lib cimport bool, H3int
+from h3lib cimport bool, H3int, H3Error
+
 from .util cimport (
     check_cell,
     check_edge,
@@ -9,10 +13,9 @@ from .util cimport (
     deg2coord,
     coord2deg,
 )
-from libc cimport stdlib
-from libc.stdint cimport uint64_t
-
 from .util import H3ValueError
+
+from .memory cimport H3MemoryManager
 
 
 cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
@@ -27,6 +30,9 @@ cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
     # todo: just ignoring the error for now, check in the future
     err = h3lib.latLngToCell(&c, res, &out)
 
+    if err:
+        raise H3ValueError()
+
     return out
 
 
@@ -39,6 +45,8 @@ cpdef (double, double) h3_to_geo(H3int h) except *:
     check_cell(h)
 
     err = h3lib.cellToLatLng(h, &c)
+    if err:
+        raise H3ValueError()
 
     return coord2deg(c)
 
@@ -63,6 +71,7 @@ cdef h3lib.GeoLoop make_geoloop(geos, bool lnglat_order=False) except *:
 
     gl.numVerts = len(geos)
 
+    # todo: need for memory management
     gl.verts = <h3lib.LatLng*> stdlib.calloc(gl.numVerts, sizeof(h3lib.LatLng))
 
     if lnglat_order:
