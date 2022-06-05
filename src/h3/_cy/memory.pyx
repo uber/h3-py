@@ -63,9 +63,6 @@ cdef class H3MemoryManager:
         if (self.n > 0) and (not self.ptr):
             raise MemoryError()
 
-    cdef H3int* get_ptr(self):
-        return self.ptr
-
     cdef H3int[:] create_mv(self):
         cdef:
             array x
@@ -90,10 +87,10 @@ cdef class H3MemoryManager:
         return x
 
     def __dealloc__(self):
-        # If the memory now belongs elsewhere with a memoryview, this pointer
-        # should be null, and deallocing on NULL is fine.
-        # If the pointer is not null, then this means the MemoryManager
-        # has not given the memory away to another object.
+        # If the memory has been handed off to a memoryview, this pointer
+        # should be NULL, and deallocing on NULL is fine.
+        # If the pointer is *not* NULL, then this means the MemoryManager
+        # has is still responsible for the memory (it hasn't given the memory away to another object).
         stdlib.free(self.ptr)
 
 

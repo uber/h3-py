@@ -5,7 +5,6 @@ cdef class H3MemoryManager:
         size_t n
         H3int* ptr
 
-    cdef H3int* get_ptr(self)
     cdef H3int[:] create_mv(self)
 
 

@@ -81,7 +81,7 @@ cpdef H3int[:] disk(H3int h, int k):
     err = h3lib.maxGridDiskSize(k, &n)
 
     hmm = H3MemoryManager(n)
-    err = h3lib.gridDisk(h, k, <H3int*>hmm.get_ptr())
+    err = h3lib.gridDisk(h, k, hmm.ptr)
     mv = hmm.create_mv()
 
     return mv
