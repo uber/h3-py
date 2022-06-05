@@ -92,7 +92,7 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     `ring` tries to call `h3lib.hexRing` first; if that fails, we call
     this function, which relies on `h3lib.kRingDistances`.
 
-    Failures for `h3lib.hexRing` happen when the algortihm runs into a pentagon.
+    Failures for `h3lib.hexRing` happen when the algorithm runs into a pentagon.
     """
     cdef:
         int64_t n
@@ -102,24 +102,23 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     check_distance(k)
 
     err = h3lib.maxGridDiskSize(k, &n)
-    # array of h3 cells
-    ptr = create_ptr(n)
+    hmm = H3MemoryManager(n)
 
     # array of cell distances from `h`
     dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
     if dist_ptr is NULL:
         raise MemoryError()
 
-    err = h3lib.gridDiskDistances(h, k, ptr, dist_ptr)
+    err = h3lib.gridDiskDistances(h, k, hmm.ptr, dist_ptr)
 
     distances = <int[:n]> dist_ptr
     distances.callback_free_data = stdlib.free
 
     for i,v in enumerate(distances):
         if v != k:
-            ptr[i] = 0
+            hmm.ptr[i] = 0
 
-    mv = create_mv(ptr, n)
+    mv = hmm.create_mv()
 
     return mv
 
