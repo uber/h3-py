@@ -1,6 +1,6 @@
 from libc cimport stdlib
 from cython.view cimport array
-from .h3lib cimport H3int, H3str, isValidCell, isValidDirectedEdge
+from .h3lib cimport H3int, H3str, H3Error, isValidCell, isValidDirectedEdge
 
 cimport h3lib
 
@@ -48,7 +48,10 @@ cpdef H3str int2hex(H3int x):
     return '{:x}'.format(x)
 
 
-class H3ValueError(ValueError):
+class H3Exception(Exception):
+    pass
+
+class H3ValueError(H3Exception, ValueError):
     pass
 
 class H3CellError(H3ValueError):
@@ -62,6 +65,57 @@ class H3ResolutionError(H3ValueError):
 
 class H3DistanceError(H3ValueError):
     pass
+
+cdef enum H3ErrorCodes:
+    E_SUCCESS = 0
+    E_FAILED = 1
+    E_DOMAIN = 2
+    E_LATLNG_DOMAIN = 3
+    E_RES_DOMAIN = 4
+    E_CELL_INVALID = 5
+    E_DIR_EDGE_INVALID = 6
+    E_UNDIR_EDGE_INVALID = 7
+    E_VERTEX_INVALID = 8
+    E_PENTAGON = 9
+    E_DUPLICATE_INPUT = 10
+    E_NOT_NEIGHBORS = 11
+    E_RES_MISMATCH = 12
+    E_MEMORY = 13
+    E_MEMORY_BOUNDS = 14
+    E_OPTION_INVALID = 15
+
+cdef check_for_error(H3Error err):
+    """
+    todo: more descriptive message
+    todo: add error codes as property
+    todo: allow passing in extra args for the error message?
+    """
+
+    d = {
+        E_SUCCESS: None,
+        E_FAILED: H3ValueError(), # H3Exception(),
+        E_DOMAIN: H3ValueError(),
+        E_LATLNG_DOMAIN: H3ValueError(),
+        E_RES_DOMAIN: H3ResolutionError(),
+        E_CELL_INVALID: H3CellError(),
+        E_DIR_EDGE_INVALID: H3EdgeError(),
+        E_UNDIR_EDGE_INVALID: H3EdgeError(),
+        E_VERTEX_INVALID: H3ValueError(),
+        E_PENTAGON: H3ValueError(),
+        E_DUPLICATE_INPUT: H3ValueError(),
+        E_NOT_NEIGHBORS: H3ValueError(),
+        E_RES_MISMATCH: H3ResolutionError(),
+        E_MEMORY: H3Exception(),
+        E_MEMORY_BOUNDS: H3Exception(),
+        E_OPTION_INVALID: H3Exception(),
+    }
+
+    e = d[err]
+
+    if e:
+        raise e
+
+
 
 cdef check_cell(H3int h):
     """ Check if valid H3 "cell" (hexagon or pentagon).

@@ -1,4 +1,4 @@
-from .h3lib cimport H3int, H3str, LatLng
+from .h3lib cimport H3int, H3str, LatLng, H3Error
 
 cdef LatLng deg2coord(double lat, double lng) nogil
 cdef (double, double) coord2deg(LatLng c) nogil
@@ -14,5 +14,6 @@ cdef check_cell(H3int h)
 cdef check_edge(H3int e)
 cdef check_res(int res)
 cdef check_distance(int k)
+cdef check_for_error(H3Error err)
 
 cdef H3int[:] empty_memory_view() # want to drop this if possible

@@ -9,6 +9,7 @@ from .util cimport (
     create_ptr,
     create_mv,
     empty_memory_view, # want to drop this import if possible
+    check_for_error,
 )
 
 from .util import H3ValueError, H3ResolutionError
@@ -51,17 +52,15 @@ cpdef int distance(H3int h1, H3int h2) except -1:
     """
     cdef:
         int64_t distance
-        h3lib.H3Error err
 
     check_cell(h1)
     check_cell(h2)
 
-    err = h3lib.gridDistance(h1, h2, &distance)
-    if err:
-        # todo: do error handling later
-        s = 'Cells are too far apart to compute distance: {} and {}'
-        s = s.format(hex(h1), hex(h2))
-        raise H3ValueError(s)
+    check_for_error(
+        h3lib.gridDistance(h1, h2, &distance)
+    ) # todo: should this raise a distance error?
+
+    # s = 'Cells are too far apart to compute distance: {} and {}'
 
     return distance
 
@@ -70,16 +69,18 @@ cpdef H3int[:] disk(H3int h, int k):
     """
     cdef:
         int64_t n
-        h3lib.H3Error err
 
     check_cell(h)
     check_distance(k)
 
-    # ignoring error for now
-    err = h3lib.maxGridDiskSize(k, &n)
+    check_for_error(
+        h3lib.maxGridDiskSize(k, &n)
+    )
 
     ptr = create_ptr(n) # todo: return a "smart" pointer that knows its length?
-    err = h3lib.gridDisk(h, k, ptr) # ignoring error again!
+    check_for_error(
+        h3lib.gridDisk(h, k, ptr) # ignoring error again!
+    )
     mv = create_mv(ptr, n)
 
     return mv
