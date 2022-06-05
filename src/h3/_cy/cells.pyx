@@ -222,13 +222,17 @@ cpdef H3int[:] compact(const H3int[:] hu):
     for h in hu: ## todo: should we have an array version? would that be faster?
         check_cell(h)
 
-    ptr = create_ptr(len(hu))
-    err = h3lib.compactCells(&hu[0], ptr, len(hu))
-    mv = create_mv(ptr, len(hu))
+    cdef size_t n = len(hu)
+    hmm = H3MemoryManager(n)
+    err = h3lib.compactCells(&hu[0], hmm.ptr, n)
 
     if err:
         # todo: additional error processing
         raise H3ValueError('Could not compact set of hexagons!')
+
+    # todo: mystery: why does this break in the tests when you move it before the error check?
+    # ideally, the create_mv method would be robust to borked data...
+    mv = hmm.create_mv()
 
     return mv
 
