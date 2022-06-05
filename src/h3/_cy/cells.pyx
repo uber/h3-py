@@ -372,9 +372,9 @@ cpdef H3int[:] get_pentagon_indexes(int res):
 
     n = h3lib.pentagonCount()
 
-    ptr = create_ptr(n)
-    err = h3lib.getPentagons(res, ptr)
-    mv = create_mv(ptr, n)
+    hmm = H3MemoryManager(n)
+    err = h3lib.getPentagons(res, hmm.ptr)
+    mv = hmm.create_mv()
 
     return mv
 
@@ -385,9 +385,9 @@ cpdef H3int[:] get_res0_indexes():
 
     n = h3lib.res0CellCount()
 
-    ptr = create_ptr(n)
-    err = h3lib.getRes0Cells(ptr)
-    mv = create_mv(ptr, n)
+    hmm = H3MemoryManager(n)
+    err = h3lib.getRes0Cells(hmm.ptr)
+    mv = hmm.create_mv()
 
     return mv
 
