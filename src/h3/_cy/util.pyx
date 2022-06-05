@@ -66,24 +66,6 @@ class H3ResolutionError(H3ValueError):
 class H3DistanceError(H3ValueError):
     pass
 
-cdef enum H3ErrorCodes:
-    E_SUCCESS = 0
-    E_FAILED = 1
-    E_DOMAIN = 2
-    E_LATLNG_DOMAIN = 3
-    E_RES_DOMAIN = 4
-    E_CELL_INVALID = 5
-    E_DIR_EDGE_INVALID = 6
-    E_UNDIR_EDGE_INVALID = 7
-    E_VERTEX_INVALID = 8
-    E_PENTAGON = 9
-    E_DUPLICATE_INPUT = 10
-    E_NOT_NEIGHBORS = 11
-    E_RES_MISMATCH = 12
-    E_MEMORY = 13
-    E_MEMORY_BOUNDS = 14
-    E_OPTION_INVALID = 15
-
 cdef check_for_error(H3Error err):
     """
     todo: more descriptive message
@@ -92,22 +74,22 @@ cdef check_for_error(H3Error err):
     """
 
     d = {
-        E_SUCCESS: None,
-        E_FAILED: H3ValueError(), # H3Exception(),
-        E_DOMAIN: H3ValueError(),
-        E_LATLNG_DOMAIN: H3ValueError(),
-        E_RES_DOMAIN: H3ResolutionError(),
-        E_CELL_INVALID: H3CellError(),
-        E_DIR_EDGE_INVALID: H3EdgeError(),
-        E_UNDIR_EDGE_INVALID: H3EdgeError(),
-        E_VERTEX_INVALID: H3ValueError(),
-        E_PENTAGON: H3ValueError(),
-        E_DUPLICATE_INPUT: H3ValueError(),
-        E_NOT_NEIGHBORS: H3ValueError(),
-        E_RES_MISMATCH: H3ResolutionError(),
-        E_MEMORY: H3Exception(),
-        E_MEMORY_BOUNDS: H3Exception(),
-        E_OPTION_INVALID: H3Exception(),
+        H3Error.E_SUCCESS: None,
+        H3Error.E_FAILED: H3ValueError(), # H3Exception(),
+        H3Error.E_DOMAIN: H3ValueError(),
+        H3Error.E_LATLNG_DOMAIN: H3ValueError(),
+        H3Error.E_RES_DOMAIN: H3ResolutionError(),
+        H3Error.E_CELL_INVALID: H3CellError(),
+        H3Error.E_DIR_EDGE_INVALID: H3EdgeError(),
+        H3Error.E_UNDIR_EDGE_INVALID: H3EdgeError(),
+        H3Error.E_VERTEX_INVALID: H3ValueError(),
+        H3Error.E_PENTAGON: H3ValueError(),
+        H3Error.E_DUPLICATE_INPUT: H3ValueError(),
+        H3Error.E_NOT_NEIGHBORS: H3ValueError(),
+        H3Error.E_RES_MISMATCH: H3ResolutionError(),
+        H3Error.E_MEMORY: H3Exception(),
+        H3Error.E_MEMORY_BOUNDS: H3Exception(),
+        H3Error.E_OPTION_INVALID: H3Exception(),
     }
 
     e = d[err]
