@@ -106,6 +106,9 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     hmm = H3MemoryManager(n)
 
     # parallel array of cell distances from `h`
+
+    # idea: instead of a memoryview object, have a my_mv object that can return a ptr, but does the correct logic when it has length 0
+    # then can always just return the pointer, instead of the weird &mv[0] syntax
     distances = int_mv(n)
     err = h3lib.gridDiskDistances(h, k, hmm.ptr, &distances[0])
 
@@ -128,18 +131,14 @@ cpdef H3int[:] ring(H3int h, int k):
     check_distance(k)
 
     n = 6*k if k > 0 else 1
-    ptr = create_ptr(n)
+    hmm = H3MemoryManager(n)
 
-    err = h3lib.gridRingUnsafe(h, k, ptr)
-
-    # if we drop into the failure state, we might be tempted to not create
-    # this mv, but creating the mv is exactly what guarantees that we'll free
-    # the memory. context manager would be better here, if we can figure out
-    # how to do that
-    mv = create_mv(ptr, n)
+    err = h3lib.gridRingUnsafe(h, k, hmm.ptr)
 
     if err:
         mv = _ring_fallback(h, k)
+    else:
+        mv = hmm.create_mv()
 
     return mv
 
@@ -165,9 +164,8 @@ cpdef H3int parent(H3int h, res=None) except 0:
 
 cpdef H3int[:] children(H3int h, res=None):
     cdef:
-        H3int child
         h3lib.H3Error err
-        int64_t N
+        int64_t n
 
     check_cell(h)
 
@@ -179,11 +177,11 @@ cpdef H3int[:] children(H3int h, res=None):
         raise H3ResolutionError(msg)
 
     check_res(res)
-    err = h3lib.cellToChildrenSize(h, res, &N)
+    err = h3lib.cellToChildrenSize(h, res, &n)
 
-    ptr = create_ptr(N)
-    err = h3lib.cellToChildren(h, res, ptr)
-    mv = create_mv(ptr, N)
+    hmm = H3MemoryManager(n)
+    err = h3lib.cellToChildren(h, res, hmm.ptr)
+    mv = hmm.create_mv()
 
     return mv
 
