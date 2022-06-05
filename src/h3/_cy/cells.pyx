@@ -95,21 +95,24 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     """
     cdef:
         int64_t n
-        h3lib.H3Error err
 
     check_cell(h)
     check_distance(k)
 
-    err = h3lib.maxGridDiskSize(k, &n)
+    check_for_error(
+        h3lib.maxGridDiskSize(k, &n)
+    )
     # array of h3 cells
     ptr = create_ptr(n)
 
     # array of cell distances from `h`
     dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
     if dist_ptr is NULL:
-        raise MemoryError()
+        raise MemoryError() #todo: H3 memory error?
 
-    err = h3lib.gridDiskDistances(h, k, ptr, dist_ptr)
+    check_for_error(
+        h3lib.gridDiskDistances(h, k, ptr, dist_ptr)
+    )
 
     distances = <int[:n]> dist_ptr
     distances.callback_free_data = stdlib.free
@@ -126,25 +129,22 @@ cpdef H3int[:] ring(H3int h, int k):
     """ Return cells at grid distance `== k` from `h`.
     Collection is "hollow" for k >= 1.
     """
-    cdef:
-        h3lib.H3Error err
-
     check_cell(h)
     check_distance(k)
 
     n = 6*k if k > 0 else 1
     ptr = create_ptr(n)
 
-    err = h3lib.gridRingUnsafe(h, k, ptr)
-
-    # if we drop into the failure state, we might be tempted to not create
-    # this mv, but creating the mv is exactly what guarantees that we'll free
-    # the memory. context manager would be better here, if we can figure out
-    # how to do that
-    mv = create_mv(ptr, n)
-
-    if err:
+    try:
+        check_for_error(
+            h3lib.gridRingUnsafe(h, k, ptr)
+        )
+    except H3ValueError:
+        mv = create_mv(ptr, n) # need to create this to guarantee memory is freed.
+        # better done with a Cython object, i think.
         mv = _ring_fallback(h, k)
+    else:
+        mv = create_mv(ptr, n)
 
     return mv
 
