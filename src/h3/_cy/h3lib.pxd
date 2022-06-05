@@ -1,7 +1,6 @@
 from cpython cimport bool
 from libc.stdint cimport uint64_t, int64_t, uint32_t
 
-ctypedef uint64_t H3int
 ctypedef uint32_t H3Error
 ctypedef basestring H3str
 
@@ -10,7 +9,7 @@ cdef extern from "h3api.h":
     cdef int H3_VERSION_MINOR
     cdef int H3_VERSION_PATCH
 
-    ctypedef uint64_t H3Index
+    ctypedef uint64_t H3int "H3Index"
 
     ctypedef struct LatLng:
         double lat  # in radians
@@ -48,45 +47,45 @@ cdef extern from "h3api.h":
         int numHoles
         GeoLoop *holes
 
-    int isValidCell(H3Index h) nogil
-    int isPentagon(H3Index h) nogil
-    int isResClassIII(H3Index h) nogil
-    int isValidDirectedEdge(H3Index edge) nogil
+    int isValidCell(H3int h) nogil
+    int isPentagon(H3int h) nogil
+    int isResClassIII(H3int h) nogil
+    int isValidDirectedEdge(H3int edge) nogil
 
     double degsToRads(double degrees) nogil
     double radsToDegs(double radians) nogil
 
-    int getResolution(H3Index h) nogil
-    int getBaseCellNumber(H3Index h) nogil
+    int getResolution(H3int h) nogil
+    int getBaseCellNumber(H3int h) nogil
 
-    H3Error latLngToCell(const LatLng *g, int res, H3Index *out) nogil
-    H3Error cellToLatLng(H3Index h, LatLng *) nogil
-    H3Error gridDistance(H3Index h1, H3Index h2, int64_t *distance) nogil
+    H3Error latLngToCell(const LatLng *g, int res, H3int *out) nogil
+    H3Error cellToLatLng(H3int h, LatLng *) nogil
+    H3Error gridDistance(H3int h1, H3int h2, int64_t *distance) nogil
 
     H3Error maxGridDiskSize(int k, int64_t *out) nogil # num/out/N?
-    H3Error gridDisk(H3Index h, int k, H3Index *out) nogil
+    H3Error gridDisk(H3int h, int k, H3int *out) nogil
 
-    H3Error cellToParent(     H3Index h, int parentRes, H3Index *parent) nogil
-    H3Error cellToCenterChild(H3Index h, int childRes,  H3Index *child) nogil
+    H3Error cellToParent(     H3int h, int parentRes, H3int *parent) nogil
+    H3Error cellToCenterChild(H3int h, int childRes,  H3int *child) nogil
 
-    H3Error cellToChildrenSize(H3Index h, int childRes, int64_t *num) nogil # num/out/N?
-    H3Error cellToChildren(    H3Index h, int childRes, H3Index *children) nogil
+    H3Error cellToChildrenSize(H3int h, int childRes, int64_t *num) nogil # num/out/N?
+    H3Error cellToChildren(    H3int h, int childRes, H3int *children) nogil
 
     H3Error compactCells(
-        const H3Index *cells_u,
-              H3Index *cells_c,
+        const H3int *cells_u,
+              H3int *cells_c,
         const int num_u
     ) nogil
     H3Error uncompactCellsSize(
-        const H3Index *cells_c,
+        const H3int *cells_c,
         const int64_t    num_c,
         const int res,
         int64_t *num_u
     ) nogil
     H3Error uncompactCells(
-        const H3Index *cells_c,
+        const H3int *cells_c,
         const int        num_c,
-        H3Index       *cells_u,
+        H3int       *cells_u,
         const int        num_u,
         const int res
     ) nogil
@@ -94,70 +93,70 @@ cdef extern from "h3api.h":
     H3Error getNumCells(int res, int64_t *out) nogil
     int pentagonCount() nogil
     int res0CellCount() nogil
-    H3Error getPentagons(int res, H3Index *out) nogil
-    H3Error getRes0Cells(H3Index *out) nogil
+    H3Error getPentagons(int res, H3int *out) nogil
+    H3Error getRes0Cells(H3int *out) nogil
 
-    H3Error gridPathCellsSize(H3Index start, H3Index end, int64_t *size) nogil
-    H3Error gridPathCells(H3Index start, H3Index end, H3Index *out) nogil
+    H3Error gridPathCellsSize(H3int start, H3int end, int64_t *size) nogil
+    H3Error gridPathCells(H3int start, H3int end, H3int *out) nogil
 
     H3Error getHexagonAreaAvgKm2(int res, double *out) nogil
     H3Error getHexagonAreaAvgM2(int res, double *out) nogil
 
-    H3Error cellAreaRads2(H3Index h, double *out) nogil
-    H3Error cellAreaKm2(H3Index h, double *out) nogil
-    H3Error cellAreaM2(H3Index h, double *out) nogil
+    H3Error cellAreaRads2(H3int h, double *out) nogil
+    H3Error cellAreaKm2(H3int h, double *out) nogil
+    H3Error cellAreaM2(H3int h, double *out) nogil
 
-    H3Error maxFaceCount(H3Index h, int *out) nogil
-    H3Error getIcosahedronFaces(H3Index h3, int *out) nogil
+    H3Error maxFaceCount(H3int h, int *out) nogil
+    H3Error getIcosahedronFaces(H3int h3, int *out) nogil
 
-    H3Error cellToLocalIj(H3Index origin, H3Index h3, uint32_t mode, CoordIJ *out) nogil
-    H3Error localIjToCell(H3Index origin, const CoordIJ *ij, uint32_t mode, H3Index *out) nogil
+    H3Error cellToLocalIj(H3int origin, H3int h3, uint32_t mode, CoordIJ *out) nogil
+    H3Error localIjToCell(H3int origin, const CoordIJ *ij, uint32_t mode, H3int *out) nogil
 
-    H3Error gridDiskDistances(H3Index origin, int k, H3Index *out, int *distances) nogil
-    H3Error gridRingUnsafe(H3Index origin, int k, H3Index *out) nogil
+    H3Error gridDiskDistances(H3int origin, int k, H3int *out, int *distances) nogil
+    H3Error gridRingUnsafe(H3int origin, int k, H3int *out) nogil
 
-    H3Error areNeighborCells(H3Index origin, H3Index destination, int *out) nogil
-    H3Error cellsToDirectedEdge(H3Index origin, H3Index destination, H3Index *out) nogil
-    H3Error getDirectedEdgeOrigin(H3Index edge, H3Index *out) nogil
-    H3Error getDirectedEdgeDestination(H3Index edge, H3Index *out) nogil
-    H3Error originToDirectedEdges(H3Index origin, H3Index *edges) nogil
+    H3Error areNeighborCells(H3int origin, H3int destination, int *out) nogil
+    H3Error cellsToDirectedEdge(H3int origin, H3int destination, H3int *out) nogil
+    H3Error getDirectedEdgeOrigin(H3int edge, H3int *out) nogil
+    H3Error getDirectedEdgeDestination(H3int edge, H3int *out) nogil
+    H3Error originToDirectedEdges(H3int origin, H3int *edges) nogil
 
     H3Error getHexagonEdgeLengthAvgKm(int res, double *out) nogil
     H3Error getHexagonEdgeLengthAvgM(int res, double *out) nogil
 
-    H3Error exactEdgeLengthRads(H3Index edge, double *out) nogil
-    H3Error exactEdgeLengthKm(H3Index edge, double *out) nogil
-    H3Error exactEdgeLengthM(H3Index edge, double *out) nogil
+    H3Error exactEdgeLengthRads(H3int edge, double *out) nogil
+    H3Error exactEdgeLengthKm(H3int edge, double *out) nogil
+    H3Error exactEdgeLengthM(H3int edge, double *out) nogil
 
-    H3Error cellToBoundary(H3Index h3, CellBoundary *gp) nogil
-    H3Error directedEdgeToBoundary(H3Index edge, CellBoundary *gb) nogil
+    H3Error cellToBoundary(H3int h3, CellBoundary *gp) nogil
+    H3Error directedEdgeToBoundary(H3int edge, CellBoundary *gb) nogil
 
     double distanceRads(const LatLng *a, const LatLng *b) nogil
     double distanceKm(const LatLng *a, const LatLng *b) nogil
     double distanceM(const LatLng *a, const LatLng *b) nogil
 
-    H3Error cellsToLinkedMultiPolygon(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
+    H3Error cellsToLinkedMultiPolygon(const H3int *h3Set, const int numHexes, LinkedGeoPolygon *out)
     void destroyLinkedMultiPolygon(LinkedGeoPolygon *polygon)
 
     H3Error maxPolygonToCellsSize(const GeoPolygon *geoPolygon, int res, uint32_t flags, uint64_t *count)
-    H3Error polygonToCells(const GeoPolygon *geoPolygon, int res, uint32_t flags, H3Index *out)
+    H3Error polygonToCells(const GeoPolygon *geoPolygon, int res, uint32_t flags, H3int *out)
 
     # ctypedef struct GeoMultiPolygon:
     #     int numPolygons
     #     GeoPolygon *polygons
 
-    # int hexRange(H3Index origin, int k, H3Index *out)
+    # int hexRange(H3int origin, int k, H3int *out)
 
-    # int hexRangeDistances(H3Index origin, int k, H3Index *out, int *distances)
+    # int hexRangeDistances(H3int origin, int k, H3int *out, int *distances)
 
-    # int hexRanges(H3Index *h3Set, int length, int k, H3Index *out)
+    # int hexRanges(H3int *h3Set, int length, int k, H3int *out)
 
-    # void h3SetToLinkedGeo(const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out)
+    # void h3SetToLinkedGeo(const H3int *h3Set, const int numHexes, LinkedGeoPolygon *out)
 
     # void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
 
-    # H3Index stringToH3(const char *str)
+    # H3int stringToH3(const char *str)
 
-    # void h3ToString(H3Index h, char *str, size_t sz)
+    # void h3ToString(H3int h, char *str, size_t sz)
 
-    # void getH3IndexesFromUnidirectionalEdge(H3Index edge, H3Index *originDestination)
+    # void getH3intesFromUnidirectionalEdge(H3int edge, H3int *originDestination)
