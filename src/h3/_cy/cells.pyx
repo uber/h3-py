@@ -11,7 +11,7 @@ from .util cimport (
     empty_memory_view, # want to drop this import if possible
 )
 
-from .memory cimport H3MemoryManager
+from .memory cimport H3MemoryManager, int_mv
 
 from .util import H3ValueError, H3ResolutionError
 
@@ -97,6 +97,7 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     cdef:
         int64_t n
         h3lib.H3Error err
+        int[:] distances  ## todo: weird, this needs to be specified to avoid errors. cython bug?
 
     check_cell(h)
     check_distance(k)
@@ -104,15 +105,9 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     err = h3lib.maxGridDiskSize(k, &n)
     hmm = H3MemoryManager(n)
 
-    # array of cell distances from `h`
-    dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
-    if dist_ptr is NULL:
-        raise MemoryError()
-
-    err = h3lib.gridDiskDistances(h, k, hmm.ptr, dist_ptr)
-
-    distances = <int[:n]> dist_ptr
-    distances.callback_free_data = stdlib.free
+    # parallel array of cell distances from `h`
+    distances = int_mv(n)
+    err = h3lib.gridDiskDistances(h, k, hmm.ptr, &distances[0])
 
     for i,v in enumerate(distances):
         if v != k:
