@@ -5,9 +5,9 @@ from .util cimport (
     check_cell,
     check_edge,
     check_res,
-    create_ptr,
-    create_mv,
 )
+
+from .memory cimport H3MemoryManager
 
 from .util import H3ValueError
 
@@ -75,9 +75,9 @@ cpdef H3int[:] edges_from_cell(H3int origin):
     """
     check_cell(origin)
 
-    ptr = create_ptr(6)
-    h3lib.originToDirectedEdges(origin, ptr)
-    mv = create_mv(ptr, 6)
+    hmm = H3MemoryManager(6)
+    h3lib.originToDirectedEdges(origin, hmm.ptr)
+    mv = hmm.create_mv()
 
     return mv
 
