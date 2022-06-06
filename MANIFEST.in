@@ -19,6 +19,10 @@ include src/h3lib/README.md
 include src/h3lib/VERSION
 include src/h3lib/CMakeLists.txt
 
+graft src/h3lib/scripts
+graft src/h3lib/examples
+graft src/h3lib/src/apps
+
 graft src/h3lib/cmake
 graft src/h3lib/src/h3lib
 exclude MANIFEST.in
