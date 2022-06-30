@@ -6,7 +6,7 @@ todo: use module docs to describe new error system
 - error codes from C
 """
 
-from .h3lib cimport H3Error
+from .h3lib cimport H3ErrorCodes
 
 class H3Exception(Exception):
     pass
@@ -34,22 +34,22 @@ cdef check_for_error(H3Error err):
     """
 
     d = {
-        H3Error.E_SUCCESS: None,
-        H3Error.E_FAILED: H3ValueError(), # H3Exception(),
-        H3Error.E_DOMAIN: H3ValueError(),
-        H3Error.E_LATLNG_DOMAIN: H3ValueError(),
-        H3Error.E_RES_DOMAIN: H3ResolutionError(),
-        H3Error.E_CELL_INVALID: H3CellError(),
-        H3Error.E_DIR_EDGE_INVALID: H3EdgeError(),
-        H3Error.E_UNDIR_EDGE_INVALID: H3EdgeError(),
-        H3Error.E_VERTEX_INVALID: H3ValueError(),
-        H3Error.E_PENTAGON: H3ValueError(),
-        H3Error.E_DUPLICATE_INPUT: H3ValueError(),
-        H3Error.E_NOT_NEIGHBORS: H3ValueError(),
-        H3Error.E_RES_MISMATCH: H3ResolutionError(),
-        H3Error.E_MEMORY: H3Exception(),
-        H3Error.E_MEMORY_BOUNDS: H3Exception(),
-        H3Error.E_OPTION_INVALID: H3Exception(),
+        H3ErrorCodes.E_SUCCESS: None,
+        H3ErrorCodes.E_FAILED: H3ValueError(), # H3Exception(),
+        H3ErrorCodes.E_DOMAIN: H3ValueError(),
+        H3ErrorCodes.E_LATLNG_DOMAIN: H3ValueError(),
+        H3ErrorCodes.E_RES_DOMAIN: H3ResolutionError(),
+        H3ErrorCodes.E_CELL_INVALID: H3CellError(),
+        H3ErrorCodes.E_DIR_EDGE_INVALID: H3EdgeError(),
+        H3ErrorCodes.E_UNDIR_EDGE_INVALID: H3EdgeError(),
+        H3ErrorCodes.E_VERTEX_INVALID: H3ValueError(),
+        H3ErrorCodes.E_PENTAGON: H3ValueError(),
+        H3ErrorCodes.E_DUPLICATE_INPUT: H3ValueError(),
+        H3ErrorCodes.E_NOT_NEIGHBORS: H3ValueError(),
+        H3ErrorCodes.E_RES_MISMATCH: H3ResolutionError(),
+        H3ErrorCodes.E_MEMORY: H3Exception(),
+        H3ErrorCodes.E_MEMORY_BOUNDS: H3Exception(),
+        H3ErrorCodes.E_OPTION_INVALID: H3Exception(),
     }
 
     e = d[err]

@@ -2,10 +2,11 @@ from cpython cimport bool
 from libc.stdint cimport uint64_t, int64_t, uint32_t
 
 ctypedef uint64_t H3int
+ctypedef uint32_t H3Error
 ctypedef basestring H3str
 
 # todo: extern version of this?
-cdef enum H3Error:
+cdef enum H3ErrorCodes:
     E_SUCCESS = 0
     E_FAILED = 1
     E_DOMAIN = 2
