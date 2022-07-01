@@ -70,7 +70,7 @@ class H3ValueError(H3Exception, ValueError):
 
 error_dict = {
     H3ErrorCodes.E_SUCCESS: None,
-    H3ErrorCodes.E_FAILED:              H3Exception,
+    H3ErrorCodes.E_FAILED:              H3FailedError,
     H3ErrorCodes.E_DOMAIN:              H3ValueError,
     H3ErrorCodes.E_LATLNG_DOMAIN:       H3ValueError,
     H3ErrorCodes.E_RES_DOMAIN:          H3ResDomainError,
