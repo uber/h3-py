@@ -1,5 +1,5 @@
 cimport h3lib
-from .h3lib cimport bool, int64_t, H3int
+from .h3lib cimport bool, int64_t, H3int, H3ErrorCodes
 from libc cimport stdlib
 
 from .util cimport (
@@ -135,16 +135,18 @@ cpdef H3int[:] ring(H3int h, int k):
     n = 6*k if k > 0 else 1
     ptr = create_ptr(n)
 
-    try:
-        check_for_error(
-            h3lib.gridRingUnsafe(h, k, ptr)
-        )
-    except H3PentagonError:
-        mv = create_mv(ptr, n) # need to create this to guarantee memory is freed.
+    err = h3lib.gridRingUnsafe(h, k, ptr)
+
+    if err == H3ErrorCodes.E_SUCCESS:
+        mv = create_mv(ptr, n)
+    elif err == H3ErrorCodes.E_PENTAGON:
+        mv = create_mv(ptr, n)  # need to create this to guarantee memory is freed.
         # better done with a Cython object, i think.
         mv = _ring_fallback(h, k)
     else:
-        mv = create_mv(ptr, n)
+        mv = create_mv(ptr, n)  # need to create this to guarantee memory is freed.
+        # definitely better done with a Cython "memory manager" object.
+        check_for_error(err)
 
     return mv
 
