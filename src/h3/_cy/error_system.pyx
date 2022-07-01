@@ -94,6 +94,7 @@ cpdef code_to_exception(H3Error err):
     return ex
 
 
+# todo: rename to `raise_if_error`
 cdef check_for_error(H3Error err):
     """
     todo: more descriptive message
@@ -102,6 +103,11 @@ cdef check_for_error(H3Error err):
     """
 
     ex = code_to_exception(err)
+
+    # pass along the C error code
+    # todo: add a test
+    if ex == H3UnrecognizedException:
+        ex = H3UnrecognizedException(err)
 
     if ex:
         raise ex
