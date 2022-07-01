@@ -137,13 +137,13 @@ def test_parent():
 
 
 def test_parent_err():
-    ### Test 1
-    h = '8075fffffffffff' # geo_to_h3(0,0,0)
+    # Test 1
+    h = '8075fffffffffff'  # geo_to_h3(0,0,0)
 
     with pytest.raises(H3ResDomainError):
         h3.h3_to_parent(h)
 
-    ### Test 2
+    # Test 2
     try:
         h3.h3_to_parent(h)
     except Exception as e:

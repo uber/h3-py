@@ -349,9 +349,6 @@ cpdef H3int[:] line(H3int start, H3int end):
     cdef:
         int64_t n
 
-    check_cell(start)
-    check_cell(end)
-
     # todo: can we segfault here with invalid inputs?
     # Can we trust the c library to validate the start/end cells?
     # probably applies to all size/work pairs of functions...
@@ -403,12 +400,14 @@ cpdef get_faces(H3int h):
 
     check_cell(h)
 
+    # todo
     err = h3lib.maxFaceCount(h, &n) #ignore error for now
 
     cdef int* ptr = <int*> stdlib.calloc(n, sizeof(int))
     if (n > 0) and (not ptr):
         raise MemoryError()
 
+    # todo
     err = h3lib.getIcosahedronFaces(h, ptr) # handle error?
 
     faces = <int[:n]> ptr
