@@ -11,7 +11,7 @@ from .util cimport (
     empty_memory_view, # want to drop this import if possible
 )
 
-from .error_system cimport check_for_error, code_to_exception
+from .error_system cimport check_for_error
 from .error_system import H3PentagonError, H3ResDomainError, H3ResMismatchError, H3Exception
 
 # todo: add notes about Cython exception handling
@@ -160,9 +160,7 @@ cpdef H3int parent(H3int h, res=None) except 0:
     if res is None:
         res = resolution(h) - 1
 
-    ex = code_to_exception(
-        h3lib.cellToParent(h, res, &parent)
-    )
+    err = h3lib.cellToParent(h, res, &parent)
 
     # note: trying out an Exception idiom here to see if it works for us
     # note: this can get you things like H3UnrecognizedException: Invalid parent resolution 10 for cell 0x8928308280fffff.
@@ -170,10 +168,11 @@ cpdef H3int parent(H3int h, res=None) except 0:
     # maybe need some way to indicate when extra info is expected (e.g. a message or unknown error code)
     # note/question: potential optimization benefit from not chaining function calls?
     # update: maybe not since UnrecognizedH3ErrorCode
-    if ex:
+    if err:
         msg = 'Invalid parent resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        raise ex(msg)
+        check_for_error(err, msg)
+        # todo: some context manager way to do this?
 
     return parent
 
@@ -188,21 +187,17 @@ cpdef H3int[:] children(H3int h, res=None):
     if res is None:
         res = resolution(h) + 1
 
-    ex = code_to_exception(
-        h3lib.cellToChildrenSize(h, res, &N)
-    )
-    if ex:
+    err = h3lib.cellToChildrenSize(h, res, &N)
+
+    if err:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-
-        # todo: question: are the extra messages *that* necessary/helpful?
-        raise ex(msg)
+        check_for_error(err, msg)
 
     ptr = create_ptr(N)
-    check_for_error(
-        h3lib.cellToChildren(h, res, ptr)
-    )
+    err = h3lib.cellToChildren(h, res, ptr)
     mv = create_mv(ptr, N)
+    check_for_error(err)  # needs to be after, to ensure memory is freed!
 
     return mv
 
