@@ -110,9 +110,7 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     if dist_ptr is NULL:
         raise MemoryError() #todo: H3 memory error?
 
-    check_for_error(
-        h3lib.gridDiskDistances(h, k, ptr, dist_ptr)
-    )
+    err = h3lib.gridDiskDistances(h, k, ptr, dist_ptr)
 
     distances = <int[:n]> dist_ptr
     distances.callback_free_data = stdlib.free
@@ -122,6 +120,9 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
             ptr[i] = 0
 
     mv = create_mv(ptr, n)
+
+    check_for_error(err)  # note: need to move this down here to make sure ptr gets freed
+    # again, easier with a memory manager object
 
     return mv
 
