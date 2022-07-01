@@ -244,9 +244,8 @@ cpdef H3int[:] compact(const H3int[:] hu):
     err = h3lib.compactCells(&hu[0], ptr, len(hu))
     mv = create_mv(ptr, len(hu))
 
-    if err:
-        # todo: additional error processing
-        raise H3Exception('Could not compact set of hexagons!')
+    # todo: fix weird error ordering due to memory freeing...
+    check_for_error(err)
 
     return mv
 
@@ -282,31 +281,31 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     )
     mv = create_mv(ptr, N)
 
-    if err:
-        raise H3Exception('Could not uncompact set of hexagons!')
+    # todo (idiom): this is kind of nice...
+    # todo: fix weird error ordering due to memory freeing...
+    check_for_error(err)
 
     return mv
 
 
 cpdef int64_t num_hexagons(int resolution) except -1:
-    check_res(resolution)
     cdef:
-        h3lib.H3Error err
         int64_t num_cells
 
-    err = h3lib.getNumCells(resolution, &num_cells)
+    check_for_error(
+        h3lib.getNumCells(resolution, &num_cells)
+    )
 
     return num_cells
 
 
 cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
     cdef:
-        h3lib.H3Error err
         double area
 
-    check_res(resolution)
-
-    err = h3lib.getHexagonAreaAvgKm2(resolution, &area)
+    check_for_error(
+        h3lib.getHexagonAreaAvgKm2(resolution, &area)
+    )
 
     # todo: multiple units
     convert = {
@@ -379,6 +378,7 @@ cpdef H3int[:] get_pentagon_indexes(int res):
 
     n = h3lib.pentagonCount()
 
+    # todo note: this is the tricky situation where we need the memory manager
     ptr = create_ptr(n)
     err = h3lib.getPentagons(res, ptr)
     mv = create_mv(ptr, n)
@@ -392,6 +392,7 @@ cpdef H3int[:] get_res0_indexes():
 
     n = h3lib.res0CellCount()
 
+    # todo note: this is the tricky situation where we need the memory manager
     ptr = create_ptr(n)
     err = h3lib.getRes0Cells(ptr)
     mv = create_mv(ptr, n)
