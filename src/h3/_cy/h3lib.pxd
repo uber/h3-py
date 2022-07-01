@@ -1,5 +1,5 @@
 from cpython cimport bool
-from libc.stdint cimport uint64_t, int64_t, uint32_t
+from libc.stdint cimport uint32_t, uint64_t, int64_t
 
 ctypedef basestring H3str  # todo: do we really need this str one?
 
