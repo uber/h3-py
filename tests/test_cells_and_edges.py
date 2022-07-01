@@ -2,6 +2,7 @@ import h3
 import pytest
 
 from h3 import (
+    H3FailedError,
     H3ResDomainError,
     H3DomainError,
     H3ResMismatchError,
@@ -605,7 +606,9 @@ def test_to_local_ij_error():
 
     # error if we cross a face
     nb = h3.hex_ring(h, k=2)
-    with pytest.raises(H3PentagonError):
+
+    # todo: should this be the E_TOO_FAR guy?
+    with pytest.raises(H3FailedError):
         [h3.experimental_h3_to_local_ij(h, p) for p in nb]
 
     # should be fine if we do not cross a face
@@ -621,7 +624,7 @@ def test_from_local_ij_error():
 
     baddies = [(1, -1), (-1, 1), (-1, -1)]
     for i, j in baddies:
-        with pytest.raises(H3PentagonError):
+        with pytest.raises(H3FailedError):
             h3.experimental_local_ij_to_h3(h, i, j)
 
     # inverting output should give good data

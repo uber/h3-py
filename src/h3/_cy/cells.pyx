@@ -222,6 +222,8 @@ cpdef H3int center_child(H3int h, res=None) except 0:
         msg = msg.format(res, hex(h))
         check_for_error(err, msg)
 
+    # todo: can we do this with something like a context manager?
+
     return child
 
 
@@ -401,15 +403,17 @@ cpdef get_faces(H3int h):
 
     check_cell(h)
 
-    # todo
-    err = h3lib.maxFaceCount(h, &n) #ignore error for now
+    check_for_error(
+        h3lib.maxFaceCount(h, &n)
+    )
 
     cdef int* ptr = <int*> stdlib.calloc(n, sizeof(int))
     if (n > 0) and (not ptr):
         raise MemoryError()
 
-    # todo
-    err = h3lib.getIcosahedronFaces(h, ptr) # handle error?
+    check_for_error(
+        h3lib.getIcosahedronFaces(h, ptr)
+    )
 
     faces = <int[:n]> ptr
     faces = {f for f in faces if f >= 0}
@@ -420,25 +424,22 @@ cpdef get_faces(H3int h):
 
 cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
     cdef:
-        int flag
         h3lib.CoordIJ c
 
     check_cell(origin)
     check_cell(h)
 
-    # todo
-    flag = h3lib.cellToLocalIj(origin, h, 0, &c)
-
-    if flag != 0:
-        s = "Couldn't find local (i,j) between cells {} and {}."
-        s = s.format(hex(origin), hex(h))
-        raise H3PentagonError(s)
+    # todo: context manager for this idiom?
+    err = h3lib.cellToLocalIj(origin, h, 0, &c)
+    if err != 0:
+        msg = "Couldn't find local (i,j) between cells {} and {}."
+        msg = msg.format(hex(origin), hex(h))
+        check_for_error(err, msg)
 
     return c.i, c.j
 
 cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
     cdef:
-        int flag
         h3lib.CoordIJ c
         H3int out
 
@@ -446,12 +447,12 @@ cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
 
     c.i, c.j = i, j
 
-    # todo
-    flag = h3lib.localIjToCell(origin, &c, 0, &out)
+    # todo: context manager for this idiom?
+    err = h3lib.localIjToCell(origin, &c, 0, &out)
 
-    if flag != 0:
-        s = "Couldn't find cell at local ({},{}) from cell {}."
-        s = s.format(i, j, hex(origin))
-        raise H3PentagonError(s)
+    if err != 0:
+        msg = "Couldn't find cell at local ({},{}) from cell {}."
+        msg = msg.format(i, j, hex(origin))
+        check_for_error(err, msg)
 
     return out
