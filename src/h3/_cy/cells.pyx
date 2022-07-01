@@ -11,7 +11,7 @@ from .util cimport (
     empty_memory_view, # want to drop this import if possible
 )
 
-from .error_system cimport check_for_error, code_to_exception, raise_with_msg
+from .error_system cimport check_for_error, code_to_exception
 from .error_system import H3PentagonError, H3ResDomainError, H3ResMismatchError, H3Exception
 
 # todo: add notes about Cython exception handling
@@ -220,7 +220,7 @@ cpdef H3int center_child(H3int h, res=None) except 0:
     if err:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        raise_with_msg(err, msg)
+        check_for_error(err, msg)
 
     return child
 
@@ -344,7 +344,7 @@ cdef couldnt_find_line(err, start, end):
     msg = "Couldn't find line between cells {} and {}"
     msg = msg.format(hex(start), hex(end))
 
-    raise_with_msg(err, msg)
+    check_for_error(err, msg)
 
 cpdef H3int[:] line(H3int start, H3int end):
     cdef:

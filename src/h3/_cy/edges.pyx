@@ -15,7 +15,7 @@ cpdef bool are_neighbors(H3int h1, H3int h2):
 
     err = h3lib.areNeighborCells(h1, h2, &out)
 
-    # note: we are specifically not raising an error here, and just
+    # note: we are intentionally not raising an error here, and just
     # returning false.
     # todo: is this choice consistent across the Python and C libs?
     if err:

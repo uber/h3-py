@@ -67,7 +67,7 @@ def this_error_as_e(obj):
     """
     yield obj
 
-
+# H3ErrorCodeBaseException
 class H3Exception(Exception):
     """ Base H3 exception class.
 
@@ -110,7 +110,7 @@ with this_error_as_e(H3ValueError) as e:
     class H3ResMismatchError(e): ...
     class H3OptionInvalidError(e): ...
 
-
+# class UnknownH3ErrorCode
 class UnrecognizedH3ErrorCode(Exception):
     """
     Indicates that the h3-py Python bindings have received an
@@ -122,10 +122,11 @@ class UnrecognizedH3ErrorCode(Exception):
     """
     ...
 
-
-# Map C int error code to h3-py concrete exception
+"""
+Map C int error code to h3-py concrete exception
+We intentionally omit E_SUCCESS.
+"""
 error_dict = {
-    # E_SUCCESS:           None,
     E_FAILED:              H3FailedError,
     E_DOMAIN:              H3DomainError,
     E_LATLNG_DOMAIN:       H3LatLngDomainError,
@@ -157,26 +158,12 @@ cpdef code_to_exception(H3Error err):
         raise UnrecognizedH3ErrorCode(err)
 
 
-cdef check_for_error(H3Error err):
-    """
-    todo: more descriptive message
-    todo: add error codes as property
-    todo: allow passing in extra args for the error message?
-    """
-
+SENTINEL_VAL = '__h3-py_sentinel__'
+cdef check_for_error(H3Error err, str msg=SENTINEL_VAL):
     ex = code_to_exception(err)
 
-    if ex is not None:
-        raise ex
-
-
-cdef raise_with_msg(H3Error err, str msg):
-    ex = code_to_exception(err)
-
-    if ex is None:
-        pass
-    # elif ex == H3UnrecognizedException:
-    #     msg = 'Code: {}, msg: {}'.format(err, msg)
-    #     raise H3UnrecognizedException(msg)
-    else:
-        raise ex(msg)
+    if ex:
+        if msg == SENTINEL_VAL:
+            raise ex
+        else:
+            raise ex(msg)
