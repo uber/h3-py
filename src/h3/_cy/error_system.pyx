@@ -67,9 +67,6 @@ class H3OptionInvalidError(H3Exception):
 class H3ValueError(H3Exception, ValueError):
     pass
 
-class H3CellError(H3ValueError):
-    pass
-
 class H3DistanceError(H3ValueError):
     pass
 
@@ -79,7 +76,7 @@ error_dict = {
     H3ErrorCodes.E_DOMAIN:              H3ValueError,
     H3ErrorCodes.E_LATLNG_DOMAIN:       H3ValueError,
     H3ErrorCodes.E_RES_DOMAIN:          H3ResDomainError,
-    H3ErrorCodes.E_CELL_INVALID:        H3CellError,
+    H3ErrorCodes.E_CELL_INVALID:        H3CellInvalidError,
     H3ErrorCodes.E_DIR_EDGE_INVALID:    H3DirEdgeInvalidError,
     H3ErrorCodes.E_UNDIR_EDGE_INVALID:  H3UndirEdgeInvalidError,
     H3ErrorCodes.E_VERTEX_INVALID:      H3ValueError,

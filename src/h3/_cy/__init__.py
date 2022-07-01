@@ -74,7 +74,6 @@ from .util import (
 
 from .error_system import (
     H3ValueError,
-    H3CellError,
     H3DistanceError,
 
     H3Exception,

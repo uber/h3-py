@@ -7,9 +7,9 @@ cimport h3lib
 from .error_system import (
     H3ResDomainError,
     H3DirEdgeInvalidError,
+    H3CellInvalidError,
 
     H3ValueError,
-    H3CellError,
     H3DistanceError,
 )
 
@@ -72,7 +72,7 @@ cdef check_cell(H3int h):
     `str` inputs.
     """
     if isValidCell(h) == 0:
-        raise H3CellError('Integer is not a valid H3 cell: {}'.format(hex(h)))
+        raise H3CellInvalidError('Integer is not a valid H3 cell: {}'.format(hex(h)))
 
 cdef check_edge(H3int e):
     if isValidDirectedEdge(e) == 0:

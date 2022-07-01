@@ -5,10 +5,10 @@ from h3 import (
     H3ResDomainError,
     H3ResMismatchError,
     H3DirEdgeInvalidError,
+    H3CellInvalidError,
 
     H3Exception,
     H3ValueError,
-    H3CellError,
     H3DistanceError,
 )
 
@@ -117,7 +117,7 @@ def test8():
     assert not h3.h3_is_valid(h_bad)
 
     # other methods should validate and raise exception if bad input
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_get_resolution(h_bad)
 
 
@@ -358,31 +358,31 @@ def test_edge_boundary():
 def test_validation():
     h = '8a28308280fffff'  # invalid cell
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_get_base_cell(h)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_get_resolution(h)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_to_parent(h, 9)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_distance(h, h)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.k_ring(h, 1)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.hex_ring(h, 1)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_to_children(h, 11)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.compact({h})
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.uncompact({h}, 10)
 
 
@@ -398,16 +398,16 @@ def test_validation2():
 def test_validation_geo():
     h = '8a28308280fffff'  # invalid cell
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_to_geo(h)
 
     with pytest.raises(H3ResDomainError):
         h3.geo_to_h3(0, 0, 17)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_to_geo_boundary(h)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_indexes_are_neighbors(h, h)
 
 
@@ -530,7 +530,7 @@ def test_uncompact_cell_input():
     # inputting a single cell string can raise weird errors.
 
     # Ensure we get a reasonably helpful answer
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.uncompact('8001fffffffffff', 1)
 
 
@@ -564,7 +564,7 @@ def test_get_res0_indexes():
 def test_get_faces_invalid():
     h = '8a28308280fffff'  # invalid cell
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_get_faces(h)
 
 
