@@ -40,8 +40,6 @@ with err_block(H3Exception) as e:
     class H3MemoryError(e, MemoryError): ...
     class H3UnrecognizedException(e): ...
 
-
-with err_block(H3Exception) as e:
     class H3FailedError(e):
         h3_error_code = ec.E_FAILED
 
@@ -124,7 +122,6 @@ cpdef code_to_exception(H3Error err):
     return ex
 
 
-# todo: rename to `raise_if_error`
 cdef check_for_error(H3Error err):
     """
     todo: more descriptive message
