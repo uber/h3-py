@@ -80,62 +80,30 @@ class H3OptionInvalidError(H3Exception):
     h3_error_code = H3ErrorCodes.E_OPTION_INVALID
 
 
-h3_exception_list = [
-    H3Exception,
-    H3UnrecognizedException,
-    H3FailedError,
-    H3DomainError,
-    H3LatLngDomainError,
-    H3ResDomainError,
-    H3CellInvalidError,
-    H3DirEdgeInvalidError,
-    H3UndirEdgeInvalidError,
-    H3VertexInvalidError,
-    H3PentagonError,
-    H3DuplicateInputError,
-    H3NotNeighborsError,
-    H3ResMismatchError,
-    H3MemoryAllocError,
-    H3MemoryBoundsError,
-    H3OptionInvalidError,
-]
-
-d = {
-    H3ErrorCodes.E_SUCCESS: None,
+error_dict = {
+    # H3ErrorCodes.E_SUCCESS:             None,
+    H3ErrorCodes.E_FAILED:              H3FailedError,
+    H3ErrorCodes.E_DOMAIN:              H3DomainError,
+    H3ErrorCodes.E_LATLNG_DOMAIN:       H3LatLngDomainError,
+    H3ErrorCodes.E_RES_DOMAIN:          H3ResDomainError,
+    H3ErrorCodes.E_CELL_INVALID:        H3CellInvalidError,
+    H3ErrorCodes.E_DIR_EDGE_INVALID:    H3DirEdgeInvalidError,
+    H3ErrorCodes.E_UNDIR_EDGE_INVALID:  H3UndirEdgeInvalidError,
+    H3ErrorCodes.E_VERTEX_INVALID:      H3VertexInvalidError,
+    H3ErrorCodes.E_PENTAGON:            H3PentagonError,
+    H3ErrorCodes.E_DUPLICATE_INPUT:     H3DuplicateInputError,
+    H3ErrorCodes.E_NOT_NEIGHBORS:       H3NotNeighborsError,
+    H3ErrorCodes.E_RES_MISMATCH:        H3ResMismatchError,
+    H3ErrorCodes.E_MEMORY:              H3MemoryAllocError,
+    H3ErrorCodes.E_MEMORY_BOUNDS:       H3MemoryBoundsError,
+    H3ErrorCodes.E_OPTION_INVALID:      H3OptionInvalidError,
 }
-
-for e in h3_exception_list:
-    if e.h3_error_code:
-        d[e.h3_error_code] = e
-
-# d = {
-#     e.h3_error_code: e
-#     for e in h3_exception_list
-# }
-
-# error_dict = {
-#     H3ErrorCodes.E_SUCCESS:             None,
-#     H3ErrorCodes.E_FAILED:              H3FailedError,
-#     H3ErrorCodes.E_DOMAIN:              H3DomainError,
-#     H3ErrorCodes.E_LATLNG_DOMAIN:       H3LatLngDomainError,
-#     H3ErrorCodes.E_RES_DOMAIN:          H3ResDomainError,
-#     H3ErrorCodes.E_CELL_INVALID:        H3CellInvalidError,
-#     H3ErrorCodes.E_DIR_EDGE_INVALID:    H3DirEdgeInvalidError,
-#     H3ErrorCodes.E_UNDIR_EDGE_INVALID:  H3UndirEdgeInvalidError,
-#     H3ErrorCodes.E_VERTEX_INVALID:      H3VertexInvalidError,
-#     H3ErrorCodes.E_PENTAGON:            H3PentagonError,
-#     H3ErrorCodes.E_DUPLICATE_INPUT:     H3DuplicateInputError,
-#     H3ErrorCodes.E_NOT_NEIGHBORS:       H3NotNeighborsError,
-#     H3ErrorCodes.E_RES_MISMATCH:        H3ResMismatchError,
-#     H3ErrorCodes.E_MEMORY:              H3MemoryAllocError,
-#     H3ErrorCodes.E_MEMORY_BOUNDS:       H3MemoryBoundsError,
-#     H3ErrorCodes.E_OPTION_INVALID:      H3OptionInvalidError,
-# }
-
-
 
 
 cpdef code_to_exception(H3Error err):
+    if err == H3ErrorCodes.E_SUCCESS:
+        return None
+
     ex = error_dict.get(err, H3UnrecognizedException)
 
     return ex
