@@ -8,10 +8,27 @@ from .api import basic_str as h3
 
 
 from ._cy import (
-    H3Exception,
     H3ValueError,
     H3CellError,
     H3ResolutionError,
     H3EdgeError,
     H3DistanceError,
+
+    H3Exception,
+    H3UnrecognizedException,
+    H3FailedError,
+    H3DomainError,
+    H3LatLngDomainError,
+    H3ResDomainError,
+    H3CellInvalidError,
+    H3DirEdgeInvalidError,
+    H3UndirEdgeInvalidError,
+    H3VertexInvalidError,
+    H3PentagonError,
+    H3DuplicateInputError,
+    H3NotNeighborsError,
+    H3ResMismatchError,
+    H3MemoryAllocError,
+    H3MemoryBoundsError,
+    H3OptionInvalidError,
 )
