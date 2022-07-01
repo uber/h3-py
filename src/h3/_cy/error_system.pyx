@@ -27,7 +27,11 @@ from .h3lib cimport H3Error
 
 @contextmanager
 def err_block(obj):
-    'Syntactic maple syrup for grouping exception definitions. (pretend scope)'
+    """
+    Syntactic maple syrup for grouping exception definitions.
+    I.e., pretend scope.
+    (This doesn't actually do anything context-manager-y.)
+    """
     yield obj
 
 
@@ -114,10 +118,9 @@ error_dict = {
 cpdef code_to_exception(H3Error err):
     if err == ec.E_SUCCESS:
         return None
-
-    ex = error_dict.get(err, H3UnrecognizedException)
-
-    return ex
+    else:
+        ex = error_dict.get(err, H3UnrecognizedException)
+        return ex
 
 
 cdef check_for_error(H3Error err):
@@ -129,10 +132,11 @@ cdef check_for_error(H3Error err):
 
     ex = code_to_exception(err)
 
-    # pass along the C error code
-    # todo: add a test
-    if ex == H3UnrecognizedException:
-        ex = H3UnrecognizedException(err)
-
-    if ex:
+    if ex is None:
+        pass
+    elif ex == H3UnrecognizedException:
+        # pass along the C error code
+        # todo: add a test
+        raise H3UnrecognizedException(err)
+    else:
         raise ex
