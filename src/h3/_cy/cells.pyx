@@ -162,6 +162,9 @@ cpdef H3int parent(H3int h, res=None) except 0:
     )
 
     # note: trying out an Exception idiom here to see if it works for us
+    # note: this can get you things like H3UnrecognizedException: Invalid parent resolution 10 for cell 0x8928308280fffff.
+    # (if you comment out the H3ResMismatchError in the error system file)
+    # maybe need some way to indicate when extra info is expected (e.g. a message or unknown error code)
     if ex:
         msg = 'Invalid parent resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
