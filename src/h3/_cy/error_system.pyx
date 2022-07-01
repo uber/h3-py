@@ -63,7 +63,7 @@ class H3OptionInvalidError(H3Exception):
     h3_error_code = H3ErrorCodes.E_OPTION_INVALID
 
 
-# todo: remove these
+# todo: remove H3ValueError
 class H3ValueError(H3Exception, ValueError):
     pass
 
@@ -72,19 +72,19 @@ error_dict = {
     H3ErrorCodes.E_SUCCESS: None,
     H3ErrorCodes.E_FAILED:              H3FailedError,
     H3ErrorCodes.E_DOMAIN:              H3DomainError,
-    H3ErrorCodes.E_LATLNG_DOMAIN:       H3ValueError,
+    H3ErrorCodes.E_LATLNG_DOMAIN:       H3LatLngDomainError,
     H3ErrorCodes.E_RES_DOMAIN:          H3ResDomainError,
     H3ErrorCodes.E_CELL_INVALID:        H3CellInvalidError,
     H3ErrorCodes.E_DIR_EDGE_INVALID:    H3DirEdgeInvalidError,
     H3ErrorCodes.E_UNDIR_EDGE_INVALID:  H3UndirEdgeInvalidError,
-    H3ErrorCodes.E_VERTEX_INVALID:      H3ValueError,
+    H3ErrorCodes.E_VERTEX_INVALID:      H3VertexInvalidError,
     H3ErrorCodes.E_PENTAGON:            H3ValueError,
-    H3ErrorCodes.E_DUPLICATE_INPUT:     H3ValueError,
-    H3ErrorCodes.E_NOT_NEIGHBORS:       H3ValueError,
+    H3ErrorCodes.E_DUPLICATE_INPUT:     H3DuplicateInputError,
+    H3ErrorCodes.E_NOT_NEIGHBORS:       H3NotNeighborsError,
     H3ErrorCodes.E_RES_MISMATCH:        H3ResMismatchError,
-    H3ErrorCodes.E_MEMORY:              H3Exception,
-    H3ErrorCodes.E_MEMORY_BOUNDS:       H3Exception,
-    H3ErrorCodes.E_OPTION_INVALID:      H3Exception,
+    H3ErrorCodes.E_MEMORY:              H3MemoryAllocError,
+    H3ErrorCodes.E_MEMORY_BOUNDS:       H3MemoryBoundsError,
+    H3ErrorCodes.E_OPTION_INVALID:      H3OptionInvalidError,
 }
 
 
