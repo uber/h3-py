@@ -11,7 +11,7 @@ from .util cimport (
     empty_memory_view, # want to drop this import if possible
 )
 
-from .error_system cimport check_for_error, code_to_exception
+from .error_system cimport check_for_error, code_to_exception, raise_with_msg
 from .error_system import H3PentagonError, H3ResDomainError, H3ResMismatchError, H3Exception
 
 # todo: add notes about Cython exception handling
@@ -165,6 +165,7 @@ cpdef H3int parent(H3int h, res=None) except 0:
     # note: this can get you things like H3UnrecognizedException: Invalid parent resolution 10 for cell 0x8928308280fffff.
     # (if you comment out the H3ResMismatchError in the error system file)
     # maybe need some way to indicate when extra info is expected (e.g. a message or unknown error code)
+    # note/question: potential optimization benefit from not chaining function calls?
     if ex:
         msg = 'Invalid parent resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
@@ -189,6 +190,8 @@ cpdef H3int[:] children(H3int h, res=None):
     if ex:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
+
+        # todo: question: are the extra messages *that* necessary/helpful?
         raise ex(msg)
 
     ptr = create_ptr(N)
@@ -209,14 +212,14 @@ cpdef H3int center_child(H3int h, res=None) except 0:
     if res is None:
         res = resolution(h) + 1
 
-    ex = code_to_exception(
-        h3lib.cellToCenterChild(h, res, &child)
-    )
-    if ex:
+    err = h3lib.cellToCenterChild(h, res, &child)
+
+    # new idiom? any good?
+    # pro: makes the "pure cython" branch a little clearer
+    if err:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        raise ex(msg)
-    # todo: question: are the extra messages *that* necessary/helpful?
+        raise_with_msg(err, msg)
 
     return child
 

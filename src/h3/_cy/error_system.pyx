@@ -140,3 +140,15 @@ cdef check_for_error(H3Error err):
         raise H3UnrecognizedException(err)
     else:
         raise ex
+
+
+cdef raise_with_msg(H3Error err, str msg):
+    ex = code_to_exception(err)
+
+    if ex is None:
+        pass
+    elif ex == H3UnrecognizedException:
+        msg = 'Code: {}, msg: {}'.format(err, msg)
+        raise H3UnrecognizedException(msg)
+    else:
+        raise ex(msg)
