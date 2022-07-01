@@ -19,65 +19,82 @@ functions if they want to get risky?
 
 can we use a factory pattern to simplify the creation of these errors?
 '''
+from contextlib import contextmanager
 
 from .h3lib cimport H3ErrorCodes, H3Error
 
+@contextmanager
+def err_block(obj):
+    'Syntactic maple syrup for grouping exception definitions. (pretend scope)'
+    yield obj
+
+
 # todo: do we want value error hierarchy or memory error from Python?
+
+
 
 class H3Exception(Exception):
     h3_error_code = None
 
-class H3UnrecognizedException(H3Exception):
-    h3_error_code = None
+
+with err_block(H3Exception) as e:
+    class H3ValueError(e, ValueError): ...
+    class H3MemoryError(e, MemoryError): ...
+    class H3UnrecognizedException(e): ...
 
 
-# class H3Success(H3Exception):
-#     h3_error_code = H3ErrorCodes.E_SUCCESS
+with err_block(H3Exception) as e:
+    class H3FailedError(e):
+        h3_error_code = H3ErrorCodes.E_FAILED
 
-class H3FailedError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_FAILED
+    class H3PentagonError(e):
+        # todo: more-specific error type here?
+        h3_error_code = H3ErrorCodes.E_PENTAGON
 
-class H3DomainError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_DOMAIN
 
-class H3LatLngDomainError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_LATLNG_DOMAIN
 
-class H3ResDomainError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_RES_DOMAIN
+with err_block(H3MemoryError) as e:
+    class H3MemoryAllocError(e):
+        h3_error_code = H3ErrorCodes.E_MEMORY
 
-class H3CellInvalidError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_CELL_INVALID
+    class H3MemoryBoundsError(e):
+        h3_error_code = H3ErrorCodes.E_MEMORY_BOUNDS
 
-class H3DirEdgeInvalidError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_DIR_EDGE_INVALID
 
-class H3UndirEdgeInvalidError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_UNDIR_EDGE_INVALID
 
-class H3VertexInvalidError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_VERTEX_INVALID
+with err_block(H3ValueError) as e:
+    class H3DomainError(e):
+        h3_error_code = H3ErrorCodes.E_DOMAIN
 
-class H3PentagonError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_PENTAGON
+    class H3LatLngDomainError(e):
+        h3_error_code = H3ErrorCodes.E_LATLNG_DOMAIN
 
-class H3DuplicateInputError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_DUPLICATE_INPUT
+    class H3ResDomainError(e):
+        h3_error_code = H3ErrorCodes.E_RES_DOMAIN
 
-class H3NotNeighborsError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_NOT_NEIGHBORS
+    class H3CellInvalidError(e):
+        h3_error_code = H3ErrorCodes.E_CELL_INVALID
 
-class H3ResMismatchError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_RES_MISMATCH
+    class H3DirEdgeInvalidError(e):
+        h3_error_code = H3ErrorCodes.E_DIR_EDGE_INVALID
 
-class H3MemoryAllocError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_MEMORY
+    class H3UndirEdgeInvalidError(e):
+        h3_error_code = H3ErrorCodes.E_UNDIR_EDGE_INVALID
 
-class H3MemoryBoundsError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_MEMORY_BOUNDS
+    class H3VertexInvalidError(e):
+        h3_error_code = H3ErrorCodes.E_VERTEX_INVALID
 
-class H3OptionInvalidError(H3Exception):
-    h3_error_code = H3ErrorCodes.E_OPTION_INVALID
+    class H3DuplicateInputError(e):
+        h3_error_code = H3ErrorCodes.E_DUPLICATE_INPUT
+
+    class H3NotNeighborsError(e):
+        h3_error_code = H3ErrorCodes.E_NOT_NEIGHBORS
+
+    class H3ResMismatchError(e):
+        h3_error_code = H3ErrorCodes.E_RES_MISMATCH
+
+    class H3OptionInvalidError(e):
+        h3_error_code = H3ErrorCodes.E_OPTION_INVALID
 
 
 error_dict = {
