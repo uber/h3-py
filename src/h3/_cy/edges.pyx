@@ -11,16 +11,19 @@ from .util cimport (
 
 from .error_system cimport check_for_error
 
+# todo: make bint
 cpdef bool are_neighbors(H3int h1, H3int h2):
     cdef:
         int out
 
-    check_cell(h1)
-    check_cell(h2)
+    err = h3lib.areNeighborCells(h1, h2, &out)
 
-    error = h3lib.areNeighborCells(h1, h2, &out)
-    if error != 0:
+    # note: we are specifically not raising an error here, and just
+    # returning false.
+    # todo: is this choice consistent across the Python and C libs?
+    if err:
         return False
+
     return out == 1
 
 
@@ -28,9 +31,6 @@ cpdef H3int edge(H3int origin, H3int destination) except *:
     cdef:
         int neighbor_out
         H3int out
-
-    check_cell(origin)
-    check_cell(destination)
 
     check_for_error(
         h3lib.cellsToDirectedEdge(origin, destination, &out)
@@ -46,9 +46,6 @@ cpdef H3int edge_origin(H3int e) except 1:
     cdef:
         H3int out
 
-    # without the check, with an invalid input, the function will just return 0
-    check_edge(e)
-
     check_for_error(
         h3lib.getDirectedEdgeOrigin(e, &out)
     )
@@ -59,8 +56,6 @@ cpdef H3int edge_destination(H3int e) except 1:
     cdef:
         H3int out
 
-    check_edge(e)
-
     check_for_error(
         h3lib.getDirectedEdgeDestination(e, &out)
     )
@@ -68,8 +63,6 @@ cpdef H3int edge_destination(H3int e) except 1:
     return out
 
 cpdef (H3int, H3int) edge_cells(H3int e) except *:
-    check_edge(e)
-
     return edge_origin(e), edge_destination(e)
 
 cpdef H3int[:] edges_from_cell(H3int origin):

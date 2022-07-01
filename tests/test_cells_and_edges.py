@@ -407,8 +407,9 @@ def test_validation_geo():
     with pytest.raises(H3CellInvalidError):
         h3.h3_to_geo_boundary(h)
 
-    with pytest.raises(H3CellInvalidError):
-        h3.h3_indexes_are_neighbors(h, h)
+    # note: this won't raise an exception on bad input, but it does
+    # *correctly* say that two invalid indexes are not neighbors
+    assert not h3.h3_indexes_are_neighbors(h, h)
 
 
 def test_edges():
@@ -424,14 +425,10 @@ def test_edges():
     e_bad = '14928308280ffff1'
     assert not h3.h3_unidirectional_edge_is_valid(e_bad)
 
-    with pytest.raises(H3DirEdgeInvalidError):
-        h3.get_origin_h3_index_from_unidirectional_edge(e_bad)
-
-    with pytest.raises(H3DirEdgeInvalidError):
-        h3.get_destination_h3_index_from_unidirectional_edge(e_bad)
-
-    with pytest.raises(H3DirEdgeInvalidError):
-        h3.get_h3_indexes_from_unidirectional_edge(e_bad)
+    # note: won't raise an error on bad input
+    h3.get_origin_h3_index_from_unidirectional_edge(e_bad)
+    h3.get_destination_h3_index_from_unidirectional_edge(e_bad)
+    h3.get_h3_indexes_from_unidirectional_edge(e_bad)
 
 
 def test_line():

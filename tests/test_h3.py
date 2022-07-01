@@ -877,6 +877,7 @@ def test_h3_is_pentagon():
 
 def test_h3_indexes_are_neighbors():
     assert h3.h3_indexes_are_neighbors('8928308280fffff', '8928308280bffff')
+
     assert not h3.h3_indexes_are_neighbors('821c07fffffffff', '8928308280fffff')
 
 
