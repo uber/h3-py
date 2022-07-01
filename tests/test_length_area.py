@@ -1,6 +1,7 @@
 import h3
 import pytest
 
+
 def approx2(a, b):
     if len(a) != len(b):
         return False

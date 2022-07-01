@@ -5,7 +5,6 @@ from h3 import (
     H3ResDomainError,
     H3DomainError,
     H3ResMismatchError,
-    H3DirEdgeInvalidError,
     H3CellInvalidError,
     H3Exception,
     H3NotNeighborsError,
