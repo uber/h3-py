@@ -3,7 +3,7 @@ from libc.stdint cimport uint64_t, int64_t, uint32_t
 
 ctypedef basestring H3str  # todo: do we really need this str one?
 
-cdef extern from "h3api.h":
+cdef extern from 'h3api.h':
     cdef int H3_VERSION_MAJOR
     cdef int H3_VERSION_MINOR
     cdef int H3_VERSION_PATCH
@@ -34,7 +34,7 @@ cdef extern from "h3api.h":
         double lng  # in radians
 
     ctypedef struct CellBoundary:
-        int num_verts "numVerts"
+        int num_verts 'numVerts'
         LatLng verts[10]  # MAX_CELL_BNDRY_VERTS
 
     ctypedef struct CoordIJ:
@@ -42,18 +42,18 @@ cdef extern from "h3api.h":
         int j
 
     ctypedef struct LinkedLatLng:
-        LatLng data "vertex"
+        LatLng data 'vertex'
         LinkedLatLng *next
 
     # renaming these for clarity
     ctypedef struct LinkedGeoLoop:
-        LinkedLatLng *data "first"
-        LinkedLatLng *_data_last "last"  # not needed in Cython bindings
+        LinkedLatLng *data 'first'
+        LinkedLatLng *_data_last 'last'  # not needed in Cython bindings
         LinkedGeoLoop *next
 
     ctypedef struct LinkedGeoPolygon:
-        LinkedGeoLoop *data "first"
-        LinkedGeoLoop *_data_last "last"  # not needed in Cython bindings
+        LinkedGeoLoop *data 'first'
+        LinkedGeoLoop *_data_last 'last'  # not needed in Cython bindings
         LinkedGeoPolygon *next
 
     ctypedef struct GeoLoop:
