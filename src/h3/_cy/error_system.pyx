@@ -48,14 +48,12 @@ with err_block(H3Exception) as e:
         h3_error_code = ec.E_PENTAGON
 
 
-
 with err_block(H3MemoryError) as e:
     class H3MemoryAllocError(e):
         h3_error_code = ec.E_MEMORY
 
     class H3MemoryBoundsError(e):
         h3_error_code = ec.E_MEMORY_BOUNDS
-
 
 
 with err_block(H3ValueError) as e:
