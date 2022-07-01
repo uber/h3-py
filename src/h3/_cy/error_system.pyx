@@ -9,12 +9,15 @@ todo: use module docs to describe new error system
 '''
 Idea: Use normal Python exceptions whevever possible.
 Only use these H3 exceptions to refer to H3Error output from the C library.
+Would it then follow that these should only appear from the check_for_error function?
 
 
 Philosophy question: should we aggressively check input values for the user? or assume
 they know what they're doing (as long as we don't allow a segfault)?
 Maybe the main Python lib checks aggressively, but we expose the Cython
 functions if they want to get risky?
+
+can we use a factory pattern to simplify the creation of these errors?
 '''
 
 from .h3lib cimport H3ErrorCodes, H3Error
