@@ -7,7 +7,7 @@ todo: use module docs to describe new error system
 """
 
 '''
-Idea: Use normal Python exceptions whevever possible.
+Idea: Use normal Python exceptions whenever possible.
 Only use these H3 exceptions to refer to H3Error output from the C library.
 Would it then follow that these should only appear from the check_for_error function?
 
@@ -22,7 +22,7 @@ can we use a factory pattern to simplify the creation of these errors?
 
 from .h3lib cimport H3ErrorCodes, H3Error
 
-# todo: do we want valueerror hierarchy or memory error from Python?
+# todo: do we want value error hierarchy or memory error from Python?
 
 class H3Exception(Exception):
     h3_error_code = None
