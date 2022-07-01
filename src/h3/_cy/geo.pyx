@@ -12,8 +12,6 @@ from .util cimport (
 from libc cimport stdlib
 from libc.stdint cimport uint64_t
 
-from .util import H3ValueError
-
 
 cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
     cdef:
@@ -281,6 +279,6 @@ cpdef double point_dist(
     elif unit == 'm':
         d = h3lib.distanceM(&a, &b)
     else:
-        raise H3ValueError('Unknown unit: {}'.format(unit))
+        raise ValueError('Unknown unit: {}'.format(unit))
 
     return d

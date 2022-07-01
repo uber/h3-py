@@ -9,8 +9,6 @@ from .error_system import (
     H3DomainError,
     H3DirEdgeInvalidError,
     H3CellInvalidError,
-
-    H3ValueError,
 )
 
 

@@ -12,7 +12,7 @@ from .util cimport (
 )
 
 from .error_system cimport check_for_error
-from .error_system import H3ValueError, H3ResDomainError, H3ResMismatchError
+from .error_system import H3PentagonError, H3ResDomainError, H3ResMismatchError, H3Exception
 
 # todo: add notes about Cython exception handling
 
@@ -139,7 +139,7 @@ cpdef H3int[:] ring(H3int h, int k):
         check_for_error(
             h3lib.gridRingUnsafe(h, k, ptr)
         )
-    except H3ValueError:
+    except H3PentagonError:
         mv = create_mv(ptr, n) # need to create this to guarantee memory is freed.
         # better done with a Cython object, i think.
         mv = _ring_fallback(h, k)
@@ -235,7 +235,7 @@ cpdef H3int[:] compact(const H3int[:] hu):
 
     if err:
         # todo: additional error processing
-        raise H3ValueError('Could not compact set of hexagons!')
+        raise H3Exception('Could not compact set of hexagons!')
 
     return mv
 
@@ -272,7 +272,7 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     mv = create_mv(ptr, N)
 
     if err:
-        raise H3ValueError('Could not uncompact set of hexagons!')
+        raise H3Exception('Could not uncompact set of hexagons!')
 
     return mv
 
@@ -306,7 +306,7 @@ cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
     try:
         area *= convert[unit]
     except:
-        raise H3ValueError('Unknown unit: {}'.format(unit))
+        raise ValueError('Unknown unit: {}'.format(unit))
 
     return area
 
@@ -325,7 +325,7 @@ cpdef double cell_area(H3int h, unit='km^2') except -1:
     elif unit == 'm^2':
         err = h3lib.cellAreaM2(h, &area)
     else:
-        raise H3ValueError('Unknown unit: {}'.format(unit))
+        raise ValueError('Unknown unit: {}'.format(unit))
 
     return area
 
@@ -343,7 +343,7 @@ cpdef H3int[:] line(H3int start, H3int end):
     if err:
         s = "Couldn't find line between cells {} and {}"
         s = s.format(hex(start), hex(end))
-        raise H3ValueError(s)
+        raise H3PentagonError(s)
 
     ptr = create_ptr(n)
     err = h3lib.gridPathCells(start, end, ptr)
@@ -352,7 +352,7 @@ cpdef H3int[:] line(H3int start, H3int end):
     if err:
         s = "Couldn't find line between cells {} and {}"
         s = s.format(hex(start), hex(end))
-        raise H3ValueError(s)
+        raise H3PentagonError(s)
 
     return mv
 
@@ -422,7 +422,7 @@ cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
     if flag != 0:
         s = "Couldn't find local (i,j) between cells {} and {}."
         s = s.format(hex(origin), hex(h))
-        raise H3ValueError(s)
+        raise H3PentagonError(s)
 
     return c.i, c.j
 
@@ -441,6 +441,6 @@ cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
     if flag != 0:
         s = "Couldn't find cell at local ({},{}) from cell {}."
         s = s.format(i, j, hex(origin))
-        raise H3ValueError(s)
+        raise H3PentagonError(s)
 
     return out

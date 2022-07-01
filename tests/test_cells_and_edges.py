@@ -7,9 +7,9 @@ from h3 import (
     H3ResMismatchError,
     H3DirEdgeInvalidError,
     H3CellInvalidError,
-
     H3Exception,
-    H3ValueError,
+    H3NotNeighborsError,
+    H3PentagonError,
 )
 
 
@@ -414,11 +414,11 @@ def test_validation_geo():
 def test_edges():
     h = '8928308280fffff'
 
-    with pytest.raises(H3ValueError):
+    with pytest.raises(H3NotNeighborsError):
         h3.get_h3_unidirectional_edge(h, h)
 
     h2 = h3.hex_ring(h, 2).pop()
-    with pytest.raises(H3ValueError):
+    with pytest.raises(H3NotNeighborsError):
         h3.get_h3_unidirectional_edge(h, h2)
 
     e_bad = '14928308280ffff1'
@@ -590,7 +590,7 @@ def test_to_local_ij_error():
 
     # error if we cross a face
     nb = h3.hex_ring(h, k=2)
-    with pytest.raises(H3ValueError):
+    with pytest.raises(H3PentagonError):
         [h3.experimental_h3_to_local_ij(h, p) for p in nb]
 
     # should be fine if we do not cross a face
@@ -606,7 +606,7 @@ def test_from_local_ij_error():
 
     baddies = [(1, -1), (-1, 1), (-1, -1)]
     for i, j in baddies:
-        with pytest.raises(H3ValueError):
+        with pytest.raises(H3PentagonError):
             h3.experimental_local_ij_to_h3(h, i, j)
 
     # inverting output should give good data

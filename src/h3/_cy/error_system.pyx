@@ -63,11 +63,6 @@ class H3OptionInvalidError(H3Exception):
     h3_error_code = H3ErrorCodes.E_OPTION_INVALID
 
 
-# todo: remove H3ValueError
-class H3ValueError(H3Exception, ValueError):
-    pass
-
-
 error_dict = {
     H3ErrorCodes.E_SUCCESS: None,
     H3ErrorCodes.E_FAILED:              H3FailedError,
@@ -78,7 +73,7 @@ error_dict = {
     H3ErrorCodes.E_DIR_EDGE_INVALID:    H3DirEdgeInvalidError,
     H3ErrorCodes.E_UNDIR_EDGE_INVALID:  H3UndirEdgeInvalidError,
     H3ErrorCodes.E_VERTEX_INVALID:      H3VertexInvalidError,
-    H3ErrorCodes.E_PENTAGON:            H3ValueError,
+    H3ErrorCodes.E_PENTAGON:            H3PentagonError,
     H3ErrorCodes.E_DUPLICATE_INPUT:     H3DuplicateInputError,
     H3ErrorCodes.E_NOT_NEIGHBORS:       H3NotNeighborsError,
     H3ErrorCodes.E_RES_MISMATCH:        H3ResMismatchError,

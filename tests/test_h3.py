@@ -884,7 +884,7 @@ def test_get_h3_unidirectional_edge():
     out = h3.get_h3_unidirectional_edge('8928308280fffff', '8928308280bffff')
     assert h3.h3_unidirectional_edge_is_valid(out)
 
-    with pytest.raises(ValueError):
+    with pytest.raises(h3.H3NotNeighborsError):
         h3.get_h3_unidirectional_edge('821c07fffffffff', '8928308280fffff')
 
 
@@ -982,5 +982,5 @@ def test_h3_line():
 
     assert out == expected
 
-    with pytest.raises(ValueError):
+    with pytest.raises(h3.H3PentagonError):
         h3.h3_line(h1, '8001fffffffffff')

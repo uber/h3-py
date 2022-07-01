@@ -9,7 +9,7 @@ from .util cimport (
     create_mv,
 )
 
-from .util import H3ValueError
+from .error_system cimport check_for_error
 
 cpdef bool are_neighbors(H3int h1, H3int h2):
     cdef:
@@ -32,13 +32,10 @@ cpdef H3int edge(H3int origin, H3int destination) except *:
     check_cell(origin)
     check_cell(destination)
 
-    error = h3lib.areNeighborCells(origin, destination, &neighbor_out)
-    if error != 0 or neighbor_out != 1:
-        s = 'Cells are not neighbors: {} and {}'
-        s = s.format(hex(origin), hex(destination))
-        raise H3ValueError(s)
+    check_for_error(
+        h3lib.cellsToDirectedEdge(origin, destination, &out)
+    )
 
-    h3lib.cellsToDirectedEdge(origin, destination, &out)
     return out
 
 
@@ -52,7 +49,10 @@ cpdef H3int edge_origin(H3int e) except 1:
     # without the check, with an invalid input, the function will just return 0
     check_edge(e)
 
-    h3lib.getDirectedEdgeOrigin(e, &out)
+    check_for_error(
+        h3lib.getDirectedEdgeOrigin(e, &out)
+    )
+
     return out
 
 cpdef H3int edge_destination(H3int e) except 1:
@@ -61,7 +61,10 @@ cpdef H3int edge_destination(H3int e) except 1:
 
     check_edge(e)
 
-    h3lib.getDirectedEdgeDestination(e, &out)
+    check_for_error(
+        h3lib.getDirectedEdgeDestination(e, &out)
+    )
+
     return out
 
 cpdef (H3int, H3int) edge_cells(H3int e) except *:
@@ -76,7 +79,11 @@ cpdef H3int[:] edges_from_cell(H3int origin):
     check_cell(origin)
 
     ptr = create_ptr(6)
-    h3lib.originToDirectedEdges(origin, ptr)
+
+    check_for_error(
+        h3lib.originToDirectedEdges(origin, ptr)
+    )
+
     mv = create_mv(ptr, 6)
 
     return mv
@@ -99,7 +106,7 @@ cpdef double mean_edge_length(int resolution, unit='km') except -1:
     try:
         length *= convert[unit]
     except:
-        raise H3ValueError('Unknown unit: {}'.format(unit))
+        raise ValueError('Unknown unit: {}'.format(unit))
 
     return length
 
@@ -120,6 +127,6 @@ cpdef double edge_length(H3int e, unit='km') except -1:
     elif unit == 'm':
         h3lib.exactEdgeLengthM(e, &length)
     else:
-        raise H3ValueError('Unknown unit: {}'.format(unit))
+        raise ValueError('Unknown unit: {}'.format(unit))
 
     return length
