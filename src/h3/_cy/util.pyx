@@ -5,9 +5,10 @@ from .h3lib cimport H3int, H3str, isValidCell, isValidDirectedEdge
 cimport h3lib
 
 from .error_system import (
+    H3ResDomainError,
+
     H3ValueError,
     H3CellError,
-    H3ResolutionError,
     H3EdgeError,
     H3DistanceError,
 )
@@ -79,7 +80,7 @@ cdef check_edge(H3int e):
 
 cdef check_res(int res):
     if (res < 0) or (res > 15):
-        raise H3ResolutionError(res)
+        raise H3ResDomainError(res)
 
 cdef check_distance(int k):
     if k < 0:

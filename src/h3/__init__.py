@@ -10,7 +10,6 @@ from .api import basic_str as h3
 from ._cy import (
     H3ValueError,
     H3CellError,
-    H3ResolutionError,
     H3EdgeError,
     H3DistanceError,
 

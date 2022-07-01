@@ -2,7 +2,7 @@ import h3
 import itertools
 import pytest
 
-from h3 import H3ResolutionError
+from h3 import H3ResDomainError
 
 
 def reverse(loop):
@@ -211,10 +211,10 @@ def test_resolution():
         'coordinates': [[]],
     }
 
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.polyfill(d, -1)
 
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.polyfill(d, 16)
 
 

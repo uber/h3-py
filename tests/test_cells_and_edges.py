@@ -2,10 +2,13 @@ import h3
 import pytest
 
 from h3 import (
+    H3ResDomainError,
+    H3ResMismatchError,
+
+
     H3Exception,
     H3ValueError,
     H3CellError,
-    H3ResolutionError,
     H3EdgeError,
     H3DistanceError,
 )
@@ -131,7 +134,7 @@ def test_parent():
     assert h3.h3_to_parent(h, 8) == '8828308281fffff'
     assert h3.h3_to_parent(h, 9) == h
 
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResMismatchError):
         h3.h3_to_parent(h, 10)
 
 
@@ -139,7 +142,7 @@ def test_children():
     h = '8928308280fffff'
 
     # one above should raise an exception
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResMismatchError):
         h3.h3_to_children(h, 8)
 
     # same resolution is set of just cell itself
@@ -161,7 +164,7 @@ def test_children():
 
     # finest resolution cell should return error for children
     h = '8f04ccb2c45e225'
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.h3_to_children(h)
 
 
@@ -169,7 +172,7 @@ def test_center_child():
     h = '8928308280fffff'
 
     # one above should raise an exception
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResMismatchError):
         h3.h3_to_center_child(h, 8)
 
     # same resolution should be same cell
@@ -181,7 +184,7 @@ def test_center_child():
 
     # finest resolution hex should return error for child
     h = '8f04ccb2c45e225'
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.h3_to_center_child(h)
 
 
@@ -387,7 +390,7 @@ def test_validation():
 def test_validation2():
     h = '8928308280fffff'
 
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.h3_to_children(h, 17)
 
     assert not h3.h3_indexes_are_neighbors(h, h)
@@ -399,7 +402,7 @@ def test_validation_geo():
     with pytest.raises(H3CellError):
         h3.h3_to_geo(h)
 
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.geo_to_h3(0, 0, 17)
 
     with pytest.raises(H3CellError):

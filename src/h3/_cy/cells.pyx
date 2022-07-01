@@ -12,7 +12,7 @@ from .util cimport (
 )
 
 from .error_system cimport check_for_error
-from .error_system import H3ValueError, H3ResolutionError
+from .error_system import H3ValueError, H3ResDomainError, H3ResMismatchError
 
 # todo: add notes about Cython exception handling
 
@@ -160,7 +160,7 @@ cpdef H3int parent(H3int h, res=None) except 0:
     if res > resolution(h):
         msg = 'Invalid parent resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        raise H3ResolutionError(msg)
+        raise H3ResMismatchError(msg)
 
     check_res(res)
     err = h3lib.cellToParent(h, res, &parent)
@@ -181,7 +181,7 @@ cpdef H3int[:] children(H3int h, res=None):
     if res < resolution(h):
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        raise H3ResolutionError(msg)
+        raise H3ResMismatchError(msg)
 
     check_res(res)
     err = h3lib.cellToChildrenSize(h, res, &N)
@@ -205,7 +205,7 @@ cpdef H3int center_child(H3int h, res=None) except 0:
     if res < resolution(h):
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        raise H3ResolutionError(msg)
+        raise H3ResMismatchError(msg)
 
     check_res(res)
     err = h3lib.cellToCenterChild(h, res, &child)
