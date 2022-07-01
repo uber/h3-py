@@ -339,29 +339,31 @@ cpdef double cell_area(H3int h, unit='km^2') except -1:
     return area
 
 
+cdef couldnt_find_line(err, start, end):
+    msg = "Couldn't find line between cells {} and {}"
+    msg = msg.format(hex(start), hex(end))
+
+    raise_with_msg(err, msg)
+
 cpdef H3int[:] line(H3int start, H3int end):
     cdef:
-        h3lib.H3Error err
         int64_t n
 
     check_cell(start)
     check_cell(end)
 
+    # todo: can we segfault here with invalid inputs?
+    # Can we trust the c library to validate the start/end cells?
+    # probably applies to all size/work pairs of functions...
     err = h3lib.gridPathCellsSize(start, end, &n)
 
-    if err:
-        s = "Couldn't find line between cells {} and {}"
-        s = s.format(hex(start), hex(end))
-        raise H3PentagonError(s)
+    couldnt_find_line(err, start, end)
 
     ptr = create_ptr(n)
     err = h3lib.gridPathCells(start, end, ptr)
     mv = create_mv(ptr, n)
 
-    if err:
-        s = "Couldn't find line between cells {} and {}"
-        s = s.format(hex(start), hex(end))
-        raise H3PentagonError(s)
+    couldnt_find_line(err, start, end)
 
     return mv
 
@@ -424,6 +426,7 @@ cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
     check_cell(origin)
     check_cell(h)
 
+    # todo
     flag = h3lib.cellToLocalIj(origin, h, 0, &c)
 
     if flag != 0:
@@ -443,6 +446,7 @@ cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
 
     c.i, c.j = i, j
 
+    # todo
     flag = h3lib.localIjToCell(origin, &c, 0, &out)
 
     if flag != 0:

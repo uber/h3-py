@@ -983,5 +983,5 @@ def test_h3_line():
 
     assert out == expected
 
-    with pytest.raises(h3.H3PentagonError):
+    with pytest.raises(h3.H3ResMismatchError):
         h3.h3_line(h1, '8001fffffffffff')
