@@ -260,7 +260,6 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     # length of zero and returning early seems like the easiest solution.
     # note: open to better ideas!
     cdef:
-        h3lib.H3Error err
         int64_t N
 
     if len(hc) == 0:
