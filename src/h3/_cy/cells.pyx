@@ -371,11 +371,6 @@ cpdef bool is_res_class_iii(H3int h):
 
 
 cpdef H3int[:] get_pentagon_indexes(int res):
-    cdef:
-        h3lib.H3Error err
-
-    check_res(res)
-
     n = h3lib.pentagonCount()
 
     # todo note: this is the tricky situation where we need the memory manager
@@ -383,19 +378,20 @@ cpdef H3int[:] get_pentagon_indexes(int res):
     err = h3lib.getPentagons(res, ptr)
     mv = create_mv(ptr, n)
 
+    check_for_error(err)
+
     return mv
 
 
 cpdef H3int[:] get_res0_indexes():
-    cdef:
-        h3lib.H3Error err
-
     n = h3lib.res0CellCount()
 
     # todo note: this is the tricky situation where we need the memory manager
     ptr = create_ptr(n)
     err = h3lib.getRes0Cells(ptr)
     mv = create_mv(ptr, n)
+
+    check_for_error(err)
 
     return mv
 
