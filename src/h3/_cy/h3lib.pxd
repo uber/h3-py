@@ -1,35 +1,34 @@
 from cpython cimport bool
 from libc.stdint cimport uint64_t, int64_t, uint32_t
 
-ctypedef uint64_t H3int
-ctypedef uint32_t H3Error
-ctypedef basestring H3str
-
-# todo: extern version of this?
-cdef enum H3ErrorCodes:
-    E_SUCCESS = 0
-    E_FAILED = 1
-    E_DOMAIN = 2
-    E_LATLNG_DOMAIN = 3
-    E_RES_DOMAIN = 4
-    E_CELL_INVALID = 5
-    E_DIR_EDGE_INVALID = 6
-    E_UNDIR_EDGE_INVALID = 7
-    E_VERTEX_INVALID = 8
-    E_PENTAGON = 9
-    E_DUPLICATE_INPUT = 10
-    E_NOT_NEIGHBORS = 11
-    E_RES_MISMATCH = 12
-    E_MEMORY = 13
-    E_MEMORY_BOUNDS = 14
-    E_OPTION_INVALID = 15
+ctypedef uint64_t H3int  # note: same as H3Index
+ctypedef basestring H3str  # todo: do we really need this str one?
 
 cdef extern from "h3api.h":
     cdef int H3_VERSION_MAJOR
     cdef int H3_VERSION_MINOR
     cdef int H3_VERSION_PATCH
 
-    ctypedef uint64_t H3Index
+    ctypedef uint64_t H3Index 'H3Index'  # note: same as H3int
+
+    ctypedef uint32_t H3Error
+    ctypedef enum H3ErrorCodes:
+        E_SUCCESS = 0
+        E_FAILED = 1
+        E_DOMAIN = 2
+        E_LATLNG_DOMAIN = 3
+        E_RES_DOMAIN = 4
+        E_CELL_INVALID = 5
+        E_DIR_EDGE_INVALID = 6
+        E_UNDIR_EDGE_INVALID = 7
+        E_VERTEX_INVALID = 8
+        E_PENTAGON = 9
+        E_DUPLICATE_INPUT = 10
+        E_NOT_NEIGHBORS = 11
+        E_RES_MISMATCH = 12
+        E_MEMORY = 13
+        E_MEMORY_BOUNDS = 14
+        E_OPTION_INVALID = 15
 
     ctypedef struct LatLng:
         double lat  # in radians
