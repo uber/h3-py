@@ -8,6 +8,8 @@ todo: use module docs to describe new error system
 
 from .h3lib cimport H3ErrorCodes, H3Error
 
+# todo: do we want valueerror hierarchy or memory error from Python?
+
 class H3Exception(Exception):
     h3_error_code = None
 
@@ -68,9 +70,6 @@ class H3ValueError(H3Exception, ValueError):
 class H3CellError(H3ValueError):
     pass
 
-class H3EdgeError(H3ValueError):
-    pass
-
 class H3DistanceError(H3ValueError):
     pass
 
@@ -81,8 +80,8 @@ error_dict = {
     H3ErrorCodes.E_LATLNG_DOMAIN:       H3ValueError,
     H3ErrorCodes.E_RES_DOMAIN:          H3ResDomainError,
     H3ErrorCodes.E_CELL_INVALID:        H3CellError,
-    H3ErrorCodes.E_DIR_EDGE_INVALID:    H3EdgeError,
-    H3ErrorCodes.E_UNDIR_EDGE_INVALID:  H3EdgeError,
+    H3ErrorCodes.E_DIR_EDGE_INVALID:    H3DirEdgeInvalidError,
+    H3ErrorCodes.E_UNDIR_EDGE_INVALID:  H3UndirEdgeInvalidError,
     H3ErrorCodes.E_VERTEX_INVALID:      H3ValueError,
     H3ErrorCodes.E_PENTAGON:            H3ValueError,
     H3ErrorCodes.E_DUPLICATE_INPUT:     H3ValueError,

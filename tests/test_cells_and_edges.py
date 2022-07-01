@@ -4,12 +4,11 @@ import pytest
 from h3 import (
     H3ResDomainError,
     H3ResMismatchError,
-
+    H3DirEdgeInvalidError,
 
     H3Exception,
     H3ValueError,
     H3CellError,
-    H3EdgeError,
     H3DistanceError,
 )
 
@@ -425,13 +424,13 @@ def test_edges():
     e_bad = '14928308280ffff1'
     assert not h3.h3_unidirectional_edge_is_valid(e_bad)
 
-    with pytest.raises(H3EdgeError):
+    with pytest.raises(H3DirEdgeInvalidError):
         h3.get_origin_h3_index_from_unidirectional_edge(e_bad)
 
-    with pytest.raises(H3EdgeError):
+    with pytest.raises(H3DirEdgeInvalidError):
         h3.get_destination_h3_index_from_unidirectional_edge(e_bad)
 
-    with pytest.raises(H3EdgeError):
+    with pytest.raises(H3DirEdgeInvalidError):
         h3.get_h3_indexes_from_unidirectional_edge(e_bad)
 
 

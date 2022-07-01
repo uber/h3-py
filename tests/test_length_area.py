@@ -107,7 +107,7 @@ def test_bad_units():
         h3.cell_area(h, unit='foot-pounds')
 
     with pytest.raises(H3ValueError):
-        h3.exact_edge_length(h, unit='foot-pounds')
+        h3.exact_edge_length(e, unit='foot-pounds')
 
     with pytest.raises(H3ValueError):
         h3.point_dist((0, 0), (0, 0), unit='foot-pounds')
