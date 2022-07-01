@@ -158,7 +158,7 @@ def test_parent_err():
 def test_children():
     h = '8928308280fffff'
 
-    with pytest.raises(H3ResMismatchError):
+    with pytest.raises(H3ResDomainError):
         h3.h3_to_children(h, 8)
 
     # same resolution is set of just cell itself
@@ -188,7 +188,7 @@ def test_center_child():
     h = '8928308280fffff'
 
     # one above should raise an exception
-    with pytest.raises(H3ResMismatchError):
+    with pytest.raises(H3ResDomainError):
         h3.h3_to_center_child(h, 8)
 
     # same resolution should be same cell

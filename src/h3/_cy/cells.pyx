@@ -176,23 +176,25 @@ cpdef H3int parent(H3int h, res=None) except 0:
 cpdef H3int[:] children(H3int h, res=None):
     cdef:
         H3int child
-        h3lib.H3Error err
         int64_t N
 
     check_cell(h)
 
     if res is None:
         res = resolution(h) + 1
-    if res < resolution(h):
+
+    ex = code_to_exception(
+        h3lib.cellToChildrenSize(h, res, &N)
+    )
+    if ex:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        raise H3ResMismatchError(msg)
-
-    check_res(res)
-    err = h3lib.cellToChildrenSize(h, res, &N)
+        raise ex(msg)
 
     ptr = create_ptr(N)
-    err = h3lib.cellToChildren(h, res, ptr)
+    check_for_error(
+        h3lib.cellToChildren(h, res, ptr)
+    )
     mv = create_mv(ptr, N)
 
     return mv
@@ -201,19 +203,20 @@ cpdef H3int[:] children(H3int h, res=None):
 cpdef H3int center_child(H3int h, res=None) except 0:
     cdef:
         H3int child
-        h3lib.H3Error err
 
     check_cell(h)
 
     if res is None:
         res = resolution(h) + 1
-    if res < resolution(h):
+
+    ex = code_to_exception(
+        h3lib.cellToCenterChild(h, res, &child)
+    )
+    if ex:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        raise H3ResMismatchError(msg)
-
-    check_res(res)
-    err = h3lib.cellToCenterChild(h, res, &child)
+        raise ex(msg)
+    # todo: question: are the extra messages *that* necessary/helpful?
 
     return child
 
