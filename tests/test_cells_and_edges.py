@@ -150,7 +150,7 @@ def test_parent_err():
         msg = str(e)
 
     expected = 'Invalid parent resolution -1 for cell 0x{}.'
-    expected = expected.format(h)
+    expected = expected.format(h3.h3_to_string(h))
 
     assert msg == expected
 

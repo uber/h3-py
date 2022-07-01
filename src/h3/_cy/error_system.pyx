@@ -29,6 +29,7 @@ from .h3lib cimport H3Error
 def err_block(obj):
     """
     Syntactic maple syrup for grouping exception definitions.
+
     I.e., pretend scope.
     (This doesn't actually do anything context-manager-y.)
     """
