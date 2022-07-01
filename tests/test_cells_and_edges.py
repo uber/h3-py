@@ -3,13 +3,13 @@ import pytest
 
 from h3 import (
     H3ResDomainError,
+    H3DomainError,
     H3ResMismatchError,
     H3DirEdgeInvalidError,
     H3CellInvalidError,
 
     H3Exception,
     H3ValueError,
-    H3DistanceError,
 )
 
 
@@ -64,12 +64,12 @@ def test4():
 
 
 def test_k_ring_distance():
-    with pytest.raises(H3DistanceError):
+    with pytest.raises(H3DomainError):
         h3.k_ring('8928308280fffff', -10)
 
 
 def test_hex_ring_distance():
-    with pytest.raises(H3DistanceError):
+    with pytest.raises(H3DomainError):
         h3.hex_ring('8928308280fffff', -10)
 
 

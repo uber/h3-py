@@ -6,11 +6,11 @@ cimport h3lib
 
 from .error_system import (
     H3ResDomainError,
+    H3DomainError,
     H3DirEdgeInvalidError,
     H3CellInvalidError,
 
     H3ValueError,
-    H3DistanceError,
 )
 
 
@@ -84,7 +84,7 @@ cdef check_res(int res):
 
 cdef check_distance(int k):
     if k < 0:
-        raise H3DistanceError(
+        raise H3DomainError(
             'Grid distances must be nonnegative. Received: {}'.format(k)
         )
 

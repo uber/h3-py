@@ -67,8 +67,6 @@ class H3OptionInvalidError(H3Exception):
 class H3ValueError(H3Exception, ValueError):
     pass
 
-class H3DistanceError(H3ValueError):
-    pass
 
 error_dict = {
     H3ErrorCodes.E_SUCCESS: None,

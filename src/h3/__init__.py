@@ -9,7 +9,6 @@ from .api import basic_str as h3
 
 from ._cy import (
     H3ValueError,
-    H3DistanceError,
 
     H3Exception,
     H3UnrecognizedException,
