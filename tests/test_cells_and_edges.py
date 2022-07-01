@@ -2,6 +2,7 @@ import h3
 import pytest
 
 from h3 import (
+    H3Exception,
     H3ValueError,
     H3CellError,
     H3ResolutionError,
@@ -196,10 +197,14 @@ def test_distance():
 
 
 def test_distance_error():
+    """ Two valid cells, but they are too far apart compute the distance
+
+    todo: make sure this raises a E_TOO_FAR error (when we add it in the future)
+    """
     h1 = '8353b0fffffffff'
     h2 = '835804fffffffff'
 
-    with pytest.raises(H3ValueError):
+    with pytest.raises(H3Exception):
         h3.h3_distance(h1, h2)
 
 

@@ -6,7 +6,7 @@ todo: use module docs to describe new error system
 - error codes from C
 """
 
-from .h3lib cimport H3ErrorCodes
+from .h3lib cimport H3ErrorCodes, H3Error
 
 class H3Exception(Exception):
     pass
@@ -35,7 +35,7 @@ cdef check_for_error(H3Error err):
 
     d = {
         H3ErrorCodes.E_SUCCESS: None,
-        H3ErrorCodes.E_FAILED: H3ValueError(), # H3Exception(),
+        H3ErrorCodes.E_FAILED: H3Exception(),
         H3ErrorCodes.E_DOMAIN: H3ValueError(),
         H3ErrorCodes.E_LATLNG_DOMAIN: H3ValueError(),
         H3ErrorCodes.E_RES_DOMAIN: H3ResolutionError(),

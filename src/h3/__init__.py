@@ -8,6 +8,7 @@ from .api import basic_str as h3
 
 
 from ._cy import (
+    H3Exception,
     H3ValueError,
     H3CellError,
     H3ResolutionError,

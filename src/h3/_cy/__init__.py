@@ -73,6 +73,7 @@ from .util import (
 )
 
 from .error_system import (
+    H3Exception,
     H3ValueError,
     H3CellError,
     H3ResolutionError,
