@@ -2,9 +2,6 @@ cimport h3lib
 from .h3lib cimport bool, H3int
 
 from .util cimport (
-    check_cell,
-    check_edge,
-    check_res,
     create_ptr,
     create_mv,
 )
@@ -69,7 +66,6 @@ cpdef H3int[:] edges_from_cell(H3int origin):
     """ Returns the 6 (or 5 for pentagons) directed edges
     for the given origin cell
     """
-    check_cell(origin)
 
     ptr = create_ptr(6)
 
@@ -85,8 +81,6 @@ cpdef H3int[:] edges_from_cell(H3int origin):
 cpdef double mean_edge_length(int resolution, unit='km') except -1:
     cdef:
         double length
-
-    check_res(resolution)
 
     h3lib.getHexagonEdgeLengthAvgKm(resolution, &length)
 
@@ -107,7 +101,6 @@ cpdef double mean_edge_length(int resolution, unit='km') except -1:
 cpdef double edge_length(H3int e, unit='km') except -1:
     cdef:
         double length
-    check_edge(e)
 
     # todo: maybe kick this logic up to the python level
     # it might be a little cleaner, because we can do the "switch statement"

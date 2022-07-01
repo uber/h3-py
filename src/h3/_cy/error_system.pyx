@@ -6,6 +6,17 @@ todo: use module docs to describe new error system
 - error codes from C
 """
 
+'''
+Idea: Use normal Python exceptions whevever possible.
+Only use these H3 exceptions to refer to H3Error output from the C library.
+
+
+Philosophy question: should we aggressively check input values for the user? or assume
+they know what they're doing (as long as we don't allow a segfault)?
+Maybe the main Python lib checks aggressively, but we expose the Cython
+functions if they want to get risky?
+'''
+
 from .h3lib cimport H3ErrorCodes, H3Error
 
 # todo: do we want valueerror hierarchy or memory error from Python?
