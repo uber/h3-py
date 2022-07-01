@@ -19,14 +19,46 @@ functions if they want to get risky?
 
 can we use a factory pattern to simplify the creation of these errors?
 '''
+
+# todo: make note that these exceptions are only for the ones returned from C lib. how to ensure/enforce/guarantee?
+#
+# todo: separate file for the hierarchy of errors? separate them from the helper functions? nice, short file to define all the errors!
+#
+# should the internal nodes be ABC classes? separate what is actually raised from the possible grouping exceptions?
+#
+# "This file defines *all* custom h3-py errors."
+#
+# Move the helpers to util! (move -> banish?)
+#
+# Control where `E_*` can appear in the lib, and where `H3*Error` can appear. very limited!
+
 from contextlib import contextmanager
 
-from .h3lib cimport H3ErrorCodes as ec
-from .h3lib cimport H3Error
+from .h3lib cimport (
+    H3Error,
+
+    # H3ErrorCodes enum values
+    E_SUCCESS,
+    E_FAILED,
+    E_DOMAIN,
+    E_LATLNG_DOMAIN,
+    E_RES_DOMAIN,
+    E_CELL_INVALID,
+    E_DIR_EDGE_INVALID,
+    E_UNDIR_EDGE_INVALID,
+    E_VERTEX_INVALID,
+    E_PENTAGON,
+    E_DUPLICATE_INPUT,
+    E_NOT_NEIGHBORS,
+    E_RES_MISMATCH,
+    E_MEMORY,
+    E_MEMORY_BOUNDS,
+    E_OPTION_INVALID,
+)
 
 
 @contextmanager
-def err_block(obj):
+def this_error_as_e(obj):
     """
     Syntactic maple syrup for grouping exception definitions.
 
@@ -40,84 +72,86 @@ class H3Exception(Exception):
     h3_error_code = None
 
 
-with err_block(H3Exception) as e:
+with this_error_as_e(H3Exception) as e:
     class H3ValueError(e, ValueError): ...
     class H3MemoryError(e, MemoryError): ...
-    class H3UnrecognizedException(e): ...
+    class H3GridNavigationError(e, RuntimeError): ...
+    class H3UnrecognizedException(e): ...  ## Note: Should never happen
 
     class H3FailedError(e):
-        h3_error_code = ec.E_FAILED
+        h3_error_code = E_FAILED
 
+
+with this_error_as_e(H3GridNavigationError) as e:
     class H3PentagonError(e):
-        # todo: more-specific error type here?
-        h3_error_code = ec.E_PENTAGON
+        h3_error_code = E_PENTAGON
 
 
-with err_block(H3MemoryError) as e:
+with this_error_as_e(H3MemoryError) as e:
     class H3MemoryAllocError(e):
-        h3_error_code = ec.E_MEMORY
+        h3_error_code = E_MEMORY
 
     class H3MemoryBoundsError(e):
-        h3_error_code = ec.E_MEMORY_BOUNDS
+        h3_error_code = E_MEMORY_BOUNDS
 
 
-with err_block(H3ValueError) as e:
+with this_error_as_e(H3ValueError) as e:
     class H3DomainError(e):
-        h3_error_code = ec.E_DOMAIN
+        h3_error_code = E_DOMAIN
 
     class H3LatLngDomainError(e):
-        h3_error_code = ec.E_LATLNG_DOMAIN
+        h3_error_code = E_LATLNG_DOMAIN
 
     class H3ResDomainError(e):
-        h3_error_code = ec.E_RES_DOMAIN
+        h3_error_code = E_RES_DOMAIN
 
     class H3CellInvalidError(e):
-        h3_error_code = ec.E_CELL_INVALID
+        h3_error_code = E_CELL_INVALID
 
     class H3DirEdgeInvalidError(e):
-        h3_error_code = ec.E_DIR_EDGE_INVALID
+        h3_error_code = E_DIR_EDGE_INVALID
 
     class H3UndirEdgeInvalidError(e):
-        h3_error_code = ec.E_UNDIR_EDGE_INVALID
+        h3_error_code = E_UNDIR_EDGE_INVALID
 
     class H3VertexInvalidError(e):
-        h3_error_code = ec.E_VERTEX_INVALID
+        h3_error_code = E_VERTEX_INVALID
 
     class H3DuplicateInputError(e):
-        h3_error_code = ec.E_DUPLICATE_INPUT
+        h3_error_code = E_DUPLICATE_INPUT
 
     class H3NotNeighborsError(e):
-        h3_error_code = ec.E_NOT_NEIGHBORS
+        h3_error_code = E_NOT_NEIGHBORS
 
     class H3ResMismatchError(e):
-        h3_error_code = ec.E_RES_MISMATCH
+        h3_error_code = E_RES_MISMATCH
 
     class H3OptionInvalidError(e):
-        h3_error_code = ec.E_OPTION_INVALID
+        h3_error_code = E_OPTION_INVALID
 
 
 error_dict = {
-    # ec.E_SUCCESS:           None,
-    ec.E_FAILED:              H3FailedError,
-    ec.E_DOMAIN:              H3DomainError,
-    ec.E_LATLNG_DOMAIN:       H3LatLngDomainError,
-    ec.E_RES_DOMAIN:          H3ResDomainError,
-    ec.E_CELL_INVALID:        H3CellInvalidError,
-    ec.E_DIR_EDGE_INVALID:    H3DirEdgeInvalidError,
-    ec.E_UNDIR_EDGE_INVALID:  H3UndirEdgeInvalidError,
-    ec.E_VERTEX_INVALID:      H3VertexInvalidError,
-    ec.E_PENTAGON:            H3PentagonError,
-    ec.E_DUPLICATE_INPUT:     H3DuplicateInputError,
-    ec.E_NOT_NEIGHBORS:       H3NotNeighborsError,
-    ec.E_RES_MISMATCH:        H3ResMismatchError,
-    ec.E_MEMORY:              H3MemoryAllocError,
-    ec.E_MEMORY_BOUNDS:       H3MemoryBoundsError,
-    ec.E_OPTION_INVALID:      H3OptionInvalidError,
+    # E_SUCCESS:           None,
+    E_FAILED:              H3FailedError,
+    E_DOMAIN:              H3DomainError,
+    E_LATLNG_DOMAIN:       H3LatLngDomainError,
+    E_RES_DOMAIN:          H3ResDomainError,
+    E_CELL_INVALID:        H3CellInvalidError,
+    E_DIR_EDGE_INVALID:    H3DirEdgeInvalidError,
+    E_UNDIR_EDGE_INVALID:  H3UndirEdgeInvalidError,
+    E_VERTEX_INVALID:      H3VertexInvalidError,
+    E_PENTAGON:            H3PentagonError,
+    E_DUPLICATE_INPUT:     H3DuplicateInputError,
+    E_NOT_NEIGHBORS:       H3NotNeighborsError,
+    E_RES_MISMATCH:        H3ResMismatchError,
+    E_MEMORY:              H3MemoryAllocError,
+    E_MEMORY_BOUNDS:       H3MemoryBoundsError,
+    E_OPTION_INVALID:      H3OptionInvalidError,
 }
 
 
 cpdef code_to_exception(H3Error err):
-    if err == ec.E_SUCCESS:
+    if err == E_SUCCESS:
         return None
     else:
         ex = error_dict.get(err, H3UnrecognizedException)
