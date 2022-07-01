@@ -576,13 +576,6 @@ def test_get_res0_indexes():
     assert sub < out
 
 
-def test_get_faces_invalid():
-    h = '8a28308280fffff'  # invalid cell
-
-    with pytest.raises(H3CellInvalidError):
-        h3.h3_get_faces(h)
-
-
 def test_get_faces():
     h = '804dfffffffffff'
     expected = {2, 3, 7, 8, 12}

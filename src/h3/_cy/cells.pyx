@@ -234,8 +234,6 @@ cpdef H3int[:] compact(const H3int[:] hu):
     # `&hu[0]` **requires** a dereference. For Cython, checking for array
     # length of zero and returning early seems like the easiest solution.
     # note: open to better ideas!
-    cdef:
-        h3lib.H3Error err
 
     if len(hu) == 0:
         return empty_memory_view()
@@ -398,10 +396,7 @@ cpdef H3int[:] get_res0_indexes():
 
 cpdef get_faces(H3int h):
     cdef:
-        h3lib.H3Error err
         int n
-
-    check_cell(h)
 
     check_for_error(
         h3lib.maxFaceCount(h, &n)
@@ -426,9 +421,6 @@ cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
     cdef:
         h3lib.CoordIJ c
 
-    check_cell(origin)
-    check_cell(h)
-
     # todo: context manager for this idiom?
     err = h3lib.cellToLocalIj(origin, h, 0, &c)
     if err != 0:
@@ -442,8 +434,6 @@ cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
     cdef:
         h3lib.CoordIJ c
         H3int out
-
-    check_cell(origin)
 
     c.i, c.j = i, j
 
