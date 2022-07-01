@@ -136,6 +136,25 @@ def test_parent():
         h3.h3_to_parent(h, 10)
 
 
+def test_parent_err():
+    ### Test 1
+    h = '8075fffffffffff' # geo_to_h3(0,0,0)
+
+    with pytest.raises(H3ResDomainError):
+        h3.h3_to_parent(h)
+
+    ### Test 2
+    try:
+        h3.h3_to_parent(h)
+    except Exception as e:
+        msg = str(e)
+
+    expected = 'Invalid parent resolution -1 for cell 0x{}.'
+    expected = expected.format(h)
+
+    assert msg == expected
+
+
 def test_children():
     h = '8928308280fffff'
 

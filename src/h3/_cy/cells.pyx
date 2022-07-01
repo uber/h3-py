@@ -11,7 +11,7 @@ from .util cimport (
     empty_memory_view, # want to drop this import if possible
 )
 
-from .error_system cimport check_for_error
+from .error_system cimport check_for_error, code_to_exception
 from .error_system import H3PentagonError, H3ResDomainError, H3ResMismatchError, H3Exception
 
 # todo: add notes about Cython exception handling
@@ -151,19 +151,21 @@ cpdef H3int[:] ring(H3int h, int k):
 cpdef H3int parent(H3int h, res=None) except 0:
     cdef:
         H3int parent
-        h3lib.H3Error err
 
-    check_cell(h)
+    check_cell(h) # todo: do we want to check for validity here? or leave correctness to the user?
 
     if res is None:
         res = resolution(h) - 1
-    if res > resolution(h):
+
+    ex = code_to_exception(
+        h3lib.cellToParent(h, res, &parent)
+    )
+
+    # note: trying out an Exception idiom here to see if it works for us
+    if ex:
         msg = 'Invalid parent resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        raise H3ResMismatchError(msg)
-
-    check_res(res)
-    err = h3lib.cellToParent(h, res, &parent)
+        raise ex(msg)
 
     return parent
 
