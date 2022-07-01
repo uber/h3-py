@@ -9,7 +9,6 @@ from h3 import (
     H3CellInvalidError,
     H3Exception,
     H3NotNeighborsError,
-    H3PentagonError,
 )
 
 
