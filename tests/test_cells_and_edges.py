@@ -158,7 +158,6 @@ def test_parent_err():
 def test_children():
     h = '8928308280fffff'
 
-    # one above should raise an exception
     with pytest.raises(H3ResMismatchError):
         h3.h3_to_children(h, 8)
 
