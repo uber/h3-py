@@ -79,7 +79,7 @@ cpdef H3int[:] disk(H3int h, int k):
 
     ptr = create_ptr(n) # todo: return a "smart" pointer that knows its length?
     check_for_error(
-        h3lib.gridDisk(h, k, ptr) # ignoring error again!
+        h3lib.gridDisk(h, k, ptr)
     )
     mv = create_mv(ptr, n)
 
