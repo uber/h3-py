@@ -12,18 +12,20 @@ from .util cimport (
 from libc cimport stdlib
 from libc.stdint cimport uint64_t
 
+from .error_system cimport check_for_error
+
 
 cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
     cdef:
         h3lib.LatLng c
         H3int out
-        h3lib.H3Error err
 
     check_res(res)
     c = deg2coord(lat, lng)
 
-    # todo: just ignoring the error for now, check in the future
-    err = h3lib.latLngToCell(&c, res, &out)
+    check_for_error(
+        h3lib.latLngToCell(&c, res, &out)
+    )
 
     return out
 
@@ -32,11 +34,14 @@ cpdef (double, double) h3_to_geo(H3int h) except *:
     """Map an H3 cell into its centroid geo-coordinate (lat/lng)"""
     cdef:
         h3lib.LatLng c
-        h3lib.H3Error err
 
     check_cell(h)
+    # todo: think about: if you give this an invalid cell, should it still return a lat/lng?
+    # idea: safe and unsafe APIs?
 
-    err = h3lib.cellToLatLng(h, &c)
+    check_for_error(
+        h3lib.cellToLatLng(h, &c)
+    )
 
     return coord2deg(c)
 
