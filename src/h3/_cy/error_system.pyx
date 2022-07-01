@@ -69,67 +69,61 @@ def this_error_as_e(obj):
 
 
 class H3Exception(Exception):
+    """ Base H3 exception class.
+
+    Concrete subclasses of this class correspond to specific
+    error codes from the C library.
+    """
     h3_error_code = None
 
-
+# A few more base exceptions; organizational.
 with this_error_as_e(H3Exception) as e:
     class H3ValueError(e, ValueError): ...
     class H3MemoryError(e, MemoryError): ...
     class H3GridNavigationError(e, RuntimeError): ...
-    class H3UnrecognizedException(e): ...  ## Note: Should never happen
-
-    class H3FailedError(e):
-        h3_error_code = E_FAILED
 
 
+# Concrete exceptions
+with this_error_as_e(H3Exception) as e:
+    class H3FailedError(e): ...
+
+# Concrete exceptions
 with this_error_as_e(H3GridNavigationError) as e:
-    class H3PentagonError(e):
-        h3_error_code = E_PENTAGON
+    class H3PentagonError(e): ...
 
-
+# Concrete exceptions
 with this_error_as_e(H3MemoryError) as e:
-    class H3MemoryAllocError(e):
-        h3_error_code = E_MEMORY
+    class H3MemoryAllocError(e): ...
+    class H3MemoryBoundsError(e): ...
 
-    class H3MemoryBoundsError(e):
-        h3_error_code = E_MEMORY_BOUNDS
-
-
+# Concrete exceptions
 with this_error_as_e(H3ValueError) as e:
-    class H3DomainError(e):
-        h3_error_code = E_DOMAIN
-
-    class H3LatLngDomainError(e):
-        h3_error_code = E_LATLNG_DOMAIN
-
-    class H3ResDomainError(e):
-        h3_error_code = E_RES_DOMAIN
-
-    class H3CellInvalidError(e):
-        h3_error_code = E_CELL_INVALID
-
-    class H3DirEdgeInvalidError(e):
-        h3_error_code = E_DIR_EDGE_INVALID
-
-    class H3UndirEdgeInvalidError(e):
-        h3_error_code = E_UNDIR_EDGE_INVALID
-
-    class H3VertexInvalidError(e):
-        h3_error_code = E_VERTEX_INVALID
-
-    class H3DuplicateInputError(e):
-        h3_error_code = E_DUPLICATE_INPUT
-
-    class H3NotNeighborsError(e):
-        h3_error_code = E_NOT_NEIGHBORS
-
-    class H3ResMismatchError(e):
-        h3_error_code = E_RES_MISMATCH
-
-    class H3OptionInvalidError(e):
-        h3_error_code = E_OPTION_INVALID
+    class H3DomainError(e): ...
+    class H3LatLngDomainError(e): ...
+    class H3ResDomainError(e): ...
+    class H3CellInvalidError(e): ...
+    class H3DirEdgeInvalidError(e): ...
+    class H3UndirEdgeInvalidError(e): ...
+    class H3VertexInvalidError(e): ...
+    class H3DuplicateInputError(e): ...
+    class H3NotNeighborsError(e): ...
+    class H3ResMismatchError(e): ...
+    class H3OptionInvalidError(e): ...
 
 
+class UnrecognizedH3ErrorCode(Exception):
+    """
+    Indicates that the h3-py Python bindings have received an
+    unrecognized error code from the C library.
+
+    This should never happen. Please report if you get this error.
+
+    Note that this exception is *outside* of the H3Exception class hierarchy.
+    """
+    ...
+
+
+# Map C int error code to h3-py concrete exception
 error_dict = {
     # E_SUCCESS:           None,
     E_FAILED:              H3FailedError,
@@ -149,13 +143,18 @@ error_dict = {
     E_OPTION_INVALID:      H3OptionInvalidError,
 }
 
+# Each concrete exception stores its associated error code
+for code, ex in error_dict.items():
+    ex.h3_error_code = code
+
 
 cpdef code_to_exception(H3Error err):
     if err == E_SUCCESS:
         return None
+    elif err in error_dict:
+        return error_dict[err]
     else:
-        ex = error_dict.get(err, H3UnrecognizedException)
-        return ex
+        raise UnrecognizedH3ErrorCode(err)
 
 
 cdef check_for_error(H3Error err):
@@ -167,13 +166,7 @@ cdef check_for_error(H3Error err):
 
     ex = code_to_exception(err)
 
-    if ex is None:
-        pass
-    elif ex == H3UnrecognizedException:
-        # pass along the C error code
-        # todo: add a test
-        raise H3UnrecognizedException(err)
-    else:
+    if ex is not None:
         raise ex
 
 
@@ -182,8 +175,8 @@ cdef raise_with_msg(H3Error err, str msg):
 
     if ex is None:
         pass
-    elif ex == H3UnrecognizedException:
-        msg = 'Code: {}, msg: {}'.format(err, msg)
-        raise H3UnrecognizedException(msg)
+    # elif ex == H3UnrecognizedException:
+    #     msg = 'Code: {}, msg: {}'.format(err, msg)
+    #     raise H3UnrecognizedException(msg)
     else:
         raise ex(msg)

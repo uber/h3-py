@@ -74,7 +74,7 @@ from .util import (
 
 from .error_system import (
     H3Exception,
-    H3UnrecognizedException,
+    UnrecognizedH3ErrorCode,
     H3FailedError,
     H3DomainError,
     H3LatLngDomainError,

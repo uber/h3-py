@@ -166,6 +166,7 @@ cpdef H3int parent(H3int h, res=None) except 0:
     # (if you comment out the H3ResMismatchError in the error system file)
     # maybe need some way to indicate when extra info is expected (e.g. a message or unknown error code)
     # note/question: potential optimization benefit from not chaining function calls?
+    # update: maybe not since UnrecognizedH3ErrorCode
     if ex:
         msg = 'Invalid parent resolution {} for cell {}.'
         msg = msg.format(res, hex(h))

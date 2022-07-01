@@ -9,7 +9,7 @@ from .api import basic_str as h3
 
 from ._cy import (
     H3Exception,
-    H3UnrecognizedException,
+    UnrecognizedH3ErrorCode,
     H3FailedError,
     H3DomainError,
     H3LatLngDomainError,
