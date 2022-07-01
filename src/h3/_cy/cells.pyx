@@ -323,10 +323,7 @@ cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
 
 cpdef double cell_area(H3int h, unit='km^2') except -1:
     cdef:
-        h3lib.H3Error err
         double area
-
-    check_cell(h)
 
     if unit == 'rads^2':
         err = h3lib.cellAreaRads2(h, &area)
@@ -336,6 +333,8 @@ cpdef double cell_area(H3int h, unit='km^2') except -1:
         err = h3lib.cellAreaM2(h, &area)
     else:
         raise ValueError('Unknown unit: {}'.format(unit))
+
+    check_for_error(err)
 
     return area
 
