@@ -31,14 +31,14 @@ allow the user to catch general groups of errors.
 Summarizing, all exceptions originating from the C library inherit from
 `H3BaseException`, which has both "abstract" and "concrete" subclasses.
 
-The abstract classes are:
+**Abstract classes**:
 
 - H3BaseException
 - H3ValueError
 - H3MemoryError
 - H3GridNavigationError
 
-The concrete classes are:
+**Concrete classes**:
 
 - H3FailedError
 - H3DomainError
