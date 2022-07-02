@@ -125,7 +125,7 @@ class H3BaseException(Exception):
 
 
 #
-# A few more abstract exceptions; organizational.
+# A few "abstract" exceptions; organizational.
 #
 with the_error(H3BaseException) as e:
     class H3ValueError(e, ValueError): ...
@@ -179,7 +179,7 @@ class UnknownH3ErrorCode(Exception):
 """
 This defines a mapping between uint32_t error codes and concrete Python
 exception classes.
-Note that we intentionally omit E_SUCCESS, as it is not an actual error.
+Note that we intentionally omit E_SUCCESS, as it isn't an actual error.
 """
 error_mapping = {
     E_FAILED:              H3FailedError,
