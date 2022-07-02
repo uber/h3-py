@@ -58,7 +58,7 @@ from .h3lib cimport (
 
 
 @contextmanager
-def this_error_as_e(obj):
+def the_error(obj):
     """
     Syntactic maple syrup for grouping exception definitions.
 
@@ -77,27 +77,27 @@ class H3Exception(Exception):
     h3_error_code = None
 
 # A few more base exceptions; organizational.
-with this_error_as_e(H3Exception) as e:
+with the_error(H3Exception) as e:
     class H3ValueError(e, ValueError): ...
     class H3MemoryError(e, MemoryError): ...
     class H3GridNavigationError(e, RuntimeError): ...
 
 
 # Concrete exceptions
-with this_error_as_e(H3Exception) as e:
+with the_error(H3Exception) as e:
     class H3FailedError(e): ...
 
 # Concrete exceptions
-with this_error_as_e(H3GridNavigationError) as e:
+with the_error(H3GridNavigationError) as e:
     class H3PentagonError(e): ...
 
 # Concrete exceptions
-with this_error_as_e(H3MemoryError) as e:
+with the_error(H3MemoryError) as e:
     class H3MemoryAllocError(e): ...
     class H3MemoryBoundsError(e): ...
 
 # Concrete exceptions
-with this_error_as_e(H3ValueError) as e:
+with the_error(H3ValueError) as e:
     class H3DomainError(e): ...
     class H3LatLngDomainError(e): ...
     class H3ResDomainError(e): ...
@@ -149,7 +149,7 @@ for code, ex in error_dict.items():
     ex.h3_error_code = code
 
 
-cpdef code_to_exception(H3Error err):
+cdef code_to_exception(H3Error err):
     if err == E_SUCCESS:
         return None
     elif err in error_dict:

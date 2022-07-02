@@ -12,7 +12,7 @@ from .util cimport (
 )
 
 from .error_system cimport check_for_error
-from .error_system import H3PentagonError, H3ResDomainError, H3ResMismatchError, H3Exception
+from .error_system import H3PentagonError, H3ResDomainError, H3ResMismatchError
 
 # todo: add notes about Cython exception handling
 

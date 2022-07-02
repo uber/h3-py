@@ -7,7 +7,6 @@ from h3 import (
     H3DomainError,
     H3ResMismatchError,
     H3CellInvalidError,
-    H3Exception,
     H3NotNeighborsError,
 )
 
@@ -224,7 +223,7 @@ def test_distance_error():
     h1 = '8353b0fffffffff'
     h2 = '835804fffffffff'
 
-    with pytest.raises(H3Exception):
+    with pytest.raises(H3FailedError):
         h3.h3_distance(h1, h2)
 
 
