@@ -20,7 +20,6 @@ cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
         h3lib.LatLng c
         H3int out
 
-    check_res(res)
     c = deg2coord(lat, lng)
 
     check_for_error(
