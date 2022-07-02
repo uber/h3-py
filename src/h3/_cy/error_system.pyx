@@ -5,28 +5,33 @@ Exceptions from the h3-py library have three possible sources:
 - the Cython code
 - the underlying H3 C library code
 
-The Python and Cython h3-py code will only raise standard Python
-built-in exceptions; no custom exception classes will be used.
+The Python and Cython `h3-py` code will only raise standard Python
+built-in exceptions; **no custom** exception classes will be used.
 
-On the other hand, many functions in the H3 C library return a `uint32_t`
+Conversely, many functions in the H3 C library return a `uint32_t`
 error code (aliased as type `H3Error`).
-The Python/Cython code will pass along these errors if they occur (but can't be
-recovered from), and convert them from `uint32_t` values to custom Python
-exception types.
+When these errors happen (and `h3-py` can't recover from them internally),
+they are passed up to the Python/Cython code, where their
+`uint32_t` error values are converted to **custom** Python exception types.
 These custom exception classes all inherit from `H3BaseException`.
 
 There is a 1-1 correspondence between the concrete subclasses of
 `H3BaseException` and the H3 C library `H3ErrorCodes` values.
-Thus, the user can refer to the C library documentation on these errors.
+The correspondence is intentional, so that the user can refer to the
+H3 C library documentation on these errors.
 
-The (`uint32_t` <-> Exception) correspondence should be clear from the names
-of each, but the explicit mapping is given by a dictionary in the code below.
+The (`uint32_t` <-> Exception) correspondence should be clear from
+the names of each error/exception, but the explicit mapping is given by
+a dictionary in the code below.
 
 Note that some "abstract" subclasses of `H3BaseException` are also included to
 group the exceptions by type. (We say "abstract" because Python has no easy
 way to make true abstract exception classes.)
-These "abstract" exceptions will never be raised directly by h3-py, but they
+
+These "abstract" exceptions will never be raised directly by `h3-py`, but they
 allow the user to catch general groups of errors.
+Note that `h3-py` will only ever directly raise
+the "concrete" exception classes.
 
 Summarizing, all exceptions originating from the C library inherit from
 `H3BaseException`, which has both "abstract" and "concrete" subclasses.
