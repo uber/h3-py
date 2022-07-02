@@ -1,36 +1,64 @@
 """
-todo: use module docs to describe new error system
+Exceptions from the h3-py library have three possible sources:
 
-- less aggressive correctness checking for indices
-- hierarchy?
-- error codes from C
+- the Python code
+- the Cython code
+- the underlying H3 C library code
+
+The Python and Cython h3-py code will only raise standard Python
+built-in exceptions; no custom exception classes will be used.
+
+On the other hand, many functions in the H3 C library return a `uint32_t`
+error code (aliased as type `H3Error`).
+The Python/Cython code will pass along these errors if they occur (but can't be
+recovered from), and convert them from `uint32_t` values to custom Python
+exception types.
+These custom exception classes all inherit from `H3BaseException`.
+
+There is a 1-1 correspondence between the concrete subclasses of
+`H3BaseException` and the H3 C library `H3ErrorCodes` values.
+Thus, the user can refer to the C library documentation on these errors.
+
+The (`uint32_t` <-> Exception) correspondence should be clear from the names
+of each, but the explicit mapping is given by a dictionary in the code below.
+
+Note that some "abstract" subclasses of `H3BaseException` are also included to
+group the exceptions by type. (We say "abstract" because Python has no easy
+way to make true abstract exception classes.)
+These "abstract" exceptions will never be raised directly by h3-py, but they
+allow the user to catch general groups of errors.
+
+Summarizing, all exceptions originating from the C library inherit from
+`H3BaseException`, which has both "abstract" and "concrete" subclasses.
+
+The abstract classes are:
+
+- H3BaseException
+- H3ValueError
+- H3MemoryError
+- H3GridNavigationError
+
+The concrete classes are:
+
+- H3FailedError
+- H3DomainError
+- H3LatLngDomainError
+- H3ResDomainError
+- H3CellInvalidError
+- H3DirEdgeInvalidError
+- H3UndirEdgeInvalidError
+- H3VertexInvalidError
+- H3PentagonError
+- H3DuplicateInputError
+- H3NotNeighborsError
+- H3ResMismatchError
+- H3MemoryAllocError
+- H3MemoryBoundsError
+- H3OptionInvalidError
+
+
+# TODO: add tests verifying that concrete exception classes have the right error codes associated with them
 """
-
-'''
-Idea: Use normal Python exceptions whenever possible.
-Only use these H3 exceptions to refer to H3Error output from the C library.
-Would it then follow that these should only appear from the check_for_error function?
-
-
-Philosophy question: should we aggressively check input values for the user? or assume
-they know what they're doing (as long as we don't allow a segfault)?
-Maybe the main Python lib checks aggressively, but we expose the Cython
-functions if they want to get risky?
-
-can we use a factory pattern to simplify the creation of these errors?
-'''
-
-# todo: make note that these exceptions are only for the ones returned from C lib. how to ensure/enforce/guarantee?
-#
-# todo: separate file for the hierarchy of errors? separate them from the helper functions? nice, short file to define all the errors!
-#
-# should the internal nodes be ABC classes? separate what is actually raised from the possible grouping exceptions?
-#
-# "This file defines *all* custom h3-py errors."
-#
-# Move the helpers to util! (move -> banish?)
-#
-# Control where `E_*` can appear in the lib, and where `H3*Error` can appear. very limited!
 
 from contextlib import contextmanager
 
@@ -62,46 +90,52 @@ def the_error(obj):
     """
     Syntactic maple syrup for grouping exception definitions.
 
-    I.e., pretend scope.
-    (This doesn't actually do anything context-manager-y.)
+    Sort of a pretend scope, in the form of a `with` statement that ends up
+    as a not-half-bad approximation of a valid sentence fragment.
+
+    Note that this doesn't actually do anything context-manager-y.
     """
     yield obj
 
 
+#
+# Base exception for C library error codes
+#
 class H3BaseException(Exception):
     """ Base H3 exception class.
 
     Concrete subclasses of this class correspond to specific
     error codes from the C library.
 
-    Base subclasses will have `h3_error_code = None`, while
-    concrete subclasses will have it equal to their associated
+    Base/abstract subclasses will have `h3_error_code = None`, while
+    concrete subclasses will have `h3_error_code` equal to their associated
     C library error code.
     """
     h3_error_code = None
 
 
-# A few more base exceptions; organizational.
+#
+# A few more abstract exceptions; organizational.
+#
 with the_error(H3BaseException) as e:
     class H3ValueError(e, ValueError): ...
     class H3MemoryError(e, MemoryError): ...
     class H3GridNavigationError(e, RuntimeError): ...
 
 
+#
 # Concrete exceptions
+#
 with the_error(H3BaseException) as e:
     class H3FailedError(e): ...
 
-# Concrete exceptions
 with the_error(H3GridNavigationError) as e:
     class H3PentagonError(e): ...
 
-# Concrete exceptions
 with the_error(H3MemoryError) as e:
     class H3MemoryAllocError(e): ...
     class H3MemoryBoundsError(e): ...
 
-# Concrete exceptions
 with the_error(H3ValueError) as e:
     class H3DomainError(e): ...
     class H3LatLngDomainError(e): ...
@@ -116,6 +150,9 @@ with the_error(H3ValueError) as e:
     class H3OptionInvalidError(e): ...
 
 
+#
+# Something that should never happen
+#
 class UnknownH3ErrorCode(Exception):
     """
     Indicates that the h3-py Python bindings have received an
@@ -123,15 +160,17 @@ class UnknownH3ErrorCode(Exception):
 
     This should never happen. Please report if you get this error.
 
-    Note that this exception is *outside* of the H3BaseException class hierarchy.
+    Note that this exception is *outside* of the
+    H3BaseException class hierarchy.
     """
     pass
 
+
 """
-Map C int error code to h3-py concrete exception
-We intentionally omit E_SUCCESS.
+Mapping between uint32_t error code and concrete Python exception classes.
+Note that we intentionally omit E_SUCCESS (as it is not an actual error).
 """
-error_dict = {
+error_mapping = {
     E_FAILED:              H3FailedError,
     E_DOMAIN:              H3DomainError,
     E_LATLNG_DOMAIN:       H3LatLngDomainError,
@@ -149,16 +188,24 @@ error_dict = {
     E_OPTION_INVALID:      H3OptionInvalidError,
 }
 
-# Each concrete exception stores its associated error code
-for code, ex in error_dict.items():
+# Go back and modify each class definition so that each concrete exception
+# stores its associated error code.
+for code, ex in error_mapping.items():
     ex.h3_error_code = code
 
+
+#
+# Helper functions
+#
+
+# TODO: Move the helpers to util?
+# TODO: Unclear how/where to expose these functions. cdef/cpdef?
 
 cdef code_to_exception(H3Error err):
     if err == E_SUCCESS:
         return None
-    elif err in error_dict:
-        return error_dict[err]
+    elif err in error_mapping:
+        return error_mapping[err]
     else:
         raise UnknownH3ErrorCode(err)
 
