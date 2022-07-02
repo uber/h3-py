@@ -88,10 +88,13 @@ from .h3lib cimport (
 @contextmanager
 def the_error(obj):
     """
-    Syntactic maple syrup for grouping exception definitions.
+    Syntactic maple syrup for grouping exception definitions, in the
+    form of a `with` statement that ends up as a not-half-bad
+    approximation of a valid sentence fragment.
 
-    Sort of a pretend scope, in the form of a `with` statement that ends up
-    as a not-half-bad approximation of a valid sentence fragment.
+    Sort of a pretend scope, in that it allows for block indentation to
+    visually indicate the scoping of the `... as e`, even though Python
+    doesn't treat it as a "true" block scope.
 
     Note that this doesn't actually do anything context-manager-y.
     """
