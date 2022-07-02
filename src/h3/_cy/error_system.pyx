@@ -96,7 +96,8 @@ def the_error(obj):
     visually indicate the scoping of the `... as e`, even though Python
     doesn't treat it as a "true" block scope.
 
-    Note that this doesn't actually do anything context-manager-y.
+    Note that this doesn't actually do anything context-manager-y, outside
+    of the variable assignment and block indentation.
     """
     yield obj
 
