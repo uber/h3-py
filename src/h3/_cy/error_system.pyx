@@ -162,13 +162,12 @@ cdef code_to_exception(H3Error err):
     else:
         raise UnknownH3ErrorCode(err)
 
-
-SENTINEL_VAL = '__h3-py_sentinel__'
-cdef check_for_error(H3Error err, str msg=SENTINEL_VAL):
+cdef check_for_error(H3Error err):
     ex = code_to_exception(err)
-
     if ex:
-        if msg == SENTINEL_VAL:
-            raise ex
-        else:
-            raise ex(msg)
+        raise ex
+
+cdef check_for_error_msg(H3Error err, str msg):
+    ex = code_to_exception(err)
+    if ex:
+        raise ex(msg)

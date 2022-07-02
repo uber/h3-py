@@ -11,8 +11,10 @@ from .util cimport (
     empty_memory_view, # want to drop this import if possible
 )
 
-from .error_system cimport check_for_error
-from .error_system import H3PentagonError, H3ResDomainError, H3ResMismatchError
+from .error_system cimport (
+    check_for_error,
+    check_for_error_msg,
+)
 
 # todo: add notes about Cython exception handling
 
@@ -164,7 +166,7 @@ cpdef H3int parent(H3int h, res=None) except 0:
     if err:
         msg = 'Invalid parent resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        check_for_error(err, msg)
+        check_for_error_msg(err, msg)
 
     return parent
 
@@ -183,7 +185,7 @@ cpdef H3int[:] children(H3int h, res=None):
     if err:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        check_for_error(err, msg)
+        check_for_error_msg(err, msg)
 
     ptr = create_ptr(N)
     err = h3lib.cellToChildren(h, res, ptr)
@@ -206,7 +208,7 @@ cpdef H3int center_child(H3int h, res=None) except 0:
     if err:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
-        check_for_error(err, msg)
+        check_for_error_msg(err, msg)
 
     return child
 
@@ -326,7 +328,7 @@ cdef couldnt_find_line(err, start, end):
     msg = "Couldn't find line between cells {} and {}"
     msg = msg.format(hex(start), hex(end))
 
-    check_for_error(err, msg)
+    check_for_error_msg(err, msg)
 
 cpdef H3int[:] line(H3int start, H3int end):
     cdef:
@@ -407,7 +409,7 @@ cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
     if err:
         msg = "Couldn't find local (i,j) between cells {} and {}."
         msg = msg.format(hex(origin), hex(h))
-        check_for_error(err, msg)
+        check_for_error_msg(err, msg)
 
     return c.i, c.j
 
@@ -422,6 +424,6 @@ cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
     if err:
         msg = "Couldn't find cell at local ({},{}) from cell {}."
         msg = msg.format(i, j, hex(origin))
-        check_for_error(err, msg)
+        check_for_error_msg(err, msg)
 
     return out
