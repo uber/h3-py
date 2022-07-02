@@ -73,8 +73,8 @@ from .util import (
 )
 
 from .error_system import (
-    H3Exception,
-    UnrecognizedH3ErrorCode,
+    H3BaseException,
+    UnknownH3ErrorCode,
     H3FailedError,
     H3DomainError,
     H3LatLngDomainError,

@@ -67,24 +67,29 @@ def the_error(obj):
     """
     yield obj
 
-# H3ErrorCodeBaseException
-class H3Exception(Exception):
+
+class H3BaseException(Exception):
     """ Base H3 exception class.
 
     Concrete subclasses of this class correspond to specific
     error codes from the C library.
+
+    Base subclasses will have `h3_error_code = None`, while
+    concrete subclasses will have it equal to their associated
+    C library error code.
     """
     h3_error_code = None
 
+
 # A few more base exceptions; organizational.
-with the_error(H3Exception) as e:
+with the_error(H3BaseException) as e:
     class H3ValueError(e, ValueError): ...
     class H3MemoryError(e, MemoryError): ...
     class H3GridNavigationError(e, RuntimeError): ...
 
 
 # Concrete exceptions
-with the_error(H3Exception) as e:
+with the_error(H3BaseException) as e:
     class H3FailedError(e): ...
 
 # Concrete exceptions
@@ -110,17 +115,17 @@ with the_error(H3ValueError) as e:
     class H3ResMismatchError(e): ...
     class H3OptionInvalidError(e): ...
 
-# class UnknownH3ErrorCode
-class UnrecognizedH3ErrorCode(Exception):
+
+class UnknownH3ErrorCode(Exception):
     """
     Indicates that the h3-py Python bindings have received an
     unrecognized error code from the C library.
 
     This should never happen. Please report if you get this error.
 
-    Note that this exception is *outside* of the H3Exception class hierarchy.
+    Note that this exception is *outside* of the H3BaseException class hierarchy.
     """
-    ...
+    pass
 
 """
 Map C int error code to h3-py concrete exception
@@ -155,7 +160,7 @@ cdef code_to_exception(H3Error err):
     elif err in error_dict:
         return error_dict[err]
     else:
-        raise UnrecognizedH3ErrorCode(err)
+        raise UnknownH3ErrorCode(err)
 
 
 SENTINEL_VAL = '__h3-py_sentinel__'
