@@ -161,18 +161,10 @@ cpdef H3int parent(H3int h, res=None) except 0:
         res = resolution(h) - 1
 
     err = h3lib.cellToParent(h, res, &parent)
-
-    # note: trying out an Exception idiom here to see if it works for us
-    # note: this can get you things like H3UnrecognizedException: Invalid parent resolution 10 for cell 0x8928308280fffff.
-    # (if you comment out the H3ResMismatchError in the error system file)
-    # maybe need some way to indicate when extra info is expected (e.g. a message or unknown error code)
-    # note/question: potential optimization benefit from not chaining function calls?
-    # update: maybe not since UnrecognizedH3ErrorCode
     if err:
         msg = 'Invalid parent resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
         check_for_error(err, msg)
-        # todo: some context manager way to do this?
 
     return parent
 
@@ -188,7 +180,6 @@ cpdef H3int[:] children(H3int h, res=None):
         res = resolution(h) + 1
 
     err = h3lib.cellToChildrenSize(h, res, &N)
-
     if err:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
