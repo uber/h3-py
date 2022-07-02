@@ -167,8 +167,9 @@ class UnknownH3ErrorCode(Exception):
 
 
 """
-Mapping between uint32_t error code and concrete Python exception classes.
-Note that we intentionally omit E_SUCCESS (as it is not an actual error).
+This defines a mapping between uint32_t error codes and concrete Python
+exception classes.
+Note that we intentionally omit E_SUCCESS, as it is not an actual error.
 """
 error_mapping = {
     E_FAILED:              H3FailedError,
@@ -188,7 +189,7 @@ error_mapping = {
     E_OPTION_INVALID:      H3OptionInvalidError,
 }
 
-# Go back and modify each class definition so that each concrete exception
+# Go back and modify the class definitions so that each concrete exception
 # stores its associated error code.
 for code, ex in error_mapping.items():
     ex.h3_error_code = code
