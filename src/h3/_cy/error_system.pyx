@@ -228,6 +228,7 @@ cdef check_for_error(H3Error err):
 # not sure this even needs to be a Cython `cdef` function at all, or that
 # any of the other helper functions need to be in Cython.
 # todo: Revisit after we've played with this a bit.
+# todo: also: maybe the extra messages aren't that much more helpful...
 cdef check_for_error_msg(H3Error err, str msg):
     ex = code_to_exception(err)
     if ex:
