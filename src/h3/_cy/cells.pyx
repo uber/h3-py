@@ -203,15 +203,10 @@ cpdef H3int center_child(H3int h, res=None) except 0:
         res = resolution(h) + 1
 
     err = h3lib.cellToCenterChild(h, res, &child)
-
-    # new idiom? any good?
-    # pro: makes the "pure cython" branch a little clearer
     if err:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
         check_for_error(err, msg)
-
-    # todo: can we do this with something like a context manager?
 
     return child
 
@@ -270,7 +265,6 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     )
     mv = create_mv(ptr, N)
 
-    # todo (idiom): this is kind of nice...
     # todo: fix weird error ordering due to memory freeing...
     check_for_error(err)
 
@@ -409,9 +403,8 @@ cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
     cdef:
         h3lib.CoordIJ c
 
-    # todo: context manager for this idiom?
     err = h3lib.cellToLocalIj(origin, h, 0, &c)
-    if err != 0:
+    if err:
         msg = "Couldn't find local (i,j) between cells {} and {}."
         msg = msg.format(hex(origin), hex(h))
         check_for_error(err, msg)
@@ -425,10 +418,8 @@ cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
 
     c.i, c.j = i, j
 
-    # todo: context manager for this idiom?
     err = h3lib.localIjToCell(origin, &c, 0, &out)
-
-    if err != 0:
+    if err:
         msg = "Couldn't find cell at local ({},{}) from cell {}."
         msg = msg.format(i, j, hex(origin))
         check_for_error(err, msg)
