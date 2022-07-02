@@ -219,6 +219,10 @@ cdef check_for_error(H3Error err):
     if ex:
         raise ex
 
+# todo: There's no easy way to do `*args` in `cdef` functions, but I'm also
+# not sure this even needs to be a Cython `cdef` function at all, or that
+# any of the other helper functions need to be in Cython.
+# todo: Revisit after we've played with this a bit.
 cdef check_for_error_msg(H3Error err, str msg):
     ex = code_to_exception(err)
     if ex:
