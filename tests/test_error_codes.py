@@ -2,6 +2,8 @@ import pytest
 
 import h3
 
+# todo: maybe check the `check_for_error` function behavior directly?
+
 
 h3_exceptions = {
     # h3.UnknownH3ErrorCode
