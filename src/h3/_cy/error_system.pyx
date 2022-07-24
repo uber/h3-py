@@ -89,6 +89,21 @@ from .h3lib cimport (
     E_OPTION_INVALID,
 )
 
+#
+# Something that should never happen
+#
+class UnknownH3ErrorCode(Exception):
+    """
+    Indicates that the h3-py Python bindings have received an
+    unrecognized error code from the C library.
+
+    This should never happen. Please report if you get this error.
+
+    Note that this exception is *outside* of the
+    H3BaseException class hierarchy.
+    """
+    pass
+
 
 @contextmanager
 def the_error(obj):
@@ -158,22 +173,6 @@ with the_error(H3ValueError) as e:
     class H3NotNeighborsError(e): ...
     class H3ResMismatchError(e): ...
     class H3OptionInvalidError(e): ...
-
-
-#
-# Something that should never happen
-#
-class UnknownH3ErrorCode(Exception):
-    """
-    Indicates that the h3-py Python bindings have received an
-    unrecognized error code from the C library.
-
-    This should never happen. Please report if you get this error.
-
-    Note that this exception is *outside* of the
-    H3BaseException class hierarchy.
-    """
-    pass
 
 
 """
