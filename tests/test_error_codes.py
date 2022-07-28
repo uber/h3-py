@@ -52,14 +52,12 @@ def test_unknown():
 
 
 def test_atributes():
-    # normal errors always have an `h3_error_code` attribute
+    # errors always have an `h3_error_code` attribute
     for err in h3_exceptions:
         x = err.h3_error_code
         assert (x is None) or (x > 0)
 
-    # UnknownH3ErrorCode
-    #
-    # should not have an `h3_error_code` attribute
+    # UnknownH3ErrorCode is a bit of a special case
     weird_code = 1234
     with pytest.raises(h3.UnknownH3ErrorCode) as excinfo:
         raise h3.UnknownH3ErrorCode(weird_code)
