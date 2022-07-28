@@ -254,7 +254,7 @@ class _API_FUNCTIONS(object):
         path between the cells in the graph formed by connecting
         adjacent cells.
 
-        This function will return an exception if the
+        This function will raise an exception if the
         cells are too far apart to compute the distance.
 
         Parameters
