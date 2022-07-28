@@ -65,5 +65,5 @@ def test_atributes():
         raise h3.UnknownH3ErrorCode(weird_code)
     err = excinfo.value
 
-    assert err.h3_error_code == None
+    assert err.h3_error_code is None
     assert err.args == (weird_code,)
