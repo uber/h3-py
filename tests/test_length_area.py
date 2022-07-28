@@ -1,8 +1,6 @@
 import h3
 import pytest
 
-from h3 import H3ValueError
-
 
 def approx2(a, b):
     if len(a) != len(b):
@@ -103,13 +101,13 @@ def test_bad_units():
     assert h3.h3_is_valid(h)
     assert h3.h3_unidirectional_edge_is_valid(e)
 
-    with pytest.raises(H3ValueError):
+    with pytest.raises(ValueError):
         h3.cell_area(h, unit='foot-pounds')
 
-    with pytest.raises(H3ValueError):
-        h3.exact_edge_length(h, unit='foot-pounds')
+    with pytest.raises(ValueError):
+        h3.exact_edge_length(e, unit='foot-pounds')
 
-    with pytest.raises(H3ValueError):
+    with pytest.raises(ValueError):
         h3.point_dist((0, 0), (0, 0), unit='foot-pounds')
 
 

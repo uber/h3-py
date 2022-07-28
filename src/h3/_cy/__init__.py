@@ -70,9 +70,29 @@ from .util import (
     hex2int,
     int2hex,
     from_iter,
+)
+
+from .error_system import (
+    UnknownH3ErrorCode,
+    H3BaseException,
+
+    H3GridNavigationError,
+    H3MemoryError,
     H3ValueError,
-    H3CellError,
-    H3ResolutionError,
-    H3EdgeError,
-    H3DistanceError,
+
+    H3FailedError,
+    H3DomainError,
+    H3LatLngDomainError,
+    H3ResDomainError,
+    H3CellInvalidError,
+    H3DirEdgeInvalidError,
+    H3UndirEdgeInvalidError,
+    H3VertexInvalidError,
+    H3PentagonError,
+    H3DuplicateInputError,
+    H3NotNeighborsError,
+    H3ResMismatchError,
+    H3MemoryAllocError,
+    H3MemoryBoundsError,
+    H3OptionInvalidError,
 )

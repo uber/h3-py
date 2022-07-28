@@ -2,11 +2,12 @@ import h3
 import pytest
 
 from h3 import (
-    H3ValueError,
-    H3CellError,
-    H3ResolutionError,
-    H3EdgeError,
-    H3DistanceError,
+    H3FailedError,
+    H3ResDomainError,
+    H3DomainError,
+    H3ResMismatchError,
+    H3CellInvalidError,
+    H3NotNeighborsError,
 )
 
 
@@ -61,12 +62,12 @@ def test4():
 
 
 def test_k_ring_distance():
-    with pytest.raises(H3DistanceError):
+    with pytest.raises(H3DomainError):
         h3.k_ring('8928308280fffff', -10)
 
 
 def test_hex_ring_distance():
-    with pytest.raises(H3DistanceError):
+    with pytest.raises(H3DomainError):
         h3.hex_ring('8928308280fffff', -10)
 
 
@@ -114,7 +115,7 @@ def test8():
     assert not h3.h3_is_valid(h_bad)
 
     # other methods should validate and raise exception if bad input
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_get_resolution(h_bad)
 
 
@@ -130,15 +131,34 @@ def test_parent():
     assert h3.h3_to_parent(h, 8) == '8828308281fffff'
     assert h3.h3_to_parent(h, 9) == h
 
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResMismatchError):
         h3.h3_to_parent(h, 10)
+
+
+def test_parent_err():
+    # Test 1
+    h = '8075fffffffffff'  # geo_to_h3(0,0,0)
+
+    with pytest.raises(H3ResDomainError):
+        h3.h3_to_parent(h)
+
+    # Test 2
+    try:
+        h3.h3_to_parent(h)
+    except Exception as e:
+        msg = str(e)
+
+    # todo: revist this weird formatting stuff
+    expected = 'Invalid parent resolution -1 for cell {}.'
+    expected = expected.format(hex(h3.string_to_h3(h)))
+
+    assert msg == expected
 
 
 def test_children():
     h = '8928308280fffff'
 
-    # one above should raise an exception
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.h3_to_children(h, 8)
 
     # same resolution is set of just cell itself
@@ -160,7 +180,7 @@ def test_children():
 
     # finest resolution cell should return error for children
     h = '8f04ccb2c45e225'
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.h3_to_children(h)
 
 
@@ -168,7 +188,7 @@ def test_center_child():
     h = '8928308280fffff'
 
     # one above should raise an exception
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.h3_to_center_child(h, 8)
 
     # same resolution should be same cell
@@ -180,7 +200,7 @@ def test_center_child():
 
     # finest resolution hex should return error for child
     h = '8f04ccb2c45e225'
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.h3_to_center_child(h)
 
 
@@ -196,10 +216,14 @@ def test_distance():
 
 
 def test_distance_error():
+    """ Two valid cells, but they are too far apart compute the distance
+
+    todo: make sure this raises a E_TOO_FAR error (when we add it in the future)
+    """
     h1 = '8353b0fffffffff'
     h2 = '835804fffffffff'
 
-    with pytest.raises(H3ValueError):
+    with pytest.raises(H3FailedError):
         h3.h3_distance(h1, h2)
 
 
@@ -351,38 +375,38 @@ def test_edge_boundary():
 def test_validation():
     h = '8a28308280fffff'  # invalid cell
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_get_base_cell(h)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_get_resolution(h)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_to_parent(h, 9)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_distance(h, h)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.k_ring(h, 1)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.hex_ring(h, 1)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_to_children(h, 11)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.compact({h})
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.uncompact({h}, 10)
 
 
 def test_validation2():
     h = '8928308280fffff'
 
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.h3_to_children(h, 17)
 
     assert not h3.h3_indexes_are_neighbors(h, h)
@@ -391,40 +415,37 @@ def test_validation2():
 def test_validation_geo():
     h = '8a28308280fffff'  # invalid cell
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_to_geo(h)
 
-    with pytest.raises(H3ResolutionError):
+    with pytest.raises(H3ResDomainError):
         h3.geo_to_h3(0, 0, 17)
 
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.h3_to_geo_boundary(h)
 
-    with pytest.raises(H3CellError):
-        h3.h3_indexes_are_neighbors(h, h)
+    # note: this won't raise an exception on bad input, but it does
+    # *correctly* say that two invalid indexes are not neighbors
+    assert not h3.h3_indexes_are_neighbors(h, h)
 
 
 def test_edges():
     h = '8928308280fffff'
 
-    with pytest.raises(H3ValueError):
+    with pytest.raises(H3NotNeighborsError):
         h3.get_h3_unidirectional_edge(h, h)
 
     h2 = h3.hex_ring(h, 2).pop()
-    with pytest.raises(H3ValueError):
+    with pytest.raises(H3NotNeighborsError):
         h3.get_h3_unidirectional_edge(h, h2)
 
     e_bad = '14928308280ffff1'
     assert not h3.h3_unidirectional_edge_is_valid(e_bad)
 
-    with pytest.raises(H3EdgeError):
-        h3.get_origin_h3_index_from_unidirectional_edge(e_bad)
-
-    with pytest.raises(H3EdgeError):
-        h3.get_destination_h3_index_from_unidirectional_edge(e_bad)
-
-    with pytest.raises(H3EdgeError):
-        h3.get_h3_indexes_from_unidirectional_edge(e_bad)
+    # note: won't raise an error on bad input
+    h3.get_origin_h3_index_from_unidirectional_edge(e_bad)
+    h3.get_destination_h3_index_from_unidirectional_edge(e_bad)
+    h3.get_h3_indexes_from_unidirectional_edge(e_bad)
 
 
 def test_line():
@@ -523,7 +544,7 @@ def test_uncompact_cell_input():
     # inputting a single cell string can raise weird errors.
 
     # Ensure we get a reasonably helpful answer
-    with pytest.raises(H3CellError):
+    with pytest.raises(H3CellInvalidError):
         h3.uncompact('8001fffffffffff', 1)
 
 
@@ -554,13 +575,6 @@ def test_get_res0_indexes():
     assert sub < out
 
 
-def test_get_faces_invalid():
-    h = '8a28308280fffff'  # invalid cell
-
-    with pytest.raises(H3CellError):
-        h3.h3_get_faces(h)
-
-
 def test_get_faces():
     h = '804dfffffffffff'
     expected = {2, 3, 7, 8, 12}
@@ -583,7 +597,9 @@ def test_to_local_ij_error():
 
     # error if we cross a face
     nb = h3.hex_ring(h, k=2)
-    with pytest.raises(H3ValueError):
+
+    # todo: should this be the E_TOO_FAR guy?
+    with pytest.raises(H3FailedError):
         [h3.experimental_h3_to_local_ij(h, p) for p in nb]
 
     # should be fine if we do not cross a face
@@ -599,7 +615,7 @@ def test_from_local_ij_error():
 
     baddies = [(1, -1), (-1, 1), (-1, -1)]
     for i, j in baddies:
-        with pytest.raises(H3ValueError):
+        with pytest.raises(H3FailedError):
             h3.experimental_local_ij_to_h3(h, i, j)
 
     # inverting output should give good data

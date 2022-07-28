@@ -22,6 +22,7 @@ add_cython_file(geo)
 add_cython_file(cells)
 add_cython_file(edges)
 add_cython_file(to_multipoly)
+add_cython_file(error_system)
 
 # Include pyx and pxd files in distribution for use by Cython API
 install(
@@ -35,6 +36,7 @@ install(
         h3lib.pxd
         util.pxd
         util.pyx
+        error_system.pyx
     DESTINATION
         src/h3/_cy
 )

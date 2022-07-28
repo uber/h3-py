@@ -2,25 +2,25 @@ cimport h3lib
 from .h3lib cimport bool, H3int
 
 from .util cimport (
-    check_cell,
-    check_edge,
-    check_res,
     create_ptr,
     create_mv,
 )
 
-from .util import H3ValueError
+from .error_system cimport check_for_error
 
+# todo: make bint
 cpdef bool are_neighbors(H3int h1, H3int h2):
     cdef:
         int out
 
-    check_cell(h1)
-    check_cell(h2)
+    err = h3lib.areNeighborCells(h1, h2, &out)
 
-    error = h3lib.areNeighborCells(h1, h2, &out)
-    if error != 0:
+    # note: we are intentionally not raising an error here, and just
+    # returning false.
+    # todo: is this choice consistent across the Python and C libs?
+    if err:
         return False
+
     return out == 1
 
 
@@ -29,16 +29,10 @@ cpdef H3int edge(H3int origin, H3int destination) except *:
         int neighbor_out
         H3int out
 
-    check_cell(origin)
-    check_cell(destination)
+    check_for_error(
+        h3lib.cellsToDirectedEdge(origin, destination, &out)
+    )
 
-    error = h3lib.areNeighborCells(origin, destination, &neighbor_out)
-    if error != 0 or neighbor_out != 1:
-        s = 'Cells are not neighbors: {} and {}'
-        s = s.format(hex(origin), hex(destination))
-        raise H3ValueError(s)
-
-    h3lib.cellsToDirectedEdge(origin, destination, &out)
     return out
 
 
@@ -49,34 +43,36 @@ cpdef H3int edge_origin(H3int e) except 1:
     cdef:
         H3int out
 
-    # without the check, with an invalid input, the function will just return 0
-    check_edge(e)
+    check_for_error(
+        h3lib.getDirectedEdgeOrigin(e, &out)
+    )
 
-    h3lib.getDirectedEdgeOrigin(e, &out)
     return out
 
 cpdef H3int edge_destination(H3int e) except 1:
     cdef:
         H3int out
 
-    check_edge(e)
+    check_for_error(
+        h3lib.getDirectedEdgeDestination(e, &out)
+    )
 
-    h3lib.getDirectedEdgeDestination(e, &out)
     return out
 
 cpdef (H3int, H3int) edge_cells(H3int e) except *:
-    check_edge(e)
-
     return edge_origin(e), edge_destination(e)
 
 cpdef H3int[:] edges_from_cell(H3int origin):
     """ Returns the 6 (or 5 for pentagons) directed edges
     for the given origin cell
     """
-    check_cell(origin)
 
     ptr = create_ptr(6)
-    h3lib.originToDirectedEdges(origin, ptr)
+
+    check_for_error(
+        h3lib.originToDirectedEdges(origin, ptr)
+    )
+
     mv = create_mv(ptr, 6)
 
     return mv
@@ -85,8 +81,6 @@ cpdef H3int[:] edges_from_cell(H3int origin):
 cpdef double mean_edge_length(int resolution, unit='km') except -1:
     cdef:
         double length
-
-    check_res(resolution)
 
     h3lib.getHexagonEdgeLengthAvgKm(resolution, &length)
 
@@ -99,7 +93,7 @@ cpdef double mean_edge_length(int resolution, unit='km') except -1:
     try:
         length *= convert[unit]
     except:
-        raise H3ValueError('Unknown unit: {}'.format(unit))
+        raise ValueError('Unknown unit: {}'.format(unit))
 
     return length
 
@@ -107,7 +101,6 @@ cpdef double mean_edge_length(int resolution, unit='km') except -1:
 cpdef double edge_length(H3int e, unit='km') except -1:
     cdef:
         double length
-    check_edge(e)
 
     # todo: maybe kick this logic up to the python level
     # it might be a little cleaner, because we can do the "switch statement"
@@ -120,6 +113,6 @@ cpdef double edge_length(H3int e, unit='km') except -1:
     elif unit == 'm':
         h3lib.exactEdgeLengthM(e, &length)
     else:
-        raise H3ValueError('Unknown unit: {}'.format(unit))
+        raise ValueError('Unknown unit: {}'.format(unit))
 
     return length

@@ -4,6 +4,13 @@ from .h3lib cimport H3int, H3str, isValidCell, isValidDirectedEdge
 
 cimport h3lib
 
+from .error_system import (
+    H3ResDomainError,
+    H3DomainError,
+    H3DirEdgeInvalidError,
+    H3CellInvalidError,
+)
+
 
 cdef h3lib.LatLng deg2coord(double lat, double lng) nogil:
     cdef:
@@ -48,21 +55,6 @@ cpdef H3str int2hex(H3int x):
     return '{:x}'.format(x)
 
 
-class H3ValueError(ValueError):
-    pass
-
-class H3CellError(H3ValueError):
-    pass
-
-class H3EdgeError(H3ValueError):
-    pass
-
-class H3ResolutionError(H3ValueError):
-    pass
-
-class H3DistanceError(H3ValueError):
-    pass
-
 cdef check_cell(H3int h):
     """ Check if valid H3 "cell" (hexagon or pentagon).
 
@@ -78,19 +70,19 @@ cdef check_cell(H3int h):
     `str` inputs.
     """
     if isValidCell(h) == 0:
-        raise H3CellError('Integer is not a valid H3 cell: {}'.format(hex(h)))
+        raise H3CellInvalidError('Integer is not a valid H3 cell: {}'.format(hex(h)))
 
 cdef check_edge(H3int e):
     if isValidDirectedEdge(e) == 0:
-        raise H3EdgeError('Integer is not a valid H3 edge: {}'.format(hex(e)))
+        raise H3DirEdgeInvalidError('Integer is not a valid H3 edge: {}'.format(hex(e)))
 
 cdef check_res(int res):
     if (res < 0) or (res > 15):
-        raise H3ResolutionError(res)
+        raise H3ResDomainError(res)
 
 cdef check_distance(int k):
     if k < 0:
-        raise H3DistanceError(
+        raise H3DomainError(
             'Grid distances must be nonnegative. Received: {}'.format(k)
         )
 
