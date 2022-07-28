@@ -324,7 +324,7 @@ cpdef double cell_area(H3int h, unit='km^2') except -1:
     return area
 
 
-cdef couldnt_find_line(err, start, end):
+cdef could_not_find_line(err, start, end):
     msg = "Couldn't find line between cells {} and {}"
     msg = msg.format(hex(start), hex(end))
 
@@ -339,13 +339,13 @@ cpdef H3int[:] line(H3int start, H3int end):
     # probably applies to all size/work pairs of functions...
     err = h3lib.gridPathCellsSize(start, end, &n)
 
-    couldnt_find_line(err, start, end)
+    could_not_find_line(err, start, end)
 
     ptr = create_ptr(n)
     err = h3lib.gridPathCells(start, end, ptr)
     mv = create_mv(ptr, n)
 
-    couldnt_find_line(err, start, end)
+    could_not_find_line(err, start, end)
 
     return mv
 

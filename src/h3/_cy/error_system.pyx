@@ -89,24 +89,8 @@ from .h3lib cimport (
     E_OPTION_INVALID,
 )
 
-#
-# Something that should never happen
-#
-class UnknownH3ErrorCode(Exception):
-    """
-    Indicates that the h3-py Python bindings have received an
-    unrecognized error code from the C library.
-
-    This should never happen. Please report if you get this error.
-
-    Note that this exception is *outside* of the
-    H3BaseException class hierarchy.
-    """
-    pass
-
-
 @contextmanager
-def the_error(obj):
+def _the_error(obj):
     """
     Syntactic maple syrup for grouping exception definitions.
     The associated `with` statement ends up as a not-half-bad
@@ -142,7 +126,7 @@ class H3BaseException(Exception):
 #
 # A few "abstract" exceptions; organizational.
 #
-with the_error(H3BaseException) as e:
+with _the_error(H3BaseException) as e:
     class H3ValueError(e, ValueError): ...
     class H3MemoryError(e, MemoryError): ...
     class H3GridNavigationError(e, RuntimeError): ...
@@ -151,17 +135,29 @@ with the_error(H3BaseException) as e:
 #
 # Concrete exceptions
 #
-with the_error(H3BaseException) as e:
+class UnknownH3ErrorCode(H3BaseException):
+    """
+    Indicates that the h3-py Python bindings have received an
+    unrecognized error code from the C library.
+
+    This should never happen. Please report if you get this error.
+
+    Note that this exception is *outside* of the
+    H3BaseException class hierarchy.
+    """
+    pass
+
+with _the_error(H3BaseException) as e:
     class H3FailedError(e): ...
 
-with the_error(H3GridNavigationError) as e:
+with _the_error(H3GridNavigationError) as e:
     class H3PentagonError(e): ...
 
-with the_error(H3MemoryError) as e:
+with _the_error(H3MemoryError) as e:
     class H3MemoryAllocError(e): ...
     class H3MemoryBoundsError(e): ...
 
-with the_error(H3ValueError) as e:
+with _the_error(H3ValueError) as e:
     class H3DomainError(e): ...
     class H3LatLngDomainError(e): ...
     class H3ResDomainError(e): ...

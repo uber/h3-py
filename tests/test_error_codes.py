@@ -57,11 +57,13 @@ def test_atributes():
         x = err.h3_error_code
         assert (x is None) or (x > 0)
 
-    # UnknownH3ErrorCode should not have an `h3_error_code` attribute
+    # UnknownH3ErrorCode
+    #
+    # should not have an `h3_error_code` attribute
     weird_code = 1234
     with pytest.raises(h3.UnknownH3ErrorCode) as excinfo:
         raise h3.UnknownH3ErrorCode(weird_code)
     err = excinfo.value
 
-    with pytest.raises(AttributeError):
-        err.h3_error_code
+    assert err.h3_error_code == None
+    assert err.args == (weird_code,)
