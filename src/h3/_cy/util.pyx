@@ -96,9 +96,8 @@ cpdef H3int[:] from_iter(hexes):
     cdef:
         # array x # this needs to be commented out to avoid an error
         size_t n
-    n = len(hexes)
 
-    x = simple_mv(n)
+    x = simple_mv(len(hexes))
 
     for i,h in enumerate(hexes):
         x[i] = h
