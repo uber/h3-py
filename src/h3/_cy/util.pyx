@@ -93,9 +93,7 @@ cpdef H3int[:] from_iter(hexes):
     """ hexes needs to be an iterable that knows its size...
     or should we have it match the np.fromiter function, which infers if not available?
     """
-    cdef:
-        # array x # this needs to be commented out to avoid an error
-        size_t n
+    # cdef array x  # this needs to be commented out to avoid an error
 
     x = simple_mv(len(hexes))
 
