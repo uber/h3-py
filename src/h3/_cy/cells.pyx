@@ -225,8 +225,6 @@ cpdef H3int[:] compact(const H3int[:] hu):
         h3lib.compactCells(&hu[0], hmm.ptr, n)
     )
 
-    # todo: mystery: why does this break in the tests when you move it before the error check?
-    # ideally, the create_mv method would be robust to borked data...
     mv = hmm.create_mv()
 
     return mv
