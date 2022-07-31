@@ -9,7 +9,6 @@ cdef class H3MemoryManager:
 
 
 cdef int[:] int_mv(size_t n)
-cdef H3int[:] simple_mv(size_t n)
 cpdef H3int[:] mv_from_iter(hexes)
 
 """

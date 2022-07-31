@@ -56,23 +56,6 @@ cdef H3int[:] empty_memory_view():
     return (<H3int[:]>a)[:0]
 
 
-cdef H3int[:] simple_mv(size_t n):
-    # cdef:
-    #     array x
-
-    if n == 0:
-        return empty_memory_view()
-
-    ptr = <H3int*> stdlib.calloc(n, sizeof(H3int))
-    if not ptr:
-        raise MemoryError()
-
-    x = <H3int[:n]> ptr
-    x.callback_free_data = stdlib.free
-
-    return x
-
-
 cdef class H3MemoryManager:
     def __cinit__(self, size_t n):
         self.n = n
@@ -133,6 +116,23 @@ cdef int[:] int_mv(size_t n):
     arr.callback_free_data = stdlib.free
 
     return arr
+
+
+cdef H3int[:] simple_mv(size_t n):
+    # cdef:
+    #     array x
+
+    if n == 0:
+        return empty_memory_view()
+
+    ptr = <H3int*> stdlib.calloc(n, sizeof(H3int))
+    if not ptr:
+        raise MemoryError()
+
+    x = <H3int[:n]> ptr
+    x.callback_free_data = stdlib.free
+
+    return x
 
 
 cpdef H3int[:] mv_from_iter(hexes):
