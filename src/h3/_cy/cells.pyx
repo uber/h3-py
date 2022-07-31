@@ -6,14 +6,17 @@ from .util cimport (
     check_cell,
     check_res,
     check_distance,
-    create_ptr,
-    create_mv,
-    empty_memory_view, # want to drop this import if possible
 )
 
 from .error_system cimport (
     check_for_error,
     check_for_error_msg,
+)
+
+from .memory cimport (
+    H3MemoryManager,
+    int_mv,
+    empty_memory_view, # todo: want to get rid of this!
 )
 
 # todo: add notes about Cython exception handling
@@ -79,11 +82,11 @@ cpdef H3int[:] disk(H3int h, int k):
         h3lib.maxGridDiskSize(k, &n)
     )
 
-    ptr = create_ptr(n) # todo: return a "smart" pointer that knows its length?
-
-    err = h3lib.gridDisk(h, k, ptr)
-    mv = create_mv(ptr, n)
-    check_for_error(err)  # needs to be after, to ensure we clean up memory
+    hmm = H3MemoryManager(n)
+    check_for_error(
+        h3lib.gridDisk(h, k, hmm.ptr)
+    )
+    mv = hmm.create_mv()
 
     return mv
 
@@ -93,10 +96,11 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     `ring` tries to call `h3lib.hexRing` first; if that fails, we call
     this function, which relies on `h3lib.kRingDistances`.
 
-    Failures for `h3lib.hexRing` happen when the algortihm runs into a pentagon.
+    Failures for `h3lib.hexRing` happen when the algorithm runs into a pentagon.
     """
     cdef:
         int64_t n
+        int[:] distances  ## todo: weird, this needs to be specified to avoid errors. cython bug?
 
     check_cell(h)
     check_distance(k)
@@ -104,27 +108,21 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
     check_for_error(
         h3lib.maxGridDiskSize(k, &n)
     )
-    # array of h3 cells
-    ptr = create_ptr(n)
+    hmm = H3MemoryManager(n)
 
-    # array of cell distances from `h`
-    dist_ptr = <int*> stdlib.calloc(n, sizeof(int))
-    if dist_ptr is NULL:
-        raise MemoryError() #todo: H3 memory error?
-
-    err = h3lib.gridDiskDistances(h, k, ptr, dist_ptr)
-
-    distances = <int[:n]> dist_ptr
-    distances.callback_free_data = stdlib.free
+    # parallel array of cell distances from `h`.
+    # idea: instead of a memoryview object, have a my_mv object that can return a ptr, but does the correct logic when it has length 0
+    # then can always just return the pointer, instead of the weird &mv[0] syntax
+    distances = int_mv(n)
+    check_for_error(
+        h3lib.gridDiskDistances(h, k, hmm.ptr, &distances[0])
+    )
 
     for i,v in enumerate(distances):
         if v != k:
-            ptr[i] = 0
+            hmm.ptr[i] = 0
 
-    mv = create_mv(ptr, n)
-
-    check_for_error(err)  # note: need to move this down here to make sure ptr gets freed
-    # again, easier with a memory manager object
+    mv = hmm.create_mv()
 
     return mv
 
@@ -136,20 +134,12 @@ cpdef H3int[:] ring(H3int h, int k):
     check_distance(k)
 
     n = 6*k if k > 0 else 1
-    ptr = create_ptr(n)
-
-    err = h3lib.gridRingUnsafe(h, k, ptr)
-
-    if err == H3ErrorCodes.E_SUCCESS:
-        mv = create_mv(ptr, n)
-    elif err == H3ErrorCodes.E_PENTAGON:
-        mv = create_mv(ptr, n)  # need to create this to guarantee memory is freed.
-        # better done with a Cython object, i think.
+    hmm = H3MemoryManager(n)
+    err = h3lib.gridRingUnsafe(h, k, hmm.ptr)
+    if err:
         mv = _ring_fallback(h, k)
     else:
-        mv = create_mv(ptr, n)  # need to create this to guarantee memory is freed.
-        # definitely better done with a Cython "memory manager" object.
-        check_for_error(err)
+        mv = hmm.create_mv()
 
     return mv
 
@@ -173,24 +163,24 @@ cpdef H3int parent(H3int h, res=None) except 0:
 
 cpdef H3int[:] children(H3int h, res=None):
     cdef:
-        H3int child
-        int64_t N
+        int64_t n
 
     check_cell(h)
 
     if res is None:
         res = resolution(h) + 1
 
-    err = h3lib.cellToChildrenSize(h, res, &N)
+    err = h3lib.cellToChildrenSize(h, res, &n)
     if err:
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
         check_for_error_msg(err, msg)
 
-    ptr = create_ptr(N)
-    err = h3lib.cellToChildren(h, res, ptr)
-    mv = create_mv(ptr, N)
-    check_for_error(err)  # needs to be after, to ensure memory is freed!
+    hmm = H3MemoryManager(n)
+    check_for_error(
+        h3lib.cellToChildren(h, res, hmm.ptr)
+    )
+    mv = hmm.create_mv()
 
     return mv
 
@@ -215,6 +205,8 @@ cpdef H3int center_child(H3int h, res=None) except 0:
 
 
 cpdef H3int[:] compact(const H3int[:] hu):
+    # todo: fix this with my own Cython object "wrapper" class?
+    #   everything has a .ptr interface?
     # todo: the Clib can handle 0-len arrays because it **avoids**
     # dereferencing the pointer, but Cython's syntax of
     # `&hu[0]` **requires** a dereference. For Cython, checking for array
@@ -227,12 +219,15 @@ cpdef H3int[:] compact(const H3int[:] hu):
     for h in hu: ## todo: should we have an array version? would that be faster?
         check_cell(h)
 
-    ptr = create_ptr(len(hu))
-    err = h3lib.compactCells(&hu[0], ptr, len(hu))
-    mv = create_mv(ptr, len(hu))
+    cdef size_t n = len(hu)
+    hmm = H3MemoryManager(n)
+    check_for_error(
+        h3lib.compactCells(&hu[0], hmm.ptr, n)
+    )
 
-    # todo: fix weird error ordering due to memory freeing...
-    check_for_error(err)
+    # todo: mystery: why does this break in the tests when you move it before the error check?
+    # ideally, the create_mv method would be robust to borked data...
+    mv = hmm.create_mv()
 
     return mv
 
@@ -246,7 +241,8 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     # length of zero and returning early seems like the easiest solution.
     # note: open to better ideas!
     cdef:
-        int64_t N
+        int64_t n
+
 
     if len(hc) == 0:
         return empty_memory_view()
@@ -254,21 +250,24 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     for h in hc:
         check_cell(h)
 
-    # ignoring error for now
-    err = h3lib.uncompactCellsSize(&hc[0], len(hc), res, &N)
-
-    ptr = create_ptr(N)
-    err = h3lib.uncompactCells(
-        &hc[0],
-        len(hc),
-        ptr,
-        N,
-        res
+    check_for_error(
+        h3lib.uncompactCellsSize(&hc[0], len(hc), res, &n)
     )
-    mv = create_mv(ptr, N)
 
-    # todo: fix weird error ordering due to memory freeing...
-    check_for_error(err)
+    hmm = H3MemoryManager(n)
+    check_for_error(
+        h3lib.uncompactCells(
+            &hc[0], # todo: symmetry here with the wrapper object might be nice. hc.ptr / hc.n
+            len(hc),
+            hmm.ptr,
+            hmm.n,
+            res
+        )
+    )
+
+    # todo: again! doesn't work if i have this before the error check!
+    # why isn't hmm.create_mv() robust to failures before it?
+    mv = hmm.create_mv()
 
     return mv
 
@@ -341,11 +340,13 @@ cpdef H3int[:] line(H3int start, H3int end):
 
     could_not_find_line(err, start, end)
 
-    ptr = create_ptr(n)
-    err = h3lib.gridPathCells(start, end, ptr)
-    mv = create_mv(ptr, n)
+    hmm = H3MemoryManager(n)
+    err = h3lib.gridPathCells(start, end, hmm.ptr)
 
     could_not_find_line(err, start, end)
+
+    # todo: probably here too?
+    mv = hmm.create_mv()
 
     return mv
 
@@ -356,12 +357,11 @@ cpdef bool is_res_class_iii(H3int h):
 cpdef H3int[:] get_pentagon_indexes(int res):
     n = h3lib.pentagonCount()
 
-    # todo note: this is the tricky situation where we need the memory manager
-    ptr = create_ptr(n)
-    err = h3lib.getPentagons(res, ptr)
-    mv = create_mv(ptr, n)
-
-    check_for_error(err)
+    hmm = H3MemoryManager(n)
+    check_for_error(
+        h3lib.getPentagons(res, hmm.ptr)
+    )
+    mv = hmm.create_mv()
 
     return mv
 
@@ -369,36 +369,35 @@ cpdef H3int[:] get_pentagon_indexes(int res):
 cpdef H3int[:] get_res0_indexes():
     n = h3lib.res0CellCount()
 
-    # todo note: this is the tricky situation where we need the memory manager
-    ptr = create_ptr(n)
-    err = h3lib.getRes0Cells(ptr)
-    mv = create_mv(ptr, n)
-
-    check_for_error(err)
+    hmm = H3MemoryManager(n)
+    check_for_error(
+        h3lib.getRes0Cells(hmm.ptr)
+    )
+    mv = hmm.create_mv()
 
     return mv
 
+# oh, this is returning a set??
+# todo: convert to int[:]?
 cpdef get_faces(H3int h):
     cdef:
         int n
+        int[:] faces  ## todo: weird, this needs to be specified to avoid errors. cython bug?
 
     check_for_error(
         h3lib.maxFaceCount(h, &n)
     )
 
-    cdef int* ptr = <int*> stdlib.calloc(n, sizeof(int))
-    if (n > 0) and (not ptr):
-        raise MemoryError()
-
+    faces = int_mv(n)
     check_for_error(
-        h3lib.getIcosahedronFaces(h, ptr)
+        h3lib.getIcosahedronFaces(h, &faces[0])
     )
 
-    faces = <int[:n]> ptr
-    faces = {f for f in faces if f >= 0}
-    stdlib.free(ptr)
+    # todo: wait? do faces start from 0 or 1?
+    # we could do this check/processing in the int_mv object
+    out = {f for f in faces if f >= 0}
 
-    return faces
+    return out
 
 
 cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:

@@ -1,5 +1,9 @@
+from libc cimport stdlib
+from libc.stdint cimport uint64_t
+
 cimport h3lib
 from h3lib cimport bool, H3int
+
 from .util cimport (
     check_cell,
     check_edge,
@@ -9,10 +13,13 @@ from .util cimport (
     deg2coord,
     coord2deg,
 )
+
 from libc cimport stdlib
 from libc.stdint cimport uint64_t
 
 from .error_system cimport check_for_error
+
+from .memory cimport H3MemoryManager
 
 
 cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
@@ -65,6 +72,7 @@ cdef h3lib.GeoLoop make_geoloop(geos, bool lnglat_order=False) except *:
 
     gl.numVerts = len(geos)
 
+    # todo: need for memory management
     gl.verts = <h3lib.LatLng*> stdlib.calloc(gl.numVerts, sizeof(h3lib.LatLng))
 
     if lnglat_order:
@@ -157,11 +165,21 @@ def polyfill_polygon(outer, int res, holes=None, bool lnglat_order=False):
     check_res(res)
     gp = GeoPolygon(outer, holes=holes, lnglat_order=lnglat_order)
 
-    h3lib.maxPolygonToCellsSize(&gp.gp, res, 0, &n)
-    ptr = create_ptr(n)
+    check_for_error(
+        h3lib.maxPolygonToCellsSize(&gp.gp, res, 0, &n)
+    )
 
-    h3lib.polygonToCells(&gp.gp, res, 0, ptr)
+    ptr = create_ptr(n)
+    err = h3lib.polygonToCells(&gp.gp, res, 0, ptr)
     mv = create_mv(ptr, n)
+    check_for_error(err)
+
+    # todo: I don't understand why this code below breaks the tests.
+    # hmm = H3MemoryManager(n)
+    # check_for_error(
+    #     h3lib.polygonToCells(&gp.gp, res, 0, hmm.ptr)
+    # )
+    # mv = hmm.create_mv()
 
     return mv
 
