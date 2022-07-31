@@ -57,6 +57,9 @@ cdef H3int[:] empty_memory_view():
 
 
 cdef H3int[:] simple_mv(size_t n):
+    cdef:
+        array x
+
     if n == 0:
         return empty_memory_view()
 

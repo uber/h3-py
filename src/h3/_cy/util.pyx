@@ -122,7 +122,7 @@ cpdef H3int[:] from_iter(hexes):
         size_t n
     n = len(hexes)
 
-    x = foo(n)
+    x = simple_mv(n)
 
     for i,h in enumerate(hexes):
         x[i] = h
