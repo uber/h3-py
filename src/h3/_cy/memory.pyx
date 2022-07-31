@@ -134,19 +134,19 @@ cdef class H3MemoryManager:
 
     cdef H3int[:] _create_mv(self):
         cdef:
-            array x
+            array mv
 
         if self.n == 0:
             return empty_memory_view()
 
-        x = <H3int[:self.n]> self.ptr
-        x.callback_free_data = h3_free
+        mv = <H3int[:self.n]> self.ptr
+        mv.callback_free_data = h3_free
 
         # responsibility for the memory moves from this object to the array/memoryview
         self.ptr = NULL
         self.n = 0
 
-        return x
+        return mv
 
     cdef H3int[:] to_mv(self):
         self.ptr, self.n = _remove_zeros(self.ptr, self.n)
@@ -182,7 +182,7 @@ cdef int[:] int_mv(size_t n):
 
 cdef H3int[:] simple_mv(size_t n):
     # cdef:
-    #     array x
+    #     array mv
 
     if n == 0:
         return empty_memory_view()
@@ -191,10 +191,10 @@ cdef H3int[:] simple_mv(size_t n):
     if not ptr:
         raise MemoryError()
 
-    x = <H3int[:n]> ptr
-    x.callback_free_data = h3_free
+    mv = <H3int[:n]> ptr
+    mv.callback_free_data = h3_free
 
-    return x
+    return mv
 
 
 cpdef H3int[:] iter_to_mv(hexes):
@@ -203,9 +203,9 @@ cpdef H3int[:] iter_to_mv(hexes):
     """
     # cdef array x  # this needs to be commented out to avoid an error
 
-    x = simple_mv(len(hexes))
+    mv = simple_mv(len(hexes))
 
     for i,h in enumerate(hexes):
-        x[i] = h
+        mv[i] = h
 
-    return x
+    return mv
