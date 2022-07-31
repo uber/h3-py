@@ -71,6 +71,8 @@ cdef class H3MemoryManager:
         self.n = move_nonzeros(self.ptr, self.n)
         if self.n <= 0:
             stdlib.free(self.ptr)
+            self.ptr = NULL
+            self.n = 0
             return empty_memory_view()
 
         self.ptr = <H3int*> stdlib.realloc(self.ptr, self.n*sizeof(H3int))
@@ -93,6 +95,7 @@ cdef class H3MemoryManager:
         # If the pointer is *not* NULL, then this means the MemoryManager
         # has is still responsible for the memory (it hasn't given the memory away to another object).
         stdlib.free(self.ptr)
+        self.ptr = NULL
 
 
 """

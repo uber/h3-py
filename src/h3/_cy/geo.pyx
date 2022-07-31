@@ -169,17 +169,11 @@ def polyfill_polygon(outer, int res, holes=None, bool lnglat_order=False):
         h3lib.maxPolygonToCellsSize(&gp.gp, res, 0, &n)
     )
 
-    ptr = create_ptr(n)
-    err = h3lib.polygonToCells(&gp.gp, res, 0, ptr)
-    mv = create_mv(ptr, n)
-    check_for_error(err)
-
-    # todo: I don't understand why this code below breaks the tests.
-    # hmm = H3MemoryManager(n)
-    # check_for_error(
-    #     h3lib.polygonToCells(&gp.gp, res, 0, hmm.ptr)
-    # )
-    # mv = hmm.create_mv()
+    hmm = H3MemoryManager(n)
+    check_for_error(
+        h3lib.polygonToCells(&gp.gp, res, 0, hmm.ptr)
+    )
+    mv = hmm.create_mv()
 
     return mv
 
