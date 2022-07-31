@@ -72,7 +72,7 @@ from .util import (
 )
 
 from .memory import (
-    mv_from_iter,
+    iter_to_mv,
 )
 
 from .error_system import (

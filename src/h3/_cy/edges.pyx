@@ -66,7 +66,7 @@ cpdef H3int[:] edges_from_cell(H3int origin):
 
     hmm = H3MemoryManager(6)
     h3lib.originToDirectedEdges(origin, hmm.ptr)
-    mv = hmm.create_mv()
+    mv = hmm.to_mv()
 
     return mv
 

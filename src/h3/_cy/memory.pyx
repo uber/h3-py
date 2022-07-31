@@ -64,7 +64,7 @@ cdef class H3MemoryManager:
         if (self.n > 0) and (not self.ptr):
             raise MemoryError()
 
-    cdef H3int[:] create_mv(self):
+    cdef H3int[:] to_mv(self):
         cdef:
             array x
 
@@ -135,7 +135,7 @@ cdef H3int[:] simple_mv(size_t n):
     return x
 
 
-cpdef H3int[:] mv_from_iter(hexes):
+cpdef H3int[:] iter_to_mv(hexes):
     """ hexes needs to be an iterable that knows its size...
     or should we have it match the np.fromiter function, which infers if not available?
     """

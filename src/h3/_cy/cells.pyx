@@ -84,7 +84,7 @@ cpdef H3int[:] disk(H3int h, int k):
     check_for_error(
         h3lib.gridDisk(h, k, hmm.ptr)
     )
-    mv = hmm.create_mv()
+    mv = hmm.to_mv()
 
     return mv
 
@@ -120,7 +120,7 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
         if v != k:
             hmm.ptr[i] = 0
 
-    mv = hmm.create_mv()
+    mv = hmm.to_mv()
 
     return mv
 
@@ -137,7 +137,7 @@ cpdef H3int[:] ring(H3int h, int k):
     if err:
         mv = _ring_fallback(h, k)
     else:
-        mv = hmm.create_mv()
+        mv = hmm.to_mv()
 
     return mv
 
@@ -178,7 +178,7 @@ cpdef H3int[:] children(H3int h, res=None):
     check_for_error(
         h3lib.cellToChildren(h, res, hmm.ptr)
     )
-    mv = hmm.create_mv()
+    mv = hmm.to_mv()
 
     return mv
 
@@ -212,7 +212,7 @@ cpdef H3int[:] compact(const H3int[:] hu):
     # note: open to better ideas!
 
     if len(hu) == 0:
-        return H3MemoryManager(0).create_mv()
+        return H3MemoryManager(0).to_mv()
 
     for h in hu: ## todo: should we have an array version? would that be faster?
         check_cell(h)
@@ -222,7 +222,7 @@ cpdef H3int[:] compact(const H3int[:] hu):
     check_for_error(
         h3lib.compactCells(&hu[0], hmm.ptr, n)
     )
-    mv = hmm.create_mv()
+    mv = hmm.to_mv()
 
     return mv
 
@@ -240,7 +240,7 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
 
 
     if len(hc) == 0:
-        return H3MemoryManager(0).create_mv()
+        return H3MemoryManager(0).to_mv()
 
     for h in hc:
         check_cell(h)
@@ -261,8 +261,8 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     )
 
     # todo: again! doesn't work if i have this before the error check!
-    # why isn't hmm.create_mv() robust to failures before it?
-    mv = hmm.create_mv()
+    # why isn't hmm.to_mv() robust to failures before it?
+    mv = hmm.to_mv()
 
     return mv
 
@@ -341,7 +341,7 @@ cpdef H3int[:] line(H3int start, H3int end):
     could_not_find_line(err, start, end)
 
     # todo: probably here too?
-    mv = hmm.create_mv()
+    mv = hmm.to_mv()
 
     return mv
 
@@ -356,7 +356,7 @@ cpdef H3int[:] get_pentagon_indexes(int res):
     check_for_error(
         h3lib.getPentagons(res, hmm.ptr)
     )
-    mv = hmm.create_mv()
+    mv = hmm.to_mv()
 
     return mv
 
@@ -368,7 +368,7 @@ cpdef H3int[:] get_res0_indexes():
     check_for_error(
         h3lib.getRes0Cells(hmm.ptr)
     )
-    mv = hmm.create_mv()
+    mv = hmm.to_mv()
 
     return mv
 

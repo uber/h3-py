@@ -168,7 +168,7 @@ def polyfill_polygon(outer, int res, holes=None, bool lnglat_order=False):
     check_for_error(
         h3lib.polygonToCells(&gp.gp, res, 0, hmm.ptr)
     )
-    mv = hmm.create_mv()
+    mv = hmm.to_mv()
 
     return mv
 

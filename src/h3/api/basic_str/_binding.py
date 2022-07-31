@@ -21,7 +21,7 @@ from .._api_template import _API_FUNCTIONS
 def _in_collection(hexes):
     it = [_cy.hex2int(h) for h in hexes]
 
-    return _cy.mv_from_iter(it)
+    return _cy.iter_to_mv(it)
 
 
 def _out_unordered(mv):
