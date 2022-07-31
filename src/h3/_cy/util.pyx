@@ -93,7 +93,6 @@ cdef check_distance(int k):
         )
 
 
-## todo: can i turn these two into a context manager?
 cdef H3int* create_ptr(size_t n) except? NULL:
     cdef H3int* ptr = <H3int*> stdlib.calloc(n, sizeof(H3int))
     if (n > 0) and (not ptr):
@@ -101,21 +100,29 @@ cdef H3int* create_ptr(size_t n) except? NULL:
 
     return ptr
 
-
-cpdef H3int[:] from_iter(hexes):
-    """ hexes needs to be an iterable that knows its size...
-    or should we have it match the np.fromiter function, which infers if not available?
-    """
+cdef H3int[:] foo(size_t n):
     cdef:
         array x
-        size_t n
-    n = len(hexes)
 
     if n == 0:
         return empty_memory_view()
 
     x = <H3int[:n]> create_ptr(n)
     x.callback_free_data = stdlib.free
+
+    return x
+
+
+cpdef H3int[:] from_iter(hexes):
+    """ hexes needs to be an iterable that knows its size...
+    or should we have it match the np.fromiter function, which infers if not available?
+    """
+    cdef:
+        # array x # this needs to be commented out to avoid an error
+        size_t n
+    n = len(hexes)
+
+    x = foo(n)
 
     for i,h in enumerate(hexes):
         x[i] = h
