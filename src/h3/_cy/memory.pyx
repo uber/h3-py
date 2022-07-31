@@ -118,21 +118,24 @@ cdef class H3MemoryManager:
         if (self.n > 0) and (not self.ptr):
             raise MemoryError()
 
-    cdef H3int[:] to_mv(self):
-        cdef:
-            array x
-
+    cdef _remove_zeros(self):
         self.n = move_nonzeros(self.ptr, self.n)
         if self.n <= 0:
             h3_free(self.ptr)
             self.ptr = NULL
             self.n = 0
-            return empty_memory_view()
 
         self.ptr = <H3int*> h3_realloc(self.ptr, self.n*sizeof(H3int))
-
-        if self.ptr is NULL:
+        if not self.ptr:
             raise MemoryError()
+
+    cdef H3int[:] to_mv(self):
+        cdef:
+            array x
+
+        self._remove_zeros()
+        if self.n == 0:
+            return empty_memory_view()
 
         x = <H3int[:self.n]> self.ptr
         x.callback_free_data = h3_free
@@ -149,7 +152,6 @@ cdef class H3MemoryManager:
         # If the pointer is *not* NULL, then this means the MemoryManager
         # has is still responsible for the memory (it hasn't given the memory away to another object).
         h3_free(self.ptr)
-        self.ptr = NULL
 
 
 """
