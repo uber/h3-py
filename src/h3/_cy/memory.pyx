@@ -110,25 +110,21 @@ cdef H3int[:] empty_memory_view():
     return (<H3int[:]>a)[:0]
 
 
-cdef (H3int*, size_t) _remove_zeros(H3int* ptr, size_t n):
-    n = move_nonzeros(ptr, n)
-    if n == 0:
-        h3_free(ptr)
-        ptr = NULL
-        n = 0
-
-    ptr = <H3int*> h3_realloc(ptr, n*sizeof(H3int))
-    if not ptr:
-        raise MemoryError()
-
-    return ptr, n
-
-
 cdef class H3MemoryManager:
     def __cinit__(self, size_t n):
         self.n = n
         self.ptr = <H3int*> h3_calloc(self.n, sizeof(H3int))
 
+        if not self.ptr:
+            raise MemoryError()
+
+    cdef _remove_zeros(self):
+        self.n = move_nonzeros(self.ptr, self.n)
+        if self.n == 0:
+            h3_free(self.ptr)
+            self.ptr = NULL
+
+        self.ptr = <H3int*> h3_realloc(self.ptr, self.n*sizeof(H3int))
         if not self.ptr:
             raise MemoryError()
 
@@ -149,7 +145,7 @@ cdef class H3MemoryManager:
         return mv
 
     cdef H3int[:] to_mv(self):
-        self.ptr, self.n = _remove_zeros(self.ptr, self.n)
+        self._remove_zeros()
         return self._create_mv()
 
     def __dealloc__(self):
