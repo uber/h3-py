@@ -123,12 +123,6 @@ cdef (H3int*, size_t) _remove_zeros(H3int* ptr, size_t n):
 
     return ptr, n
 
-"""
-TODO: think about the case when n=0
-"Requesting zero elements or elements of size zero bytes returns a distinct non-NULL pointer if possible, as if PyMem_RawCalloc(1, 1) had been called instead."
-do we not actually need to special case it?
-
-"""
 
 cdef class H3MemoryManager:
     def __cinit__(self, size_t n):
