@@ -123,21 +123,25 @@ cdef (H3int*, size_t) _remove_zeros(H3int* ptr, size_t n):
 
     return ptr, n
 
+"""
+TODO: think about the case when n=0
+"Requesting zero elements or elements of size zero bytes returns a distinct non-NULL pointer if possible, as if PyMem_RawCalloc(1, 1) had been called instead."
+do we not actually need to special case it?
 
+"""
 
 cdef class H3MemoryManager:
     def __cinit__(self, size_t n):
         self.n = n
         self.ptr = <H3int*> h3_calloc(self.n, sizeof(H3int))
 
+        # todo: avoid n=0 special case because of allocation non-null pointer guarantee?
         if (self.n > 0) and (not self.ptr):
             raise MemoryError()
 
-    cdef H3int[:] to_mv(self):
+    cdef H3int[:] _create_mv(self):
         cdef:
             array x
-
-        self.ptr, self.n = _remove_zeros(self.ptr, self.n)
 
         if self.n == 0:
             return empty_memory_view()
@@ -150,6 +154,10 @@ cdef class H3MemoryManager:
         self.n = 0
 
         return x
+
+    cdef H3int[:] to_mv(self):
+        self.ptr, self.n = _remove_zeros(self.ptr, self.n)
+        return self._create_mv()
 
     def __dealloc__(self):
         # If the memory has been handed off to a memoryview, this pointer
