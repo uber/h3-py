@@ -10,6 +10,7 @@ cdef class H3MemoryManager:
 
 cdef int[:] int_mv(size_t n)
 cdef H3int[:] empty_memory_view()
+cdef H3int[:] simple_mv(size_t n)
 
 """
 todo: read: https://cython.readthedocs.io/en/latest/src/tutorial/pxd_files.html

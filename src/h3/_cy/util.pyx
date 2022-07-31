@@ -11,7 +11,11 @@ from .error_system import (
     H3CellInvalidError,
 )
 
-from .memory cimport H3MemoryManager
+from .memory cimport (
+    H3MemoryManager,
+    empty_memory_view,
+    simple_mv,
+)
 
 
 cdef h3lib.LatLng deg2coord(double lat, double lng) nogil:
@@ -117,55 +121,3 @@ cpdef H3int[:] from_iter(hexes):
         x[i] = h
 
     return x
-
-
-cdef size_t move_nonzeros(H3int* a, size_t n):
-    """ Move nonzero elements to front of array `a` of length `n`.
-    Return the number of nonzero elements.
-
-    Loop invariant: Everything *before* `i` or *after* `j` is "done".
-    Move `i` and `j` inwards until they equal, and exit.
-    You can move `i` forward until there's a zero in front of it.
-    You can move `j` backward until there's a nonzero to the left of it.
-    Anything to the right of `j` is "junk" that can be reallocated.
-
-    | a | b | 0 | c | d | ... |
-            ^           ^
-            i           j
-
-
-    | a | b | d | c | d | ... |
-            ^       ^
-            i       j
-    """
-    cdef:
-        size_t i = 0
-        size_t j = n
-
-    while i < j:
-        if a[j-1] == 0:
-            j -= 1
-            continue
-
-        if a[i] != 0:
-            i += 1
-            continue
-
-        # if we're here, we know:
-        # a[i] == 0
-        # a[j-1] != 0
-        # i < j
-        # so we can swap! (actually, move a[j-1] -> a[i])
-        a[i] = a[j-1]
-        j -= 1
-
-    return i
-
-
-cdef H3int[:] empty_memory_view():
-    # there's gotta be a better way to do this...
-    # create an empty cython.view.array?
-    cdef:
-        H3int a[1]
-
-    return (<H3int[:]>a)[:0]
