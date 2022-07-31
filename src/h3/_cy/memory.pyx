@@ -110,43 +110,46 @@ cdef H3int[:] empty_memory_view():
     return (<H3int[:]>a)[:0]
 
 
+cdef _remove_zeros(H3MemoryManager x):
+    x.n = move_nonzeros(x.ptr, x.n)
+    if x.n == 0:
+        h3_free(x.ptr)
+        x.ptr = NULL
+
+    x.ptr = <H3int*> h3_realloc(x.ptr, x.n*sizeof(H3int))
+    if not x.ptr:
+        raise MemoryError()
+
+
+cdef H3int[:] _create_mv(H3MemoryManager x):
+    cdef:
+        array mv
+
+    if x.n == 0:
+        return empty_memory_view()
+
+    mv = <H3int[:x.n]> x.ptr
+    mv.callback_free_data = h3_free
+
+    # responsibility for the memory moves from this object to the array/memoryview
+    x.ptr = NULL
+    x.n = 0
+
+    return mv
+
+
 cdef class H3MemoryManager:
     def __cinit__(self, size_t n):
         self.n = n
         self.ptr = <H3int*> h3_calloc(self.n, sizeof(H3int))
+        # todo: do we actually have a memory leak when n = 0 because of the non-null pointer thing?
 
         if not self.ptr:
             raise MemoryError()
-
-    cdef _remove_zeros(self):
-        self.n = move_nonzeros(self.ptr, self.n)
-        if self.n == 0:
-            h3_free(self.ptr)
-            self.ptr = NULL
-
-        self.ptr = <H3int*> h3_realloc(self.ptr, self.n*sizeof(H3int))
-        if not self.ptr:
-            raise MemoryError()
-
-    cdef H3int[:] _create_mv(self):
-        cdef:
-            array mv
-
-        if self.n == 0:
-            return empty_memory_view()
-
-        mv = <H3int[:self.n]> self.ptr
-        mv.callback_free_data = h3_free
-
-        # responsibility for the memory moves from this object to the array/memoryview
-        self.ptr = NULL
-        self.n = 0
-
-        return mv
 
     cdef H3int[:] to_mv(self):
-        self._remove_zeros()
-        return self._create_mv()
+        _remove_zeros(self)
+        return _create_mv(self)
 
     def __dealloc__(self):
         # If the memory has been handed off to a memoryview, this pointer

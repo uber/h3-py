@@ -7,11 +7,6 @@ cdef class H3MemoryManager:
 
     cdef H3int[:] to_mv(self)
 
-    # private methods
-    cdef H3int[:] _create_mv(self)
-    cdef _remove_zeros(self)
-
-
 cdef int[:] int_mv(size_t n)
 cpdef H3int[:] iter_to_mv(hexes)
 
