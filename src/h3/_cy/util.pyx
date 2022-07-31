@@ -11,11 +11,7 @@ from .error_system import (
     H3CellInvalidError,
 )
 
-from .memory cimport (
-    H3MemoryManager,
-    empty_memory_view,
-    simple_mv,
-)
+from .memory cimport simple_mv
 
 
 cdef h3lib.LatLng deg2coord(double lat, double lng) nogil:
@@ -91,26 +87,6 @@ cdef check_distance(int k):
         raise H3DomainError(
             'Grid distances must be nonnegative. Received: {}'.format(k)
         )
-
-
-cdef H3int* create_ptr(size_t n) except? NULL:
-    cdef H3int* ptr = <H3int*> stdlib.calloc(n, sizeof(H3int))
-    if (n > 0) and (not ptr):
-        raise MemoryError()
-
-    return ptr
-
-cdef H3int[:] foo(size_t n):
-    cdef:
-        array x
-
-    if n == 0:
-        return empty_memory_view()
-
-    x = <H3int[:n]> create_ptr(n)
-    x.callback_free_data = stdlib.free
-
-    return x
 
 
 cpdef H3int[:] from_iter(hexes):
