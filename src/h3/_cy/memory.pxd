@@ -6,7 +6,6 @@ cdef class H3MemoryManager:
         H3int* ptr
 
     cdef H3int[:] to_mv(self)
-    cdef _remove_zeros(self) # not sure i really want this exposed here
 
 
 cdef int[:] int_mv(size_t n)
