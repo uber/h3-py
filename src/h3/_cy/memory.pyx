@@ -112,7 +112,7 @@ cdef H3int[:] empty_memory_view():
 
 cdef (H3int*, size_t) _remove_zeros(H3int* ptr, size_t n):
     n = move_nonzeros(ptr, n)
-    if n <= 0:
+    if n == 0:
         h3_free(ptr)
         ptr = NULL
         n = 0
@@ -135,8 +135,7 @@ cdef class H3MemoryManager:
         self.n = n
         self.ptr = <H3int*> h3_calloc(self.n, sizeof(H3int))
 
-        # todo: avoid n=0 special case because of allocation non-null pointer guarantee?
-        if (self.n > 0) and (not self.ptr):
+        if not self.ptr:
             raise MemoryError()
 
     cdef H3int[:] _create_mv(self):
