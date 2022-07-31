@@ -12,9 +12,6 @@ from .util cimport (
     coord2deg,
 )
 
-from libc cimport stdlib
-from libc.stdint cimport uint64_t
-
 from .error_system cimport check_for_error
 
 from .memory cimport H3MemoryManager

@@ -1,6 +1,5 @@
 cimport h3lib
 from .h3lib cimport bool, int64_t, H3int, H3ErrorCodes
-from libc cimport stdlib
 
 from .util cimport (
     check_cell,
@@ -16,7 +15,6 @@ from .error_system cimport (
 from .memory cimport (
     H3MemoryManager,
     int_mv,
-    empty_memory_view, # todo: want to get rid of this!
 )
 
 # todo: add notes about Cython exception handling
@@ -214,7 +212,7 @@ cpdef H3int[:] compact(const H3int[:] hu):
     # note: open to better ideas!
 
     if len(hu) == 0:
-        return empty_memory_view()
+        return H3MemoryManager(0).create_mv()
 
     for h in hu: ## todo: should we have an array version? would that be faster?
         check_cell(h)
@@ -242,7 +240,7 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
 
 
     if len(hc) == 0:
-        return empty_memory_view()
+        return H3MemoryManager(0).create_mv()
 
     for h in hc:
         check_cell(h)

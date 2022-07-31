@@ -1,5 +1,3 @@
-from libc cimport stdlib
-from cython.view cimport array
 from .h3lib cimport H3int, H3str, isValidCell, isValidDirectedEdge
 
 cimport h3lib
