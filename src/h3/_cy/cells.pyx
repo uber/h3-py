@@ -224,7 +224,6 @@ cpdef H3int[:] compact(const H3int[:] hu):
     check_for_error(
         h3lib.compactCells(&hu[0], hmm.ptr, n)
     )
-
     mv = hmm.create_mv()
 
     return mv
