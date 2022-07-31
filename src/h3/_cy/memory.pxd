@@ -14,9 +14,6 @@ cpdef H3int[:] iter_to_mv(hexes)
 """
 todo: read: https://cython.readthedocs.io/en/latest/src/tutorial/pxd_files.html
 
-todo: should i be allocating with python memory functions?
-https://cython.readthedocs.io/en/latest/src/tutorial/memory_allocation.html
-
 ## things i'm not happy about with this current situation
 
 - there's gotta be a cleaner way to create a empty_memory_view()
