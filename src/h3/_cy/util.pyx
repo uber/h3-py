@@ -9,9 +9,6 @@ from .error_system import (
     H3CellInvalidError,
 )
 
-from .memory cimport simple_mv
-
-
 cdef h3lib.LatLng deg2coord(double lat, double lng) nogil:
     cdef:
         h3lib.LatLng c
@@ -85,17 +82,3 @@ cdef check_distance(int k):
         raise H3DomainError(
             'Grid distances must be nonnegative. Received: {}'.format(k)
         )
-
-
-cpdef H3int[:] from_iter(hexes):
-    """ hexes needs to be an iterable that knows its size...
-    or should we have it match the np.fromiter function, which infers if not available?
-    """
-    # cdef array x  # this needs to be commented out to avoid an error
-
-    x = simple_mv(len(hexes))
-
-    for i,h in enumerate(hexes):
-        x[i] = h
-
-    return x

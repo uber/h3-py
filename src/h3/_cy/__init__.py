@@ -69,7 +69,10 @@ from .util import (
     c_version,
     hex2int,
     int2hex,
-    from_iter,
+)
+
+from .memory import (
+    mv_from_iter,
 )
 
 from .error_system import (

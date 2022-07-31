@@ -24,7 +24,7 @@ def _id(x):
 def _in_collection(hexes):
     it = list(hexes)
 
-    return _cy.from_iter(it)
+    return _cy.mv_from_iter(it)
 
 
 _binding = _API_FUNCTIONS(

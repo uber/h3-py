@@ -133,3 +133,17 @@ cdef int[:] int_mv(size_t n):
     arr.callback_free_data = stdlib.free
 
     return arr
+
+
+cpdef H3int[:] mv_from_iter(hexes):
+    """ hexes needs to be an iterable that knows its size...
+    or should we have it match the np.fromiter function, which infers if not available?
+    """
+    # cdef array x  # this needs to be commented out to avoid an error
+
+    x = simple_mv(len(hexes))
+
+    for i,h in enumerate(hexes):
+        x[i] = h
+
+    return x
