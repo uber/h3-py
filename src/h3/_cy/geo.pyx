@@ -8,8 +8,6 @@ from .util cimport (
     check_cell,
     check_edge,
     check_res,
-    create_ptr,
-    create_mv,
     deg2coord,
     coord2deg,
 )

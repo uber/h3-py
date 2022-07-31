@@ -11,6 +11,8 @@ from .error_system import (
     H3CellInvalidError,
 )
 
+from .memory cimport H3MemoryManager
+
 
 cdef h3lib.LatLng deg2coord(double lat, double lng) nogil:
     cdef:
@@ -94,26 +96,6 @@ cdef H3int* create_ptr(size_t n) except? NULL:
         raise MemoryError()
 
     return ptr
-
-
-cdef H3int[:] create_mv(H3int* ptr, size_t n):
-    cdef:
-        array x
-
-    n = move_nonzeros(ptr, n)
-    if n <= 0:
-        stdlib.free(ptr)
-        return empty_memory_view()
-
-    ptr = <H3int*> stdlib.realloc(ptr, n*sizeof(H3int))
-
-    if ptr is NULL:
-        raise MemoryError()
-
-    x = <H3int[:n]> ptr
-    x.callback_free_data = stdlib.free
-
-    return x
 
 
 cpdef H3int[:] from_iter(hexes):
