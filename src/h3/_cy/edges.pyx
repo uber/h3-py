@@ -100,12 +100,14 @@ cpdef double edge_length(H3int e, unit='km') except -1:
         double length
 
     if unit == 'rads':
-        check_for_error(h3lib.exactEdgeLengthRads(e, &length))
+        err = h3lib.exactEdgeLengthRads(e, &length)
     elif unit == 'km':
-        check_for_error(h3lib.exactEdgeLengthKm(e, &length))
+        err = h3lib.exactEdgeLengthKm(e, &length)
     elif unit == 'm':
-        check_for_error(h3lib.exactEdgeLengthM(e, &length))
+        err = h3lib.exactEdgeLengthM(e, &length)
     else:
         raise ValueError('Unknown unit: {}'.format(unit))
+
+    check_for_error(err)
 
     return length

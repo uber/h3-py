@@ -61,9 +61,7 @@ cpdef int distance(H3int h1, H3int h2) except -1:
 
     check_for_error(
         h3lib.gridDistance(h1, h2, &distance)
-    ) # todo: should this raise a distance error?
-
-    # s = 'Cells are too far apart to compute distance: {} and {}'
+    )
 
     return distance
 
@@ -260,8 +258,6 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
         )
     )
 
-    # todo: again! doesn't work if i have this before the error check!
-    # why isn't hmm.to_mv() robust to failures before it?
     mv = hmm.to_mv()
 
     return mv
@@ -318,7 +314,7 @@ cpdef double cell_area(H3int h, unit='km^2') except -1:
     return area
 
 
-cdef could_not_find_line(err, start, end):
+cdef _could_not_find_line(err, start, end):
     msg = "Couldn't find line between cells {} and {}"
     msg = msg.format(hex(start), hex(end))
 
@@ -333,12 +329,12 @@ cpdef H3int[:] line(H3int start, H3int end):
     # probably applies to all size/work pairs of functions...
     err = h3lib.gridPathCellsSize(start, end, &n)
 
-    could_not_find_line(err, start, end)
+    _could_not_find_line(err, start, end)
 
     hmm = H3MemoryManager(n)
     err = h3lib.gridPathCells(start, end, hmm.ptr)
 
-    could_not_find_line(err, start, end)
+    _could_not_find_line(err, start, end)
 
     # todo: probably here too?
     mv = hmm.to_mv()
