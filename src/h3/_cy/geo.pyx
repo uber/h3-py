@@ -1,18 +1,27 @@
+from libc.stdint cimport uint64_t
+
 cimport h3lib
 from h3lib cimport bool, H3int
+
 from .util cimport (
     check_cell,
     check_edge,
     check_res,
-    create_ptr,
-    create_mv,
     deg2coord,
     coord2deg,
 )
-from libc cimport stdlib
-from libc.stdint cimport uint64_t
 
 from .error_system cimport check_for_error
+
+from .memory cimport H3MemoryManager
+
+# TODO: We might be OK with taking the GIL for the functions in this module
+from libc.stdlib cimport (
+    # malloc as h3_malloc,  # not used
+    calloc   as h3_calloc,
+    realloc  as h3_realloc,
+    free     as h3_free,
+)
 
 
 cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
@@ -65,7 +74,8 @@ cdef h3lib.GeoLoop make_geoloop(geos, bool lnglat_order=False) except *:
 
     gl.numVerts = len(geos)
 
-    gl.verts = <h3lib.LatLng*> stdlib.calloc(gl.numVerts, sizeof(h3lib.LatLng))
+    # todo: need for memory management
+    gl.verts = <h3lib.LatLng*> h3_calloc(gl.numVerts, sizeof(h3lib.LatLng))
 
     if lnglat_order:
         latlng = (g[::-1] for g in geos)
@@ -79,7 +89,7 @@ cdef h3lib.GeoLoop make_geoloop(geos, bool lnglat_order=False) except *:
 
 
 cdef free_geoloop(h3lib.GeoLoop* gl):
-    stdlib.free(gl.verts)
+    h3_free(gl.verts)
     gl.verts = NULL
 
 
@@ -112,7 +122,7 @@ cdef class GeoPolygon:
         self.gp.holes = NULL
 
         if len(holes) > 0:
-            self.gp.holes =  <h3lib.GeoLoop*> stdlib.calloc(len(holes), sizeof(h3lib.GeoLoop))
+            self.gp.holes =  <h3lib.GeoLoop*> h3_calloc(len(holes), sizeof(h3lib.GeoLoop))
             for i, hole in enumerate(holes):
                 self.gp.holes[i] = make_geoloop(hole, lnglat_order)
 
@@ -123,7 +133,7 @@ cdef class GeoPolygon:
         for i in range(self.gp.numHoles):
             free_geoloop(&self.gp.holes[i])
 
-        stdlib.free(self.gp.holes)
+        h3_free(self.gp.holes)
 
 
 def polyfill_polygon(outer, int res, holes=None, bool lnglat_order=False):
@@ -157,11 +167,15 @@ def polyfill_polygon(outer, int res, holes=None, bool lnglat_order=False):
     check_res(res)
     gp = GeoPolygon(outer, holes=holes, lnglat_order=lnglat_order)
 
-    h3lib.maxPolygonToCellsSize(&gp.gp, res, 0, &n)
-    ptr = create_ptr(n)
+    check_for_error(
+        h3lib.maxPolygonToCellsSize(&gp.gp, res, 0, &n)
+    )
 
-    h3lib.polygonToCells(&gp.gp, res, 0, ptr)
-    mv = create_mv(ptr, n)
+    hmm = H3MemoryManager(n)
+    check_for_error(
+        h3lib.polygonToCells(&gp.gp, res, 0, hmm.ptr)
+    )
+    mv = hmm.to_mv()
 
     return mv
 

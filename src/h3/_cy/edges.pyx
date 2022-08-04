@@ -1,12 +1,9 @@
 cimport h3lib
 from .h3lib cimport bool, H3int
 
-from .util cimport (
-    create_ptr,
-    create_mv,
-)
-
 from .error_system cimport check_for_error
+
+from .memory cimport H3MemoryManager
 
 # todo: make bint
 cpdef bool are_neighbors(H3int h1, H3int h2):
@@ -67,13 +64,9 @@ cpdef H3int[:] edges_from_cell(H3int origin):
     for the given origin cell
     """
 
-    ptr = create_ptr(6)
-
-    check_for_error(
-        h3lib.originToDirectedEdges(origin, ptr)
-    )
-
-    mv = create_mv(ptr, 6)
+    hmm = H3MemoryManager(6)
+    h3lib.originToDirectedEdges(origin, hmm.ptr)
+    mv = hmm.to_mv()
 
     return mv
 
