@@ -112,9 +112,6 @@ cdef H3int[:] empty_memory_view():
 
 cdef _remove_zeros(H3MemoryManager x):
     x.n = move_nonzeros(x.ptr, x.n)
-    if x.n == 0:
-        h3_free(x.ptr)
-        x.ptr = NULL
 
     x.ptr = <H3int*> h3_realloc(x.ptr, x.n*sizeof(H3int))
     if not x.ptr:
