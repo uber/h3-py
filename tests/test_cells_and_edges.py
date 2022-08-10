@@ -107,12 +107,12 @@ def test7():
 
 
 def test8():
-    assert h3.h3_is_valid('89283082803ffff')
-    assert not h3.h3_is_valid('abc')
+    assert h3.is_valid_cell('89283082803ffff')
+    assert not h3.is_valid_cell('abc')
 
     # looks like it might be valid, but it isn't!
     h_bad = '8a28308280fffff'
-    assert not h3.h3_is_valid(h_bad)
+    assert not h3.is_valid_cell(h_bad)
 
     # other methods should validate and raise exception if bad input
     with pytest.raises(H3CellInvalidError):
@@ -336,7 +336,7 @@ def test_edge():
 
     assert e == '12928308280fffff'
     assert h3.h3_unidirectional_edge_is_valid(e)
-    assert not h3.h3_is_valid(e)
+    assert not h3.is_valid_cell(e)
 
     assert h3.get_origin_h3_index_from_unidirectional_edge(e) == h1
     assert h3.get_destination_h3_index_from_unidirectional_edge(e) == h2
@@ -487,7 +487,7 @@ def test_str_int_convert():
 def test_hex2int_fail():
     h_invalid = {}
 
-    assert not h3.h3_is_valid(h_invalid)
+    assert not h3.is_valid_cell(h_invalid)
 
 
 def test_edge_is_valid_fail():
@@ -558,7 +558,7 @@ def test_get_res0_indexes():
     assert pentagons < out
 
     # all valid
-    assert all(map(h3.h3_is_valid, out))
+    assert all(map(h3.is_valid_cell, out))
 
     # resolution
     assert all(map(

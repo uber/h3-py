@@ -21,7 +21,7 @@ from .memory cimport (
 
 
 # bool is a python type, so we don't need the except clause
-cpdef bool is_cell(H3int h):
+cpdef bool is_valid_cell(H3int h):
     """Validates an H3 cell (hexagon or pentagon)
 
     Returns

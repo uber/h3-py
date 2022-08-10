@@ -98,7 +98,7 @@ def test_bad_units():
     h = '89754e64993ffff'
     e = '139754e64993ffff'
 
-    assert h3.h3_is_valid(h)
+    assert h3.is_valid_cell(h)
     assert h3.h3_unidirectional_edge_is_valid(e)
 
     with pytest.raises(ValueError):

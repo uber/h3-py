@@ -153,7 +153,7 @@ class _API_FUNCTIONS(object):
         # todo: `mean_edge_length` in 4.0
         return _cy.mean_edge_length(resolution, unit)
 
-    def h3_is_valid(self, h):
+    def is_valid_cell(self, h):
         """
         Validates an H3 cell (hexagon or pentagon).
 
@@ -163,7 +163,7 @@ class _API_FUNCTIONS(object):
         """
         try:
             h = self._in_scalar(h)
-            return _cy.is_cell(h)
+            return _cy.is_valid_cell(h)
         except (ValueError, TypeError):
             return False
 
@@ -546,7 +546,7 @@ class _API_FUNCTIONS(object):
 
         Notes
         -----
-        A pentagon should *also* pass ``h3_is_cell()``.
+        A pentagon should *also* pass ``is_valid_cell()``.
         Will return ``False`` for valid H3Edge.
         """
         return _cy.is_pentagon(self._in_scalar(h))
