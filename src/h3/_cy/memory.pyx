@@ -184,6 +184,9 @@ cdef class H3MemoryManager:
         _remove_zeros(self)
         return _create_mv(self)
 
+    cdef H3int[:] to_mv_keep_zeros(self):
+        return _create_mv(self)
+
     def __dealloc__(self):
         # If the memory has been handed off to a memoryview, this pointer
         # should be NULL, and deallocing on NULL is fine.
@@ -209,7 +212,7 @@ cdef int[:] int_mv(size_t n):
     cdef:
         array arr
 
-    if n <= 0:
+    if n == 0:
         raise MemoryError()
     ptr = <int*> h3_calloc(n, sizeof(int))
     if ptr is NULL:
@@ -221,17 +224,6 @@ cdef int[:] int_mv(size_t n):
     return arr
 
 
-cdef H3int[:] simple_mv(size_t n):
-    if n == 0:
-        return empty_memory_view()
-
-    ptr = <H3int*> h3_calloc(n, sizeof(H3int))
-    if not ptr:
-        raise MemoryError()
-
-    return _copy_to_mv(ptr, n)
-
-
 cpdef H3int[:] iter_to_mv(hexes):
     """ hexes needs to be an iterable that knows its size...
     or should we have it match the np.fromiter function, which infers if not available?
@@ -239,7 +231,7 @@ cpdef H3int[:] iter_to_mv(hexes):
     cdef:
         H3int[:] mv
 
-    mv = simple_mv(len(hexes))
+    mv = H3MemoryManager(len(hexes)).to_mv_keep_zeros()
 
     for i,h in enumerate(hexes):
         mv[i] = h
