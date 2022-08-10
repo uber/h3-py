@@ -112,6 +112,9 @@ cdef H3int[:] empty_memory_view():
 
 cdef _remove_zeros(H3MemoryManager x):
     x.n = move_nonzeros(x.ptr, x.n)
+    if x.n == 0:
+        h3_free(x.ptr)
+        x.ptr = NULL
 
     x.ptr = <H3int*> h3_realloc(x.ptr, x.n*sizeof(H3int))
     if not x.ptr:
@@ -119,59 +122,27 @@ cdef _remove_zeros(H3MemoryManager x):
 
 
 cdef H3int[:] _create_mv(H3MemoryManager x):
-    if x.n == 0:
-        h3_free(x.ptr)
-        x.ptr = NULL
-        mv = empty_memory_view()
-    else:
-        mv = _copy_to_mv(x.ptr, x.n)
+    cdef:
+        array mv
 
-        # responsibility for the memory moves from this object to the array/memoryview
-        x.ptr = NULL
-        x.n = 0
+    if x.n == 0:
+        return empty_memory_view()
+
+    mv = <H3int[:x.n]> x.ptr
+    mv.callback_free_data = h3_free
+
+    # responsibility for the memory moves from this object to the array/memoryview
+    x.ptr = NULL
+    x.n = 0
 
     return mv
 
 
-"""
-TODO: The not None declaration for the argument automatically rejects None values as input, which would otherwise be allowed. The reason why None is allowed by default is that it is conveniently used for return arguments:
-      https://cython.readthedocs.io/en/latest/src/userguide/memoryviews.html#syntax
-
-TODO: potential optimization: https://cython.readthedocs.io/en/latest/src/userguide/memoryviews.html#performance-disabling-initialization-checks
-
-## future improvements:
-
-- abolish any appearance of &thing[0]. (i.e., identical interfaces)
-- can i make the interface for all these memory views identical?
-"""
-
 cdef class H3MemoryManager:
-    """
-    Cython object in charge of allocating and freeing memory for arrays
-    of H3 indexes.
-
-    Initially allocates memory and provides access through `self.ptr` and
-    `self.n`.
-
-    The `to_mv()` function removes responsibility for the allocated memory
-    from this object to a memory view object. A memory view object automatically
-    deallocates its memory during garbage collection.
-
-    If the H3MemoryManager is garbage collected before running `to_mv()`,
-    it will deallocate its memory itself.
-
-    This pattern is useful for a few reasons. If we find a better way to do
-    these then this object may no longer be necessary:
-
-    - provide convenient access to the raw memory pointer and length for passing
-      to h3lib functions
-    - remove zeroes from the array output (some h3lib functions may return
-      results with zeros/H3NULL values)
-    - cython and python array types have weird interfaces
-    """
     def __cinit__(self, size_t n):
         self.n = n
         self.ptr = <H3int*> h3_calloc(self.n, sizeof(H3int))
+        # todo: do we actually have a memory leak when n = 0 because of the non-null pointer thing?
 
         if not self.ptr:
             raise MemoryError()
@@ -188,21 +159,12 @@ cdef class H3MemoryManager:
         h3_free(self.ptr)
 
 
-cdef H3int[:] _copy_to_mv(const H3int* ptr, size_t n):
-    cdef:
-        array arr
-
-    arr = <H3int[:n]> ptr
-    arr.callback_free_data = h3_free
-
-    return arr
-
-
 """
-todo: would be nice to have a cleaner way to do all of this Cython memory management baloney?
+Can someone please swoop in and find a much cleaner way to do all of this Cython memory management baloney?
 """
 cdef int[:] int_mv(size_t n):
     cdef:
+        int* ptr
         array arr
 
     if n <= 0:
@@ -218,6 +180,9 @@ cdef int[:] int_mv(size_t n):
 
 
 cdef H3int[:] simple_mv(size_t n):
+    # cdef:
+    #     array mv
+
     if n == 0:
         return empty_memory_view()
 
@@ -225,15 +190,17 @@ cdef H3int[:] simple_mv(size_t n):
     if not ptr:
         raise MemoryError()
 
-    return _copy_to_mv(ptr, n)
+    mv = <H3int[:n]> ptr
+    mv.callback_free_data = h3_free
+
+    return mv
 
 
 cpdef H3int[:] iter_to_mv(hexes):
     """ hexes needs to be an iterable that knows its size...
     or should we have it match the np.fromiter function, which infers if not available?
     """
-    cdef:
-        H3int[:] mv
+    # cdef array x  # this needs to be commented out to avoid an error
 
     mv = simple_mv(len(hexes))
 
