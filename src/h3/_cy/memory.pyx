@@ -197,7 +197,6 @@ todo: would be nice to have a cleaner way to do all of this Cython memory manage
 """
 cdef int[:] int_mv(size_t n):
     cdef:
-        int* ptr
         array arr
 
     if n <= 0:
@@ -213,8 +212,8 @@ cdef int[:] int_mv(size_t n):
 
 
 cdef H3int[:] simple_mv(size_t n):
-    # cdef:
-    #     array mv
+    cdef:
+        array arr
 
     if n == 0:
         return empty_memory_view()
@@ -223,17 +222,18 @@ cdef H3int[:] simple_mv(size_t n):
     if not ptr:
         raise MemoryError()
 
-    mv = <H3int[:n]> ptr
-    mv.callback_free_data = h3_free
+    arr = <H3int[:n]> ptr
+    arr.callback_free_data = h3_free
 
-    return mv
+    return arr
 
 
 cpdef H3int[:] iter_to_mv(hexes):
     """ hexes needs to be an iterable that knows its size...
     or should we have it match the np.fromiter function, which infers if not available?
     """
-    # cdef array x  # this needs to be commented out to avoid an error
+    cdef:
+        H3int[:] mv
 
     mv = simple_mv(len(hexes))
 
