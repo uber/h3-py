@@ -174,8 +174,7 @@ cdef class H3MemoryManager:
     If the H3MemoryManager is garbage collected before running `to_mv()`,
     it will deallocate its memory itself.
 
-    This pattern is useful for a few reasons. If we find a better way to do
-    these then this object may no longer be necessary:
+    This pattern is useful for a few reasons:
 
     - provide convenient access to the raw memory pointer and length for passing
       to h3lib functions
@@ -183,6 +182,11 @@ cdef class H3MemoryManager:
       results with zeros/H3NULL values)
     - cython and python array types have weird interfaces; memoryviews are
       much cleaner
+
+    If we find a better way to do these then this class may no longer be
+    necessary.
+
+    TODO: consider a context manager pattern
     """
     def __cinit__(self, size_t n):
         self.n = n
