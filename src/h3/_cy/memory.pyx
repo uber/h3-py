@@ -129,15 +129,15 @@ cdef H3int[:] _create_mv(H3MemoryManager x):
         h3_free(x.ptr)
         x.ptr = NULL
         return empty_memory_view()
+    else:
+        mv = <H3int[:x.n]> x.ptr
+        mv.callback_free_data = h3_free
 
-    mv = <H3int[:x.n]> x.ptr
-    mv.callback_free_data = h3_free
+        # responsibility for the memory moves from this object to the array/memoryview
+        x.ptr = NULL
+        x.n = 0
 
-    # responsibility for the memory moves from this object to the array/memoryview
-    x.ptr = NULL
-    x.n = 0
-
-    return mv
+        return mv
 
 
 """
