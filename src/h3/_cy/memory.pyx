@@ -195,6 +195,16 @@ cdef class H3MemoryManager:
         h3_free(self.ptr)
 
 
+cdef H3int[:] _copy_to_mv(const H3int* ptr, size_t n):
+    cdef:
+        array arr
+
+    arr = <H3int[:n]> ptr
+    arr.callback_free_data = h3_free
+
+    return arr
+
+
 """
 todo: would be nice to have a cleaner way to do all of this Cython memory management baloney?
 """
@@ -215,9 +225,6 @@ cdef int[:] int_mv(size_t n):
 
 
 cdef H3int[:] simple_mv(size_t n):
-    cdef:
-        array arr
-
     if n == 0:
         return empty_memory_view()
 
@@ -225,10 +232,7 @@ cdef H3int[:] simple_mv(size_t n):
     if not ptr:
         raise MemoryError()
 
-    arr = <H3int[:n]> ptr
-    arr.callback_free_data = h3_free
-
-    return arr
+    return _copy_to_mv(ptr, n)
 
 
 cpdef H3int[:] iter_to_mv(hexes):
