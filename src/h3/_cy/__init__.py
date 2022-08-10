@@ -14,7 +14,7 @@ function interface and input conversion (string to int, for instance).
 """
 
 from .cells import (
-    is_cell,
+    is_valid_cell,
     is_pentagon,
     get_base_cell,
     resolution,

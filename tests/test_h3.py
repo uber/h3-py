@@ -18,16 +18,16 @@ def shift_circular_list(start_element, elements_list):
     return elements_list[start_index:] + elements_list[:start_index]
 
 
-def test_h3_is_valid():
-    assert h3.h3_is_valid('85283473fffffff')
-    assert h3.h3_is_valid('850dab63fffffff')
-    assert not h3.h3_is_valid('lolwut')
+def test_is_valid_cell():
+    assert h3.is_valid_cell('85283473fffffff')
+    assert h3.is_valid_cell('850dab63fffffff')
+    assert not h3.is_valid_cell('lolwut')
 
     # H3 0.x Addresses are not considered valid
-    assert not h3.h3_is_valid('5004295803a88')
+    assert not h3.is_valid_cell('5004295803a88')
 
     for res in range(16):
-        assert h3.h3_is_valid(h3.geo_to_h3(37, -122, res))
+        assert h3.is_valid_cell(h3.geo_to_h3(37, -122, res))
 
 
 def test_geo_to_h3():

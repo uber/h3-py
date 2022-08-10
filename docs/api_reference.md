@@ -19,7 +19,7 @@ but we'll try to group functions in a reasonably logical manner.
 .. currentmodule:: h3
 
 .. autosummary::
-   h3_is_valid
+   is_valid_cell
    h3_is_pentagon
    h3_is_res_class_III
    h3_is_res_class_iii
