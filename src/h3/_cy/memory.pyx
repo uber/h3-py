@@ -32,7 +32,7 @@ https://python.readthedocs.io/en/stable/c-api/memory.html#raw-memory-interface
 """
 # from cpython.mem cimport (
 #     PyMem_RawMalloc   as h3_malloc,
-#     # PyMem_RawCalloc as h3_calloc,  # only in py3.5 (and cython 3.0?)
+#     # PyMem_RawCalloc as h3_calloc,  # only in Python >=3.5 (and Cython >=3.0?)
 #     PyMem_RawRealloc  as h3_realloc,
 #     PyMem_RawFree     as h3_free,
 # )
