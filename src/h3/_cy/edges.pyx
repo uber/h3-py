@@ -1,12 +1,9 @@
 cimport h3lib
 from .h3lib cimport bool, H3int
 
-from .util cimport (
-    create_ptr,
-    create_mv,
-)
-
 from .error_system cimport check_for_error
+
+from .memory cimport H3MemoryManager
 
 # todo: make bint
 cpdef bool are_neighbors(H3int h1, H3int h2):
@@ -67,13 +64,11 @@ cpdef H3int[:] edges_from_cell(H3int origin):
     for the given origin cell
     """
 
-    ptr = create_ptr(6)
-
+    hmm = H3MemoryManager(6)
     check_for_error(
-        h3lib.originToDirectedEdges(origin, ptr)
+        h3lib.originToDirectedEdges(origin, hmm.ptr)
     )
-
-    mv = create_mv(ptr, 6)
+    mv = hmm.to_mv()
 
     return mv
 
@@ -82,7 +77,9 @@ cpdef double mean_edge_length(int resolution, unit='km') except -1:
     cdef:
         double length
 
-    h3lib.getHexagonEdgeLengthAvgKm(resolution, &length)
+    check_for_error(
+        h3lib.getHexagonEdgeLengthAvgKm(resolution, &length)
+    )
 
     # todo: multiple units
     convert = {
@@ -102,17 +99,15 @@ cpdef double edge_length(H3int e, unit='km') except -1:
     cdef:
         double length
 
-    # todo: maybe kick this logic up to the python level
-    # it might be a little cleaner, because we can do the "switch statement"
-    # with a dict, but would require exposing more C functions
-
     if unit == 'rads':
-        h3lib.exactEdgeLengthRads(e, &length)
+        err = h3lib.exactEdgeLengthRads(e, &length)
     elif unit == 'km':
-        h3lib.exactEdgeLengthKm(e, &length)
+        err = h3lib.exactEdgeLengthKm(e, &length)
     elif unit == 'm':
-        h3lib.exactEdgeLengthM(e, &length)
+        err = h3lib.exactEdgeLengthM(e, &length)
     else:
         raise ValueError('Unknown unit: {}'.format(unit))
+
+    check_for_error(err)
 
     return length
