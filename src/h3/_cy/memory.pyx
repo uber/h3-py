@@ -181,7 +181,8 @@ cdef class H3MemoryManager:
       to h3lib functions
     - remove zeroes from the array output (some h3lib functions may return
       results with zeros/H3NULL values)
-    - cython and python array types have weird interfaces
+    - cython and python array types have weird interfaces; memoryviews are
+      much cleaner
     """
     def __cinit__(self, size_t n):
         self.n = n
@@ -191,6 +192,7 @@ cdef class H3MemoryManager:
             raise MemoryError()
 
     cdef H3int[:] to_mv_keep_zeros(self):
+        # todo: this could be a private method
         return _create_mv(self)
 
     cdef H3int[:] to_mv(self):
