@@ -190,11 +190,11 @@ cdef class H3MemoryManager:
         if not self.ptr:
             raise MemoryError()
 
-    cdef H3int[:] to_mv(self):
-        _remove_zeros(self)
+    cdef H3int[:] to_mv_keep_zeros(self):
         return _create_mv(self)
 
-    cdef H3int[:] to_mv_keep_zeros(self):
+    cdef H3int[:] to_mv(self):
+        _remove_zeros(self)
         return _create_mv(self)
 
     def __dealloc__(self):
@@ -206,7 +206,8 @@ cdef class H3MemoryManager:
 
 
 """
-todo: would be nice to have a cleaner way to do all of this Cython memory management baloney?
+todo: combine with the H3MemoryManager using fused types?
+https://cython.readthedocs.io/en/stable/src/userguide/fusedtypes.html
 """
 cdef int[:] int_mv(size_t n):
     cdef:
@@ -214,14 +215,15 @@ cdef int[:] int_mv(size_t n):
 
     if n == 0:
         raise MemoryError()
-    ptr = <int*> h3_calloc(n, sizeof(int))
-    if ptr is NULL:
-        raise MemoryError()
+    else:
+        ptr = <int*> h3_calloc(n, sizeof(int))
+        if ptr is NULL:
+            raise MemoryError()
 
-    arr = <int[:n]> ptr
-    arr.callback_free_data = h3_free
+        arr = <int[:n]> ptr
+        arr.callback_free_data = h3_free
 
-    return arr
+        return arr
 
 
 cpdef H3int[:] iter_to_mv(hexes):
