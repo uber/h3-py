@@ -38,7 +38,6 @@ h3_get_resolution = _binding.h3_get_resolution
 h3_indexes_are_neighbors = _binding.h3_indexes_are_neighbors
 h3_is_pentagon = _binding.h3_is_pentagon
 h3_is_res_class_III = _binding.h3_is_res_class_III
-h3_is_res_class_iii = _binding.h3_is_res_class_iii
 is_valid_cell = _binding.is_valid_cell
 h3_line = _binding.h3_line
 h3_set_to_multi_polygon = _binding.h3_set_to_multi_polygon

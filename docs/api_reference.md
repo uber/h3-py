@@ -22,7 +22,6 @@ but we'll try to group functions in a reasonably logical manner.
    is_valid_cell
    h3_is_pentagon
    h3_is_res_class_III
-   h3_is_res_class_iii
    h3_unidirectional_edge_is_valid
    versions
 ```

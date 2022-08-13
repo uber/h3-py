@@ -726,9 +726,6 @@ class _API_FUNCTIONS(object):
         """
         return _cy.is_res_class_iii(self._in_scalar(h))
 
-    def h3_is_res_class_iii(self, h):
-        """Alias for `h3_is_res_class_III`."""
-        return self.h3_is_res_class_III(h)
 
     def get_pentagon_indexes(self, resolution):
         """

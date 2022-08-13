@@ -768,10 +768,9 @@ def test_h3_get_base_cell():
     assert h3.h3_get_base_cell('8928308280fffff') == 20
 
 
-def test_h3_is_res_class_iiiIII():
-    assert h3.h3_is_res_class_iii('8928308280fffff')
-    assert not h3.h3_is_res_class_iii('8828308280fffff')
+def test_h3_is_res_class_III():
     assert h3.h3_is_res_class_III('8928308280fffff')
+    assert not h3.h3_is_res_class_III('8828308280fffff')
 
 
 def test_h3_is_pentagon():
