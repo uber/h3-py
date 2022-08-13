@@ -50,7 +50,6 @@ h3_to_parent = _binding.h3_to_parent
 h3_to_string = _binding.h3_to_string
 h3_unidirectional_edge_is_valid = _binding.h3_unidirectional_edge_is_valid
 hex_area = _binding.hex_area
-hex_range = _binding.hex_range
 hex_range_distances = _binding.hex_range_distances
 hex_ranges = _binding.hex_ranges
 hex_ring = _binding.hex_ring

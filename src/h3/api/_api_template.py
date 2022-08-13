@@ -312,19 +312,6 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def hex_range(self, h, k=1):
-        """
-        Alias for `k_ring`.
-        "Filled-in" disk.
-
-        Notes
-        -----
-        This name differs from the C API.
-        """
-        mv = _cy.disk(self._in_scalar(h), k)
-
-        return self._out_unordered(mv)
-
     def hex_ring(self, h, k=1):
         """
         Return unordered set of cells with H3 distance ``== k`` from ``h``.
