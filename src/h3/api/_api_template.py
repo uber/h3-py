@@ -779,7 +779,7 @@ class _API_FUNCTIONS(object):
 
         return p
 
-    def h3_get_faces(self, h):
+    def get_faces(self, h):
         """
         Return icosahedron faces intersecting a given H3 cell.
 
