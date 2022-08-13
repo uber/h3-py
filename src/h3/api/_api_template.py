@@ -697,7 +697,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_ordered(mv)
 
-    def h3_is_res_class_III(self, h):
+    def is_res_class_III(self, h):
         """
         Determine if cell has orientation "Class II" or "Class III".
 
