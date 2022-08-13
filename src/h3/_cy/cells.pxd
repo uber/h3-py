@@ -2,7 +2,7 @@ from .h3lib cimport bool, int64_t, H3int
 
 cpdef bool is_valid_cell(H3int h)
 cpdef bool is_pentagon(H3int h)
-cpdef int get_base_cell(H3int h) except -1
+cpdef int get_base_cell_number(H3int h) except -1
 cpdef int get_resolution(H3int h) except -1
 cpdef int grid_distance(H3int h1, H3int h2) except -1
 cpdef H3int[:] disk(H3int h, int k)

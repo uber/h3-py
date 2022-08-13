@@ -35,7 +35,7 @@ cpdef bool is_pentagon(H3int h):
     return h3lib.isPentagon(h) == 1
 
 
-cpdef int get_base_cell(H3int h) except -1:
+cpdef int get_base_cell_number(H3int h) except -1:
     check_cell(h)
 
     return h3lib.getBaseCellNumber(h)

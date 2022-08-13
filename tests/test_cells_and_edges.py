@@ -376,7 +376,7 @@ def test_validation():
     h = '8a28308280fffff'  # invalid cell
 
     with pytest.raises(H3CellInvalidError):
-        h3.h3_get_base_cell(h)
+        h3.get_base_cell_number(h)
 
     with pytest.raises(H3CellInvalidError):
         h3.get_resolution(h)

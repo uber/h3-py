@@ -766,8 +766,8 @@ def test_num_hexagons():
         assert 6**i <= n <= 7**i
 
 
-def test_h3_get_base_cell():
-    assert h3.h3_get_base_cell('8928308280fffff') == 20
+def test_get_base_cell_number():
+    assert h3.get_base_cell_number('8928308280fffff') == 20
 
 
 def test_is_res_class_III():

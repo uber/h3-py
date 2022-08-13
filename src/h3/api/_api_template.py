@@ -534,7 +534,7 @@ class _API_FUNCTIONS(object):
         """
         return _cy.is_pentagon(self._in_scalar(h))
 
-    def h3_get_base_cell(self, h):
+    def get_base_cell_number(self, h):
         """
         Return the base cell *number* (``0`` to ``121``) of the given cell.
 
@@ -554,7 +554,7 @@ class _API_FUNCTIONS(object):
         -------
         int
         """
-        return _cy.get_base_cell(self._in_scalar(h))
+        return _cy.get_base_cell_number(self._in_scalar(h))
 
     def h3_indexes_are_neighbors(self, h1, h2):
         """

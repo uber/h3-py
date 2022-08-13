@@ -110,7 +110,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   h3_get_base_cell
+   get_base_cell_number
    h3_get_faces
    experimental_h3_to_local_ij
    experimental_local_ij_to_h3
