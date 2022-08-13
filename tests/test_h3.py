@@ -154,24 +154,6 @@ def test_k_ring_pentagon():
     assert out == expected
 
 
-def test_hex_range_pentagon():
-    h = '821c07fffffffff'  # a pentagon
-
-    # should consist of `h` and it's 5 neighbors
-    out = h3.hex_range(h, 1)
-
-    expected = {
-        h,
-        '821c17fffffffff',
-        '821c1ffffffffff',
-        '821c27fffffffff',
-        '821c2ffffffffff',
-        '821c37fffffffff',
-    }
-
-    assert out == expected
-
-
 def test_k_ring_distances():
     h = '8928308280fffff'
     out = h3.k_ring_distances(h, 1)
