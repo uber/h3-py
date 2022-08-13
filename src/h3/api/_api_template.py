@@ -210,7 +210,7 @@ class _API_FUNCTIONS(object):
         """
         return _cy.h3_to_geo(self._in_scalar(h))
 
-    def h3_get_resolution(self, h):
+    def get_resolution(self, h):
         """
         Return the resolution of an H3 cell.
 
@@ -223,7 +223,7 @@ class _API_FUNCTIONS(object):
         int
         """
         # todo: could also work for edges
-        return _cy.resolution(self._in_scalar(h))
+        return _cy.get_resolution(self._in_scalar(h))
 
     def cell_to_parent(self, h, res=None):
         """

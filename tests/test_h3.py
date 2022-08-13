@@ -26,10 +26,10 @@ def test_geo_to_h3():
     assert h3.geo_to_h3(37.3615593, -122.0553238, 5) == '85283473fffffff'
 
 
-def test_h3_get_resolution():
+def test_get_resolution():
     for res in range(16):
         h = h3.geo_to_h3(37.3615593, -122.0553238, res)
-        assert h3.h3_get_resolution(h) == res
+        assert h3.get_resolution(h) == res
 
 
 def test_silly_geo_to_h3():

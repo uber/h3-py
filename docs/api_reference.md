@@ -39,7 +39,7 @@ but we'll try to group functions in a reasonably logical manner.
    get_res0_indexes
    get_pentagon_indexes
    num_hexagons
-   h3_get_resolution
+   get_resolution
    compact
    uncompact
 ```

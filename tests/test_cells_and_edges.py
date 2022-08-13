@@ -116,12 +116,12 @@ def test8():
 
     # other methods should validate and raise exception if bad input
     with pytest.raises(H3CellInvalidError):
-        h3.h3_get_resolution(h_bad)
+        h3.get_resolution(h_bad)
 
 
 def test9():
-    assert h3.h3_get_resolution('8928308280fffff') == 9
-    assert h3.h3_get_resolution('8a28308280f7fff') == 10
+    assert h3.get_resolution('8928308280fffff') == 9
+    assert h3.get_resolution('8a28308280f7fff') == 10
 
 
 def test_parent():
@@ -379,7 +379,7 @@ def test_validation():
         h3.h3_get_base_cell(h)
 
     with pytest.raises(H3CellInvalidError):
-        h3.h3_get_resolution(h)
+        h3.get_resolution(h)
 
     with pytest.raises(H3CellInvalidError):
         h3.cell_to_parent(h, 9)
@@ -562,7 +562,7 @@ def test_get_res0_indexes():
 
     # resolution
     assert all(map(
-        lambda h: h3.h3_get_resolution(h) == 0,
+        lambda h: h3.get_resolution(h) == 0,
         out
     ))
 

@@ -41,7 +41,7 @@ cpdef int get_base_cell(H3int h) except -1:
     return h3lib.getBaseCellNumber(h)
 
 
-cpdef int resolution(H3int h) except -1:
+cpdef int get_resolution(H3int h) except -1:
     """Returns the resolution of an H3 Index
     0--15
     """
@@ -146,7 +146,7 @@ cpdef H3int cell_to_parent(H3int h, res=None) except 0:
     check_cell(h) # todo: do we want to check for validity here? or leave correctness to the user?
 
     if res is None:
-        res = resolution(h) - 1
+        res = get_resolution(h) - 1
 
     err = h3lib.cellToParent(h, res, &parent)
     if err:
@@ -164,7 +164,7 @@ cpdef H3int[:] children(H3int h, res=None):
     check_cell(h)
 
     if res is None:
-        res = resolution(h) + 1
+        res = get_resolution(h) + 1
 
     err = h3lib.cellToChildrenSize(h, res, &n)
     if err:
@@ -188,7 +188,7 @@ cpdef H3int center_child(H3int h, res=None) except 0:
     check_cell(h)
 
     if res is None:
-        res = resolution(h) + 1
+        res = get_resolution(h) + 1
 
     err = h3lib.cellToCenterChild(h, res, &child)
     if err:
