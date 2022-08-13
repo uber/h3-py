@@ -30,7 +30,7 @@ from .cells import (
     cell_area,
     line,
     is_res_class_iii,
-    get_pentagon_indexes,
+    get_pentagons,
     get_res0_indexes,
     center_child,
     get_faces,

@@ -345,7 +345,7 @@ cpdef bool is_res_class_iii(H3int h):
     return h3lib.isResClassIII(h) == 1
 
 
-cpdef H3int[:] get_pentagon_indexes(int res):
+cpdef H3int[:] get_pentagons(int res):
     n = h3lib.pentagonCount()
 
     hmm = H3MemoryManager(n)

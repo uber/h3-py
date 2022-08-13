@@ -29,7 +29,7 @@ get_h3_unidirectional_edges_from_hexagon = (
 get_origin_h3_index_from_unidirectional_edge = (
     _binding.get_origin_h3_index_from_unidirectional_edge
 )
-get_pentagon_indexes = _binding.get_pentagon_indexes
+get_pentagons = _binding.get_pentagons
 get_res0_indexes = _binding.get_res0_indexes
 grid_distance = _binding.grid_distance
 h3_get_base_cell = _binding.h3_get_base_cell

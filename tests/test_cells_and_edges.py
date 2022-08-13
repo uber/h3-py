@@ -496,7 +496,7 @@ def test_edge_is_valid_fail():
 
 
 def test_get_pentagons():
-    out = h3.get_pentagon_indexes(0)
+    out = h3.get_pentagons(0)
 
     expected = {
         '8009fffffffffff',
@@ -515,7 +515,7 @@ def test_get_pentagons():
 
     assert out == expected
 
-    out = h3.get_pentagon_indexes(5)
+    out = h3.get_pentagons(5)
 
     expected = {
         '85080003fffffff',
@@ -535,7 +535,7 @@ def test_get_pentagons():
     assert out == expected
 
     for i in range(16):
-        assert len(h3.get_pentagon_indexes(i)) == 12
+        assert len(h3.get_pentagons(i)) == 12
 
 
 def test_uncompact_cell_input():
@@ -554,7 +554,7 @@ def test_get_res0_indexes():
     assert len(out) == 122
 
     # subset
-    pentagons = h3.get_pentagon_indexes(0)
+    pentagons = h3.get_pentagons(0)
     assert pentagons < out
 
     # all valid
