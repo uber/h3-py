@@ -71,7 +71,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   h3_to_parent
+   cell_to_parent
    h3_to_children
    h3_to_center_child
 ```

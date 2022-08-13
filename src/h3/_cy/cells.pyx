@@ -139,7 +139,7 @@ cpdef H3int[:] ring(H3int h, int k):
 
     return mv
 
-cpdef H3int parent(H3int h, res=None) except 0:
+cpdef H3int cell_to_parent(H3int h, res=None) except 0:
     cdef:
         H3int parent
 

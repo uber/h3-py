@@ -127,12 +127,12 @@ def test9():
 def test_parent():
     h = '8928308280fffff'
 
-    assert h3.h3_to_parent(h, 7) == '872830828ffffff'
-    assert h3.h3_to_parent(h, 8) == '8828308281fffff'
-    assert h3.h3_to_parent(h, 9) == h
+    assert h3.cell_to_parent(h, 7) == '872830828ffffff'
+    assert h3.cell_to_parent(h, 8) == '8828308281fffff'
+    assert h3.cell_to_parent(h, 9) == h
 
     with pytest.raises(H3ResMismatchError):
-        h3.h3_to_parent(h, 10)
+        h3.cell_to_parent(h, 10)
 
 
 def test_parent_err():
@@ -140,11 +140,11 @@ def test_parent_err():
     h = '8075fffffffffff'  # geo_to_h3(0,0,0)
 
     with pytest.raises(H3ResDomainError):
-        h3.h3_to_parent(h)
+        h3.cell_to_parent(h)
 
     # Test 2
     try:
-        h3.h3_to_parent(h)
+        h3.cell_to_parent(h)
     except Exception as e:
         msg = str(e)
 
@@ -382,7 +382,7 @@ def test_validation():
         h3.h3_get_resolution(h)
 
     with pytest.raises(H3CellInvalidError):
-        h3.h3_to_parent(h, 9)
+        h3.cell_to_parent(h, 9)
 
     with pytest.raises(H3CellInvalidError):
         h3.grid_distance(h, h)

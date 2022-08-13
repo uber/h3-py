@@ -225,7 +225,7 @@ class _API_FUNCTIONS(object):
         # todo: could also work for edges
         return _cy.resolution(self._in_scalar(h))
 
-    def h3_to_parent(self, h, res=None):
+    def cell_to_parent(self, h, res=None):
         """
         Get the parent of a cell.
 
@@ -241,7 +241,7 @@ class _API_FUNCTIONS(object):
         H3Cell
         """
         h = self._in_scalar(h)
-        p = _cy.parent(h, res)
+        p = _cy.cell_to_parent(h, res)
         p = self._out_scalar(p)
 
         return p

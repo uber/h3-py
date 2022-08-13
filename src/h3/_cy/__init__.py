@@ -18,7 +18,7 @@ from .cells import (
     is_pentagon,
     get_base_cell,
     resolution,
-    parent,
+    cell_to_parent,
     grid_distance,
     disk,
     ring,
