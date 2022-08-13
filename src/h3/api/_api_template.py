@@ -246,7 +246,7 @@ class _API_FUNCTIONS(object):
 
         return p
 
-    def h3_distance(self, h1, h2):
+    def grid_distance(self, h1, h2):
         """
         Compute the H3 distance between two cells.
 
@@ -269,7 +269,7 @@ class _API_FUNCTIONS(object):
         h1 = self._in_scalar(h1)
         h2 = self._in_scalar(h2)
 
-        d = _cy.distance(h1, h2)
+        d = _cy.grid_distance(h1, h2)
 
         return d
 

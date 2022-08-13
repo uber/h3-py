@@ -838,12 +838,12 @@ def test_get_h3_unidirectional_edge_boundary():
     assert len(boundary_geo_json) == 3
 
 
-def test_h3_distance():
+def test_grid_distance():
     h = '89283082993ffff'
 
-    assert 0 == h3.h3_distance(h, h)
-    assert 1 == h3.h3_distance(h, '8928308299bffff')
-    assert 5 == h3.h3_distance(h, '89283082827ffff')
+    assert 0 == h3.grid_distance(h, h)
+    assert 1 == h3.grid_distance(h, '8928308299bffff')
+    assert 5 == h3.grid_distance(h, '89283082827ffff')
 
 
 def test_h3_line():

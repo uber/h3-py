@@ -206,13 +206,13 @@ def test_center_child():
 
 def test_distance():
     h = '8a28308280c7fff'
-    assert h3.h3_distance(h, h) == 0
+    assert h3.grid_distance(h, h) == 0
 
     n = h3.hex_ring(h, 1).pop()
-    assert h3.h3_distance(h, n) == 1
+    assert h3.grid_distance(h, n) == 1
 
     n = h3.hex_ring(h, 2).pop()
-    assert h3.h3_distance(h, n) == 2
+    assert h3.grid_distance(h, n) == 2
 
 
 def test_distance_error():
@@ -224,7 +224,7 @@ def test_distance_error():
     h2 = '835804fffffffff'
 
     with pytest.raises(H3FailedError):
-        h3.h3_distance(h1, h2)
+        h3.grid_distance(h1, h2)
 
 
 def test_compact():
@@ -385,7 +385,7 @@ def test_validation():
         h3.h3_to_parent(h, 9)
 
     with pytest.raises(H3CellInvalidError):
-        h3.h3_distance(h, h)
+        h3.grid_distance(h, h)
 
     with pytest.raises(H3CellInvalidError):
         h3.k_ring(h, 1)

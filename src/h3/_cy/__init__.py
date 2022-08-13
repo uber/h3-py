@@ -19,7 +19,7 @@ from .cells import (
     get_base_cell,
     resolution,
     parent,
-    distance,
+    grid_distance,
     disk,
     ring,
     children,

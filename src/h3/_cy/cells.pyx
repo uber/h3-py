@@ -50,7 +50,7 @@ cpdef int resolution(H3int h) except -1:
     return h3lib.getResolution(h)
 
 
-cpdef int distance(H3int h1, H3int h2) except -1:
+cpdef int grid_distance(H3int h1, H3int h2) except -1:
     """ Compute the grid distance between two cells
     """
     cdef:
