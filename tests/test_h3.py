@@ -105,6 +105,24 @@ def test_k_ring():
     assert out == expected
 
 
+def test_hex_range():
+    h = '8928308280fffff'
+    out = h3.hex_range(h, 1)
+    assert len(out) == 1 + 6
+
+    expected = {
+        '8928308280bffff',
+        '89283082807ffff',
+        h,
+        '89283082877ffff',
+        '89283082803ffff',
+        '89283082873ffff',
+        '8928308283bffff',
+    }
+
+    assert out == expected
+
+
 def test_k_ring2():
     h = '8928308280fffff'
     out = h3.k_ring(h, 2)
@@ -654,24 +672,6 @@ def test_h3_to_children():
     children = h3.h3_to_children(h, 9)
 
     assert len(children) == 7
-
-
-def test_hex_range():
-    h = '8928308280fffff'
-    out = h3.hex_range(h, 1)
-    assert len(out) == 1 + 6
-
-    expected = {
-        '8928308280bffff',
-        '89283082807ffff',
-        h,
-        '89283082877ffff',
-        '89283082803ffff',
-        '89283082873ffff',
-        '8928308283bffff',
-    }
-
-    assert out == expected
 
 
 def test_hex_range2():
