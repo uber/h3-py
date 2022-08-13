@@ -153,6 +153,7 @@ def test_k_ring_pentagon():
 
     assert out == expected
 
+
 def test_polyfill():
     geo = {
         'type': 'Polygon',
@@ -628,6 +629,7 @@ def test_h3_to_children():
     children = h3.h3_to_children(h, 9)
 
     assert len(children) == 7
+
 
 def test_hex_range_distances_pentagon():
 

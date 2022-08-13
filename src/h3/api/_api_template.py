@@ -726,7 +726,6 @@ class _API_FUNCTIONS(object):
         """
         return _cy.is_res_class_iii(self._in_scalar(h))
 
-
     def get_pentagon_indexes(self, resolution):
         """
         Return all pentagons at a given resolution.
