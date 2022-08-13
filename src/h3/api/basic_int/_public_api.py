@@ -9,7 +9,7 @@ This file exists to avoid dynamically modifying `globals` and support static too
 from ._binding import _binding
 
 cell_area = _binding.cell_area
-compact = _binding.compact
+compact_cells = _binding.compact_cells
 edge_length = _binding.edge_length
 exact_edge_length = _binding.exact_edge_length
 experimental_h3_to_local_ij = _binding.experimental_h3_to_local_ij
@@ -59,5 +59,5 @@ polyfill = _binding.polyfill
 polyfill_geojson = _binding.polyfill_geojson
 polyfill_polygon = _binding.polyfill_polygon
 string_to_h3 = _binding.string_to_h3
-uncompact = _binding.uncompact
+uncompact_cells = _binding.uncompact_cells
 versions = _binding.versions

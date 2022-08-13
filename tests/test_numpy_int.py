@@ -22,12 +22,12 @@ def test5():
     assert set(out) == expected
 
 
-def test_compact():
+def test_compact_cells():
     h = 617700169958293503
     hexes = h3.h3_to_children(h)
     assert isinstance(hexes, np.ndarray)
 
-    assert set(h3.compact(hexes)) == {h}
+    assert set(h3.compact_cells(hexes)) == {h}
 
 
 def test_get_faces():

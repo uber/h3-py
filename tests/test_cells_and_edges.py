@@ -227,7 +227,7 @@ def test_distance_error():
         h3.grid_distance(h1, h2)
 
 
-def test_compact():
+def test_compact_cells():
 
     # lat/lngs for State of Maine
     maine = [
@@ -256,7 +256,7 @@ def test_compact():
     res = 5
 
     h_uncomp = h3.polyfill_polygon(maine, res)
-    h_comp = h3.compact(h_uncomp)
+    h_comp = h3.compact_cells(h_uncomp)
 
     expected = {'852b114ffffffff', '852b189bfffffff', '852b1163fffffff', '842ba9bffffffff', '842bad3ffffffff', '852ba9cffffffff', '842badbffffffff', '852b1e8bfffffff', '852a346ffffffff', '842b1e3ffffffff', '852b116ffffffff', '842b185ffffffff', '852b1bdbfffffff', '852bad47fffffff', '852ba9c3fffffff', '852b106bfffffff', '852a30d3fffffff', '842b1edffffffff', '852b12a7fffffff', '852b1027fffffff', '842baddffffffff', '852a349bfffffff', '852b1227fffffff', '852a3473fffffff', '852b117bfffffff', '842ba99ffffffff', '852a341bfffffff', '852ba9d3fffffff', '852b1067fffffff', '852a3463fffffff', '852baca7fffffff', '852b116bfffffff', '852b1c6bfffffff', '852a3493fffffff', '852ba9dbfffffff', '852b180bfffffff', '842bad7ffffffff', '852b1063fffffff', '842ba93ffffffff', '852a3693fffffff', '852ba977fffffff', '852b1e9bfffffff', '852bad53fffffff', '852b100ffffffff', '852b102bfffffff', '852a3413fffffff', '852ba8b7fffffff', '852bad43fffffff', '852b1c6ffffffff', '852a340bfffffff', '852b103bfffffff', '852b1813fffffff', '852b12affffffff', '842a34dffffffff', '852b1873fffffff', '852b106ffffffff', '852b115bfffffff', '852baca3fffffff', '852b114bfffffff', '852b1143fffffff', '852a348bfffffff', '852a30d7fffffff', '852b181bfffffff', '842a345ffffffff', '852b1e8ffffffff', '852b1883fffffff', '852b1147fffffff', '852a3483fffffff', '852b12a3fffffff', '852a346bfffffff', '852ba9d7fffffff', '842b18dffffffff', '852b188bfffffff', '852a36a7fffffff', '852bacb3fffffff', '852b187bfffffff', '852bacb7fffffff', '842b1ebffffffff', '842b1e5ffffffff', '852ba8a7fffffff', '842bad9ffffffff', '852a36b7fffffff', '852a347bfffffff', '832b13fffffffff', '852ba9c7fffffff', '832b1afffffffff', '842ba91ffffffff', '852bad57fffffff', '852ba8affffffff', '852b1803fffffff', '842b1e7ffffffff', '852bad4ffffffff', '852b102ffffffff', '852b1077fffffff', '852b1237fffffff', '852b1153fffffff', '852a3697fffffff', '852a36b3fffffff', '842bad1ffffffff', '842b1e1ffffffff', '852b186bfffffff', '852b1023fffffff'} # noqa
 
@@ -265,11 +265,11 @@ def test_compact():
     return h_uncomp, h_comp, res
 
 
-def test_uncompact():
+def test_uncompact_cells():
 
-    h_uncomp, h_comp, res = test_compact()
+    h_uncomp, h_comp, res = test_compact_cells()
 
-    out = h3.uncompact(h_comp, res)
+    out = h3.uncompact_cells(h_comp, res)
 
     assert out == h_uncomp
 
@@ -397,10 +397,10 @@ def test_validation():
         h3.h3_to_children(h, 11)
 
     with pytest.raises(H3CellInvalidError):
-        h3.compact({h})
+        h3.compact_cells({h})
 
     with pytest.raises(H3CellInvalidError):
-        h3.uncompact({h}, 10)
+        h3.uncompact_cells({h}, 10)
 
 
 def test_validation2():
@@ -539,13 +539,13 @@ def test_get_pentagons():
 
 
 def test_uncompact_cell_input():
-    # `uncompact` takes in a collection of cells, not a single cell.
+    # `uncompact_cells` takes in a collection of cells, not a single cell.
     # Since a python string is seen as a Iterable collection,
     # inputting a single cell string can raise weird errors.
 
     # Ensure we get a reasonably helpful answer
     with pytest.raises(H3CellInvalidError):
-        h3.uncompact('8001fffffffffff', 1)
+        h3.uncompact_cells('8001fffffffffff', 1)
 
 
 def test_get_res0_cells():

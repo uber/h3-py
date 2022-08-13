@@ -389,7 +389,7 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     # todo: nogil for expensive C operation?
-    def compact(self, hexes):
+    def compact_cells(self, hexes):
         """
         Compact a collection of H3 cells by combining
         smaller cells into larger cells, if all child cells
@@ -403,15 +403,15 @@ class _API_FUNCTIONS(object):
         -------
         unordered collection of H3Cell
         """
-        # todo: does compact work on mixed-resolution collections?
+        # todo: does compact_cells work on mixed-resolution collections?
         hu = self._in_collection(hexes)
-        hc = _cy.compact(hu)
+        hc = _cy.compact_cells(hu)
 
         return self._out_unordered(hc)
 
-    def uncompact(self, hexes, res):
+    def uncompact_cells(self, hexes, res):
         """
-        Reverse the `compact` operation.
+        Reverse the `compact_cells` operation.
 
         Return a collection of H3 cells, all of resolution ``res``.
 
@@ -432,7 +432,7 @@ class _API_FUNCTIONS(object):
         https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
         """
         hc = self._in_collection(hexes)
-        hu = _cy.uncompact(hc, res)
+        hu = _cy.uncompact_cells(hc, res)
 
         return self._out_unordered(hu)
 

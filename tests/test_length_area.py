@@ -132,7 +132,7 @@ def test_cell_perimiter_calculations():
     resolutions = [0, 1]
 
     for r in resolutions:
-        cells = h3.uncompact(h3.get_res0_cells(), r)
+        cells = h3.uncompact_cells(h3.get_res0_cells(), r)
         for h in cells:
             for unit in ['rads', 'm', 'km']:
                 v1 = cell_perimiter1(h, unit)

@@ -576,7 +576,7 @@ def test_hex_ring_pentagon():
     assert out == expected
 
 
-def test_compact_and_uncompact():
+def test_compact_and_uncompact_cells():
     geo = {
         'type': 'Polygon',
         'coordinates': [
@@ -593,30 +593,30 @@ def test_compact_and_uncompact():
 
     hexes = h3.polyfill(geo, 9)
 
-    compact_hexes = h3.compact(hexes)
-    assert len(compact_hexes) == 209
+    compact_cells = h3.compact_cells(hexes)
+    assert len(compact_cells) == 209
 
-    uncompact_hexes = h3.uncompact(compact_hexes, 9)
-    assert len(uncompact_hexes) == 1253
-
-
-def test_compact_and_uncompact_nothing():
-    assert h3.compact([]) == set()
-    assert h3.uncompact([], 9) == set()
+    uncompact_cells = h3.uncompact_cells(compact_cells, 9)
+    assert len(uncompact_cells) == 1253
 
 
-def test_uncompact_error():
+def test_compact_cells_and_uncompact_cells_nothing():
+    assert h3.compact_cells([]) == set()
+    assert h3.uncompact_cells([], 9) == set()
+
+
+def test_uncompact_cells_error():
     hexagons = [h3.geo_to_h3(37, -122, 10)]
 
     with pytest.raises(Exception):
-        h3.uncompact(hexagons, 5)
+        h3.uncompact_cells(hexagons, 5)
 
 
-def test_compact_malformed_input():
+def test_compact_cells_malformed_input():
     hexes = ['89283082813ffff'] * 13
 
     with pytest.raises(Exception):
-        h3.compact(hexes)
+        h3.compact_cells(hexes)
 
 
 def test_cell_to_parent():

@@ -24,11 +24,11 @@ def test_k_ring():
     assert out == expected
 
 
-def test_compact():
+def test_compact_cells():
     h = 617700169958293503
     hexes = h3.h3_to_children(h)
 
-    assert h3.compact(hexes) == {h}
+    assert h3.compact_cells(hexes) == {h}
 
 
 def test_get_faces():

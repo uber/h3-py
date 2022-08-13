@@ -40,8 +40,8 @@ but we'll try to group functions in a reasonably logical manner.
    get_pentagons
    num_hexagons
    get_resolution
-   compact
-   uncompact
+   compact_cells
+   uncompact_cells
 ```
 
 ### Geographic coordinates

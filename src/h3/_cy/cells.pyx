@@ -200,7 +200,7 @@ cpdef H3int center_child(H3int h, res=None) except 0:
 
 
 
-cpdef H3int[:] compact(const H3int[:] hu):
+cpdef H3int[:] compact_cells(const H3int[:] hu):
     # todo: fix this with my own Cython object "wrapper" class?
     #   everything has a .ptr interface?
     # todo: the Clib can handle 0-len arrays because it **avoids**
@@ -227,7 +227,7 @@ cpdef H3int[:] compact(const H3int[:] hu):
 
 # todo: https://stackoverflow.com/questions/50684977/cython-exception-type-for-a-function-returning-a-typed-memoryview
 # apparently, memoryviews are python objects, so we don't need to do the except clause
-cpdef H3int[:] uncompact(const H3int[:] hc, int res):
+cpdef H3int[:] uncompact_cells(const H3int[:] hc, int res):
     # todo: the Clib can handle 0-len arrays because it **avoids**
     # dereferencing the pointer, but Cython's syntax of
     # `&hc[0]` **requires** a dereference. For Cython, checking for array
