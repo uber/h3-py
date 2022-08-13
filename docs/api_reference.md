@@ -22,7 +22,6 @@ but we'll try to group functions in a reasonably logical manner.
    is_valid_cell
    h3_is_pentagon
    h3_is_res_class_III
-   h3_is_res_class_iii
    h3_unidirectional_edge_is_valid
    versions
 ```
@@ -83,12 +82,10 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   hex_range
    hex_range_distances
    hex_ranges
    hex_ring
    k_ring
-   k_ring_distances
    h3_distance
    h3_indexes_are_neighbors
    h3_line

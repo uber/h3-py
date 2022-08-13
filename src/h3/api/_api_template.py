@@ -312,19 +312,6 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def hex_range(self, h, k=1):
-        """
-        Alias for `k_ring`.
-        "Filled-in" disk.
-
-        Notes
-        -----
-        This name differs from the C API.
-        """
-        mv = _cy.disk(self._in_scalar(h), k)
-
-        return self._out_unordered(mv)
-
     def hex_ring(self, h, k=1):
         """
         Return unordered set of cells with H3 distance ``== k`` from ``h``.
@@ -381,10 +368,6 @@ class _API_FUNCTIONS(object):
         out = {h: self.hex_range_distances(h, K) for h in hexes}
 
         return out
-
-    def k_ring_distances(self, h, K):
-        """Alias for `hex_range_distances`."""
-        return self.hex_range_distances(h, K)
 
     def h3_to_children(self, h, res=None):
         """
@@ -742,10 +725,6 @@ class _API_FUNCTIONS(object):
         1. https://uber.github.io/h3/#/documentation/core-library/coordinate-systems
         """
         return _cy.is_res_class_iii(self._in_scalar(h))
-
-    def h3_is_res_class_iii(self, h):
-        """Alias for `h3_is_res_class_III`."""
-        return self.h3_is_res_class_III(h)
 
     def get_pentagon_indexes(self, resolution):
         """

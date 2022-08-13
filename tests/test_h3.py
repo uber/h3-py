@@ -154,31 +154,6 @@ def test_k_ring_pentagon():
     assert out == expected
 
 
-def test_k_ring_distances():
-    h = '8928308280fffff'
-    out = h3.k_ring_distances(h, 1)
-
-    assert [len(x) for x in out] == [1, 6]
-
-    expected = [
-        {h},
-        {
-            '8928308280bffff',
-            '89283082807ffff',
-            '89283082877ffff',
-            '89283082803ffff',
-            '89283082873ffff',
-            '8928308283bffff',
-        }
-    ]
-
-    assert out == expected
-
-    out = h3.k_ring_distances('870800003ffffff', 2)
-
-    assert [len(x) for x in out] == [1, 6, 11]
-
-
 def test_polyfill():
     geo = {
         'type': 'Polygon',
@@ -656,94 +631,6 @@ def test_h3_to_children():
     assert len(children) == 7
 
 
-def test_hex_range():
-    h = '8928308280fffff'
-    out = h3.hex_range(h, 1)
-    assert len(out) == 1 + 6
-
-    expected = {
-        '8928308280bffff',
-        '89283082807ffff',
-        h,
-        '89283082877ffff',
-        '89283082803ffff',
-        '89283082873ffff',
-        '8928308283bffff',
-    }
-
-    assert out == expected
-
-
-def test_hex_range2():
-    h = '8928308280fffff'
-    out = h3.hex_range(h, 2)
-
-    assert len(out) == 1 + 6 + 12
-
-    expected = {
-        '89283082813ffff',
-        '89283082817ffff',
-        '8928308281bffff',
-        '89283082863ffff',
-        '89283082823ffff',
-        '89283082873ffff',
-        '89283082877ffff',
-        '8928308287bffff',
-        '89283082833ffff',
-        '8928308282bffff',
-        '8928308283bffff',
-        '89283082857ffff',
-        '892830828abffff',
-        '89283082847ffff',
-        '89283082867ffff',
-        '89283082803ffff',
-        h,
-        '89283082807ffff',
-        '8928308280bffff',
-    }
-
-    assert out == expected
-
-
-def test_hex_range_pentagon():
-    h = '821c07fffffffff'  # a pentagon
-
-    # should consist of `h` and it's 5 neighbors
-    out = h3.hex_range(h, 1)
-
-    expected = {
-        h,
-        '821c17fffffffff',
-        '821c1ffffffffff',
-        '821c27fffffffff',
-        '821c2ffffffffff',
-        '821c37fffffffff',
-    }
-
-    assert out == expected
-
-
-def test_hex_range_distances():
-    h = '8928308280fffff'
-
-    # should consist of `h` and it's 5 neighbors
-    out = h3.hex_range_distances(h, 1)
-
-    expected = [
-        {h},
-        {
-            '8928308280bffff',
-            '89283082807ffff',
-            '89283082877ffff',
-            '89283082803ffff',
-            '89283082873ffff',
-            '8928308283bffff',
-        }
-    ]
-
-    assert out == expected
-
-
 def test_hex_range_distances_pentagon():
 
     h = '821c07fffffffff'
@@ -761,6 +648,33 @@ def test_hex_range_distances_pentagon():
     ]
 
     assert out == expected
+
+
+def test_hex_range_distances():
+    h = '8928308280fffff'
+
+    # should consist of `h` and it's 5 neighbors
+    out = h3.hex_range_distances(h, 1)
+
+    assert [len(x) for x in out] == [1, 6]
+
+    expected = [
+        {h},
+        {
+            '8928308280bffff',
+            '89283082807ffff',
+            '89283082877ffff',
+            '89283082803ffff',
+            '89283082873ffff',
+            '8928308283bffff',
+        }
+    ]
+
+    assert out == expected
+
+    out = h3.hex_range_distances('870800003ffffff', 2)
+
+    assert [len(x) for x in out] == [1, 6, 11]
 
 
 def test_hex_ranges():
@@ -856,10 +770,9 @@ def test_h3_get_base_cell():
     assert h3.h3_get_base_cell('8928308280fffff') == 20
 
 
-def test_h3_is_res_class_iiiIII():
-    assert h3.h3_is_res_class_iii('8928308280fffff')
-    assert not h3.h3_is_res_class_iii('8828308280fffff')
+def test_h3_is_res_class_III():
     assert h3.h3_is_res_class_III('8928308280fffff')
+    assert not h3.h3_is_res_class_III('8828308280fffff')
 
 
 def test_h3_is_pentagon():
