@@ -742,7 +742,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def get_res0_indexes(self):
+    def get_res0_cells(self):
         """
         Return all cells at resolution 0.
 
@@ -754,7 +754,7 @@ class _API_FUNCTIONS(object):
         -------
         unordered collection of H3Cell
         """
-        mv = _cy.get_res0_indexes()
+        mv = _cy.get_res0_cells()
 
         return self._out_unordered(mv)
 

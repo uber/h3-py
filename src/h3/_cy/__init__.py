@@ -31,7 +31,7 @@ from .cells import (
     line,
     is_res_class_iii,
     get_pentagons,
-    get_res0_indexes,
+    get_res0_cells,
     center_child,
     get_faces,
     experimental_h3_to_local_ij,

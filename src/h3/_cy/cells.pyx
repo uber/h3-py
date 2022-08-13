@@ -357,7 +357,7 @@ cpdef H3int[:] get_pentagons(int res):
     return mv
 
 
-cpdef H3int[:] get_res0_indexes():
+cpdef H3int[:] get_res0_cells():
     n = h3lib.res0CellCount()
 
     hmm = H3MemoryManager(n)

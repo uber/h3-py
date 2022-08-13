@@ -548,8 +548,8 @@ def test_uncompact_cell_input():
         h3.uncompact('8001fffffffffff', 1)
 
 
-def test_get_res0_indexes():
-    out = h3.get_res0_indexes()
+def test_get_res0_cells():
+    out = h3.get_res0_cells()
 
     assert len(out) == 122
 

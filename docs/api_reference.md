@@ -36,7 +36,7 @@ but we'll try to group functions in a reasonably logical manner.
    h3_to_geo
    h3_to_string
    string_to_h3
-   get_res0_indexes
+   get_res0_cells
    get_pentagons
    num_hexagons
    get_resolution
