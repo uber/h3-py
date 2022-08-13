@@ -369,10 +369,6 @@ class _API_FUNCTIONS(object):
 
         return out
 
-    def k_ring_distances(self, h, K):
-        """Alias for `hex_range_distances`."""
-        return self.hex_range_distances(h, K)
-
     def h3_to_children(self, h, res=None):
         """
         Children of a hexagon.

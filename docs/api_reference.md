@@ -87,7 +87,6 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    hex_ranges
    hex_ring
    k_ring
-   k_ring_distances
    h3_distance
    h3_indexes_are_neighbors
    h3_line

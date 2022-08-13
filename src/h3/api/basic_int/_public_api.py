@@ -54,7 +54,6 @@ hex_range_distances = _binding.hex_range_distances
 hex_ranges = _binding.hex_ranges
 hex_ring = _binding.hex_ring
 k_ring = _binding.k_ring
-k_ring_distances = _binding.k_ring_distances
 num_hexagons = _binding.num_hexagons
 point_dist = _binding.point_dist
 polyfill = _binding.polyfill

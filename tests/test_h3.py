@@ -655,28 +655,6 @@ def test_h3_to_children():
 
     assert len(children) == 7
 
-
-def test_hex_range_distances():
-    h = '8928308280fffff'
-
-    # should consist of `h` and it's 5 neighbors
-    out = h3.hex_range_distances(h, 1)
-
-    expected = [
-        {h},
-        {
-            '8928308280bffff',
-            '89283082807ffff',
-            '89283082877ffff',
-            '89283082803ffff',
-            '89283082873ffff',
-            '8928308283bffff',
-        }
-    ]
-
-    assert out == expected
-
-
 def test_hex_range_distances_pentagon():
 
     h = '821c07fffffffff'
