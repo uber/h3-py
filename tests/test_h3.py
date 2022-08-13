@@ -136,37 +136,6 @@ def test_k_ring2():
     assert out == expected
 
 
-def test_hex_range2():
-    h = '8928308280fffff'
-    out = h3.hex_range(h, 2)
-
-    assert len(out) == 1 + 6 + 12
-
-    expected = {
-        '89283082813ffff',
-        '89283082817ffff',
-        '8928308281bffff',
-        '89283082863ffff',
-        '89283082823ffff',
-        '89283082873ffff',
-        '89283082877ffff',
-        '8928308287bffff',
-        '89283082833ffff',
-        '8928308282bffff',
-        '8928308283bffff',
-        '89283082857ffff',
-        '892830828abffff',
-        '89283082847ffff',
-        '89283082867ffff',
-        '89283082803ffff',
-        h,
-        '89283082807ffff',
-        '8928308280bffff',
-    }
-
-    assert out == expected
-
-
 def test_k_ring_pentagon():
     h = '821c07fffffffff'  # a pentagon cell
     out = h3.k_ring(h, 1)
