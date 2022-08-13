@@ -105,27 +105,6 @@ def test_k_ring():
     assert out == expected
 
 
-def test_hex_range_distances():
-    h = '8928308280fffff'
-
-    # should consist of `h` and it's 5 neighbors
-    out = h3.hex_range_distances(h, 1)
-
-    expected = [
-        {h},
-        {
-            '8928308280bffff',
-            '89283082807ffff',
-            '89283082877ffff',
-            '89283082803ffff',
-            '89283082873ffff',
-            '8928308283bffff',
-        }
-    ]
-
-    assert out == expected
-
-
 def test_k_ring2():
     h = '8928308280fffff'
     out = h3.k_ring(h, 2)
@@ -173,32 +152,6 @@ def test_k_ring_pentagon():
     }
 
     assert out == expected
-
-
-def test_k_ring_distances():
-    h = '8928308280fffff'
-    out = h3.k_ring_distances(h, 1)
-
-    assert [len(x) for x in out] == [1, 6]
-
-    expected = [
-        {h},
-        {
-            '8928308280bffff',
-            '89283082807ffff',
-            '89283082877ffff',
-            '89283082803ffff',
-            '89283082873ffff',
-            '8928308283bffff',
-        }
-    ]
-
-    assert out == expected
-
-    out = h3.k_ring_distances('870800003ffffff', 2)
-
-    assert [len(x) for x in out] == [1, 6, 11]
-
 
 def test_polyfill():
     geo = {
@@ -693,6 +646,52 @@ def test_hex_range_distances_pentagon():
     ]
 
     assert out == expected
+
+
+def test_hex_range_distances():
+    h = '8928308280fffff'
+
+    # should consist of `h` and it's 5 neighbors
+    out = h3.hex_range_distances(h, 1)
+
+    expected = [
+        {h},
+        {
+            '8928308280bffff',
+            '89283082807ffff',
+            '89283082877ffff',
+            '89283082803ffff',
+            '89283082873ffff',
+            '8928308283bffff',
+        }
+    ]
+
+    assert out == expected
+
+
+def test_k_ring_distances():
+    h = '8928308280fffff'
+    out = h3.k_ring_distances(h, 1)
+
+    assert [len(x) for x in out] == [1, 6]
+
+    expected = [
+        {h},
+        {
+            '8928308280bffff',
+            '89283082807ffff',
+            '89283082877ffff',
+            '89283082803ffff',
+            '89283082873ffff',
+            '8928308283bffff',
+        }
+    ]
+
+    assert out == expected
+
+    out = h3.k_ring_distances('870800003ffffff', 2)
+
+    assert [len(x) for x in out] == [1, 6, 11]
 
 
 def test_hex_ranges():
