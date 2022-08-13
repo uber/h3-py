@@ -20,7 +20,7 @@ but we'll try to group functions in a reasonably logical manner.
 
 .. autosummary::
    is_valid_cell
-   h3_is_pentagon
+   is_pentagon
    h3_is_res_class_III
    h3_unidirectional_edge_is_valid
    versions

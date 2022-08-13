@@ -514,7 +514,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def h3_is_pentagon(self, h):
+    def is_pentagon(self, h):
         """
         Identify if an H3 cell is a pentagon.
 

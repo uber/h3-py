@@ -775,9 +775,9 @@ def test_h3_is_res_class_III():
     assert not h3.h3_is_res_class_III('8828308280fffff')
 
 
-def test_h3_is_pentagon():
-    assert h3.h3_is_pentagon('821c07fffffffff')
-    assert not h3.h3_is_pentagon('8928308280fffff')
+def test_is_pentagon():
+    assert h3.is_pentagon('821c07fffffffff')
+    assert not h3.is_pentagon('8928308280fffff')
 
 
 def test_h3_indexes_are_neighbors():
