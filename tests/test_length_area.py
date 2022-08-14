@@ -13,7 +13,7 @@ def approx2(a, b):
 
 
 def cell_perimiter1(h, unit='km'):
-    edges = h3.get_h3_unidirectional_edges_from_hexagon(h)
+    edges = h3.origin_to_directed_edges(h)
 
     dists = [
         h3.exact_edge_length(e, unit=unit)

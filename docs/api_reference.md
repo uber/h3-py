@@ -98,7 +98,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    get_h3_unidirectional_edge
    get_destination_h3_index_from_unidirectional_edge
    get_h3_indexes_from_unidirectional_edge
-   get_h3_unidirectional_edges_from_hexagon
+   origin_to_directed_edges
    get_origin_h3_index_from_unidirectional_edge
 ```
 

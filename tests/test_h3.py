@@ -710,13 +710,13 @@ def test_get_h3_indexes_from_unidirectional_edge():
     assert e == ('8928308280fffff', '8928308283bffff')
 
 
-def test_get_h3_unidirectional_edges_from_hexagon():
-    h3_uni_edges = h3.get_h3_unidirectional_edges_from_hexagon(
+def test_origin_to_directed_edges():
+    h3_uni_edges = h3.origin_to_directed_edges(
         '8928308280fffff'
     )
     assert len(h3_uni_edges) == 6
 
-    h3_uni_edge_pentagon = h3.get_h3_unidirectional_edges_from_hexagon(
+    h3_uni_edge_pentagon = h3.origin_to_directed_edges(
         '821c07fffffffff'
     )
     assert len(h3_uni_edge_pentagon) == 5

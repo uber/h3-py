@@ -621,7 +621,7 @@ class _API_FUNCTIONS(object):
 
         return o, d
 
-    def get_h3_unidirectional_edges_from_hexagon(self, origin):
+    def origin_to_directed_edges(self, origin):
         """
         Return all directed edges starting from ``origin`` cell.
 
@@ -633,7 +633,7 @@ class _API_FUNCTIONS(object):
         -------
         unordered collection of H3Edge
         """
-        mv = _cy.edges_from_cell(self._in_scalar(origin))
+        mv = _cy.origin_to_directed_edges(self._in_scalar(origin))
 
         return self._out_unordered(mv)
 

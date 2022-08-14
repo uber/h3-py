@@ -345,9 +345,9 @@ def test_edge():
     assert h3.get_h3_indexes_from_unidirectional_edge(e) == (h1, h2)
 
 
-def test_edges_from_cell():
+def test_origin_to_directed_edges():
     h = '8928308280fffff'
-    edges = h3.get_h3_unidirectional_edges_from_hexagon(h)
+    edges = h3.origin_to_directed_edges(h)
     destinations = {
         h3.get_destination_h3_index_from_unidirectional_edge(e)
         for e in edges
