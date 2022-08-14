@@ -157,7 +157,7 @@ cpdef H3int cell_to_parent(H3int h, res=None) except 0:
     return parent
 
 
-cpdef H3int[:] children(H3int h, res=None):
+cpdef H3int[:] cell_to_children(H3int h, res=None):
     cdef:
         int64_t n
 

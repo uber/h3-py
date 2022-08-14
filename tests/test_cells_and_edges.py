@@ -160,10 +160,10 @@ def test_children():
     h = '8928308280fffff'
 
     with pytest.raises(H3ResDomainError):
-        h3.h3_to_children(h, 8)
+        h3.cell_to_children(h, 8)
 
     # same resolution is set of just cell itself
-    out = h3.h3_to_children(h, 9)
+    out = h3.cell_to_children(h, 9)
     assert out == {h}
 
     # one below should give children
@@ -176,13 +176,13 @@ def test_children():
         '8a28308280effff',
         '8a28308280f7fff'
     }
-    out = h3.h3_to_children(h, 10)
+    out = h3.cell_to_children(h, 10)
     assert out == expected
 
     # finest resolution cell should return error for children
     h = '8f04ccb2c45e225'
     with pytest.raises(H3ResDomainError):
-        h3.h3_to_children(h)
+        h3.cell_to_children(h)
 
 
 def test_center_child():
@@ -395,7 +395,7 @@ def test_validation():
         h3.hex_ring(h, 1)
 
     with pytest.raises(H3CellInvalidError):
-        h3.h3_to_children(h, 11)
+        h3.cell_to_children(h, 11)
 
     with pytest.raises(H3CellInvalidError):
         h3.compact_cells({h})
@@ -408,7 +408,7 @@ def test_validation2():
     h = '8928308280fffff'
 
     with pytest.raises(H3ResDomainError):
-        h3.h3_to_children(h, 17)
+        h3.cell_to_children(h, 17)
 
     assert not h3.h3_indexes_are_neighbors(h, h)
 

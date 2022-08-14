@@ -624,9 +624,9 @@ def test_cell_to_parent():
     assert h3.cell_to_parent(h, 8) == '8828308281fffff'
 
 
-def test_h3_to_children():
+def test_cell_to_children():
     h = '8828308281fffff'
-    children = h3.h3_to_children(h, 9)
+    children = h3.cell_to_children(h, 9)
 
     assert len(children) == 7
 

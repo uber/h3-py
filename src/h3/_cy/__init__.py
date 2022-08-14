@@ -22,7 +22,7 @@ from .cells import (
     grid_distance,
     disk,
     ring,
-    children,
+    cell_to_children,
     compact_cells,
     uncompact_cells,
     num_hexagons,

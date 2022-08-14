@@ -25,7 +25,7 @@ def test5():
 
 def test_compact_cells():
     h = 617700169958293503
-    hexes = h3.h3_to_children(h)
+    hexes = h3.cell_to_children(h)
     assert isinstance(hexes, np.ndarray)
 
     assert set(h3.compact_cells(hexes)) == {h}

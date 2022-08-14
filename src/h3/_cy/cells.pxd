@@ -9,7 +9,7 @@ cpdef H3int[:] disk(H3int h, int k)
 cpdef H3int[:] _ring_fallback(H3int h, int k)
 cpdef H3int[:] ring(H3int h, int k)
 cpdef H3int cell_to_parent(H3int h, res=*) except 0
-cpdef H3int[:] children(H3int h, res=*)
+cpdef H3int[:] cell_to_children(H3int h, res=*)
 cpdef H3int center_child(H3int h, res=*) except 0
 cpdef H3int[:] compact_cells(const H3int[:] hu)
 cpdef H3int[:] uncompact_cells(const H3int[:] hc, int res)

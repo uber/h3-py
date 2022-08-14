@@ -369,7 +369,7 @@ class _API_FUNCTIONS(object):
 
         return out
 
-    def h3_to_children(self, h, res=None):
+    def cell_to_children(self, h, res=None):
         """
         Children of a hexagon.
 
@@ -384,7 +384,7 @@ class _API_FUNCTIONS(object):
         -------
         unordered collection of H3Cell
         """
-        mv = _cy.children(self._in_scalar(h), res)
+        mv = _cy.cell_to_children(self._in_scalar(h), res)
 
         return self._out_unordered(mv)
 
