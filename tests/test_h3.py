@@ -49,8 +49,8 @@ def test_h3_to_geo():
     assert latlng == approx((37.34579337536848, -121.97637597255124))
 
 
-def test_h3_to_geo_boundary():
-    out = h3.h3_to_geo_boundary('85283473fffffff')
+def test_cell_to_boundary():
+    out = h3.cell_to_boundary('85283473fffffff')
 
     expected = [
         [37.271355866731895, -121.91508032705622],
@@ -67,8 +67,8 @@ def test_h3_to_geo_boundary():
         assert o == approx(e)
 
 
-def test_h3_to_geo_boundary_geo_json():
-    out = h3.h3_to_geo_boundary('85283473fffffff', True)
+def test_cell_to_boundary_geo_json():
+    out = h3.cell_to_boundary('85283473fffffff', True)
 
     expected = [
         [-121.91508032705622, 37.271355866731895],
@@ -360,7 +360,7 @@ def test_h3_set_to_multi_polygon_single():
 
     # multi_polygon
     mp = h3.h3_set_to_multi_polygon(hexes)
-    vertices = h3.h3_to_geo_boundary(h)
+    vertices = h3.cell_to_boundary(h)
 
     # We shift the expected circular list so that it starts from
     # multi_polygon[0][0][0], since output starting from any vertex
@@ -385,7 +385,7 @@ def test_h3_set_to_multi_polygon_single():
 def test_h3_set_to_multi_polygon_single_geo_json():
     hexes = ['89283082837ffff']
     mp = h3.h3_set_to_multi_polygon(hexes, True)
-    vertices = h3.h3_to_geo_boundary(hexes[0], True)
+    vertices = h3.cell_to_boundary(hexes[0], True)
 
     # We shift the expected circular list so that it starts from
     # multi_polygon[0][0][0], since output starting from any vertex
@@ -432,8 +432,8 @@ def test_h3_set_to_multi_polygon_contiguous():
 
     # multi_polygon
     mp = h3.h3_set_to_multi_polygon(hexes)
-    vertices0 = h3.h3_to_geo_boundary(hexes[0])
-    vertices1 = h3.h3_to_geo_boundary(hexes[1])
+    vertices0 = h3.cell_to_boundary(hexes[0])
+    vertices1 = h3.cell_to_boundary(hexes[1])
 
     # We shift the expected circular list so that it starts from
     # multi_polygon[0][0][0], since output starting from any vertex

@@ -26,7 +26,7 @@ def cell_perimiter1(h, unit='km'):
 
 
 def cell_perimiter2(h, unit='km'):
-    verts = h3.h3_to_geo_boundary(h)
+    verts = h3.cell_to_boundary(h)
     N = len(verts)
     verts += (verts[0],)
 

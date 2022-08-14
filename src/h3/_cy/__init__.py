@@ -56,7 +56,7 @@ from .geo import (
     polyfill_polygon,
     polyfill_geojson,
     polyfill,
-    cell_boundary,
+    cell_to_boundary,
     edge_boundary,
     point_dist,
 )

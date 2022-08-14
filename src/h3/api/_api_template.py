@@ -273,7 +273,7 @@ class _API_FUNCTIONS(object):
 
         return d
 
-    def h3_to_geo_boundary(self, h, geo_json=False):
+    def cell_to_boundary(self, h, geo_json=False):
         """
         Return tuple of lat/lng pairs describing the cell boundary.
 
@@ -291,7 +291,7 @@ class _API_FUNCTIONS(object):
         -------
         tuple of (float, float) tuples
         """
-        return _cy.cell_boundary(self._in_scalar(h), geo_json)
+        return _cy.cell_to_boundary(self._in_scalar(h), geo_json)
 
     def k_ring(self, h, k=1):
         """

@@ -237,7 +237,7 @@ def polyfill(dict geojson, int res, bool geo_json_conformant=False):
     return out
 
 
-def cell_boundary(H3int h, bool geo_json=False):
+def cell_to_boundary(H3int h, bool geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
         h3lib.CellBoundary gb

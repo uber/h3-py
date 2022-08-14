@@ -57,7 +57,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    cell_area
    edge_length
    exact_edge_length
-   h3_to_geo_boundary
+   cell_to_boundary
    get_h3_unidirectional_edge_boundary
    polyfill
    polyfill_geojson

@@ -42,7 +42,7 @@ def test3():
         (37.775019673792606, -122.4195306280734),
     )
 
-    out = h3.h3_to_geo_boundary('8928308280fffff')
+    out = h3.cell_to_boundary('8928308280fffff')
     assert approx2(out, expected)
 
 
@@ -57,7 +57,7 @@ def test4():
         (-122.41719971841658, 37.775197782893386)
     )
 
-    out = h3.h3_to_geo_boundary('8928308280fffff', geo_json=True)
+    out = h3.cell_to_boundary('8928308280fffff', geo_json=True)
     assert approx2(out, expected)
 
 
@@ -422,7 +422,7 @@ def test_validation_geo():
         h3.geo_to_h3(0, 0, 17)
 
     with pytest.raises(H3CellInvalidError):
-        h3.h3_to_geo_boundary(h)
+        h3.cell_to_boundary(h)
 
     # note: this won't raise an exception on bad input, but it does
     # *correctly* say that two invalid indexes are not neighbors
