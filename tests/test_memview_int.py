@@ -9,7 +9,7 @@ def test1():
 def test_line():
     h1 = '8928308280fffff'
     h2 = '8928308287bffff'
-    h1, h2 = h3.string_to_h3(h1), h3.string_to_h3(h2)
+    h1, h2 = h3.string_to_int(h1), h3.string_to_int(h2)
 
     out = h3.h3_line(h1, h2)
 

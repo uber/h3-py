@@ -78,7 +78,7 @@ class _API_FUNCTIONS(object):
         return v
 
     @staticmethod
-    def string_to_h3(h):
+    def string_to_int(h):
         """
         Converts a hexadecimal string to an H3 64-bit integer index.
 
@@ -95,7 +95,7 @@ class _API_FUNCTIONS(object):
         return _cy.hex2int(h)
 
     @staticmethod
-    def h3_to_string(x):
+    def int_to_string(x):
         """
         Converts an H3 64-bit integer index to a hexadecimal string.
 

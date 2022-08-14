@@ -34,8 +34,8 @@ but we'll try to group functions in a reasonably logical manner.
 .. autosummary::
    latlng_to_cell
    cell_to_latlng
-   h3_to_string
-   string_to_h3
+   int_to_string
+   string_to_int
    get_res0_cells
    get_pentagons
    num_hexagons
