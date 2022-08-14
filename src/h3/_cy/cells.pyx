@@ -65,7 +65,7 @@ cpdef int grid_distance(H3int h1, H3int h2) except -1:
 
     return distance
 
-cpdef H3int[:] disk(H3int h, int k):
+cpdef H3int[:] grid_disk(H3int h, int k):
     """ Return cells at grid distance `<= k` from `h`.
     """
     cdef:

@@ -293,7 +293,7 @@ class _API_FUNCTIONS(object):
         """
         return _cy.cell_to_boundary(self._in_scalar(h), geo_json)
 
-    def k_ring(self, h, k=1):
+    def grid_disk(self, h, k=1):
         """
         Return unordered set of cells with H3 distance ``<= k`` from ``h``.
         That is, the "filled-in" disk.
@@ -308,7 +308,7 @@ class _API_FUNCTIONS(object):
         -------
         unordered collection of H3Cell
         """
-        mv = _cy.disk(self._in_scalar(h), k)
+        mv = _cy.grid_disk(self._in_scalar(h), k)
 
         return self._out_unordered(mv)
 

@@ -3,7 +3,7 @@ import h3
 
 def test_cells_to_multi_polygon():
     h = '8928308280fffff'
-    hexes = h3.k_ring(h, 1)
+    hexes = h3.grid_disk(h, 1)
 
     mpoly = h3.cells_to_multi_polygon(hexes)
 

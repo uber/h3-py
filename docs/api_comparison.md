@@ -229,7 +229,7 @@ import h3.api.numpy_int
 
 def compute(h3_lib, N=100):
     h   = h3_lib.latlng_to_cell(0, 0, 9)
-    out = h3_lib.k_ring(h, N)
+    out = h3_lib.grid_disk(h, N)
     out = h3_lib.compact_cells(out)
     
     return out

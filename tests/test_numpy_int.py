@@ -18,7 +18,7 @@ def test5():
         617700169965109247,
     }
 
-    out = h3.k_ring(617700169958293503, 1)
+    out = h3.grid_disk(617700169958293503, 1)
     assert isinstance(out, np.ndarray)
     assert set(out) == expected
 

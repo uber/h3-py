@@ -9,7 +9,7 @@ def test_int_output():
     assert h3.latlng_to_cell(lat, lng, 9) == 0x8928308280fffff
 
 
-def test_k_ring():
+def test_grid_disk():
     expected = {
         617700169957507071,
         617700169957769215,
@@ -20,7 +20,7 @@ def test_k_ring():
         617700169965109247,
     }
 
-    out = h3.k_ring(617700169958293503, 1)
+    out = h3.grid_disk(617700169958293503, 1)
     assert out == expected
 
 

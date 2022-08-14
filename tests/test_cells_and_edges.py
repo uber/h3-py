@@ -62,9 +62,9 @@ def test4():
     assert approx2(out, expected)
 
 
-def test_k_ring_distance():
+def test_grid_disk_distance():
     with pytest.raises(H3DomainError):
-        h3.k_ring('8928308280fffff', -10)
+        h3.grid_disk('8928308280fffff', -10)
 
 
 def test_grid_ring_distance():
@@ -83,7 +83,7 @@ def test5():
         '89283082803ffff'
     }
 
-    out = h3.k_ring('8928308280fffff', 1)
+    out = h3.grid_disk('8928308280fffff', 1)
     assert out == expected
 
 
@@ -389,7 +389,7 @@ def test_validation():
         h3.grid_distance(h, h)
 
     with pytest.raises(H3CellInvalidError):
-        h3.k_ring(h, 1)
+        h3.grid_disk(h, 1)
 
     with pytest.raises(H3CellInvalidError):
         h3.grid_ring(h, 1)

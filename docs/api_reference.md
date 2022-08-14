@@ -83,7 +83,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 
 .. autosummary::
    grid_ring
-   k_ring
+   grid_disk
    grid_distance
    are_neighbor_cells
    grid_path_cells

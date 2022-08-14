@@ -86,9 +86,9 @@ def test_cell_to_boundary_geo_json():
         assert o == approx(e)
 
 
-def test_k_ring():
+def test_grid_disk():
     h = '8928308280fffff'
-    out = h3.k_ring(h, 1)
+    out = h3.grid_disk(h, 1)
 
     assert len(out) == 1 + 6
 
@@ -105,9 +105,9 @@ def test_k_ring():
     assert out == expected
 
 
-def test_k_ring2():
+def test_grid_disk2():
     h = '8928308280fffff'
-    out = h3.k_ring(h, 2)
+    out = h3.grid_disk(h, 2)
 
     assert len(out) == 1 + 6 + 12
 
@@ -136,9 +136,9 @@ def test_k_ring2():
     assert out == expected
 
 
-def test_k_ring_pentagon():
+def test_grid_disk_pentagon():
     h = '821c07fffffffff'  # a pentagon cell
-    out = h3.k_ring(h, 1)
+    out = h3.grid_disk(h, 1)
 
     assert len(out) == 1 + 5
 
@@ -489,9 +489,9 @@ def test_cells_to_multi_polygon_hole():
     assert len(mp[0][1]) == 6  # inner coord count matches expected
 
 
-def test_cells_to_multi_polygon_2k_ring():
+def test_cells_to_multi_polygon_2grid_disk():
     h = '8930062838bffff'
-    hexes = h3.k_ring(h, 2)
+    hexes = h3.grid_disk(h, 2)
     # multi_polygon
     mp = h3.cells_to_multi_polygon(hexes)
 
@@ -515,7 +515,7 @@ def test_cells_to_multi_polygon_2k_ring():
     assert len(mp2[0]) == 1  # loop count matches expected
     assert len(mp2[0][0]) == 6 * (2 * 2 + 1)  # coord count matches expected
 
-    hexes3 = list(h3.k_ring(h, 6))
+    hexes3 = list(h3.grid_disk(h, 6))
     hexes3.sort()
     mp3 = h3.cells_to_multi_polygon(hexes3)
 
@@ -535,7 +535,7 @@ def test_grid_ring():
     }
 
     assert out == expected
-    assert out == h3.k_ring(h, 1) - h3.k_ring(h, 0)
+    assert out == h3.grid_disk(h, 1) - h3.grid_disk(h, 0)
 
 
 def test_grid_ring2():
@@ -558,7 +558,7 @@ def test_grid_ring2():
     }
 
     assert out == expected
-    assert out == h3.k_ring(h, 2) - h3.k_ring(h, 1)
+    assert out == h3.grid_disk(h, 2) - h3.grid_disk(h, 1)
 
 
 def test_grid_ring_pentagon():

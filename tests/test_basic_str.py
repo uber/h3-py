@@ -17,5 +17,5 @@ def test5():
         '89283082803ffff'
     }
 
-    out = h3.k_ring('8928308280fffff', 1)
+    out = h3.grid_disk('8928308280fffff', 1)
     assert out == expected

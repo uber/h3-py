@@ -20,7 +20,7 @@ from .cells import (
     get_resolution,
     cell_to_parent,
     grid_distance,
-    disk,
+    grid_disk,
     grid_ring,
     cell_to_children,
     compact_cells,
