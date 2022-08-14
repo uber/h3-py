@@ -9,26 +9,11 @@ This file exists to avoid dynamically modifying `globals` and support static too
 from ._binding import _binding
 
 cell_area = _binding.cell_area
-compact_cells = _binding.compact_cells
 edge_length = _binding.edge_length
 exact_edge_length = _binding.exact_edge_length
 experimental_h3_to_local_ij = _binding.experimental_h3_to_local_ij
 experimental_local_ij_to_h3 = _binding.experimental_local_ij_to_h3
 latlng_to_cell = _binding.latlng_to_cell
-get_destination_h3_index_from_unidirectional_edge = (
-    _binding.get_destination_h3_index_from_unidirectional_edge
-)
-get_h3_indexes_from_unidirectional_edge = (
-    _binding.get_h3_indexes_from_unidirectional_edge
-)
-get_h3_unidirectional_edge = _binding.get_h3_unidirectional_edge
-get_h3_unidirectional_edge_boundary = _binding.get_h3_unidirectional_edge_boundary
-get_h3_unidirectional_edges_from_hexagon = (
-    _binding.get_h3_unidirectional_edges_from_hexagon
-)
-get_origin_h3_index_from_unidirectional_edge = (
-    _binding.get_origin_h3_index_from_unidirectional_edge
-)
 get_pentagons = _binding.get_pentagons
 get_res0_cells = _binding.get_res0_cells
 grid_distance = _binding.grid_distance
@@ -59,5 +44,20 @@ point_dist = _binding.point_dist
 polyfill = _binding.polyfill
 polyfill_geojson = _binding.polyfill_geojson
 polyfill_polygon = _binding.polyfill_polygon
+compact_cells = _binding.compact_cells
 uncompact_cells = _binding.uncompact_cells
+get_destination_h3_index_from_unidirectional_edge = (
+    _binding.get_destination_h3_index_from_unidirectional_edge
+)
+get_h3_indexes_from_unidirectional_edge = (
+    _binding.get_h3_indexes_from_unidirectional_edge
+)
+get_h3_unidirectional_edge = _binding.get_h3_unidirectional_edge
+get_h3_unidirectional_edge_boundary = _binding.get_h3_unidirectional_edge_boundary
+get_h3_unidirectional_edges_from_hexagon = (
+    _binding.get_h3_unidirectional_edges_from_hexagon
+)
+get_origin_h3_index_from_unidirectional_edge = (
+    _binding.get_origin_h3_index_from_unidirectional_edge
+)
 versions = _binding.versions
