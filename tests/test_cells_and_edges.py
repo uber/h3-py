@@ -22,7 +22,8 @@ def approx2(a, b):
 
 
 def test1():
-    assert h3.geo_to_h3(37.7752702151959, -122.418307270836, 9) == '8928308280fffff'
+    lat, lng = 37.7752702151959, -122.418307270836
+    assert h3.latlng_to_cell(lat, lng, 9) == '8928308280fffff'
 
 
 def test2():
@@ -137,7 +138,7 @@ def test_parent():
 
 def test_parent_err():
     # Test 1
-    h = '8075fffffffffff'  # geo_to_h3(0,0,0)
+    h = '8075fffffffffff'  # latlng_to_cell(0,0,0)
 
     with pytest.raises(H3ResDomainError):
         h3.cell_to_parent(h)
@@ -419,7 +420,7 @@ def test_validation_geo():
         h3.cell_to_latlng(h)
 
     with pytest.raises(H3ResDomainError):
-        h3.geo_to_h3(0, 0, 17)
+        h3.latlng_to_cell(0, 0, 17)
 
     with pytest.raises(H3CellInvalidError):
         h3.cell_to_boundary(h)
@@ -593,7 +594,7 @@ def test_get_faces():
 
 
 def test_to_local_ij_error():
-    h = h3.geo_to_h3(0, 0, 0)
+    h = h3.latlng_to_cell(0, 0, 0)
 
     # error if we cross a face
     nb = h3.hex_ring(h, k=2)
@@ -611,7 +612,7 @@ def test_to_local_ij_error():
 
 
 def test_from_local_ij_error():
-    h = h3.geo_to_h3(0, 0, 0)
+    h = h3.latlng_to_cell(0, 0, 0)
 
     baddies = [(1, -1), (-1, 1), (-1, -1)]
     for i, j in baddies:
@@ -631,7 +632,7 @@ def test_from_local_ij_error():
 
 
 def test_to_local_ij_self():
-    h = h3.geo_to_h3(0, 0, 9)
+    h = h3.latlng_to_cell(0, 0, 9)
     out = h3.experimental_h3_to_local_ij(h, h)
 
     assert out == (-858, -2766)

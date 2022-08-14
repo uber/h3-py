@@ -51,7 +51,7 @@ from .edges import (
 )
 
 from .geo import (
-    geo_to_h3,
+    latlng_to_cell,
     cell_to_latlng,
     polyfill_polygon,
     polyfill_geojson,

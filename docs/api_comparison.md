@@ -54,7 +54,7 @@ using `list` and `set` for collections.
 
 ```python
 >>> import h3
->>> h = h3.geo_to_h3(0, 0, 0)
+>>> h = h3.latlng_to_cell(0, 0, 0)
 >>> h
 '8075fffffffffff'
 
@@ -87,7 +87,7 @@ H3 indexes are represented as Python `int`s, using `list` and `set` for collecti
 
 ```python
 >>> import h3.api.basic_int as h3
->>> h = h3.geo_to_h3(0, 0, 0)
+>>> h = h3.latlng_to_cell(0, 0, 0)
 >>> h
 578536630256664575
 
@@ -110,7 +110,7 @@ no-copy `numpy` arrays instead of Python `list`s and `set`s.
 
 ```python
 >>> import h3.api.numpy_int as h3
->>> h = h3.geo_to_h3(0, 0, 0)
+>>> h = h3.latlng_to_cell(0, 0, 0)
 >>> h
 578536630256664575
 
@@ -141,7 +141,7 @@ In fact, `h3.api.numpy_int` is essentially just a light wrapper around
 
 ```python
 >>> import h3.api.memview_int as h3
->>> h = h3.geo_to_h3(0, 0, 0)
+>>> h = h3.latlng_to_cell(0, 0, 0)
 >>> h
 578536630256664575
 
@@ -175,7 +175,7 @@ For example, consider the setup:
 ```python
 >>> import h3.api.memview_int as h3
 >>> import numpy as np
->>> h = h3.geo_to_h3(0, 0, 0)
+>>> h = h3.latlng_to_cell(0, 0, 0)
 >>> mv = h3.hex_ring(h, 1)
 >>> list(mv)
 [578782920861286399,
@@ -228,7 +228,7 @@ import h3.api.numpy_int
 
 
 def compute(h3_lib, N=100):
-    h   = h3_lib.geo_to_h3(0, 0, 9)
+    h   = h3_lib.latlng_to_cell(0, 0, 9)
     out = h3_lib.k_ring(h, N)
     out = h3_lib.compact_cells(out)
     

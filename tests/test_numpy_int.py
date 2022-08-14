@@ -3,7 +3,8 @@ import numpy as np  # only run this test suite if numpy is installed
 
 
 def test1():
-    assert h3.geo_to_h3(37.7752702151959, -122.418307270836, 9) == 617700169958293503
+    lat, lng = 37.7752702151959, -122.418307270836,
+    assert h3.latlng_to_cell(lat, lng, 9) == 617700169958293503
 
 
 def test5():

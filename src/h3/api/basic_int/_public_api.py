@@ -14,7 +14,7 @@ edge_length = _binding.edge_length
 exact_edge_length = _binding.exact_edge_length
 experimental_h3_to_local_ij = _binding.experimental_h3_to_local_ij
 experimental_local_ij_to_h3 = _binding.experimental_local_ij_to_h3
-geo_to_h3 = _binding.geo_to_h3
+latlng_to_cell = _binding.latlng_to_cell
 get_destination_h3_index_from_unidirectional_edge = (
     _binding.get_destination_h3_index_from_unidirectional_edge
 )

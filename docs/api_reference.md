@@ -32,7 +32,7 @@ but we'll try to group functions in a reasonably logical manner.
 .. currentmodule:: h3
 
 .. autosummary::
-   geo_to_h3
+   latlng_to_cell
    cell_to_latlng
    h3_to_string
    string_to_h3

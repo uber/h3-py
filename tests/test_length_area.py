@@ -61,7 +61,7 @@ def test_areas_at_00():
     ]
 
     out = [
-        h3.cell_area(h3.geo_to_h3(0, 0, r), unit='km^2')
+        h3.cell_area(h3.latlng_to_cell(0, 0, r), unit='km^2')
         for r in range(16)
     ]
 
@@ -87,7 +87,7 @@ def test_areas_at_00():
     ]
 
     out = [
-        h3.cell_area(h3.geo_to_h3(0, 0, r), unit='rads^2')
+        h3.cell_area(h3.latlng_to_cell(0, 0, r), unit='rads^2')
         for r in range(16)
     ]
 

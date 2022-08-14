@@ -181,7 +181,7 @@ class _API_FUNCTIONS(object):
         except (ValueError, TypeError):
             return False
 
-    def geo_to_h3(self, lat, lng, resolution):
+    def latlng_to_cell(self, lat, lng, resolution):
         """
         Return the cell containing the (lat, lng) point
         for a given resolution.
@@ -191,7 +191,7 @@ class _API_FUNCTIONS(object):
         H3Cell
 
         """
-        return self._out_scalar(_cy.geo_to_h3(lat, lng, resolution))
+        return self._out_scalar(_cy.latlng_to_cell(lat, lng, resolution))
 
     def cell_to_latlng(self, h):
         """

@@ -24,7 +24,7 @@ from libc.stdlib cimport (
 )
 
 
-cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
+cpdef H3int latlng_to_cell(double lat, double lng, int res) except 1:
     cdef:
         h3lib.LatLng c
         H3int out

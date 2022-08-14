@@ -19,27 +19,27 @@ def test_is_valid_cell():
     assert not h3.is_valid_cell('5004295803a88')
 
     for res in range(16):
-        assert h3.is_valid_cell(h3.geo_to_h3(37, -122, res))
+        assert h3.is_valid_cell(h3.latlng_to_cell(37, -122, res))
 
 
-def test_geo_to_h3():
-    assert h3.geo_to_h3(37.3615593, -122.0553238, 5) == '85283473fffffff'
+def test_latlng_to_cell():
+    assert h3.latlng_to_cell(37.3615593, -122.0553238, 5) == '85283473fffffff'
 
 
 def test_get_resolution():
     for res in range(16):
-        h = h3.geo_to_h3(37.3615593, -122.0553238, res)
+        h = h3.latlng_to_cell(37.3615593, -122.0553238, res)
         assert h3.get_resolution(h) == res
 
 
-def test_silly_geo_to_h3():
+def test_silly_latlng_to_cell():
     lat, lng = 37.3615593, -122.0553238
 
     expected0 = '85283473fffffff'
-    out0 = h3.geo_to_h3(lat, lng, 5)
+    out0 = h3.latlng_to_cell(lat, lng, 5)
     assert out0 == expected0
 
-    out1 = h3.geo_to_h3(lat + 180.0, lng + 360.0, 5)
+    out1 = h3.latlng_to_cell(lat + 180.0, lng + 360.0, 5)
     expected1 = '85ca2d53fffffff'
     assert out1 == expected1
 
@@ -606,7 +606,7 @@ def test_compact_cells_and_uncompact_cells_nothing():
 
 
 def test_uncompact_cells_error():
-    hexagons = [h3.geo_to_h3(37, -122, 10)]
+    hexagons = [h3.latlng_to_cell(37, -122, 10)]
 
     with pytest.raises(Exception):
         h3.uncompact_cells(hexagons, 5)
