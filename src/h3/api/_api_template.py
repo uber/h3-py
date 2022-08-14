@@ -637,8 +637,8 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def get_h3_unidirectional_edge_boundary(self, edge, geo_json=False):
-        return _cy.edge_boundary(self._in_scalar(edge), geo_json=geo_json)
+    def directed_edge_to_boundary(self, edge, geo_json=False):
+        return _cy.directed_edge_to_boundary(self._in_scalar(edge), geo_json=geo_json)
 
     def grid_path_cells(self, start, end):
         """

@@ -51,7 +51,7 @@ get_h3_indexes_from_unidirectional_edge = (
     _binding.get_h3_indexes_from_unidirectional_edge
 )
 get_h3_unidirectional_edge = _binding.get_h3_unidirectional_edge
-get_h3_unidirectional_edge_boundary = _binding.get_h3_unidirectional_edge_boundary
+directed_edge_to_boundary = _binding.directed_edge_to_boundary
 origin_to_directed_edges = (
     _binding.origin_to_directed_edges
 )

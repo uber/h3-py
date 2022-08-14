@@ -722,12 +722,12 @@ def test_origin_to_directed_edges():
     assert len(h3_uni_edge_pentagon) == 5
 
 
-def test_get_h3_unidirectional_edge_boundary():
+def test_directed_edge_to_boundary():
     e = '11928308280fffff'
-    boundary = h3.get_h3_unidirectional_edge_boundary(e)
+    boundary = h3.directed_edge_to_boundary(e)
     assert len(boundary) == 2
 
-    boundary_geo_json = h3.get_h3_unidirectional_edge_boundary(e, True)
+    boundary_geo_json = h3.directed_edge_to_boundary(e, True)
     assert len(boundary_geo_json) == 3
 
 

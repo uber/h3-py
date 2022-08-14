@@ -259,7 +259,7 @@ def cell_to_boundary(H3int h, bool geo_json=False):
     return verts
 
 
-def edge_boundary(H3int edge, bool geo_json=False):
+def directed_edge_to_boundary(H3int edge, bool geo_json=False):
     """ Returns the CellBoundary containing the coordinates of the edge
     """
     cdef:

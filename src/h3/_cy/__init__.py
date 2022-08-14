@@ -57,7 +57,7 @@ from .geo import (
     polyfill_geojson,
     polyfill,
     cell_to_boundary,
-    edge_boundary,
+    directed_edge_to_boundary,
     great_circle_distance,
 )
 

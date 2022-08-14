@@ -367,7 +367,7 @@ def test_edge_boundary():
         (37.778385004930925, -122.41738797617619)
     )
 
-    out = h3.get_h3_unidirectional_edge_boundary(e)
+    out = h3.directed_edge_to_boundary(e)
 
     assert out[0] == pytest.approx(expected[0])
     assert out[1] == pytest.approx(expected[1])
