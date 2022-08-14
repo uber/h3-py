@@ -17,6 +17,7 @@ is_res_class_III = _b.is_res_class_III
 int_to_string = _b.int_to_string
 string_to_int = _b.string_to_int
 
+# todo: area/length functions
 cell_area = _b.cell_area
 hex_area = _b.hex_area
 edge_length = _b.edge_length
@@ -47,6 +48,7 @@ cell_to_center_child = _b.cell_to_center_child
 compact_cells = _b.compact_cells
 uncompact_cells = _b.uncompact_cells
 
+# todo: think through polyfill functions
 polyfill = _b.polyfill
 polyfill_geojson = _b.polyfill_geojson
 polyfill_polygon = _b.polyfill_polygon
