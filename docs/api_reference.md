@@ -62,7 +62,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    polyfill
    polyfill_geojson
    polyfill_polygon
-   h3_set_to_multi_polygon
+   cells_to_multi_polygon
 ```
 
 ### Hierarchical relationships

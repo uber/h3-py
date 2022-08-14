@@ -1,11 +1,11 @@
 import h3
 
 
-def test_h3_set_to_multi_polygon():
+def test_cells_to_multi_polygon():
     h = '8928308280fffff'
     hexes = h3.k_ring(h, 1)
 
-    mpoly = h3.h3_set_to_multi_polygon(hexes)
+    mpoly = h3.cells_to_multi_polygon(hexes)
 
     out = h3.polyfill_polygon(mpoly[0][0], 9, holes=None, lnglat_order=False)
 
@@ -21,7 +21,7 @@ def test_2_polys():
 
     out = [
         h3.polyfill_polygon(poly[0], 9, holes=poly[1:], lnglat_order=False)
-        for poly in h3.h3_set_to_multi_polygon(hexes, geo_json=False)
+        for poly in h3.cells_to_multi_polygon(hexes, geo_json=False)
     ]
 
     assert set.union(*out) == hexes
@@ -35,7 +35,7 @@ def test_2_polys_json():
     # (with the 1-ring being absent)
 
     # not deterministic which poly is first..
-    poly1, poly2 = h3.h3_set_to_multi_polygon(hexes, geo_json=True)
+    poly1, poly2 = h3.cells_to_multi_polygon(hexes, geo_json=True)
 
     assert {len(poly1), len(poly2)} == {1, 2}
 
@@ -52,7 +52,7 @@ def test_2_polys_not_json():
     # (with the 1-ring being absent)
 
     # not deterministic which poly is first..
-    poly1, poly2 = h3.h3_set_to_multi_polygon(hexes, geo_json=False)
+    poly1, poly2 = h3.cells_to_multi_polygon(hexes, geo_json=False)
 
     assert {len(poly1), len(poly2)} == {1, 2}
 

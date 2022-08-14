@@ -436,7 +436,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(hu)
 
-    def h3_set_to_multi_polygon(self, hexes, geo_json=False):
+    def cells_to_multi_polygon(self, hexes, geo_json=False):
         """
         Get GeoJSON-like MultiPolygon describing the outline of the area
         covered by a set of H3 cells.
@@ -463,7 +463,7 @@ class _API_FUNCTIONS(object):
         # This function returns a list of polygons, while `polyfill` returns
         # a GeoJSON-like dictionary object.
         hexes = self._in_collection(hexes)
-        return _cy.h3_set_to_multi_polygon(hexes, geo_json=geo_json)
+        return _cy.cells_to_multi_polygon(hexes, geo_json=geo_json)
 
     def polyfill_polygon(self, outer, res, holes=None, lnglat_order=False):
         mv = _cy.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)

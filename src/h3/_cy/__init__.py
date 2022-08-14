@@ -62,7 +62,7 @@ from .geo import (
 )
 
 from .to_multipoly import (
-    h3_set_to_multi_polygon
+    cells_to_multi_polygon
 )
 
 from .util import (

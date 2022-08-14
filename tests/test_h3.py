@@ -349,17 +349,17 @@ def test_polyfill_null_island():
     assert len(out) > 10
 
 
-def test_h3_set_to_multi_polygon_empty():
-    out = h3.h3_set_to_multi_polygon([])
+def test_cells_to_multi_polygon_empty():
+    out = h3.cells_to_multi_polygon([])
     assert out == []
 
 
-def test_h3_set_to_multi_polygon_single():
+def test_cells_to_multi_polygon_single():
     h = '89283082837ffff'
     hexes = {h}
 
     # multi_polygon
-    mp = h3.h3_set_to_multi_polygon(hexes)
+    mp = h3.cells_to_multi_polygon(hexes)
     vertices = h3.cell_to_boundary(h)
 
     # We shift the expected circular list so that it starts from
@@ -382,9 +382,9 @@ def test_h3_set_to_multi_polygon_single():
     assert mp == expected
 
 
-def test_h3_set_to_multi_polygon_single_geo_json():
+def test_cells_to_multi_polygon_single_geo_json():
     hexes = ['89283082837ffff']
-    mp = h3.h3_set_to_multi_polygon(hexes, True)
+    mp = h3.cells_to_multi_polygon(hexes, True)
     vertices = h3.cell_to_boundary(hexes[0], True)
 
     # We shift the expected circular list so that it starts from
@@ -426,12 +426,12 @@ def test_h3_set_to_multi_polygon_single_geo_json():
     assert mp == expected
 
 
-def test_h3_set_to_multi_polygon_contiguous():
+def test_cells_to_multi_polygon_contiguous():
     # the second hexagon shares v0 and v1 with the first
     hexes = ['89283082837ffff', '89283082833ffff']
 
     # multi_polygon
-    mp = h3.h3_set_to_multi_polygon(hexes)
+    mp = h3.cells_to_multi_polygon(hexes)
     vertices0 = h3.cell_to_boundary(hexes[0])
     vertices1 = h3.cell_to_boundary(hexes[1])
 
@@ -463,11 +463,11 @@ def test_h3_set_to_multi_polygon_contiguous():
     assert mp == expected
 
 
-def test_h3_set_to_multi_polygon_non_contiguous():
+def test_cells_to_multi_polygon_non_contiguous():
     # the second hexagon does not touch the first
     hexes = {'89283082837ffff', '8928308280fffff'}
     # multi_polygon
-    mp = h3.h3_set_to_multi_polygon(hexes)
+    mp = h3.cells_to_multi_polygon(hexes)
 
     assert len(mp) == 2  # polygon count matches expected
     assert len(mp[0]) == 1  # loop count matches expected
@@ -475,13 +475,13 @@ def test_h3_set_to_multi_polygon_non_contiguous():
     assert len(mp[1][0]) == 6  # coord count 2 matches expected
 
 
-def test_h3_set_to_multi_polygon_hole():
+def test_cells_to_multi_polygon_hole():
     # Six hexagons in a ring around a hole
     hexes = [
         '892830828c7ffff', '892830828d7ffff', '8928308289bffff',
         '89283082813ffff', '8928308288fffff', '89283082883ffff',
     ]
-    mp = h3.h3_set_to_multi_polygon(hexes)
+    mp = h3.cells_to_multi_polygon(hexes)
 
     assert len(mp) == 1  # polygon count matches expected
     assert len(mp[0]) == 2  # loop count matches expected
@@ -489,11 +489,11 @@ def test_h3_set_to_multi_polygon_hole():
     assert len(mp[0][1]) == 6  # inner coord count matches expected
 
 
-def test_h3_set_to_multi_polygon_2k_ring():
+def test_cells_to_multi_polygon_2k_ring():
     h = '8930062838bffff'
     hexes = h3.k_ring(h, 2)
     # multi_polygon
-    mp = h3.h3_set_to_multi_polygon(hexes)
+    mp = h3.cells_to_multi_polygon(hexes)
 
     assert len(mp) == 1  # polygon count matches expected
     assert len(mp[0]) == 1  # loop count matches expected
@@ -509,7 +509,7 @@ def test_h3_set_to_multi_polygon_2k_ring():
         '893006283c7ffff'
     }
 
-    mp2 = h3.h3_set_to_multi_polygon(hexes2)
+    mp2 = h3.cells_to_multi_polygon(hexes2)
 
     assert len(mp2) == 1  # polygon count matches expected
     assert len(mp2[0]) == 1  # loop count matches expected
@@ -517,7 +517,7 @@ def test_h3_set_to_multi_polygon_2k_ring():
 
     hexes3 = list(h3.k_ring(h, 6))
     hexes3.sort()
-    mp3 = h3.h3_set_to_multi_polygon(hexes3)
+    mp3 = h3.cells_to_multi_polygon(hexes3)
 
     assert len(mp3[0]) == 1  # loop count matches expected
 
