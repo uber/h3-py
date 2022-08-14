@@ -453,7 +453,7 @@ def test_line():
     h1 = '8928308280fffff'
     h2 = '8928308287bffff'
 
-    out = h3.h3_line(h1, h2)
+    out = h3.grid_path_cells(h1, h2)
 
     expected = [
         '8928308280fffff',

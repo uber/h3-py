@@ -28,7 +28,7 @@ from .cells import (
     num_hexagons,
     mean_hex_area,
     cell_area,
-    line,
+    grid_path_cells,
     is_res_class_iii,
     get_pentagons,
     get_res0_cells,

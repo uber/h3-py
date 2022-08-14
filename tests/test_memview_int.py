@@ -11,7 +11,7 @@ def test_line():
     h2 = '8928308287bffff'
     h1, h2 = h3.string_to_int(h1), h3.string_to_int(h2)
 
-    out = h3.h3_line(h1, h2)
+    out = h3.grid_path_cells(h1, h2)
 
     # todo: are we outputting `memoryviewslice`? should we just output a memoryview?
     assert 'memoryview' in str(type(out))

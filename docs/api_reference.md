@@ -88,7 +88,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    k_ring
    grid_distance
    h3_indexes_are_neighbors
-   h3_line
+   grid_path_cells
 ```
 
 ### Edges

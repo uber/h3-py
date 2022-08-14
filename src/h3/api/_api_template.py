@@ -678,7 +678,7 @@ class _API_FUNCTIONS(object):
     def get_h3_unidirectional_edge_boundary(self, edge, geo_json=False):
         return _cy.edge_boundary(self._in_scalar(edge), geo_json=geo_json)
 
-    def h3_line(self, start, end):
+    def grid_path_cells(self, start, end):
         """
         Returns the ordered collection of cells denoting a
         minimum-length non-unique path between cells.
@@ -693,7 +693,7 @@ class _API_FUNCTIONS(object):
         ordered collection of H3Cell
             Starting with ``start``, and ending with ``end``.
         """
-        mv = _cy.line(self._in_scalar(start), self._in_scalar(end))
+        mv = _cy.grid_path_cells(self._in_scalar(start), self._in_scalar(end))
 
         return self._out_ordered(mv)
 

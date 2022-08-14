@@ -320,7 +320,7 @@ cdef _could_not_find_line(err, start, end):
 
     check_for_error_msg(err, msg)
 
-cpdef H3int[:] line(H3int start, H3int end):
+cpdef H3int[:] grid_path_cells(H3int start, H3int end):
     cdef:
         int64_t n
 

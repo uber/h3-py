@@ -846,11 +846,11 @@ def test_grid_distance():
     assert 5 == h3.grid_distance(h, '89283082827ffff')
 
 
-def test_h3_line():
+def test_grid_path_cells():
     h1 = '8a2a84730587fff'
     h2 = '8a2a8471414ffff'
 
-    out = h3.h3_line(h1, h2)
+    out = h3.grid_path_cells(h1, h2)
 
     expected = [
         h1,
@@ -889,4 +889,4 @@ def test_h3_line():
     assert out == expected
 
     with pytest.raises(h3.H3ResMismatchError):
-        h3.h3_line(h1, '8001fffffffffff')
+        h3.grid_path_cells(h1, '8001fffffffffff')
