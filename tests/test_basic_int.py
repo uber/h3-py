@@ -31,18 +31,18 @@ def test_compact_cells():
     assert h3.compact_cells(hexes) == {h}
 
 
-def test_get_faces():
+def test_get_icosahedron_faces():
     h = 577832942814887935
     expected = {2, 3, 7, 8, 12}
-    out = h3.get_faces(h)
+    out = h3.get_icosahedron_faces(h)
     assert out == expected
 
     h = 579873636396040191
     expected = {13}
-    out = h3.get_faces(h)
+    out = h3.get_icosahedron_faces(h)
     assert out == expected
 
     h = 579768083279773695
     expected = {16, 15}
-    out = h3.get_faces(h)
+    out = h3.get_icosahedron_faces(h)
     assert out == expected

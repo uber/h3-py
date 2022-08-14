@@ -370,7 +370,7 @@ cpdef H3int[:] get_res0_cells():
 
 # oh, this is returning a set??
 # todo: convert to int[:]?
-cpdef get_faces(H3int h):
+cpdef get_icosahedron_faces(H3int h):
     cdef:
         int n
         int[:] faces  ## todo: weird, this needs to be specified to avoid errors. cython bug?

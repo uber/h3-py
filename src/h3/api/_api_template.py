@@ -779,7 +779,7 @@ class _API_FUNCTIONS(object):
 
         return p
 
-    def get_faces(self, h):
+    def get_icosahedron_faces(self, h):
         """
         Return icosahedron faces intersecting a given H3 cell.
 
@@ -796,7 +796,7 @@ class _API_FUNCTIONS(object):
         Python ``set`` of ``int``
         """
         h = self._in_scalar(h)
-        faces = _cy.get_faces(h)
+        faces = _cy.get_icosahedron_faces(h)
 
         return faces
 

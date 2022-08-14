@@ -20,6 +20,6 @@ cpdef H3int[:] grid_path_cells(H3int start, H3int end)
 cpdef bool is_res_class_iii(H3int h)
 cpdef H3int[:] get_pentagons(int res)
 cpdef H3int[:] get_res0_cells()
-cpdef get_faces(H3int h)
+cpdef get_icosahedron_faces(H3int h)
 cpdef (int, int) cell_to_local_ij(H3int origin, H3int h) except *
 cpdef H3int local_ij_to_cell(H3int origin, int i, int j) except 0

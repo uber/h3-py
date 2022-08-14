@@ -111,7 +111,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 
 .. autosummary::
    get_base_cell_number
-   get_faces
+   get_icosahedron_faces
    cell_to_local_ij
    local_ij_to_cell
 ```

@@ -576,20 +576,20 @@ def test_get_res0_cells():
     assert sub < out
 
 
-def test_get_faces():
+def test_get_icosahedron_faces():
     h = '804dfffffffffff'
     expected = {2, 3, 7, 8, 12}
-    out = h3.get_faces(h)
+    out = h3.get_icosahedron_faces(h)
     assert out == expected
 
     h = '80c1fffffffffff'
     expected = {13}
-    out = h3.get_faces(h)
+    out = h3.get_icosahedron_faces(h)
     assert out == expected
 
     h = '80bbfffffffffff'
     expected = {16, 15}
-    out = h3.get_faces(h)
+    out = h3.get_icosahedron_faces(h)
     assert out == expected
 
 
