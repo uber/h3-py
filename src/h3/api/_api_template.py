@@ -312,7 +312,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def hex_ring(self, h, k=1):
+    def grid_ring(self, h, k=1):
         """
         Return unordered set of cells with H3 distance ``== k`` from ``h``.
         That is, the "hollow" ring.
@@ -327,7 +327,7 @@ class _API_FUNCTIONS(object):
         -------
         unordered collection of H3Cell
         """
-        mv = _cy.ring(self._in_scalar(h), k)
+        mv = _cy.grid_ring(self._in_scalar(h), k)
 
         return self._out_unordered(mv)
 

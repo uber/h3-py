@@ -82,7 +82,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   hex_ring
+   grid_ring
    k_ring
    grid_distance
    are_neighbor_cells

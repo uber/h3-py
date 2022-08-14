@@ -522,9 +522,9 @@ def test_cells_to_multi_polygon_2k_ring():
     assert len(mp3[0]) == 1  # loop count matches expected
 
 
-def test_hex_ring():
+def test_grid_ring():
     h = '8928308280fffff'
-    out = h3.hex_ring(h, 1)
+    out = h3.grid_ring(h, 1)
     expected = {
         '8928308280bffff',
         '89283082807ffff',
@@ -538,9 +538,9 @@ def test_hex_ring():
     assert out == h3.k_ring(h, 1) - h3.k_ring(h, 0)
 
 
-def test_hex_ring2():
+def test_grid_ring2():
     h = '8928308280fffff'
-    out = h3.hex_ring(h, 2)
+    out = h3.grid_ring(h, 2)
 
     expected = {
         '89283082813ffff',
@@ -561,9 +561,9 @@ def test_hex_ring2():
     assert out == h3.k_ring(h, 2) - h3.k_ring(h, 1)
 
 
-def test_hex_ring_pentagon():
+def test_grid_ring_pentagon():
     h = '821c07fffffffff'
-    out = h3.hex_ring(h, 1)
+    out = h3.grid_ring(h, 1)
 
     expected = {
         '821c17fffffffff',

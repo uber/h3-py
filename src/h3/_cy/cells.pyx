@@ -122,7 +122,7 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
 
     return mv
 
-cpdef H3int[:] ring(H3int h, int k):
+cpdef H3int[:] grid_ring(H3int h, int k):
     """ Return cells at grid distance `== k` from `h`.
     Collection is "hollow" for k >= 1.
     """

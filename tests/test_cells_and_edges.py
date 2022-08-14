@@ -67,9 +67,9 @@ def test_k_ring_distance():
         h3.k_ring('8928308280fffff', -10)
 
 
-def test_hex_ring_distance():
+def test_grid_ring_distance():
     with pytest.raises(H3DomainError):
-        h3.hex_ring('8928308280fffff', -10)
+        h3.grid_ring('8928308280fffff', -10)
 
 
 def test5():
@@ -89,7 +89,7 @@ def test5():
 
 def test6():
     expected = {'8928308280fffff'}
-    out = h3.hex_ring('8928308280fffff', 0)
+    out = h3.grid_ring('8928308280fffff', 0)
     assert out == expected
 
 
@@ -103,7 +103,7 @@ def test7():
         '89283082877ffff'
     }
 
-    out = h3.hex_ring('8928308280fffff', 1)
+    out = h3.grid_ring('8928308280fffff', 1)
     assert out == expected
 
 
@@ -209,10 +209,10 @@ def test_distance():
     h = '8a28308280c7fff'
     assert h3.grid_distance(h, h) == 0
 
-    n = h3.hex_ring(h, 1).pop()
+    n = h3.grid_ring(h, 1).pop()
     assert h3.grid_distance(h, n) == 1
 
-    n = h3.hex_ring(h, 2).pop()
+    n = h3.grid_ring(h, 2).pop()
     assert h3.grid_distance(h, n) == 2
 
 
@@ -352,7 +352,7 @@ def test_edges_from_cell():
         h3.get_destination_h3_index_from_unidirectional_edge(e)
         for e in edges
     }
-    neighbors = h3.hex_ring(h, 1)
+    neighbors = h3.grid_ring(h, 1)
 
     assert neighbors == destinations
 
@@ -392,7 +392,7 @@ def test_validation():
         h3.k_ring(h, 1)
 
     with pytest.raises(H3CellInvalidError):
-        h3.hex_ring(h, 1)
+        h3.grid_ring(h, 1)
 
     with pytest.raises(H3CellInvalidError):
         h3.cell_to_children(h, 11)
@@ -436,7 +436,7 @@ def test_edges():
     with pytest.raises(H3NotNeighborsError):
         h3.get_h3_unidirectional_edge(h, h)
 
-    h2 = h3.hex_ring(h, 2).pop()
+    h2 = h3.grid_ring(h, 2).pop()
     with pytest.raises(H3NotNeighborsError):
         h3.get_h3_unidirectional_edge(h, h2)
 
@@ -597,14 +597,14 @@ def test_to_local_ij_error():
     h = h3.latlng_to_cell(0, 0, 0)
 
     # error if we cross a face
-    nb = h3.hex_ring(h, k=2)
+    nb = h3.grid_ring(h, k=2)
 
     # todo: should this be the E_TOO_FAR guy?
     with pytest.raises(H3FailedError):
         [h3.cell_to_local_ij(h, p) for p in nb]
 
     # should be fine if we do not cross a face
-    nb = h3.hex_ring(h, k=1)
+    nb = h3.grid_ring(h, k=1)
     out = {h3.cell_to_local_ij(h, p) for p in nb}
     expected = {(-1, 0), (0, -1), (0, 1), (1, 0), (1, 1)}
 
@@ -620,7 +620,7 @@ def test_from_local_ij_error():
             h3.local_ij_to_cell(h, i, j)
 
     # inverting output should give good data
-    nb = h3.hex_ring(h, k=1)
+    nb = h3.grid_ring(h, k=1)
     goodies = {h3.cell_to_local_ij(h, p) for p in nb}
 
     out = {

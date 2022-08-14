@@ -14,7 +14,7 @@ def test_cells_to_multi_polygon():
 
 def test_2_polys():
     h = '8928308280fffff'
-    hexes = h3.hex_ring(h, 2)
+    hexes = h3.grid_ring(h, 2)
     hexes = hexes | {h}
     # hexes should be a center hex, and the 2-ring around it
     # (with the 1-ring being absent)
@@ -29,7 +29,7 @@ def test_2_polys():
 
 def test_2_polys_json():
     h = '8928308280fffff'
-    hexes = h3.hex_ring(h, 2)
+    hexes = h3.grid_ring(h, 2)
     hexes = hexes | {h}
     # hexes should be a center hex, and the 2-ring around it
     # (with the 1-ring being absent)
@@ -46,7 +46,7 @@ def test_2_polys_json():
 
 def test_2_polys_not_json():
     h = '8928308280fffff'
-    hexes = h3.hex_ring(h, 2)
+    hexes = h3.grid_ring(h, 2)
     hexes = hexes | {h}
     # hexes should be a center hex, and the 2-ring around it
     # (with the 1-ring being absent)

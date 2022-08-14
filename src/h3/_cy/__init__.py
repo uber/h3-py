@@ -21,7 +21,7 @@ from .cells import (
     cell_to_parent,
     grid_distance,
     disk,
-    ring,
+    grid_ring,
     cell_to_children,
     compact_cells,
     uncompact_cells,

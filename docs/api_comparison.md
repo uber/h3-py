@@ -58,7 +58,7 @@ using `list` and `set` for collections.
 >>> h
 '8075fffffffffff'
 
->>> h3.hex_ring(h, 1)
+>>> h3.grid_ring(h, 1)
 {'8055fffffffffff',
  '8059fffffffffff',
  '807dfffffffffff',
@@ -91,7 +91,7 @@ H3 indexes are represented as Python `int`s, using `list` and `set` for collecti
 >>> h
 578536630256664575
 
->>> h3.hex_ring(h, 1)
+>>> h3.grid_ring(h, 1)
 {577973680303243263,
  578044049047420927,
  578677367745019903,
@@ -114,7 +114,7 @@ no-copy `numpy` arrays instead of Python `list`s and `set`s.
 >>> h
 578536630256664575
 
->>> h3.hex_ring(h, 1)
+>>> h3.grid_ring(h, 1)
 array([578782920861286399, 578044049047420927, 577973680303243263,
        578677367745019903, 579169948954263551], dtype=uint64)
 ```
@@ -145,7 +145,7 @@ In fact, `h3.api.numpy_int` is essentially just a light wrapper around
 >>> h
 578536630256664575
 
->>> mv = h3.hex_ring(h, 1)
+>>> mv = h3.grid_ring(h, 1)
 >>> mv
 <MemoryView of 'array' at 0x11188c710>
 
@@ -176,7 +176,7 @@ For example, consider the setup:
 >>> import h3.api.memview_int as h3
 >>> import numpy as np
 >>> h = h3.latlng_to_cell(0, 0, 0)
->>> mv = h3.hex_ring(h, 1)
+>>> mv = h3.grid_ring(h, 1)
 >>> list(mv)
 [578782920861286399,
  578044049047420927,
@@ -200,7 +200,7 @@ Running `a = np.asarray(mv)` **does not create a copy**, so modifying `mv` also
 modifies `a`:
 
 ```python
->>> mv = h3.hex_ring(h, 1)
+>>> mv = h3.grid_ring(h, 1)
 >>> a = np.asarray(mv)
 >>> mv[0] = 0
 >>> a
