@@ -536,7 +536,7 @@ class _API_FUNCTIONS(object):
 
         return _cy.are_neighbor_cells(h1, h2)
 
-    def get_h3_unidirectional_edge(self, origin, destination):
+    def cells_to_directed_edge(self, origin, destination):
         """
         Create an H3 Index denoting a unidirectional edge.
 
@@ -559,7 +559,7 @@ class _API_FUNCTIONS(object):
         """
         o = self._in_scalar(origin)
         d = self._in_scalar(destination)
-        e = _cy.edge(o, d)
+        e = _cy.cells_to_directed_edge(o, d)
         e = self._out_scalar(e)
 
         return e

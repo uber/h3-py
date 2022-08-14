@@ -40,7 +40,7 @@ from .cells import (
 
 from .edges import (
     are_neighbor_cells,
-    edge,
+    cells_to_directed_edge,
     is_valid_directed_edge,
     edge_origin,
     edge_destination,

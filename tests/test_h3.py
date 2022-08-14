@@ -679,12 +679,12 @@ def test_are_neighbor_cells():
     assert not h3.are_neighbor_cells('821c07fffffffff', '8928308280fffff')
 
 
-def test_get_h3_unidirectional_edge():
-    out = h3.get_h3_unidirectional_edge('8928308280fffff', '8928308280bffff')
+def test_cells_to_directed_edge():
+    out = h3.cells_to_directed_edge('8928308280fffff', '8928308280bffff')
     assert h3.is_valid_directed_edge(out)
 
     with pytest.raises(h3.H3NotNeighborsError):
-        h3.get_h3_unidirectional_edge('821c07fffffffff', '8928308280fffff')
+        h3.cells_to_directed_edge('821c07fffffffff', '8928308280fffff')
 
 
 def test_is_valid_directed_edge():

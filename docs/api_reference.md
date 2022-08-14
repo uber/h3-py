@@ -95,7 +95,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   get_h3_unidirectional_edge
+   cells_to_directed_edge
    get_destination_h3_index_from_unidirectional_edge
    get_h3_indexes_from_unidirectional_edge
    origin_to_directed_edges

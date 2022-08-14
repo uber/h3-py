@@ -333,7 +333,7 @@ def test_edge():
     assert not h3.are_neighbor_cells(h1, h1)
     assert h3.are_neighbor_cells(h1, h2)
 
-    e = h3.get_h3_unidirectional_edge(h1, h2)
+    e = h3.cells_to_directed_edge(h1, h2)
 
     assert e == '12928308280fffff'
     assert h3.is_valid_directed_edge(e)
@@ -360,7 +360,7 @@ def test_origin_to_directed_edges():
 def test_edge_boundary():
     h1 = '8928308280fffff'
     h2 = '89283082873ffff'
-    e = h3.get_h3_unidirectional_edge(h1, h2)
+    e = h3.cells_to_directed_edge(h1, h2)
 
     expected = (
         (37.77688044840226, -122.41612835779266),
@@ -434,11 +434,11 @@ def test_edges():
     h = '8928308280fffff'
 
     with pytest.raises(H3NotNeighborsError):
-        h3.get_h3_unidirectional_edge(h, h)
+        h3.cells_to_directed_edge(h, h)
 
     h2 = h3.grid_ring(h, 2).pop()
     with pytest.raises(H3NotNeighborsError):
-        h3.get_h3_unidirectional_edge(h, h2)
+        h3.cells_to_directed_edge(h, h2)
 
     e_bad = '14928308280ffff1'
     assert not h3.is_valid_directed_edge(e_bad)
