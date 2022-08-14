@@ -36,7 +36,7 @@ cpdef H3int cells_to_directed_edge(H3int origin, H3int destination) except *:
 cpdef bool is_valid_directed_edge(H3int e):
     return h3lib.isValidDirectedEdge(e) == 1
 
-cpdef H3int edge_origin(H3int e) except 1:
+cpdef H3int get_directed_edge_origin(H3int e) except 1:
     cdef:
         H3int out
 
@@ -58,7 +58,7 @@ cpdef H3int edge_destination(H3int e) except 1:
 
 cpdef (H3int, H3int) directed_edge_to_cells(H3int e) except *:
     # todo: use directed_edge_to_cells in h3lib
-    return edge_origin(e), edge_destination(e)
+    return get_directed_edge_origin(e), edge_destination(e)
 
 cpdef H3int[:] origin_to_directed_edges(H3int origin):
     """ Returns the 6 (or 5 for pentagons) directed edges

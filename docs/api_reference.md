@@ -99,7 +99,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    get_destination_h3_index_from_unidirectional_edge
    directed_edge_to_cells
    origin_to_directed_edges
-   get_origin_h3_index_from_unidirectional_edge
+   get_directed_edge_origin
 ```
 
 ### IJ-indexing

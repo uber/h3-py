@@ -339,7 +339,7 @@ def test_edge():
     assert h3.is_valid_directed_edge(e)
     assert not h3.is_valid_cell(e)
 
-    assert h3.get_origin_h3_index_from_unidirectional_edge(e) == h1
+    assert h3.get_directed_edge_origin(e) == h1
     assert h3.get_destination_h3_index_from_unidirectional_edge(e) == h2
 
     assert h3.directed_edge_to_cells(e) == (h1, h2)
@@ -444,7 +444,7 @@ def test_edges():
     assert not h3.is_valid_directed_edge(e_bad)
 
     # note: won't raise an error on bad input
-    h3.get_origin_h3_index_from_unidirectional_edge(e_bad)
+    h3.get_directed_edge_origin(e_bad)
     h3.get_destination_h3_index_from_unidirectional_edge(e_bad)
     h3.directed_edge_to_cells(e_bad)
 

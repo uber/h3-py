@@ -692,8 +692,8 @@ def test_is_valid_directed_edge():
     assert h3.is_valid_directed_edge('11928308280fffff')
 
 
-def test_get_origin_h3_index_from_unidirectional_edge():
-    out = h3.get_origin_h3_index_from_unidirectional_edge('11928308280fffff')
+def test_get_directed_edge_origin():
+    out = h3.get_directed_edge_origin('11928308280fffff')
     assert out == '8928308280fffff'
 
 

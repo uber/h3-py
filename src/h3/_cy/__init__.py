@@ -42,7 +42,7 @@ from .edges import (
     are_neighbor_cells,
     cells_to_directed_edge,
     is_valid_directed_edge,
-    edge_origin,
+    get_directed_edge_origin,
     edge_destination,
     directed_edge_to_cells,
     origin_to_directed_edges,

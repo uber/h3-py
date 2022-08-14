@@ -564,7 +564,7 @@ class _API_FUNCTIONS(object):
 
         return e
 
-    def get_origin_h3_index_from_unidirectional_edge(self, e):
+    def get_directed_edge_origin(self, e):
         """
         Origin cell from an H3 directed edge.
 
@@ -577,7 +577,7 @@ class _API_FUNCTIONS(object):
         H3Cell
         """
         e = self._in_scalar(e)
-        o = _cy.edge_origin(e)
+        o = _cy.get_directed_edge_origin(e)
         o = self._out_scalar(o)
 
         return o
