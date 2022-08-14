@@ -391,7 +391,7 @@ cpdef get_faces(H3int h):
     return out
 
 
-cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
+cpdef (int, int) cell_to_local_ij(H3int origin, H3int h) except *:
     cdef:
         h3lib.CoordIJ c
 
@@ -403,7 +403,7 @@ cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
 
     return c.i, c.j
 
-cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
+cpdef H3int local_ij_to_cell(H3int origin, int i, int j) except 0:
     cdef:
         h3lib.CoordIJ c
         H3int out

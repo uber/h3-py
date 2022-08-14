@@ -601,11 +601,11 @@ def test_to_local_ij_error():
 
     # todo: should this be the E_TOO_FAR guy?
     with pytest.raises(H3FailedError):
-        [h3.experimental_h3_to_local_ij(h, p) for p in nb]
+        [h3.cell_to_local_ij(h, p) for p in nb]
 
     # should be fine if we do not cross a face
     nb = h3.hex_ring(h, k=1)
-    out = {h3.experimental_h3_to_local_ij(h, p) for p in nb}
+    out = {h3.cell_to_local_ij(h, p) for p in nb}
     expected = {(-1, 0), (0, -1), (0, 1), (1, 0), (1, 1)}
 
     assert out == expected
@@ -617,14 +617,14 @@ def test_from_local_ij_error():
     baddies = [(1, -1), (-1, 1), (-1, -1)]
     for i, j in baddies:
         with pytest.raises(H3FailedError):
-            h3.experimental_local_ij_to_h3(h, i, j)
+            h3.local_ij_to_cell(h, i, j)
 
     # inverting output should give good data
     nb = h3.hex_ring(h, k=1)
-    goodies = {h3.experimental_h3_to_local_ij(h, p) for p in nb}
+    goodies = {h3.cell_to_local_ij(h, p) for p in nb}
 
     out = {
-        h3.experimental_local_ij_to_h3(h, i, j)
+        h3.local_ij_to_cell(h, i, j)
         for i, j in goodies
     }
 
@@ -633,6 +633,6 @@ def test_from_local_ij_error():
 
 def test_to_local_ij_self():
     h = h3.latlng_to_cell(0, 0, 9)
-    out = h3.experimental_h3_to_local_ij(h, h)
+    out = h3.cell_to_local_ij(h, h)
 
     assert out == (-858, -2766)

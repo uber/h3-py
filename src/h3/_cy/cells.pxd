@@ -21,5 +21,5 @@ cpdef bool is_res_class_iii(H3int h)
 cpdef H3int[:] get_pentagons(int res)
 cpdef H3int[:] get_res0_cells()
 cpdef get_faces(H3int h)
-cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *
-cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0
+cpdef (int, int) cell_to_local_ij(H3int origin, H3int h) except *
+cpdef H3int local_ij_to_cell(H3int origin, int i, int j) except 0

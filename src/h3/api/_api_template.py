@@ -800,7 +800,7 @@ class _API_FUNCTIONS(object):
 
         return faces
 
-    def experimental_h3_to_local_ij(self, origin, h):
+    def cell_to_local_ij(self, origin, h):
         """
         Return local (i,j) coordinates of cell ``h`` in relation to ``origin`` cell
 
@@ -834,11 +834,11 @@ class _API_FUNCTIONS(object):
         origin = self._in_scalar(origin)
         h = self._in_scalar(h)
 
-        i, j = _cy.experimental_h3_to_local_ij(origin, h)
+        i, j = _cy.cell_to_local_ij(origin, h)
 
         return i, j
 
-    def experimental_local_ij_to_h3(self, origin, i, j):
+    def local_ij_to_cell(self, origin, i, j):
         """
         Return cell at local (i,j) position relative to the ``origin`` cell.
 
@@ -869,7 +869,7 @@ class _API_FUNCTIONS(object):
         """
         origin = self._in_scalar(origin)
 
-        h = _cy.experimental_local_ij_to_h3(origin, i, j)
+        h = _cy.local_ij_to_cell(origin, i, j)
         h = self._out_scalar(h)
 
         return h
