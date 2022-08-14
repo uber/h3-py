@@ -780,10 +780,10 @@ def test_is_pentagon():
     assert not h3.is_pentagon('8928308280fffff')
 
 
-def test_h3_indexes_are_neighbors():
-    assert h3.h3_indexes_are_neighbors('8928308280fffff', '8928308280bffff')
+def test_are_neighbor_cells():
+    assert h3.are_neighbor_cells('8928308280fffff', '8928308280bffff')
 
-    assert not h3.h3_indexes_are_neighbors('821c07fffffffff', '8928308280fffff')
+    assert not h3.are_neighbor_cells('821c07fffffffff', '8928308280fffff')
 
 
 def test_get_h3_unidirectional_edge():

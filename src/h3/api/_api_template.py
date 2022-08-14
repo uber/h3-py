@@ -556,7 +556,7 @@ class _API_FUNCTIONS(object):
         """
         return _cy.get_base_cell_number(self._in_scalar(h))
 
-    def h3_indexes_are_neighbors(self, h1, h2):
+    def are_neighbor_cells(self, h1, h2):
         """
         Returns ``True`` if ``h1`` and ``h2`` are neighboring cells.
 
@@ -572,7 +572,7 @@ class _API_FUNCTIONS(object):
         h1 = self._in_scalar(h1)
         h2 = self._in_scalar(h2)
 
-        return _cy.are_neighbors(h1, h2)
+        return _cy.are_neighbor_cells(h1, h2)
 
     def get_h3_unidirectional_edge(self, origin, destination):
         """

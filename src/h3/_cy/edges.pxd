@@ -1,6 +1,6 @@
 from .h3lib cimport bool, H3int
 
-cpdef bool are_neighbors(H3int h1, H3int h2)
+cpdef bool are_neighbor_cells(H3int h1, H3int h2)
 cpdef H3int edge(H3int origin, H3int destination) except *
 cpdef bool is_valid_directed_edge(H3int e)
 cpdef H3int edge_origin(H3int e) except 1

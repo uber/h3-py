@@ -330,8 +330,8 @@ def test_edge():
     h1 = '8928308280fffff'
     h2 = '89283082873ffff'
 
-    assert not h3.h3_indexes_are_neighbors(h1, h1)
-    assert h3.h3_indexes_are_neighbors(h1, h2)
+    assert not h3.are_neighbor_cells(h1, h1)
+    assert h3.are_neighbor_cells(h1, h2)
 
     e = h3.get_h3_unidirectional_edge(h1, h2)
 
@@ -410,7 +410,7 @@ def test_validation2():
     with pytest.raises(H3ResDomainError):
         h3.cell_to_children(h, 17)
 
-    assert not h3.h3_indexes_are_neighbors(h, h)
+    assert not h3.are_neighbor_cells(h, h)
 
 
 def test_validation_geo():
@@ -427,7 +427,7 @@ def test_validation_geo():
 
     # note: this won't raise an exception on bad input, but it does
     # *correctly* say that two invalid indexes are not neighbors
-    assert not h3.h3_indexes_are_neighbors(h, h)
+    assert not h3.are_neighbor_cells(h, h)
 
 
 def test_edges():

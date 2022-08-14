@@ -39,7 +39,7 @@ from .cells import (
 )
 
 from .edges import (
-    are_neighbors,
+    are_neighbor_cells,
     edge,
     is_valid_directed_edge,
     edge_origin,

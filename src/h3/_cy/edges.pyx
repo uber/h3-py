@@ -6,7 +6,7 @@ from .error_system cimport check_for_error
 from .memory cimport H3MemoryManager
 
 # todo: make bint
-cpdef bool are_neighbors(H3int h1, H3int h2):
+cpdef bool are_neighbor_cells(H3int h1, H3int h2):
     cdef:
         int out
 
