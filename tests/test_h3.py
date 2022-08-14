@@ -44,8 +44,8 @@ def test_silly_geo_to_h3():
     assert out1 == expected1
 
 
-def test_h3_to_geo():
-    latlng = h3.h3_to_geo('85283473fffffff')
+def test_cell_to_latlng():
+    latlng = h3.cell_to_latlng('85283473fffffff')
     assert latlng == approx((37.34579337536848, -121.97637597255124))
 
 

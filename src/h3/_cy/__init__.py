@@ -52,7 +52,7 @@ from .edges import (
 
 from .geo import (
     geo_to_h3,
-    h3_to_geo,
+    cell_to_latlng,
     polyfill_polygon,
     polyfill_geojson,
     polyfill,

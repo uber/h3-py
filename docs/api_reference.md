@@ -33,7 +33,7 @@ but we'll try to group functions in a reasonably logical manner.
 
 .. autosummary::
    geo_to_h3
-   h3_to_geo
+   cell_to_latlng
    h3_to_string
    string_to_h3
    get_res0_cells

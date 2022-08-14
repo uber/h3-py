@@ -193,7 +193,7 @@ class _API_FUNCTIONS(object):
         """
         return self._out_scalar(_cy.geo_to_h3(lat, lng, resolution))
 
-    def h3_to_geo(self, h):
+    def cell_to_latlng(self, h):
         """
         Return the center point of an H3 cell as a lat/lng pair.
 
@@ -208,7 +208,7 @@ class _API_FUNCTIONS(object):
         lng : float
             Longitude
         """
-        return _cy.h3_to_geo(self._in_scalar(h))
+        return _cy.cell_to_latlng(self._in_scalar(h))
 
     def get_resolution(self, h):
         """

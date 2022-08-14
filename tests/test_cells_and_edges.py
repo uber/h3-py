@@ -29,7 +29,7 @@ def test2():
     h = '8928308280fffff'
     expected = (37.77670234943567, -122.41845932318311)
 
-    assert h3.h3_to_geo(h) == pytest.approx(expected)
+    assert h3.cell_to_latlng(h) == pytest.approx(expected)
 
 
 def test3():
@@ -416,7 +416,7 @@ def test_validation_geo():
     h = '8a28308280fffff'  # invalid cell
 
     with pytest.raises(H3CellInvalidError):
-        h3.h3_to_geo(h)
+        h3.cell_to_latlng(h)
 
     with pytest.raises(H3ResDomainError):
         h3.geo_to_h3(0, 0, 17)

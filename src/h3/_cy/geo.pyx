@@ -38,7 +38,7 @@ cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
     return out
 
 
-cpdef (double, double) h3_to_geo(H3int h) except *:
+cpdef (double, double) cell_to_latlng(H3int h) except *:
     """Map an H3 cell into its centroid geo-coordinate (lat/lng)"""
     cdef:
         h3lib.LatLng c
