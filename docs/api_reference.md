@@ -52,7 +52,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   point_dist
+   great_circle_distance
    hex_area
    cell_area
    edge_length

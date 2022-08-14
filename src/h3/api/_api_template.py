@@ -895,7 +895,7 @@ class _API_FUNCTIONS(object):
         This function breaks the cell into spherical triangles, and computes
         their spherical area.
         The function uses the spherical distance calculation given by
-        `point_dist`.
+        `great_circle_distance`.
         """
         h = self._in_scalar(h)
 
@@ -920,14 +920,14 @@ class _API_FUNCTIONS(object):
         Notes
         -----
         This function uses the spherical distance calculation given by
-        `point_dist`.
+        `great_circle_distance`.
         """
         e = self._in_scalar(e)
 
         return _cy.edge_length(e, unit=unit)
 
     @staticmethod
-    def point_dist(point1, point2, unit='km'):
+    def great_circle_distance(point1, point2, unit='km'):
         """
         Compute the spherical distance between two (lat, lng) points.
 
@@ -952,7 +952,7 @@ class _API_FUNCTIONS(object):
         lat1, lng1 = point1
         lat2, lng2 = point2
 
-        return _cy.point_dist(
+        return _cy.great_circle_distance(
             lat1, lng1,
             lat2, lng2,
             unit=unit

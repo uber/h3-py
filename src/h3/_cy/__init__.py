@@ -58,7 +58,7 @@ from .geo import (
     polyfill,
     cell_to_boundary,
     edge_boundary,
-    point_dist,
+    great_circle_distance,
 )
 
 from .to_multipoly import (

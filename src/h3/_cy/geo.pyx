@@ -283,7 +283,7 @@ def edge_boundary(H3int edge, bool geo_json=False):
     return verts
 
 
-cpdef double point_dist(
+cpdef double great_circle_distance(
     double lat1, double lng1,
     double lat2, double lng2, unit='km') except -1:
 
