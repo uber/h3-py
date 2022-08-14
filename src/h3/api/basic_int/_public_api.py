@@ -44,15 +44,12 @@ polyfill_geojson = _binding.polyfill_geojson
 polyfill_polygon = _binding.polyfill_polygon
 compact_cells = _binding.compact_cells
 uncompact_cells = _binding.uncompact_cells
-get_destination_h3_index_from_unidirectional_edge = (
-    _binding.get_destination_h3_index_from_unidirectional_edge
-)
+
+get_directed_edge_origin = _binding.get_directed_edge_origin
+get_directed_edge_destination = _binding.get_directed_edge_destination
 directed_edge_to_cells = _binding.directed_edge_to_cells
 cells_to_directed_edge = _binding.cells_to_directed_edge
 directed_edge_to_boundary = _binding.directed_edge_to_boundary
 origin_to_directed_edges = _binding.origin_to_directed_edges
 
-get_directed_edge_origin = (
-    _binding.get_directed_edge_origin
-)
 versions = _binding.versions

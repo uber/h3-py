@@ -582,7 +582,7 @@ class _API_FUNCTIONS(object):
 
         return o
 
-    def get_destination_h3_index_from_unidirectional_edge(self, e):
+    def get_directed_edge_destination(self, e):
         """
         Destination cell from an H3 directed edge.
 
@@ -595,7 +595,7 @@ class _API_FUNCTIONS(object):
         H3Cell
         """
         e = self._in_scalar(e)
-        d = _cy.edge_destination(e)
+        d = _cy.get_directed_edge_destination(e)
         d = self._out_scalar(d)
 
         return d

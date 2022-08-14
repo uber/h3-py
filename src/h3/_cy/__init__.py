@@ -43,7 +43,7 @@ from .edges import (
     cells_to_directed_edge,
     is_valid_directed_edge,
     get_directed_edge_origin,
-    edge_destination,
+    get_directed_edge_destination,
     directed_edge_to_cells,
     origin_to_directed_edges,
     mean_edge_length,

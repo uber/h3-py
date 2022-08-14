@@ -697,9 +697,9 @@ def test_get_directed_edge_origin():
     assert out == '8928308280fffff'
 
 
-def test_get_destination_h3_index_from_unidirectional_edge():
+def test_get_directed_edge_destination():
     h = '11928308280fffff'
-    out = h3.get_destination_h3_index_from_unidirectional_edge(h)
+    out = h3.get_directed_edge_destination(h)
 
     assert out == '8928308283bffff'
 

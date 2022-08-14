@@ -340,7 +340,7 @@ def test_edge():
     assert not h3.is_valid_cell(e)
 
     assert h3.get_directed_edge_origin(e) == h1
-    assert h3.get_destination_h3_index_from_unidirectional_edge(e) == h2
+    assert h3.get_directed_edge_destination(e) == h2
 
     assert h3.directed_edge_to_cells(e) == (h1, h2)
 
@@ -349,7 +349,7 @@ def test_origin_to_directed_edges():
     h = '8928308280fffff'
     edges = h3.origin_to_directed_edges(h)
     destinations = {
-        h3.get_destination_h3_index_from_unidirectional_edge(e)
+        h3.get_directed_edge_destination(e)
         for e in edges
     }
     neighbors = h3.grid_ring(h, 1)
@@ -445,7 +445,7 @@ def test_edges():
 
     # note: won't raise an error on bad input
     h3.get_directed_edge_origin(e_bad)
-    h3.get_destination_h3_index_from_unidirectional_edge(e_bad)
+    h3.get_directed_edge_destination(e_bad)
     h3.directed_edge_to_cells(e_bad)
 
 
