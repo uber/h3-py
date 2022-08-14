@@ -8,6 +8,15 @@ This file exists to avoid dynamically modifying `globals` and support static too
 """
 from ._binding import _binding
 
+
+is_valid_cell = _binding.is_valid_cell
+is_pentagon = _binding.is_pentagon
+is_valid_directed_edge = _binding.is_valid_directed_edge
+is_res_class_III = _binding.is_res_class_III
+
+int_to_string = _binding.int_to_string
+string_to_int = _binding.string_to_int
+
 cell_area = _binding.cell_area
 hex_area = _binding.hex_area
 edge_length = _binding.edge_length
@@ -17,34 +26,32 @@ local_ij_to_cell = _binding.local_ij_to_cell
 latlng_to_cell = _binding.latlng_to_cell
 cell_to_latlng = _binding.cell_to_latlng
 cell_to_boundary = _binding.cell_to_boundary
-get_pentagons = _binding.get_pentagons
-get_res0_cells = _binding.get_res0_cells
+
 grid_distance = _binding.grid_distance
 grid_ring = _binding.grid_ring
 grid_disk = _binding.grid_disk
 grid_path_cells = _binding.grid_path_cells
+
+get_pentagons = _binding.get_pentagons
+get_res0_cells = _binding.get_res0_cells
+get_num_cells = _binding.get_num_cells
 get_base_cell_number = _binding.get_base_cell_number
 get_icosahedron_faces = _binding.get_icosahedron_faces
 get_resolution = _binding.get_resolution
-are_neighbor_cells = _binding.are_neighbor_cells
-is_pentagon = _binding.is_pentagon
-is_res_class_III = _binding.is_res_class_III
-is_valid_cell = _binding.is_valid_cell
-cells_to_multi_polygon = _binding.cells_to_multi_polygon
+
 cell_to_center_child = _binding.cell_to_center_child
 cell_to_children = _binding.cell_to_children
 cell_to_parent = _binding.cell_to_parent
-int_to_string = _binding.int_to_string
-string_to_int = _binding.string_to_int
-is_valid_directed_edge = _binding.is_valid_directed_edge
-get_num_cells = _binding.get_num_cells
+compact_cells = _binding.compact_cells
+uncompact_cells = _binding.uncompact_cells
+
 great_circle_distance = _binding.great_circle_distance
 polyfill = _binding.polyfill
 polyfill_geojson = _binding.polyfill_geojson
 polyfill_polygon = _binding.polyfill_polygon
-compact_cells = _binding.compact_cells
-uncompact_cells = _binding.uncompact_cells
+cells_to_multi_polygon = _binding.cells_to_multi_polygon
 
+are_neighbor_cells = _binding.are_neighbor_cells
 get_directed_edge_origin = _binding.get_directed_edge_origin
 get_directed_edge_destination = _binding.get_directed_edge_destination
 directed_edge_to_cells = _binding.directed_edge_to_cells
