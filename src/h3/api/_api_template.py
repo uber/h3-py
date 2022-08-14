@@ -600,7 +600,7 @@ class _API_FUNCTIONS(object):
 
         return d
 
-    def get_h3_indexes_from_unidirectional_edge(self, e):
+    def directed_edge_to_cells(self, e):
         """
         Return (origin, destination) tuple from H3 directed edge
 
@@ -616,7 +616,7 @@ class _API_FUNCTIONS(object):
             Destination cell of edge
         """
         e = self._in_scalar(e)
-        o, d = _cy.edge_cells(e)
+        o, d = _cy.directed_edge_to_cells(e)
         o, d = self._out_scalar(o), self._out_scalar(d)
 
         return o, d

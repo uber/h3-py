@@ -704,8 +704,8 @@ def test_get_destination_h3_index_from_unidirectional_edge():
     assert out == '8928308283bffff'
 
 
-def test_get_h3_indexes_from_unidirectional_edge():
-    e = h3.get_h3_indexes_from_unidirectional_edge('11928308280fffff')
+def test_directed_edge_to_cells():
+    e = h3.directed_edge_to_cells('11928308280fffff')
 
     assert e == ('8928308280fffff', '8928308283bffff')
 

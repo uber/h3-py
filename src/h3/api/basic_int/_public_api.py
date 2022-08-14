@@ -47,8 +47,8 @@ uncompact_cells = _binding.uncompact_cells
 get_destination_h3_index_from_unidirectional_edge = (
     _binding.get_destination_h3_index_from_unidirectional_edge
 )
-get_h3_indexes_from_unidirectional_edge = (
-    _binding.get_h3_indexes_from_unidirectional_edge
+directed_edge_to_cells = (
+    _binding.directed_edge_to_cells
 )
 cells_to_directed_edge = _binding.cells_to_directed_edge
 directed_edge_to_boundary = _binding.directed_edge_to_boundary

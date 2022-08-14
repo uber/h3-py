@@ -44,7 +44,7 @@ from .edges import (
     is_valid_directed_edge,
     edge_origin,
     edge_destination,
-    edge_cells,
+    directed_edge_to_cells,
     origin_to_directed_edges,
     mean_edge_length,
     edge_length,
