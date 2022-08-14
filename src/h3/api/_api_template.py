@@ -935,6 +935,8 @@ class _API_FUNCTIONS(object):
         about (lat1, lng1, lat2, lng2) as the input? How will this work
         for vectorized versions?
 
+        todo: overload to allow two cell inputs?
+
         Parameters
         ----------
         point1 : tuple
