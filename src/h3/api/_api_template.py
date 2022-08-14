@@ -758,7 +758,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def h3_to_center_child(self, h, res=None):
+    def cell_to_center_child(self, h, res=None):
         """
         Get the center child of a cell at some finer resolution.
 
@@ -774,7 +774,7 @@ class _API_FUNCTIONS(object):
         H3Cell
         """
         h = self._in_scalar(h)
-        p = _cy.center_child(h, res)
+        p = _cy.cell_to_center_child(h, res)
         p = self._out_scalar(p)
 
         return p

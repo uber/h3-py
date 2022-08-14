@@ -181,7 +181,7 @@ cpdef H3int[:] cell_to_children(H3int h, res=None):
     return mv
 
 
-cpdef H3int center_child(H3int h, res=None) except 0:
+cpdef H3int cell_to_center_child(H3int h, res=None) except 0:
     cdef:
         H3int child
 

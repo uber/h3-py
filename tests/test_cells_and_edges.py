@@ -190,19 +190,19 @@ def test_center_child():
 
     # one above should raise an exception
     with pytest.raises(H3ResDomainError):
-        h3.h3_to_center_child(h, 8)
+        h3.cell_to_center_child(h, 8)
 
     # same resolution should be same cell
-    assert h3.h3_to_center_child(h, 9) == h
+    assert h3.cell_to_center_child(h, 9) == h
 
     # one below should give direct child
     expected = '8a28308280c7fff'
-    assert h3.h3_to_center_child(h, 10) == expected
+    assert h3.cell_to_center_child(h, 10) == expected
 
     # finest resolution hex should return error for child
     h = '8f04ccb2c45e225'
     with pytest.raises(H3ResDomainError):
-        h3.h3_to_center_child(h)
+        h3.cell_to_center_child(h)
 
 
 def test_distance():

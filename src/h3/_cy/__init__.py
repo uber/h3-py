@@ -32,7 +32,7 @@ from .cells import (
     is_res_class_iii,
     get_pentagons,
     get_res0_cells,
-    center_child,
+    cell_to_center_child,
     get_faces,
     experimental_h3_to_local_ij,
     experimental_local_ij_to_h3,
