@@ -38,7 +38,7 @@ but we'll try to group functions in a reasonably logical manner.
    string_to_int
    get_res0_cells
    get_pentagons
-   num_hexagons
+   get_num_cells
    get_resolution
    compact_cells
    uncompact_cells

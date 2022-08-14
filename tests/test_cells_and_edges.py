@@ -275,7 +275,7 @@ def test_uncompact_cells():
     assert out == h_uncomp
 
 
-def test_num_hexagons():
+def test_get_num_cells():
     expected = {
         0: 122,
         1: 842,
@@ -285,7 +285,7 @@ def test_num_hexagons():
     }
 
     out = {
-        k: h3.num_hexagons(k)
+        k: h3.get_num_cells(k)
         for k in expected
     }
 

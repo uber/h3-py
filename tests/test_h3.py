@@ -756,12 +756,12 @@ def test_edge_length():
         h3.edge_length(5, 'ft')
 
 
-def test_num_hexagons():
+def test_get_num_cells():
     h0 = 122
-    assert h3.num_hexagons(0) == h0
+    assert h3.get_num_cells(0) == h0
 
     for i in range(0, 15):
-        n = h3.num_hexagons(i) * 1.0 / h0
+        n = h3.get_num_cells(i) * 1.0 / h0
 
         assert 6**i <= n <= 7**i
 

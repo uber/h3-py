@@ -125,8 +125,8 @@ def test_great_circle_distance():
     assert d == pytest.approx(392.21715988417765)
 
     # test that 'km' is the default unit
-    assert (h3.great_circle_distance(lyon, paris, unit='km') ==
-            h3.great_circle_distance(lyon, paris))
+    dist = h3.great_circle_distance
+    assert dist(lyon, paris, unit='km') == dist(lyon, paris)
 
 
 def test_cell_perimiter_calculations():

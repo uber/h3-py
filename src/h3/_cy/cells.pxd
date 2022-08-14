@@ -13,7 +13,7 @@ cpdef H3int[:] cell_to_children(H3int h, res=*)
 cpdef H3int cell_to_center_child(H3int h, res=*) except 0
 cpdef H3int[:] compact_cells(const H3int[:] hu)
 cpdef H3int[:] uncompact_cells(const H3int[:] hc, int res)
-cpdef int64_t num_hexagons(int resolution) except -1
+cpdef int64_t get_num_cells(int resolution) except -1
 cpdef double mean_hex_area(int resolution, unit=*) except -1
 cpdef double cell_area(H3int h, unit=*) except -1
 cpdef H3int[:] grid_path_cells(H3int start, H3int end)

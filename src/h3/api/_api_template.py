@@ -112,7 +112,7 @@ class _API_FUNCTIONS(object):
         return _cy.int2hex(x)
 
     @staticmethod
-    def num_hexagons(resolution):
+    def get_num_cells(resolution):
         """
         Return the total number of *cells* (hexagons and pentagons)
         for the given resolution.
@@ -121,7 +121,7 @@ class _API_FUNCTIONS(object):
         -------
         int
         """
-        return _cy.num_hexagons(resolution)
+        return _cy.get_num_cells(resolution)
 
     @staticmethod
     def hex_area(resolution, unit='km^2'):

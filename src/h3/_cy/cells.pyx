@@ -263,7 +263,7 @@ cpdef H3int[:] uncompact_cells(const H3int[:] hc, int res):
     return mv
 
 
-cpdef int64_t num_hexagons(int resolution) except -1:
+cpdef int64_t get_num_cells(int resolution) except -1:
     cdef:
         int64_t num_cells
 

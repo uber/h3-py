@@ -25,7 +25,7 @@ from .cells import (
     cell_to_children,
     compact_cells,
     uncompact_cells,
-    num_hexagons,
+    get_num_cells,
     mean_hex_area,
     cell_area,
     grid_path_cells,
