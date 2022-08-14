@@ -22,7 +22,7 @@ but we'll try to group functions in a reasonably logical manner.
    is_valid_cell
    is_pentagon
    is_res_class_III
-   h3_unidirectional_edge_is_valid
+   is_valid_directed_edge
    versions
 ```
 

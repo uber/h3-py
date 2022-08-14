@@ -99,7 +99,7 @@ def test_bad_units():
     e = '139754e64993ffff'
 
     assert h3.is_valid_cell(h)
-    assert h3.h3_unidirectional_edge_is_valid(e)
+    assert h3.is_valid_directed_edge(e)
 
     with pytest.raises(ValueError):
         h3.cell_area(h, unit='foot-pounds')

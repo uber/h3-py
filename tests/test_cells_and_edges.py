@@ -336,7 +336,7 @@ def test_edge():
     e = h3.get_h3_unidirectional_edge(h1, h2)
 
     assert e == '12928308280fffff'
-    assert h3.h3_unidirectional_edge_is_valid(e)
+    assert h3.is_valid_directed_edge(e)
     assert not h3.is_valid_cell(e)
 
     assert h3.get_origin_h3_index_from_unidirectional_edge(e) == h1
@@ -441,7 +441,7 @@ def test_edges():
         h3.get_h3_unidirectional_edge(h, h2)
 
     e_bad = '14928308280ffff1'
-    assert not h3.h3_unidirectional_edge_is_valid(e_bad)
+    assert not h3.is_valid_directed_edge(e_bad)
 
     # note: won't raise an error on bad input
     h3.get_origin_h3_index_from_unidirectional_edge(e_bad)
@@ -493,7 +493,7 @@ def test_hex2int_fail():
 
 def test_edge_is_valid_fail():
     e_invalid = {}
-    assert not h3.h3_unidirectional_edge_is_valid(e_invalid)
+    assert not h3.is_valid_directed_edge(e_invalid)
 
 
 def test_get_pentagons():

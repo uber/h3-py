@@ -33,7 +33,7 @@ cpdef H3int edge(H3int origin, H3int destination) except *:
     return out
 
 
-cpdef bool is_edge(H3int e):
+cpdef bool is_valid_directed_edge(H3int e):
     return h3lib.isValidDirectedEdge(e) == 1
 
 cpdef H3int edge_origin(H3int e) except 1:

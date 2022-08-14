@@ -41,7 +41,7 @@ from .cells import (
 from .edges import (
     are_neighbors,
     edge,
-    is_edge,
+    is_valid_directed_edge,
     edge_origin,
     edge_destination,
     edge_cells,

@@ -788,15 +788,15 @@ def test_h3_indexes_are_neighbors():
 
 def test_get_h3_unidirectional_edge():
     out = h3.get_h3_unidirectional_edge('8928308280fffff', '8928308280bffff')
-    assert h3.h3_unidirectional_edge_is_valid(out)
+    assert h3.is_valid_directed_edge(out)
 
     with pytest.raises(h3.H3NotNeighborsError):
         h3.get_h3_unidirectional_edge('821c07fffffffff', '8928308280fffff')
 
 
-def test_h3_unidirectional_edge_is_valid():
-    assert not h3.h3_unidirectional_edge_is_valid('8928308280fffff')
-    assert h3.h3_unidirectional_edge_is_valid('11928308280fffff')
+def test_is_valid_directed_edge():
+    assert not h3.is_valid_directed_edge('8928308280fffff')
+    assert h3.is_valid_directed_edge('11928308280fffff')
 
 
 def test_get_origin_h3_index_from_unidirectional_edge():

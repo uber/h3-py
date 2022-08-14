@@ -167,7 +167,7 @@ class _API_FUNCTIONS(object):
         except (ValueError, TypeError):
             return False
 
-    def h3_unidirectional_edge_is_valid(self, edge):
+    def is_valid_directed_edge(self, edge):
         """
         Validates an H3 unidirectional edge.
 
@@ -177,7 +177,7 @@ class _API_FUNCTIONS(object):
         """
         try:
             e = self._in_scalar(edge)
-            return _cy.is_edge(e)
+            return _cy.is_valid_directed_edge(e)
         except (ValueError, TypeError):
             return False
 
