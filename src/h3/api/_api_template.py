@@ -331,44 +331,6 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def hex_range_distances(self, h, K):
-        """
-        Ordered list of the "hollow" rings around ``h``,
-        up to and including distance ``K``.
-
-        Parameters
-        ----------
-        h : H3Cell
-        K : int
-            Largest distance considered.
-
-        Returns
-        -------
-        ordered collection of (unordered collection of H3Cell)
-        """
-        h = self._in_scalar(h)
-
-        out = [
-            self._out_unordered(_cy.ring(h, k))
-            for k in range(K + 1)
-        ]
-
-        return out
-
-    def hex_ranges(self, hexes, K):
-        """
-        Returns the dictionary ``{h: hex_range_distances(h, K) for h in hexes}``
-
-        Returns
-        -------
-        Dict[H3Cell, List[ UnorderedCollection[H3Cell] ]]
-        """
-        # todo: can we drop this function? the user can implement if needed.
-        # TODO: should we call `out_scalar` on the dict keys?
-        out = {h: self.hex_range_distances(h, K) for h in hexes}
-
-        return out
-
     def cell_to_children(self, h, res=None):
         """
         Children of a hexagon.
