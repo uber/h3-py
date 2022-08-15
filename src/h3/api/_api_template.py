@@ -138,7 +138,7 @@ class _API_FUNCTIONS(object):
         return _cy.average_hexagon_area(resolution, unit)
 
     @staticmethod
-    def edge_length(resolution, unit='km'):
+    def average_edge_length(resolution, unit='km'):
         """
         Return the average *hexagon* edge length
         for the given resolution.
@@ -149,7 +149,6 @@ class _API_FUNCTIONS(object):
         -------
         float
         """
-        # todo: `average_edge_length` in 4.0
         return _cy.average_edge_length(resolution, unit)
 
     def is_valid_cell(self, h):
@@ -862,7 +861,7 @@ class _API_FUNCTIONS(object):
 
         return _cy.cell_area(h, unit=unit)
 
-    def exact_edge_length(self, e, unit='km'):
+    def edge_length(self, e, unit='km'):
         """
         Compute the spherical length of a specific H3 edge.
 

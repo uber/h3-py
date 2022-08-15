@@ -640,13 +640,13 @@ def test_average_hexagon_area():
         h3.average_hexagon_area(5, 'ft^2')
 
 
-def test_edge_length():
+def test_average_edge_length():
     for i in range(0, 15):
-        assert isinstance(h3.edge_length(i), float)
-        assert isinstance(h3.edge_length(i, 'm'), float)
+        assert isinstance(h3.average_edge_length(i), float)
+        assert isinstance(h3.average_edge_length(i, 'm'), float)
 
     with pytest.raises(ValueError):
-        h3.edge_length(5, 'ft')
+        h3.average_edge_length(5, 'ft')
 
 
 def test_get_num_cells():

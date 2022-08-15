@@ -16,7 +16,7 @@ def cell_perimiter1(h, unit='km'):
     edges = h3.origin_to_directed_edges(h)
 
     dists = [
-        h3.exact_edge_length(e, unit=unit)
+        h3.edge_length(e, unit=unit)
         for e in edges
     ]
 
@@ -105,7 +105,7 @@ def test_bad_units():
         h3.cell_area(h, unit='foot-pounds')
 
     with pytest.raises(ValueError):
-        h3.exact_edge_length(e, unit='foot-pounds')
+        h3.edge_length(e, unit='foot-pounds')
 
     with pytest.raises(ValueError):
         h3.great_circle_distance((0, 0), (0, 0), unit='foot-pounds')

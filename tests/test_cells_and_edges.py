@@ -309,7 +309,7 @@ def test_average_hexagon_area():
     assert out == pytest.approx(expected_in_km2)
 
 
-def test_hex_edge_length():
+def test_average_edge_length():
     expected_in_km = {
         0: 1107.712591000,
         1: 418.676005500,
@@ -319,7 +319,7 @@ def test_hex_edge_length():
     }
 
     out = {
-        res: h3.edge_length(res, unit='km')
+        res: h3.average_edge_length(res, unit='km')
         for res in expected_in_km
     }
 
