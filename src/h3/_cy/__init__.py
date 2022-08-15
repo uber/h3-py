@@ -46,7 +46,7 @@ from .edges import (
     get_directed_edge_destination,
     directed_edge_to_cells,
     origin_to_directed_edges,
-    mean_edge_length,
+    average_edge_length,
     edge_length,
 )
 

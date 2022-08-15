@@ -149,8 +149,8 @@ class _API_FUNCTIONS(object):
         -------
         float
         """
-        # todo: `mean_edge_length` in 4.0
-        return _cy.mean_edge_length(resolution, unit)
+        # todo: `average_edge_length` in 4.0
+        return _cy.average_edge_length(resolution, unit)
 
     def is_valid_cell(self, h):
         """

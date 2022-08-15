@@ -74,7 +74,7 @@ cpdef H3int[:] origin_to_directed_edges(H3int origin):
     return mv
 
 
-cpdef double mean_edge_length(int resolution, unit='km') except -1:
+cpdef double average_edge_length(int resolution, unit='km') except -1:
     cdef:
         double length
 
