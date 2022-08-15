@@ -17,12 +17,11 @@ is_res_class_III = _b.is_res_class_III
 int_to_string = _b.int_to_string
 string_to_int = _b.string_to_int
 
-# todo: area/length functions
 cell_area = _b.cell_area
-average_hexagon_area = _b.average_hexagon_area
-average_hexagon_edge_length = _b.average_hexagon_edge_length
 edge_length = _b.edge_length
 great_circle_distance = _b.great_circle_distance
+average_hexagon_area = _b.average_hexagon_area
+average_hexagon_edge_length = _b.average_hexagon_edge_length
 
 cell_to_local_ij = _b.cell_to_local_ij
 local_ij_to_cell = _b.local_ij_to_cell
