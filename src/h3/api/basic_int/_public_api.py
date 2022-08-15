@@ -23,23 +23,23 @@ great_circle_distance = _b.great_circle_distance
 average_hexagon_area = _b.average_hexagon_area
 average_hexagon_edge_length = _b.average_hexagon_edge_length
 
-cell_to_local_ij = _b.cell_to_local_ij
-local_ij_to_cell = _b.local_ij_to_cell
 latlng_to_cell = _b.latlng_to_cell
 cell_to_latlng = _b.cell_to_latlng
 cell_to_boundary = _b.cell_to_boundary
+cell_to_local_ij = _b.cell_to_local_ij
+local_ij_to_cell = _b.local_ij_to_cell
 
-grid_distance = _b.grid_distance
 grid_ring = _b.grid_ring
 grid_disk = _b.grid_disk
+grid_distance = _b.grid_distance
 grid_path_cells = _b.grid_path_cells
 
+get_num_cells = _b.get_num_cells
 get_pentagons = _b.get_pentagons
 get_res0_cells = _b.get_res0_cells
-get_num_cells = _b.get_num_cells
+get_resolution = _b.get_resolution
 get_base_cell_number = _b.get_base_cell_number
 get_icosahedron_faces = _b.get_icosahedron_faces
-get_resolution = _b.get_resolution
 
 cell_to_parent = _b.cell_to_parent
 cell_to_children = _b.cell_to_children
@@ -54,11 +54,11 @@ polyfill_polygon = _b.polyfill_polygon
 cells_to_multi_polygon = _b.cells_to_multi_polygon
 
 are_neighbor_cells = _b.are_neighbor_cells
+cells_to_directed_edge = _b.cells_to_directed_edge
+directed_edge_to_cells = _b.directed_edge_to_cells
+origin_to_directed_edges = _b.origin_to_directed_edges
 get_directed_edge_origin = _b.get_directed_edge_origin
 get_directed_edge_destination = _b.get_directed_edge_destination
-directed_edge_to_cells = _b.directed_edge_to_cells
-cells_to_directed_edge = _b.cells_to_directed_edge
 directed_edge_to_boundary = _b.directed_edge_to_boundary
-origin_to_directed_edges = _b.origin_to_directed_edges
 
 versions = _b.versions
