@@ -138,7 +138,7 @@ class _API_FUNCTIONS(object):
         return _cy.average_hexagon_area(resolution, unit)
 
     @staticmethod
-    def average_edge_length(resolution, unit='km'):
+    def average_hexagon_edge_length(resolution, unit='km'):
         """
         Return the average *hexagon* edge length
         for the given resolution.
@@ -149,7 +149,7 @@ class _API_FUNCTIONS(object):
         -------
         float
         """
-        return _cy.average_edge_length(resolution, unit)
+        return _cy.average_hexagon_edge_length(resolution, unit)
 
     def is_valid_cell(self, h):
         """

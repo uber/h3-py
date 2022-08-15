@@ -20,7 +20,7 @@ string_to_int = _b.string_to_int
 # todo: area/length functions
 cell_area = _b.cell_area
 average_hexagon_area = _b.average_hexagon_area
-average_edge_length = _b.average_edge_length
+average_hexagon_edge_length = _b.average_hexagon_edge_length
 edge_length = _b.edge_length
 great_circle_distance = _b.great_circle_distance
 

@@ -56,7 +56,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    average_hexagon_area
    cell_area
    edge_length
-   average_edge_length
+   average_hexagon_edge_length
    cell_to_boundary
    directed_edge_to_boundary
    polyfill
