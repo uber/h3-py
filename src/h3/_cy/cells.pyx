@@ -274,7 +274,7 @@ cpdef int64_t get_num_cells(int resolution) except -1:
     return num_cells
 
 
-cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
+cpdef double average_hexagon_area(int resolution, unit='km^2') except -1:
     cdef:
         double area
 

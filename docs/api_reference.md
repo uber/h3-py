@@ -53,7 +53,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 
 .. autosummary::
    great_circle_distance
-   hex_area
+   average_hexagon_area
    cell_area
    edge_length
    exact_edge_length

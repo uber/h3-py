@@ -292,7 +292,7 @@ def test_get_num_cells():
     assert expected == out
 
 
-def test_hex_area():
+def test_average_hexagon_area():
     expected_in_km2 = {
         0: 4357449.416078381,
         1:  609788.441794133,
@@ -302,7 +302,7 @@ def test_hex_area():
     }
 
     out = {
-        k: h3.hex_area(k, unit='km^2')
+        k: h3.average_hexagon_area(k, unit='km^2')
         for k in expected_in_km2
     }
 

@@ -26,7 +26,7 @@ from .cells import (
     compact_cells,
     uncompact_cells,
     get_num_cells,
-    mean_hex_area,
+    average_hexagon_area,
     cell_area,
     grid_path_cells,
     is_res_class_iii,

@@ -124,7 +124,7 @@ class _API_FUNCTIONS(object):
         return _cy.get_num_cells(resolution)
 
     @staticmethod
-    def hex_area(resolution, unit='km^2'):
+    def average_hexagon_area(resolution, unit='km^2'):
         """
         Return the average area of an H3 *hexagon*
         for the given resolution.
@@ -135,8 +135,7 @@ class _API_FUNCTIONS(object):
         -------
         float
         """
-        # todo: `mean_hex_area` in 4.0
-        return _cy.mean_hex_area(resolution, unit)
+        return _cy.average_hexagon_area(resolution, unit)
 
     @staticmethod
     def edge_length(resolution, unit='km'):

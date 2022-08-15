@@ -631,13 +631,13 @@ def test_cell_to_children():
     assert len(children) == 7
 
 
-def test_hex_area():
+def test_average_hexagon_area():
     for i in range(0, 15):
-        assert isinstance(h3.hex_area(i), float)
-        assert isinstance(h3.hex_area(i, 'm^2'), float)
+        assert isinstance(h3.average_hexagon_area(i), float)
+        assert isinstance(h3.average_hexagon_area(i, 'm^2'), float)
 
     with pytest.raises(ValueError):
-        h3.hex_area(5, 'ft^2')
+        h3.average_hexagon_area(5, 'ft^2')
 
 
 def test_edge_length():
