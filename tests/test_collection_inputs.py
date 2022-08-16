@@ -22,15 +22,15 @@ def test_set():
 
     h = 614553222213795839
 
-    assert basic_int.compact(ints) == {h}
+    assert basic_int.compact_cells(ints) == {h}
 
     with pytest.raises(TypeError):
         # numpy can't convert from a set
-        numpy_int.compact(ints)
+        numpy_int.compact_cells(ints)
 
     with pytest.raises(TypeError):
         # set isn't a memoryview
-        memview_int.compact(ints)
+        memview_int.compact_cells(ints)
 
 
 def test_list():
@@ -46,19 +46,19 @@ def test_list():
 
     h = 614553222213795839
 
-    assert basic_int.compact(ints) == {h}
+    assert basic_int.compact_cells(ints) == {h}
 
     # numpy can convert from a list OK
     # (numpy knows to convert it to uint64)
-    assert numpy_int.compact(ints) == np.array([h], dtype='uint64')
+    assert numpy_int.compact_cells(ints) == np.array([h], dtype='uint64')
 
     # little weird that numpy comparisons don't consider dtype
-    assert numpy_int.compact(ints) == np.array([h])
-    assert not numpy_int.compact(ints).dtype == np.array([h]).dtype
+    assert numpy_int.compact_cells(ints) == np.array([h])
+    assert not numpy_int.compact_cells(ints).dtype == np.array([h]).dtype
 
     with pytest.raises(TypeError):
         # list isn't a memoryview
-        memview_int.compact(ints)
+        memview_int.compact_cells(ints)
 
 
 def test_np_array():
@@ -74,12 +74,12 @@ def test_np_array():
 
     h = 614553222213795839
 
-    assert basic_int.compact(ints) == {h}
+    assert basic_int.compact_cells(ints) == {h}
 
-    assert numpy_int.compact(ints) == np.array([h], dtype='uint64')
-    assert numpy_int.compact(ints).dtype == np.dtype('uint64')
+    assert numpy_int.compact_cells(ints) == np.array([h], dtype='uint64')
+    assert numpy_int.compact_cells(ints).dtype == np.dtype('uint64')
 
-    out = memview_int.compact(ints)
+    out = memview_int.compact_cells(ints)
     assert len(out) == 1
     assert out[0] == h
 
@@ -99,15 +99,15 @@ def test_list_to_array():
 
     h = 614553222213795839
 
-    assert basic_int.compact(ints) == {h}
-    assert numpy_int.compact(ints) == np.array([h], dtype='uint64')
+    assert basic_int.compact_cells(ints) == {h}
+    assert numpy_int.compact_cells(ints) == np.array([h], dtype='uint64')
 
     with pytest.raises(ValueError):
         # Without the explicit dtype given above, the array
         # assumes it has *signed* integers
         # The `memview_int` interface requires a dtype match
         # with uint64.
-        memview_int.compact(ints)
+        memview_int.compact_cells(ints)
 
 
 def test_iterator():
@@ -128,14 +128,14 @@ def test_iterator():
     h = 614553222213795839
 
     ints = foo()
-    assert basic_int.compact(ints) == {h}
+    assert basic_int.compact_cells(ints) == {h}
 
     ints = foo()
     with pytest.raises(TypeError):
         # numpy can't create an array from an iterator
-        numpy_int.compact(ints)
+        numpy_int.compact_cells(ints)
 
     ints = foo()
     with pytest.raises(TypeError):
         # requires a bytes-like input
-        memview_int.compact(ints)
+        memview_int.compact_cells(ints)

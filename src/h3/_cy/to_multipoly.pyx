@@ -59,7 +59,7 @@ def _geojson_loop(loop):
     return loop
 
 
-def h3_set_to_multi_polygon(const H3int[:] hexes, geo_json=False):
+def cells_to_multi_polygon(const H3int[:] hexes, geo_json=False):
     # todo: gotta be a more elegant way to handle these...
     if len(hexes) == 0:
         return []

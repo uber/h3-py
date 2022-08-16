@@ -5,11 +5,11 @@ def test_int_output():
     lat = 37.7752702151959
     lng = -122.418307270836
 
-    assert h3.geo_to_h3(lat, lng, 9) == 617700169958293503
-    assert h3.geo_to_h3(lat, lng, 9) == 0x8928308280fffff
+    assert h3.latlng_to_cell(lat, lng, 9) == 617700169958293503
+    assert h3.latlng_to_cell(lat, lng, 9) == 0x8928308280fffff
 
 
-def test_k_ring():
+def test_grid_disk():
     expected = {
         617700169957507071,
         617700169957769215,
@@ -20,29 +20,29 @@ def test_k_ring():
         617700169965109247,
     }
 
-    out = h3.k_ring(617700169958293503, 1)
+    out = h3.grid_disk(617700169958293503, 1)
     assert out == expected
 
 
-def test_compact():
+def test_compact_cells():
     h = 617700169958293503
-    hexes = h3.h3_to_children(h)
+    hexes = h3.cell_to_children(h)
 
-    assert h3.compact(hexes) == {h}
+    assert h3.compact_cells(hexes) == {h}
 
 
-def test_get_faces():
+def test_get_icosahedron_faces():
     h = 577832942814887935
     expected = {2, 3, 7, 8, 12}
-    out = h3.h3_get_faces(h)
+    out = h3.get_icosahedron_faces(h)
     assert out == expected
 
     h = 579873636396040191
     expected = {13}
-    out = h3.h3_get_faces(h)
+    out = h3.get_icosahedron_faces(h)
     assert out == expected
 
     h = 579768083279773695
     expected = {16, 15}
-    out = h3.h3_get_faces(h)
+    out = h3.get_icosahedron_faces(h)
     assert out == expected

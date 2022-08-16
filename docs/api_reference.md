@@ -20,9 +20,9 @@ but we'll try to group functions in a reasonably logical manner.
 
 .. autosummary::
    is_valid_cell
-   h3_is_pentagon
-   h3_is_res_class_III
-   h3_unidirectional_edge_is_valid
+   is_pentagon
+   is_res_class_III
+   is_valid_directed_edge
    versions
 ```
 
@@ -32,16 +32,16 @@ but we'll try to group functions in a reasonably logical manner.
 .. currentmodule:: h3
 
 .. autosummary::
-   geo_to_h3
-   h3_to_geo
-   h3_to_string
-   string_to_h3
-   get_res0_indexes
-   get_pentagon_indexes
-   num_hexagons
-   h3_get_resolution
-   compact
-   uncompact
+   latlng_to_cell
+   cell_to_latlng
+   int_to_string
+   string_to_int
+   get_res0_cells
+   get_pentagons
+   get_num_cells
+   get_resolution
+   compact_cells
+   uncompact_cells
 ```
 
 ### Geographic coordinates
@@ -52,17 +52,17 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   point_dist
-   hex_area
+   great_circle_distance
+   average_hexagon_area
    cell_area
    edge_length
-   exact_edge_length
-   h3_to_geo_boundary
-   get_h3_unidirectional_edge_boundary
+   average_hexagon_edge_length
+   cell_to_boundary
+   directed_edge_to_boundary
    polyfill
    polyfill_geojson
    polyfill_polygon
-   h3_set_to_multi_polygon
+   cells_to_multi_polygon
 ```
 
 ### Hierarchical relationships
@@ -71,9 +71,9 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   h3_to_parent
-   h3_to_children
-   h3_to_center_child
+   cell_to_parent
+   cell_to_children
+   cell_to_center_child
 ```
 
 ### Cell grid relationships
@@ -82,13 +82,11 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   hex_range_distances
-   hex_ranges
-   hex_ring
-   k_ring
-   h3_distance
-   h3_indexes_are_neighbors
-   h3_line
+   grid_ring
+   grid_disk
+   grid_distance
+   are_neighbor_cells
+   grid_path_cells
 ```
 
 ### Edges
@@ -97,11 +95,11 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   get_h3_unidirectional_edge
-   get_destination_h3_index_from_unidirectional_edge
-   get_h3_indexes_from_unidirectional_edge
-   get_h3_unidirectional_edges_from_hexagon
-   get_origin_h3_index_from_unidirectional_edge
+   cells_to_directed_edge
+   get_directed_edge_destination
+   directed_edge_to_cells
+   origin_to_directed_edges
+   get_directed_edge_origin
 ```
 
 ### IJ-indexing
@@ -110,10 +108,10 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
-   h3_get_base_cell
-   h3_get_faces
-   experimental_h3_to_local_ij
-   experimental_local_ij_to_h3
+   get_base_cell_number
+   get_icosahedron_faces
+   cell_to_local_ij
+   local_ij_to_cell
 ```
 
 

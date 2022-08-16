@@ -6,7 +6,7 @@ from .error_system cimport check_for_error
 from .memory cimport H3MemoryManager
 
 # todo: make bint
-cpdef bool are_neighbors(H3int h1, H3int h2):
+cpdef bool are_neighbor_cells(H3int h1, H3int h2):
     cdef:
         int out
 
@@ -21,7 +21,7 @@ cpdef bool are_neighbors(H3int h1, H3int h2):
     return out == 1
 
 
-cpdef H3int edge(H3int origin, H3int destination) except *:
+cpdef H3int cells_to_directed_edge(H3int origin, H3int destination) except *:
     cdef:
         int neighbor_out
         H3int out
@@ -33,10 +33,10 @@ cpdef H3int edge(H3int origin, H3int destination) except *:
     return out
 
 
-cpdef bool is_edge(H3int e):
+cpdef bool is_valid_directed_edge(H3int e):
     return h3lib.isValidDirectedEdge(e) == 1
 
-cpdef H3int edge_origin(H3int e) except 1:
+cpdef H3int get_directed_edge_origin(H3int e) except 1:
     cdef:
         H3int out
 
@@ -46,7 +46,7 @@ cpdef H3int edge_origin(H3int e) except 1:
 
     return out
 
-cpdef H3int edge_destination(H3int e) except 1:
+cpdef H3int get_directed_edge_destination(H3int e) except 1:
     cdef:
         H3int out
 
@@ -56,10 +56,11 @@ cpdef H3int edge_destination(H3int e) except 1:
 
     return out
 
-cpdef (H3int, H3int) edge_cells(H3int e) except *:
-    return edge_origin(e), edge_destination(e)
+cpdef (H3int, H3int) directed_edge_to_cells(H3int e) except *:
+    # todo: use directed_edge_to_cells in h3lib
+    return get_directed_edge_origin(e), get_directed_edge_destination(e)
 
-cpdef H3int[:] edges_from_cell(H3int origin):
+cpdef H3int[:] origin_to_directed_edges(H3int origin):
     """ Returns the 6 (or 5 for pentagons) directed edges
     for the given origin cell
     """
@@ -73,7 +74,7 @@ cpdef H3int[:] edges_from_cell(H3int origin):
     return mv
 
 
-cpdef double mean_edge_length(int resolution, unit='km') except -1:
+cpdef double average_hexagon_edge_length(int resolution, unit='km') except -1:
     cdef:
         double length
 

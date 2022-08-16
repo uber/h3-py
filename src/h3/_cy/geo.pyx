@@ -24,7 +24,7 @@ from libc.stdlib cimport (
 )
 
 
-cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
+cpdef H3int latlng_to_cell(double lat, double lng, int res) except 1:
     cdef:
         h3lib.LatLng c
         H3int out
@@ -38,7 +38,7 @@ cpdef H3int geo_to_h3(double lat, double lng, int res) except 1:
     return out
 
 
-cpdef (double, double) h3_to_geo(H3int h) except *:
+cpdef (double, double) cell_to_latlng(H3int h) except *:
     """Map an H3 cell into its centroid geo-coordinate (lat/lng)"""
     cdef:
         h3lib.LatLng c
@@ -237,7 +237,7 @@ def polyfill(dict geojson, int res, bool geo_json_conformant=False):
     return out
 
 
-def cell_boundary(H3int h, bool geo_json=False):
+def cell_to_boundary(H3int h, bool geo_json=False):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
         h3lib.CellBoundary gb
@@ -259,7 +259,7 @@ def cell_boundary(H3int h, bool geo_json=False):
     return verts
 
 
-def edge_boundary(H3int edge, bool geo_json=False):
+def directed_edge_to_boundary(H3int edge, bool geo_json=False):
     """ Returns the CellBoundary containing the coordinates of the edge
     """
     cdef:
@@ -283,7 +283,7 @@ def edge_boundary(H3int edge, bool geo_json=False):
     return verts
 
 
-cpdef double point_dist(
+cpdef double great_circle_distance(
     double lat1, double lng1,
     double lat2, double lng2, unit='km') except -1:
 

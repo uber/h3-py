@@ -138,6 +138,7 @@ cdef extern from 'h3api.h':
     H3Error getDirectedEdgeOrigin(H3int edge, H3int *out) nogil
     H3Error getDirectedEdgeDestination(H3int edge, H3int *out) nogil
     H3Error originToDirectedEdges(H3int origin, H3int *edges) nogil
+    # todo: directedEdgeToCells
 
     H3Error getHexagonEdgeLengthAvgKm(int res, double *out) nogil
     H3Error getHexagonEdgeLengthAvgM(int res, double *out) nogil

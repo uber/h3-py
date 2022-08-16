@@ -35,13 +35,13 @@ cpdef bool is_pentagon(H3int h):
     return h3lib.isPentagon(h) == 1
 
 
-cpdef int get_base_cell(H3int h) except -1:
+cpdef int get_base_cell_number(H3int h) except -1:
     check_cell(h)
 
     return h3lib.getBaseCellNumber(h)
 
 
-cpdef int resolution(H3int h) except -1:
+cpdef int get_resolution(H3int h) except -1:
     """Returns the resolution of an H3 Index
     0--15
     """
@@ -50,7 +50,7 @@ cpdef int resolution(H3int h) except -1:
     return h3lib.getResolution(h)
 
 
-cpdef int distance(H3int h1, H3int h2) except -1:
+cpdef int grid_distance(H3int h1, H3int h2) except -1:
     """ Compute the grid distance between two cells
     """
     cdef:
@@ -65,7 +65,7 @@ cpdef int distance(H3int h1, H3int h2) except -1:
 
     return distance
 
-cpdef H3int[:] disk(H3int h, int k):
+cpdef H3int[:] grid_disk(H3int h, int k):
     """ Return cells at grid distance `<= k` from `h`.
     """
     cdef:
@@ -122,7 +122,7 @@ cpdef H3int[:] _ring_fallback(H3int h, int k):
 
     return mv
 
-cpdef H3int[:] ring(H3int h, int k):
+cpdef H3int[:] grid_ring(H3int h, int k):
     """ Return cells at grid distance `== k` from `h`.
     Collection is "hollow" for k >= 1.
     """
@@ -139,14 +139,14 @@ cpdef H3int[:] ring(H3int h, int k):
 
     return mv
 
-cpdef H3int parent(H3int h, res=None) except 0:
+cpdef H3int cell_to_parent(H3int h, res=None) except 0:
     cdef:
         H3int parent
 
     check_cell(h) # todo: do we want to check for validity here? or leave correctness to the user?
 
     if res is None:
-        res = resolution(h) - 1
+        res = get_resolution(h) - 1
 
     err = h3lib.cellToParent(h, res, &parent)
     if err:
@@ -157,14 +157,14 @@ cpdef H3int parent(H3int h, res=None) except 0:
     return parent
 
 
-cpdef H3int[:] children(H3int h, res=None):
+cpdef H3int[:] cell_to_children(H3int h, res=None):
     cdef:
         int64_t n
 
     check_cell(h)
 
     if res is None:
-        res = resolution(h) + 1
+        res = get_resolution(h) + 1
 
     err = h3lib.cellToChildrenSize(h, res, &n)
     if err:
@@ -181,14 +181,14 @@ cpdef H3int[:] children(H3int h, res=None):
     return mv
 
 
-cpdef H3int center_child(H3int h, res=None) except 0:
+cpdef H3int cell_to_center_child(H3int h, res=None) except 0:
     cdef:
         H3int child
 
     check_cell(h)
 
     if res is None:
-        res = resolution(h) + 1
+        res = get_resolution(h) + 1
 
     err = h3lib.cellToCenterChild(h, res, &child)
     if err:
@@ -200,7 +200,7 @@ cpdef H3int center_child(H3int h, res=None) except 0:
 
 
 
-cpdef H3int[:] compact(const H3int[:] hu):
+cpdef H3int[:] compact_cells(const H3int[:] hu):
     # todo: fix this with my own Cython object "wrapper" class?
     #   everything has a .ptr interface?
     # todo: the Clib can handle 0-len arrays because it **avoids**
@@ -227,7 +227,7 @@ cpdef H3int[:] compact(const H3int[:] hu):
 
 # todo: https://stackoverflow.com/questions/50684977/cython-exception-type-for-a-function-returning-a-typed-memoryview
 # apparently, memoryviews are python objects, so we don't need to do the except clause
-cpdef H3int[:] uncompact(const H3int[:] hc, int res):
+cpdef H3int[:] uncompact_cells(const H3int[:] hc, int res):
     # todo: the Clib can handle 0-len arrays because it **avoids**
     # dereferencing the pointer, but Cython's syntax of
     # `&hc[0]` **requires** a dereference. For Cython, checking for array
@@ -263,7 +263,7 @@ cpdef H3int[:] uncompact(const H3int[:] hc, int res):
     return mv
 
 
-cpdef int64_t num_hexagons(int resolution) except -1:
+cpdef int64_t get_num_cells(int resolution) except -1:
     cdef:
         int64_t num_cells
 
@@ -274,7 +274,7 @@ cpdef int64_t num_hexagons(int resolution) except -1:
     return num_cells
 
 
-cpdef double mean_hex_area(int resolution, unit='km^2') except -1:
+cpdef double average_hexagon_area(int resolution, unit='km^2') except -1:
     cdef:
         double area
 
@@ -320,7 +320,7 @@ cdef _could_not_find_line(err, start, end):
 
     check_for_error_msg(err, msg)
 
-cpdef H3int[:] line(H3int start, H3int end):
+cpdef H3int[:] grid_path_cells(H3int start, H3int end):
     cdef:
         int64_t n
 
@@ -345,7 +345,7 @@ cpdef bool is_res_class_iii(H3int h):
     return h3lib.isResClassIII(h) == 1
 
 
-cpdef H3int[:] get_pentagon_indexes(int res):
+cpdef H3int[:] get_pentagons(int res):
     n = h3lib.pentagonCount()
 
     hmm = H3MemoryManager(n)
@@ -357,7 +357,7 @@ cpdef H3int[:] get_pentagon_indexes(int res):
     return mv
 
 
-cpdef H3int[:] get_res0_indexes():
+cpdef H3int[:] get_res0_cells():
     n = h3lib.res0CellCount()
 
     hmm = H3MemoryManager(n)
@@ -370,7 +370,7 @@ cpdef H3int[:] get_res0_indexes():
 
 # oh, this is returning a set??
 # todo: convert to int[:]?
-cpdef get_faces(H3int h):
+cpdef get_icosahedron_faces(H3int h):
     cdef:
         int n
         int[:] faces  ## todo: weird, this needs to be specified to avoid errors. cython bug?
@@ -391,7 +391,7 @@ cpdef get_faces(H3int h):
     return out
 
 
-cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
+cpdef (int, int) cell_to_local_ij(H3int origin, H3int h) except *:
     cdef:
         h3lib.CoordIJ c
 
@@ -403,7 +403,7 @@ cpdef (int, int) experimental_h3_to_local_ij(H3int origin, H3int h) except *:
 
     return c.i, c.j
 
-cpdef H3int experimental_local_ij_to_h3(H3int origin, int i, int j) except 0:
+cpdef H3int local_ij_to_cell(H3int origin, int i, int j) except 0:
     cdef:
         h3lib.CoordIJ c
         H3int out
