@@ -887,7 +887,7 @@ class _API_FUNCTIONS(object):
         return _cy.edge_length(e, unit=unit)
 
     @staticmethod
-    def great_circle_distance(point1, point2, unit='km'):
+    def great_circle_distance(latlng1, latlng2, unit='km'):
         """
         Compute the spherical distance between two (lat, lng) points.
 
@@ -899,9 +899,9 @@ class _API_FUNCTIONS(object):
 
         Parameters
         ----------
-        point1 : tuple
+        latlng1 : tuple
             (lat, lng) tuple in degrees
-        point2 : tuple
+        latlng2 : tuple
             (lat, lng) tuple in degrees
         unit: str
             Unit for distance result ('km', 'm', or 'rads')
@@ -911,11 +911,8 @@ class _API_FUNCTIONS(object):
         -------
         Spherical (or "haversine") distance between the points
         """
-        lat1, lng1 = point1
-        lat2, lng2 = point2
-
         return _cy.great_circle_distance(
-            lat1, lng1,
-            lat2, lng2,
+            *latlng1,
+            *latlng2,
             unit=unit
         )
