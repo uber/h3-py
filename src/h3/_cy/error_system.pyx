@@ -84,7 +84,7 @@ from .h3lib cimport (
     E_DUPLICATE_INPUT,
     E_NOT_NEIGHBORS,
     E_RES_MISMATCH,
-    E_MEMORY,
+    E_MEMORY_ALLOC,
     E_MEMORY_BOUNDS,
     E_OPTION_INVALID,
 )
@@ -189,7 +189,7 @@ error_mapping = {
     E_DUPLICATE_INPUT:     H3DuplicateInputError,
     E_NOT_NEIGHBORS:       H3NotNeighborsError,
     E_RES_MISMATCH:        H3ResMismatchError,
-    E_MEMORY:              H3MemoryAllocError,
+    E_MEMORY_ALLOC:        H3MemoryAllocError,
     E_MEMORY_BOUNDS:       H3MemoryBoundsError,
     E_OPTION_INVALID:      H3OptionInvalidError,
 }

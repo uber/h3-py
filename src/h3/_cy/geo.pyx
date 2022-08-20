@@ -291,11 +291,11 @@ cpdef double great_circle_distance(
     b = deg2coord(lat2, lng2)
 
     if unit == 'rads':
-        d = h3lib.distanceRads(&a, &b)
+        d = h3lib.greatCircleDistanceRads(&a, &b)
     elif unit == 'km':
-        d = h3lib.distanceKm(&a, &b)
+        d = h3lib.greatCircleDistanceKm(&a, &b)
     elif unit == 'm':
-        d = h3lib.distanceM(&a, &b)
+        d = h3lib.greatCircleDistanceM(&a, &b)
     else:
         raise ValueError('Unknown unit: {}'.format(unit))
 
