@@ -890,10 +890,7 @@ class _API_FUNCTIONS(object):
     def great_circle_distance(latlng1, latlng2, unit='km'):
         """
         Compute the spherical distance between two (lat, lng) points.
-
-        todo: do we handle lat/lng points consistently in the api? what
-        about (lat1, lng1, lat2, lng2) as the input? How will this work
-        for vectorized versions?
+        AKA: great circle distance or "haversine" distance.
 
         todo: overload to allow two cell inputs?
 
@@ -909,10 +906,6 @@ class _API_FUNCTIONS(object):
 
         Returns
         -------
-        Spherical (or "haversine") distance between the points
+        The spherical distance between the points in the given units
         """
-        return _cy.great_circle_distance(
-            *latlng1,
-            *latlng2,
-            unit=unit
-        )
+        return _cy.great_circle_distance(*latlng1, *latlng2, unit=unit)
