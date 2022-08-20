@@ -25,7 +25,7 @@ cdef extern from 'h3api.h':
         E_DUPLICATE_INPUT = 10
         E_NOT_NEIGHBORS = 11
         E_RES_MISMATCH = 12
-        E_MEMORY = 13
+        E_MEMORY_ALLOC = 13
         E_MEMORY_BOUNDS = 14
         E_OPTION_INVALID = 15
 
@@ -143,16 +143,16 @@ cdef extern from 'h3api.h':
     H3Error getHexagonEdgeLengthAvgKm(int res, double *out) nogil
     H3Error getHexagonEdgeLengthAvgM(int res, double *out) nogil
 
-    H3Error exactEdgeLengthRads(H3int edge, double *out) nogil
-    H3Error exactEdgeLengthKm(H3int edge, double *out) nogil
-    H3Error exactEdgeLengthM(H3int edge, double *out) nogil
+    H3Error edgeLengthRads(H3int edge, double *out) nogil
+    H3Error edgeLengthKm(H3int edge, double *out) nogil
+    H3Error edgeLengthM(H3int edge, double *out) nogil
 
     H3Error cellToBoundary(H3int h3, CellBoundary *gp) nogil
     H3Error directedEdgeToBoundary(H3int edge, CellBoundary *gb) nogil
 
-    double distanceRads(const LatLng *a, const LatLng *b) nogil
-    double distanceKm(const LatLng *a, const LatLng *b) nogil
-    double distanceM(const LatLng *a, const LatLng *b) nogil
+    double greatCircleDistanceRads(const LatLng *a, const LatLng *b) nogil
+    double greatCircleDistanceKm(const LatLng *a, const LatLng *b) nogil
+    double greatCircleDistanceM(const LatLng *a, const LatLng *b) nogil
 
     H3Error cellsToLinkedMultiPolygon(const H3int *h3Set, const int numHexes, LinkedGeoPolygon *out)
     void destroyLinkedMultiPolygon(LinkedGeoPolygon *polygon)

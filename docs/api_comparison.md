@@ -37,7 +37,7 @@ needs, based on speed and convenience.
 
 ```{tip}
 Note that the APIs are all 100% compatible, and it is easy to convert
-between them with functions like `int_to_string` (links!) and `string_to_int`.
+between them with functions like `int_to_str` (links!) and `str_to_int`.
 
 For example, one common pattern is to use `h3.api.numpy_int` for any
 computationally-heavy work, and convert the output to `str` and `list`/`set`
@@ -236,7 +236,7 @@ def compute(h3_lib, N=100):
 
 def compute_and_convert(h3_lib, N=100):
     out = compute(h3_lib, N)
-    out = [h3.int_to_string(h) for h in out]
+    out = [h3.int_to_str(h) for h in out]
     
     return out
 ```

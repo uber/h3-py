@@ -78,7 +78,7 @@ class _API_FUNCTIONS(object):
         return v
 
     @staticmethod
-    def string_to_int(h):
+    def str_to_int(h):
         """
         Converts a hexadecimal string to an H3 64-bit integer index.
 
@@ -92,10 +92,10 @@ class _API_FUNCTIONS(object):
         int
             Unsigned 64-bit integer
         """
-        return _cy.hex2int(h)
+        return _cy.str_to_int(h)
 
     @staticmethod
-    def int_to_string(x):
+    def int_to_str(x):
         """
         Converts an H3 64-bit integer index to a hexadecimal string.
 
@@ -109,7 +109,7 @@ class _API_FUNCTIONS(object):
         str
             Hexadecimal string like ``'89754e64993ffff'``
         """
-        return _cy.int2hex(x)
+        return _cy.int_to_str(x)
 
     @staticmethod
     def get_num_cells(resolution):
@@ -887,21 +887,18 @@ class _API_FUNCTIONS(object):
         return _cy.edge_length(e, unit=unit)
 
     @staticmethod
-    def great_circle_distance(point1, point2, unit='km'):
+    def great_circle_distance(latlng1, latlng2, unit='km'):
         """
         Compute the spherical distance between two (lat, lng) points.
-
-        todo: do we handle lat/lng points consistently in the api? what
-        about (lat1, lng1, lat2, lng2) as the input? How will this work
-        for vectorized versions?
+        AKA: great circle distance or "haversine" distance.
 
         todo: overload to allow two cell inputs?
 
         Parameters
         ----------
-        point1 : tuple
+        latlng1 : tuple
             (lat, lng) tuple in degrees
-        point2 : tuple
+        latlng2 : tuple
             (lat, lng) tuple in degrees
         unit: str
             Unit for distance result ('km', 'm', or 'rads')
@@ -909,13 +906,12 @@ class _API_FUNCTIONS(object):
 
         Returns
         -------
-        Spherical (or "haversine") distance between the points
+        The spherical distance between the points in the given units
         """
-        lat1, lng1 = point1
-        lat2, lng2 = point2
-
+        lat1, lng1 = latlng1
+        lat2, lng2 = latlng2
         return _cy.great_circle_distance(
             lat1, lng1,
             lat2, lng2,
-            unit=unit
+            unit = unit
         )

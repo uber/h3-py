@@ -36,11 +36,11 @@ cpdef basestring c_version():
     return '{}.{}.{}'.format(*v)
 
 
-cpdef H3int hex2int(H3str h) except? 0:
+cpdef H3int str_to_int(H3str h) except? 0:
     return int(h, 16)
 
 
-cpdef H3str int2hex(H3int x):
+cpdef H3str int_to_str(H3int x):
     """ Convert H3 integer to hex string representation
 
     Need to be careful in Python 2 because `hex(x)` may return a string
@@ -61,7 +61,7 @@ cdef check_cell(H3int h):
     we want the error message to be informative to the user
     in either case.
 
-    We use the builtin `hex` function instead of `int2hex` to
+    We use the builtin `hex` function instead of `int_to_str` to
     prepend `0x` to indicate that this **integer** representation
     is incorrect, but in a format that is easily compared to
     `str` inputs.

@@ -151,7 +151,7 @@ def test_parent_err():
 
     # todo: revist this weird formatting stuff
     expected = 'Invalid parent resolution -1 for cell {}.'
-    expected = expected.format(hex(h3.string_to_int(h)))
+    expected = expected.format(hex(h3.str_to_int(h)))
 
     assert msg == expected
 
@@ -480,12 +480,12 @@ def test_versions():
 
 def test_str_int_convert():
     s = '8928308280fffff'
-    i = h3.string_to_int(s)
+    i = h3.str_to_int(s)
 
-    assert h3.int_to_string(i) == s
+    assert h3.int_to_str(i) == s
 
 
-def test_hex2int_fail():
+def test_str_to_int_fail():
     h_invalid = {}
 
     assert not h3.is_valid_cell(h_invalid)
