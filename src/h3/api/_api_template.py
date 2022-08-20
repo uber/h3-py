@@ -908,4 +908,10 @@ class _API_FUNCTIONS(object):
         -------
         The spherical distance between the points in the given units
         """
-        return _cy.great_circle_distance(*latlng1, *latlng2, unit=unit)
+        lat1, lng1 = latlng1
+        lat2, lng2 = latlng2
+        return _cy.great_circle_distance(
+            lat1, lng1,
+            lat2, lng2,
+            unit = unit
+        )
