@@ -14,8 +14,8 @@ is_pentagon = _b.is_pentagon
 is_valid_directed_edge = _b.is_valid_directed_edge
 is_res_class_III = _b.is_res_class_III
 
-int_to_string = _b.int_to_string
-string_to_int = _b.string_to_int
+int_to_str = _b.int_to_str
+str_to_int = _b.str_to_int
 
 cell_area = _b.cell_area
 edge_length = _b.edge_length
