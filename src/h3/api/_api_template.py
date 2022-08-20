@@ -425,52 +425,8 @@ class _API_FUNCTIONS(object):
         hexes = self._in_collection(hexes)
         return _cy.cells_to_multi_polygon(hexes, geo_json=geo_json)
 
-    def polyfill_polygon(self, outer, res, holes=None, lnglat_order=False):
-        mv = _cy.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
-
-        return self._out_unordered(mv)
-
-    def polyfill_geojson(self, geojson, res):
-        mv = _cy.polyfill_geojson(geojson, res)
-
-        return self._out_unordered(mv)
-
-    def polyfill(self, geojson, res, geo_json_conformant=False):
-        """
-        Get set of hexagons whose *centers* are contained within
-        a GeoJSON-style polygon.
-
-        Parameters
-        ----------
-        geojson : dict
-            GeoJSON-style input dictionary describing a polygon (optionally
-            including holes).
-
-            Dictionary should be formatted like:
-
-            .. code-block:: text
-
-                {
-                    'type': 'Polygon',
-                    'coordinates': [outer, hole1, hole2, ...],
-                }
-
-            `outer`, `hole1`, etc., are lists of geo coordinate tuples.
-            The holes are optional.
-
-        res : int
-            Desired output resolution for cells.
-        geo_json_conformant : bool, optional
-            When ``True``, ``outer``, ``hole1``, etc. must be sequences of
-            lng/lat pairs, with the last the same as the first.
-            When ``False``, they must be sequences of lat/lng pairs,
-            with the last not needing to match the first.
-
-        Returns
-        -------
-        unordered collection of H3Cell
-        """
-        mv = _cy.polyfill(geojson, res, geo_json_conformant=geo_json_conformant)
+    def polygon_to_cells(self, outer, res, holes=None):
+        mv = _cy.polygon_to_cells(outer, res, holes=holes)
 
         return self._out_unordered(mv)
 
