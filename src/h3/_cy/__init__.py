@@ -67,8 +67,8 @@ from .to_multipoly import (
 
 from .util import (
     c_version,
-    hex2int,
-    int2hex,
+    str_to_int,
+    int_to_str,
 )
 
 from .memory import (

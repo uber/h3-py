@@ -65,7 +65,7 @@ avoid adding features or APIs which do not map onto the
 
 ## [3.6.2] - 2020-06-02
 
-- Improve error reporting on `hex2int` (https://github.com/uber/h3-py/pull/127)
+- Improve error reporting on `str_to_int` (https://github.com/uber/h3-py/pull/127)
 - Build Linux wheels for Python 2.7
 
 ## [3.6.1] - 2020-05-29

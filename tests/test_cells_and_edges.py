@@ -485,7 +485,7 @@ def test_str_int_convert():
     assert h3.int_to_str(i) == s
 
 
-def test_hex2int_fail():
+def test_str_to_int_fail():
     h_invalid = {}
 
     assert not h3.is_valid_cell(h_invalid)

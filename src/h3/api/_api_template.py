@@ -92,7 +92,7 @@ class _API_FUNCTIONS(object):
         int
             Unsigned 64-bit integer
         """
-        return _cy.hex2int(h)
+        return _cy.str_to_int(h)
 
     @staticmethod
     def int_to_str(x):
@@ -109,7 +109,7 @@ class _API_FUNCTIONS(object):
         str
             Hexadecimal string like ``'89754e64993ffff'``
         """
-        return _cy.int2hex(x)
+        return _cy.int_to_str(x)
 
     @staticmethod
     def get_num_cells(resolution):
