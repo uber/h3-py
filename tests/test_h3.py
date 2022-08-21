@@ -154,7 +154,6 @@ def test_grid_disk_pentagon():
     assert out == expected
 
 
-
 sf_7x7 = [
     (37.813318999983238, -122.4089866999972145),
     (37.7866302000007224, -122.3805436999997056),
@@ -205,9 +204,7 @@ def test_polyfill_with_two_holes():
     assert len(out) == 1172
 
     foo = lambda x: h3.polygon_to_cells(x, 9)
-    assert out == foo(sf_7x7) - ( foo(sf_hole1) | foo(sf_hole2) )
-
-
+    assert out == foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2))
 
 # def test_polyfill_geo_json_compliant():
 #     geo = {
@@ -268,6 +265,7 @@ def test_polyfill_down_under():
     assert '89be0e34207ffff' in out
     assert '89be0e35ddbffff' in out
 
+
 def test_polyfill_far_east():
     geo = [
         (41.92578147109541, 142.86483764648438),
@@ -281,7 +279,6 @@ def test_polyfill_far_east():
     assert len(out) == 18507
     assert '892e18d16c3ffff' in out
     assert '892e1ebb5a7ffff' in out
-
 
 
 def test_polyfill_southern_tip():
