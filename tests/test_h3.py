@@ -538,28 +538,16 @@ def test_grid_ring_pentagon():
     assert out == expected
 
 
-# def test_compact_and_uncompact_cells():
-#     geo = {
-#         'type': 'Polygon',
-#         'coordinates': [
-#             [
-#                 [37.813318999983238, -122.4089866999972145],
-#                 [37.7866302000007224, -122.3805436999997056],
-#                 [37.7198061999978478, -122.3544736999993603],
-#                 [37.7076131999975672, -122.5123436999983966],
-#                 [37.7835871999971715, -122.5247187000021967],
-#                 [37.8151571999998453, -122.4798767000009008],
-#             ]
-#         ]
-#     }
+def test_compact_and_uncompact_cells():
+    cells = h3.polygon_to_cells(sf_7x7, 9)
 
-#     hexes = h3.polyfill(geo, 9)
+    compact_cells = h3.compact_cells(cells)
+    assert len(compact_cells) == 209
 
-#     compact_cells = h3.compact_cells(hexes)
-#     assert len(compact_cells) == 209
+    uncompact_cells = h3.uncompact_cells(compact_cells, 9)
+    assert len(uncompact_cells) == 1253
 
-#     uncompact_cells = h3.uncompact_cells(compact_cells, 9)
-#     assert len(uncompact_cells) == 1253
+    assert uncompact_cells == cells
 
 
 def test_compact_cells_and_uncompact_cells_nothing():
