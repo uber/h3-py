@@ -396,6 +396,11 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(hu)
 
+    # todo: think about how this lines up with the polygon_to_cells function...
+    # do we need an internal multipolygon_to_cells? what's the right data format?
+    # do i just need to come up with a polygon type? .to_geojson, .from_geojson
+    # could also do with multipolygon..
+    # h3.Polygon(..).to_cells(9). kind of nice...
     def cells_to_multi_polygon(self, hexes, geo_json=False):
         """
         Get GeoJSON-like MultiPolygon describing the outline of the area
