@@ -298,17 +298,17 @@ def test_polyfill_southern_tip():
 
 def test_polyfill_null_island():
     geo = [
-        (-3.0856655287215378, -3.218994140625),
-        (3.6888551431470478, -3.218994140625),
-        (3.6888551431470478, 3.5815429687499996),
-        (-3.0856655287215378, 3.5815429687499996),
-        (-3.0856655287215378, -3.218994140625),
+        (-3, -3),
+        (+3, -3),
+        (+3, +3),
+        (-3, +3),
+        (-3, -3),
     ]
 
     out = h3.polygon_to_cells(geo, 4)
-    assert len(out) == 440
-    assert '8474213ffffffff' in out
-    assert '8482e9bffffffff' in out
+    assert len(out) == 345
+    assert '847421bffffffff' in out
+    assert '84825ddffffffff' in out
 
 
 def test_cells_to_multi_polygon_empty():
