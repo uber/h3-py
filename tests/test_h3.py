@@ -332,27 +332,12 @@ def test_cells_to_polygons_single():
     polys = h3.cells_to_polygons(cells)
     assert len(polys) == 1
     poly = polys[0]
+
     vertices = h3.cell_to_boundary(h)
+    expected_poly = h3.Polygon(vertices)
 
-    # We shift the expected circular list so that it starts from
-    # multi_polygon[0][0][0], since output starting from any vertex
-    # would be correct as long as it's in order.
-    expected_coords = shift_circular_list(
-        poly.outer[0],
-        [
-            vertices[2],
-            vertices[3],
-            vertices[4],
-            vertices[5],
-            vertices[0],
-            vertices[1],
-        ]
-    )
-
-    expected_poly = h3.Polygon(expected_coords)
-
-    assert poly.outer == expected_poly.outer
-    assert poly.holes == expected_poly.holes
+    assert set(poly.outer) == set(expected_poly.outer)
+    assert len(poly.holes) == len(expected_poly.holes)
 
 
 def test_cells_to_polygons_contiguous():
