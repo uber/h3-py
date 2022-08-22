@@ -26,9 +26,9 @@ def test_grid_disk():
 
 def test_compact_cells():
     h = 617700169958293503
-    hexes = h3.cell_to_children(h)
+    cells = h3.cell_to_children(h)
 
-    assert h3.compact_cells(hexes) == {h}
+    assert h3.compact_cells(cells) == {h}
 
 
 def test_get_icosahedron_faces():

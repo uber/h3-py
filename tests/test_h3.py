@@ -477,10 +477,10 @@ def test_uncompact_cells_error():
 
 
 def test_compact_cells_malformed_input():
-    hexes = ['89283082813ffff'] * 13
+    cells = ['89283082813ffff'] * 13
 
     with pytest.raises(Exception):
-        h3.compact_cells(hexes)
+        h3.compact_cells(cells)
 
 
 def test_cell_to_parent():

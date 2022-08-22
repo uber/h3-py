@@ -38,8 +38,8 @@ def input_permutations(geo, res=5):
 
     for p in g:
         poly = h3.Polygon(*p)
-        hexes = h3.polygon_to_cells(poly, res=res)
-        yield hexes
+        cells = h3.polygon_to_cells(poly, res=res)
+        yield cells
 
 
 def swap_element_order(seq):
@@ -141,14 +141,14 @@ def test_polygon_to_cells_holes():
     )
 
     for res in 1, 2, 3, 4, 5:
-        hexes_all = h3.polygon_to_cells(h3.Polygon(outer), res)
-        hexes_holes = h3.polygon_to_cells(h3.Polygon(outer, hole1, hole2), res=res)
+        cells_all = h3.polygon_to_cells(h3.Polygon(outer), res)
+        cells_holes = h3.polygon_to_cells(h3.Polygon(outer, hole1, hole2), res=res)
 
-        hexes_1 = h3.polygon_to_cells(h3.Polygon(hole1), res)
-        hexes_2 = h3.polygon_to_cells(h3.Polygon(hole2), res)
+        cells_1 = h3.polygon_to_cells(h3.Polygon(hole1), res)
+        cells_2 = h3.polygon_to_cells(h3.Polygon(hole2), res)
 
-        assert len(hexes_all) == len(hexes_holes) + len(hexes_1) + len(hexes_2)
-        assert hexes_all == set.union(hexes_holes, hexes_1, hexes_2)
+        assert len(cells_all) == len(cells_holes) + len(cells_1) + len(cells_2)
+        assert cells_all == set.union(cells_holes, cells_1, cells_2)
 
 
 # def test_polyfill_geojson():
@@ -193,16 +193,16 @@ def test_input_format():
     assert len(geo) == 3
 
     # two holes
-    for hexes in input_permutations(geo[:3]):
-        assert len(hexes) == 5437
+    for cells in input_permutations(geo[:3]):
+        assert len(cells) == 5437
 
     # one hole
-    for hexes in input_permutations(geo[:2]):
-        assert len(hexes) == 5726
+    for cells in input_permutations(geo[:2]):
+        assert len(cells) == 5726
 
     # zero holes
-    for hexes in input_permutations(geo[:1]):
-        assert len(hexes) == 7063
+    for cells in input_permutations(geo[:1]):
+        assert len(cells) == 7063
 
 
 def test_resolution():

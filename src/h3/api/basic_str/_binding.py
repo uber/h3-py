@@ -18,8 +18,8 @@ from ... import _cy
 from .._api_template import _API_FUNCTIONS
 
 
-def _in_collection(hexes):
-    it = [_cy.str_to_int(h) for h in hexes]
+def _in_collection(cells):
+    it = [_cy.str_to_int(h) for h in cells]
 
     return _cy.iter_to_mv(it)
 

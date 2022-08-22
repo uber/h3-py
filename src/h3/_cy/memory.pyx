@@ -232,17 +232,17 @@ cdef int[:] int_mv(size_t n):
         return arr
 
 
-cpdef H3int[:] iter_to_mv(hexes):
-    """ hexes needs to be an iterable that knows its size...
+cpdef H3int[:] iter_to_mv(cells):
+    """ cells needs to be an iterable that knows its size...
     or should we have it match the np.fromiter function, which infers if not available?
     """
     cdef:
         H3int[:] mv
 
-    n = len(hexes)
+    n = len(cells)
     mv = H3MemoryManager(n).to_mv_keep_zeros()
 
-    for i,h in enumerate(hexes):
+    for i,h in enumerate(cells):
         mv[i] = h
 
     return mv
