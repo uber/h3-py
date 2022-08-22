@@ -4,12 +4,6 @@ from pytest import approx
 import h3
 
 
-def shift_circular_list(start_element, elements_list):
-    # We shift the circular list so that it starts from start_element,
-    start_index = elements_list.index(start_element)
-    return elements_list[start_index:] + elements_list[:start_index]
-
-
 def test_is_valid_cell():
     assert h3.is_valid_cell('85283473fffffff')
     assert h3.is_valid_cell('850dab63fffffff')
@@ -337,70 +331,59 @@ def test_cells_to_polygons_single():
     expected_poly = h3.Polygon(vertices)
 
     assert set(poly.outer) == set(expected_poly.outer)
-    assert len(poly.holes) == len(expected_poly.holes)
+    assert poly.holes == expected_poly.holes == ()
 
 
 def test_cells_to_polygons_contiguous():
-    # the second hexagon shares v0 and v1 with the first
-    hexes = ['89283082837ffff', '89283082833ffff']
+    a = '89283082837ffff'
+    b = '89283082833ffff'
+    assert h3.are_neighbor_cells(a, b)
 
-    # multi_polygon
-    mp = h3.cells_to_polygons(hexes)
-    vertices0 = h3.cell_to_boundary(hexes[0])
-    vertices1 = h3.cell_to_boundary(hexes[1])
+    polys = h3.cells_to_polygons([a, b])
+    assert len(polys) == 1
+    poly = polys[0]
 
-    # We shift the expected circular list so that it starts from
-    # multi_polygon[0][0][0], since output starting from any vertex
-    # would be correct as long as it's in order.
-    expected_coords = shift_circular_list(
-        mp[0][0][0],
-        [
-            vertices1[0],
-            vertices1[1],
-            vertices1[2],
-            vertices0[1],
-            vertices0[2],
-            vertices0[3],
-            vertices0[4],
-            vertices0[5],
-            vertices1[4],
-            vertices1[5],
-        ]
-    )
+    assert len(poly.outer) == 10
+    assert poly.holes == ()
 
-    expected = [[expected_coords]]
-
-    assert len(mp) == 1  # polygon count matches expected
-    assert len(mp[0]) == 1  # loop count matches expected
-    assert len(mp[0][0]) == 10  # coord count matches expected
-
-    assert mp == expected
+    verts_a = h3.cell_to_boundary(a)
+    verts_b = h3.cell_to_boundary(b)
+    assert set(poly.outer) == set(verts_a) | set(verts_b)
 
 
 def test_cells_to_polygons_non_contiguous():
-    # the second hexagon does not touch the first
-    hexes = {'89283082837ffff', '8928308280fffff'}
-    # multi_polygon
-    mp = h3.cells_to_polygons(hexes)
+    a = '89283082837ffff'
+    b = '8928308280fffff'
+    assert not h3.are_neighbor_cells(a, b)
 
-    assert len(mp) == 2  # polygon count matches expected
-    assert len(mp[0]) == 1  # loop count matches expected
-    assert len(mp[0][0]) == 6  # coord count 1 matches expected
-    assert len(mp[1][0]) == 6  # coord count 2 matches expected
+    polys = h3.cells_to_polygons([a,b])
+    assert len(polys) == 2
+
+    assert all(poly.holes == () for poly in polys)
+    assert all(len(poly.outer) == 6 for poly in polys)
+
+    verts_a = h3.cell_to_boundary(a)
+    verts_b = h3.cell_to_boundary(b)
+
+    verts_both = set.union(*[set(poly.outer) for poly in polys])
+    assert verts_both == set(verts_a) | set(verts_b)
 
 
 def test_cells_to_polygons_hole():
     # Six hexagons in a ring around a hole
-    hexes = [
+    cells = [
         '892830828c7ffff', '892830828d7ffff', '8928308289bffff',
         '89283082813ffff', '8928308288fffff', '89283082883ffff',
     ]
-    mp = h3.cells_to_polygons(hexes)
+    polys = h3.cells_to_polygons(cells)
 
-    assert len(mp) == 1  # polygon count matches expected
-    assert len(mp[0]) == 2  # loop count matches expected
-    assert len(mp[0][0]) == 6 * 3  # outer coord count matches expected
-    assert len(mp[0][1]) == 6  # inner coord count matches expected
+    assert len(polys) == 1
+    poly = polys[0]
+
+    assert len(poly.holes) == 1
+    assert len(poly.holes[0]) == 6
+
+    assert len(poly.outer) == 6 * 3  # outer coord count matches expected
 
 
 def test_cells_to_polygons_2grid_disk():
