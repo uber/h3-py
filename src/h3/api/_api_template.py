@@ -38,7 +38,6 @@ be skipped due to it being inside the `_api_functions` function.
 """
 
 from .. import _cy
-from .._polygon import Polygon
 
 
 class _API_FUNCTIONS(object):
