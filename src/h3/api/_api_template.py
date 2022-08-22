@@ -38,6 +38,7 @@ be skipped due to it being inside the `_api_functions` function.
 """
 
 from .. import _cy
+from .._polygon import Polygon
 
 
 class _API_FUNCTIONS(object):
@@ -430,8 +431,8 @@ class _API_FUNCTIONS(object):
         hexes = self._in_collection(hexes)
         return _cy.cells_to_multi_polygon(hexes, geo_json=geo_json)
 
-    def polygon_to_cells(self, outer, res, holes=None):
-        mv = _cy.polygon_to_cells(outer, res, holes=holes)
+    def polygon_to_cells(self, polygon, res):
+        mv = _cy.polygon_to_cells(polygon.outer, res, holes=polygon.holes)
 
         return self._out_unordered(mv)
 

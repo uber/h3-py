@@ -177,7 +177,8 @@ sf_hole2 = [
 
 
 def test_polyfill():
-    out = h3.polygon_to_cells(sf_7x7, 9)
+    poly = h3.Polygon(sf_7x7)
+    out = h3.polygon_to_cells(poly, res=9)
 
     assert len(out) == 1253
     assert '89283080527ffff' in out
@@ -191,19 +192,23 @@ def test_polyfill():
 
 
 def test_polyfill_with_hole():
-    out = h3.polygon_to_cells(sf_7x7, 9, holes=[sf_hole1])
+    poly = h3.Polygon(sf_7x7, sf_hole1)
 
+    out = h3.polygon_to_cells(poly, res=9)
     assert len(out) == 1214
 
-    foo = lambda x: h3.polygon_to_cells(x, 9)
+    foo = lambda x: h3.polygon_to_cells(h3.Polygon(x), 9)
+    # todo: foo = lambda x: h3.Polygon(x).to_cells(9)
     assert out == foo(sf_7x7) - foo(sf_hole1)
 
 
 def test_polyfill_with_two_holes():
-    out = h3.polygon_to_cells(sf_7x7, 9, holes=[sf_hole1, sf_hole2])
+
+    poly = h3.Polygon(sf_7x7, sf_hole1, sf_hole2)
+    out = h3.polygon_to_cells(poly, 9)
     assert len(out) == 1172
 
-    foo = lambda x: h3.polygon_to_cells(x, 9)
+    foo = lambda x: h3.polygon_to_cells(h3.Polygon(x), 9)
     assert out == foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2))
 
 # def test_polyfill_geo_json_compliant():
@@ -260,7 +265,8 @@ def test_polyfill_down_under():
         (-33.8555555, 151.1979259),
     ]
 
-    out = h3.polygon_to_cells(sydney, 9)
+    poly = h3.Polygon(sydney)
+    out = h3.polygon_to_cells(poly, 9)
     assert len(out) == 92
     assert '89be0e34207ffff' in out
     assert '89be0e35ddbffff' in out
@@ -275,7 +281,8 @@ def test_polyfill_far_east():
         (41.92578147109541, 142.86483764648438),
     ]
 
-    out = h3.polygon_to_cells(geo, 9)
+    poly = h3.Polygon(geo)
+    out = h3.polygon_to_cells(poly, 9)
     assert len(out) == 18507
     assert '892e18d16c3ffff' in out
     assert '892e1ebb5a7ffff' in out
@@ -290,7 +297,8 @@ def test_polyfill_southern_tip():
         (-55.41654360858007, -67.642822265625),
     ]
 
-    out = h3.polygon_to_cells(geo, 9)
+    poly = h3.Polygon(geo)
+    out = h3.polygon_to_cells(poly, 9)
     assert len(out) == 223247
     assert '89df4000003ffff' in out
     assert '89df4636b27ffff' in out
@@ -305,7 +313,8 @@ def test_polyfill_null_island():
         (-3, -3),
     ]
 
-    out = h3.polygon_to_cells(geo, 4)
+    poly = h3.Polygon(geo)
+    out = h3.polygon_to_cells(poly, 4)
     assert len(out) == 345
     assert '847421bffffffff' in out
     assert '84825ddffffffff' in out
@@ -539,7 +548,8 @@ def test_grid_ring_pentagon():
 
 
 def test_compact_and_uncompact_cells():
-    cells = h3.polygon_to_cells(sf_7x7, 9)
+    poly = h3.Polygon(sf_7x7)
+    cells = h3.polygon_to_cells(poly, 9)
 
     compact_cells = h3.compact_cells(cells)
     assert len(compact_cells) == 209

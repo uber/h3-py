@@ -7,7 +7,8 @@ def test_cells_to_multi_polygon():
 
     mpoly = h3.cells_to_multi_polygon(hexes)
 
-    out = h3.polygon_to_cells(mpoly[0][0], 9, holes=None)
+    poly = h3.Polygon(mpoly[0][0])
+    out = h3.polygon_to_cells(poly, 9)
 
     assert out == hexes
 
@@ -20,8 +21,9 @@ def test_2_polys():
     # (with the 1-ring being absent)
 
     out = [
-        h3.polygon_to_cells(poly[0], 9, holes=poly[1:])
-        for poly in h3.cells_to_multi_polygon(hexes, geo_json=False)
+        h3.polygon_to_cells(h3.Polygon(*loops), 9)
+        # todo: h3.Polygon(*loops).to_cells(9)
+        for loops in h3.cells_to_multi_polygon(hexes, geo_json=False)
     ]
 
     assert set.union(*out) == hexes

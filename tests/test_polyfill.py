@@ -31,13 +31,14 @@ def chain_toggle_map(func, seq):
     return seq
 
 
-def input_permutations(poly, res=5):
-    g = [poly]
+def input_permutations(geo, res=5):
+    g = [geo]
     g = chain_toggle_map(drop_last, g)
     g = chain_toggle_map(reverse, g)
 
     for p in g:
-        hexes = h3.polygon_to_cells(p[0], res=res, holes=p[1:])
+        poly = h3.Polygon(*p)
+        hexes = h3.polygon_to_cells(poly, res=res)
         yield hexes
 
 
@@ -110,7 +111,8 @@ def test_polygon_to_cells():
         '832badfffffffff'
     }
 
-    out = h3.polygon_to_cells(maine, 3)
+    poly = h3.Polygon(maine)
+    out = h3.polygon_to_cells(poly, 3)
 
     assert out == expected
 
@@ -118,7 +120,8 @@ def test_polygon_to_cells():
 def test_polygon_to_cells2():
     lnglat, _, _ = get_us_box_coords()
 
-    out = h3.polygon_to_cells(lnglat, 5)
+    poly = h3.Polygon(lnglat)
+    out = h3.polygon_to_cells(poly, 5)
 
     assert len(out) == 7063
 
@@ -134,15 +137,15 @@ def test_polygon_to_cells_holes():
     outer, hole1, hole2 = get_us_box_coords()
 
     assert 7063 == len(
-        h3.polygon_to_cells(outer, 5)
+        h3.polygon_to_cells(h3.Polygon(outer), 5)
     )
 
     for res in 1, 2, 3, 4, 5:
-        hexes_all = h3.polygon_to_cells(outer, res)
-        hexes_holes = h3.polygon_to_cells(outer, res, [hole1, hole2])
+        hexes_all = h3.polygon_to_cells(h3.Polygon(outer), res)
+        hexes_holes = h3.polygon_to_cells(h3.Polygon(outer, hole1, hole2), res=res)
 
-        hexes_1 = h3.polygon_to_cells(hole1, res)
-        hexes_2 = h3.polygon_to_cells(hole2, res)
+        hexes_1 = h3.polygon_to_cells(h3.Polygon(hole1), res)
+        hexes_2 = h3.polygon_to_cells(h3.Polygon(hole2), res)
 
         assert len(hexes_all) == len(hexes_holes) + len(hexes_1) + len(hexes_2)
         assert hexes_all == set.union(hexes_holes, hexes_1, hexes_2)
@@ -185,34 +188,34 @@ def test_input_format():
     may follow a different subset of rules.
     """
 
-    poly = get_us_box_coords()
+    geo = get_us_box_coords()
 
-    assert len(poly) == 3
+    assert len(geo) == 3
 
     # two holes
-    for hexes in input_permutations(poly[:3]):
+    for hexes in input_permutations(geo[:3]):
         assert len(hexes) == 5437
 
     # one hole
-    for hexes in input_permutations(poly[:2]):
+    for hexes in input_permutations(geo[:2]):
         assert len(hexes) == 5726
 
     # zero holes
-    for hexes in input_permutations(poly[:1]):
+    for hexes in input_permutations(geo[:1]):
         assert len(hexes) == 7063
 
 
 def test_resolution():
-    cells = []
+    poly = h3.Polygon([])
 
-    assert h3.polygon_to_cells(cells, 0) == set()
-    assert h3.polygon_to_cells(cells, 15) == set()
-
-    with pytest.raises(H3ResDomainError):
-        h3.polygon_to_cells(cells, -1)
+    assert h3.polygon_to_cells(poly, 0) == set()
+    assert h3.polygon_to_cells(poly, 15) == set()
 
     with pytest.raises(H3ResDomainError):
-        h3.polygon_to_cells(cells, 16)
+        h3.polygon_to_cells(poly, -1)
+
+    with pytest.raises(H3ResDomainError):
+        h3.polygon_to_cells(poly, 16)
 
 
 def test_invalid_polygon():
@@ -222,12 +225,12 @@ def test_invalid_polygon():
     some `cdef` functions.
     """
     with pytest.raises(TypeError):
-        d = [1, 2, 3]
-        h3.polygon_to_cells(d, 4)
+        poly = h3.Polygon([1, 2, 3])
+        h3.polygon_to_cells(poly, 4)
 
     with pytest.raises(ValueError):
-        d = [[1, 2, 3]]
-        h3.polygon_to_cells(d, 4)
+        poly = h3.Polygon([[1, 2, 3]])
+        h3.polygon_to_cells(poly, 4)
 
     # d = {
     #     'type': 'Polygon',
