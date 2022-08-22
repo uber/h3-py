@@ -356,7 +356,7 @@ def test_cells_to_polygons_non_contiguous():
     b = '8928308280fffff'
     assert not h3.are_neighbor_cells(a, b)
 
-    polys = h3.cells_to_polygons([a,b])
+    polys = h3.cells_to_polygons([a, b])
     assert len(polys) == 2
 
     assert all(poly.holes == () for poly in polys)
