@@ -397,6 +397,16 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(hu)
 
+    def polygon_to_cells(self, polygon, res):
+        mv = _cy.polygon_to_cells(polygon.outer, res, holes=polygon.holes)
+
+        return self._out_unordered(mv)
+
+    # def polygons_to_cells(self, polygons, res):
+    #     # todo: have to figure out how to concat memoryviews cleanly
+    #     # or some other appraoch
+    #     pass
+
     def cells_to_polygons(self, cells):
         """
         Get GeoJSON-like MultiPolygon describing the outline of the area
@@ -420,15 +430,6 @@ class _API_FUNCTIONS(object):
         polys = [Polygon(*geo) for geo in geos]
 
         return polys
-
-    def polygon_to_cells(self, polygon, res):
-        mv = _cy.polygon_to_cells(polygon.outer, res, holes=polygon.holes)
-
-        return self._out_unordered(mv)
-
-    def polygons_to_cells(self, polygons, res):
-        pass
-        # TODO
 
     def is_pentagon(self, h):
         """
