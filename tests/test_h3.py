@@ -320,24 +320,25 @@ def test_polyfill_null_island():
     assert '84825ddffffffff' in out
 
 
-def test_cells_to_multi_polygon_empty():
-    out = h3.cells_to_multi_polygon([])
-    assert out == []
+def test_cells_to_polygons_empty():
+    polys = h3.cells_to_polygons([])
+    assert polys == []
 
 
-def test_cells_to_multi_polygon_single():
+def test_cells_to_polygons_single():
     h = '89283082837ffff'
-    hexes = {h}
+    cells = {h}
 
-    # multi_polygon
-    mp = h3.cells_to_multi_polygon(hexes)
+    polys = h3.cells_to_polygons(cells)
+    assert len(polys) == 1
+    poly = polys[0]
     vertices = h3.cell_to_boundary(h)
 
     # We shift the expected circular list so that it starts from
     # multi_polygon[0][0][0], since output starting from any vertex
     # would be correct as long as it's in order.
     expected_coords = shift_circular_list(
-        mp[0][0][0],
+        poly.outer[0],
         [
             vertices[2],
             vertices[3],
@@ -348,61 +349,18 @@ def test_cells_to_multi_polygon_single():
         ]
     )
 
-    expected = [[expected_coords]]
+    expected_poly = h3.Polygon(expected_coords)
 
-    assert mp == expected
-
-
-def test_cells_to_multi_polygon_single_geo_json():
-    hexes = ['89283082837ffff']
-    mp = h3.cells_to_multi_polygon(hexes, True)
-    vertices = h3.cell_to_boundary(hexes[0], True)
-
-    # We shift the expected circular list so that it starts from
-    # multi_polygon[0][0][0], since output starting from any vertex
-    # would be correct as long as it's in order.
-    expected_coords = shift_circular_list(
-        mp[0][0][0],
-        [
-            vertices[2],
-            vertices[3],
-            vertices[4],
-            vertices[5],
-            vertices[0],
-            vertices[1]
-        ]
-    )
-
-    expected = [[expected_coords]]
-
-    # polygon count matches expected
-    assert len(mp) == 1
-
-    # loop count matches expected
-    assert len(mp[0]) == 1
-
-    # coord count 7 matches expected according to geojson format
-    assert len(mp[0][0]) == 7
-
-    # first coord should be the same as last coord according to geojson format
-    assert mp[0] == mp[-1]
-
-    # the coord should be (lng, lat) according to geojson format
-    assert mp[0][0][0][0] == approx(-122.42778275313199)
-    assert mp[0][0][0][1] == approx(37.77598951883773)
-
-    # Discard last coord for testing below, since last coord is
-    # the same as the first one
-    mp[0][0].pop()
-    assert mp == expected
+    assert poly.outer == expected_poly.outer
+    assert poly.holes == expected_poly.holes
 
 
-def test_cells_to_multi_polygon_contiguous():
+def test_cells_to_polygons_contiguous():
     # the second hexagon shares v0 and v1 with the first
     hexes = ['89283082837ffff', '89283082833ffff']
 
     # multi_polygon
-    mp = h3.cells_to_multi_polygon(hexes)
+    mp = h3.cells_to_polygons(hexes)
     vertices0 = h3.cell_to_boundary(hexes[0])
     vertices1 = h3.cell_to_boundary(hexes[1])
 
@@ -434,11 +392,11 @@ def test_cells_to_multi_polygon_contiguous():
     assert mp == expected
 
 
-def test_cells_to_multi_polygon_non_contiguous():
+def test_cells_to_polygons_non_contiguous():
     # the second hexagon does not touch the first
     hexes = {'89283082837ffff', '8928308280fffff'}
     # multi_polygon
-    mp = h3.cells_to_multi_polygon(hexes)
+    mp = h3.cells_to_polygons(hexes)
 
     assert len(mp) == 2  # polygon count matches expected
     assert len(mp[0]) == 1  # loop count matches expected
@@ -446,13 +404,13 @@ def test_cells_to_multi_polygon_non_contiguous():
     assert len(mp[1][0]) == 6  # coord count 2 matches expected
 
 
-def test_cells_to_multi_polygon_hole():
+def test_cells_to_polygons_hole():
     # Six hexagons in a ring around a hole
     hexes = [
         '892830828c7ffff', '892830828d7ffff', '8928308289bffff',
         '89283082813ffff', '8928308288fffff', '89283082883ffff',
     ]
-    mp = h3.cells_to_multi_polygon(hexes)
+    mp = h3.cells_to_polygons(hexes)
 
     assert len(mp) == 1  # polygon count matches expected
     assert len(mp[0]) == 2  # loop count matches expected
@@ -460,11 +418,11 @@ def test_cells_to_multi_polygon_hole():
     assert len(mp[0][1]) == 6  # inner coord count matches expected
 
 
-def test_cells_to_multi_polygon_2grid_disk():
+def test_cells_to_polygons_2grid_disk():
     h = '8930062838bffff'
     hexes = h3.grid_disk(h, 2)
     # multi_polygon
-    mp = h3.cells_to_multi_polygon(hexes)
+    mp = h3.cells_to_polygons(hexes)
 
     assert len(mp) == 1  # polygon count matches expected
     assert len(mp[0]) == 1  # loop count matches expected
@@ -480,7 +438,7 @@ def test_cells_to_multi_polygon_2grid_disk():
         '893006283c7ffff'
     }
 
-    mp2 = h3.cells_to_multi_polygon(hexes2)
+    mp2 = h3.cells_to_polygons(hexes2)
 
     assert len(mp2) == 1  # polygon count matches expected
     assert len(mp2[0]) == 1  # loop count matches expected
@@ -488,7 +446,7 @@ def test_cells_to_multi_polygon_2grid_disk():
 
     hexes3 = list(h3.grid_disk(h, 6))
     hexes3.sort()
-    mp3 = h3.cells_to_multi_polygon(hexes3)
+    mp3 = h3.cells_to_polygons(hexes3)
 
     assert len(mp3[0]) == 1  # loop count matches expected
 

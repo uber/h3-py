@@ -38,6 +38,7 @@ be skipped due to it being inside the `_api_functions` function.
 """
 
 from .. import _cy
+from .._polygon import Polygon
 
 
 class _API_FUNCTIONS(object):
@@ -331,7 +332,7 @@ class _API_FUNCTIONS(object):
 
     def cell_to_children(self, h, res=None):
         """
-        Children of a hexagon.
+        Children of a cell.
 
         Parameters
         ----------
@@ -349,7 +350,7 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     # todo: nogil for expensive C operation?
-    def compact_cells(self, hexes):
+    def compact_cells(self, cells):
         """
         Compact a collection of H3 cells by combining
         smaller cells into larger cells, if all child cells
@@ -357,19 +358,19 @@ class _API_FUNCTIONS(object):
 
         Parameters
         ----------
-        hexes : iterable of H3Cell
+        cells : iterable of H3 Cells
 
         Returns
         -------
         unordered collection of H3Cell
         """
         # todo: does compact_cells work on mixed-resolution collections?
-        hu = self._in_collection(hexes)
+        hu = self._in_collection(cells)
         hc = _cy.compact_cells(hu)
 
         return self._out_unordered(hc)
 
-    def uncompact_cells(self, hexes, res):
+    def uncompact_cells(self, cells, res):
         """
         Reverse the `compact_cells` operation.
 
@@ -377,7 +378,7 @@ class _API_FUNCTIONS(object):
 
         Parameters
         ----------
-        hexes : iterable of H3Cell
+        cells : iterable of H3Cell
         res : int
             Resolution of desired output cells.
 
@@ -388,33 +389,22 @@ class _API_FUNCTIONS(object):
         Raises
         ------
         todo: add test to make sure an error is returned when input
-        contains hex smaller than output res.
+        contains cell smaller than output res.
         https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
         """
-        hc = self._in_collection(hexes)
+        hc = self._in_collection(cells)
         hu = _cy.uncompact_cells(hc, res)
 
         return self._out_unordered(hu)
 
-    # todo: think about how this lines up with the polygon_to_cells function...
-    # do we need an internal multipolygon_to_cells? what's the right data format?
-    # do i just need to come up with a polygon type? .to_geojson, .from_geojson
-    # could also do with multipolygon..
-    # h3.Polygon(..).to_cells(9). kind of nice...
-    def cells_to_multi_polygon(self, hexes, geo_json=False):
+    def cells_to_polygons(self, cells):
         """
         Get GeoJSON-like MultiPolygon describing the outline of the area
         covered by a set of H3 cells.
 
         Parameters
         ----------
-        hexes : unordered collection of H3Cell
-        geo_json : bool, optional
-            If `True`, output geo sequences will be lng/lat pairs, with the
-            last the same as the first.
-            If `False`, output geo sequences will be lat/lng pairs, with the
-            last distinct from the first.
-            Defaults to `False`
+        cells : unordered collection of H3Cell
 
         Returns
         -------
@@ -424,16 +414,21 @@ class _API_FUNCTIONS(object):
             ``[outer, hole1, hole2, ...]``. The holes may not be present.
             Each geo sequence is a list of lat/lng or lng/lat pairs.
         """
-        # todo: this function output does not match with `polyfill`.
-        # This function returns a list of polygons, while `polyfill` returns
-        # a GeoJSON-like dictionary object.
-        hexes = self._in_collection(hexes)
-        return _cy.cells_to_multi_polygon(hexes, geo_json=geo_json)
+        cells = self._in_collection(cells)
+        geos = _cy.cells_to_multi_polygon(cells)
+
+        polys = [Polygon(*geo) for geo in geos]
+
+        return polys
 
     def polygon_to_cells(self, polygon, res):
         mv = _cy.polygon_to_cells(polygon.outer, res, holes=polygon.holes)
 
         return self._out_unordered(mv)
+
+    def polygons_to_cells(self, polygons, res):
+        pass
+        # TODO
 
     def is_pentagon(self, h):
         """

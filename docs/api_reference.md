@@ -60,7 +60,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    cell_to_boundary
    directed_edge_to_boundary
    polygon_to_cells
-   cells_to_multi_polygon
+   cells_to_polygons
 ```
 
 ### Hierarchical relationships
