@@ -382,41 +382,19 @@ def test_cells_to_polygons_hole():
 
     assert len(poly.holes) == 1
     assert len(poly.holes[0]) == 6
-
-    assert len(poly.outer) == 6 * 3  # outer coord count matches expected
+    assert len(poly.outer) == 6 * 3
 
 
 def test_cells_to_polygons_2grid_disk():
     h = '8930062838bffff'
-    hexes = h3.grid_disk(h, 2)
-    # multi_polygon
-    mp = h3.cells_to_polygons(hexes)
+    cells = h3.grid_disk(h, 2)
+    polys = h3.cells_to_polygons(cells)
 
-    assert len(mp) == 1  # polygon count matches expected
-    assert len(mp[0]) == 1  # loop count matches expected
-    assert len(mp[0][0]) == 6 * (2 * 2 + 1)  # coord count matches expected
+    assert len(polys) == 1
+    poly = polys[0]
 
-    hexes2 = {
-        '89300628393ffff', '89300628383ffff', '89300628397ffff',
-        '89300628067ffff', '89300628387ffff', '893006283bbffff',
-        '89300628313ffff', '893006283cfffff', '89300628303ffff',
-        '89300628317ffff', '8930062839bffff', h,
-        '8930062806fffff', '8930062838fffff', '893006283d3ffff',
-        '893006283c3ffff', '8930062831bffff', '893006283d7ffff',
-        '893006283c7ffff'
-    }
-
-    mp2 = h3.cells_to_polygons(hexes2)
-
-    assert len(mp2) == 1  # polygon count matches expected
-    assert len(mp2[0]) == 1  # loop count matches expected
-    assert len(mp2[0][0]) == 6 * (2 * 2 + 1)  # coord count matches expected
-
-    hexes3 = list(h3.grid_disk(h, 6))
-    hexes3.sort()
-    mp3 = h3.cells_to_polygons(hexes3)
-
-    assert len(mp3[0]) == 1  # loop count matches expected
+    assert len(poly.holes) == 0
+    assert len(poly.outer) == 6 * (2 * 2 + 1)
 
 
 def test_grid_ring():
