@@ -19,13 +19,9 @@ on:
 
 jobs:
   make_sdist:
-    name: "SDist: ${{ matrix.os }}"
+    name: SDist
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -33,69 +29,22 @@ jobs:
           submodules: recursive
 
       - name: Setup Python
-        uses: actions/setup-python@v3.1.2
+        uses: actions/setup-python@v3
 
       - name: Make sdist
         run: |
-          python --version
-          pipx --version
-          pipx run build --sdist
-
-      - name: Install from sdist
-        run: |
-          pip install --upgrade pip setuptools wheel
-          pip install pytest
-          cp dist/h3-*.tar.gz h3.tar.gz
-          pip install h3.tar.gz[all]
-
-      - name: Test sdist
-        run: pytest --cov=h3 --full-trace
+          pip install --upgrade pip setuptools
+          pip install --upgrade build
+          python -m build --sdist
 
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v3
         with:
           path: ./dist
 
-  make_cibw_v1_wheels:
-    name: "cibuildwheel v1: ${{ matrix.name }}"
-    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        # Only build for platforms that cibw v2 doesn't support
-        include:
-          - os: macos-latest
-            build: "cp27-macosx_x86_64"
-            name: macOS Intel
-          - os: ubuntu-latest
-            build: "cp27-manylinux_x86_64"
-            name: Linux Intel 64-bit
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      ## Build
-
-      - uses: pypa/cibuildwheel@v1.12.0
-        env:
-          CIBW_TEST_REQUIRES: pytest numpy
-          CIBW_TEST_COMMAND: pytest {project}/tests
-          CIBW_ARCHS_LINUX: auto aarch64
-          CIBW_BUILD: ${{ matrix.build }}
-
-      - name: Check with Twine
-        run: |
-          pipx run twine check wheelhouse/*
-
-      - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
-        with:
-          path: wheelhouse/*.whl
-
   make_cibw_v2_wheels:
     name: "cibuildwheel v2: ${{ matrix.name }}"
+    needs: [make_sdist]
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -152,36 +101,47 @@ jobs:
         with:
           platforms: aarch64
 
-      ## Build
+      # Get sdist
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: dist
 
-      - uses: pypa/cibuildwheel@v2.4.0
+      ## Build
+      - uses: pypa/cibuildwheel@v2.6.0
+        with:
+          package-dir: dist/h3-*.tar.gz
+          output-dir: dist
         env:
           CIBW_TEST_REQUIRES: pytest numpy
-          CIBW_TEST_COMMAND: pytest {project}/tests
+          CIBW_TEST_COMMAND: ls /host/; echo $GITHUB_WORKSPACE; ls $GITHUB_WORKSPACE
           CIBW_ARCHS_LINUX: auto aarch64
           CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_BUILD: ${{ matrix.build }}
           CIBW_SKIP: ${{ matrix.skip }}
 
-      - name: Check with Twine
-        run: |
-          pipx run twine check wheelhouse/*
-
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v3
         with:
-          path: wheelhouse/*.whl
+          path: dist/*.whl
 
   upload_all:
-    needs: [make_sdist, make_cibw_v1_wheels, make_cibw_v2_wheels]
+    needs: [make_sdist, make_cibw_v2_wheels]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
+      - name: Setup Python
+        uses: actions/setup-python@v3
+
       - uses: actions/download-artifact@v3
         with:
           name: artifact
           path: dist
+
+      - name: Check with Twine
+        run: |
+          pipx run twine check dist/*
 
       - uses: pypa/gh-action-pypi-publish@v1.5.0
         with:
