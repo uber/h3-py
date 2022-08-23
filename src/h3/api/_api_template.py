@@ -398,31 +398,64 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(hu)
 
     def polygon_to_cells(self, polygon, res):
+        """
+        Return the set of H3 cells at a given resolution whose center points
+        are contained within a `h3.Polygon`
+
+        Parameters
+        ----------
+        Polygon : h3.Polygon
+            A polygon described by an outer ring and optional holes
+
+        res : int
+            Resolution of the output cells
+
+        Examples
+        --------
+
+        >>> poly = h3.Polygon(
+        ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
+        ...      (37.82, -122.54)],
+        ... )
+        >>> h3.polygon_to_cells(poly, 6)
+        {'862830807ffffff',
+         '862830827ffffff',
+         '86283082fffffff',
+         '862830877ffffff',
+         '862830947ffffff',
+         '862830957ffffff',
+         '86283095fffffff'}
+        """
         mv = _cy.polygon_to_cells(polygon.outer, res, holes=polygon.holes)
 
         return self._out_unordered(mv)
 
     # def polygons_to_cells(self, polygons, res):
     #     # todo: have to figure out how to concat memoryviews cleanly
-    #     # or some other appraoch
+    #     # or some other approach
     #     pass
 
     def cells_to_polygons(self, cells):
         """
-        Get GeoJSON-like MultiPolygon describing the outline of the area
+        Return a list of h3.Polygon objects describing the area
         covered by a set of H3 cells.
 
         Parameters
         ----------
-        cells : unordered collection of H3Cell
+        cells : iterable of H3 cells
 
         Returns
         -------
-        list
-            List of "polygons".
-            Each polygon is a list of "geo sequences" like
-            ``[outer, hole1, hole2, ...]``. The holes may not be present.
-            Each geo sequence is a list of lat/lng or lng/lat pairs.
+        list[h3.Polygon]
+            List of h3.Polygon objects
+
+        Examples
+        --------
+
+        >>> cells = ['8428309ffffffff', '842830dffffffff']
+        >>> h3.cells_to_polygons(cells)
+        [<h3.Polygon |outer|=10, |holes|=()>]
+
         """
         cells = self._in_collection(cells)
         geos = _cy.cells_to_multi_polygon(cells)
