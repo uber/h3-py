@@ -113,7 +113,7 @@ class _API_FUNCTIONS(object):
         return _cy.int_to_str(x)
 
     @staticmethod
-    def get_num_cells(resolution):
+    def get_num_cells(res):
         """
         Return the total number of *cells* (hexagons and pentagons)
         for the given resolution.
@@ -122,10 +122,10 @@ class _API_FUNCTIONS(object):
         -------
         int
         """
-        return _cy.get_num_cells(resolution)
+        return _cy.get_num_cells(res)
 
     @staticmethod
-    def average_hexagon_area(resolution, unit='km^2'):
+    def average_hexagon_area(res, unit='km^2'):
         """
         Return the average area of an H3 *hexagon*
         for the given resolution.
@@ -136,10 +136,10 @@ class _API_FUNCTIONS(object):
         -------
         float
         """
-        return _cy.average_hexagon_area(resolution, unit)
+        return _cy.average_hexagon_area(res, unit)
 
     @staticmethod
-    def average_hexagon_edge_length(resolution, unit='km'):
+    def average_hexagon_edge_length(res, unit='km'):
         """
         Return the average *hexagon* edge length
         for the given resolution.
@@ -150,7 +150,7 @@ class _API_FUNCTIONS(object):
         -------
         float
         """
-        return _cy.average_hexagon_edge_length(resolution, unit)
+        return _cy.average_hexagon_edge_length(res, unit)
 
     def is_valid_cell(self, h):
         """
@@ -180,7 +180,7 @@ class _API_FUNCTIONS(object):
         except (ValueError, TypeError):
             return False
 
-    def latlng_to_cell(self, lat, lng, resolution):
+    def latlng_to_cell(self, lat, lng, res):
         """
         Return the cell containing the (lat, lng) point
         for a given resolution.
@@ -190,7 +190,7 @@ class _API_FUNCTIONS(object):
         H3Cell
 
         """
-        return self._out_scalar(_cy.latlng_to_cell(lat, lng, resolution))
+        return self._out_scalar(_cy.latlng_to_cell(lat, lng, res))
 
     def cell_to_latlng(self, h):
         """
@@ -676,19 +676,20 @@ class _API_FUNCTIONS(object):
         """
         return _cy.is_res_class_iii(self._in_scalar(h))
 
-    def get_pentagons(self, resolution):
+    def get_pentagons(self, res):
         """
         Return all pentagons at a given resolution.
 
         Parameters
         ----------
-        resolution : int
+        res : int
+            Resolution of the pentagons
 
         Returns
         -------
         unordered collection of H3Cell
         """
-        mv = _cy.get_pentagons(resolution)
+        mv = _cy.get_pentagons(res)
 
         return self._out_unordered(mv)
 
