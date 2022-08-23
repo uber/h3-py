@@ -364,6 +364,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#b1-2022-08-23">
+   [4.0.0b1] - 2022-08-23
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
    [3.7.4] - 2022-04-14
   </a>
@@ -469,6 +474,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#unreleased">
    Unreleased
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#b1-2022-08-23">
+   [4.0.0b1] - 2022-08-23
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -580,6 +590,26 @@ avoid adding features or APIs which do not map onto the
 <h2>Unreleased<a class="headerlink" href="#unreleased" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>None</p></li>
+</ul>
+</section>
+<section id="b1-2022-08-23">
+<h2>[4.0.0b1] - 2022-08-23<a class="headerlink" href="#b1-2022-08-23" title="Permalink to this headline">#</a></h2>
+<p>Beta release; feedback welcome!</p>
+<ul class="simple">
+<li><p>Move to v4.0 of the core C library (#250)</p>
+<ul>
+<li><p>Function name changes: <a class="reference external" href="https://github.com/uber/h3/blob/master/dev-docs/RFCs/v4.0.0/names_for_concepts_types_functions.md">https://github.com/uber/h3/blob/master/dev-docs/RFCs/v4.0.0/names_for_concepts_types_functions.md</a></p></li>
+<li><p>New error system</p></li>
+<li><p>New interfaces for <code class="docutils literal notranslate"><span class="pre">polygon_to_cells</span></code> and <code class="docutils literal notranslate"><span class="pre">cells_to_polygons</span></code>
+involving a new <code class="docutils literal notranslate"><span class="pre">h3.Polygon</span></code> class</p></li>
+</ul>
+</li>
+<li><p>Expose the Cython API (#234)</p>
+<ul>
+<li><p>Note: The Cython API is not yet stable, and should only be used for
+experimentation</p></li>
+</ul>
+</li>
 </ul>
 </section>
 <section id="id1">
