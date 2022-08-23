@@ -38,10 +38,10 @@ class Polygon:
     ... )
     <h3.Polygon |outer|=4, |holes|=(3, 5)>
 
-    TODO
-    ----
+    Notes
+    -----
 
-    - Add GeoJSON translation support.
+    - TODO: Add GeoJSON translation support.
     """
     def __init__(self, outer, *holes):
         self.outer = outer
