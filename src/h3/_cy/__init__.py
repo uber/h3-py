@@ -14,65 +14,86 @@ function interface and input conversion (string to int, for instance).
 """
 
 from .cells import (
-    is_cell,
+    is_valid_cell,
     is_pentagon,
-    get_base_cell,
-    resolution,
-    parent,
-    distance,
-    disk,
-    ring,
-    children,
-    compact,
-    uncompact,
-    num_hexagons,
-    mean_hex_area,
+    get_base_cell_number,
+    get_resolution,
+    cell_to_parent,
+    grid_distance,
+    grid_disk,
+    grid_ring,
+    cell_to_children,
+    compact_cells,
+    uncompact_cells,
+    get_num_cells,
+    average_hexagon_area,
     cell_area,
-    line,
+    grid_path_cells,
     is_res_class_iii,
-    get_pentagon_indexes,
-    get_res0_indexes,
-    center_child,
-    get_faces,
-    experimental_h3_to_local_ij,
-    experimental_local_ij_to_h3,
+    get_pentagons,
+    get_res0_cells,
+    cell_to_center_child,
+    get_icosahedron_faces,
+    cell_to_local_ij,
+    local_ij_to_cell,
 )
 
 from .edges import (
-    are_neighbors,
-    edge,
-    is_edge,
-    edge_origin,
-    edge_destination,
-    edge_cells,
-    edges_from_cell,
-    mean_edge_length,
+    are_neighbor_cells,
+    cells_to_directed_edge,
+    is_valid_directed_edge,
+    get_directed_edge_origin,
+    get_directed_edge_destination,
+    directed_edge_to_cells,
+    origin_to_directed_edges,
+    average_hexagon_edge_length,
     edge_length,
 )
 
 from .geo import (
-    geo_to_h3,
-    h3_to_geo,
-    polyfill_polygon,
-    polyfill_geojson,
-    polyfill,
-    cell_boundary,
-    edge_boundary,
-    point_dist,
+    latlng_to_cell,
+    cell_to_latlng,
+    polygon_to_cells,
+    cell_to_boundary,
+    directed_edge_to_boundary,
+    great_circle_distance,
 )
 
 from .to_multipoly import (
-    h3_set_to_multi_polygon
+    cells_to_multi_polygon
 )
 
 from .util import (
     c_version,
-    hex2int,
-    int2hex,
-    from_iter,
+    str_to_int,
+    int_to_str,
+)
+
+from .memory import (
+    iter_to_mv,
+)
+
+from .error_system import (
+    UnknownH3ErrorCode,
+    H3BaseException,
+
+    H3GridNavigationError,
+    H3MemoryError,
     H3ValueError,
-    H3CellError,
-    H3ResolutionError,
-    H3EdgeError,
-    H3DistanceError,
+
+    H3FailedError,
+    H3DomainError,
+    H3LatLngDomainError,
+    H3ResDomainError,
+    H3CellInvalidError,
+    H3DirEdgeInvalidError,
+    H3UndirEdgeInvalidError,
+    H3VertexInvalidError,
+    H3PentagonError,
+    H3DuplicateInputError,
+    H3NotNeighborsError,
+    H3ResMismatchError,
+    H3MemoryAllocError,
+    H3MemoryBoundsError,
+    H3OptionInvalidError,
 )

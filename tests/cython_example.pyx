@@ -1,11 +1,11 @@
 from cython cimport boundscheck, wraparound
 
 from h3._cy.h3lib cimport H3int
-from h3._cy.geo cimport geo_to_h3
+from h3._cy.geo cimport latlng_to_cell
 
 @boundscheck(False)
 @wraparound(False)
-cpdef void geo_to_h3_vect(
+cpdef void latlng_to_cell_vect(
     const double[:] lat,
     const double[:] lng,
     int res,
@@ -15,4 +15,4 @@ cpdef void geo_to_h3_vect(
     cdef Py_ssize_t i
 
     for i in range(len(lat)):
-        out[i] = geo_to_h3(lat[i], lng[i], res)
+        out[i] = latlng_to_cell(lat[i], lng[i], res)

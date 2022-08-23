@@ -18,25 +18,25 @@ from ... import _cy
 from .._api_template import _API_FUNCTIONS
 
 
-def _in_collection(hexes):
-    it = [_cy.hex2int(h) for h in hexes]
+def _in_collection(cells):
+    it = [_cy.str_to_int(h) for h in cells]
 
-    return _cy.from_iter(it)
+    return _cy.iter_to_mv(it)
 
 
 def _out_unordered(mv):
     # todo: should this be an (immutable) frozenset?
-    return set(_cy.int2hex(h) for h in mv)
+    return set(_cy.int_to_str(h) for h in mv)
 
 
 def _out_ordered(mv):
     # todo: should this be an (immutable) tuple?
-    return list(_cy.int2hex(h) for h in mv)
+    return list(_cy.int_to_str(h) for h in mv)
 
 
 _binding = _API_FUNCTIONS(
-    _in_scalar = _cy.hex2int,
-    _out_scalar = _cy.int2hex,
+    _in_scalar = _cy.str_to_int,
+    _out_scalar = _cy.int_to_str,
     _in_collection = _in_collection,
     _out_unordered = _out_unordered,
     _out_ordered = _out_ordered,

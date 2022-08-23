@@ -2,6 +2,8 @@ import h3
 import itertools
 import pytest
 
+from h3 import H3ResDomainError
+
 
 def reverse(loop):
     return list(reversed(loop))
@@ -29,21 +31,22 @@ def chain_toggle_map(func, seq):
     return seq
 
 
-def input_permutations(poly, res=5):
-    g = [poly]
+def input_permutations(geo, res=5):
+    g = [geo]
     g = chain_toggle_map(drop_last, g)
     g = chain_toggle_map(reverse, g)
 
     for p in g:
-        hexes = h3.polyfill_polygon(p[0], res=res, holes=p[1:])
-        yield hexes
+        poly = h3.Polygon(*p)
+        cells = h3.polygon_to_cells(poly, res=res)
+        yield cells
 
 
 def swap_element_order(seq):
     return [e[::-1] for e in seq]
 
 
-def get_us_box_coords(order='latlng'):
+def get_us_box_coords():
 
     # big center chunk of the US in lat/lng order
     outer = [
@@ -69,13 +72,10 @@ def get_us_box_coords(order='latlng'):
         [41.37, -98.61]
     ]
 
-    if order == 'lnglat':
-        outer, hole1, hole2 = map(swap_element_order, [outer, hole1, hole2])
-
     return outer, hole1, hole2
 
 
-def test_polyfill_polygon():
+def test_polygon_to_cells():
 
     # lat/lngs for State of Maine
     maine = [
@@ -111,72 +111,74 @@ def test_polyfill_polygon():
         '832badfffffffff'
     }
 
-    out = h3.polyfill_polygon(maine, 3)
+    poly = h3.Polygon(maine)
+    out = h3.polygon_to_cells(poly, 3)
 
     assert out == expected
 
 
-def test_polyfill_polygon_order():
-    lnglat, _, _ = get_us_box_coords(order='lnglat')
+def test_polygon_to_cells2():
+    lnglat, _, _ = get_us_box_coords()
 
-    out = h3.polyfill_polygon(lnglat, 5, lnglat_order=True)
+    poly = h3.Polygon(lnglat)
+    out = h3.polygon_to_cells(poly, 5)
 
     assert len(out) == 7063
 
 
-# # todo: we can generate segfaults with malformed input data to polyfill
-# # need to test for this and avoid segfault
-# # def test_polyfill_segfault():
-# #     pass
+# todo: we can generate segfaults with malformed input data to polyfill
+# need to test for this and avoid segfault
+# def test_polyfill_segfault():
+#     pass
 
 
-def test_polyfill_polygon_holes():
+def test_polygon_to_cells_holes():
 
     outer, hole1, hole2 = get_us_box_coords()
 
     assert 7063 == len(
-        h3.polyfill_polygon(outer, 5)
+        h3.polygon_to_cells(h3.Polygon(outer), 5)
     )
 
     for res in 1, 2, 3, 4, 5:
-        hexes_all = h3.polyfill_polygon(outer, res)
-        hexes_holes = h3.polyfill_polygon(outer, res, [hole1, hole2])
+        cells_all = h3.polygon_to_cells(h3.Polygon(outer), res)
+        cells_holes = h3.polygon_to_cells(h3.Polygon(outer, hole1, hole2), res=res)
 
-        hexes_1 = h3.polyfill_polygon(hole1, res)
-        hexes_2 = h3.polyfill_polygon(hole2, res)
+        cells_1 = h3.polygon_to_cells(h3.Polygon(hole1), res)
+        cells_2 = h3.polygon_to_cells(h3.Polygon(hole2), res)
 
-        assert len(hexes_all) == len(hexes_holes) + len(hexes_1) + len(hexes_2)
-        assert hexes_all == set.union(hexes_holes, hexes_1, hexes_2)
-
-
-def test_polyfill_geojson():
-    outer, hole1, hole2 = get_us_box_coords(order='lnglat')
-
-    d = {
-        'type': 'Polygon',
-        'coordinates': [outer],
-    }
-
-    out = h3.polyfill_geojson(d, 5)
-
-    assert len(out) == 7063
+        assert len(cells_all) == len(cells_holes) + len(cells_1) + len(cells_2)
+        assert cells_all == set.union(cells_holes, cells_1, cells_2)
 
 
-def test_polyfill():
-    outer, hole1, hole2 = get_us_box_coords(order='lnglat')
+# def test_polyfill_geojson():
+#     outer, hole1, hole2 = get_us_box_coords(order='lnglat')
 
-    d = {
-        'type': 'Polygon',
-        'coordinates': [outer],
-    }
+#     d = {
+#         'type': 'Polygon',
+#         'coordinates': [outer],
+#     }
 
-    out = h3.polyfill(d, 5, geo_json_conformant=True)
+#     out = h3.polyfill_geojson(d, 5)
 
-    assert len(out) == 7063
+#     assert len(out) == 7063
+
+
+# def test_polyfill():
+#     outer, hole1, hole2 = get_us_box_coords(order='lnglat')
+
+#     d = {
+#         'type': 'Polygon',
+#         'coordinates': [outer],
+#     }
+
+#     out = h3.polyfill(d, 5, geo_json_conformant=True)
+
+#     assert len(out) == 7063
 
 
 def test_input_format():
-    """ Test that `polyfill_polygon` can take in polygon inputs
+    """ Test that `polygon_to_cells` can take in polygon inputs
     where the LinearRings may or may not follow the right hand rule,
     and they may or may not be closed loops (where the last element
     is equal to the first).
@@ -186,34 +188,34 @@ def test_input_format():
     may follow a different subset of rules.
     """
 
-    poly = get_us_box_coords(order='latlng')
+    geo = get_us_box_coords()
 
-    assert len(poly) == 3
+    assert len(geo) == 3
 
     # two holes
-    for hexes in input_permutations(poly[:3]):
-        assert len(hexes) == 5437
+    for cells in input_permutations(geo[:3]):
+        assert len(cells) == 5437
 
     # one hole
-    for hexes in input_permutations(poly[:2]):
-        assert len(hexes) == 5726
+    for cells in input_permutations(geo[:2]):
+        assert len(cells) == 5726
 
     # zero holes
-    for hexes in input_permutations(poly[:1]):
-        assert len(hexes) == 7063
+    for cells in input_permutations(geo[:1]):
+        assert len(cells) == 7063
 
 
 def test_resolution():
-    d = {
-        'type': 'Polygon',
-        'coordinates': [[]],
-    }
+    poly = h3.Polygon([])
 
-    with pytest.raises(h3.H3ResolutionError):
-        h3.polyfill(d, -1)
+    assert h3.polygon_to_cells(poly, 0) == set()
+    assert h3.polygon_to_cells(poly, 15) == set()
 
-    with pytest.raises(h3.H3ResolutionError):
-        h3.polyfill(d, 16)
+    with pytest.raises(H3ResDomainError):
+        h3.polygon_to_cells(poly, -1)
+
+    with pytest.raises(H3ResDomainError):
+        h3.polygon_to_cells(poly, 16)
 
 
 def test_invalid_polygon():
@@ -222,27 +224,17 @@ def test_invalid_polygon():
     this because we weren't raising errors inside
     some `cdef` functions.
     """
-
-    # one
-    d = {
-        'type': 'Polygon',
-        'coordinates': [1, 2, 3],
-    }
     with pytest.raises(TypeError):
-        h3.polyfill(d, 4)
+        poly = h3.Polygon([1, 2, 3])
+        h3.polygon_to_cells(poly, 4)
 
-    # two
-    d = {
-        'type': 'Polygon',
-        'coordinates': [[1, 2, 3]],
-    }
-    with pytest.raises(TypeError):
-        h3.polyfill(d, 4)
+    with pytest.raises(ValueError):
+        poly = h3.Polygon([[1, 2, 3]])
+        h3.polygon_to_cells(poly, 4)
 
-    # three
-    d = {
-        'type': 'Polygon',
-        'coordinates': [(1, 2), (2, 2), (2, 1), (1, 2)],
-    }
-    with pytest.raises(TypeError):
-        h3.polyfill(d, 4)
+    # d = {
+    #     'type': 'Polygon',
+    #     'coordinates': [(1, 2), (2, 2), (2, 1), (1, 2)],
+    # }
+    # with pytest.raises(TypeError):
+    #     h3.polyfill(d, 4)

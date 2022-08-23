@@ -4,61 +4,47 @@ from pytest import approx
 import h3
 
 
-def test_nested_import():
-    """ Test that we can import `h3.h3`
-    For backwards-compatibility
-    """
-    from h3 import h3
-    assert h3.geo_to_h3(37.3615593, -122.0553238, 5) == '85283473fffffff'
-
-
-def shift_circular_list(start_element, elements_list):
-    # We shift the circular list so that it starts from start_element,
-    start_index = elements_list.index(start_element)
-    return elements_list[start_index:] + elements_list[:start_index]
-
-
-def test_h3_is_valid():
-    assert h3.h3_is_valid('85283473fffffff')
-    assert h3.h3_is_valid('850dab63fffffff')
-    assert not h3.h3_is_valid('lolwut')
+def test_is_valid_cell():
+    assert h3.is_valid_cell('85283473fffffff')
+    assert h3.is_valid_cell('850dab63fffffff')
+    assert not h3.is_valid_cell('lolwut')
 
     # H3 0.x Addresses are not considered valid
-    assert not h3.h3_is_valid('5004295803a88')
+    assert not h3.is_valid_cell('5004295803a88')
 
     for res in range(16):
-        assert h3.h3_is_valid(h3.geo_to_h3(37, -122, res))
+        assert h3.is_valid_cell(h3.latlng_to_cell(37, -122, res))
 
 
-def test_geo_to_h3():
-    assert h3.geo_to_h3(37.3615593, -122.0553238, 5) == '85283473fffffff'
+def test_latlng_to_cell():
+    assert h3.latlng_to_cell(37.3615593, -122.0553238, 5) == '85283473fffffff'
 
 
-def test_h3_get_resolution():
+def test_get_resolution():
     for res in range(16):
-        h = h3.geo_to_h3(37.3615593, -122.0553238, res)
-        assert h3.h3_get_resolution(h) == res
+        h = h3.latlng_to_cell(37.3615593, -122.0553238, res)
+        assert h3.get_resolution(h) == res
 
 
-def test_silly_geo_to_h3():
+def test_silly_latlng_to_cell():
     lat, lng = 37.3615593, -122.0553238
 
     expected0 = '85283473fffffff'
-    out0 = h3.geo_to_h3(lat, lng, 5)
+    out0 = h3.latlng_to_cell(lat, lng, 5)
     assert out0 == expected0
 
-    out1 = h3.geo_to_h3(lat + 180.0, lng + 360.0, 5)
+    out1 = h3.latlng_to_cell(lat + 180.0, lng + 360.0, 5)
     expected1 = '85ca2d53fffffff'
     assert out1 == expected1
 
 
-def test_h3_to_geo():
-    latlng = h3.h3_to_geo('85283473fffffff')
+def test_cell_to_latlng():
+    latlng = h3.cell_to_latlng('85283473fffffff')
     assert latlng == approx((37.34579337536848, -121.97637597255124))
 
 
-def test_h3_to_geo_boundary():
-    out = h3.h3_to_geo_boundary('85283473fffffff')
+def test_cell_to_boundary():
+    out = h3.cell_to_boundary('85283473fffffff')
 
     expected = [
         [37.271355866731895, -121.91508032705622],
@@ -75,8 +61,8 @@ def test_h3_to_geo_boundary():
         assert o == approx(e)
 
 
-def test_h3_to_geo_boundary_geo_json():
-    out = h3.h3_to_geo_boundary('85283473fffffff', True)
+def test_cell_to_boundary_geo_json():
+    out = h3.cell_to_boundary('85283473fffffff', True)
 
     expected = [
         [-121.91508032705622, 37.271355866731895],
@@ -94,9 +80,9 @@ def test_h3_to_geo_boundary_geo_json():
         assert o == approx(e)
 
 
-def test_k_ring():
+def test_grid_disk():
     h = '8928308280fffff'
-    out = h3.k_ring(h, 1)
+    out = h3.grid_disk(h, 1)
 
     assert len(out) == 1 + 6
 
@@ -113,9 +99,9 @@ def test_k_ring():
     assert out == expected
 
 
-def test_k_ring2():
+def test_grid_disk2():
     h = '8928308280fffff'
-    out = h3.k_ring(h, 2)
+    out = h3.grid_disk(h, 2)
 
     assert len(out) == 1 + 6 + 12
 
@@ -144,9 +130,9 @@ def test_k_ring2():
     assert out == expected
 
 
-def test_k_ring_pentagon():
+def test_grid_disk_pentagon():
     h = '821c07fffffffff'  # a pentagon cell
-    out = h3.k_ring(h, 1)
+    out = h3.grid_disk(h, 1)
 
     assert len(out) == 1 + 5
 
@@ -162,402 +148,258 @@ def test_k_ring_pentagon():
     assert out == expected
 
 
-def test_k_ring_distances():
-    h = '8928308280fffff'
-    out = h3.k_ring_distances(h, 1)
+sf_7x7 = [
+    (37.813318999983238, -122.4089866999972145),
+    (37.7866302000007224, -122.3805436999997056),
+    (37.7198061999978478, -122.3544736999993603),
+    (37.7076131999975672, -122.5123436999983966),
+    (37.7835871999971715, -122.5247187000021967),
+    (37.8151571999998453, -122.4798767000009008),
+]
 
-    assert [len(x) for x in out] == [1, 6]
+sf_hole1 = [
+    (37.7869802, -122.4471197),
+    (37.7664102, -122.4590777),
+    (37.7710682, -122.4137097),
+]
 
-    expected = [
-        {h},
-        {
-            '8928308280bffff',
-            '89283082807ffff',
-            '89283082877ffff',
-            '89283082803ffff',
-            '89283082873ffff',
-            '8928308283bffff',
-        }
-    ]
-
-    assert out == expected
-
-    out = h3.k_ring_distances('870800003ffffff', 2)
-
-    assert [len(x) for x in out] == [1, 6, 11]
+sf_hole2 = [
+    (37.747976, -122.490025),
+    (37.731550, -122.503758),
+    (37.725440, -122.452603),
+]
 
 
 def test_polyfill():
-    geo = {
-        'type': 'Polygon',
-        'coordinates': [
-            [
-                [37.813318999983238, -122.4089866999972145],
-                [37.7866302000007224, -122.3805436999997056],
-                [37.7198061999978478, -122.3544736999993603],
-                [37.7076131999975672, -122.5123436999983966],
-                [37.7835871999971715, -122.5247187000021967],
-                [37.8151571999998453, -122.4798767000009008]
-            ]
-        ]
-    }
+    poly = h3.Polygon(sf_7x7)
+    out = h3.polygon_to_cells(poly, res=9)
 
-    out = h3.polyfill(geo, 9)
-    assert len(out) > 1000
+    assert len(out) == 1253
+    assert '89283080527ffff' in out
+    assert '89283095edbffff' in out
 
 
-def test_polyfill_bogus_geo_json():
-    with pytest.raises(ValueError):
-        bad_geo = {'type': 'whatwhat'}
-        h3.polyfill(bad_geo, 9)
+# def test_polyfill_bogus_geo_json():
+#     with pytest.raises(ValueError):
+#         bad_geo = {'type': 'whatwhat'}
+#         h3.polyfill(bad_geo, 9)
 
 
 def test_polyfill_with_hole():
-    geo = {
-        'type': 'Polygon',
-        'coordinates': [
-            [
-                [37.813318999983238, -122.4089866999972145],
-                [37.7866302000007224, -122.3805436999997056],
-                [37.7198061999978478, -122.3544736999993603],
-                [37.7076131999975672, -122.5123436999983966],
-                [37.7835871999971715, -122.5247187000021967],
-                [37.8151571999998453, -122.4798767000009008],
-            ],
-            [
-                [37.7869802, -122.4471197],
-                [37.7664102, -122.4590777],
-                [37.7710682, -122.4137097],
-            ]
-        ]
-    }
+    poly = h3.Polygon(sf_7x7, sf_hole1)
 
-    out = h3.polyfill(geo, 9)
-    assert len(out) > 1000
+    out = h3.polygon_to_cells(poly, res=9)
+    assert len(out) == 1214
+
+    foo = lambda x: h3.polygon_to_cells(h3.Polygon(x), 9)
+    # todo: foo = lambda x: h3.Polygon(x).to_cells(9)
+    assert out == foo(sf_7x7) - foo(sf_hole1)
 
 
 def test_polyfill_with_two_holes():
-    geo = {
-        'type': 'Polygon',
-        'coordinates': [
-            [
-                [37.813318999983238, -122.4089866999972145],
-                [37.7866302000007224, -122.3805436999997056],
-                [37.7198061999978478, -122.3544736999993603],
-                [37.7076131999975672, -122.5123436999983966],
-                [37.7835871999971715, -122.5247187000021967],
-                [37.8151571999998453, -122.4798767000009008],
-            ],
-            [
-                [37.7869802, -122.4471197],
-                [37.7664102, -122.4590777],
-                [37.7710682, -122.4137097],
-            ],
-            [
-                [37.747976, -122.490025],
-                [37.731550, -122.503758],
-                [37.725440, -122.452603],
-            ]
-        ]
-    }
 
-    out = h3.polyfill(geo, 9)
-    assert len(out) > 1000
+    poly = h3.Polygon(sf_7x7, sf_hole1, sf_hole2)
+    out = h3.polygon_to_cells(poly, 9)
+    assert len(out) == 1172
 
+    foo = lambda x: h3.polygon_to_cells(h3.Polygon(x), 9)
+    assert out == foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2))
 
-def test_polyfill_geo_json_compliant():
-    geo = {
-        'type': 'Polygon',
-        'coordinates': [
-            [
-                [-122.4089866999972145, 37.813318999983238],
-                [-122.3805436999997056, 37.7866302000007224],
-                [-122.3544736999993603, 37.7198061999978478],
-                [-122.5123436999983966, 37.7076131999975672],
-                [-122.5247187000021967, 37.7835871999971715],
-                [-122.4798767000009008, 37.8151571999998453],
-            ]
-        ]
-    }
+# def test_polyfill_geo_json_compliant():
+#     geo = {
+#         'type': 'Polygon',
+#         'coordinates': [
+#             [
+#                 [-122.4089866999972145, 37.813318999983238],
+#                 [-122.3805436999997056, 37.7866302000007224],
+#                 [-122.3544736999993603, 37.7198061999978478],
+#                 [-122.5123436999983966, 37.7076131999975672],
+#                 [-122.5247187000021967, 37.7835871999971715],
+#                 [-122.4798767000009008, 37.8151571999998453],
+#             ]
+#         ]
+#     }
 
-    out = h3.polyfill(geo, 9, True)
-    assert len(out) > 1000
+#     out = h3.polyfill(geo, 9, True)
+#     assert len(out) > 1000
 
 
 def test_polyfill_down_under():
-    geo = {
-        'type': 'Polygon',
-        'coordinates': [
-            [
-                [151.1979259, -33.8555555],
-                [151.2074556, -33.8519779],
-                [151.224743, -33.8579597],
-                [151.2254986, -33.8582212],
-                [151.235313348, -33.8564183032],
-                [151.234799568, -33.8594049408],
-                [151.233485084, -33.8641069037],
-                [151.233181742, -33.8715791334],
-                [151.223980353, -33.8876967719],
-                [151.219388501, -33.8873877027],
-                [151.2189209, -33.8869995],
-                [151.2181177, -33.886283399999996],
-                [151.2157995, -33.8851287],
-                [151.2156925, -33.8852471],
-                [151.2141233, -33.8851287],
-                [151.2116267, -33.8847438],
-                [151.2083456, -33.8834707],
-                [151.2080246, -33.8827601],
-                [151.2059204, -33.8816053],
-                [151.2043868, -33.8827601],
-                [151.2028176, -33.8838556],
-                [151.2022826, -33.8839148],
-                [151.2011057, -33.8842405],
-                [151.1986114, -33.8842819],
-                [151.1986091, -33.8842405],
-                [151.1948287, -33.8773416],
-                [151.1923322, -33.8740845],
-                [151.1850566, -33.8697019],
-                [151.1902636, -33.8625354],
-                [151.1986805, -33.8612915],
-                [151.1979259, -33.8555555],
-            ]
-        ]
-    }
+    sydney = [
+        (-33.8555555, 151.1979259),
+        (-33.8519779, 151.2074556),
+        (-33.8579597, 151.224743),
+        (-33.8582212, 151.2254986),
+        (-33.8564183032, 151.235313348),
+        (-33.8594049408, 151.234799568),
+        (-33.8641069037, 151.233485084),
+        (-33.8715791334, 151.233181742),
+        (-33.8876967719, 151.223980353),
+        (-33.8873877027, 151.219388501),
+        (-33.8869995, 151.2189209),
+        (-33.886283399999996, 151.2181177),
+        (-33.8851287, 151.2157995),
+        (-33.8852471, 151.2156925),
+        (-33.8851287, 151.2141233),
+        (-33.8847438, 151.2116267),
+        (-33.8834707, 151.2083456),
+        (-33.8827601, 151.2080246),
+        (-33.8816053, 151.2059204),
+        (-33.8827601, 151.2043868),
+        (-33.8838556, 151.2028176),
+        (-33.8839148, 151.2022826),
+        (-33.8842405, 151.2011057),
+        (-33.8842819, 151.1986114),
+        (-33.8842405, 151.1986091),
+        (-33.8773416, 151.1948287),
+        (-33.8740845, 151.1923322),
+        (-33.8697019, 151.1850566),
+        (-33.8625354, 151.1902636),
+        (-33.8612915, 151.1986805),
+        (-33.8555555, 151.1979259),
+    ]
 
-    out = h3.polyfill(geo, 9, True)
-    assert len(out) > 10
+    poly = h3.Polygon(sydney)
+    out = h3.polygon_to_cells(poly, 9)
+    assert len(out) == 92
+    assert '89be0e34207ffff' in out
+    assert '89be0e35ddbffff' in out
 
 
 def test_polyfill_far_east():
-    geo = {
-        'type': 'Polygon',
-        'coordinates': [
-            [
-                [142.86483764648438, 41.92578147109541],
-                [142.86483764648438, 42.29965889253408],
-                [143.41552734375, 42.29965889253408],
-                [143.41552734375, 41.92578147109541],
-                [142.86483764648438, 41.92578147109541],
-            ]
-        ]
-    }
+    geo = [
+        (41.92578147109541, 142.86483764648438),
+        (42.29965889253408, 142.86483764648438),
+        (42.29965889253408, 143.41552734375),
+        (41.92578147109541, 143.41552734375),
+        (41.92578147109541, 142.86483764648438),
+    ]
 
-    out = h3.polyfill(geo, 9, True)
-    assert len(out) > 10
+    poly = h3.Polygon(geo)
+    out = h3.polygon_to_cells(poly, 9)
+    assert len(out) == 18507
+    assert '892e18d16c3ffff' in out
+    assert '892e1ebb5a7ffff' in out
 
 
 def test_polyfill_southern_tip():
-    geo = {
-        'type': 'Polygon',
-        'coordinates': [
-            [
-                [-67.642822265625, -55.41654360858007],
-                [-67.642822265625, -54.354955689554096],
-                [-64.742431640625, -54.354955689554096],
-                [-64.742431640625, -55.41654360858007],
-                [-67.642822265625, -55.41654360858007],
-            ]
-        ]
-    }
+    geo = [
+        (-55.41654360858007, -67.642822265625),
+        (-54.354955689554096, -67.642822265625),
+        (-54.354955689554096, -64.742431640625),
+        (-55.41654360858007, -64.742431640625),
+        (-55.41654360858007, -67.642822265625),
+    ]
 
-    out = h3.polyfill(geo, 9, True)
-    assert len(out) > 10
+    poly = h3.Polygon(geo)
+    out = h3.polygon_to_cells(poly, 9)
+    assert len(out) == 223247
+    assert '89df4000003ffff' in out
+    assert '89df4636b27ffff' in out
 
 
 def test_polyfill_null_island():
-    geo = {
-        "type": "Polygon",
-        "coordinates": [
-            [
-                [-3.218994140625, -3.0856655287215378],
-                [-3.218994140625, 3.6888551431470478],
-                [3.5815429687499996, 3.6888551431470478],
-                [3.5815429687499996, -3.0856655287215378],
-                [-3.218994140625, -3.0856655287215378],
-            ]
-        ]
-    }
+    geo = [
+        (-3, -3),
+        (+3, -3),
+        (+3, +3),
+        (-3, +3),
+        (-3, -3),
+    ]
 
-    out = h3.polyfill(geo, 4, True)
-    assert len(out) > 10
+    poly = h3.Polygon(geo)
+    out = h3.polygon_to_cells(poly, 4)
+    assert len(out) == 345
+    assert '847421bffffffff' in out
+    assert '84825ddffffffff' in out
 
 
-def test_h3_set_to_multi_polygon_empty():
-    out = h3.h3_set_to_multi_polygon([])
-    assert out == []
+def test_cells_to_polygons_empty():
+    polys = h3.cells_to_polygons([])
+    assert polys == []
 
 
-def test_h3_set_to_multi_polygon_single():
+def test_cells_to_polygons_single():
     h = '89283082837ffff'
-    hexes = {h}
+    cells = {h}
 
-    # multi_polygon
-    mp = h3.h3_set_to_multi_polygon(hexes)
-    vertices = h3.h3_to_geo_boundary(h)
+    polys = h3.cells_to_polygons(cells)
+    assert len(polys) == 1
+    poly = polys[0]
 
-    # We shift the expected circular list so that it starts from
-    # multi_polygon[0][0][0], since output starting from any vertex
-    # would be correct as long as it's in order.
-    expected_coords = shift_circular_list(
-        mp[0][0][0],
-        [
-            vertices[2],
-            vertices[3],
-            vertices[4],
-            vertices[5],
-            vertices[0],
-            vertices[1],
-        ]
-    )
+    vertices = h3.cell_to_boundary(h)
+    expected_poly = h3.Polygon(vertices)
 
-    expected = [[expected_coords]]
-
-    assert mp == expected
+    assert set(poly.outer) == set(expected_poly.outer)
+    assert poly.holes == expected_poly.holes == ()
 
 
-def test_h3_set_to_multi_polygon_single_geo_json():
-    hexes = ['89283082837ffff']
-    mp = h3.h3_set_to_multi_polygon(hexes, True)
-    vertices = h3.h3_to_geo_boundary(hexes[0], True)
+def test_cells_to_polygons_contiguous():
+    a = '89283082837ffff'
+    b = '89283082833ffff'
+    assert h3.are_neighbor_cells(a, b)
 
-    # We shift the expected circular list so that it starts from
-    # multi_polygon[0][0][0], since output starting from any vertex
-    # would be correct as long as it's in order.
-    expected_coords = shift_circular_list(
-        mp[0][0][0],
-        [
-            vertices[2],
-            vertices[3],
-            vertices[4],
-            vertices[5],
-            vertices[0],
-            vertices[1]
-        ]
-    )
+    polys = h3.cells_to_polygons([a, b])
+    assert len(polys) == 1
+    poly = polys[0]
 
-    expected = [[expected_coords]]
+    assert len(poly.outer) == 10
+    assert poly.holes == ()
 
-    # polygon count matches expected
-    assert len(mp) == 1
-
-    # loop count matches expected
-    assert len(mp[0]) == 1
-
-    # coord count 7 matches expected according to geojson format
-    assert len(mp[0][0]) == 7
-
-    # first coord should be the same as last coord according to geojson format
-    assert mp[0] == mp[-1]
-
-    # the coord should be (lng, lat) according to geojson format
-    assert mp[0][0][0][0] == approx(-122.42778275313199)
-    assert mp[0][0][0][1] == approx(37.77598951883773)
-
-    # Discard last coord for testing below, since last coord is
-    # the same as the first one
-    mp[0][0].pop()
-    assert mp == expected
+    verts_a = h3.cell_to_boundary(a)
+    verts_b = h3.cell_to_boundary(b)
+    assert set(poly.outer) == set(verts_a) | set(verts_b)
 
 
-def test_h3_set_to_multi_polygon_contiguous():
-    # the second hexagon shares v0 and v1 with the first
-    hexes = ['89283082837ffff', '89283082833ffff']
+def test_cells_to_polygons_non_contiguous():
+    a = '89283082837ffff'
+    b = '8928308280fffff'
+    assert not h3.are_neighbor_cells(a, b)
 
-    # multi_polygon
-    mp = h3.h3_set_to_multi_polygon(hexes)
-    vertices0 = h3.h3_to_geo_boundary(hexes[0])
-    vertices1 = h3.h3_to_geo_boundary(hexes[1])
+    polys = h3.cells_to_polygons([a, b])
+    assert len(polys) == 2
 
-    # We shift the expected circular list so that it starts from
-    # multi_polygon[0][0][0], since output starting from any vertex
-    # would be correct as long as it's in order.
-    expected_coords = shift_circular_list(
-        mp[0][0][0],
-        [
-            vertices1[0],
-            vertices1[1],
-            vertices1[2],
-            vertices0[1],
-            vertices0[2],
-            vertices0[3],
-            vertices0[4],
-            vertices0[5],
-            vertices1[4],
-            vertices1[5],
-        ]
-    )
+    assert all(poly.holes == () for poly in polys)
+    assert all(len(poly.outer) == 6 for poly in polys)
 
-    expected = [[expected_coords]]
+    verts_a = h3.cell_to_boundary(a)
+    verts_b = h3.cell_to_boundary(b)
 
-    assert len(mp) == 1  # polygon count matches expected
-    assert len(mp[0]) == 1  # loop count matches expected
-    assert len(mp[0][0]) == 10  # coord count matches expected
-
-    assert mp == expected
+    verts_both = set.union(*[set(poly.outer) for poly in polys])
+    assert verts_both == set(verts_a) | set(verts_b)
 
 
-def test_h3_set_to_multi_polygon_non_contiguous():
-    # the second hexagon does not touch the first
-    hexes = {'89283082837ffff', '8928308280fffff'}
-    # multi_polygon
-    mp = h3.h3_set_to_multi_polygon(hexes)
-
-    assert len(mp) == 2  # polygon count matches expected
-    assert len(mp[0]) == 1  # loop count matches expected
-    assert len(mp[0][0]) == 6  # coord count 1 matches expected
-    assert len(mp[1][0]) == 6  # coord count 2 matches expected
-
-
-def test_h3_set_to_multi_polygon_hole():
+def test_cells_to_polygons_hole():
     # Six hexagons in a ring around a hole
-    hexes = [
+    cells = [
         '892830828c7ffff', '892830828d7ffff', '8928308289bffff',
         '89283082813ffff', '8928308288fffff', '89283082883ffff',
     ]
-    mp = h3.h3_set_to_multi_polygon(hexes)
+    polys = h3.cells_to_polygons(cells)
 
-    assert len(mp) == 1  # polygon count matches expected
-    assert len(mp[0]) == 2  # loop count matches expected
-    assert len(mp[0][0]) == 6 * 3  # outer coord count matches expected
-    assert len(mp[0][1]) == 6  # inner coord count matches expected
+    assert len(polys) == 1
+    poly = polys[0]
+
+    assert len(poly.holes) == 1
+    assert len(poly.holes[0]) == 6
+    assert len(poly.outer) == 6 * 3
 
 
-def test_h3_set_to_multi_polygon_2k_ring():
+def test_cells_to_polygons_2grid_disk():
     h = '8930062838bffff'
-    hexes = h3.k_ring(h, 2)
-    # multi_polygon
-    mp = h3.h3_set_to_multi_polygon(hexes)
+    cells = h3.grid_disk(h, 2)
+    polys = h3.cells_to_polygons(cells)
 
-    assert len(mp) == 1  # polygon count matches expected
-    assert len(mp[0]) == 1  # loop count matches expected
-    assert len(mp[0][0]) == 6 * (2 * 2 + 1)  # coord count matches expected
+    assert len(polys) == 1
+    poly = polys[0]
 
-    hexes2 = {
-        '89300628393ffff', '89300628383ffff', '89300628397ffff',
-        '89300628067ffff', '89300628387ffff', '893006283bbffff',
-        '89300628313ffff', '893006283cfffff', '89300628303ffff',
-        '89300628317ffff', '8930062839bffff', h,
-        '8930062806fffff', '8930062838fffff', '893006283d3ffff',
-        '893006283c3ffff', '8930062831bffff', '893006283d7ffff',
-        '893006283c7ffff'
-    }
-
-    mp2 = h3.h3_set_to_multi_polygon(hexes2)
-
-    assert len(mp2) == 1  # polygon count matches expected
-    assert len(mp2[0]) == 1  # loop count matches expected
-    assert len(mp2[0][0]) == 6 * (2 * 2 + 1)  # coord count matches expected
-
-    hexes3 = list(h3.k_ring(h, 6))
-    hexes3.sort()
-    mp3 = h3.h3_set_to_multi_polygon(hexes3)
-
-    assert len(mp3[0]) == 1  # loop count matches expected
+    assert len(poly.holes) == 0
+    assert len(poly.outer) == 6 * (2 * 2 + 1)
 
 
-def test_hex_ring():
+def test_grid_ring():
     h = '8928308280fffff'
-    out = h3.hex_ring(h, 1)
+    out = h3.grid_ring(h, 1)
     expected = {
         '8928308280bffff',
         '89283082807ffff',
@@ -568,12 +410,12 @@ def test_hex_ring():
     }
 
     assert out == expected
-    assert out == h3.k_ring(h, 1) - h3.k_ring(h, 0)
+    assert out == h3.grid_disk(h, 1) - h3.grid_disk(h, 0)
 
 
-def test_hex_ring2():
+def test_grid_ring2():
     h = '8928308280fffff'
-    out = h3.hex_ring(h, 2)
+    out = h3.grid_ring(h, 2)
 
     expected = {
         '89283082813ffff',
@@ -591,12 +433,12 @@ def test_hex_ring2():
     }
 
     assert out == expected
-    assert out == h3.k_ring(h, 2) - h3.k_ring(h, 1)
+    assert out == h3.grid_disk(h, 2) - h3.grid_disk(h, 1)
 
 
-def test_hex_ring_pentagon():
+def test_grid_ring_pentagon():
     h = '821c07fffffffff'
-    out = h3.hex_ring(h, 1)
+    out = h3.grid_ring(h, 1)
 
     expected = {
         '821c17fffffffff',
@@ -609,342 +451,163 @@ def test_hex_ring_pentagon():
     assert out == expected
 
 
-def test_compact_and_uncompact():
-    geo = {
-        'type': 'Polygon',
-        'coordinates': [
-            [
-                [37.813318999983238, -122.4089866999972145],
-                [37.7866302000007224, -122.3805436999997056],
-                [37.7198061999978478, -122.3544736999993603],
-                [37.7076131999975672, -122.5123436999983966],
-                [37.7835871999971715, -122.5247187000021967],
-                [37.8151571999998453, -122.4798767000009008],
-            ]
-        ]
-    }
+def test_compact_and_uncompact_cells():
+    poly = h3.Polygon(sf_7x7)
+    cells = h3.polygon_to_cells(poly, 9)
 
-    hexes = h3.polyfill(geo, 9)
+    compact_cells = h3.compact_cells(cells)
+    assert len(compact_cells) == 209
 
-    compact_hexes = h3.compact(hexes)
-    assert len(compact_hexes) == 209
+    uncompact_cells = h3.uncompact_cells(compact_cells, 9)
+    assert len(uncompact_cells) == 1253
 
-    uncompact_hexes = h3.uncompact(compact_hexes, 9)
-    assert len(uncompact_hexes) == 1253
+    assert uncompact_cells == cells
 
 
-def test_compact_and_uncompact_nothing():
-    assert h3.compact([]) == set()
-    assert h3.uncompact([], 9) == set()
+def test_compact_cells_and_uncompact_cells_nothing():
+    assert h3.compact_cells([]) == set()
+    assert h3.uncompact_cells([], 9) == set()
 
 
-def test_uncompact_error():
-    hexagons = [h3.geo_to_h3(37, -122, 10)]
+def test_uncompact_cells_error():
+    hexagons = [h3.latlng_to_cell(37, -122, 10)]
 
     with pytest.raises(Exception):
-        h3.uncompact(hexagons, 5)
+        h3.uncompact_cells(hexagons, 5)
 
 
-def test_compact_malformed_input():
-    hexes = ['89283082813ffff'] * 13
+def test_compact_cells_malformed_input():
+    cells = ['89283082813ffff'] * 13
 
     with pytest.raises(Exception):
-        h3.compact(hexes)
+        h3.compact_cells(cells)
 
 
-def test_h3_to_parent():
+def test_cell_to_parent():
     h = '89283082813ffff'
-    assert h3.h3_to_parent(h, 8) == '8828308281fffff'
+    assert h3.cell_to_parent(h, 8) == '8828308281fffff'
 
 
-def test_h3_to_children():
+def test_cell_to_children():
     h = '8828308281fffff'
-    children = h3.h3_to_children(h, 9)
+    children = h3.cell_to_children(h, 9)
 
     assert len(children) == 7
 
 
-def test_hex_range():
-    h = '8928308280fffff'
-    out = h3.hex_range(h, 1)
-    assert len(out) == 1 + 6
-
-    expected = {
-        '8928308280bffff',
-        '89283082807ffff',
-        h,
-        '89283082877ffff',
-        '89283082803ffff',
-        '89283082873ffff',
-        '8928308283bffff',
-    }
-
-    assert out == expected
-
-
-def test_hex_range2():
-    h = '8928308280fffff'
-    out = h3.hex_range(h, 2)
-
-    assert len(out) == 1 + 6 + 12
-
-    expected = {
-        '89283082813ffff',
-        '89283082817ffff',
-        '8928308281bffff',
-        '89283082863ffff',
-        '89283082823ffff',
-        '89283082873ffff',
-        '89283082877ffff',
-        '8928308287bffff',
-        '89283082833ffff',
-        '8928308282bffff',
-        '8928308283bffff',
-        '89283082857ffff',
-        '892830828abffff',
-        '89283082847ffff',
-        '89283082867ffff',
-        '89283082803ffff',
-        h,
-        '89283082807ffff',
-        '8928308280bffff',
-    }
-
-    assert out == expected
-
-
-def test_hex_range_pentagon():
-    h = '821c07fffffffff'  # a pentagon
-
-    # should consist of `h` and it's 5 neighbors
-    out = h3.hex_range(h, 1)
-
-    expected = {
-        h,
-        '821c17fffffffff',
-        '821c1ffffffffff',
-        '821c27fffffffff',
-        '821c2ffffffffff',
-        '821c37fffffffff',
-    }
-
-    assert out == expected
-
-
-def test_hex_range_distances():
-    h = '8928308280fffff'
-
-    # should consist of `h` and it's 5 neighbors
-    out = h3.hex_range_distances(h, 1)
-
-    expected = [
-        {h},
-        {
-            '8928308280bffff',
-            '89283082807ffff',
-            '89283082877ffff',
-            '89283082803ffff',
-            '89283082873ffff',
-            '8928308283bffff',
-        }
-    ]
-
-    assert out == expected
-
-
-def test_hex_range_distances_pentagon():
-
-    h = '821c07fffffffff'
-    out = h3.hex_range_distances(h, 1)
-
-    expected = [
-        {h},
-        {
-            '821c17fffffffff',
-            '821c1ffffffffff',
-            '821c27fffffffff',
-            '821c2ffffffffff',
-            '821c37fffffffff',
-        }
-    ]
-
-    assert out == expected
-
-
-def test_hex_ranges():
-    h = '8928308280fffff'
-    out = h3.hex_ranges([h], 1)
-
-    assert set(out.keys()) == {h}
-
-    expected = [
-        {h},
-        {
-            '8928308280bffff',
-            '89283082807ffff',
-            '89283082877ffff',
-            '89283082803ffff',
-            '89283082873ffff',
-            '8928308283bffff',
-        }
-    ]
-
-    assert out[h] == expected
-
-
-def test_hex_ranges_pentagon():
-    h = '821c07fffffffff'
-    out = h3.hex_ranges([h], 1)
-
-    expected = {
-        h: [
-            {h},
-            {
-                '821c17fffffffff',
-                '821c1ffffffffff',
-                '821c27fffffffff',
-                '821c2ffffffffff',
-                '821c37fffffffff'
-            }
-        ]
-    }
-
-    assert out == expected
-
-
-def test_many_hex_ranges():
-    hexes = h3.k_ring('8928308280fffff', 2)
-    out = h3.hex_ranges(hexes, 2)
-
-    assert len(out) == 19
-
-    hexes = out['8928308280fffff']
-    assert [len(x) for x in hexes] == [1, 6, 12]
-
-
-def test_many_hex_ranges2():
-    hexes = h3.k_ring('8928308280fffff', 5)
-    out = h3.hex_ranges(hexes, 5)
-    assert len(out) == 91
-
-    hexes = out['8928308280fffff']
-
-    assert [len(x) for x in hexes] == [1, 6, 12, 18, 24, 30]
-
-
-def test_hex_area():
+def test_average_hexagon_area():
     for i in range(0, 15):
-        assert isinstance(h3.hex_area(i), float)
-        assert isinstance(h3.hex_area(i, 'm^2'), float)
+        assert isinstance(h3.average_hexagon_area(i), float)
+        assert isinstance(h3.average_hexagon_area(i, 'm^2'), float)
 
     with pytest.raises(ValueError):
-        h3.hex_area(5, 'ft^2')
+        h3.average_hexagon_area(5, 'ft^2')
 
 
-def test_edge_length():
+def test_average_hexagon_edge_length():
     for i in range(0, 15):
-        assert isinstance(h3.edge_length(i), float)
-        assert isinstance(h3.edge_length(i, 'm'), float)
+        assert isinstance(h3.average_hexagon_edge_length(i), float)
+        assert isinstance(h3.average_hexagon_edge_length(i, 'm'), float)
 
     with pytest.raises(ValueError):
-        h3.edge_length(5, 'ft')
+        h3.average_hexagon_edge_length(5, 'ft')
 
 
-def test_num_hexagons():
+def test_get_num_cells():
     h0 = 122
-    assert h3.num_hexagons(0) == h0
+    assert h3.get_num_cells(0) == h0
 
     for i in range(0, 15):
-        n = h3.num_hexagons(i) * 1.0 / h0
+        n = h3.get_num_cells(i) * 1.0 / h0
 
         assert 6**i <= n <= 7**i
 
 
-def test_h3_get_base_cell():
-    assert h3.h3_get_base_cell('8928308280fffff') == 20
+def test_get_base_cell_number():
+    assert h3.get_base_cell_number('8928308280fffff') == 20
 
 
-def test_h3_is_res_class_iiiIII():
-    assert h3.h3_is_res_class_iii('8928308280fffff')
-    assert not h3.h3_is_res_class_iii('8828308280fffff')
-    assert h3.h3_is_res_class_III('8928308280fffff')
+def test_is_res_class_III():
+    assert h3.is_res_class_III('8928308280fffff')
+    assert not h3.is_res_class_III('8828308280fffff')
 
 
-def test_h3_is_pentagon():
-    assert h3.h3_is_pentagon('821c07fffffffff')
-    assert not h3.h3_is_pentagon('8928308280fffff')
+def test_is_pentagon():
+    assert h3.is_pentagon('821c07fffffffff')
+    assert not h3.is_pentagon('8928308280fffff')
 
 
-def test_h3_indexes_are_neighbors():
-    assert h3.h3_indexes_are_neighbors('8928308280fffff', '8928308280bffff')
-    assert not h3.h3_indexes_are_neighbors('821c07fffffffff', '8928308280fffff')
+def test_are_neighbor_cells():
+    assert h3.are_neighbor_cells('8928308280fffff', '8928308280bffff')
+
+    assert not h3.are_neighbor_cells('821c07fffffffff', '8928308280fffff')
 
 
-def test_get_h3_unidirectional_edge():
-    out = h3.get_h3_unidirectional_edge('8928308280fffff', '8928308280bffff')
-    assert h3.h3_unidirectional_edge_is_valid(out)
+def test_cells_to_directed_edge():
+    out = h3.cells_to_directed_edge('8928308280fffff', '8928308280bffff')
+    assert h3.is_valid_directed_edge(out)
 
-    with pytest.raises(ValueError):
-        h3.get_h3_unidirectional_edge('821c07fffffffff', '8928308280fffff')
-
-
-def test_h3_unidirectional_edge_is_valid():
-    assert not h3.h3_unidirectional_edge_is_valid('8928308280fffff')
-    assert h3.h3_unidirectional_edge_is_valid('11928308280fffff')
+    with pytest.raises(h3.H3NotNeighborsError):
+        h3.cells_to_directed_edge('821c07fffffffff', '8928308280fffff')
 
 
-def test_get_origin_h3_index_from_unidirectional_edge():
-    out = h3.get_origin_h3_index_from_unidirectional_edge('11928308280fffff')
+def test_is_valid_directed_edge():
+    assert not h3.is_valid_directed_edge('8928308280fffff')
+    assert h3.is_valid_directed_edge('11928308280fffff')
+
+
+def test_get_directed_edge_origin():
+    out = h3.get_directed_edge_origin('11928308280fffff')
     assert out == '8928308280fffff'
 
 
-def test_get_destination_h3_index_from_unidirectional_edge():
+def test_get_directed_edge_destination():
     h = '11928308280fffff'
-    out = h3.get_destination_h3_index_from_unidirectional_edge(h)
+    out = h3.get_directed_edge_destination(h)
 
     assert out == '8928308283bffff'
 
 
-def test_get_h3_indexes_from_unidirectional_edge():
-    e = h3.get_h3_indexes_from_unidirectional_edge('11928308280fffff')
+def test_directed_edge_to_cells():
+    e = h3.directed_edge_to_cells('11928308280fffff')
 
     assert e == ('8928308280fffff', '8928308283bffff')
 
 
-def test_get_h3_unidirectional_edges_from_hexagon():
-    h3_uni_edges = h3.get_h3_unidirectional_edges_from_hexagon(
+def test_origin_to_directed_edges():
+    h3_uni_edges = h3.origin_to_directed_edges(
         '8928308280fffff'
     )
     assert len(h3_uni_edges) == 6
 
-    h3_uni_edge_pentagon = h3.get_h3_unidirectional_edges_from_hexagon(
+    h3_uni_edge_pentagon = h3.origin_to_directed_edges(
         '821c07fffffffff'
     )
     assert len(h3_uni_edge_pentagon) == 5
 
 
-def test_get_h3_unidirectional_edge_boundary():
+def test_directed_edge_to_boundary():
     e = '11928308280fffff'
-    boundary = h3.get_h3_unidirectional_edge_boundary(e)
+    boundary = h3.directed_edge_to_boundary(e)
     assert len(boundary) == 2
 
-    boundary_geo_json = h3.get_h3_unidirectional_edge_boundary(e, True)
+    boundary_geo_json = h3.directed_edge_to_boundary(e, True)
     assert len(boundary_geo_json) == 3
 
 
-def test_h3_distance():
+def test_grid_distance():
     h = '89283082993ffff'
 
-    assert 0 == h3.h3_distance(h, h)
-    assert 1 == h3.h3_distance(h, '8928308299bffff')
-    assert 5 == h3.h3_distance(h, '89283082827ffff')
+    assert 0 == h3.grid_distance(h, h)
+    assert 1 == h3.grid_distance(h, '8928308299bffff')
+    assert 5 == h3.grid_distance(h, '89283082827ffff')
 
 
-def test_h3_line():
+def test_grid_path_cells():
     h1 = '8a2a84730587fff'
     h2 = '8a2a8471414ffff'
 
-    out = h3.h3_line(h1, h2)
+    out = h3.grid_path_cells(h1, h2)
 
     expected = [
         h1,
@@ -982,5 +645,5 @@ def test_h3_line():
 
     assert out == expected
 
-    with pytest.raises(ValueError):
-        h3.h3_line(h1, '8001fffffffffff')
+    with pytest.raises(h3.H3ResMismatchError):
+        h3.grid_path_cells(h1, '8001fffffffffff')

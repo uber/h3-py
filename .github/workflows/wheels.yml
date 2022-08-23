@@ -2,9 +2,9 @@ name: wheels
 
 on:
   push:
-    branches: [master]
+    branches: [master, dev_v4]
   pull_request:
-    branches: [master]
+    branches: [master, dev_v4]
     types:
       # Opened, synchronize, and reopened are the default types
       # We add ready_for_review to additionally trigger when converting from draft to non-draft
@@ -19,22 +19,32 @@ on:
 
 jobs:
   make_sdist:
-    name: SDist
+    name: "SDist: ${{ matrix.os }}"
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
 
+      - name: Setup Python
+        uses: actions/setup-python@v3.1.2
+
       - name: Make sdist
         run: |
+          python --version
+          pipx --version
           pipx run build --sdist
 
       - name: Install from sdist
         run: |
           pip install --upgrade pip setuptools wheel
+          pip install pytest
           cp dist/h3-*.tar.gz h3.tar.gz
           pip install h3.tar.gz[all]
 

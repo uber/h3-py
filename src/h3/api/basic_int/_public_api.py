@@ -6,61 +6,56 @@ being able to understand the H3 API.
 
 This file exists to avoid dynamically modifying `globals` and support static tooling.
 """
-from ._binding import _binding
+from ._binding import _binding as _b
 
-cell_area = _binding.cell_area
-compact = _binding.compact
-edge_length = _binding.edge_length
-exact_edge_length = _binding.exact_edge_length
-experimental_h3_to_local_ij = _binding.experimental_h3_to_local_ij
-experimental_local_ij_to_h3 = _binding.experimental_local_ij_to_h3
-geo_to_h3 = _binding.geo_to_h3
-get_destination_h3_index_from_unidirectional_edge = (
-    _binding.get_destination_h3_index_from_unidirectional_edge
-)
-get_h3_indexes_from_unidirectional_edge = (
-    _binding.get_h3_indexes_from_unidirectional_edge
-)
-get_h3_unidirectional_edge = _binding.get_h3_unidirectional_edge
-get_h3_unidirectional_edge_boundary = _binding.get_h3_unidirectional_edge_boundary
-get_h3_unidirectional_edges_from_hexagon = (
-    _binding.get_h3_unidirectional_edges_from_hexagon
-)
-get_origin_h3_index_from_unidirectional_edge = (
-    _binding.get_origin_h3_index_from_unidirectional_edge
-)
-get_pentagon_indexes = _binding.get_pentagon_indexes
-get_res0_indexes = _binding.get_res0_indexes
-h3_distance = _binding.h3_distance
-h3_get_base_cell = _binding.h3_get_base_cell
-h3_get_faces = _binding.h3_get_faces
-h3_get_resolution = _binding.h3_get_resolution
-h3_indexes_are_neighbors = _binding.h3_indexes_are_neighbors
-h3_is_pentagon = _binding.h3_is_pentagon
-h3_is_res_class_III = _binding.h3_is_res_class_III
-h3_is_res_class_iii = _binding.h3_is_res_class_iii
-h3_is_valid = _binding.h3_is_valid
-h3_line = _binding.h3_line
-h3_set_to_multi_polygon = _binding.h3_set_to_multi_polygon
-h3_to_center_child = _binding.h3_to_center_child
-h3_to_children = _binding.h3_to_children
-h3_to_geo = _binding.h3_to_geo
-h3_to_geo_boundary = _binding.h3_to_geo_boundary
-h3_to_parent = _binding.h3_to_parent
-h3_to_string = _binding.h3_to_string
-h3_unidirectional_edge_is_valid = _binding.h3_unidirectional_edge_is_valid
-hex_area = _binding.hex_area
-hex_range = _binding.hex_range
-hex_range_distances = _binding.hex_range_distances
-hex_ranges = _binding.hex_ranges
-hex_ring = _binding.hex_ring
-k_ring = _binding.k_ring
-k_ring_distances = _binding.k_ring_distances
-num_hexagons = _binding.num_hexagons
-point_dist = _binding.point_dist
-polyfill = _binding.polyfill
-polyfill_geojson = _binding.polyfill_geojson
-polyfill_polygon = _binding.polyfill_polygon
-string_to_h3 = _binding.string_to_h3
-uncompact = _binding.uncompact
-versions = _binding.versions
+
+is_valid_cell = _b.is_valid_cell
+is_pentagon = _b.is_pentagon
+is_valid_directed_edge = _b.is_valid_directed_edge
+is_res_class_III = _b.is_res_class_III
+
+int_to_str = _b.int_to_str
+str_to_int = _b.str_to_int
+
+cell_area = _b.cell_area
+edge_length = _b.edge_length
+great_circle_distance = _b.great_circle_distance
+average_hexagon_area = _b.average_hexagon_area
+average_hexagon_edge_length = _b.average_hexagon_edge_length
+
+latlng_to_cell = _b.latlng_to_cell
+cell_to_latlng = _b.cell_to_latlng
+cell_to_boundary = _b.cell_to_boundary
+cell_to_local_ij = _b.cell_to_local_ij
+local_ij_to_cell = _b.local_ij_to_cell
+
+grid_ring = _b.grid_ring
+grid_disk = _b.grid_disk
+grid_distance = _b.grid_distance
+grid_path_cells = _b.grid_path_cells
+
+get_num_cells = _b.get_num_cells
+get_pentagons = _b.get_pentagons
+get_res0_cells = _b.get_res0_cells
+get_resolution = _b.get_resolution
+get_base_cell_number = _b.get_base_cell_number
+get_icosahedron_faces = _b.get_icosahedron_faces
+
+cell_to_parent = _b.cell_to_parent
+cell_to_children = _b.cell_to_children
+cell_to_center_child = _b.cell_to_center_child
+compact_cells = _b.compact_cells
+uncompact_cells = _b.uncompact_cells
+
+polygon_to_cells = _b.polygon_to_cells
+cells_to_polygons = _b.cells_to_polygons
+
+are_neighbor_cells = _b.are_neighbor_cells
+cells_to_directed_edge = _b.cells_to_directed_edge
+directed_edge_to_cells = _b.directed_edge_to_cells
+origin_to_directed_edges = _b.origin_to_directed_edges
+get_directed_edge_origin = _b.get_directed_edge_origin
+get_directed_edge_destination = _b.get_directed_edge_destination
+directed_edge_to_boundary = _b.directed_edge_to_boundary
+
+versions = _b.versions

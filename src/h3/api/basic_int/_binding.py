@@ -21,10 +21,10 @@ def _id(x):
     return x
 
 
-def _in_collection(hexes):
-    it = list(hexes)
+def _in_collection(cells):
+    it = list(cells)
 
-    return _cy.from_iter(it)
+    return _cy.iter_to_mv(it)
 
 
 _binding = _API_FUNCTIONS(

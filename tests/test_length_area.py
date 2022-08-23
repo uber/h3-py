@@ -1,8 +1,6 @@
 import h3
 import pytest
 
-from h3 import H3ValueError
-
 
 def approx2(a, b):
     if len(a) != len(b):
@@ -15,10 +13,10 @@ def approx2(a, b):
 
 
 def cell_perimiter1(h, unit='km'):
-    edges = h3.get_h3_unidirectional_edges_from_hexagon(h)
+    edges = h3.origin_to_directed_edges(h)
 
     dists = [
-        h3.exact_edge_length(e, unit=unit)
+        h3.edge_length(e, unit=unit)
         for e in edges
     ]
 
@@ -28,12 +26,12 @@ def cell_perimiter1(h, unit='km'):
 
 
 def cell_perimiter2(h, unit='km'):
-    verts = h3.h3_to_geo_boundary(h)
+    verts = h3.cell_to_boundary(h)
     N = len(verts)
     verts += (verts[0],)
 
     dists = [
-        h3.point_dist(verts[i], verts[i + 1], unit=unit)
+        h3.great_circle_distance(verts[i], verts[i + 1], unit=unit)
         for i in range(N)
     ]
 
@@ -63,7 +61,7 @@ def test_areas_at_00():
     ]
 
     out = [
-        h3.cell_area(h3.geo_to_h3(0, 0, r), unit='km^2')
+        h3.cell_area(h3.latlng_to_cell(0, 0, r), unit='km^2')
         for r in range(16)
     ]
 
@@ -89,7 +87,7 @@ def test_areas_at_00():
     ]
 
     out = [
-        h3.cell_area(h3.geo_to_h3(0, 0, r), unit='rads^2')
+        h3.cell_area(h3.latlng_to_cell(0, 0, r), unit='rads^2')
         for r in range(16)
     ]
 
@@ -100,41 +98,42 @@ def test_bad_units():
     h = '89754e64993ffff'
     e = '139754e64993ffff'
 
-    assert h3.h3_is_valid(h)
-    assert h3.h3_unidirectional_edge_is_valid(e)
+    assert h3.is_valid_cell(h)
+    assert h3.is_valid_directed_edge(e)
 
-    with pytest.raises(H3ValueError):
+    with pytest.raises(ValueError):
         h3.cell_area(h, unit='foot-pounds')
 
-    with pytest.raises(H3ValueError):
-        h3.exact_edge_length(h, unit='foot-pounds')
+    with pytest.raises(ValueError):
+        h3.edge_length(e, unit='foot-pounds')
 
-    with pytest.raises(H3ValueError):
-        h3.point_dist((0, 0), (0, 0), unit='foot-pounds')
+    with pytest.raises(ValueError):
+        h3.great_circle_distance((0, 0), (0, 0), unit='foot-pounds')
 
 
-def test_point_dist():
+def test_great_circle_distance():
     lyon = (45.7597, 4.8422)  # (lat, lon)
     paris = (48.8567, 2.3508)
 
-    d = h3.point_dist(lyon, paris, unit='rads')
+    d = h3.great_circle_distance(lyon, paris, unit='rads')
     assert d == pytest.approx(0.0615628186794217)
 
-    d = h3.point_dist(lyon, paris, unit='m')
+    d = h3.great_circle_distance(lyon, paris, unit='m')
     assert d == pytest.approx(392217.1598841777)
 
-    d = h3.point_dist(lyon, paris, unit='km')
+    d = h3.great_circle_distance(lyon, paris, unit='km')
     assert d == pytest.approx(392.21715988417765)
 
     # test that 'km' is the default unit
-    assert h3.point_dist(lyon, paris, unit='km') == h3.point_dist(lyon, paris)
+    dist = h3.great_circle_distance
+    assert dist(lyon, paris, unit='km') == dist(lyon, paris)
 
 
 def test_cell_perimiter_calculations():
     resolutions = [0, 1]
 
     for r in resolutions:
-        cells = h3.uncompact(h3.get_res0_indexes(), r)
+        cells = h3.uncompact_cells(h3.get_res0_cells(), r)
         for h in cells:
             for unit in ['rads', 'm', 'km']:
                 v1 = cell_perimiter1(h, unit)

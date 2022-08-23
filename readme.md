@@ -41,7 +41,7 @@ conda install h3-py
 >>> import h3
 >>> lat, lng = 37.769377, -122.388903
 >>> resolution = 9
->>> h3.geo_to_h3(lat, lng, resolution)
+>>> h3.latlng_to_cell(lat, lng, resolution)
 '89283082e73ffff'
 ```
 
