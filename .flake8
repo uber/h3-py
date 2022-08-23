@@ -12,3 +12,5 @@ ignore =
     E201,
     # E241 multiple spaces after ','
     E241,
+    # E731 do not assign a lambda expression, use a def
+    E731,

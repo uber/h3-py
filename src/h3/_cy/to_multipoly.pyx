@@ -32,14 +32,14 @@ cdef walk_coords(const h3lib.LinkedLatLng* L):
     return out
 
 # todo: tuples instead of lists?
-def _to_multi_polygon(const H3int[:] hexes):
+def _to_multi_polygon(const H3int[:] cells):
     cdef:
         h3lib.LinkedGeoPolygon polygon
 
-    for h in hexes:
+    for h in cells:
         check_cell(h)
 
-    h3lib.cellsToLinkedMultiPolygon(&hexes[0], len(hexes), &polygon)
+    h3lib.cellsToLinkedMultiPolygon(&cells[0], len(cells), &polygon)
 
     out = walk_polys(&polygon)
 
@@ -59,12 +59,12 @@ def _geojson_loop(loop):
     return loop
 
 
-def cells_to_multi_polygon(const H3int[:] hexes, geo_json=False):
+def cells_to_multi_polygon(const H3int[:] cells, geo_json=False):
     # todo: gotta be a more elegant way to handle these...
-    if len(hexes) == 0:
+    if len(cells) == 0:
         return []
 
-    multipoly = _to_multi_polygon(hexes)
+    multipoly = _to_multi_polygon(cells)
 
     if geo_json:
         multipoly = [

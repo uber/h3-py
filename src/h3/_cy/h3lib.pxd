@@ -154,7 +154,7 @@ cdef extern from 'h3api.h':
     double greatCircleDistanceKm(const LatLng *a, const LatLng *b) nogil
     double greatCircleDistanceM(const LatLng *a, const LatLng *b) nogil
 
-    H3Error cellsToLinkedMultiPolygon(const H3int *h3Set, const int numHexes, LinkedGeoPolygon *out)
+    H3Error cellsToLinkedMultiPolygon(const H3int *h3Set, const int numCells, LinkedGeoPolygon *out)
     void destroyLinkedMultiPolygon(LinkedGeoPolygon *polygon)
 
     H3Error maxPolygonToCellsSize(const GeoPolygon *geoPolygon, int res, uint32_t flags, uint64_t *count)
@@ -170,7 +170,7 @@ cdef extern from 'h3api.h':
 
     # int hexRanges(H3int *h3Set, int length, int k, H3int *out)
 
-    # void h3SetToLinkedGeo(const H3int *h3Set, const int numHexes, LinkedGeoPolygon *out)
+    # void h3SetToLinkedGeo(const H3int *h3Set, const int numCells, LinkedGeoPolygon *out)
 
     # void destroyLinkedPolygon(LinkedGeoPolygon *polygon)
 

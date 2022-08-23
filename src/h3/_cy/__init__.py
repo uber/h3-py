@@ -53,9 +53,7 @@ from .edges import (
 from .geo import (
     latlng_to_cell,
     cell_to_latlng,
-    polyfill_polygon,
-    polyfill_geojson,
-    polyfill,
+    polygon_to_cells,
     cell_to_boundary,
     directed_edge_to_boundary,
     great_circle_distance,

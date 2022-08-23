@@ -38,6 +38,7 @@ be skipped due to it being inside the `_api_functions` function.
 """
 
 from .. import _cy
+from .._polygon import Polygon
 
 
 class _API_FUNCTIONS(object):
@@ -112,7 +113,7 @@ class _API_FUNCTIONS(object):
         return _cy.int_to_str(x)
 
     @staticmethod
-    def get_num_cells(resolution):
+    def get_num_cells(res):
         """
         Return the total number of *cells* (hexagons and pentagons)
         for the given resolution.
@@ -121,10 +122,10 @@ class _API_FUNCTIONS(object):
         -------
         int
         """
-        return _cy.get_num_cells(resolution)
+        return _cy.get_num_cells(res)
 
     @staticmethod
-    def average_hexagon_area(resolution, unit='km^2'):
+    def average_hexagon_area(res, unit='km^2'):
         """
         Return the average area of an H3 *hexagon*
         for the given resolution.
@@ -135,10 +136,10 @@ class _API_FUNCTIONS(object):
         -------
         float
         """
-        return _cy.average_hexagon_area(resolution, unit)
+        return _cy.average_hexagon_area(res, unit)
 
     @staticmethod
-    def average_hexagon_edge_length(resolution, unit='km'):
+    def average_hexagon_edge_length(res, unit='km'):
         """
         Return the average *hexagon* edge length
         for the given resolution.
@@ -149,7 +150,7 @@ class _API_FUNCTIONS(object):
         -------
         float
         """
-        return _cy.average_hexagon_edge_length(resolution, unit)
+        return _cy.average_hexagon_edge_length(res, unit)
 
     def is_valid_cell(self, h):
         """
@@ -179,7 +180,7 @@ class _API_FUNCTIONS(object):
         except (ValueError, TypeError):
             return False
 
-    def latlng_to_cell(self, lat, lng, resolution):
+    def latlng_to_cell(self, lat, lng, res):
         """
         Return the cell containing the (lat, lng) point
         for a given resolution.
@@ -189,7 +190,7 @@ class _API_FUNCTIONS(object):
         H3Cell
 
         """
-        return self._out_scalar(_cy.latlng_to_cell(lat, lng, resolution))
+        return self._out_scalar(_cy.latlng_to_cell(lat, lng, res))
 
     def cell_to_latlng(self, h):
         """
@@ -331,7 +332,7 @@ class _API_FUNCTIONS(object):
 
     def cell_to_children(self, h, res=None):
         """
-        Children of a hexagon.
+        Children of a cell.
 
         Parameters
         ----------
@@ -349,7 +350,7 @@ class _API_FUNCTIONS(object):
         return self._out_unordered(mv)
 
     # todo: nogil for expensive C operation?
-    def compact_cells(self, hexes):
+    def compact_cells(self, cells):
         """
         Compact a collection of H3 cells by combining
         smaller cells into larger cells, if all child cells
@@ -357,19 +358,19 @@ class _API_FUNCTIONS(object):
 
         Parameters
         ----------
-        hexes : iterable of H3Cell
+        cells : iterable of H3 Cells
 
         Returns
         -------
         unordered collection of H3Cell
         """
         # todo: does compact_cells work on mixed-resolution collections?
-        hu = self._in_collection(hexes)
+        hu = self._in_collection(cells)
         hc = _cy.compact_cells(hu)
 
         return self._out_unordered(hc)
 
-    def uncompact_cells(self, hexes, res):
+    def uncompact_cells(self, cells, res):
         """
         Reverse the `compact_cells` operation.
 
@@ -377,7 +378,7 @@ class _API_FUNCTIONS(object):
 
         Parameters
         ----------
-        hexes : iterable of H3Cell
+        cells : iterable of H3Cell
         res : int
             Resolution of desired output cells.
 
@@ -388,91 +389,80 @@ class _API_FUNCTIONS(object):
         Raises
         ------
         todo: add test to make sure an error is returned when input
-        contains hex smaller than output res.
+        contains cell smaller than output res.
         https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
         """
-        hc = self._in_collection(hexes)
+        hc = self._in_collection(cells)
         hu = _cy.uncompact_cells(hc, res)
 
         return self._out_unordered(hu)
 
-    def cells_to_multi_polygon(self, hexes, geo_json=False):
+    def polygon_to_cells(self, polygon, res):
         """
-        Get GeoJSON-like MultiPolygon describing the outline of the area
+        Return the set of H3 cells at a given resolution whose center points
+        are contained within a `h3.Polygon`
+
+        Parameters
+        ----------
+        Polygon : h3.Polygon
+            A polygon described by an outer ring and optional holes
+
+        res : int
+            Resolution of the output cells
+
+        Examples
+        --------
+
+        >>> poly = h3.Polygon(
+        ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
+        ...      (37.82, -122.54)],
+        ... )
+        >>> h3.polygon_to_cells(poly, 6)
+        {'862830807ffffff',
+         '862830827ffffff',
+         '86283082fffffff',
+         '862830877ffffff',
+         '862830947ffffff',
+         '862830957ffffff',
+         '86283095fffffff'}
+        """
+        mv = _cy.polygon_to_cells(polygon.outer, res, holes=polygon.holes)
+
+        return self._out_unordered(mv)
+
+    # def polygons_to_cells(self, polygons, res):
+    #     # todo: have to figure out how to concat memoryviews cleanly
+    #     # or some other approach
+    #     pass
+
+    def cells_to_polygons(self, cells):
+        """
+        Return a list of h3.Polygon objects describing the area
         covered by a set of H3 cells.
 
         Parameters
         ----------
-        hexes : unordered collection of H3Cell
-        geo_json : bool, optional
-            If `True`, output geo sequences will be lng/lat pairs, with the
-            last the same as the first.
-            If `False`, output geo sequences will be lat/lng pairs, with the
-            last distinct from the first.
-            Defaults to `False`
+        cells : iterable of H3 cells
 
         Returns
         -------
-        list
-            List of "polygons".
-            Each polygon is a list of "geo sequences" like
-            ``[outer, hole1, hole2, ...]``. The holes may not be present.
-            Each geo sequence is a list of lat/lng or lng/lat pairs.
+        list[h3.Polygon]
+            List of h3.Polygon objects
+
+        Examples
+        --------
+
+        >>> cells = ['8428309ffffffff', '842830dffffffff']
+        >>> h3.cells_to_polygons(cells)
+        [<h3.Polygon |outer|=10, |holes|=()>]
+
         """
-        # todo: this function output does not match with `polyfill`.
-        # This function returns a list of polygons, while `polyfill` returns
-        # a GeoJSON-like dictionary object.
-        hexes = self._in_collection(hexes)
-        return _cy.cells_to_multi_polygon(hexes, geo_json=geo_json)
+        cells = self._in_collection(cells)
+        geos = _cy.cells_to_multi_polygon(cells)
 
-    def polyfill_polygon(self, outer, res, holes=None, lnglat_order=False):
-        mv = _cy.polyfill_polygon(outer, res, holes=holes, lnglat_order=lnglat_order)
+        polys = [Polygon(*geo) for geo in geos]
 
-        return self._out_unordered(mv)
-
-    def polyfill_geojson(self, geojson, res):
-        mv = _cy.polyfill_geojson(geojson, res)
-
-        return self._out_unordered(mv)
-
-    def polyfill(self, geojson, res, geo_json_conformant=False):
-        """
-        Get set of hexagons whose *centers* are contained within
-        a GeoJSON-style polygon.
-
-        Parameters
-        ----------
-        geojson : dict
-            GeoJSON-style input dictionary describing a polygon (optionally
-            including holes).
-
-            Dictionary should be formatted like:
-
-            .. code-block:: text
-
-                {
-                    'type': 'Polygon',
-                    'coordinates': [outer, hole1, hole2, ...],
-                }
-
-            `outer`, `hole1`, etc., are lists of geo coordinate tuples.
-            The holes are optional.
-
-        res : int
-            Desired output resolution for cells.
-        geo_json_conformant : bool, optional
-            When ``True``, ``outer``, ``hole1``, etc. must be sequences of
-            lng/lat pairs, with the last the same as the first.
-            When ``False``, they must be sequences of lat/lng pairs,
-            with the last not needing to match the first.
-
-        Returns
-        -------
-        unordered collection of H3Cell
-        """
-        mv = _cy.polyfill(geojson, res, geo_json_conformant=geo_json_conformant)
-
-        return self._out_unordered(mv)
+        return polys
 
     def is_pentagon(self, h):
         """
@@ -686,19 +676,20 @@ class _API_FUNCTIONS(object):
         """
         return _cy.is_res_class_iii(self._in_scalar(h))
 
-    def get_pentagons(self, resolution):
+    def get_pentagons(self, res):
         """
         Return all pentagons at a given resolution.
 
         Parameters
         ----------
-        resolution : int
+        res : int
+            Resolution of the pentagons
 
         Returns
         -------
         unordered collection of H3Cell
         """
-        mv = _cy.get_pentagons(resolution)
+        mv = _cy.get_pentagons(res)
 
         return self._out_unordered(mv)
 

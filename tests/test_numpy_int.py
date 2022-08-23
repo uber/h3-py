@@ -25,10 +25,10 @@ def test5():
 
 def test_compact_cells():
     h = 617700169958293503
-    hexes = h3.cell_to_children(h)
-    assert isinstance(hexes, np.ndarray)
+    cells = h3.cell_to_children(h)
+    assert isinstance(cells, np.ndarray)
 
-    assert set(h3.compact_cells(hexes)) == {h}
+    assert set(h3.compact_cells(cells)) == {h}
 
 
 def test_get_icosahedron_faces():

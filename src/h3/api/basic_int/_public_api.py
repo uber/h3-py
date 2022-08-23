@@ -47,11 +47,8 @@ cell_to_center_child = _b.cell_to_center_child
 compact_cells = _b.compact_cells
 uncompact_cells = _b.uncompact_cells
 
-# todo: think through polyfill functions
-polyfill = _b.polyfill
-polyfill_geojson = _b.polyfill_geojson
-polyfill_polygon = _b.polyfill_polygon
-cells_to_multi_polygon = _b.cells_to_multi_polygon
+polygon_to_cells = _b.polygon_to_cells
+cells_to_polygons = _b.cells_to_polygons
 
 are_neighbor_cells = _b.are_neighbor_cells
 cells_to_directed_edge = _b.cells_to_directed_edge
