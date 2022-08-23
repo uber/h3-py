@@ -37,7 +37,7 @@ needs, based on speed and convenience.
 
 ```{tip}
 Note that the APIs are all 100% compatible, and it is easy to convert
-between them with functions like `h3_to_string` (links!) and `string_to_h3`.
+between them with functions like `int_to_str` (links!) and `str_to_int`.
 
 For example, one common pattern is to use `h3.api.numpy_int` for any
 computationally-heavy work, and convert the output to `str` and `list`/`set`
@@ -54,11 +54,11 @@ using `list` and `set` for collections.
 
 ```python
 >>> import h3
->>> h = h3.geo_to_h3(0, 0, 0)
+>>> h = h3.latlng_to_cell(0, 0, 0)
 >>> h
 '8075fffffffffff'
 
->>> h3.hex_ring(h, 1)
+>>> h3.grid_ring(h, 1)
 {'8055fffffffffff',
  '8059fffffffffff',
  '807dfffffffffff',
@@ -87,11 +87,11 @@ H3 indexes are represented as Python `int`s, using `list` and `set` for collecti
 
 ```python
 >>> import h3.api.basic_int as h3
->>> h = h3.geo_to_h3(0, 0, 0)
+>>> h = h3.latlng_to_cell(0, 0, 0)
 >>> h
 578536630256664575
 
->>> h3.hex_ring(h, 1)
+>>> h3.grid_ring(h, 1)
 {577973680303243263,
  578044049047420927,
  578677367745019903,
@@ -110,11 +110,11 @@ no-copy `numpy` arrays instead of Python `list`s and `set`s.
 
 ```python
 >>> import h3.api.numpy_int as h3
->>> h = h3.geo_to_h3(0, 0, 0)
+>>> h = h3.latlng_to_cell(0, 0, 0)
 >>> h
 578536630256664575
 
->>> h3.hex_ring(h, 1)
+>>> h3.grid_ring(h, 1)
 array([578782920861286399, 578044049047420927, 577973680303243263,
        578677367745019903, 579169948954263551], dtype=uint64)
 ```
@@ -141,11 +141,11 @@ In fact, `h3.api.numpy_int` is essentially just a light wrapper around
 
 ```python
 >>> import h3.api.memview_int as h3
->>> h = h3.geo_to_h3(0, 0, 0)
+>>> h = h3.latlng_to_cell(0, 0, 0)
 >>> h
 578536630256664575
 
->>> mv = h3.hex_ring(h, 1)
+>>> mv = h3.grid_ring(h, 1)
 >>> mv
 <MemoryView of 'array' at 0x11188c710>
 
@@ -175,8 +175,8 @@ For example, consider the setup:
 ```python
 >>> import h3.api.memview_int as h3
 >>> import numpy as np
->>> h = h3.geo_to_h3(0, 0, 0)
->>> mv = h3.hex_ring(h, 1)
+>>> h = h3.latlng_to_cell(0, 0, 0)
+>>> mv = h3.grid_ring(h, 1)
 >>> list(mv)
 [578782920861286399,
  578044049047420927,
@@ -200,7 +200,7 @@ Running `a = np.asarray(mv)` **does not create a copy**, so modifying `mv` also
 modifies `a`:
 
 ```python
->>> mv = h3.hex_ring(h, 1)
+>>> mv = h3.grid_ring(h, 1)
 >>> a = np.asarray(mv)
 >>> mv[0] = 0
 >>> a
@@ -228,15 +228,15 @@ import h3.api.numpy_int
 
 
 def compute(h3_lib, N=100):
-    h   = h3_lib.geo_to_h3(0, 0, 9)
-    out = h3_lib.k_ring(h, N)
-    out = h3_lib.compact(out)
+    h   = h3_lib.latlng_to_cell(0, 0, 9)
+    out = h3_lib.grid_disk(h, N)
+    out = h3_lib.compact_cells(out)
     
     return out
 
 def compute_and_convert(h3_lib, N=100):
     out = compute(h3_lib, N)
-    out = [h3.h3_to_string(h) for h in out]
+    out = [h3.int_to_str(h) for h in out]
     
     return out
 ```

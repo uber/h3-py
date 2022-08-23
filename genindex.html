@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Index &#8212; h3-py</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +19,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -39,12 +36,13 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -62,7 +60,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -71,9 +83,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -169,12 +182,17 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
 </div>
 
 
@@ -182,57 +200,72 @@ const thebe_selector_output = ".output, .cell_output"
 
 
           
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
     
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-            <!-- Source interaction buttons -->
+    <div class="header-article row sticky-top noprint">
+        
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/uber/h3-py"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
         
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
         
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/uber/h3-py"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
     </div>
 </div>
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-        </div>
-    </div>
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1></h1>
@@ -243,34 +276,76 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
 
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
- <a href="#C"><strong>C</strong></a>
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
- | <a href="#K"><strong>K</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
- | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  
 </div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#h3.are_neighbor_cells">are_neighbor_cells() (in module h3)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#h3.average_hexagon_area">average_hexagon_area() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.average_hexagon_edge_length">average_hexagon_edge_length() (in module h3)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference.html#h3.cell_area">cell_area() (in module h3)</a>
 </li>
+      <li><a href="api_reference.html#h3.cell_to_boundary">cell_to_boundary() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.cell_to_center_child">cell_to_center_child() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.cell_to_children">cell_to_children() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.cell_to_latlng">cell_to_latlng() (in module h3)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.compact">compact() (in module h3)</a>
+      <li><a href="api_reference.html#h3.cell_to_local_ij">cell_to_local_ij() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.cell_to_parent">cell_to_parent() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.cells_to_directed_edge">cells_to_directed_edge() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.cells_to_polygons">cells_to_polygons() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.compact_cells">compact_cells() (in module h3)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#h3.directed_edge_to_cells">directed_edge_to_cells() (in module h3)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -280,37 +355,39 @@ const thebe_selector_output = ".output, .cell_output"
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference.html#h3.edge_length">edge_length() (in module h3)</a>
 </li>
-      <li><a href="api_reference.html#h3.exact_edge_length">exact_edge_length() (in module h3)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.experimental_h3_to_local_ij">experimental_h3_to_local_ij() (in module h3)</a>
-</li>
-      <li><a href="api_reference.html#h3.experimental_local_ij_to_h3">experimental_local_ij_to_h3() (in module h3)</a>
-</li>
   </ul></td>
 </tr></table>
 
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.geo_to_h3">geo_to_h3() (in module h3)</a>
+      <li><a href="api_reference.html#h3.get_base_cell_number">get_base_cell_number() (in module h3)</a>
 </li>
-      <li><a href="api_reference.html#h3.get_destination_h3_index_from_unidirectional_edge">get_destination_h3_index_from_unidirectional_edge() (in module h3)</a>
+      <li><a href="api_reference.html#h3.get_directed_edge_destination">get_directed_edge_destination() (in module h3)</a>
 </li>
-      <li><a href="api_reference.html#h3.get_h3_indexes_from_unidirectional_edge">get_h3_indexes_from_unidirectional_edge() (in module h3)</a>
+      <li><a href="api_reference.html#h3.get_directed_edge_origin">get_directed_edge_origin() (in module h3)</a>
 </li>
-      <li><a href="api_reference.html#h3.get_h3_unidirectional_edge">get_h3_unidirectional_edge() (in module h3)</a>
+      <li><a href="api_reference.html#h3.get_icosahedron_faces">get_icosahedron_faces() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.get_num_cells">get_num_cells() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.get_pentagons">get_pentagons() (in module h3)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.get_h3_unidirectional_edges_from_hexagon">get_h3_unidirectional_edges_from_hexagon() (in module h3)</a>
+      <li><a href="api_reference.html#h3.get_res0_cells">get_res0_cells() (in module h3)</a>
 </li>
-      <li><a href="api_reference.html#h3.get_origin_h3_index_from_unidirectional_edge">get_origin_h3_index_from_unidirectional_edge() (in module h3)</a>
+      <li><a href="api_reference.html#h3.get_resolution">get_resolution() (in module h3)</a>
 </li>
-      <li><a href="api_reference.html#h3.get_pentagon_indexes">get_pentagon_indexes() (in module h3)</a>
+      <li><a href="api_reference.html#h3.great_circle_distance">great_circle_distance() (in module h3)</a>
 </li>
-      <li><a href="api_reference.html#h3.get_res0_indexes">get_res0_indexes() (in module h3)</a>
+      <li><a href="api_reference.html#h3.grid_disk">grid_disk() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.grid_distance">grid_distance() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.grid_path_cells">grid_path_cells() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.grid_ring">grid_ring() (in module h3)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -325,75 +402,77 @@ const thebe_selector_output = ".output, .cell_output"
         <li><a href="api_reference.html#module-h3">module</a>
 </li>
       </ul></li>
-      <li><a href="api_reference.html#h3.h3_distance">h3_distance() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3BaseException">H3BaseException</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_get_base_cell">h3_get_base_cell() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3CellInvalidError">H3CellInvalidError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_get_faces">h3_get_faces() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3DirEdgeInvalidError">H3DirEdgeInvalidError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_get_resolution">h3_get_resolution() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3DomainError">H3DomainError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_indexes_are_neighbors">h3_indexes_are_neighbors() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3DuplicateInputError">H3DuplicateInputError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_is_pentagon">h3_is_pentagon() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3FailedError">H3FailedError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_is_res_class_III">h3_is_res_class_III() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3GridNavigationError">H3GridNavigationError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_is_res_class_iii">h3_is_res_class_iii() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3LatLngDomainError">H3LatLngDomainError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_is_valid">h3_is_valid() (in module h3)</a>
-</li>
-      <li><a href="api_reference.html#h3.h3_line">h3_line() (in module h3)</a>
-</li>
-      <li><a href="api_reference.html#h3.h3_set_to_multi_polygon">h3_set_to_multi_polygon() (in module h3)</a>
-</li>
-      <li><a href="api_reference.html#h3.h3_to_center_child">h3_to_center_child() (in module h3)</a>
-</li>
-      <li><a href="api_reference.html#h3.h3_to_children">h3_to_children() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3MemoryAllocError">H3MemoryAllocError</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.h3_to_geo">h3_to_geo() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3MemoryBoundsError">H3MemoryBoundsError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_to_geo_boundary">h3_to_geo_boundary() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3MemoryError">H3MemoryError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_to_parent">h3_to_parent() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3NotNeighborsError">H3NotNeighborsError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_to_string">h3_to_string() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3OptionInvalidError">H3OptionInvalidError</a>
 </li>
-      <li><a href="api_reference.html#h3.h3_unidirectional_edge_is_valid">h3_unidirectional_edge_is_valid() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3PentagonError">H3PentagonError</a>
 </li>
-      <li><a href="api_reference.html#h3.H3CellError">H3CellError</a>
+      <li><a href="api_reference.html#h3.H3ResDomainError">H3ResDomainError</a>
 </li>
-      <li><a href="api_reference.html#h3.H3DistanceError">H3DistanceError</a>
+      <li><a href="api_reference.html#h3.H3ResMismatchError">H3ResMismatchError</a>
 </li>
-      <li><a href="api_reference.html#h3.H3EdgeError">H3EdgeError</a>
-</li>
-      <li><a href="api_reference.html#h3.H3ResolutionError">H3ResolutionError</a>
+      <li><a href="api_reference.html#h3.H3UndirEdgeInvalidError">H3UndirEdgeInvalidError</a>
 </li>
       <li><a href="api_reference.html#h3.H3ValueError">H3ValueError</a>
 </li>
-      <li><a href="api_reference.html#h3.hex_area">hex_area() (in module h3)</a>
+      <li><a href="api_reference.html#h3.H3VertexInvalidError">H3VertexInvalidError</a>
 </li>
-      <li><a href="api_reference.html#h3.hex_range">hex_range() (in module h3)</a>
-</li>
-      <li><a href="api_reference.html#h3.hex_range_distances">hex_range_distances() (in module h3)</a>
-</li>
-      <li><a href="api_reference.html#h3.hex_ranges">hex_ranges() (in module h3)</a>
-</li>
-      <li><a href="api_reference.html#h3.hex_ring">hex_ring() (in module h3)</a>
+      <li><a href="api_reference.html#h3.Polygon.holes">holes (h3.Polygon attribute)</a>
 </li>
   </ul></td>
 </tr></table>
 
-<h2 id="K">K</h2>
+<h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.k_ring">k_ring() (in module h3)</a>
+      <li><a href="api_reference.html#h3.int_to_str">int_to_str() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.is_pentagon">is_pentagon() (in module h3)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.k_ring_distances">k_ring_distances() (in module h3)</a>
+      <li><a href="api_reference.html#h3.is_res_class_III">is_res_class_III() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.is_valid_cell">is_valid_cell() (in module h3)</a>
+</li>
+      <li><a href="api_reference.html#h3.is_valid_directed_edge">is_valid_directed_edge() (in module h3)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#h3.latlng_to_cell">latlng_to_cell() (in module h3)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#h3.local_ij_to_cell">local_ij_to_cell() (in module h3)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -411,10 +490,14 @@ const thebe_selector_output = ".output, .cell_output"
   </ul></td>
 </tr></table>
 
-<h2 id="N">N</h2>
+<h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.num_hexagons">num_hexagons() (in module h3)</a>
+      <li><a href="api_reference.html#h3.origin_to_directed_edges">origin_to_directed_edges() (in module h3)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#h3.Polygon.outer">outer (h3.Polygon attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -422,11 +505,11 @@ const thebe_selector_output = ".output, .cell_output"
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.point_dist">point_dist() (in module h3)</a>
+      <li><a href="api_reference.html#h3.Polygon">Polygon (class in h3)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.polyfill">polyfill() (in module h3)</a>
+      <li><a href="api_reference.html#h3.polygon_to_cells">polygon_to_cells() (in module h3)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -434,7 +517,7 @@ const thebe_selector_output = ".output, .cell_output"
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.string_to_h3">string_to_h3() (in module h3)</a>
+      <li><a href="api_reference.html#h3.str_to_int">str_to_int() (in module h3)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -442,7 +525,11 @@ const thebe_selector_output = ".output, .cell_output"
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#h3.uncompact">uncompact() (in module h3)</a>
+      <li><a href="api_reference.html#h3.uncompact_cells">uncompact_cells() (in module h3)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#h3.UnknownH3ErrorCode">UnknownH3ErrorCode</a>
 </li>
   </ul></td>
 </tr></table>
@@ -459,28 +546,34 @@ const thebe_selector_output = ".output, .cell_output"
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
 <div class='prev-next-area'>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Uber Technologies<br/>
+  
+      &copy; Copyright 2021.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Uber Technologies<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
