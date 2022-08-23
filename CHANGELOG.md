@@ -16,6 +16,19 @@ avoid adding features or APIs which do not map onto the
 
 - None
 
+## [4.0.0b1] - 2022-08-23
+
+Beta release; feedback welcome!
+
+- Move to v4.0 of the core C library (#250)
+    + Function name changes: https://github.com/uber/h3/blob/master/dev-docs/RFCs/v4.0.0/names_for_concepts_types_functions.md
+    + New error system
+    + New interfaces for `polygon_to_cells` and `cells_to_polygons`
+      involving a new `h3.Polygon` class
+- Expose the Cython API (#234)
+    + Note: The Cython API is not yet stable, and should only be used for
+      experimentation
+
 ## [3.7.4] - 2022-04-14
 
 - Website and API documentation; along with docstring cleanup.
