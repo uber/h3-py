@@ -13,11 +13,23 @@
 [![Tests](https://github.com/uber/h3-py/workflows/tests/badge.svg)](https://github.com/uber/h3-py/actions)
 [![codecov](https://codecov.io/gh/uber/h3-py/branch/master/graph/badge.svg)](https://codecov.io/gh/uber/h3-py)
 
+----
+### ANNOUNCEMENT: v4.0.0 beta released!
+Install the latest beta version with `pip install h3 --pre`
+or
+`pip install 'h3==4.0.0b1'`. <br>
+Feedback is welcome via
+[Issues](https://github.com/uber/h3-py/issues/new),
+[Discussions](https://github.com/uber/h3/discussions),
+and
+[Slack](https://join.slack.com/t/h3-core/shared_invite/zt-g6u5r1hf-W_~uVJmfeiWtMQuBGc1NNg).
+
+----
+
 Python bindings for the [H3 core library](https://h3geo.org/).
 
 - Documentation: [uber.github.io/h3-py](https://uber.github.io/h3-py)
 - GitHub repo: [github.com/uber/h3-py](https://github.com/uber/h3-py)
-
 
 ## Installation
 
