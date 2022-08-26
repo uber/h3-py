@@ -14,7 +14,7 @@
 [![codecov](https://codecov.io/gh/uber/h3-py/branch/master/graph/badge.svg)](https://codecov.io/gh/uber/h3-py)
 
 ----
-### ANNOUNCEMENT: h3-py v4.0.0 beta released!
+### ANNOUNCEMENT: v4.0.0 beta released!
 Install the latest beta version with `pip install h3 --pre`
 or
 `pip install 'h3==4.0.0b1'`. <br>
