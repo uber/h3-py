@@ -18,7 +18,7 @@ Python bindings for the [H3 core library](https://h3geo.org/).
 - Documentation: [uber.github.io/h3-py](https://uber.github.io/h3-py)
 - GitHub repo: [github.com/uber/h3-py](https://github.com/uber/h3-py)
 
-> :warning: v4.0.0 beta released! :warning:
+> :warning: **v4.0.0 beta released!** :warning: <br>
 > Install the latest beta version with `pip install h3 --pre`
 > or
 > `pip install 'h3==4.0.0b1'`.
