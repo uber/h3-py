@@ -354,7 +354,7 @@ class _API_FUNCTIONS(object):
         """
         Compact a collection of H3 cells by combining
         smaller cells into larger cells, if all child cells
-        are present.
+        are present. Input cells must all share the same resolution.
 
         Parameters
         ----------
