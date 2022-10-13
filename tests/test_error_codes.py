@@ -51,7 +51,7 @@ def test_unknown():
     assert err.args == (weird_code,)
 
 
-def test_atributes():
+def test_attributes():
     # errors always have an `h3_error_code` attribute
     for err in h3_exceptions:
         x = err.h3_error_code

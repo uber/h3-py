@@ -14,7 +14,7 @@ def drop_last(loop):
 
 
 def toggle_map(func, poly):
-    """ Return all permuations of `func` being applied or not
+    """ Return all permutations of `func` being applied or not
     to each element of `poly`
 
     returns iterable of length 2**len(poly)
