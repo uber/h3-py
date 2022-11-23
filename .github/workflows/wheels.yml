@@ -128,6 +128,9 @@ jobs:
           - os: ubuntu-latest
             build: "cp310-manylinux_aarch64"
             name: Linux Aarch64 3.10
+          - os: ubuntu-latest
+            build: "cp311-manylinux_aarch64"
+            name: Linux Aarch64 3.11
 
     steps:
       - uses: actions/checkout@v3
@@ -154,7 +157,7 @@ jobs:
 
       ## Build
 
-      - uses: pypa/cibuildwheel@v2.4.0
+      - uses: pypa/cibuildwheel@v2.11.2
         env:
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
@@ -183,6 +186,6 @@ jobs:
           name: artifact
           path: dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.5.0
+      - uses: pypa/gh-action-pypi-publish@v1.5.1
         with:
           password: ${{ secrets.pypi_password }}
