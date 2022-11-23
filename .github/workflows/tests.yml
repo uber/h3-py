@@ -26,12 +26,12 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v3.1.1
+      - uses: actions/setup-python@v4.3
         with:
           python-version: "${{ matrix.python-version }}"
 
       ## Start Windows stuff
-      - uses: ilammy/msvc-dev-cmd@v1.10.0
+      - uses: ilammy/msvc-dev-cmd@v1.12.0
         if: startsWith(matrix.os, 'windows')
 
       - name: Set Windows Compiler

@@ -33,7 +33,7 @@ jobs:
           submodules: recursive
 
       - name: Setup Python
-        uses: actions/setup-python@v3.1.2
+        uses: actions/setup-python@v4.3
 
       - name: Make sdist
         run: |
@@ -139,7 +139,7 @@ jobs:
 
       ## Setup Env
 
-      - uses: ilammy/msvc-dev-cmd@v1.10.0
+      - uses: ilammy/msvc-dev-cmd@v1.12
         if: runner.os == 'Windows'
 
       - name: Set Windows variables
@@ -151,7 +151,7 @@ jobs:
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v1.2.0
+        uses: docker/setup-qemu-action@v2.1
         with:
           platforms: aarch64
 
