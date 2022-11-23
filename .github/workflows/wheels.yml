@@ -33,7 +33,7 @@ jobs:
           submodules: recursive
 
       - name: Setup Python
-        uses: actions/setup-python@v4.3
+        uses: actions/setup-python@v4.3.0
 
       - name: Make sdist
         run: |
