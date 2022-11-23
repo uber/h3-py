@@ -2,9 +2,9 @@ name: tests
 
 on:
   push:
-    branches: [master, dev_v4]
+    branches: [master]
   pull_request:
-    branches: [master, dev_v4]
+    branches: [master]
 
 jobs:
   tests:
@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
-        python-version: ['2.7', '3.5', '3.6', '3.7', '3.8', '3.9', '3.10']
+        python-version: ['2.7', '3.5', '3.6', '3.7', '3.8', '3.9', '3.10', '3.11']
         exclude:
           - os: windows-latest
             python-version: 2.7

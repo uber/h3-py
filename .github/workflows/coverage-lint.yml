@@ -2,9 +2,9 @@ name: coverage-lint
 
 on:
   push:
-    branches: [master, dev_v4]
+    branches: [master]
   pull_request:
-    branches: [master, dev_v4]
+    branches: [master]
 
 jobs:
   tests:
