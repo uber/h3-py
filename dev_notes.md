@@ -35,6 +35,16 @@ git add h3lib
 git commit ...
 ```
 
+## Resetting the submodule
+
+For when moving between `h3-py` branches using different versions of the
+`h3lib` submodule.
+
+```sh
+git submodule deinit -f .
+git submodule update --init
+```
+
 ## Releasing a new version
 
 - update `CHANGELOG.md` to reflect any changes since the last release
