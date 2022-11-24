@@ -16,6 +16,10 @@ avoid adding features or APIs which do not map onto the
 
 - None
 
+## [3.7.5] - 2022-11-23
+
+- Build Python 3.11 wheels (#299)
+
 ## [3.7.4] - 2022-04-14
 
 - Website and API documentation; along with docstring cleanup.
