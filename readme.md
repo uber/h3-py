@@ -17,7 +17,7 @@
 ### ANNOUNCEMENT: v4.0.0 beta released!
 Install the latest beta version with `pip install h3 --pre`
 or with
-`pip install 'h3==4.0.0b1'`. <br>
+`pip install 'h3==4.0.0b2'`. <br>
 Feedback is welcome via
 [Issues](https://github.com/uber/h3-py/issues/new),
 [Discussions](https://github.com/uber/h3/discussions),
