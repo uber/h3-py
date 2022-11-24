@@ -16,7 +16,7 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v3.1.1
+      - uses: actions/setup-python@v4.3.0
         with:
           python-version: 3.8
 
