@@ -7,10 +7,22 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_BUILD_TYPE Release)
 
 # Avoid building tooling we won't need for release
-set(BUILD_BENCHMARKS OFF CACHE BOOL "" FORCE)
-set(BUILD_FILTERS OFF CACHE BOOL "" FORCE)
-set(BUILD_GENERATORS OFF CACHE BOOL "" FORCE)
-set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
+# See all options with `cmake -LA` in an `h3/build` directory,
+# or at https://h3geo.org/docs/next/core-library/compilation-options/
+macro(turn_off option_name)
+    set(${option_name} OFF CACHE BOOL "" FORCE)
+endmacro()
+turn_off(BUILD_ALLOC_TESTS)
+turn_off(BUILD_BENCHMARKS)
+turn_off(BUILD_FILTERS)
+turn_off(BUILD_FUZZERS)
+turn_off(BUILD_GENERATORS)
+turn_off(BUILD_TESTING)
+turn_off(ENABLE_COVERAGE)
+turn_off(ENABLE_DOCS)
+turn_off(ENABLE_FORMAT)
+turn_off(ENABLE_LIBFUZZER)
+turn_off(ENABLE_LINTING)
 
 # Build the core library as static
 set(BUILD_SHARED_LIBS OFF)
