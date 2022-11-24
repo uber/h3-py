@@ -16,6 +16,10 @@ avoid adding features or APIs which do not map onto the
 
 - None
 
+## [4.0.0b2] - 2022-11-23
+
+- Build Python 3.11 wheels (#297)
+
 ## [4.0.0b1] - 2022-08-23
 
 Beta release; feedback welcome!

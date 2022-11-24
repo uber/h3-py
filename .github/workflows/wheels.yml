@@ -2,9 +2,9 @@ name: wheels
 
 on:
   push:
-    branches: [master, dev_v4]
+    branches: [master]
   pull_request:
-    branches: [master, dev_v4]
+    branches: [master]
     types:
       # Opened, synchronize, and reopened are the default types
       # We add ready_for_review to additionally trigger when converting from draft to non-draft
@@ -33,7 +33,7 @@ jobs:
           submodules: recursive
 
       - name: Setup Python
-        uses: actions/setup-python@v3.1.2
+        uses: actions/setup-python@v4.3.0
 
       - name: Make sdist
         run: |
@@ -128,6 +128,9 @@ jobs:
           - os: ubuntu-latest
             build: "cp310-manylinux_aarch64"
             name: Linux Aarch64 3.10
+          - os: ubuntu-latest
+            build: "cp311-manylinux_aarch64"
+            name: Linux Aarch64 3.11
 
     steps:
       - uses: actions/checkout@v3
@@ -136,7 +139,7 @@ jobs:
 
       ## Setup Env
 
-      - uses: ilammy/msvc-dev-cmd@v1.10.0
+      - uses: ilammy/msvc-dev-cmd@v1.12.0
         if: runner.os == 'Windows'
 
       - name: Set Windows variables
@@ -148,13 +151,13 @@ jobs:
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v1.2.0
+        uses: docker/setup-qemu-action@v2.1.0
         with:
           platforms: aarch64
 
       ## Build
 
-      - uses: pypa/cibuildwheel@v2.4.0
+      - uses: pypa/cibuildwheel@v2.11.2
         env:
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
@@ -183,6 +186,6 @@ jobs:
           name: artifact
           path: dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.5.0
+      - uses: pypa/gh-action-pypi-publish@v1.5.1
         with:
           password: ${{ secrets.pypi_password }}
