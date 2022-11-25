@@ -404,7 +404,7 @@ class _API_FUNCTIONS(object):
 
         Parameters
         ----------
-        Polygon : h3.Polygon
+        polygon : h3.Polygon
             A polygon described by an outer ring and optional holes
 
         res : int
@@ -430,10 +430,10 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    # def polygons_to_cells(self, polygons, res):
-    #     # todo: have to figure out how to concat memoryviews cleanly
-    #     # or some other approach
-    #     pass
+    def polygons_to_cells(self, polygons, res):
+        mv = _cy.polygons_to_cells(polygons, res)
+
+        return self._out_unordered(mv)
 
     def cells_to_polygons(self, cells):
         """
