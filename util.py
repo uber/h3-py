@@ -103,7 +103,7 @@ if True:  # functions below should be inverses of each other
         elif t == 'MultiPolygon':
             ll3 = coord
         else:
-            raise Exception(f'Unrecognized type: {t}')
+            raise ValueError(f'Unrecognized type: {t}')
 
         return ll3
 
