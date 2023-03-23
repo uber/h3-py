@@ -172,7 +172,7 @@ def polygon_to_cells(outer, int res, holes=None):
     return mv
 
 
-def cell_to_boundary(H3int h, bool geo_json=False):
+def cell_to_boundary(H3int h):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
         h3lib.CellBoundary gb
@@ -186,15 +186,10 @@ def cell_to_boundary(H3int h, bool geo_json=False):
         for i in range(gb.num_verts)
     )
 
-    if geo_json:
-        #lat/lng -> lng/lat and last point same as first
-        verts += (verts[0],)
-        verts = tuple(v[::-1] for v in verts)
-
     return verts
 
 
-def directed_edge_to_boundary(H3int edge, bool geo_json=False):
+def directed_edge_to_boundary(H3int edge):
     """ Returns the CellBoundary containing the coordinates of the edge
     """
     cdef:
@@ -209,11 +204,6 @@ def directed_edge_to_boundary(H3int edge, bool geo_json=False):
         coord2deg(gb.verts[i])
         for i in range(gb.num_verts)
     )
-
-    if geo_json:
-        #lat/lng -> lng/lat and last point same as first
-        verts += (verts[0],)
-        verts = tuple(v[::-1] for v in verts)
 
     return verts
 

@@ -272,25 +272,19 @@ class _API_FUNCTIONS(object):
 
         return d
 
-    def cell_to_boundary(self, h, geo_json=False):
+    def cell_to_boundary(self, h):
         """
         Return tuple of lat/lng pairs describing the cell boundary.
 
         Parameters
         ----------
         h : H3Cell
-        geo_json : bool, optional
-            If ``True``, return output in GeoJson format:
-            lng/lat pairs (opposite order), and
-            have the last pair be the same as the first.
-            If ``False`` (default), return lat/lng pairs, with the last
-            pair distinct from the first.
 
         Returns
         -------
-        tuple of (float, float) tuples
+        tuple of (lat, lng) tuples
         """
-        return _cy.cell_to_boundary(self._in_scalar(h), geo_json)
+        return _cy.cell_to_boundary(self._in_scalar(h))
 
     def grid_disk(self, h, k=1):
         """
@@ -625,8 +619,8 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def directed_edge_to_boundary(self, edge, geo_json=False):
-        return _cy.directed_edge_to_boundary(self._in_scalar(edge), geo_json=geo_json)
+    def directed_edge_to_boundary(self, edge):
+        return _cy.directed_edge_to_boundary(self._in_scalar(edge))
 
     def grid_path_cells(self, start, end):
         """

@@ -61,25 +61,6 @@ def test_cell_to_boundary():
         assert o == approx(e)
 
 
-def test_cell_to_boundary_geo_json():
-    out = h3.cell_to_boundary('85283473fffffff', True)
-
-    expected = [
-        [-121.91508032705622, 37.271355866731895],
-        [-121.86222328902491, 37.353926450852256],
-        [-121.9235499963016, 37.42834118609435],
-        [-122.0377349642703, 37.42012867767778],
-        [-122.09042892904395, 37.33755608435298],
-        [-122.02910130919, 37.26319797461824],
-        [-121.91508032705622, 37.271355866731895],
-    ]
-
-    assert len(out) == len(expected)
-
-    for o, e in zip(out, expected):
-        assert o == approx(e)
-
-
 def test_grid_disk():
     h = '8928308280fffff'
     out = h3.grid_disk(h, 1)
@@ -584,15 +565,6 @@ def test_origin_to_directed_edges():
         '821c07fffffffff'
     )
     assert len(h3_uni_edge_pentagon) == 5
-
-
-def test_directed_edge_to_boundary():
-    e = '11928308280fffff'
-    boundary = h3.directed_edge_to_boundary(e)
-    assert len(boundary) == 2
-
-    boundary_geo_json = h3.directed_edge_to_boundary(e, True)
-    assert len(boundary_geo_json) == 3
 
 
 def test_grid_distance():

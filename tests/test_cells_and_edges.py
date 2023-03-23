@@ -47,21 +47,6 @@ def test3():
     assert approx2(out, expected)
 
 
-def test4():
-    expected = (
-        (-122.41719971841658, 37.775197782893386),
-        (-122.41612835779264, 37.77688044840226),
-        (-122.4173879761762, 37.778385004930925),
-        (-122.41971895414807, 37.77820687262238),
-        (-122.42079024541877, 37.77652420699321),
-        (-122.4195306280734, 37.775019673792606),
-        (-122.41719971841658, 37.775197782893386)
-    )
-
-    out = h3.cell_to_boundary('8928308280fffff', geo_json=True)
-    assert approx2(out, expected)
-
-
 def test_grid_disk_distance():
     with pytest.raises(H3DomainError):
         h3.grid_disk('8928308280fffff', -10)
