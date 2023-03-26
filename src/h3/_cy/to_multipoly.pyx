@@ -50,26 +50,11 @@ def _to_multi_polygon(const H3int[:] cells):
     return out
 
 
-def _geojson_loop(loop):
-    """ Swap lat/lng order and close loop.
-    """
-    loop = [e[::-1] for e in loop]
-    loop += [loop[0]]
-
-    return loop
-
-
-def cells_to_multi_polygon(const H3int[:] cells, geo_json=False):
+def cells_to_multi_polygon(const H3int[:] cells):
     # todo: gotta be a more elegant way to handle these...
     if len(cells) == 0:
         return []
 
     multipoly = _to_multi_polygon(cells)
-
-    if geo_json:
-        multipoly = [
-            [_geojson_loop(loop) for loop in poly]
-            for poly in multipoly
-        ]
 
     return multipoly
