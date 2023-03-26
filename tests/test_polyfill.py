@@ -151,32 +151,6 @@ def test_polygon_to_cells_holes():
         assert cells_all == set.union(cells_holes, cells_1, cells_2)
 
 
-# def test_polyfill_geojson():
-#     outer, hole1, hole2 = get_us_box_coords(order='lnglat')
-
-#     d = {
-#         'type': 'Polygon',
-#         'coordinates': [outer],
-#     }
-
-#     out = h3.polyfill_geojson(d, 5)
-
-#     assert len(out) == 7063
-
-
-# def test_polyfill():
-#     outer, hole1, hole2 = get_us_box_coords(order='lnglat')
-
-#     d = {
-#         'type': 'Polygon',
-#         'coordinates': [outer],
-#     }
-
-#     out = h3.polyfill(d, 5, geo_json_conformant=True)
-
-#     assert len(out) == 7063
-
-
 def test_input_format():
     """ Test that `polygon_to_cells` can take in polygon inputs
     where the LinearRings may or may not follow the right hand rule,

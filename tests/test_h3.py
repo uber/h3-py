@@ -160,12 +160,6 @@ def test_polyfill():
     assert '89283095edbffff' in out
 
 
-# def test_polyfill_bogus_geo_json():
-#     with pytest.raises(ValueError):
-#         bad_geo = {'type': 'whatwhat'}
-#         h3.polyfill(bad_geo, 9)
-
-
 def test_polyfill_with_hole():
     poly = h3.Polygon(sf_7x7, sf_hole1)
 
