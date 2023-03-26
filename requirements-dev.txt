@@ -1,0 +1,3 @@
+jupyterlab
+jupyterlab-geojson
+geopandas
