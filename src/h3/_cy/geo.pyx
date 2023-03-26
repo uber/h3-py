@@ -172,6 +172,26 @@ def polygon_to_cells(outer, int res, holes=None):
     return mv
 
 
+def polygons_to_cells(polygons, int res):
+    mvs = [
+        polygon_to_cells(outer=poly.outer, res=res, holes=poly.holes)
+        for poly in polygons
+    ]
+
+    n = sum(map(len, mvs))
+    hmm = H3MemoryManager(n)
+
+    # probably super inefficient, but it is working!
+    # tood: move this to C
+    k = 0
+    for mv in mvs:
+        for v in mv:
+            hmm.ptr[k] = v
+            k += 1
+
+    return hmm.to_mv()
+
+
 def cell_to_boundary(H3int h):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
