@@ -2,7 +2,7 @@
 
 from .api.basic_str import *
 from ._version import __version__
-from ._polygon import H3MultiPoly, H3Poly
+from ._polygon import H3MultiPoly, H3Poly, from_geo_interface
 
 from ._cy import (
     UnknownH3ErrorCode,

@@ -62,6 +62,15 @@ class H3Poly(H3Shape):
 
         return s
 
+    @property
+    def __geo_interface__(self):
+        ll2 = _polygon_to_LL2(self)
+        ll3 = [ll2]
+        gj_dict = _LL3_to_geojson_dict(ll3)
+
+        return gj_dict
+
+
 
 class H3MultiPoly(H3Shape):
     def __init__(self, *polys):
@@ -78,3 +87,136 @@ class H3MultiPoly(H3Shape):
 
     def __getitem__(self, index):
         return self.polys[index]
+
+    @property
+    def __geo_interface__(self):
+        ll3 = _mpoly_to_LL3(self)
+        gj_dict = _LL3_to_geojson_dict(ll3)
+
+        return gj_dict
+
+
+
+"""
+Helpers for cells_to_geojson and geojson_to_cells.
+
+Dealing with GeoJSON Polygons and MultiPolygons can be confusing because
+there are so many nested lists. To help keep track, we use the following
+symbols to denote different levels of nesting.
+
+LL0: lat/lng or lng/lat pair
+LL1: list of LL0s
+LL2: list of LL1s (i.e., a polygon with holes)
+LL3: list of LL2s (i.e., several polygons with holes)
+
+
+## TODO
+
+- Allow user to specify "container" in `cells_to_geojson`.
+    - That is, they may want a MultiPolygon even if the output fits in a Polygon
+    - 'auto', Polygon, MultiPolygon, FeatureCollection, GeometryCollection, ...
+"""
+
+
+if True:  # functions below should be inverses of each other
+    def _mpoly_to_LL3(mpoly):
+        ll3 = [
+            _polygon_to_LL2(poly)
+            for poly in mpoly
+        ]
+
+        return ll3
+
+    def _LL3_to_mpoly(ll3):
+        polys = [
+            _LL2_to_polygon(ll2)
+            for ll2 in ll3
+        ]
+
+        mpoly = H3MultiPoly(*polys)
+
+        return mpoly
+
+
+if True:  # functions below should be inverses of each other
+    def _polygon_to_LL2(h3poly):
+        ll2 = [h3poly.outer] + list(h3poly.holes)
+        ll2 = [
+            _close_ring(_swap_latlng(ll1))
+            for ll1 in ll2
+        ]
+
+        return ll2
+
+    def _LL2_to_polygon(ll2):
+        ll2 = [
+            _swap_latlng(ll1)
+            for ll1 in ll2
+        ]
+        h3poly = H3Poly(*ll2)
+
+        return h3poly
+
+
+if True:  # functions below should be inverses of each other
+    def _LL3_to_geojson_dict(ll3):
+        if len(ll3) == 1:
+            gj_dict = {
+                'type': 'Polygon',
+                'coordinates': ll3[0],
+            }
+        else:
+            gj_dict = {
+                'type': 'MultiPolygon',
+                'coordinates': ll3,
+            }
+
+        return gj_dict
+
+    def _geojson_dict_to_LL3(gj_dict):
+        t = gj_dict['type']
+        coord = gj_dict['coordinates']
+
+        if t == 'Polygon':
+            ll2 = coord
+            ll3 = [ ll2 ]
+        elif t == 'MultiPolygon':
+            ll3 = coord
+        else:
+            raise ValueError(f'Unrecognized type: {t}')
+
+        return ll3
+
+
+def _swap_latlng(ll1):
+    ll1 = [(lng, lat) for lat, lng in ll1]
+
+    return ll1
+
+def _close_ring(ll1):
+    if ll1[0] != ll1[-1]:
+        ll1.append(ll1[0])
+
+    return ll1
+
+
+import json
+
+def check_geo_interface(x):
+    return any(
+        isinstance(x, str),
+        hasattr(x, '__geo_interface__'),
+        isinstance(x, dict) and 'type' in x,
+    )
+
+def from_geo_interface(x):
+    if isinstance(x, str):
+        x = json.loads(x)
+
+    if hasattr(x, '__geo_interface__'):
+        x = x.__geo_interface__
+
+    if isinstance(x, dict) and 'type' in x:
+        ll3 = _geojson_dict_to_LL3(x)
+        mpoly = _LL3_to_mpoly(ll3)
+        return mpoly

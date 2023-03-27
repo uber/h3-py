@@ -30,3 +30,7 @@ H3Shape(<something with geo_interface>)
 H3Shape(dict)
 H3Shape(geojson string)
 ```
+
+## 2023-03-26
+
+- todo: set up H3Shape constructor (and subclasses) to take in `__geo_interface__` inputs
