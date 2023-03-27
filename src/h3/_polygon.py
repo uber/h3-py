@@ -60,11 +60,7 @@ class H3Poly:
 
 class H3MultiPoly:
     def __init__(self, *polys):
-        self.polys = polys
+        self.polys = tuple(polys)
 
     def __repr__(self):
-        s = '<H3MultiPoly: >'.format(
-            tuple(map(str, self.polys)),
-        )
-
-        return s
+        return 'H3MultiPoly' + str(self.polys)
