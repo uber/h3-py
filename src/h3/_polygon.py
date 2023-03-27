@@ -1,14 +1,14 @@
-class Polygon:
+class H3Poly:
     """
     Container for loops of lat/lng points describing a polygon.
 
     Attributes
     ----------
     outer : list[tuple[float, float]]
-        List of lat/lng points describing the outer loop of the Polygon
+        List of lat/lng points describing the outer loop of the polygon
 
     holes : list[list[tuple[float, float]]]
-        List of loops of lat/lng points describing the holes of the Polygon
+        List of loops of lat/lng points describing the holes of the polygon
 
     Examples
     --------
@@ -57,8 +57,6 @@ class Polygon:
 
         return s
 
-class H3Poly(Polygon):
-    pass
 
 class H3MultiPoly:
     def __init__(self, *polys):

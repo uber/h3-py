@@ -55,7 +55,7 @@ if True:  # functions below should be inverses of each other
             _swap_latlng(ll1)
             for ll1 in ll2
         ]
-        poly = h3.Polygon(*ll2)
+        poly = h3.H3Poly(*ll2)
 
         return poly
 

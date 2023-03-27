@@ -38,7 +38,7 @@ be skipped due to it being inside the `_api_functions` function.
 """
 
 from .. import _cy
-from .._polygon import Polygon, H3Poly
+from .._polygon import H3Poly
 
 
 class _API_FUNCTIONS(object):
@@ -394,11 +394,11 @@ class _API_FUNCTIONS(object):
     def polygon_to_cells(self, polygon, res):
         """
         Return the set of H3 cells at a given resolution whose center points
-        are contained within a `h3.Polygon`
+        are contained within a `H3Poly`
 
         Parameters
         ----------
-        polygon : h3.Polygon
+        polygon : H3Poly
             A polygon described by an outer ring and optional holes
 
         res : int
@@ -407,7 +407,7 @@ class _API_FUNCTIONS(object):
         Examples
         --------
 
-        >>> poly = h3.Polygon(
+        >>> poly = H3Poly(
         ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
         ...      (37.82, -122.54)],
         ... )
@@ -431,7 +431,7 @@ class _API_FUNCTIONS(object):
 
     def cells_to_polygons(self, cells):
         """
-        Return a list of h3.Polygon objects describing the area
+        Return a list of H3Poly objects describing the area
         covered by a set of H3 cells.
 
         Parameters
@@ -440,15 +440,15 @@ class _API_FUNCTIONS(object):
 
         Returns
         -------
-        list[h3.Polygon]
-            List of h3.Polygon objects
+        list[H3Poly]
+            List of H3Poly objects
 
         Examples
         --------
 
         >>> cells = ['8428309ffffffff', '842830dffffffff']
         >>> h3.cells_to_polygons(cells)
-        [<h3.Polygon |outer|=10, |holes|=()>]
+        [<H3Poly |outer|=10, |holes|=()>]
 
         """
         cells = self._in_collection(cells)
