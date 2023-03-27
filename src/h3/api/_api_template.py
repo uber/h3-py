@@ -38,7 +38,7 @@ be skipped due to it being inside the `_api_functions` function.
 """
 
 from .. import _cy
-from .._polygon import H3Poly
+from .._polygon import H3Poly, H3MultiPoly
 
 
 class _API_FUNCTIONS(object):
@@ -391,15 +391,16 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(hu)
 
-    def polygon_to_cells(self, polygon, res):
+    def shape_to_cells(self, h3shape, res):
         """
         Return the set of H3 cells at a given resolution whose center points
         are contained within a `H3Poly`
 
         Parameters
         ----------
-        polygon : H3Poly
+        h3shape : H3shape
             A polygon described by an outer ring and optional holes
+            todo: ORRR
 
         res : int
             Resolution of the output cells
@@ -411,7 +412,7 @@ class _API_FUNCTIONS(object):
         ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
         ...      (37.82, -122.54)],
         ... )
-        >>> h3.polygon_to_cells(poly, 6)
+        >>> h3.shape_to_cells(poly, 6)
         {'862830807ffffff',
          '862830827ffffff',
          '86283082fffffff',
@@ -420,16 +421,21 @@ class _API_FUNCTIONS(object):
          '862830957ffffff',
          '86283095fffffff'}
         """
-        mv = _cy.polygon_to_cells(polygon.outer, res, holes=polygon.holes)
+
+        if isinstance(h3shape, H3Poly):
+            poly = h3shape
+            mv = _cy.polygon_to_cells(poly.outer, res, holes=poly.holes)
+        elif isinstance(h3shape, H3MultiPoly):
+            mpoly = h3shape
+            mv = _cy.polygons_to_cells(mpoly.polys, res)
+        else:
+            raise ValueError('TODO: unrecognized type')
 
         return self._out_unordered(mv)
 
-    def polygons_to_cells(self, polygons, res):
-        mv = _cy.polygons_to_cells(polygons, res)
 
-        return self._out_unordered(mv)
 
-    def cells_to_polygons(self, cells):
+    def cells_to_shape(self, cells):
         """
         Return a list of H3Poly objects describing the area
         covered by a set of H3 cells.
@@ -447,7 +453,7 @@ class _API_FUNCTIONS(object):
         --------
 
         >>> cells = ['8428309ffffffff', '842830dffffffff']
-        >>> h3.cells_to_polygons(cells)
+        >>> h3.cells_to_shape(cells)
         [<H3Poly |outer|=10, |holes|=()>]
 
         """
@@ -455,8 +461,9 @@ class _API_FUNCTIONS(object):
         geos = _cy.cells_to_multi_polygon(cells)
 
         polys = [H3Poly(*geo) for geo in geos]
+        mpoly = H3MultiPoly(*polys)
 
-        return polys
+        return mpoly
 
     def is_pentagon(self, h):
         """

@@ -289,9 +289,9 @@ def test_polyfill_null_island():
     assert '84825ddffffffff' in out
 
 
-def test_cells_to_polygons_empty():
-    polys = h3.cells_to_polygons([])
-    assert polys == []
+def test_cells_to_shape_empty():
+    mpoly = h3.cells_to_shape([])
+    assert list(mpoly) == []
 
 
 def test_cells_to_polygons_single():

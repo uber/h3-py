@@ -47,9 +47,8 @@ cell_to_center_child = _b.cell_to_center_child
 compact_cells = _b.compact_cells
 uncompact_cells = _b.uncompact_cells
 
-polygon_to_cells = _b.polygon_to_cells
-cells_to_polygons = _b.cells_to_polygons
-polygons_to_cells = _b.polygons_to_cells
+shape_to_cells = _b.shape_to_cells
+cells_to_shape = _b.cells_to_shape
 
 are_neighbor_cells = _b.are_neighbor_cells
 cells_to_directed_edge = _b.cells_to_directed_edge

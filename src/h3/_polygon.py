@@ -1,4 +1,9 @@
-class H3Poly:
+#todo: rename file to _shape.py
+
+class H3Shape:
+    pass
+
+class H3Poly(H3Shape):
     """
     Container for loops of lat/lng points describing a polygon.
 
@@ -44,8 +49,8 @@ class H3Poly:
     - TODO: Add GeoJSON translation support.
     """
     def __init__(self, outer, *holes):
-        self.outer = outer
-        self.holes = holes
+        self.outer = tuple(outer)
+        self.holes = tuple(holes)
 
         # todo: maybe add some validation
 
@@ -58,9 +63,18 @@ class H3Poly:
         return s
 
 
-class H3MultiPoly:
+class H3MultiPoly(H3Shape):
     def __init__(self, *polys):
         self.polys = tuple(polys)
 
     def __repr__(self):
         return 'H3MultiPoly' + str(self.polys)
+
+    def __iter__(self):
+        return iter(self.polys)
+
+    def __len__(self):
+        return len(self.polys)
+
+    def __getitem__(self, index):
+        return self.polys[index]
