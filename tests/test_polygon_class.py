@@ -8,19 +8,19 @@ def test_repr():
     cells1 = h3.grid_ring(b, 2) | {a}
     cells2 = cells1 | {b}
 
-    poly1 = h3.cells_to_polygons(cells1)
-    poly2 = h3.cells_to_polygons(cells2)
+    mpoly1 = h3.cells_to_shape(cells1)
+    mpoly2 = h3.cells_to_shape(cells2)
 
     # unfortunately output order is nondeterministic
-    poly1 = sorted(map(str, poly1))
-    poly2 = sorted(map(str, poly2))
+    mpoly1 = sorted(map(str, mpoly1))
+    mpoly2 = sorted(map(str, mpoly2))
 
-    assert poly1 == [
+    assert mpoly1 == [
         '<H3Poly |outer|=30, |holes|=(18,)>',
         '<H3Poly |outer|=6, |holes|=()>',
     ]
 
-    assert poly2 == [
+    assert mpoly2 == [
         '<H3Poly |outer|=30, |holes|=(18,)>',
         '<H3Poly |outer|=6, |holes|=()>',
         '<H3Poly |outer|=6, |holes|=()>',

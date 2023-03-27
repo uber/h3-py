@@ -38,7 +38,7 @@ def input_permutations(geo, res=5):
 
     for p in g:
         poly = h3.H3Poly(*p)
-        cells = h3.polygon_to_cells(poly, res=res)
+        cells = h3.shape_to_cells(poly, res=res)
         yield cells
 
 
@@ -75,7 +75,7 @@ def get_us_box_coords():
     return outer, hole1, hole2
 
 
-def test_polygon_to_cells():
+def test_shape_to_cells():
 
     # lat/lngs for State of Maine
     maine = [
@@ -112,16 +112,16 @@ def test_polygon_to_cells():
     }
 
     poly = h3.H3Poly(maine)
-    out = h3.polygon_to_cells(poly, 3)
+    out = h3.shape_to_cells(poly, 3)
 
     assert out == expected
 
 
-def test_polygon_to_cells2():
+def test_shape_to_cells2():
     lnglat, _, _ = get_us_box_coords()
 
     poly = h3.H3Poly(lnglat)
-    out = h3.polygon_to_cells(poly, 5)
+    out = h3.shape_to_cells(poly, 5)
 
     assert len(out) == 7063
 
@@ -132,27 +132,27 @@ def test_polygon_to_cells2():
 #     pass
 
 
-def test_polygon_to_cells_holes():
+def test_shape_to_cells_holes():
 
     outer, hole1, hole2 = get_us_box_coords()
 
     assert 7063 == len(
-        h3.polygon_to_cells(h3.H3Poly(outer), 5)
+        h3.shape_to_cells(h3.H3Poly(outer), 5)
     )
 
     for res in 1, 2, 3, 4, 5:
-        cells_all = h3.polygon_to_cells(h3.H3Poly(outer), res)
-        cells_holes = h3.polygon_to_cells(h3.H3Poly(outer, hole1, hole2), res=res)
+        cells_all = h3.shape_to_cells(h3.H3Poly(outer), res)
+        cells_holes = h3.shape_to_cells(h3.H3Poly(outer, hole1, hole2), res=res)
 
-        cells_1 = h3.polygon_to_cells(h3.H3Poly(hole1), res)
-        cells_2 = h3.polygon_to_cells(h3.H3Poly(hole2), res)
+        cells_1 = h3.shape_to_cells(h3.H3Poly(hole1), res)
+        cells_2 = h3.shape_to_cells(h3.H3Poly(hole2), res)
 
         assert len(cells_all) == len(cells_holes) + len(cells_1) + len(cells_2)
         assert cells_all == set.union(cells_holes, cells_1, cells_2)
 
 
 def test_input_format():
-    """ Test that `polygon_to_cells` can take in polygon inputs
+    """ Test that `shape_to_cells` can take in polygon inputs
     where the LinearRings may or may not follow the right hand rule,
     and they may or may not be closed loops (where the last element
     is equal to the first).
@@ -182,14 +182,14 @@ def test_input_format():
 def test_resolution():
     poly = h3.H3Poly([])
 
-    assert h3.polygon_to_cells(poly, 0) == set()
-    assert h3.polygon_to_cells(poly, 15) == set()
+    assert h3.shape_to_cells(poly, 0) == set()
+    assert h3.shape_to_cells(poly, 15) == set()
 
     with pytest.raises(H3ResDomainError):
-        h3.polygon_to_cells(poly, -1)
+        h3.shape_to_cells(poly, -1)
 
     with pytest.raises(H3ResDomainError):
-        h3.polygon_to_cells(poly, 16)
+        h3.shape_to_cells(poly, 16)
 
 
 def test_invalid_polygon():
@@ -200,11 +200,11 @@ def test_invalid_polygon():
     """
     with pytest.raises(TypeError):
         poly = h3.H3Poly([1, 2, 3])
-        h3.polygon_to_cells(poly, 4)
+        h3.shape_to_cells(poly, 4)
 
     with pytest.raises(ValueError):
         poly = h3.H3Poly([[1, 2, 3]])
-        h3.polygon_to_cells(poly, 4)
+        h3.shape_to_cells(poly, 4)
 
     # d = {
     #     'type': 'Polygon',

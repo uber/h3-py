@@ -294,13 +294,13 @@ def test_cells_to_shape_empty():
     assert list(mpoly) == []
 
 
-def test_cells_to_polygons_single():
+def test_cells_to_shape_single():
     h = '89283082837ffff'
     cells = {h}
 
-    polys = h3.cells_to_polygons(cells)
-    assert len(polys) == 1
-    poly = polys[0]
+    mpoly = h3.cells_to_shape(cells)
+    assert len(mpoly) == 1
+    poly = mpoly[0]
 
     vertices = h3.cell_to_boundary(h)
     expected_poly = h3.H3Poly(vertices)
@@ -309,14 +309,14 @@ def test_cells_to_polygons_single():
     assert poly.holes == expected_poly.holes == ()
 
 
-def test_cells_to_polygons_contiguous():
+def test_cells_to_shape_contiguous():
     a = '89283082837ffff'
     b = '89283082833ffff'
     assert h3.are_neighbor_cells(a, b)
 
-    polys = h3.cells_to_polygons([a, b])
-    assert len(polys) == 1
-    poly = polys[0]
+    mpoly = h3.cells_to_shape([a, b])
+    assert len(mpoly) == 1
+    poly = mpoly[0]
 
     assert len(poly.outer) == 10
     assert poly.holes == ()
@@ -326,47 +326,47 @@ def test_cells_to_polygons_contiguous():
     assert set(poly.outer) == set(verts_a) | set(verts_b)
 
 
-def test_cells_to_polygons_non_contiguous():
+def test_cells_to_shape_non_contiguous():
     a = '89283082837ffff'
     b = '8928308280fffff'
     assert not h3.are_neighbor_cells(a, b)
 
-    polys = h3.cells_to_polygons([a, b])
-    assert len(polys) == 2
+    mpoly = h3.cells_to_shape([a, b])
+    assert len(mpoly) == 2
 
-    assert all(poly.holes == () for poly in polys)
-    assert all(len(poly.outer) == 6 for poly in polys)
+    assert all(poly.holes == () for poly in mpoly)
+    assert all(len(poly.outer) == 6 for poly in mpoly)
 
     verts_a = h3.cell_to_boundary(a)
     verts_b = h3.cell_to_boundary(b)
 
-    verts_both = set.union(*[set(poly.outer) for poly in polys])
+    verts_both = set.union(*[set(poly.outer) for poly in mpoly])
     assert verts_both == set(verts_a) | set(verts_b)
 
 
-def test_cells_to_polygons_hole():
+def test_cells_to_shape_hole():
     # Six hexagons in a ring around a hole
     cells = [
         '892830828c7ffff', '892830828d7ffff', '8928308289bffff',
         '89283082813ffff', '8928308288fffff', '89283082883ffff',
     ]
-    polys = h3.cells_to_polygons(cells)
+    mpoly = h3.cells_to_shape(cells)
 
-    assert len(polys) == 1
-    poly = polys[0]
+    assert len(mpoly) == 1
+    poly = mpoly[0]
 
     assert len(poly.holes) == 1
     assert len(poly.holes[0]) == 6
     assert len(poly.outer) == 6 * 3
 
 
-def test_cells_to_polygons_2grid_disk():
+def test_cells_to_shape_2grid_disk():
     h = '8930062838bffff'
     cells = h3.grid_disk(h, 2)
-    polys = h3.cells_to_polygons(cells)
+    mpoly = h3.cells_to_shape(cells)
 
-    assert len(polys) == 1
-    poly = polys[0]
+    assert len(mpoly) == 1
+    poly = mpoly[0]
 
     assert len(poly.holes) == 0
     assert len(poly.outer) == 6 * (2 * 2 + 1)

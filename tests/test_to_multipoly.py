@@ -1,15 +1,15 @@
 import h3
 
 
-def test_cells_to_polygons():
+def test_cells_to_shape():
     h = '8928308280fffff'
     cells = h3.grid_disk(h, 1)
 
-    polys = h3.cells_to_polygons(cells)
-    poly = polys[0]
+    mpoly = h3.cells_to_shape(cells)
+    poly = mpoly[0]
 
     poly2 = h3.H3Poly(poly.outer, *poly.holes)
-    out = h3.polygon_to_cells(poly2, 9)
+    out = h3.shape_to_cells(poly2, 9)
 
     assert out == cells
 
@@ -21,11 +21,11 @@ def test_2_polys():
     # cells should be a center hex, and the 2-ring around it
     # (with the 1-ring being absent)
 
-    polys = h3.cells_to_polygons(cells)
+    mpoly = h3.cells_to_shape(cells)
 
     out = [
-        h3.polygon_to_cells(poly, 9)
-        for poly in polys
+        h3.shape_to_cells(poly, 9)
+        for poly in mpoly
     ]
 
     assert set.union(*out) == cells
