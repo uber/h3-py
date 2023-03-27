@@ -37,7 +37,7 @@ def input_permutations(geo, res=5):
     g = chain_toggle_map(reverse, g)
 
     for p in g:
-        poly = h3.Polygon(*p)
+        poly = h3.H3Poly(*p)
         cells = h3.polygon_to_cells(poly, res=res)
         yield cells
 
@@ -111,7 +111,7 @@ def test_polygon_to_cells():
         '832badfffffffff'
     }
 
-    poly = h3.Polygon(maine)
+    poly = h3.H3Poly(maine)
     out = h3.polygon_to_cells(poly, 3)
 
     assert out == expected
@@ -120,7 +120,7 @@ def test_polygon_to_cells():
 def test_polygon_to_cells2():
     lnglat, _, _ = get_us_box_coords()
 
-    poly = h3.Polygon(lnglat)
+    poly = h3.H3Poly(lnglat)
     out = h3.polygon_to_cells(poly, 5)
 
     assert len(out) == 7063
@@ -137,15 +137,15 @@ def test_polygon_to_cells_holes():
     outer, hole1, hole2 = get_us_box_coords()
 
     assert 7063 == len(
-        h3.polygon_to_cells(h3.Polygon(outer), 5)
+        h3.polygon_to_cells(h3.H3Poly(outer), 5)
     )
 
     for res in 1, 2, 3, 4, 5:
-        cells_all = h3.polygon_to_cells(h3.Polygon(outer), res)
-        cells_holes = h3.polygon_to_cells(h3.Polygon(outer, hole1, hole2), res=res)
+        cells_all = h3.polygon_to_cells(h3.H3Poly(outer), res)
+        cells_holes = h3.polygon_to_cells(h3.H3Poly(outer, hole1, hole2), res=res)
 
-        cells_1 = h3.polygon_to_cells(h3.Polygon(hole1), res)
-        cells_2 = h3.polygon_to_cells(h3.Polygon(hole2), res)
+        cells_1 = h3.polygon_to_cells(h3.H3Poly(hole1), res)
+        cells_2 = h3.polygon_to_cells(h3.H3Poly(hole2), res)
 
         assert len(cells_all) == len(cells_holes) + len(cells_1) + len(cells_2)
         assert cells_all == set.union(cells_holes, cells_1, cells_2)
@@ -180,7 +180,7 @@ def test_input_format():
 
 
 def test_resolution():
-    poly = h3.Polygon([])
+    poly = h3.H3Poly([])
 
     assert h3.polygon_to_cells(poly, 0) == set()
     assert h3.polygon_to_cells(poly, 15) == set()
@@ -199,11 +199,11 @@ def test_invalid_polygon():
     some `cdef` functions.
     """
     with pytest.raises(TypeError):
-        poly = h3.Polygon([1, 2, 3])
+        poly = h3.H3Poly([1, 2, 3])
         h3.polygon_to_cells(poly, 4)
 
     with pytest.raises(ValueError):
-        poly = h3.Polygon([[1, 2, 3]])
+        poly = h3.H3Poly([[1, 2, 3]])
         h3.polygon_to_cells(poly, 4)
 
     # d = {

@@ -215,7 +215,7 @@ def test_distance_error():
 
 def get_maine_cells():
     # lat/lngs for State of Maine
-    poly = h3.Polygon([
+    poly = h3.H3Poly([
         (45.137451890638886, -67.13734351262877),
         (44.8097, -66.96466),
         (44.3252, -68.03252),

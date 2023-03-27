@@ -16,12 +16,12 @@ def test_repr():
     poly2 = sorted(map(str, poly2))
 
     assert poly1 == [
-        '<h3.Polygon |outer|=30, |holes|=(18,)>',
-        '<h3.Polygon |outer|=6, |holes|=()>',
+        '<H3Poly |outer|=30, |holes|=(18,)>',
+        '<H3Poly |outer|=6, |holes|=()>',
     ]
 
     assert poly2 == [
-        '<h3.Polygon |outer|=30, |holes|=(18,)>',
-        '<h3.Polygon |outer|=6, |holes|=()>',
-        '<h3.Polygon |outer|=6, |holes|=()>',
+        '<H3Poly |outer|=30, |holes|=(18,)>',
+        '<H3Poly |outer|=6, |holes|=()>',
+        '<H3Poly |outer|=6, |holes|=()>',
     ]
