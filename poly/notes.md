@@ -18,6 +18,8 @@ h3.cells_to_shape(cells) -> H3Poly or H3MultiPoly
 h3.shape_to_cells(H3Poly or H3MulitPoly) -> cells
 ```
 
+note: `h3.shape_to_cells()` could take in lots of formats. or do we put that in the H3shape constructor? maybe functional is better?
+
 ```
 shape.__geo_interface__
 shape.to_cells(res)

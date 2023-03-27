@@ -153,7 +153,7 @@ sf_hole2 = [
 
 def test_polyfill():
     poly = h3.H3Poly(sf_7x7)
-    out = h3.polygon_to_cells(poly, res=9)
+    out = h3.shape_to_cells(poly, res=9)
 
     assert len(out) == 1253
     assert '89283080527ffff' in out
@@ -163,10 +163,10 @@ def test_polyfill():
 def test_polyfill_with_hole():
     poly = h3.H3Poly(sf_7x7, sf_hole1)
 
-    out = h3.polygon_to_cells(poly, res=9)
+    out = h3.shape_to_cells(poly, res=9)
     assert len(out) == 1214
 
-    foo = lambda x: h3.polygon_to_cells(h3.H3Poly(x), 9)
+    foo = lambda x: h3.shape_to_cells(h3.H3Poly(x), 9)
     # todo: foo = lambda x: h3.H3Poly(x).to_cells(9)
     assert out == foo(sf_7x7) - foo(sf_hole1)
 
@@ -174,10 +174,10 @@ def test_polyfill_with_hole():
 def test_polyfill_with_two_holes():
 
     poly = h3.H3Poly(sf_7x7, sf_hole1, sf_hole2)
-    out = h3.polygon_to_cells(poly, 9)
+    out = h3.shape_to_cells(poly, 9)
     assert len(out) == 1172
 
-    foo = lambda x: h3.polygon_to_cells(h3.H3Poly(x), 9)
+    foo = lambda x: h3.shape_to_cells(h3.H3Poly(x), 9)
     assert out == foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2))
 
 # def test_polyfill_geo_json_compliant():
@@ -235,7 +235,7 @@ def test_polyfill_down_under():
     ]
 
     poly = h3.H3Poly(sydney)
-    out = h3.polygon_to_cells(poly, 9)
+    out = h3.shape_to_cells(poly, 9)
     assert len(out) == 92
     assert '89be0e34207ffff' in out
     assert '89be0e35ddbffff' in out
@@ -251,7 +251,7 @@ def test_polyfill_far_east():
     ]
 
     poly = h3.H3Poly(geo)
-    out = h3.polygon_to_cells(poly, 9)
+    out = h3.shape_to_cells(poly, 9)
     assert len(out) == 18507
     assert '892e18d16c3ffff' in out
     assert '892e1ebb5a7ffff' in out
@@ -267,7 +267,7 @@ def test_polyfill_southern_tip():
     ]
 
     poly = h3.H3Poly(geo)
-    out = h3.polygon_to_cells(poly, 9)
+    out = h3.shape_to_cells(poly, 9)
     assert len(out) == 223247
     assert '89df4000003ffff' in out
     assert '89df4636b27ffff' in out
@@ -283,7 +283,7 @@ def test_polyfill_null_island():
     ]
 
     poly = h3.H3Poly(geo)
-    out = h3.polygon_to_cells(poly, 4)
+    out = h3.shape_to_cells(poly, 4)
     assert len(out) == 345
     assert '847421bffffffff' in out
     assert '84825ddffffffff' in out
@@ -428,7 +428,7 @@ def test_grid_ring_pentagon():
 
 def test_compact_and_uncompact_cells():
     poly = h3.H3Poly(sf_7x7)
-    cells = h3.polygon_to_cells(poly, 9)
+    cells = h3.shape_to_cells(poly, 9)
 
     compact_cells = h3.compact_cells(cells)
     assert len(compact_cells) == 209
