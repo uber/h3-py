@@ -8,7 +8,7 @@ def test_cells_to_polygons():
     polys = h3.cells_to_polygons(cells)
     poly = polys[0]
 
-    poly2 = h3.Polygon(poly.outer, *poly.holes)
+    poly2 = h3.H3Poly(poly.outer, *poly.holes)
     out = h3.polygon_to_cells(poly2, 9)
 
     assert out == cells

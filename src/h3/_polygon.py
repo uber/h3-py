@@ -47,10 +47,26 @@ class Polygon:
         self.outer = outer
         self.holes = holes
 
+        # todo: maybe add some validation
+
     def __repr__(self):
         s = '<h3.Polygon |outer|={}, |holes|={}>'.format(
             len(self.outer),
             tuple(map(len, self.holes)),
+        )
+
+        return s
+
+class H3Poly(Polygon):
+    pass
+
+class H3MultiPoly:
+    def __init__(self, *polys):
+        self.polys = polys
+
+    def __repr__(self):
+        s = '<H3MultiPoly: >'.format(
+            tuple(map(str, self.polys)),
         )
 
         return s

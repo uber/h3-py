@@ -38,7 +38,7 @@ be skipped due to it being inside the `_api_functions` function.
 """
 
 from .. import _cy
-from .._polygon import Polygon
+from .._polygon import Polygon, H3Poly
 
 
 class _API_FUNCTIONS(object):
@@ -454,7 +454,7 @@ class _API_FUNCTIONS(object):
         cells = self._in_collection(cells)
         geos = _cy.cells_to_multi_polygon(cells)
 
-        polys = [Polygon(*geo) for geo in geos]
+        polys = [H3Poly(*geo) for geo in geos]
 
         return polys
 
