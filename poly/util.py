@@ -24,8 +24,8 @@ import json
 
 if True:  # functions below should be inverses of each other
     def cells_to_geojson(cells):
-        polys = h3.cells_to_polygons(cells)
-        ll3 = _polygons_to_LL3(polys)
+        mpoly = h3.cells_to_shape(cells)
+        ll3 = _mpoly_to_LL3(mpoly)
         gj_dict = _LL3_to_geojson_dict(ll3)
         gj_str = json.dumps(gj_dict)
 
@@ -34,15 +34,35 @@ if True:  # functions below should be inverses of each other
     def geojson_to_cells(gj_str, res):
         gj_dict = json.loads(gj_str)
         ll3 = _geojson_dict_to_LL3(gj_dict)
-        polys = _LL3_to_polygons(ll3)
-        cells = h3.polygons_to_cells(polys, res)
+        mpoly = _LL3_to_mpoly(ll3)
+        cells = h3.shape_to_cells(mpoly, res)
 
         return cells
 
 
 if True:  # functions below should be inverses of each other
-    def _polygon_to_LL2(poly):
-        ll2 = [poly.outer] + list(poly.holes)
+    def _mpoly_to_LL3(mpoly):
+        ll3 = [
+            _polygon_to_LL2(poly)
+            for poly in mpoly
+        ]
+
+        return ll3
+
+    def _LL3_to_mpoly(ll3):
+        polys = [
+            _LL2_to_polygon(ll2)
+            for ll2 in ll3
+        ]
+
+        mpoly = h3.H3MultiPoly(*polys)
+
+        return mpoly
+
+
+if True:  # functions below should be inverses of each other
+    def _polygon_to_LL2(h3poly):
+        ll2 = [h3poly.outer] + list(h3poly.holes)
         ll2 = [
             _close_ring(_swap_latlng(ll1))
             for ll1 in ll2
@@ -55,27 +75,9 @@ if True:  # functions below should be inverses of each other
             _swap_latlng(ll1)
             for ll1 in ll2
         ]
-        poly = h3.H3Poly(*ll2)
+        h3poly = h3.H3Poly(*ll2)
 
-        return poly
-
-
-if True:  # functions below should be inverses of each other
-    def _polygons_to_LL3(polys):
-        ll3 = [
-            _polygon_to_LL2(poly)
-            for poly in polys
-        ]
-
-        return ll3
-
-    def _LL3_to_polygons(ll3):
-        polys = [
-            _LL2_to_polygon(ll2)
-            for ll2 in ll3
-        ]
-
-        return polys
+        return h3poly
 
 
 if True:  # functions below should be inverses of each other
