@@ -220,3 +220,8 @@ def from_geo_interface(x):
         ll3 = _geojson_dict_to_LL3(x)
         mpoly = _LL3_to_mpoly(ll3)
         return mpoly
+
+def X_to_shape(input):
+    """
+    Accept various inputs and return either a H3Poly or H3MultiPoly object.
+    """
