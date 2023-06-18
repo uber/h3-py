@@ -233,7 +233,7 @@ def _geojson_dict_to_LL3(gj_dict):
     elif t == 'MultiPolygon':
         ll3 = coord
     else:
-        raise ValueError(f'Unrecognized type: {t}')
+        raise ValueError('Unrecognized type: ' + str(t))
 
     return ll3
 
