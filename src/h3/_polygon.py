@@ -60,8 +60,8 @@ class H3Poly(H3Shape):
                 )
             self.outer = outer.outer
             self.holes = outer.holes
-        elif hasattr(outer, "__geo_interface__"):
-            to_import = outer.__geo_interface__
+        elif isinstance(outer, dict) or hasattr(outer, "__geo_interface__"):
+            to_import = outer if isinstance(outer, dict) else outer.__geo_interface__
             ll3 = _geojson_dict_to_LL3(to_import)
             to_copy = _LL3_to_mpoly(ll3)
             if len(to_copy.polys) == 0:
@@ -110,12 +110,15 @@ class H3MultiPoly(H3Shape):
             self.polys = polys[0].polys
         elif (len(polys)
               and not isinstance(polys[0], H3Shape)
-              and hasattr(polys[0], '__geo_interface__')):
+              and (isinstance(polys[0], dict)
+                   or hasattr(polys[0], '__geo_interface__'))):
+            to_import = (
+                polys[0] if isinstance(polys[0], dict) else polys[0].__geo_interface__
+            )
             if len(polys) != 1:
                 raise ValueError(
                     "When copying from GeoJSON, only one may be specified"
                 )
-            to_import = polys[0].__geo_interface__
             ll3 = _geojson_dict_to_LL3(to_import)
             to_copy = _LL3_to_mpoly(ll3)
             self.polys = to_copy.polys
@@ -267,10 +270,3 @@ def from_geo_interface(x):
         ll3 = _geojson_dict_to_LL3(x)
         mpoly = _LL3_to_mpoly(ll3)
         return mpoly
-
-
-def X_to_shape(input):
-    """
-    Accept various inputs and return either a H3Poly or H3MultiPoly object.
-    """
-    pass

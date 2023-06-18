@@ -428,8 +428,18 @@ class _API_FUNCTIONS(object):
         elif isinstance(h3shape, H3MultiPoly):
             mpoly = h3shape
             mv = _cy.polygons_to_cells(mpoly.polys, res)
+        elif hasattr(h3shape, '__geo_interface__'):
+            to_import = h3shape.__geo_interface__
+            if to_import['type'] == 'Polygon':
+                poly = H3Poly(to_import)
+                return self.shape_to_cells(poly, res)
+            if to_import['type'] == 'Polygon':
+                mpoly = H3MultiPoly(to_import)
+                return self.shape_to_cells(mpoly, res)
+            else:
+                raise ValueError('unrecognized GeoJSON type')
         else:
-            raise ValueError('TODO: unrecognized type')
+            raise ValueError('unrecognized type')
 
         return self._out_unordered(mv)
 
