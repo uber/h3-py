@@ -1,7 +1,10 @@
-#todo: rename file to _shape.py
+# todo: rename file to _shape.py
+import json
+
 
 class H3Shape:
     pass
+
 
 class H3Poly(H3Shape):
     """
@@ -71,7 +74,6 @@ class H3Poly(H3Shape):
         return gj_dict
 
 
-
 class H3MultiPoly(H3Shape):
     def __init__(self, *polys):
         self.polys = tuple(polys)
@@ -94,7 +96,6 @@ class H3MultiPoly(H3Shape):
         gj_dict = _LL3_to_geojson_dict(ll3)
 
         return gj_dict
-
 
 
 """
@@ -179,7 +180,7 @@ if True:  # functions below should be inverses of each other
 
         if t == 'Polygon':
             ll2 = coord
-            ll3 = [ ll2 ]
+            ll3 = [ll2]
         elif t == 'MultiPolygon':
             ll3 = coord
         else:
@@ -193,6 +194,7 @@ def _swap_latlng(ll1):
 
     return ll1
 
+
 def _close_ring(ll1):
     if ll1[0] != ll1[-1]:
         ll1.append(ll1[0])
@@ -200,14 +202,13 @@ def _close_ring(ll1):
     return ll1
 
 
-import json
-
 def check_geo_interface(x):
     return any(
         isinstance(x, str),
         hasattr(x, '__geo_interface__'),
         isinstance(x, dict) and 'type' in x,
     )
+
 
 def from_geo_interface(x):
     if isinstance(x, str):
@@ -221,7 +222,9 @@ def from_geo_interface(x):
         mpoly = _LL3_to_mpoly(ll3)
         return mpoly
 
+
 def X_to_shape(input):
     """
     Accept various inputs and return either a H3Poly or H3MultiPoly object.
     """
+    pass

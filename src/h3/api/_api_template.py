@@ -433,8 +433,6 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-
-
     def cells_to_shape(self, cells):
         """
         Return a list of H3Poly objects describing the area
