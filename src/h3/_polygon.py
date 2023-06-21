@@ -64,14 +64,13 @@ class H3Poly(H3Shape):
             to_import = outer if isinstance(outer, dict) else outer.__geo_interface__
             ll3 = _geojson_dict_to_LL3(to_import)
             to_copy = _LL3_to_mpoly(ll3)
-            if len(to_copy.polys) == 0:
+            if len(to_copy.polys) != 1:
                 raise ValueError(
-                    "H3Poly must be constructed with a single polygon, but got 0"
+                    "H3Poly must be constructed with a single polygon, "
+                    "but got " + str(len(to_copy.polys))
                 )
-            if len(to_copy.polys) > 1:
-                raise ValueError(
-                    "H3Poly must be constructed with a single polygon, but got many"
-                )
+            # Check that conflicting arguments (GeoJSON, and also holes)
+            # aren't specified.
             if len(holes) != 0:
                 raise ValueError("When copying from GeoJSON, holes cannot be specified")
             self.outer = to_copy.polys[0].outer
@@ -105,7 +104,8 @@ class H3MultiPoly(H3Shape):
             # Since the object being copied contains a tuple, we can copy it directly
             if len(polys) != 1:
                 raise ValueError(
-                    "When copying from another H3MultiPoly, only one may be specified"
+                    "When copying from another H3MultiPoly, "
+                    "only one may be specified but got " + str(len(polys))
                 )
             self.polys = polys[0].polys
         elif (len(polys)
