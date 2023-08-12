@@ -56,44 +56,6 @@ jobs:
         with:
           path: ./dist
 
-  make_cibw_v1_wheels:
-    name: "cibuildwheel v1: ${{ matrix.name }}"
-    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        # Only build for platforms that cibw v2 doesn't support
-        include:
-          - os: macos-latest
-            build: "cp27-macosx_x86_64"
-            name: macOS Intel
-          - os: ubuntu-20.04
-            build: "cp27-manylinux_x86_64"
-            name: Linux Intel 64-bit
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      ## Build
-
-      - uses: pypa/cibuildwheel@v1.12.0
-        env:
-          CIBW_TEST_REQUIRES: pytest numpy
-          CIBW_TEST_COMMAND: pytest {project}/tests
-          CIBW_ARCHS_LINUX: auto aarch64
-          CIBW_BUILD: ${{ matrix.build }}
-
-      - name: Check with Twine
-        run: |
-          pipx run twine check wheelhouse/*
-
-      - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
-        with:
-          path: wheelhouse/*.whl
-
   make_cibw_v2_wheels:
     name: "cibuildwheel v2: ${{ matrix.name }}"
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
@@ -176,7 +138,7 @@ jobs:
           path: wheelhouse/*.whl
 
   upload_all:
-    needs: [make_sdist, make_cibw_v1_wheels, make_cibw_v2_wheels]
+    needs: [make_sdist, make_cibw_v2_wheels]
     runs-on: ubuntu-20.04
     if: github.event_name == 'release' && github.event.action == 'published'
 
