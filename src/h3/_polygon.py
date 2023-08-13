@@ -1,5 +1,4 @@
 # todo: rename file to _shape.py
-import json
 
 
 class H3Shape:
@@ -249,4 +248,3 @@ def _close_ring(ll1):
         ll1.append(ll1[0])
 
     return ll1
-
