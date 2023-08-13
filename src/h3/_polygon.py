@@ -250,23 +250,3 @@ def _close_ring(ll1):
 
     return ll1
 
-
-def check_geo_interface(x):
-    return any(
-        isinstance(x, str),
-        hasattr(x, '__geo_interface__'),
-        isinstance(x, dict) and 'type' in x,
-    )
-
-
-def from_geo_interface(x):
-    if isinstance(x, str):
-        x = json.loads(x)
-
-    if hasattr(x, '__geo_interface__'):
-        x = x.__geo_interface__
-
-    if isinstance(x, dict) and 'type' in x:
-        ll3 = _geojson_dict_to_LL3(x)
-        mpoly = _LL3_to_mpoly(ll3)
-        return mpoly
