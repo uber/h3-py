@@ -205,10 +205,3 @@ def test_invalid_polygon():
     with pytest.raises(ValueError):
         poly = h3.H3Poly([[1, 2, 3]])
         h3.shape_to_cells(poly, 4)
-
-    # d = {
-    #     'type': 'Polygon',
-    #     'coordinates': [(1, 2), (2, 2), (2, 1), (1, 2)],
-    # }
-    # with pytest.raises(TypeError):
-    #     h3.polyfill(d, 4)

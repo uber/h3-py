@@ -4,7 +4,7 @@ on:
   push:
     branches: [master]
   pull_request:
-    branches: [master]
+    branches: ["*"]
     types:
       # Opened, synchronize, and reopened are the default types
       # We add ready_for_review to additionally trigger when converting from draft to non-draft

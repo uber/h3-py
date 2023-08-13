@@ -1,7 +1,9 @@
-#todo: rename file to _shape.py
+# todo: rename file to _shape.py
+
 
 class H3Shape:
     pass
+
 
 class H3Poly(H3Shape):
     """
@@ -49,8 +51,32 @@ class H3Poly(H3Shape):
     - TODO: Add GeoJSON translation support.
     """
     def __init__(self, outer, *holes):
-        self.outer = tuple(outer)
-        self.holes = tuple(holes)
+        if isinstance(outer, H3Poly):
+            # Since the object being copied contains a tuple, we can copy it directly
+            if len(holes) != 0:
+                raise ValueError(
+                    "When copying another polygon, holes cannot be specified"
+                )
+            self.outer = outer.outer
+            self.holes = outer.holes
+        elif isinstance(outer, dict) or hasattr(outer, "__geo_interface__"):
+            to_import = outer if isinstance(outer, dict) else outer.__geo_interface__
+            ll3 = _geojson_dict_to_LL3(to_import)
+            to_copy = _LL3_to_mpoly(ll3)
+            if len(to_copy.polys) != 1:
+                raise ValueError(
+                    "H3Poly must be constructed with a single polygon, "
+                    "but got " + str(len(to_copy.polys))
+                )
+            # Check that conflicting arguments (GeoJSON, and also holes)
+            # aren't specified.
+            if len(holes) != 0:
+                raise ValueError("When copying from GeoJSON, holes cannot be specified")
+            self.outer = to_copy.polys[0].outer
+            self.holes = to_copy.polys[0].holes
+        else:
+            self.outer = tuple(outer)
+            self.holes = tuple(holes)
 
         # todo: maybe add some validation
 
@@ -71,10 +97,32 @@ class H3Poly(H3Shape):
         return gj_dict
 
 
-
 class H3MultiPoly(H3Shape):
     def __init__(self, *polys):
-        self.polys = tuple(polys)
+        if len(polys) and isinstance(polys[0], H3MultiPoly):
+            # Since the object being copied contains a tuple, we can copy it directly
+            if len(polys) != 1:
+                raise ValueError(
+                    "When copying from another H3MultiPoly, "
+                    "only one may be specified but got " + str(len(polys))
+                )
+            self.polys = polys[0].polys
+        elif (len(polys)
+              and not isinstance(polys[0], H3Shape)
+              and (isinstance(polys[0], dict)
+                   or hasattr(polys[0], '__geo_interface__'))):
+            to_import = (
+                polys[0] if isinstance(polys[0], dict) else polys[0].__geo_interface__
+            )
+            if len(polys) != 1:
+                raise ValueError(
+                    "When copying from GeoJSON, only one may be specified"
+                )
+            ll3 = _geojson_dict_to_LL3(to_import)
+            to_copy = _LL3_to_mpoly(ll3)
+            self.polys = to_copy.polys
+        else:
+            self.polys = tuple(polys)
 
     def __repr__(self):
         return 'H3MultiPoly' + str(self.polys)
@@ -94,7 +142,6 @@ class H3MultiPoly(H3Shape):
         gj_dict = _LL3_to_geojson_dict(ll3)
 
         return gj_dict
-
 
 
 """
@@ -118,74 +165,76 @@ LL3: list of LL2s (i.e., several polygons with holes)
 """
 
 
-if True:  # functions below should be inverses of each other
-    def _mpoly_to_LL3(mpoly):
-        ll3 = [
-            _polygon_to_LL2(poly)
-            for poly in mpoly
-        ]
+def _mpoly_to_LL3(mpoly):
+    ll3 = [
+        _polygon_to_LL2(poly)
+        for poly in mpoly
+    ]
 
-        return ll3
-
-    def _LL3_to_mpoly(ll3):
-        polys = [
-            _LL2_to_polygon(ll2)
-            for ll2 in ll3
-        ]
-
-        mpoly = H3MultiPoly(*polys)
-
-        return mpoly
+    return ll3
 
 
-if True:  # functions below should be inverses of each other
-    def _polygon_to_LL2(h3poly):
-        ll2 = [h3poly.outer] + list(h3poly.holes)
-        ll2 = [
-            _close_ring(_swap_latlng(ll1))
-            for ll1 in ll2
-        ]
+def _LL3_to_mpoly(ll3):
+    polys = [
+        _LL2_to_polygon(ll2)
+        for ll2 in ll3
+    ]
 
-        return ll2
+    mpoly = H3MultiPoly(*polys)
 
-    def _LL2_to_polygon(ll2):
-        ll2 = [
-            _swap_latlng(ll1)
-            for ll1 in ll2
-        ]
-        h3poly = H3Poly(*ll2)
-
-        return h3poly
+    return mpoly
 
 
-if True:  # functions below should be inverses of each other
-    def _LL3_to_geojson_dict(ll3):
-        if len(ll3) == 1:
-            gj_dict = {
-                'type': 'Polygon',
-                'coordinates': ll3[0],
-            }
-        else:
-            gj_dict = {
-                'type': 'MultiPolygon',
-                'coordinates': ll3,
-            }
+# functions below should be inverses of each other
+def _polygon_to_LL2(h3poly):
+    ll2 = [h3poly.outer] + list(h3poly.holes)
+    ll2 = [
+        _close_ring(_swap_latlng(ll1))
+        for ll1 in ll2
+    ]
 
-        return gj_dict
+    return ll2
 
-    def _geojson_dict_to_LL3(gj_dict):
-        t = gj_dict['type']
-        coord = gj_dict['coordinates']
 
-        if t == 'Polygon':
-            ll2 = coord
-            ll3 = [ ll2 ]
-        elif t == 'MultiPolygon':
-            ll3 = coord
-        else:
-            raise ValueError(f'Unrecognized type: {t}')
+def _LL2_to_polygon(ll2):
+    ll2 = [
+        _swap_latlng(ll1)
+        for ll1 in ll2
+    ]
+    h3poly = H3Poly(*ll2)
 
-        return ll3
+    return h3poly
+
+
+# functions below should be inverses of each other
+def _LL3_to_geojson_dict(ll3):
+    if len(ll3) == 1:
+        gj_dict = {
+            'type': 'Polygon',
+            'coordinates': ll3[0],
+        }
+    else:
+        gj_dict = {
+            'type': 'MultiPolygon',
+            'coordinates': ll3,
+        }
+
+    return gj_dict
+
+
+def _geojson_dict_to_LL3(gj_dict):
+    t = gj_dict['type']
+    coord = gj_dict['coordinates']
+
+    if t == 'Polygon':
+        ll2 = coord
+        ll3 = [ll2]
+    elif t == 'MultiPolygon':
+        ll3 = coord
+    else:
+        raise ValueError('Unrecognized type: ' + str(t))
+
+    return ll3
 
 
 def _swap_latlng(ll1):
@@ -193,35 +242,9 @@ def _swap_latlng(ll1):
 
     return ll1
 
+
 def _close_ring(ll1):
     if ll1[0] != ll1[-1]:
         ll1.append(ll1[0])
 
     return ll1
-
-
-import json
-
-def check_geo_interface(x):
-    return any(
-        isinstance(x, str),
-        hasattr(x, '__geo_interface__'),
-        isinstance(x, dict) and 'type' in x,
-    )
-
-def from_geo_interface(x):
-    if isinstance(x, str):
-        x = json.loads(x)
-
-    if hasattr(x, '__geo_interface__'):
-        x = x.__geo_interface__
-
-    if isinstance(x, dict) and 'type' in x:
-        ll3 = _geojson_dict_to_LL3(x)
-        mpoly = _LL3_to_mpoly(ll3)
-        return mpoly
-
-def X_to_shape(input):
-    """
-    Accept various inputs and return either a H3Poly or H3MultiPoly object.
-    """
