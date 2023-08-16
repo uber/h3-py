@@ -468,16 +468,16 @@ class _API_FUNCTIONS(object):
         """
         # todo: if string, convert to dict
 
-        if hasattr(geo, '__geo_interface__'): # todo: avoid converting H3poly and H3multipoly
+        # todo: avoid converting H3poly and H3multipoly
+        if hasattr(geo, '__geo_interface__'):
             geo = geo.__geo_interface__
 
-        assert isinstance(geo, dict) # todo: remove
+        assert isinstance(geo, dict)  # todo: remove
 
         ll3 = _geojson_dict_to_LL3(geo)
         geo = _LL3_to_mpoly(ll3)
 
         return self.shape_to_cells(geo, res)  # todo: don't love the self-reference
-
 
     def cells_to_geo(self, cells):
         """
