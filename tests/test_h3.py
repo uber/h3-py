@@ -197,7 +197,7 @@ def test_polyfill_geo_json_compliant():
         ]
     }
 
-    out = h3.shape_to_cells(geo, 9)
+    out = h3.geo_to_cells(geo, 9)
     assert len(out) > 1000
 
 
@@ -216,7 +216,7 @@ def test_polyfill_geo_interface_compliant():
         ]
     })
 
-    out = h3.shape_to_cells(geo, 9)
+    out = h3.geo_to_cells(geo, 9)
     assert len(out) > 1000
 
 

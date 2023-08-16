@@ -44,39 +44,10 @@ class H3Poly(H3Shape):
     ...      (37.73, -122.43)],
     ... )
     <H3Poly |outer|=4, |holes|=(3, 5)>
-
-    Notes
-    -----
-
-    - TODO: Add GeoJSON translation support.
     """
     def __init__(self, outer, *holes):
-        if isinstance(outer, H3Poly):
-            # Since the object being copied contains a tuple, we can copy it directly
-            if len(holes) != 0:
-                raise ValueError(
-                    "When copying another polygon, holes cannot be specified"
-                )
-            self.outer = outer.outer
-            self.holes = outer.holes
-        elif isinstance(outer, dict) or hasattr(outer, "__geo_interface__"):
-            to_import = outer if isinstance(outer, dict) else outer.__geo_interface__
-            ll3 = _geojson_dict_to_LL3(to_import)
-            to_copy = _LL3_to_mpoly(ll3)
-            if len(to_copy.polys) != 1:
-                raise ValueError(
-                    "H3Poly must be constructed with a single polygon, "
-                    "but got " + str(len(to_copy.polys))
-                )
-            # Check that conflicting arguments (GeoJSON, and also holes)
-            # aren't specified.
-            if len(holes) != 0:
-                raise ValueError("When copying from GeoJSON, holes cannot be specified")
-            self.outer = to_copy.polys[0].outer
-            self.holes = to_copy.polys[0].holes
-        else:
-            self.outer = tuple(outer)
-            self.holes = tuple(holes)
+        self.outer = tuple(outer)
+        self.holes = tuple(holes)
 
         # todo: maybe add some validation
 
@@ -99,30 +70,8 @@ class H3Poly(H3Shape):
 
 class H3MultiPoly(H3Shape):
     def __init__(self, *polys):
-        if len(polys) and isinstance(polys[0], H3MultiPoly):
-            # Since the object being copied contains a tuple, we can copy it directly
-            if len(polys) != 1:
-                raise ValueError(
-                    "When copying from another H3MultiPoly, "
-                    "only one may be specified but got " + str(len(polys))
-                )
-            self.polys = polys[0].polys
-        elif (len(polys)
-              and not isinstance(polys[0], H3Shape)
-              and (isinstance(polys[0], dict)
-                   or hasattr(polys[0], '__geo_interface__'))):
-            to_import = (
-                polys[0] if isinstance(polys[0], dict) else polys[0].__geo_interface__
-            )
-            if len(polys) != 1:
-                raise ValueError(
-                    "When copying from GeoJSON, only one may be specified"
-                )
-            ll3 = _geojson_dict_to_LL3(to_import)
-            to_copy = _LL3_to_mpoly(ll3)
-            self.polys = to_copy.polys
-        else:
-            self.polys = tuple(polys)
+        self.polys = tuple(polys)
+        # todo: add validation that these are each H3Poly objects
 
     def __repr__(self):
         return 'H3MultiPoly' + str(self.polys)
