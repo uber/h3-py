@@ -217,11 +217,11 @@ def test_cells_to_geo():
     res = h3.get_resolution(h)
 
     geo = h3.cells_to_geo([h])
+    coord = geo['coordinates']
 
     assert geo['type'] == 'Polygon'
-
-    assert len(geo['coordinates']) == 1
-    assert len(geo['coordinates'][0]) == 7
-    assert geo['coordinates'][0][0] == geo['coordinates'][0][-1]
+    assert len(coord) == 1
+    assert len(coord[0]) == 7
+    assert coord[0][0] == coord[0][-1]
 
     assert h3.geo_to_cells(geo, res) == {h}
