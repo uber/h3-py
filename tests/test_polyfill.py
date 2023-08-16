@@ -206,9 +206,11 @@ def test_invalid_polygon():
         poly = h3.H3Poly([[1, 2, 3]])
         h3.shape_to_cells(poly, 4)
 
+
 def test_bad_geo_input():
     with pytest.raises(ValueError):
         h3.shape_to_cells('not a shape', 9)
+
 
 def test_cells_to_geo():
     h = '89754e64993ffff'
