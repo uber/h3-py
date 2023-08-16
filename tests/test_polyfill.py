@@ -205,3 +205,21 @@ def test_invalid_polygon():
     with pytest.raises(ValueError):
         poly = h3.H3Poly([[1, 2, 3]])
         h3.shape_to_cells(poly, 4)
+
+def test_bad_geo_input():
+    with pytest.raises(ValueError):
+        h3.shape_to_cells('not a shape', 9)
+
+def test_cells_to_geo():
+    h = '89754e64993ffff'
+    res = h3.get_resolution(h)
+
+    geo = h3.cells_to_geo([h])
+
+    assert geo['type'] == 'Polygon'
+
+    assert len(geo['coordinates']) == 1
+    assert len(geo['coordinates'][0]) == 7
+    assert geo['coordinates'][0][0] == geo['coordinates'][0][-1]
+
+    assert h3.geo_to_cells(geo, res) == {h}
