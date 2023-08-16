@@ -152,6 +152,31 @@ sf_hole2 = [
 ]
 
 
+def test_geo_interface():
+    poly = h3.H3Poly(sf_hole1)
+    mpoly = h3.H3MultiPoly(poly)
+
+    assert poly.__geo_interface__['type'] == 'Polygon'
+    assert mpoly.__geo_interface__['type'] == 'MultiPolygon'
+
+    assert (
+        poly.__geo_interface__['coordinates']
+        ==
+        mpoly.__geo_interface__['coordinates'][0]
+    )
+
+
+def test_shape_repr():
+    poly = h3.H3Poly(sf_hole1)
+    mpoly = h3.H3MultiPoly(poly)
+
+    assert (
+        'H3MultiPoly(<H3Poly |outer|=3, |holes|=()>,)'
+        == str(mpoly)
+        == repr(mpoly)
+    )
+
+
 def test_polyfill():
     poly = h3.H3Poly(sf_7x7)
     out = h3.shape_to_cells(poly, res=9)

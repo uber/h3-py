@@ -62,8 +62,7 @@ class H3Poly(H3Shape):
     @property
     def __geo_interface__(self):
         ll2 = _polygon_to_LL2(self)
-        ll3 = [ll2]
-        gj_dict = _LL3_to_geojson_dict(ll3)
+        gj_dict = _LL2_to_geojson_dict(ll2)
 
         return gj_dict
 
@@ -155,18 +154,21 @@ def _LL2_to_polygon(ll2):
     return h3poly
 
 
+def _LL2_to_geojson_dict(ll2):
+    gj_dict = {
+        'type': 'Polygon',
+        'coordinates': ll2,
+    }
+
+    return gj_dict
+
+
 # functions below should be inverses of each other
 def _LL3_to_geojson_dict(ll3):
-    if len(ll3) == 1:
-        gj_dict = {
-            'type': 'Polygon',
-            'coordinates': ll3[0],
-        }
-    else:
-        gj_dict = {
-            'type': 'MultiPolygon',
-            'coordinates': ll3,
-        }
+    gj_dict = {
+        'type': 'MultiPolygon',
+        'coordinates': ll3,
+    }
 
     return gj_dict
 

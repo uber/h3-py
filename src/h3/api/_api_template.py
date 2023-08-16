@@ -458,9 +458,13 @@ class _API_FUNCTIONS(object):
         geos = _cy.cells_to_multi_polygon(cells)
 
         polys = [H3Poly(*geo) for geo in geos]
-        mpoly = H3MultiPoly(*polys)
+        out = H3MultiPoly(*polys)
 
-        return mpoly
+        # todo: consider returning the H3Poly if possible?
+        # if len(out) == 1:
+        #     out = out[0]
+
+        return out
 
     def geo_to_cells(self, geo, res):
         """

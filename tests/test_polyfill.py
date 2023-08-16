@@ -211,6 +211,9 @@ def test_bad_geo_input():
     with pytest.raises(ValueError):
         h3.shape_to_cells('not a shape', 9)
 
+    with pytest.raises(ValueError):
+        h3.geo_to_cells({'type': 'not a shape', 'coordinates': None}, 9)
+
 
 def test_cells_to_geo():
     h = '89754e64993ffff'
@@ -219,8 +222,9 @@ def test_cells_to_geo():
     geo = h3.cells_to_geo([h])
     coord = geo['coordinates']
 
-    assert geo['type'] == 'Polygon'
+    assert geo['type'] == 'MultiPolygon'  # todo: TBD
     assert len(coord) == 1
+    coord = coord[0]
     assert len(coord[0]) == 7
     assert coord[0][0] == coord[0][-1]
 
