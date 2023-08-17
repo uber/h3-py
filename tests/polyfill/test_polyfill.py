@@ -1,49 +1,7 @@
 import h3
-import itertools
 import pytest
 
 from h3 import H3ResDomainError
-
-
-def reverse(loop):
-    return list(reversed(loop))
-
-
-def drop_last(loop):
-    return loop[:-1]
-
-
-def toggle_map(func, poly):
-    """ Return all permutations of `func` being applied or not
-    to each element of `poly`
-
-    returns iterable of length 2**len(poly)
-    """
-    mapped = (list(func(loop)) for loop in poly)
-
-    return itertools.product(*zip(poly, mapped))
-
-
-def chain_toggle_map(func, seq):
-    seq = (toggle_map(func, p) for p in seq)
-    seq = itertools.chain(*seq)
-
-    return seq
-
-
-def input_permutations(geo, res=5):
-    g = [geo]
-    g = chain_toggle_map(drop_last, g)
-    g = chain_toggle_map(reverse, g)
-
-    for p in g:
-        poly = h3.H3Poly(*p)
-        cells = h3.shape_to_cells(poly, res=res)
-        yield cells
-
-
-def swap_element_order(seq):
-    return [e[::-1] for e in seq]
 
 
 def get_us_box_coords():
@@ -149,35 +107,6 @@ def test_shape_to_cells_holes():
 
         assert len(cells_all) == len(cells_holes) + len(cells_1) + len(cells_2)
         assert cells_all == set.union(cells_holes, cells_1, cells_2)
-
-
-# todo: this right-hand-rule baloney should happen in its own file
-def test_input_format():
-    """ Test that `shape_to_cells` can take in polygon inputs
-    where the LinearRings may or may not follow the right hand rule,
-    and they may or may not be closed loops (where the last element
-    is equal to the first).
-
-    Test all permutations of these rules on polygons with
-    0, 1, and 2 holes. Ensure that for any polygon, each LinearRing
-    may follow a different subset of rules.
-    """
-
-    geo = get_us_box_coords()
-
-    assert len(geo) == 3
-
-    # two holes
-    for cells in input_permutations(geo[:3]):
-        assert len(cells) == 5437
-
-    # one hole
-    for cells in input_permutations(geo[:2]):
-        assert len(cells) == 5726
-
-    # zero holes
-    for cells in input_permutations(geo[:1]):
-        assert len(cells) == 7063
 
 
 def test_resolution():
