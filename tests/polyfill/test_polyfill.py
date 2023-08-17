@@ -151,6 +151,7 @@ def test_shape_to_cells_holes():
         assert cells_all == set.union(cells_holes, cells_1, cells_2)
 
 
+# todo: this right-hand-rule baloney should happen in its own file
 def test_input_format():
     """ Test that `shape_to_cells` can take in polygon inputs
     where the LinearRings may or may not follow the right hand rule,
