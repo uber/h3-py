@@ -1,3 +1,13 @@
+""" Test that `shape_to_cells` can take in polygon inputs
+where the LinearRings may or may not follow the right hand rule,
+and they may or may not be closed loops (where the last element
+is equal to the first).
+
+Test all permutations of these rules on polygons with
+0, 1, and 2 holes. Ensure that for any polygon, each LinearRing
+may follow a different subset of rules.
+"""
+
 import h3
 import itertools
 
@@ -69,16 +79,6 @@ def get_us_box_coords():
 
 
 def test_input_format():
-    """ Test that `shape_to_cells` can take in polygon inputs
-    where the LinearRings may or may not follow the right hand rule,
-    and they may or may not be closed loops (where the last element
-    is equal to the first).
-
-    Test all permutations of these rules on polygons with
-    0, 1, and 2 holes. Ensure that for any polygon, each LinearRing
-    may follow a different subset of rules.
-    """
-
     geo = get_us_box_coords()
 
     assert len(geo) == 3
