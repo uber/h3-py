@@ -1,6 +1,3 @@
-# todo: rename file to _shape.py
-
-
 class H3Shape:
     pass
 

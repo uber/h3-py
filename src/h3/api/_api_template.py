@@ -38,7 +38,7 @@ be skipped due to it being inside the `_api_functions` function.
 """
 
 from .. import _cy
-from .._polygon import H3Poly, H3MultiPoly, _geojson_dict_to_LL3, _LL3_to_mpoly
+from .._h3shape import H3Poly, H3MultiPoly, _geojson_dict_to_LL3, _LL3_to_mpoly
 
 
 class _API_FUNCTIONS(object):
