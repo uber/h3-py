@@ -194,7 +194,7 @@ def test_compact_and_uncompact_cells():
     ]
 
     poly = h3.H3Poly(sf_7x7)
-    cells = h3.shape_to_cells(poly, 9)
+    cells = h3.h3shape_to_cells(poly, 9)
 
     compact_cells = h3.compact_cells(cells)
     assert len(compact_cells) == 209

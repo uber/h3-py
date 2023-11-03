@@ -61,7 +61,7 @@ def test_shape_repr():
 
 def test_polyfill():
     poly = h3.H3Poly(sf_7x7)
-    out = h3.shape_to_cells(poly, res=9)
+    out = h3.h3shape_to_cells(poly, res=9)
 
     assert len(out) == 1253
     assert '89283080527ffff' in out
@@ -71,10 +71,10 @@ def test_polyfill():
 def test_polyfill_with_hole():
     poly = h3.H3Poly(sf_7x7, sf_hole1)
 
-    out = h3.shape_to_cells(poly, res=9)
+    out = h3.h3shape_to_cells(poly, res=9)
     assert len(out) == 1214
 
-    foo = lambda x: h3.shape_to_cells(h3.H3Poly(x), 9)
+    foo = lambda x: h3.h3shape_to_cells(h3.H3Poly(x), 9)
     # todo: foo = lambda x: h3.H3Poly(x).to_cells(9)
     assert out == foo(sf_7x7) - foo(sf_hole1)
 
@@ -82,10 +82,10 @@ def test_polyfill_with_hole():
 def test_polyfill_with_two_holes():
 
     poly = h3.H3Poly(sf_7x7, sf_hole1, sf_hole2)
-    out = h3.shape_to_cells(poly, 9)
+    out = h3.h3shape_to_cells(poly, 9)
     assert len(out) == 1172
 
-    foo = lambda x: h3.shape_to_cells(h3.H3Poly(x), 9)
+    foo = lambda x: h3.h3shape_to_cells(h3.H3Poly(x), 9)
     assert out == foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2))
 
 
@@ -163,7 +163,7 @@ def test_polyfill_down_under():
     ]
 
     poly = h3.H3Poly(sydney)
-    out = h3.shape_to_cells(poly, 9)
+    out = h3.h3shape_to_cells(poly, 9)
     assert len(out) == 92
     assert '89be0e34207ffff' in out
     assert '89be0e35ddbffff' in out
@@ -179,7 +179,7 @@ def test_polyfill_far_east():
     ]
 
     poly = h3.H3Poly(geo)
-    out = h3.shape_to_cells(poly, 9)
+    out = h3.h3shape_to_cells(poly, 9)
     assert len(out) == 18507
     assert '892e18d16c3ffff' in out
     assert '892e1ebb5a7ffff' in out
@@ -195,7 +195,7 @@ def test_polyfill_southern_tip():
     ]
 
     poly = h3.H3Poly(geo)
-    out = h3.shape_to_cells(poly, 9)
+    out = h3.h3shape_to_cells(poly, 9)
     assert len(out) == 223247
     assert '89df4000003ffff' in out
     assert '89df4636b27ffff' in out
@@ -211,22 +211,22 @@ def test_polyfill_null_island():
     ]
 
     poly = h3.H3Poly(geo)
-    out = h3.shape_to_cells(poly, 4)
+    out = h3.h3shape_to_cells(poly, 4)
     assert len(out) == 345
     assert '847421bffffffff' in out
     assert '84825ddffffffff' in out
 
 
-def test_cells_to_shape_empty():
-    mpoly = h3.cells_to_shape([])
+def test_cells_to_h3shape_empty():
+    mpoly = h3.cells_to_h3shape([])
     assert list(mpoly) == []
 
 
-def test_cells_to_shape_single():
+def test_cells_to_h3shape_single():
     h = '89283082837ffff'
     cells = {h}
 
-    mpoly = h3.cells_to_shape(cells)
+    mpoly = h3.cells_to_h3shape(cells)
     assert len(mpoly) == 1
     poly = mpoly[0]
 
@@ -237,12 +237,12 @@ def test_cells_to_shape_single():
     assert poly.holes == expected_poly.holes == ()
 
 
-def test_cells_to_shape_contiguous():
+def test_cells_to_h3shape_contiguous():
     a = '89283082837ffff'
     b = '89283082833ffff'
     assert h3.are_neighbor_cells(a, b)
 
-    mpoly = h3.cells_to_shape([a, b])
+    mpoly = h3.cells_to_h3shape([a, b])
     assert len(mpoly) == 1
     poly = mpoly[0]
 
@@ -254,12 +254,12 @@ def test_cells_to_shape_contiguous():
     assert set(poly.outer) == set(verts_a) | set(verts_b)
 
 
-def test_cells_to_shape_non_contiguous():
+def test_cells_to_h3shape_non_contiguous():
     a = '89283082837ffff'
     b = '8928308280fffff'
     assert not h3.are_neighbor_cells(a, b)
 
-    mpoly = h3.cells_to_shape([a, b])
+    mpoly = h3.cells_to_h3shape([a, b])
     assert len(mpoly) == 2
 
     assert all(poly.holes == () for poly in mpoly)
@@ -272,13 +272,13 @@ def test_cells_to_shape_non_contiguous():
     assert verts_both == set(verts_a) | set(verts_b)
 
 
-def test_cells_to_shape_hole():
+def test_cells_to_h3shape_hole():
     # Six hexagons in a ring around a hole
     cells = [
         '892830828c7ffff', '892830828d7ffff', '8928308289bffff',
         '89283082813ffff', '8928308288fffff', '89283082883ffff',
     ]
-    mpoly = h3.cells_to_shape(cells)
+    mpoly = h3.cells_to_h3shape(cells)
 
     assert len(mpoly) == 1
     poly = mpoly[0]
@@ -288,10 +288,10 @@ def test_cells_to_shape_hole():
     assert len(poly.outer) == 6 * 3
 
 
-def test_cells_to_shape_2grid_disk():
+def test_cells_to_h3shape_2grid_disk():
     h = '8930062838bffff'
     cells = h3.grid_disk(h, 2)
-    mpoly = h3.cells_to_shape(cells)
+    mpoly = h3.cells_to_h3shape(cells)
 
     assert len(mpoly) == 1
     poly = mpoly[0]

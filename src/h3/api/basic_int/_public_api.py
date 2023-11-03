@@ -47,8 +47,8 @@ cell_to_center_child = _b.cell_to_center_child
 compact_cells = _b.compact_cells
 uncompact_cells = _b.uncompact_cells
 
-shape_to_cells = _b.shape_to_cells
-cells_to_shape = _b.cells_to_shape
+h3shape_to_cells = _b.h3shape_to_cells
+cells_to_h3shape = _b.cells_to_h3shape
 cells_to_geo = _b.cells_to_geo
 geo_to_cells = _b.geo_to_cells
 

@@ -38,7 +38,12 @@ be skipped due to it being inside the `_api_functions` function.
 """
 
 from .. import _cy
-from .._h3shape import H3Poly, H3MultiPoly, _geojson_dict_to_LL3, _LL3_to_mpoly
+from .._h3shape import (
+    H3Poly,
+    H3MultiPoly,
+    geo_to_h3shape,
+    h3shape_to_geo,
+)
 
 
 class _API_FUNCTIONS(object):
@@ -391,7 +396,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(hu)
 
-    def shape_to_cells(self, h3shape, res):
+    def h3shape_to_cells(self, h3shape, res):
         """
         Return the set of H3 cells at a given resolution whose center points
         are contained within a `H3Poly`
@@ -412,7 +417,7 @@ class _API_FUNCTIONS(object):
         ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
         ...      (37.82, -122.54)],
         ... )
-        >>> h3.shape_to_cells(poly, 6)
+        >>> h3.h3shape_to_cells(poly, 6)
         {'862830807ffffff',
          '862830827ffffff',
          '86283082fffffff',
@@ -434,7 +439,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def cells_to_shape(self, cells):
+    def cells_to_h3shape(self, cells):
         """
         Return a H3MultiPoly describing the area covered by a set of H3 cells.
 
@@ -450,7 +455,7 @@ class _API_FUNCTIONS(object):
         --------
 
         >>> cells = ['8428309ffffffff', '842830dffffffff']
-        >>> h3.cells_to_shape(cells)
+        >>> h3.cells_to_h3shape(cells)
         [<H3Poly |outer|=10, |holes|=()>]
 
         """
@@ -468,26 +473,17 @@ class _API_FUNCTIONS(object):
 
     def geo_to_cells(self, geo, res):
         """
-        geo can be dict, a __geo_interface__, a string, H3Poly or H3MultiPoly
+        `geo` can be dict, an object implementing __geo_interface__, H3Poly, or H3MultiPoly
         """
-        # todo: if string, convert to dict
-
-        # todo: avoid converting H3poly and H3multipoly
-        if hasattr(geo, '__geo_interface__'):
-            geo = geo.__geo_interface__
-
-        assert isinstance(geo, dict)  # todo: remove
-
-        ll3 = _geojson_dict_to_LL3(geo)
-        geo = _LL3_to_mpoly(ll3)
-
-        return self.shape_to_cells(geo, res)  # todo: don't love the self-reference
+        h3shape = geo_to_h3shape(geo)
+        return self.h3shape_to_cells(h3shape, res)
 
     def cells_to_geo(self, cells):
         """
         returns a geojson-like dict?
         """
-        return self.cells_to_shape(cells).__geo_interface__
+        h3shape = self.cells_to_h3shape(cells)
+        return h3shape_to_geo(h3shape)
 
     def is_pentagon(self, h):
         """

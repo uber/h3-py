@@ -203,3 +203,44 @@ def _close_ring(ll1):
         ll1.append(ll1[0])
 
     return ll1
+
+
+def geo_to_h3shape(geo):
+    """
+    Translate from __geo_interface__ to H3Shape.
+
+    `geo` either implements `__geo_interface__` or is a dict matching the format
+
+    Returns
+    -------
+    H3Shape
+    """
+
+    """
+    geo can be dict, a __geo_interface__, a string, H3Poly or H3MultiPoly
+    """
+    if isinstance(geo, H3Shape):
+        return geo
+
+    if hasattr(geo, '__geo_interface__'):
+        # get dict
+        geo = geo.__geo_interface__
+
+    assert isinstance(geo, dict)  # todo: remove
+
+    ll3 = _geojson_dict_to_LL3(geo)
+    mpoly = _LL3_to_mpoly(ll3)
+
+    return mpoly
+
+def h3shape_to_geo(h3shape):
+    """
+    Translate from H3Shape to a __geo_interface__ dict.
+
+    `h3shape` should be either H3Poly or H3MultiPoly
+
+    Returns
+    -------
+    dict
+    """
+    return h3shape.__geo_interface__
