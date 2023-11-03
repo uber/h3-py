@@ -2,7 +2,7 @@
 
 from .api.basic_str import *
 from ._version import __version__
-from ._h3shape import H3MultiPoly, H3Poly
+from ._h3shape import H3MultiPoly, H3Poly, H3Shape
 
 from ._cy import (
     UnknownH3ErrorCode,

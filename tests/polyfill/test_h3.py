@@ -1,4 +1,5 @@
 import h3
+import pytest
 
 
 class MockGeoInterface:
@@ -297,3 +298,16 @@ def test_cells_to_shape_2grid_disk():
 
     assert len(poly.holes) == 0
     assert len(poly.outer) == 6 * (2 * 2 + 1)
+
+
+def test_multipoly_checks():
+
+    with pytest.raises(ValueError):
+        h3.H3MultiPoly('foo')
+
+    with pytest.raises(ValueError):
+        h3.H3MultiPoly(1)
+
+
+    with pytest.raises(ValueError):
+        h3.H3MultiPoly([[(1,2), (3,4)]])
