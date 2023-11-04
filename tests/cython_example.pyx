@@ -2,7 +2,7 @@
 from cython cimport boundscheck, wraparound
 
 from h3._cy.h3lib cimport H3int
-from h3._cy.geo cimport latlng_to_cell
+from h3._cy.latlng cimport latlng_to_cell
 
 @boundscheck(False)
 @wraparound(False)

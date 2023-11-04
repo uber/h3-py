@@ -18,7 +18,7 @@ endmacro()
 # GLOB pattern is recommended against
 # https://cmake.org/cmake/help/v3.14/command/file.html?highlight=file#filesystem
 add_cython_file(util)
-add_cython_file(geo)
+add_cython_file(latlng)
 add_cython_file(cells)
 add_cython_file(edges)
 add_cython_file(to_multipoly)
@@ -33,8 +33,8 @@ install(
         cells.pyx
         edges.pxd
         edges.pyx
-        geo.pxd
-        geo.pyx
+        latlng.pxd
+        latlng.pyx
         h3lib.pxd
         util.pxd
         util.pyx

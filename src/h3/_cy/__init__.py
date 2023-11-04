@@ -50,7 +50,7 @@ from .edges import (
     edge_length,
 )
 
-from .geo import (
+from .latlng import (
     latlng_to_cell,
     cell_to_latlng,
     polygon_to_cells,
