@@ -460,9 +460,9 @@ class _API_FUNCTIONS(object):
 
         """
         cells = self._in_collection(cells)
-        geos = _cy.cells_to_multi_polygon(cells)
+        mpoly = _cy.cells_to_multi_polygon(cells)
 
-        polys = [H3Poly(*geo) for geo in geos]
+        polys = [H3Poly(*poly) for poly in mpoly]
         out = H3MultiPoly(*polys)
 
         # todo: consider returning the H3Poly if possible?
