@@ -399,16 +399,17 @@ class _API_FUNCTIONS(object):
     def h3shape_to_cells(self, h3shape, res):
         """
         Return the set of H3 cells at a given resolution whose center points
-        are contained within a `H3Poly`
+        are contained within an `H3Poly` or `H3MultiPoly`.
 
         Parameters
         ----------
         h3shape : H3shape
-            A polygon described by an outer ring and optional holes
-            todo: ORRR
-
         res : int
             Resolution of the output cells
+
+        Returns
+        -------
+        unordered collection of H3Cell
 
         Examples
         --------
@@ -472,15 +473,27 @@ class _API_FUNCTIONS(object):
         return out
 
     def geo_to_cells(self, geo, res):
-        """
-        `geo` can be dict, an object implementing __geo_interface__, H3Poly, or H3MultiPoly
+        """ Convert from __geo_interface__ to cells.
+        Parameters
+        ----------
+        geo : an object implementing `__geo_interface__` or a dictionary in that format.
+            Both H3Poly and H3MultiPoly implement the interface.
+        res : int
+            Resolution of desired output cells.
         """
         h3shape = geo_to_h3shape(geo)
         return self.h3shape_to_cells(h3shape, res)
 
     def cells_to_geo(self, cells):
         """
-        returns a geojson-like dict?
+        Parameters
+        ----------
+        cells : iterable of H3 Cells
+
+        Returns
+        -------
+        dict
+            in `__geo_interface__` format
         """
         h3shape = self.cells_to_h3shape(cells)
         return h3shape_to_geo(h3shape)
