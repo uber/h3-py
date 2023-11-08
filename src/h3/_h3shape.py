@@ -1,9 +1,11 @@
 from abc import ABCMeta, abstractmethod
 
+
 class H3Shape(metaclass=ABCMeta):
     @property
     @abstractmethod
-    def __geo_interface__(self): ...
+    def __geo_interface__(self):
+        pass
 
 
 class H3Poly(H3Shape):
@@ -74,7 +76,7 @@ class H3MultiPoly(H3Shape):
 
         for p in self.polys:
             if not isinstance(p, H3Poly):
-                raise ValueError('H3MultiPoly requires each input to be an H3Poly object, instead got: ' + str(p))
+                raise ValueError('H3MultiPoly requires each input to be an H3Poly object, instead got: ' + str(p)) # noqa
 
     def __repr__(self):
         return 'H3MultiPoly' + str(self.polys)
@@ -232,6 +234,7 @@ def geo_to_h3shape(geo):
     mpoly = _LL3_to_mpoly(ll3)
 
     return mpoly
+
 
 def h3shape_to_geo(h3shape):
     """

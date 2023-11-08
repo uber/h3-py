@@ -308,6 +308,5 @@ def test_multipoly_checks():
     with pytest.raises(ValueError):
         h3.H3MultiPoly(1)
 
-
     with pytest.raises(ValueError):
-        h3.H3MultiPoly([[(1,2), (3,4)]])
+        h3.H3MultiPoly([[(1, 2), (3, 4)]])
