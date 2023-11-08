@@ -34,3 +34,9 @@ H3Shape(geojson string)
 ## 2023-03-26
 
 - todo: set up H3Shape constructor (and subclasses) to take in `__geo_interface__` inputs
+
+
+## 2023-11-07
+
+- all the `__init__.py` for the APIs should be sync'd
+    + three dots is too many dots for an import statement
