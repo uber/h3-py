@@ -5,7 +5,7 @@ class H3Shape(metaclass=ABCMeta):
     @property
     @abstractmethod
     def __geo_interface__(self):
-        pass
+        """ https://github.com/pytest-dev/pytest-cov/issues/428 """
 
 
 class H3Poly(H3Shape):
