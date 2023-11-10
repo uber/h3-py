@@ -12,17 +12,24 @@ class MockGeoInterface:
         return self.dictionary
 
 
-def get_mocked():
+def loop_open():
+    return [
+        [-122.408, 37.813],
+        [-122.512, 37.707],
+        [-122.479, 37.815],
+    ]
+
+
+def loop_closed():
+    loop = loop_open()
+    loop += [loop[0]]
+    return loop
+
+
+def get_mocked(loop):
     geo = MockGeoInterface({
         'type': 'Polygon',
-        'coordinates': [[
-            [-122.408, 37.813],
-            [-122.381, 37.786],
-            [-122.354, 37.719],
-            [-122.512, 37.707],
-            [-122.524, 37.783],
-            [-122.479, 37.815],
-        ]]
+        'coordinates': [loop]
     })
 
     return geo
@@ -106,20 +113,28 @@ def test_polyfill_with_two_holes():
 
 
 def test_polyfill_geo_json_compliant():
-    geo = get_mocked().__geo_interface__
+    geo = get_mocked(loop_open()).__geo_interface__
     out = h3.geo_to_cells(geo, 9)
-    assert len(out) > 1000
+    assert len(out) > 300
 
 
 def test_polyfill_geo_interface_compliant():
-    geo = get_mocked()
+    geo = get_mocked(loop_open())
     out = h3.geo_to_cells(geo, 9)
-    assert len(out) > 1000
+    assert len(out) > 300
+
+
+def test_poly_opens_loop():
+    loop = loop_closed()
+    poly = h3.H3Poly(loop)
+
+    assert loop[0] == loop[-1]
+    assert len(poly.outer) == len(loop) - 1
 
 #
 #
 #
-#
+# add test to ensure polygon constructor opens the loop
 #
 #
 #

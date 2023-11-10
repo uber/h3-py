@@ -49,10 +49,18 @@ class H3Poly(H3Shape):
     <H3Poly |outer|=4, |holes|=(3, 5)>
     """
     def __init__(self, outer, *holes):
-        self.outer = tuple(outer)
-        self.holes = tuple(holes)
+        loops = [outer] + list(holes)
+        for loop in loops:
+            if len(loop) in (1, 2):
+                self.outer = []
+                self.holes = []
+                raise ValueError('Non-empty H3Poly loops need at least 3 points.')
 
-        # todo: maybe add some validation
+        self.outer = tuple(_open_ring(outer))
+        self.holes = tuple(
+            _open_ring(hole)
+            for hole in holes
+        )
 
     def __repr__(self):
         s = '<H3Poly |outer|={}, |holes|={}>'.format(
@@ -151,7 +159,7 @@ def _polygon_to_LL2(h3poly):
 
 def _LL2_to_polygon(ll2):
     ll2 = [
-        _unclose_ring(_swap_latlng(ll1))
+        _swap_latlng(ll1)
         for ll1 in ll2
     ]
     h3poly = H3Poly(*ll2)
@@ -188,17 +196,17 @@ def _close_ring(ll1):
     """
     Idempotent
     """
-    if ll1[0] != ll1[-1]:
+    if ll1 and (ll1[0] != ll1[-1]):
         ll1 = tuple(ll1) + (ll1[0],)
 
     return ll1
 
 
-def _unclose_ring(ll1):
+def _open_ring(ll1):
     """
     Idempotent
     """
-    if ll1[0] == ll1[-1]:
+    if ll1 and (ll1[0] == ll1[-1]):
         ll1 = ll1[:-1]
 
     return ll1
