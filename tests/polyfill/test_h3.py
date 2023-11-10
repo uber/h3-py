@@ -12,18 +12,32 @@ class MockGeoInterface:
         return self.dictionary
 
 
-def loop_open():
+def latlng_open():
     return [
-        [-122.408, 37.813],
-        [-122.512, 37.707],
-        [-122.479, 37.815],
+        [37.813, -122.408],
+        [37.707, -122.512],
+        [37.815, -122.479],
     ]
 
 
-def loop_closed():
-    loop = loop_open()
-    loop += [loop[0]]
-    return loop
+def latlng_closed():
+    loop = latlng_open()
+    return loop + [loop[0]]
+
+
+def swap_latlng(ll1):
+    ll1 = tuple(
+        (b, a) for a, b in ll1
+    )
+    return ll1
+
+
+def lnglat_open():
+    return swap_latlng(latlng_open())
+
+
+def lnglat_closed():
+    return swap_latlng(latlng_closed())
 
 
 def get_mocked(loop):
@@ -113,19 +127,19 @@ def test_polyfill_with_two_holes():
 
 
 def test_polyfill_geo_json_compliant():
-    geo = get_mocked(loop_open()).__geo_interface__
+    geo = get_mocked(lnglat_open()).__geo_interface__
     out = h3.geo_to_cells(geo, 9)
     assert len(out) > 300
 
 
 def test_polyfill_geo_interface_compliant():
-    geo = get_mocked(loop_open())
+    geo = get_mocked(lnglat_open())
     out = h3.geo_to_cells(geo, 9)
     assert len(out) > 300
 
 
 def test_poly_opens_loop():
-    loop = loop_closed()
+    loop = lnglat_closed()
     poly = h3.H3Poly(loop)
 
     assert loop[0] == loop[-1]
@@ -133,7 +147,7 @@ def test_poly_opens_loop():
 
 
 def test_geo_to_h3shape():
-    loops = [loop_open(), loop_closed()]
+    loops = [lnglat_open(), lnglat_closed()]
     mocks = map(get_mocked, loops)
     h3shapes = map(h3.geo_to_h3shape, mocks)
 
@@ -167,7 +181,7 @@ def test_geo_to_h3shape():
 
 
 def test_geo_to_h3shape_passthrough():
-    poly = h3.H3Poly(loop_open())
+    poly = h3.H3Poly(latlng_open())
     mpoly = h3.H3MultiPoly(poly)
 
     for shape in [poly, mpoly]:
