@@ -147,9 +147,15 @@ def test_poly_opens_loop():
 
 
 def test_geo_to_h3shape():
-    loops = [lnglat_open(), lnglat_closed()]
-    mocks = map(get_mocked, loops)
-    h3shapes = map(h3.geo_to_h3shape, mocks)
+    h3shapes = [
+        h3.geo_to_h3shape(get_mocked(lnglat_open())),
+        h3.geo_to_h3shape(get_mocked(lnglat_closed())),
+        h3.H3Poly(latlng_open()),
+        h3.H3Poly(latlng_closed()),
+    ]
+
+    for s in h3shapes:
+        assert len(h3.h3shape_to_cells(s, 8)) == 48
 
     expected = {
         'type': 'Polygon',
