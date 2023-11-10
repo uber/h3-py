@@ -131,16 +131,40 @@ def test_poly_opens_loop():
     assert loop[0] == loop[-1]
     assert len(poly.outer) == len(loop) - 1
 
-#
-#
-#
-# add test to ensure polygon constructor opens the loop
-#
-#
-#
-# def test_geo_to_h3shape():
-#     geo = get_mocked()
-#     h3shape = h3.geo_to_h3shape(geo)
+
+def test_geo_to_h3shape():
+    mock_open = get_mocked(loop_open())
+    mock_closed = get_mocked(loop_closed())
+
+    h3shape_open = h3.geo_to_h3shape(mock_open)
+    h3shape_closed = h3.geo_to_h3shape(mock_closed)
+
+    expected = {
+        'type': 'Polygon',
+        'coordinates': ((
+            (-122.408, 37.813),
+            (-122.512, 37.707),
+            (-122.479, 37.815),
+            (-122.408, 37.813),
+        ),)
+    }
+
+    assert h3shape_open.__geo_interface__ == expected
+    assert h3shape_closed.__geo_interface__ == expected
+
+    mpoly = h3.H3MultiPoly(h3shape_open)
+
+    multi_expected = {
+        'type': 'MultiPolygon',
+        'coordinates': (((
+            (-122.408, 37.813),
+            (-122.512, 37.707),
+            (-122.479, 37.815),
+            (-122.408, 37.813),
+        ),),)
+    }
+
+    assert mpoly.__geo_interface__ == multi_expected
 
 
 def test_polyfill_down_under():
