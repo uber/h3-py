@@ -133,11 +133,9 @@ def test_poly_opens_loop():
 
 
 def test_geo_to_h3shape():
-    mock_open = get_mocked(loop_open())
-    mock_closed = get_mocked(loop_closed())
-
-    h3shape_open = h3.geo_to_h3shape(mock_open)
-    h3shape_closed = h3.geo_to_h3shape(mock_closed)
+    loops = [loop_open(), loop_closed()]
+    mocks = map(get_mocked, loops)
+    h3shapes = map(h3.geo_to_h3shape, mocks)
 
     expected = {
         'type': 'Polygon',
@@ -149,10 +147,10 @@ def test_geo_to_h3shape():
         ),)
     }
 
-    assert h3shape_open.__geo_interface__ == expected
-    assert h3shape_closed.__geo_interface__ == expected
+    for shape in h3shapes:
+        assert shape.__geo_interface__ == expected
 
-    mpoly = h3.H3MultiPoly(h3shape_open)
+    mpolys = map(h3.H3MultiPoly, h3shapes)
 
     multi_expected = {
         'type': 'MultiPolygon',
@@ -164,7 +162,16 @@ def test_geo_to_h3shape():
         ),),)
     }
 
-    assert mpoly.__geo_interface__ == multi_expected
+    for mp in mpolys:
+        assert mp.__geo_interface__ == multi_expected
+
+
+def test_geo_to_h3shape_passthrough():
+    poly = h3.H3Poly(loop_open())
+    mpoly = h3.H3MultiPoly(poly)
+
+    for shape in [poly, mpoly]:
+        assert h3.geo_to_h3shape(shape) is shape
 
 
 def test_polyfill_down_under():
