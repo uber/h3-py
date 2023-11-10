@@ -15,16 +15,14 @@ class MockGeoInterface:
 def get_mocked():
     geo = MockGeoInterface({
         'type': 'Polygon',
-        'coordinates': [
-            [
-                [-122.4089866999972145, 37.813318999983238],
-                [-122.3805436999997056, 37.7866302000007224],
-                [-122.3544736999993603, 37.7198061999978478],
-                [-122.5123436999983966, 37.7076131999975672],
-                [-122.5247187000021967, 37.7835871999971715],
-                [-122.4798767000009008, 37.8151571999998453],
-            ]
-        ]
+        'coordinates': [[
+            [-122.408, 37.813],
+            [-122.381, 37.786],
+            [-122.354, 37.719],
+            [-122.512, 37.707],
+            [-122.524, 37.783],
+            [-122.479, 37.815],
+        ]]
     })
 
     return geo
@@ -118,7 +116,7 @@ def test_polyfill_geo_interface_compliant():
     out = h3.geo_to_cells(geo, 9)
     assert len(out) > 1000
 
-# 
+#
 #
 #
 #
@@ -128,7 +126,6 @@ def test_polyfill_geo_interface_compliant():
 # def test_geo_to_h3shape():
 #     geo = get_mocked()
 #     h3shape = h3.geo_to_h3shape(geo)
-
 
 
 def test_polyfill_down_under():
