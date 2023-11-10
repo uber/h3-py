@@ -118,9 +118,17 @@ def test_polyfill_geo_interface_compliant():
     out = h3.geo_to_cells(geo, 9)
     assert len(out) > 1000
 
+# 
+#
+#
+#
+#
+#
+#
+# def test_geo_to_h3shape():
+#     geo = get_mocked()
+#     h3shape = h3.geo_to_h3shape(geo)
 
-def test_geo_to_h3shape():
-    pass
 
 
 def test_polyfill_down_under():

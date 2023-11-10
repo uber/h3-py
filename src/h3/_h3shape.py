@@ -139,7 +139,6 @@ def _LL3_to_mpoly(ll3):
     return mpoly
 
 
-# functions below should be inverses of each other
 def _polygon_to_LL2(h3poly):
     ll2 = [h3poly.outer] + list(h3poly.holes)
     ll2 = [
