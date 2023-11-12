@@ -63,28 +63,21 @@ class H3Poly(H3Shape):
         )
 
     def __repr__(self):
-        # if self.holes:
-        #     s = '<H3Poly |outer|={}, |holes|={}>'.format(
-        #         len(self.outer),
-        #         tuple(map(len, self.holes)),
-        #     )
-        # else:
-        #     s = '<H3Poly |outer|={}>'.format(
-        #     len(self.outer),
-        # )
-
-        s = '<H3Poly{}>'.format(self.loopcode)
-
-        return s
+        return '<H3Poly: {}>'.format(self.loopcode)
 
     def __len__(self):
         """
-        Should this be the number of points in the outer loop, the number of holes (or +1 for the outer loop)?
+        Should this be the number of points in the outer loop,
+        the number of holes (or +1 for the outer loop)?
         """
         raise NotImplementedError('No clear definition of length for H3Poly().')
 
     @property
     def loopcode(self):
+        """ Short code for describing the length of the outer loop and each hole
+
+        Example: [382/(18, 6, 6)]
+        """
         outer = len(self.outer)
         holes = tuple(map(len, self.holes))
 
@@ -96,7 +89,6 @@ class H3Poly(H3Shape):
             out = outer
 
         return '[' + out + ']'
-
 
     @property
     def __geo_interface__(self):
@@ -115,7 +107,10 @@ class H3MultiPoly(H3Shape):
                 raise ValueError('H3MultiPoly requires each input to be an H3Poly object, instead got: ' + str(p)) # noqa
 
     def __repr__(self):
-        return 'H3MultiPoly' + str(self.polys)
+        out = [p.loopcode for p in self.polys]
+        out = ', '.join(out)
+        out = f'<H3MultiPoly: {out}>'
+        return out
 
     def __iter__(self):
         return iter(self.polys)
@@ -125,28 +120,29 @@ class H3MultiPoly(H3Shape):
         """
 
         """
-        TODO: Pandas series or dataframe representation changes depending on if __len__ is defined.
+        TODO: Pandas series or dataframe representation changes depending
+        on if __len__ is defined.
 
         I'd prefer the one that states `H3MultiPoly`. It seems like Pandas is assuming
         an iterable is best-described by its elements when choosing the representation.
 
         when __len__ *IS NOT* defined:
 
-        0    H3MultiPoly(<H3Poly |outer|=368>, <H3Poly |out...
-        1    H3MultiPoly(<H3Poly |outer|=632, |holes|=(6, 6...
-        2    H3MultiPoly(<H3Poly |outer|=490, |holes|=(6, 6...
-        3    H3MultiPoly(<H3Poly |outer|=344, |holes|=(6,)>...
-        4    H3MultiPoly(<H3Poly |outer|=382, |holes|=(18, ...
+        0                      <H3MultiPoly: [368], [20], [6]>
+        1    <H3MultiPoly: [632/(6, 6, 6, 6, 6)], [290/(6,)...
+        2    <H3MultiPoly: [490/(6, 6, 10, 10, 14, 10, 6)],...
+        3    <H3MultiPoly: [344/(6,)], [22], [6], [10], [6]...
+        4    <H3MultiPoly: [382/(18, 6, 6)], [32], [6], [18...
 
         when __len__ *IS* defined:
-        0    (<H3Poly |outer|=368>, <H3Poly |outer|=20>, <H...
-        1    (<H3Poly |outer|=632, |holes|=(6, 6, 6, 6, 6)>...
-        2    (<H3Poly |outer|=490, |holes|=(6, 6, 10, 10, 1...
-        3    (<H3Poly |outer|=344, |holes|=(6,)>, <H3Poly |...
-        4    (<H3Poly |outer|=382, |holes|=(18, 6, 6)>, <H3...
+
+        0     (<H3Poly: [368]>, <H3Poly: [20]>, <H3Poly: [6]>)
+        1    (<H3Poly: [632/(6, 6, 6, 6, 6)]>, <H3Poly: [29...
+        2    (<H3Poly: [490/(6, 6, 10, 10, 14, 10, 6)]>, <H...
+        3    (<H3Poly: [344/(6,)]>, <H3Poly: [22]>, <H3Poly...
+        4    (<H3Poly: [382/(18, 6, 6)]>, <H3Poly: [32]>, <...
         """
         return len(self.polys)
-
 
     def __getitem__(self, index):
         return self.polys[index]

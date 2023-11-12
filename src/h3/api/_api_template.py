@@ -440,13 +440,15 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def cells_to_h3shape(self, cells):
+    def cells_to_h3shape(self, cells, tight=False):
         """
         Return a H3MultiPoly describing the area covered by a set of H3 cells.
 
         Parameters
         ----------
         cells : iterable of H3 cells
+        tight : bool
+            If True, return H3Poly if possible. If False, always return H3MultiPoly
 
         Returns
         -------
@@ -456,9 +458,10 @@ class _API_FUNCTIONS(object):
         --------
 
         >>> cells = ['8428309ffffffff', '842830dffffffff']
-        >>> h3.cells_to_h3shape(cells)
-        [<H3Poly |outer|=10, |holes|=()>]
-
+        >>> h3.cells_to_h3shape(cells, tight=True)
+        <H3Poly: [10]>
+        >>> h3.cells_to_h3shape(cells, tight=False)
+        <H3MultiPoly: [10]>
         """
         cells = self._in_collection(cells)
         mpoly = _cy.cells_to_multi_polygon(cells)
@@ -466,9 +469,8 @@ class _API_FUNCTIONS(object):
         polys = [H3Poly(*poly) for poly in mpoly]
         out = H3MultiPoly(*polys)
 
-        # todo: consider returning the H3Poly if possible?
-        # if len(out) == 1:
-        #     out = out[0]
+        if tight and len(out) == 1:
+            out = out[0]
 
         return out
 
@@ -484,7 +486,7 @@ class _API_FUNCTIONS(object):
         h3shape = geo_to_h3shape(geo)
         return self.h3shape_to_cells(h3shape, res)
 
-    def cells_to_geo(self, cells):
+    def cells_to_geo(self, cells, tight=False):
         """
         Parameters
         ----------
@@ -495,7 +497,7 @@ class _API_FUNCTIONS(object):
         dict
             in `__geo_interface__` format
         """
-        h3shape = self.cells_to_h3shape(cells)
+        h3shape = self.cells_to_h3shape(cells, tight=tight)
         return h3shape_to_geo(h3shape)
 
     def is_pentagon(self, h):

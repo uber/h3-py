@@ -90,7 +90,7 @@ def test_shape_repr():
     mpoly = h3.H3MultiPoly(poly)
 
     assert (
-        'H3MultiPoly(<H3Poly |outer|=3, |holes|=()>,)'
+        '<H3MultiPoly: [3]>'
         == str(mpoly)
         == repr(mpoly)
     )
