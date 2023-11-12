@@ -63,12 +63,40 @@ class H3Poly(H3Shape):
         )
 
     def __repr__(self):
-        s = '<H3Poly |outer|={}, |holes|={}>'.format(
-            len(self.outer),
-            tuple(map(len, self.holes)),
-        )
+        # if self.holes:
+        #     s = '<H3Poly |outer|={}, |holes|={}>'.format(
+        #         len(self.outer),
+        #         tuple(map(len, self.holes)),
+        #     )
+        # else:
+        #     s = '<H3Poly |outer|={}>'.format(
+        #     len(self.outer),
+        # )
+
+        s = '<H3Poly{}>'.format(self.loopcode)
 
         return s
+
+    def __len__(self):
+        """
+        Should this be the number of points in the outer loop, the number of holes (or +1 for the outer loop)?
+        """
+        raise NotImplementedError('No clear definition of length for H3Poly().')
+
+    @property
+    def loopcode(self):
+        outer = len(self.outer)
+        holes = tuple(map(len, self.holes))
+
+        outer = str(outer)
+
+        if holes:
+            out = outer + '/' + str(holes)
+        else:
+            out = outer
+
+        return '[' + out + ']'
+
 
     @property
     def __geo_interface__(self):
@@ -93,7 +121,32 @@ class H3MultiPoly(H3Shape):
         return iter(self.polys)
 
     def __len__(self):
+        """ Give the number of polygons in this multi-polygon.
+        """
+
+        """
+        TODO: Pandas series or dataframe representation changes depending on if __len__ is defined.
+
+        I'd prefer the one that states `H3MultiPoly`. It seems like Pandas is assuming
+        an iterable is best-described by its elements when choosing the representation.
+
+        when __len__ *IS NOT* defined:
+
+        0    H3MultiPoly(<H3Poly |outer|=368>, <H3Poly |out...
+        1    H3MultiPoly(<H3Poly |outer|=632, |holes|=(6, 6...
+        2    H3MultiPoly(<H3Poly |outer|=490, |holes|=(6, 6...
+        3    H3MultiPoly(<H3Poly |outer|=344, |holes|=(6,)>...
+        4    H3MultiPoly(<H3Poly |outer|=382, |holes|=(18, ...
+
+        when __len__ *IS* defined:
+        0    (<H3Poly |outer|=368>, <H3Poly |outer|=20>, <H...
+        1    (<H3Poly |outer|=632, |holes|=(6, 6, 6, 6, 6)>...
+        2    (<H3Poly |outer|=490, |holes|=(6, 6, 10, 10, 1...
+        3    (<H3Poly |outer|=344, |holes|=(6,)>, <H3Poly |...
+        4    (<H3Poly |outer|=382, |holes|=(18, 6, 6)>, <H3...
+        """
         return len(self.polys)
+
 
     def __getitem__(self, index):
         return self.polys[index]
