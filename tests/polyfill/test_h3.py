@@ -293,7 +293,7 @@ def test_cells_to_h3shape_single():
     h = '89283082837ffff'
     cells = {h}
 
-    mpoly = h3.cells_to_h3shape(cells)
+    mpoly = h3.cells_to_h3shape(cells, tight=False)
     assert len(mpoly) == 1
     poly = mpoly[0]
 
@@ -309,7 +309,7 @@ def test_cells_to_h3shape_contiguous():
     b = '89283082833ffff'
     assert h3.are_neighbor_cells(a, b)
 
-    mpoly = h3.cells_to_h3shape([a, b])
+    mpoly = h3.cells_to_h3shape([a, b], tight=False)
     assert len(mpoly) == 1
     poly = mpoly[0]
 
@@ -345,7 +345,7 @@ def test_cells_to_h3shape_hole():
         '892830828c7ffff', '892830828d7ffff', '8928308289bffff',
         '89283082813ffff', '8928308288fffff', '89283082883ffff',
     ]
-    mpoly = h3.cells_to_h3shape(cells)
+    mpoly = h3.cells_to_h3shape(cells, tight=False)
 
     assert len(mpoly) == 1
     poly = mpoly[0]
@@ -358,7 +358,7 @@ def test_cells_to_h3shape_hole():
 def test_cells_to_h3shape_2grid_disk():
     h = '8930062838bffff'
     cells = h3.grid_disk(h, 2)
-    mpoly = h3.cells_to_h3shape(cells)
+    mpoly = h3.cells_to_h3shape(cells, tight=False)
 
     assert len(mpoly) == 1
     poly = mpoly[0]

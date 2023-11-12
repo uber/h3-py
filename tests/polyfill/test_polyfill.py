@@ -149,7 +149,7 @@ def test_cells_to_geo():
     h = '89754e64993ffff'
     res = h3.get_resolution(h)
 
-    geo = h3.cells_to_geo([h])
+    geo = h3.cells_to_geo([h], tight=False)
     coord = geo['coordinates']
 
     assert geo['type'] == 'MultiPolygon'  # todo: TBD

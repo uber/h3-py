@@ -440,7 +440,7 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def cells_to_h3shape(self, cells, tight=False):
+    def cells_to_h3shape(self, cells, tight=True):
         """
         Return a H3MultiPoly describing the area covered by a set of H3 cells.
 
@@ -486,7 +486,7 @@ class _API_FUNCTIONS(object):
         h3shape = geo_to_h3shape(geo)
         return self.h3shape_to_cells(h3shape, res)
 
-    def cells_to_geo(self, cells, tight=False):
+    def cells_to_geo(self, cells, tight=True):
         """
         Parameters
         ----------

@@ -1,4 +1,5 @@
 import h3
+import pytest
 
 
 def test_repr():
@@ -25,3 +26,12 @@ def test_repr():
         '<H3Poly: [6]>',
         '<H3Poly: [6]>',
     ]
+
+
+def test_h3poly_len():
+    cells = {'8928308280fffff'}
+
+    poly = h3.cells_to_h3shape(cells, tight=True)
+
+    with pytest.raises(NotImplementedError):
+        len(poly)
