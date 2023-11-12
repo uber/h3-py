@@ -109,7 +109,7 @@ class H3MultiPoly(H3Shape):
     def __repr__(self):
         out = [p.loopcode for p in self.polys]
         out = ', '.join(out)
-        out = f'<H3MultiPoly: {out}>'
+        out = '<H3MultiPoly: {}>'.format(out)
         return out
 
     def __iter__(self):
