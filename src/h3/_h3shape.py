@@ -28,7 +28,7 @@ class H3Poly(H3Shape):
     >>> H3Poly(
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34), (37.82, -122.54)],
     ... )
-    <H3Poly |outer|=4, |holes|=()>
+    <H3Poly: [4]>
 
     The same polygon, but with one hole consisting of 3 points:
 
@@ -36,7 +36,7 @@ class H3Poly(H3Shape):
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34), (37.82, -122.54)],
     ...     [(37.76, -122.51), (37.76, -122.44), (37.81, -122.51)],
     ... )
-    <H3Poly |outer|=4, |holes|=(3,)>
+    <H3Poly: [4/(3,)]>
 
     The same as above, but with one additional hole, made up of 5 points:
 
@@ -46,7 +46,7 @@ class H3Poly(H3Shape):
     ...     [(37.71, -122.43), (37.71, -122.37), (37.73, -122.37), (37.75, -122.41),
     ...      (37.73, -122.43)],
     ... )
-    <H3Poly |outer|=4, |holes|=(3, 5)>
+    <H3Poly: [4/(3, 5)]>
     """
     def __init__(self, outer, *holes):
         loops = [outer] + list(holes)
@@ -70,13 +70,16 @@ class H3Poly(H3Shape):
         Should this be the number of points in the outer loop,
         the number of holes (or +1 for the outer loop)?
         """
-        raise NotImplementedError('No clear definition of length for H3Poly().')
+        raise NotImplementedError('No clear definition of length for H3Poly.')
 
     @property
     def loopcode(self):
         """ Short code for describing the length of the outer loop and each hole
 
-        Example: [382/(18, 6, 6)]
+        Example: `[382/(18, 6, 6)]` indicates an outer loop of 382 points,
+        along with 3 holes with 18, 6, and 6 points, respectively.
+
+        Example: `[15]` indicates an outer loop of 15 points and no holes.
         """
         outer = len(self.outer)
         holes = tuple(map(len, self.holes))
