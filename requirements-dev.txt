@@ -3,3 +3,6 @@ jupyterlab-geojson
 geopandas
 geodatasets
 matplotlib
+contextily
+cartopy
+geoviews

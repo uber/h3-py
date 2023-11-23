@@ -40,3 +40,35 @@ H3Shape(geojson string)
 
 - all the `__init__.py` for the APIs should be sync'd
     + three dots is too many dots for an import statement
+ 
+# 2023-11-23 Reprs for poly and multipoly
+
+"""
+Q: what do codes of the form `[n/(x,y,z)]` mean?
+A: a polygon with an outer ring of n unique vertices, and 3 holes with x,y,and z unique vertices, respectively.
+"""
+
+```
+h3.H3Poly(
+    [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34), (37.82, -122.54)],
+    [(37.76, -122.51), (37.76, -122.44), (37.81, -122.51)],
+    [(37.71, -122.43), (37.71, -122.37), (37.73, -122.37), (37.75, -122.41),
+     (37.73, -122.43)],
+)
+
+<H3Poly: [4/(3, 5)]>
+<H3Poly: 4/(3, 5)> (best)
+<H3Poly 4/(3, 5)>
+
+h3.H3Poly([(37.68, -122.54), (37.68, -122.34), (37.82, -122.34), (37.82, -122.54)],)
+<H3Poly: [4]>
+<H3Poly: 4>
+```
+
+```
+<H3MultiPoly: 632/(6, 6, 6, 6, 6), 290/(6,), 120, 12, 10, 10>
+<H3MultiPoly: 632/(6,6,6,6,6), 290/(6), 120, 12, 10, 10>   (best?)
+<H3MultiPoly: <632/(6, 6, 6, 6, 6)>, <290/(6,)>, <120>, <12>, <10>, <10>>
+<H3MultiPoly: [632/(6, 6, 6, 6, 6)], [290/(6,)], [120], [12], [10], [10]>
+```
+
