@@ -2,3 +2,4 @@ jupyterlab
 jupyterlab-geojson
 geopandas
 geodatasets
+matplotlib
