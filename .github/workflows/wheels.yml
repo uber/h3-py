@@ -119,7 +119,7 @@ jobs:
 
       ## Build
 
-      - uses: pypa/cibuildwheel@v2.14.1
+      - uses: pypa/cibuildwheel@v2.16.2
         env:
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
