@@ -489,17 +489,11 @@ but we’ll try to group functions in a reasonably logical manner.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#h3.average_hexagon_edge_length" title="h3.average_hexagon_edge_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_hexagon_edge_length</span></code></a>(res[, unit])</p></td>
 <td><p>Return the average <em>hexagon</em> edge length for the given resolution.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.cell_to_boundary" title="h3.cell_to_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_boundary</span></code></a>(h[, geo_json])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#h3.cell_to_boundary" title="h3.cell_to_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_boundary</span></code></a>(h)</p></td>
 <td><p>Return tuple of lat/lng pairs describing the cell boundary.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">directed_edge_to_boundary</span></code>(edge[, geo_json])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">directed_edge_to_boundary</span></code>(edge)</p></td>
 <td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.polygon_to_cells" title="h3.polygon_to_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polygon_to_cells</span></code></a>(polygon, res)</p></td>
-<td><p>Return the set of H3 cells at a given resolution whose center points are contained within a <cite>h3.Polygon</cite></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.cells_to_polygons" title="h3.cells_to_polygons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cells_to_polygons</span></code></a>(cells)</p></td>
-<td><p>Return a list of h3.Polygon objects describing the area covered by a set of H3 cells.</p></td>
 </tr>
 </tbody>
 </table>
@@ -662,6 +656,69 @@ C library error code.</p>
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3PentagonError</span></span><a class="headerlink" href="#h3.H3PentagonError" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="h3.H3Poly">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3Poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">holes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#H3Poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.H3Poly" title="Permalink to this definition">#</a></dt>
+<dd><p>Container for loops of lat/lng points describing a polygon.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="h3.H3Poly.outer">
+<span class="sig-name descname"><span class="pre">outer</span></span><a class="headerlink" href="#h3.H3Poly.outer" title="Permalink to this definition">#</a></dt>
+<dd><p>List of lat/lng points describing the outer loop of the polygon</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[tuple[float, float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="h3.H3Poly.holes">
+<span class="sig-name descname"><span class="pre">holes</span></span><a class="headerlink" href="#h3.H3Poly.holes" title="Permalink to this definition">#</a></dt>
+<dd><p>List of loops of lat/lng points describing the holes of the polygon</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[list[tuple[float, float]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<p>A polygon with a single outer ring consisting of 4 points, having no holes:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">H3Poly</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">&lt;H3Poly: [4]&gt;</span>
+</pre></div>
+</div>
+<p>The same polygon, but with one hole consisting of 3 points:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">H3Poly</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.76</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.51</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.76</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.44</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.81</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.51</span><span class="p">)],</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">&lt;H3Poly: [4/(3,)]&gt;</span>
+</pre></div>
+</div>
+<p>The same as above, but with one additional hole, made up of 5 points:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">H3Poly</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.76</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.51</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.76</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.44</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.81</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.51</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.71</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.43</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.71</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.37</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.73</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.37</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.41</span><span class="p">),</span>
+<span class="gp">... </span>     <span class="p">(</span><span class="mf">37.73</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.43</span><span class="p">)],</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">&lt;H3Poly: [4/(3, 5)]&gt;</span>
+</pre></div>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="h3.H3Poly.loopcode">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loopcode</span></span><a class="headerlink" href="#h3.H3Poly.loopcode" title="Permalink to this definition">#</a></dt>
+<dd><p>Short code for describing the length of the outer loop and each hole</p>
+<p>Example: <cite>[382/(18, 6, 6)]</cite> indicates an outer loop of 382 points,
+along with 3 holes with 18, 6, and 6 points, respectively.</p>
+<p>Example: <cite>[15]</cite> indicates an outer loop of 15 points and no holes.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3ResDomainError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3ResDomainError</span></span><a class="headerlink" href="#h3.H3ResDomainError" title="Permalink to this definition">#</a></dt>
@@ -686,64 +743,6 @@ C library error code.</p>
 <dt class="sig sig-object py" id="h3.H3VertexInvalidError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3VertexInvalidError</span></span><a class="headerlink" href="#h3.H3VertexInvalidError" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="h3.Polygon">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">Polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">holes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_polygon.html#Polygon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.Polygon" title="Permalink to this definition">#</a></dt>
-<dd><p>Container for loops of lat/lng points describing a polygon.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="h3.Polygon.outer">
-<span class="sig-name descname"><span class="pre">outer</span></span><a class="headerlink" href="#h3.Polygon.outer" title="Permalink to this definition">#</a></dt>
-<dd><p>List of lat/lng points describing the outer loop of the Polygon</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list[tuple[float, float]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="h3.Polygon.holes">
-<span class="sig-name descname"><span class="pre">holes</span></span><a class="headerlink" href="#h3.Polygon.holes" title="Permalink to this definition">#</a></dt>
-<dd><p>List of loops of lat/lng points describing the holes of the Polygon</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list[list[tuple[float, float]]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p class="rubric">Examples</p>
-<p>A polygon with a single outer ring consisting of 4 points, having no holes:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="go">&lt;h3.Polygon |outer|=4, |holes|=()&gt;</span>
-</pre></div>
-</div>
-<p>The same polygon, but with one hole consisting of 3 points:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
-<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.76</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.51</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.76</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.44</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.81</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.51</span><span class="p">)],</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="go">&lt;h3.Polygon |outer|=4, |holes|=(3,)&gt;</span>
-</pre></div>
-</div>
-<p>The same as above, but with one additional hole, made up of 5 points:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
-<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.76</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.51</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.76</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.44</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.81</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.51</span><span class="p">)],</span>
-<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.71</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.43</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.71</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.37</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.73</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.37</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.41</span><span class="p">),</span>
-<span class="gp">... </span>     <span class="p">(</span><span class="mf">37.73</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.43</span><span class="p">)],</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="go">&lt;h3.Polygon |outer|=4, |holes|=(3, 5)&gt;</span>
-</pre></div>
-</div>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>TODO: Add GeoJSON translation support.</p></li>
-</ul>
-</dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.UnknownH3ErrorCode">
@@ -822,21 +821,14 @@ The function uses the spherical distance calculation given by
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cell_to_boundary">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_boundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geo_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.cell_to_boundary" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_boundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.cell_to_boundary" title="Permalink to this definition">#</a></dt>
 <dd><p>Return tuple of lat/lng pairs describing the cell boundary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
-<li><p><strong>geo_json</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, return output in GeoJson format:
-lng/lat pairs (opposite order), and
-have the last pair be the same as the first.
-If <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), return lat/lng pairs, with the last
-pair distinct from the first.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple of (float, float) tuples</p>
+<dd class="field-even"><p>tuple of (lat, lng) tuples</p>
 </dd>
 </dl>
 </dd></dl>
@@ -962,25 +954,42 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="h3.cells_to_polygons">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_polygons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.cells_to_polygons" title="Permalink to this definition">#</a></dt>
-<dd><p>Return a list of h3.Polygon objects describing the area
-covered by a set of H3 cells.</p>
-<dl class="field-list simple">
+<dt class="sig sig-object py" id="h3.cells_to_geo">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.cells_to_geo" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cells</strong> (<em>iterable of H3 cells</em>) – </p>
+<dd class="field-odd"><p><strong>cells</strong> (<em>iterable of H3 Cells</em>) – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of h3.Polygon objects</p>
+<dd class="field-even"><p>in <cite>__geo_interface__</cite> format</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list[<a class="reference internal" href="#h3.Polygon" title="h3.Polygon">h3.Polygon</a>]</p>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="h3.cells_to_h3shape">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_h3shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.cells_to_h3shape" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a H3MultiPoly describing the area covered by a set of H3 cells.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cells</strong> (<em>iterable of H3 cells</em>) – </p></li>
+<li><p><strong>tight</strong> (<em>bool</em>) – If True, return H3Poly if possible. If False, always return H3MultiPoly</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#h3.H3Poly" title="h3.H3Poly">H3Poly</a> | H3MultiPoly</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;8428309ffffffff&#39;</span><span class="p">,</span> <span class="s1">&#39;842830dffffffff&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">cells_to_polygons</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
-<span class="go">[&lt;h3.Polygon |outer|=10, |holes|=()&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">cells_to_h3shape</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">&lt;H3Poly: [10]&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">cells_to_h3shape</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">&lt;H3MultiPoly: [10]&gt;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1037,6 +1046,32 @@ are present. Input cells must all share the same resolution.</p>
 <p class="rubric">Notes</p>
 <p>This function uses the spherical distance calculation given by
 <cite>great_circle_distance</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="h3.geo_to_cells">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">geo_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.geo_to_cells" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert from __geo_interface__ to cells.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geo</strong> (an object implementing <cite>__geo_interface__</cite> or a dictionary in that format.) – Both H3Poly and H3MultiPoly implement the interface.</p></li>
+<li><p><strong>res</strong> (<em>int</em>) – Resolution of desired output cells.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="h3.geo_to_h3shape">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">geo_to_h3shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#geo_to_h3shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.geo_to_h3shape" title="Permalink to this definition">#</a></dt>
+<dd><p>Translate from __geo_interface__ to H3Shape.</p>
+<p><cite>geo</cite> either implements <cite>__geo_interface__</cite> or is a dict matching the format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>H3Shape</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1256,6 +1291,51 @@ That is, the “hollow” ring.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="h3.h3shape_to_cells">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">h3shape_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.h3shape_to_cells" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the set of H3 cells at a given resolution whose center points
+are contained within an <cite>H3Poly</cite> or <cite>H3MultiPoly</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h3shape</strong> (<em>H3shape</em>) – </p></li>
+<li><p><strong>res</strong> (<em>int</em>) – Resolution of the output cells</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>unordered collection of H3Cell</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">H3Poly</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span>
+<span class="gp">... </span>     <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">h3shape_to_cells</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="go">{&#39;862830807ffffff&#39;,</span>
+<span class="go"> &#39;862830827ffffff&#39;,</span>
+<span class="go"> &#39;86283082fffffff&#39;,</span>
+<span class="go"> &#39;862830877ffffff&#39;,</span>
+<span class="go"> &#39;862830947ffffff&#39;,</span>
+<span class="go"> &#39;862830957ffffff&#39;,</span>
+<span class="go"> &#39;86283095fffffff&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="h3.h3shape_to_geo">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">h3shape_to_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#h3shape_to_geo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.h3shape_to_geo" title="Permalink to this definition">#</a></dt>
+<dd><p>Translate from H3Shape to a __geo_interface__ dict.</p>
+<p><cite>h3shape</cite> should be either H3Poly or H3MultiPoly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="h3.int_to_str">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">int_to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.int_to_str" title="Permalink to this definition">#</a></dt>
 <dd><p>Converts an H3 64-bit integer index to a hexadecimal string.</p>
@@ -1392,36 +1472,6 @@ you the property of (0, 0) being the <code class="docutils literal notranslate">
 <dd class="field-even"><p>unordered collection of H3Edge</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="h3.polygon_to_cells">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">polygon_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polygon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#h3.polygon_to_cells" title="Permalink to this definition">#</a></dt>
-<dd><p>Return the set of H3 cells at a given resolution whose center points
-are contained within a <cite>h3.Polygon</cite></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>Polygon</strong> (<a class="reference internal" href="#h3.Polygon" title="h3.Polygon"><em>h3.Polygon</em></a>) – A polygon described by an outer ring and optional holes</p></li>
-<li><p><strong>res</strong> (<em>int</em>) – Resolution of the output cells</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span>
-<span class="gp">... </span>     <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">polygon_to_cells</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="go">{&#39;862830807ffffff&#39;,</span>
-<span class="go"> &#39;862830827ffffff&#39;,</span>
-<span class="go"> &#39;86283082fffffff&#39;,</span>
-<span class="go"> &#39;862830877ffffff&#39;,</span>
-<span class="go"> &#39;862830947ffffff&#39;,</span>
-<span class="go"> &#39;862830957ffffff&#39;,</span>
-<span class="go"> &#39;86283095fffffff&#39;}</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py function">
