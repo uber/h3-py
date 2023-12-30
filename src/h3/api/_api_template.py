@@ -38,7 +38,12 @@ be skipped due to it being inside the `_api_functions` function.
 """
 
 from .. import _cy
-from .._polygon import Polygon
+from .._h3shape import (
+    H3Poly,
+    H3MultiPoly,
+    geo_to_h3shape,
+    h3shape_to_geo,
+)
 
 
 class _API_FUNCTIONS(object):
@@ -272,25 +277,19 @@ class _API_FUNCTIONS(object):
 
         return d
 
-    def cell_to_boundary(self, h, geo_json=False):
+    def cell_to_boundary(self, h):
         """
         Return tuple of lat/lng pairs describing the cell boundary.
 
         Parameters
         ----------
         h : H3Cell
-        geo_json : bool, optional
-            If ``True``, return output in GeoJson format:
-            lng/lat pairs (opposite order), and
-            have the last pair be the same as the first.
-            If ``False`` (default), return lat/lng pairs, with the last
-            pair distinct from the first.
 
         Returns
         -------
-        tuple of (float, float) tuples
+        tuple of (lat, lng) tuples
         """
-        return _cy.cell_to_boundary(self._in_scalar(h), geo_json)
+        return _cy.cell_to_boundary(self._in_scalar(h))
 
     def grid_disk(self, h, k=1):
         """
@@ -397,27 +396,29 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(hu)
 
-    def polygon_to_cells(self, polygon, res):
+    def h3shape_to_cells(self, h3shape, res):
         """
         Return the set of H3 cells at a given resolution whose center points
-        are contained within a `h3.Polygon`
+        are contained within an `H3Poly` or `H3MultiPoly`.
 
         Parameters
         ----------
-        Polygon : h3.Polygon
-            A polygon described by an outer ring and optional holes
-
+        h3shape : H3shape
         res : int
             Resolution of the output cells
+
+        Returns
+        -------
+        unordered collection of H3Cell
 
         Examples
         --------
 
-        >>> poly = h3.Polygon(
+        >>> poly = H3Poly(
         ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
         ...      (37.82, -122.54)],
         ... )
-        >>> h3.polygon_to_cells(poly, 6)
+        >>> h3.h3shape_to_cells(poly, 6)
         {'862830807ffffff',
          '862830827ffffff',
          '86283082fffffff',
@@ -426,43 +427,79 @@ class _API_FUNCTIONS(object):
          '862830957ffffff',
          '86283095fffffff'}
         """
-        mv = _cy.polygon_to_cells(polygon.outer, res, holes=polygon.holes)
+
+        # todo: not sure if i want this dispatch logic here. maybe in the objects?
+        if isinstance(h3shape, H3Poly):
+            poly = h3shape
+            mv = _cy.polygon_to_cells(poly.outer, res, holes=poly.holes)
+        elif isinstance(h3shape, H3MultiPoly):
+            mpoly = h3shape
+            mv = _cy.polygons_to_cells(mpoly.polys, res)
+        else:
+            raise ValueError('Unrecognized type: ' + str(type(h3shape)))
 
         return self._out_unordered(mv)
 
-    # def polygons_to_cells(self, polygons, res):
-    #     # todo: have to figure out how to concat memoryviews cleanly
-    #     # or some other approach
-    #     pass
-
-    def cells_to_polygons(self, cells):
+    def cells_to_h3shape(self, cells, tight=True):
         """
-        Return a list of h3.Polygon objects describing the area
-        covered by a set of H3 cells.
+        Return a H3MultiPoly describing the area covered by a set of H3 cells.
 
         Parameters
         ----------
         cells : iterable of H3 cells
+        tight : bool
+            If True, return H3Poly if possible. If False, always return H3MultiPoly
 
         Returns
         -------
-        list[h3.Polygon]
-            List of h3.Polygon objects
+        H3Poly | H3MultiPoly
 
         Examples
         --------
 
         >>> cells = ['8428309ffffffff', '842830dffffffff']
-        >>> h3.cells_to_polygons(cells)
-        [<h3.Polygon |outer|=10, |holes|=()>]
-
+        >>> h3.cells_to_h3shape(cells, tight=True)
+        <H3Poly: [10]>
+        >>> h3.cells_to_h3shape(cells, tight=False)
+        <H3MultiPoly: [10]>
         """
         cells = self._in_collection(cells)
-        geos = _cy.cells_to_multi_polygon(cells)
+        mpoly = _cy.cells_to_multi_polygon(cells)
 
-        polys = [Polygon(*geo) for geo in geos]
+        polys = [H3Poly(*poly) for poly in mpoly]
+        out = H3MultiPoly(*polys)
 
-        return polys
+        if tight and len(out) == 1:
+            out = out[0]
+
+        return out
+
+    def geo_to_cells(self, geo, res):
+        """ Convert from __geo_interface__ to cells.
+
+        Parameters
+        ----------
+        geo : an object implementing `__geo_interface__` or a dictionary in that format.
+            Both H3Poly and H3MultiPoly implement the interface.
+        res : int
+            Resolution of desired output cells.
+        """
+        h3shape = geo_to_h3shape(geo)
+        return self.h3shape_to_cells(h3shape, res)
+
+    def cells_to_geo(self, cells, tight=True):
+        """
+        Parameters
+        ----------
+        cells : iterable of H3 Cells
+
+        Returns
+        -------
+        dict
+            in `__geo_interface__` format
+        """
+        h3shape = self.cells_to_h3shape(cells, tight=tight)
+        return h3shape_to_geo(h3shape)
 
     def is_pentagon(self, h):
         """
@@ -625,8 +662,8 @@ class _API_FUNCTIONS(object):
 
         return self._out_unordered(mv)
 
-    def directed_edge_to_boundary(self, edge, geo_json=False):
-        return _cy.directed_edge_to_boundary(self._in_scalar(edge), geo_json=geo_json)
+    def directed_edge_to_boundary(self, edge):
+        return _cy.directed_edge_to_boundary(self._in_scalar(edge))
 
     def grid_path_cells(self, start, end):
         """

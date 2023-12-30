@@ -14,3 +14,5 @@ ignore =
     E241,
     # E731 do not assign a lambda expression, use a def
     E731,
+    # https://stackoverflow.com/questions/67942075/w504-line-break-after-binary-operator
+    W503,W504

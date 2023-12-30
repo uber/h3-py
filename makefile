@@ -45,5 +45,5 @@ lint:
 	./env/bin/pylint --disable=all --enable=import-error tests/
 
 lab:
-	./env/bin/pip install jupyterlab
+	./env/bin/pip install -r requirements-dev.txt
 	./env/bin/jupyter lab

@@ -2,7 +2,6 @@
 
 from .api.basic_str import *
 from ._version import __version__
-from ._polygon import Polygon
 
 from ._cy import (
     UnknownH3ErrorCode,

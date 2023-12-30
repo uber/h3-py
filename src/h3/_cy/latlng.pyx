@@ -172,7 +172,27 @@ def polygon_to_cells(outer, int res, holes=None):
     return mv
 
 
-def cell_to_boundary(H3int h, bool geo_json=False):
+def polygons_to_cells(polygons, int res):
+    mvs = [
+        polygon_to_cells(outer=poly.outer, res=res, holes=poly.holes)
+        for poly in polygons
+    ]
+
+    n = sum(map(len, mvs))
+    hmm = H3MemoryManager(n)
+
+    # probably super inefficient, but it is working!
+    # tood: move this to C
+    k = 0
+    for mv in mvs:
+        for v in mv:
+            hmm.ptr[k] = v
+            k += 1
+
+    return hmm.to_mv()
+
+
+def cell_to_boundary(H3int h):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:
         h3lib.CellBoundary gb
@@ -186,15 +206,10 @@ def cell_to_boundary(H3int h, bool geo_json=False):
         for i in range(gb.num_verts)
     )
 
-    if geo_json:
-        #lat/lng -> lng/lat and last point same as first
-        verts += (verts[0],)
-        verts = tuple(v[::-1] for v in verts)
-
     return verts
 
 
-def directed_edge_to_boundary(H3int edge, bool geo_json=False):
+def directed_edge_to_boundary(H3int edge):
     """ Returns the CellBoundary containing the coordinates of the edge
     """
     cdef:
@@ -209,11 +224,6 @@ def directed_edge_to_boundary(H3int edge, bool geo_json=False):
         coord2deg(gb.verts[i])
         for i in range(gb.num_verts)
     )
-
-    if geo_json:
-        #lat/lng -> lng/lat and last point same as first
-        verts += (verts[0],)
-        verts = tuple(v[::-1] for v in verts)
 
     return verts
 
