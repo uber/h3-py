@@ -436,7 +436,7 @@ class _API_FUNCTIONS(object):
             mpoly = h3shape
             mv = _cy.polygons_to_cells(mpoly.polys, res)
         else:
-            raise ValueError('Unrecognized type: ' + type(h3shape))
+            raise ValueError('Unrecognized type: ' + str(type(h3shape)))
 
         return self._out_unordered(mv)
 
@@ -476,7 +476,7 @@ class _API_FUNCTIONS(object):
 
     def geo_to_cells(self, geo, res):
         """ Convert from __geo_interface__ to cells.
-        
+
         Parameters
         ----------
         geo : an object implementing `__geo_interface__` or a dictionary in that format.
