@@ -476,6 +476,7 @@ class _API_FUNCTIONS(object):
 
     def geo_to_cells(self, geo, res):
         """ Convert from __geo_interface__ to cells.
+        
         Parameters
         ----------
         geo : an object implementing `__geo_interface__` or a dictionary in that format.
