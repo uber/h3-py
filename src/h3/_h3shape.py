@@ -52,8 +52,6 @@ class H3Poly(H3Shape):
         loops = [outer] + list(holes)
         for loop in loops:
             if len(loop) in (1, 2):
-                self.outer = []
-                self.holes = []
                 raise ValueError('Non-empty H3Poly loops need at least 3 points.')
 
         self.outer = tuple(_open_ring(outer))
