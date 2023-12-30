@@ -452,7 +452,7 @@ class _API_FUNCTIONS(object):
 
         Returns
         -------
-        H3MultiPoly
+        H3Poly | H3MultiPoly
 
         Examples
         --------
