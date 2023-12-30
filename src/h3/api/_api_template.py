@@ -436,7 +436,7 @@ class _API_FUNCTIONS(object):
             mpoly = h3shape
             mv = _cy.polygons_to_cells(mpoly.polys, res)
         else:
-            raise ValueError('Unrecognized type: ' + str(h3shape))
+            raise ValueError('Unrecognized type: ' + type(h3shape))
 
         return self._out_unordered(mv)
 
