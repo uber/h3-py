@@ -6,7 +6,6 @@ from .._h3shape import (
     h3shape_to_geo,
 )
 
-@staticmethod
 def versions():
     """
     Version numbers for the Python (wrapper) and C (wrapped) libraries.
@@ -28,7 +27,6 @@ def versions():
 
     return v
 
-@staticmethod
 def str_to_int(h):
     """
     Converts a hexadecimal string to an H3 64-bit integer index.
@@ -45,7 +43,6 @@ def str_to_int(h):
     """
     return _cy.str_to_int(h)
 
-@staticmethod
 def int_to_str(x):
     """
     Converts an H3 64-bit integer index to a hexadecimal string.
@@ -62,7 +59,6 @@ def int_to_str(x):
     """
     return _cy.int_to_str(x)
 
-@staticmethod
 def get_num_cells(res):
     """
     Return the total number of *cells* (hexagons and pentagons)
@@ -74,7 +70,6 @@ def get_num_cells(res):
     """
     return _cy.get_num_cells(res)
 
-@staticmethod
 def average_hexagon_area(res, unit='km^2'):
     """
     Return the average area of an H3 *hexagon*
@@ -88,7 +83,6 @@ def average_hexagon_area(res, unit='km^2'):
     """
     return _cy.average_hexagon_area(res, unit)
 
-@staticmethod
 def average_hexagon_edge_length(res, unit='km'):
     """
     Return the average *hexagon* edge length
@@ -859,7 +853,6 @@ def edge_length(e, unit='km'):
 
     return _cy.edge_length(e, unit=unit)
 
-@staticmethod
 def great_circle_distance(latlng1, latlng2, unit='km'):
     """
     Compute the spherical distance between two (lat, lng) points.
