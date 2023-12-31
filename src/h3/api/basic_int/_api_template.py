@@ -111,7 +111,7 @@ def is_valid_cell(h):
     bool
     """
     try:
-        h = self._in_scalar(h)
+        h = _in_scalar(h)
         return _cy.is_valid_cell(h)
     except (ValueError, TypeError):
         return False
@@ -125,7 +125,7 @@ def is_valid_directed_edge(edge):
     bool
     """
     try:
-        e = self._in_scalar(edge)
+        e = _in_scalar(edge)
         return _cy.is_valid_directed_edge(e)
     except (ValueError, TypeError):
         return False
@@ -140,7 +140,7 @@ def latlng_to_cell(lat, lng, res):
     H3Cell
 
     """
-    return self._out_scalar(_cy.latlng_to_cell(lat, lng, res))
+    return _out_scalar(_cy.latlng_to_cell(lat, lng, res))
 
 def cell_to_latlng(h):
     """
@@ -157,7 +157,7 @@ def cell_to_latlng(h):
     lng : float
         Longitude
     """
-    return _cy.cell_to_latlng(self._in_scalar(h))
+    return _cy.cell_to_latlng(_in_scalar(h))
 
 def get_resolution(h):
     """
@@ -172,7 +172,7 @@ def get_resolution(h):
     int
     """
     # todo: could also work for edges
-    return _cy.get_resolution(self._in_scalar(h))
+    return _cy.get_resolution(_in_scalar(h))
 
 def cell_to_parent(h, res=None):
     """
@@ -189,9 +189,9 @@ def cell_to_parent(h, res=None):
     -------
     H3Cell
     """
-    h = self._in_scalar(h)
+    h = _in_scalar(h)
     p = _cy.cell_to_parent(h, res)
-    p = self._out_scalar(p)
+    p = _out_scalar(p)
 
     return p
 
@@ -215,8 +215,8 @@ def grid_distance(h1, h2):
     -------
     int
     """
-    h1 = self._in_scalar(h1)
-    h2 = self._in_scalar(h2)
+    h1 = _in_scalar(h1)
+    h2 = _in_scalar(h2)
 
     d = _cy.grid_distance(h1, h2)
 
@@ -234,7 +234,7 @@ def cell_to_boundary(h):
     -------
     tuple of (lat, lng) tuples
     """
-    return _cy.cell_to_boundary(self._in_scalar(h))
+    return _cy.cell_to_boundary(_in_scalar(h))
 
 def grid_disk(h, k=1):
     """
@@ -251,9 +251,9 @@ def grid_disk(h, k=1):
     -------
     unordered collection of H3Cell
     """
-    mv = _cy.grid_disk(self._in_scalar(h), k)
+    mv = _cy.grid_disk(_in_scalar(h), k)
 
-    return self._out_unordered(mv)
+    return _out_unordered(mv)
 
 def grid_ring(h, k=1):
     """
@@ -270,9 +270,9 @@ def grid_ring(h, k=1):
     -------
     unordered collection of H3Cell
     """
-    mv = _cy.grid_ring(self._in_scalar(h), k)
+    mv = _cy.grid_ring(_in_scalar(h), k)
 
-    return self._out_unordered(mv)
+    return _out_unordered(mv)
 
 def cell_to_children(h, res=None):
     """
@@ -289,9 +289,9 @@ def cell_to_children(h, res=None):
     -------
     unordered collection of H3Cell
     """
-    mv = _cy.cell_to_children(self._in_scalar(h), res)
+    mv = _cy.cell_to_children(_in_scalar(h), res)
 
-    return self._out_unordered(mv)
+    return _out_unordered(mv)
 
 # todo: nogil for expensive C operation?
 def compact_cells(cells):
@@ -309,10 +309,10 @@ def compact_cells(cells):
     unordered collection of H3Cell
     """
     # todo: does compact_cells work on mixed-resolution collections?
-    hu = self._in_collection(cells)
+    hu = _in_collection(cells)
     hc = _cy.compact_cells(hu)
 
-    return self._out_unordered(hc)
+    return _out_unordered(hc)
 
 def uncompact_cells(cells, res):
     """
@@ -336,10 +336,10 @@ def uncompact_cells(cells, res):
     contains cell smaller than output res.
     https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
     """
-    hc = self._in_collection(cells)
+    hc = _in_collection(cells)
     hu = _cy.uncompact_cells(hc, res)
 
-    return self._out_unordered(hu)
+    return _out_unordered(hu)
 
 def h3shape_to_cells(h3shape, res):
     """
@@ -383,7 +383,7 @@ def h3shape_to_cells(h3shape, res):
     else:
         raise ValueError('Unrecognized type: ' + str(type(h3shape)))
 
-    return self._out_unordered(mv)
+    return _out_unordered(mv)
 
 def cells_to_h3shape(cells, tight=True):
     """
@@ -408,7 +408,7 @@ def cells_to_h3shape(cells, tight=True):
     >>> h3.cells_to_h3shape(cells, tight=False)
     <H3MultiPoly: [10]>
     """
-    cells = self._in_collection(cells)
+    cells = _in_collection(cells)
     mpoly = _cy.cells_to_multi_polygon(cells)
 
     polys = [H3Poly(*poly) for poly in mpoly]
@@ -430,7 +430,7 @@ def geo_to_cells(geo, res):
         Resolution of desired output cells.
     """
     h3shape = geo_to_h3shape(geo)
-    return self.h3shape_to_cells(h3shape, res)
+    return h3shape_to_cells(h3shape, res)
 
 def cells_to_geo(cells, tight=True):
     """
@@ -443,7 +443,7 @@ def cells_to_geo(cells, tight=True):
     dict
         in `__geo_interface__` format
     """
-    h3shape = self.cells_to_h3shape(cells, tight=tight)
+    h3shape = cells_to_h3shape(cells, tight=tight)
     return h3shape_to_geo(h3shape)
 
 def is_pentagon(h):
@@ -464,7 +464,7 @@ def is_pentagon(h):
     A pentagon should *also* pass ``is_valid_cell()``.
     Will return ``False`` for valid H3Edge.
     """
-    return _cy.is_pentagon(self._in_scalar(h))
+    return _cy.is_pentagon(_in_scalar(h))
 
 def get_base_cell_number(h):
     """
@@ -486,7 +486,7 @@ def get_base_cell_number(h):
     -------
     int
     """
-    return _cy.get_base_cell_number(self._in_scalar(h))
+    return _cy.get_base_cell_number(_in_scalar(h))
 
 def are_neighbor_cells(h1, h2):
     """
@@ -501,8 +501,8 @@ def are_neighbor_cells(h1, h2):
     -------
     bool
     """
-    h1 = self._in_scalar(h1)
-    h2 = self._in_scalar(h2)
+    h1 = _in_scalar(h1)
+    h2 = _in_scalar(h2)
 
     return _cy.are_neighbor_cells(h1, h2)
 
@@ -527,10 +527,10 @@ def cells_to_directed_edge(origin, destination):
     -------
     H3Edge
     """
-    o = self._in_scalar(origin)
-    d = self._in_scalar(destination)
+    o = _in_scalar(origin)
+    d = _in_scalar(destination)
     e = _cy.cells_to_directed_edge(o, d)
-    e = self._out_scalar(e)
+    e = _out_scalar(e)
 
     return e
 
@@ -546,9 +546,9 @@ def get_directed_edge_origin(e):
     -------
     H3Cell
     """
-    e = self._in_scalar(e)
+    e = _in_scalar(e)
     o = _cy.get_directed_edge_origin(e)
-    o = self._out_scalar(o)
+    o = _out_scalar(o)
 
     return o
 
@@ -564,9 +564,9 @@ def get_directed_edge_destination(e):
     -------
     H3Cell
     """
-    e = self._in_scalar(e)
+    e = _in_scalar(e)
     d = _cy.get_directed_edge_destination(e)
-    d = self._out_scalar(d)
+    d = _out_scalar(d)
 
     return d
 
@@ -585,9 +585,9 @@ def directed_edge_to_cells(e):
     H3Cell
         Destination cell of edge
     """
-    e = self._in_scalar(e)
+    e = _in_scalar(e)
     o, d = _cy.directed_edge_to_cells(e)
-    o, d = self._out_scalar(o), self._out_scalar(d)
+    o, d = _out_scalar(o), _out_scalar(d)
 
     return o, d
 
@@ -603,12 +603,12 @@ def origin_to_directed_edges(origin):
     -------
     unordered collection of H3Edge
     """
-    mv = _cy.origin_to_directed_edges(self._in_scalar(origin))
+    mv = _cy.origin_to_directed_edges(_in_scalar(origin))
 
-    return self._out_unordered(mv)
+    return _out_unordered(mv)
 
 def directed_edge_to_boundary(edge):
-    return _cy.directed_edge_to_boundary(self._in_scalar(edge))
+    return _cy.directed_edge_to_boundary(_in_scalar(edge))
 
 def grid_path_cells(start, end):
     """
@@ -625,9 +625,9 @@ def grid_path_cells(start, end):
     ordered collection of H3Cell
         Starting with ``start``, and ending with ``end``.
     """
-    mv = _cy.grid_path_cells(self._in_scalar(start), self._in_scalar(end))
+    mv = _cy.grid_path_cells(_in_scalar(start), _in_scalar(end))
 
-    return self._out_ordered(mv)
+    return _out_ordered(mv)
 
 def is_res_class_III(h):
     """
@@ -656,7 +656,7 @@ def is_res_class_III(h):
     ----------
     1. https://uber.github.io/h3/#/documentation/core-library/coordinate-systems
     """
-    return _cy.is_res_class_iii(self._in_scalar(h))
+    return _cy.is_res_class_iii(_in_scalar(h))
 
 def get_pentagons(res):
     """
@@ -673,9 +673,9 @@ def get_pentagons(res):
     """
     mv = _cy.get_pentagons(res)
 
-    return self._out_unordered(mv)
+    return _out_unordered(mv)
 
-def get_res0_cells(self):
+def get_res0_cells():
     """
     Return all cells at resolution 0.
 
@@ -689,7 +689,7 @@ def get_res0_cells(self):
     """
     mv = _cy.get_res0_cells()
 
-    return self._out_unordered(mv)
+    return _out_unordered(mv)
 
 def cell_to_center_child(h, res=None):
     """
@@ -706,9 +706,9 @@ def cell_to_center_child(h, res=None):
     -------
     H3Cell
     """
-    h = self._in_scalar(h)
+    h = _in_scalar(h)
     p = _cy.cell_to_center_child(h, res)
-    p = self._out_scalar(p)
+    p = _out_scalar(p)
 
     return p
 
@@ -728,7 +728,7 @@ def get_icosahedron_faces(h):
     -------
     Python ``set`` of ``int``
     """
-    h = self._in_scalar(h)
+    h = _in_scalar(h)
     faces = _cy.get_icosahedron_faces(h)
 
     return faces
@@ -764,8 +764,8 @@ def cell_to_local_ij(origin, h):
     This is done so we don't need to keep recomputing the coordinates of
     ``origin`` if not needed.
     """
-    origin = self._in_scalar(origin)
-    h = self._in_scalar(h)
+    origin = _in_scalar(origin)
+    h = _in_scalar(h)
 
     i, j = _cy.cell_to_local_ij(origin, h)
 
@@ -800,10 +800,10 @@ def local_ij_to_cell(origin, i, j):
     This is done so we don't need to keep recomputing the coordinates of
     ``origin`` if not needed.
     """
-    origin = self._in_scalar(origin)
+    origin = _in_scalar(origin)
 
     h = _cy.local_ij_to_cell(origin, i, j)
-    h = self._out_scalar(h)
+    h = _out_scalar(h)
 
     return h
 
@@ -830,7 +830,7 @@ def cell_area(h, unit='km^2'):
     The function uses the spherical distance calculation given by
     `great_circle_distance`.
     """
-    h = self._in_scalar(h)
+    h = _in_scalar(h)
 
     return _cy.cell_area(h, unit=unit)
 
@@ -855,7 +855,7 @@ def edge_length(e, unit='km'):
     This function uses the spherical distance calculation given by
     `great_circle_distance`.
     """
-    e = self._in_scalar(e)
+    e = _in_scalar(e)
 
     return _cy.edge_length(e, unit=unit)
 
