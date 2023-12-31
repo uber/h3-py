@@ -1,42 +1,3 @@
-"""
-Module to DRY-up code which is repeated across API modules.
-
-Definitions of types
---------------------
-H3Index:
-    An unsigned 64-bit integer representing a valid H3 cell or
-    unidirectional edge.
-    Depending on the API, an H3Index may be represented as an
-    unsigned integer type, or as a hexadecimal string.
-
-H3 cell:
-    A pentagon or hexagon that can be represented by an H3Index.
-
-H3Cell:
-    H3Index representation of an H3 cell.
-
-H3Edge:
-    H3Index representation of an H3 unidirectional edge.
-
-
-Definitions of collections
---------------------------
-Collection types vary between APIs. We'll use the following terms:
-
-unordered collection:
-    Inputs and outputs are interpreted as *unordered* collections.
-    Examples: `set`, `numpy.ndarray`.
-
-ordered collection:
-    Inputs and outputs are interpreted as *ordered* collections.
-    Examples: `list`, `numpy.ndarray`.
-
-Notes
---------------------
-todo: how do we lint these functions and docstrings? it seems to currently
-be skipped due to it being inside the `_api_functions` function.
-"""
-
 from .. import _cy
 from .._h3shape import (
     H3Poly,
@@ -44,22 +5,6 @@ from .._h3shape import (
     geo_to_h3shape,
     h3shape_to_geo,
 )
-
-
-class _API_FUNCTIONS(object):
-    def __init__(
-        self,
-        _in_scalar,
-        _out_scalar,
-        _in_collection,
-        _out_unordered,
-        _out_ordered,
-    ):
-        self._in_scalar = _in_scalar
-        self._out_scalar = _out_scalar
-        self._in_collection = _in_collection
-        self._out_unordered = _out_unordered
-        self._out_ordered = _out_ordered
 
     @staticmethod
     def versions():
