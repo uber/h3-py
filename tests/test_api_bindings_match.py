@@ -3,7 +3,6 @@ import inspect
 
 def test_api_copy_match():
     import h3
-    import h3.api.numpy_int
 
     apis = [
         h3.api.basic_int,
