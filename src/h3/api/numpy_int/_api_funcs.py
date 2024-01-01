@@ -1,7 +1,11 @@
 import numpy as np
 
 
-def _id(x):
+def _in_scalar(x):
+    return x
+
+
+def _out_scalar(x):
     return x
 
 
@@ -11,8 +15,5 @@ def _in_collection(x):
     return np.asarray(x, dtype='uint64')
 
 
-_in_scalar = _id
-_out_scalar = _id
-_in_collection = _in_collection
 _out_unordered = np.asarray
 _out_ordered = np.asarray
