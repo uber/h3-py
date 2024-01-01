@@ -9,7 +9,7 @@ from ..._h3shape import (
     h3shape_to_geo,
 )
 
-from ._api_funcs import (
+from ._convert import (
     _in_scalar,
     _out_scalar,
     _in_collection,
