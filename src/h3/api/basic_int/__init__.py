@@ -13,8 +13,7 @@ from ._convert import (
     _in_scalar,
     _out_scalar,
     _in_collection,
-    _out_unordered,
-    _out_ordered,
+    _out_collection,
 )
 
 
@@ -273,7 +272,7 @@ def grid_disk(h, k=1):
     """
     mv = _cy.grid_disk(_in_scalar(h), k)
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def grid_ring(h, k=1):
@@ -293,7 +292,7 @@ def grid_ring(h, k=1):
     """
     mv = _cy.grid_ring(_in_scalar(h), k)
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def cell_to_children(h, res=None):
@@ -313,7 +312,7 @@ def cell_to_children(h, res=None):
     """
     mv = _cy.cell_to_children(_in_scalar(h), res)
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 # todo: nogil for expensive C operation?
@@ -335,7 +334,7 @@ def compact_cells(cells):
     hu = _in_collection(cells)
     hc = _cy.compact_cells(hu)
 
-    return _out_unordered(hc)
+    return _out_collection(hc)
 
 
 def uncompact_cells(cells, res):
@@ -363,7 +362,7 @@ def uncompact_cells(cells, res):
     hc = _in_collection(cells)
     hu = _cy.uncompact_cells(hc, res)
 
-    return _out_unordered(hu)
+    return _out_collection(hu)
 
 
 def h3shape_to_cells(h3shape, res):
@@ -410,7 +409,7 @@ def h3shape_to_cells(h3shape, res):
     else:
         raise ValueError('Unrecognized type: ' + str(type(h3shape)))
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def cells_to_h3shape(cells, tight=True):
@@ -643,7 +642,7 @@ def origin_to_directed_edges(origin):
     """
     mv = _cy.origin_to_directed_edges(_in_scalar(origin))
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def directed_edge_to_boundary(edge):
@@ -667,7 +666,7 @@ def grid_path_cells(start, end):
     """
     mv = _cy.grid_path_cells(_in_scalar(start), _in_scalar(end))
 
-    return _out_ordered(mv)
+    return _out_collection(mv)
 
 
 def is_res_class_III(h):
@@ -715,7 +714,7 @@ def get_pentagons(res):
     """
     mv = _cy.get_pentagons(res)
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def get_res0_cells():
@@ -732,7 +731,7 @@ def get_res0_cells():
     """
     mv = _cy.get_res0_cells()
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def cell_to_center_child(h, res=None):
