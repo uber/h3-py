@@ -5,8 +5,7 @@ def _in_scalar(x):
     return x
 
 
-def _out_scalar(x):
-    return x
+_out_scalar = _in_scalar
 
 
 def _in_collection(cells):

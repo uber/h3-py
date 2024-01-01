@@ -2,8 +2,7 @@ def _in_scalar(x):
     return x
 
 
-def _out_scalar(x):
-    return x
+_out_scalar = _in_scalar
 
 
 def _in_collection(x):
@@ -13,9 +12,5 @@ def _in_collection(x):
     return np.asarray(x, dtype='uint64')
 
 
-def _out_unordered(x):
-    import numpy as np
-    return np.asarray(x)
-
-
-_out_ordered = _out_unordered
+_out_unordered = _in_collection
+_out_ordered = _in_collection
