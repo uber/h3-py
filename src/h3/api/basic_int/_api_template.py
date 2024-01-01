@@ -37,6 +37,7 @@ def versions():
 
     return v
 
+
 def str_to_int(h):
     """
     Converts a hexadecimal string to an H3 64-bit integer index.
@@ -52,6 +53,7 @@ def str_to_int(h):
         Unsigned 64-bit integer
     """
     return _cy.str_to_int(h)
+
 
 def int_to_str(x):
     """
@@ -69,6 +71,7 @@ def int_to_str(x):
     """
     return _cy.int_to_str(x)
 
+
 def get_num_cells(res):
     """
     Return the total number of *cells* (hexagons and pentagons)
@@ -79,6 +82,7 @@ def get_num_cells(res):
     int
     """
     return _cy.get_num_cells(res)
+
 
 def average_hexagon_area(res, unit='km^2'):
     """
@@ -93,6 +97,7 @@ def average_hexagon_area(res, unit='km^2'):
     """
     return _cy.average_hexagon_area(res, unit)
 
+
 def average_hexagon_edge_length(res, unit='km'):
     """
     Return the average *hexagon* edge length
@@ -105,6 +110,7 @@ def average_hexagon_edge_length(res, unit='km'):
     float
     """
     return _cy.average_hexagon_edge_length(res, unit)
+
 
 def is_valid_cell(h):
     """
@@ -120,6 +126,7 @@ def is_valid_cell(h):
     except (ValueError, TypeError):
         return False
 
+
 def is_valid_directed_edge(edge):
     """
     Validates an H3 unidirectional edge.
@@ -134,6 +141,7 @@ def is_valid_directed_edge(edge):
     except (ValueError, TypeError):
         return False
 
+
 def latlng_to_cell(lat, lng, res):
     """
     Return the cell containing the (lat, lng) point
@@ -145,6 +153,7 @@ def latlng_to_cell(lat, lng, res):
 
     """
     return _out_scalar(_cy.latlng_to_cell(lat, lng, res))
+
 
 def cell_to_latlng(h):
     """
@@ -163,6 +172,7 @@ def cell_to_latlng(h):
     """
     return _cy.cell_to_latlng(_in_scalar(h))
 
+
 def get_resolution(h):
     """
     Return the resolution of an H3 cell.
@@ -177,6 +187,7 @@ def get_resolution(h):
     """
     # todo: could also work for edges
     return _cy.get_resolution(_in_scalar(h))
+
 
 def cell_to_parent(h, res=None):
     """
@@ -198,6 +209,7 @@ def cell_to_parent(h, res=None):
     p = _out_scalar(p)
 
     return p
+
 
 def grid_distance(h1, h2):
     """
@@ -226,6 +238,7 @@ def grid_distance(h1, h2):
 
     return d
 
+
 def cell_to_boundary(h):
     """
     Return tuple of lat/lng pairs describing the cell boundary.
@@ -240,10 +253,11 @@ def cell_to_boundary(h):
     """
     return _cy.cell_to_boundary(_in_scalar(h))
 
+
 def grid_disk(h, k=1):
     """
     Return unordered set of cells with H3 distance ``<= k`` from ``h``.
-    That is, the "filled-in" disk.
+    That is, the 'filled-in' disk.
 
     Parameters
     ----------
@@ -258,6 +272,7 @@ def grid_disk(h, k=1):
     mv = _cy.grid_disk(_in_scalar(h), k)
 
     return _out_unordered(mv)
+
 
 def grid_ring(h, k=1):
     """
@@ -278,6 +293,7 @@ def grid_ring(h, k=1):
 
     return _out_unordered(mv)
 
+
 def cell_to_children(h, res=None):
     """
     Children of a cell.
@@ -296,6 +312,7 @@ def cell_to_children(h, res=None):
     mv = _cy.cell_to_children(_in_scalar(h), res)
 
     return _out_unordered(mv)
+
 
 # todo: nogil for expensive C operation?
 def compact_cells(cells):
@@ -317,6 +334,7 @@ def compact_cells(cells):
     hc = _cy.compact_cells(hu)
 
     return _out_unordered(hc)
+
 
 def uncompact_cells(cells, res):
     """
@@ -344,6 +362,7 @@ def uncompact_cells(cells, res):
     hu = _cy.uncompact_cells(hc, res)
 
     return _out_unordered(hu)
+
 
 def h3shape_to_cells(h3shape, res):
     """
@@ -389,6 +408,7 @@ def h3shape_to_cells(h3shape, res):
 
     return _out_unordered(mv)
 
+
 def cells_to_h3shape(cells, tight=True):
     """
     Return a H3MultiPoly describing the area covered by a set of H3 cells.
@@ -423,8 +443,9 @@ def cells_to_h3shape(cells, tight=True):
 
     return out
 
+
 def geo_to_cells(geo, res):
-    """ Convert from __geo_interface__ to cells.
+    """Convert from __geo_interface__ to cells.
 
     Parameters
     ----------
@@ -435,6 +456,7 @@ def geo_to_cells(geo, res):
     """
     h3shape = geo_to_h3shape(geo)
     return h3shape_to_cells(h3shape, res)
+
 
 def cells_to_geo(cells, tight=True):
     """
@@ -449,6 +471,7 @@ def cells_to_geo(cells, tight=True):
     """
     h3shape = cells_to_h3shape(cells, tight=tight)
     return h3shape_to_geo(h3shape)
+
 
 def is_pentagon(h):
     """
@@ -469,6 +492,7 @@ def is_pentagon(h):
     Will return ``False`` for valid H3Edge.
     """
     return _cy.is_pentagon(_in_scalar(h))
+
 
 def get_base_cell_number(h):
     """
@@ -492,6 +516,7 @@ def get_base_cell_number(h):
     """
     return _cy.get_base_cell_number(_in_scalar(h))
 
+
 def are_neighbor_cells(h1, h2):
     """
     Returns ``True`` if ``h1`` and ``h2`` are neighboring cells.
@@ -509,6 +534,7 @@ def are_neighbor_cells(h1, h2):
     h2 = _in_scalar(h2)
 
     return _cy.are_neighbor_cells(h1, h2)
+
 
 def cells_to_directed_edge(origin, destination):
     """
@@ -538,6 +564,7 @@ def cells_to_directed_edge(origin, destination):
 
     return e
 
+
 def get_directed_edge_origin(e):
     """
     Origin cell from an H3 directed edge.
@@ -556,6 +583,7 @@ def get_directed_edge_origin(e):
 
     return o
 
+
 def get_directed_edge_destination(e):
     """
     Destination cell from an H3 directed edge.
@@ -573,6 +601,7 @@ def get_directed_edge_destination(e):
     d = _out_scalar(d)
 
     return d
+
 
 def directed_edge_to_cells(e):
     """
@@ -595,6 +624,7 @@ def directed_edge_to_cells(e):
 
     return o, d
 
+
 def origin_to_directed_edges(origin):
     """
     Return all directed edges starting from ``origin`` cell.
@@ -611,8 +641,10 @@ def origin_to_directed_edges(origin):
 
     return _out_unordered(mv)
 
+
 def directed_edge_to_boundary(edge):
     return _cy.directed_edge_to_boundary(_in_scalar(edge))
+
 
 def grid_path_cells(start, end):
     """
@@ -632,6 +664,7 @@ def grid_path_cells(start, end):
     mv = _cy.grid_path_cells(_in_scalar(start), _in_scalar(end))
 
     return _out_ordered(mv)
+
 
 def is_res_class_III(h):
     """
@@ -662,6 +695,7 @@ def is_res_class_III(h):
     """
     return _cy.is_res_class_iii(_in_scalar(h))
 
+
 def get_pentagons(res):
     """
     Return all pentagons at a given resolution.
@@ -679,6 +713,7 @@ def get_pentagons(res):
 
     return _out_unordered(mv)
 
+
 def get_res0_cells():
     """
     Return all cells at resolution 0.
@@ -694,6 +729,7 @@ def get_res0_cells():
     mv = _cy.get_res0_cells()
 
     return _out_unordered(mv)
+
 
 def cell_to_center_child(h, res=None):
     """
@@ -716,6 +752,7 @@ def cell_to_center_child(h, res=None):
 
     return p
 
+
 def get_icosahedron_faces(h):
     """
     Return icosahedron faces intersecting a given H3 cell.
@@ -736,6 +773,7 @@ def get_icosahedron_faces(h):
     faces = _cy.get_icosahedron_faces(h)
 
     return faces
+
 
 def cell_to_local_ij(origin, h):
     """
@@ -775,6 +813,7 @@ def cell_to_local_ij(origin, h):
 
     return i, j
 
+
 def local_ij_to_cell(origin, i, j):
     """
     Return cell at local (i,j) position relative to the ``origin`` cell.
@@ -811,6 +850,7 @@ def local_ij_to_cell(origin, i, j):
 
     return h
 
+
 def cell_area(h, unit='km^2'):
     """
     Compute the spherical surface area of a specific H3 cell.
@@ -838,6 +878,7 @@ def cell_area(h, unit='km^2'):
 
     return _cy.cell_area(h, unit=unit)
 
+
 def edge_length(e, unit='km'):
     """
     Compute the spherical length of a specific H3 edge.
@@ -862,6 +903,7 @@ def edge_length(e, unit='km'):
     e = _in_scalar(e)
 
     return _cy.edge_length(e, unit=unit)
+
 
 def great_circle_distance(latlng1, latlng2, unit='km'):
     """
