@@ -1,2 +1,1 @@
-# flake8: noqa
-from ._api_template import *
+../basic_int/__init__.py
