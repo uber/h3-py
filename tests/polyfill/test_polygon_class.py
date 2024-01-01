@@ -35,3 +35,12 @@ def test_h3poly_len():
 
     with pytest.raises(NotImplementedError):
         len(poly)
+
+
+def test_bad_subclass():
+    class H3Shoop(h3.H3Shape):
+        def __geo_interface__():
+            pass
+
+    with pytest.raises(ValueError):
+        h3.h3shape_to_cells(H3Shoop(), res=9)

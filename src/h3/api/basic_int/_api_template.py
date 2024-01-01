@@ -403,6 +403,8 @@ def h3shape_to_cells(h3shape, res):
     elif isinstance(h3shape, H3MultiPoly):
         mpoly = h3shape
         mv = _cy.polygons_to_cells(mpoly.polys, res)
+    elif isinstance(h3shape, H3Shape):
+        raise ValueError('Unrecognized H3Shape: ' + str(h3shape))
     else:
         raise ValueError('Unrecognized type: ' + str(type(h3shape)))
 

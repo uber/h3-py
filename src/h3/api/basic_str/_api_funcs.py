@@ -1,5 +1,6 @@
 from ... import _cy
 
+
 def _in_collection(cells):
     it = [_cy.str_to_int(h) for h in cells]
 

@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def _id(x):
     return x
 
