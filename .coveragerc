@@ -1,0 +1,5 @@
+[run]
+omit =
+    */h3/api/basic_int/_api_template.py
+    */h3/api/memview_int/_api_template.py
+    */h3/api/numpy_int/_api_template.py

@@ -1,10 +1,20 @@
-from .. import _cy
-from .._h3shape import (
+from ... import _cy
+from ..._h3shape import (
+    H3Shape,
     H3Poly,
     H3MultiPoly,
     geo_to_h3shape,
     h3shape_to_geo,
 )
+
+from ._api_funcs import (
+    _in_scalar,
+    _out_scalar,
+    _in_collection,
+    _out_unordered,
+    _out_ordered,
+)
+
 
 def versions():
     """
@@ -18,7 +28,7 @@ def versions():
     -------
     dict like ``{'c': 'X.Y.Z', 'python': 'A.B.C'}``
     """
-    from .._version import __version__
+    from ..._version import __version__
 
     v = {
         'c': _cy.c_version(),
