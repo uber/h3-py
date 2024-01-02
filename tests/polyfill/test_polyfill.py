@@ -3,6 +3,15 @@ import pytest
 
 from h3 import H3ResDomainError
 
+def same_set(a, b):
+    """Test if two collections are the same if taken as sets"""
+    set_a = set(a)
+    set_b = set(b)
+
+    assert len(a) == len(b) == len(set_a) == len(set_b)
+
+    return set_a == set_b
+
 
 def get_us_box_coords():
 
@@ -72,7 +81,7 @@ def test_h3shape_to_cells():
     poly = h3.H3Poly(maine)
     out = h3.h3shape_to_cells(poly, 3)
 
-    assert out == expected
+    assert same_set(out, expected)
 
 
 def test_h3shape_to_cells2():
@@ -100,20 +109,23 @@ def test_h3shape_to_cells_holes():
 
     for res in 1, 2, 3, 4, 5:
         cells_all = h3.h3shape_to_cells(h3.H3Poly(outer), res)
-        cells_holes = h3.h3shape_to_cells(h3.H3Poly(outer, hole1, hole2), res=res)
+        cells_holes = set(h3.h3shape_to_cells(h3.H3Poly(outer, hole1, hole2), res=res))
 
-        cells_1 = h3.h3shape_to_cells(h3.H3Poly(hole1), res)
-        cells_2 = h3.h3shape_to_cells(h3.H3Poly(hole2), res)
+        cells_1 = set(h3.h3shape_to_cells(h3.H3Poly(hole1), res))
+        cells_2 = set(h3.h3shape_to_cells(h3.H3Poly(hole2), res))
 
         assert len(cells_all) == len(cells_holes) + len(cells_1) + len(cells_2)
-        assert cells_all == set.union(cells_holes, cells_1, cells_2)
+        assert same_set(
+            cells_all,
+            set.union(cells_holes, cells_1, cells_2)
+        )
 
 
 def test_resolution():
     poly = h3.H3Poly([])
 
-    assert h3.h3shape_to_cells(poly, 0) == set()
-    assert h3.h3shape_to_cells(poly, 15) == set()
+    assert h3.h3shape_to_cells(poly, 0) == []
+    assert h3.h3shape_to_cells(poly, 15) == []
 
     with pytest.raises(H3ResDomainError):
         h3.h3shape_to_cells(poly, -1)
@@ -158,4 +170,4 @@ def test_cells_to_geo():
     assert len(coord[0]) == 7
     assert coord[0][0] == coord[0][-1]
 
-    assert h3.geo_to_cells(geo, res) == {h}
+    assert h3.geo_to_cells(geo, res) == [h]
