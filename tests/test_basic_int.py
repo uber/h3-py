@@ -1,5 +1,14 @@
 import h3.api.basic_int as h3
 
+def same_set(a, b):
+    """Test if two collections are the same if taken as sets"""
+    set_a = set(a)
+    set_b = set(b)
+
+    assert len(a) == len(b) == len(set_a) == len(set_b)
+
+    return set_a == set_b
+
 
 def test_int_output():
     lat = 37.7752702151959
@@ -10,7 +19,7 @@ def test_int_output():
 
 
 def test_grid_disk():
-    expected = {
+    expected = [
         617700169957507071,
         617700169957769215,
         617700169958031359,
@@ -18,31 +27,31 @@ def test_grid_disk():
         617700169961177087,
         617700169964847103,
         617700169965109247,
-    }
+    ]
 
     out = h3.grid_disk(617700169958293503, 1)
-    assert out == expected
+    assert same_set(out, expected)
 
 
 def test_compact_cells():
     h = 617700169958293503
     cells = h3.cell_to_children(h)
 
-    assert h3.compact_cells(cells) == {h}
+    assert h3.compact_cells(cells) == [h]
 
 
 def test_get_icosahedron_faces():
     h = 577832942814887935
-    expected = {2, 3, 7, 8, 12}
+    expected = [2, 3, 7, 8, 12]
     out = h3.get_icosahedron_faces(h)
-    assert out == expected
+    assert same_set(out, expected)
 
     h = 579873636396040191
-    expected = {13}
+    expected = [13]
     out = h3.get_icosahedron_faces(h)
-    assert out == expected
+    assert same_set(out, expected)
 
     h = 579768083279773695
-    expected = {16, 15}
+    expected = [16, 15]
     out = h3.get_icosahedron_faces(h)
-    assert out == expected
+    assert same_set(out, expected)
