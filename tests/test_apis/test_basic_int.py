@@ -50,7 +50,7 @@ def test_get_icosahedron_faces():
     h = 579873636396040191
     expected = [13]
     out = h3.get_icosahedron_faces(h)
-    assert same_set(out, expected)
+    assert out == expected
 
     h = 579768083279773695
     expected = [16, 15]

@@ -1,6 +1,16 @@
 import h3.api.memview_int as h3
 
 
+def same_set(a, b):
+    """Test if two collections are the same if taken as sets"""
+    set_a = set(a)
+    set_b = set(b)
+
+    assert len(a) == len(b) == len(set_a) == len(set_b)
+
+    return set_a == set_b
+
+
 def test1():
     lat, lng = 37.7752702151959, -122.418307270836
     assert h3.latlng_to_cell(lat, lng, 9) == 617700169958293503
@@ -29,14 +39,14 @@ def test_get_icosahedron_faces():
     h = 577832942814887935
     expected = {2, 3, 7, 8, 12}
     out = h3.get_icosahedron_faces(h)
-    assert out == expected
+    assert same_set(out, expected)
 
     h = 579873636396040191
-    expected = {13}
+    expected = [13]
     out = h3.get_icosahedron_faces(h)
     assert out == expected
 
     h = 579768083279773695
     expected = {16, 15}
     out = h3.get_icosahedron_faces(h)
-    assert out == expected
+    assert same_set(out, expected)
