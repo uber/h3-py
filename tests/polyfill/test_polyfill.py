@@ -3,6 +3,7 @@ import pytest
 
 from h3 import H3ResDomainError
 
+
 def same_set(a, b):
     """Test if two collections are the same if taken as sets"""
     set_a = set(a)
