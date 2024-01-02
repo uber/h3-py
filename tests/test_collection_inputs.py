@@ -22,7 +22,7 @@ def test_set():
 
     h = 614553222213795839
 
-    assert basic_int.compact_cells(ints) == {h}
+    assert basic_int.compact_cells(ints) == [h]
 
     with pytest.raises(TypeError):
         # numpy can't convert from a set
@@ -46,7 +46,7 @@ def test_list():
 
     h = 614553222213795839
 
-    assert basic_int.compact_cells(ints) == {h}
+    assert basic_int.compact_cells(ints) == [h]
 
     # numpy can convert from a list OK
     # (numpy knows to convert it to uint64)
@@ -74,7 +74,7 @@ def test_np_array():
 
     h = 614553222213795839
 
-    assert basic_int.compact_cells(ints) == {h}
+    assert basic_int.compact_cells(ints) == [h]
 
     assert numpy_int.compact_cells(ints) == np.array([h], dtype='uint64')
     assert numpy_int.compact_cells(ints).dtype == np.dtype('uint64')
@@ -99,7 +99,7 @@ def test_list_to_array():
 
     h = 614553222213795839
 
-    assert basic_int.compact_cells(ints) == {h}
+    assert basic_int.compact_cells(ints) == [h]
     assert numpy_int.compact_cells(ints) == np.array([h], dtype='uint64')
 
     with pytest.raises(ValueError):
@@ -128,7 +128,7 @@ def test_iterator():
     h = 614553222213795839
 
     ints = foo()
-    assert basic_int.compact_cells(ints) == {h}
+    assert basic_int.compact_cells(ints) == [h]
 
     ints = foo()
     with pytest.raises(TypeError):

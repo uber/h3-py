@@ -4,6 +4,16 @@ from pytest import approx
 import h3
 
 
+def same_set(a, b):
+    """Test if two collections are the same if taken as sets"""
+    set_a = set(a)
+    set_b = set(b)
+
+    assert len(a) == len(b) == len(set_a) == len(set_b)
+
+    return set_a == set_b
+
+
 def test_is_valid_cell():
     assert h3.is_valid_cell('85283473fffffff')
     assert h3.is_valid_cell('850dab63fffffff')
@@ -77,7 +87,7 @@ def test_grid_disk():
         '8928308283bffff',
     }
 
-    assert out == expected
+    assert same_set(out, expected)
 
 
 def test_grid_disk2():
@@ -108,7 +118,7 @@ def test_grid_disk2():
         '8928308280bffff',
     }
 
-    assert out == expected
+    assert same_set(out, expected)
 
 
 def test_grid_disk_pentagon():
@@ -126,7 +136,7 @@ def test_grid_disk_pentagon():
         '821c37fffffffff',
     }
 
-    assert out == expected
+    assert same_set(out, expected)
 
 
 def test_grid_ring():
@@ -141,8 +151,11 @@ def test_grid_ring():
         '8928308283bffff',
     }
 
-    assert out == expected
-    assert out == h3.grid_disk(h, 1) - h3.grid_disk(h, 0)
+    assert same_set(out, expected)
+    assert same_set(
+        out,
+        set(h3.grid_disk(h, 1)) - set(h3.grid_disk(h, 0))
+    )
 
 
 def test_grid_ring2():
@@ -164,8 +177,11 @@ def test_grid_ring2():
         '89283082867ffff',
     }
 
-    assert out == expected
-    assert out == h3.grid_disk(h, 2) - h3.grid_disk(h, 1)
+    assert same_set(out, expected)
+    assert same_set(
+        out,
+        set(h3.grid_disk(h, 2)) - set(h3.grid_disk(h, 1))
+    )
 
 
 def test_grid_ring_pentagon():
@@ -180,7 +196,7 @@ def test_grid_ring_pentagon():
         '821c37fffffffff',
     }
 
-    assert out == expected
+    assert same_set(out, expected)
 
 
 def test_compact_and_uncompact_cells():
@@ -202,12 +218,12 @@ def test_compact_and_uncompact_cells():
     uncompact_cells = h3.uncompact_cells(compact_cells, 9)
     assert len(uncompact_cells) == 1253
 
-    assert uncompact_cells == cells
+    assert same_set(uncompact_cells, cells)
 
 
 def test_compact_cells_and_uncompact_cells_nothing():
-    assert h3.compact_cells([]) == set()
-    assert h3.uncompact_cells([], 9) == set()
+    assert h3.compact_cells([]) == []
+    assert h3.uncompact_cells([], 9) == []
 
 
 def test_uncompact_cells_error():
