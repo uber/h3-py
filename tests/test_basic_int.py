@@ -1,5 +1,6 @@
 import h3.api.basic_int as h3
 
+
 def same_set(a, b):
     """Test if two collections are the same if taken as sets"""
     set_a = set(a)

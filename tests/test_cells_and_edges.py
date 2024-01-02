@@ -20,6 +20,7 @@ def same_set(a, b):
 
     return set_a == set_b
 
+
 def approx2(a, b):
     if len(a) != len(b):
         return False
