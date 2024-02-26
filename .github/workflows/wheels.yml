@@ -121,6 +121,9 @@ jobs:
           - os: ubuntu-latest
             build: "cp311-manylinux_aarch64"
             name: Linux Aarch64 3.11
+          - os: ubuntu-latest
+            build: "cp312-manylinux_aarch64"
+            name: Linux Aarch64 3.12
 
     steps:
       - uses: actions/checkout@v3
