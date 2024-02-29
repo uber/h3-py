@@ -66,9 +66,6 @@ jobs:
             build: "cp*-musllinux_x86_64"
             name: Linux Intel musl 64-bit
           - os: ubuntu-latest
-            build: "cp36-manylinux_aarch64"
-            name: Linux Aarch64 3.6
-          - os: ubuntu-latest
             build: "cp37-manylinux_aarch64"
             name: Linux Aarch64 3.7
           - os: ubuntu-latest
