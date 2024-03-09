@@ -24,6 +24,7 @@ clear:
 	-@find . -type d -name '__pycache__' | xargs rm -r
 	-@find . -type d -name '*.egg-info' | xargs rm -r
 	-@find . -type f -name '*.pyc' | xargs rm -r
+	-@find . -type f -name '*.so' | xargs rm -r
 	-@find . -type d -name '*.ipynb_checkpoints' | xargs rm -r
 	-@find ./tests -type f -name '*.c' | xargs rm -r
 
