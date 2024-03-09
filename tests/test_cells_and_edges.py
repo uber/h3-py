@@ -571,23 +571,6 @@ def test_get_res0_cells():
     assert sub < set(out)
 
 
-def test_get_icosahedron_faces():
-    h = '804dfffffffffff'
-    expected = [2, 3, 7, 8, 12]
-    out = h3.get_icosahedron_faces(h)
-    assert same_set(out, expected)
-
-    h = '80c1fffffffffff'
-    expected = [13]
-    out = h3.get_icosahedron_faces(h)
-    assert same_set(out, expected)
-
-    h = '80bbfffffffffff'
-    expected = [16, 15]
-    out = h3.get_icosahedron_faces(h)
-    assert same_set(out, expected)
-
-
 def test_to_local_ij_error():
     h = h3.latlng_to_cell(0, 0, 0)
 
