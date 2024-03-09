@@ -16,6 +16,10 @@ avoid adding features or APIs which do not map onto the
 
 - None
 
+## [3.7.7] - 2024-03-09
+
+- Build Python 3.11 wheels (#344)
+
 ## [3.7.6] - 2022-11-23
 
 - Build Python 3.11 wheels (#299)
