@@ -1,14 +1,7 @@
 import h3
 
 
-def same_set(a, b):
-    """Test if two collections are the same if taken as sets"""
-    set_a = set(a)
-    set_b = set(b)
-
-    assert len(a) == len(b) == len(set_a) == len(set_b)
-
-    return set_a == set_b
+from .. import util as u
 
 
 def test_cells_to_h3shape():
@@ -21,7 +14,7 @@ def test_cells_to_h3shape():
     poly2 = h3.H3Poly(poly.outer, *poly.holes)
     out = h3.h3shape_to_cells(poly2, 9)
 
-    assert same_set(out, cells)
+    assert u.same_set(out, cells)
 
 
 def test_cells_to_h3shape_tight():
@@ -32,7 +25,7 @@ def test_cells_to_h3shape_tight():
     poly2 = h3.H3Poly(poly.outer, *poly.holes)
     out = h3.h3shape_to_cells(poly2, 9)
 
-    assert same_set(out, cells)
+    assert u.same_set(out, cells)
 
 
 def test_2_polys():
@@ -49,7 +42,7 @@ def test_2_polys():
         for poly in mpoly
     ]
 
-    assert same_set(
+    assert u.same_set(
         set.union(*out),
         cells
     )

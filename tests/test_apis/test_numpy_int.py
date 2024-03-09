@@ -1,15 +1,7 @@
 import h3.api.numpy_int as h3
 import numpy as np  # only run this test suite if numpy is installed
 
-
-def same_set(a, b):
-    """Test if two collections are the same if taken as sets"""
-    set_a = set(a)
-    set_b = set(b)
-
-    assert len(a) == len(b) == len(set_a) == len(set_b)
-
-    return set_a == set_b
+from .. import util as u
 
 
 def test1():
@@ -30,7 +22,7 @@ def test5():
 
     out = h3.grid_disk(617700169958293503, 1)
     assert isinstance(out, np.ndarray)
-    assert same_set(out, expected)
+    assert u.same_set(out, expected)
 
 
 def test_compact_cells():

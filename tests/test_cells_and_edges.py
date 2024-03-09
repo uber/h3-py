@@ -11,24 +11,7 @@ from h3 import (
 )
 
 
-def same_set(a, b):
-    """Test if two collections are the same if taken as sets"""
-    set_a = set(a)
-    set_b = set(b)
-
-    assert len(a) == len(b) == len(set_a) == len(set_b)
-
-    return set_a == set_b
-
-
-def approx2(a, b):
-    if len(a) != len(b):
-        return False
-
-    return all(
-        x == pytest.approx(y)
-        for x, y in zip(a, b)
-    )
+from . import util as u
 
 
 def test1():
@@ -54,7 +37,7 @@ def test3():
     )
 
     out = h3.cell_to_boundary('8928308280fffff')
-    assert approx2(out, expected)
+    assert u.approx2(out, expected)
 
 
 def test_grid_disk_distance():
@@ -79,13 +62,13 @@ def test5():
     ]
 
     out = h3.grid_disk('8928308280fffff', 1)
-    assert same_set(out, expected)
+    assert u.same_set(out, expected)
 
 
 def test6():
     expected = ['8928308280fffff']
     out = h3.grid_ring('8928308280fffff', 0)
-    assert same_set(out, expected)
+    assert u.same_set(out, expected)
 
 
 def test7():
@@ -99,7 +82,7 @@ def test7():
     ]
 
     out = h3.grid_ring('8928308280fffff', 1)
-    assert same_set(out, expected)
+    assert u.same_set(out, expected)
 
 
 def test8():
@@ -172,7 +155,7 @@ def test_children():
         '8a28308280f7fff'
     ]
     out = h3.cell_to_children(h, 10)
-    assert same_set(out, expected)
+    assert u.same_set(out, expected)
 
     # finest resolution cell should return error for children
     h = '8f04ccb2c45e225'
@@ -261,13 +244,13 @@ def test_compact_cells():
     cells_uncomp, cells_comp, _ = get_maine_cells()
     out = h3.compact_cells(cells_uncomp)
 
-    assert same_set(out, cells_comp)
+    assert u.same_set(out, cells_comp)
 
 
 def test_uncompact_cells():
     cells_uncomp, cells_comp, res = get_maine_cells()
     out = h3.uncompact_cells(cells_comp, res)
-    assert same_set(out, cells_uncomp)
+    assert u.same_set(out, cells_uncomp)
 
 
 def test_get_num_cells():
@@ -349,7 +332,7 @@ def test_origin_to_directed_edges():
     }
     neighbors = h3.grid_ring(h, 1)
 
-    assert same_set(neighbors, destinations)
+    assert u.same_set(neighbors, destinations)
 
 
 def test_edge_boundary():
@@ -509,7 +492,7 @@ def test_get_pentagons():
         '80ebfffffffffff',
     ]
 
-    assert same_set(out, expected)
+    assert u.same_set(out, expected)
 
     out = h3.get_pentagons(5)
 
@@ -528,7 +511,7 @@ def test_get_pentagons():
         '85ea0003fffffff',
     ]
 
-    assert same_set(out, expected)
+    assert u.same_set(out, expected)
 
     for i in range(16):
         assert len(h3.get_pentagons(i)) == 12
@@ -606,7 +589,7 @@ def test_from_local_ij_error():
         for i, j in goodies
     }
 
-    assert same_set(out, nb)
+    assert u.same_set(out, nb)
 
 
 def test_to_local_ij_self():

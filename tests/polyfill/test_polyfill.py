@@ -3,15 +3,7 @@ import pytest
 
 from h3 import H3ResDomainError
 
-
-def same_set(a, b):
-    """Test if two collections are the same if taken as sets"""
-    set_a = set(a)
-    set_b = set(b)
-
-    assert len(a) == len(b) == len(set_a) == len(set_b)
-
-    return set_a == set_b
+from .. import util as u
 
 
 def get_us_box_coords():
@@ -82,7 +74,7 @@ def test_h3shape_to_cells():
     poly = h3.H3Poly(maine)
     out = h3.h3shape_to_cells(poly, 3)
 
-    assert same_set(out, expected)
+    assert u.same_set(out, expected)
 
 
 def test_h3shape_to_cells2():
@@ -116,7 +108,7 @@ def test_h3shape_to_cells_holes():
         cells_2 = set(h3.h3shape_to_cells(h3.H3Poly(hole2), res))
 
         assert len(cells_all) == len(cells_holes) + len(cells_1) + len(cells_2)
-        assert same_set(
+        assert u.same_set(
             cells_all,
             set.union(cells_holes, cells_1, cells_2)
         )

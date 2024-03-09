@@ -1,6 +1,8 @@
 import h3
 import pytest
 
+from .. import util as u
+
 
 class MockGeoInterface:
     def __init__(self, dictionary):
@@ -10,16 +12,6 @@ class MockGeoInterface:
     @property
     def __geo_interface__(self):
         return self.dictionary
-
-
-def same_set(a, b):
-    """Test if two collections are the same if taken as sets"""
-    set_a = set(a)
-    set_b = set(b)
-
-    assert len(a) == len(b) == len(set_a) == len(set_b)
-
-    return set_a == set_b
 
 
 def latlng_open():
@@ -123,7 +115,7 @@ def test_polyfill_with_hole():
 
     foo = lambda x: set(h3.h3shape_to_cells(h3.H3Poly(x), 9))
 
-    assert same_set(
+    assert u.same_set(
         out,
         foo(sf_7x7) - foo(sf_hole1)
     )
@@ -136,7 +128,7 @@ def test_polyfill_with_two_holes():
     assert len(out) == 1172
 
     foo = lambda x: set(h3.h3shape_to_cells(h3.H3Poly(x), 9))
-    assert same_set(
+    assert u.same_set(
         out,
         foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2))
     )

@@ -1,15 +1,7 @@
 import h3
 import pytest
 
-
-def approx2(a, b):
-    if len(a) != len(b):
-        return False
-
-    return all(
-        x == pytest.approx(y)
-        for x, y in zip(a, b)
-    )
+from . import util as u
 
 
 def cell_perimiter1(h, unit='km'):
@@ -65,7 +57,7 @@ def test_areas_at_00():
         for r in range(16)
     ]
 
-    assert approx2(out, areas_km2)
+    assert u.approx2(out, areas_km2)
 
     areas_rads2 = [
         6.312389871006786335e-02,
@@ -91,7 +83,7 @@ def test_areas_at_00():
         for r in range(16)
     ]
 
-    assert approx2(out, areas_rads2)
+    assert u.approx2(out, areas_rads2)
 
 
 def test_bad_units():
