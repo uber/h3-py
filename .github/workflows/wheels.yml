@@ -28,7 +28,7 @@ jobs:
         os: [ubuntu-20.04]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.1.1
         with:
           submodules: recursive
 
@@ -98,7 +98,7 @@ jobs:
             name: Linux Aarch64 3.12
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.1.1
         with:
           submodules: recursive
 
