@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>API reference &#8212; h3-py</title>
   
@@ -19,52 +18,48 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference';</script>
     <link rel="canonical" href="https://uber.github.io/h3-py/api_reference.html" />
-    <link rel="shortcut icon" href="_static/logo.svg"/>
+    <link rel="icon" href="_static/logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Contributing" href="contributing.html" />
@@ -78,10 +73,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -122,11 +116,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -160,7 +157,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current nav bd-sidenav">
@@ -386,7 +394,79 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ij-indexing">IJ-indexing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-h3">Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-h3">Definitions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3BaseException"><code class="docutils literal notranslate"><span class="pre">H3BaseException</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3CellInvalidError"><code class="docutils literal notranslate"><span class="pre">H3CellInvalidError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3DirEdgeInvalidError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DomainError"><code class="docutils literal notranslate"><span class="pre">H3DomainError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DuplicateInputError"><code class="docutils literal notranslate"><span class="pre">H3DuplicateInputError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3FailedError"><code class="docutils literal notranslate"><span class="pre">H3FailedError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3GridNavigationError"><code class="docutils literal notranslate"><span class="pre">H3GridNavigationError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3LatLngDomainError"><code class="docutils literal notranslate"><span class="pre">H3LatLngDomainError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryAllocError"><code class="docutils literal notranslate"><span class="pre">H3MemoryAllocError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryBoundsError"><code class="docutils literal notranslate"><span class="pre">H3MemoryBoundsError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryError"><code class="docutils literal notranslate"><span class="pre">H3MemoryError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3NotNeighborsError"><code class="docutils literal notranslate"><span class="pre">H3NotNeighborsError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3OptionInvalidError"><code class="docutils literal notranslate"><span class="pre">H3OptionInvalidError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3PentagonError"><code class="docutils literal notranslate"><span class="pre">H3PentagonError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly"><code class="docutils literal notranslate"><span class="pre">H3Poly</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.outer"><code class="docutils literal notranslate"><span class="pre">H3Poly.outer</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.holes"><code class="docutils literal notranslate"><span class="pre">H3Poly.holes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.loopcode"><code class="docutils literal notranslate"><span class="pre">H3Poly.loopcode</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResDomainError"><code class="docutils literal notranslate"><span class="pre">H3ResDomainError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResMismatchError"><code class="docutils literal notranslate"><span class="pre">H3ResMismatchError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3UndirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3UndirEdgeInvalidError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ValueError"><code class="docutils literal notranslate"><span class="pre">H3ValueError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3VertexInvalidError"><code class="docutils literal notranslate"><span class="pre">H3VertexInvalidError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.UnknownH3ErrorCode"><code class="docutils literal notranslate"><span class="pre">UnknownH3ErrorCode</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.are_neighbor_cells"><code class="docutils literal notranslate"><span class="pre">are_neighbor_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_area"><code class="docutils literal notranslate"><span class="pre">average_hexagon_area()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_edge_length"><code class="docutils literal notranslate"><span class="pre">average_hexagon_edge_length()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_area"><code class="docutils literal notranslate"><span class="pre">cell_area()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_boundary"><code class="docutils literal notranslate"><span class="pre">cell_to_boundary()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_center_child"><code class="docutils literal notranslate"><span class="pre">cell_to_center_child()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_children"><code class="docutils literal notranslate"><span class="pre">cell_to_children()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_latlng"><code class="docutils literal notranslate"><span class="pre">cell_to_latlng()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_local_ij"><code class="docutils literal notranslate"><span class="pre">cell_to_local_ij()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_parent"><code class="docutils literal notranslate"><span class="pre">cell_to_parent()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_directed_edge"><code class="docutils literal notranslate"><span class="pre">cells_to_directed_edge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_geo"><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_h3shape"><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.compact_cells"><code class="docutils literal notranslate"><span class="pre">compact_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_cells"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.edge_length"><code class="docutils literal notranslate"><span class="pre">edge_length()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_cells"><code class="docutils literal notranslate"><span class="pre">geo_to_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_h3shape"><code class="docutils literal notranslate"><span class="pre">geo_to_h3shape()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_base_cell_number"><code class="docutils literal notranslate"><span class="pre">get_base_cell_number()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_destination"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_destination()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_origin"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_origin()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_icosahedron_faces"><code class="docutils literal notranslate"><span class="pre">get_icosahedron_faces()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_num_cells"><code class="docutils literal notranslate"><span class="pre">get_num_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_pentagons"><code class="docutils literal notranslate"><span class="pre">get_pentagons()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_res0_cells"><code class="docutils literal notranslate"><span class="pre">get_res0_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_resolution"><code class="docutils literal notranslate"><span class="pre">get_resolution()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.great_circle_distance"><code class="docutils literal notranslate"><span class="pre">great_circle_distance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_disk"><code class="docutils literal notranslate"><span class="pre">grid_disk()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_distance"><code class="docutils literal notranslate"><span class="pre">grid_distance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_path_cells"><code class="docutils literal notranslate"><span class="pre">grid_path_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_ring"><code class="docutils literal notranslate"><span class="pre">grid_ring()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_cells"><code class="docutils literal notranslate"><span class="pre">h3shape_to_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_geo"><code class="docutils literal notranslate"><span class="pre">h3shape_to_geo()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.int_to_str"><code class="docutils literal notranslate"><span class="pre">int_to_str()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_pentagon"><code class="docutils literal notranslate"><span class="pre">is_pentagon()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_res_class_III"><code class="docutils literal notranslate"><span class="pre">is_res_class_III()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_cell"><code class="docutils literal notranslate"><span class="pre">is_valid_cell()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_directed_edge"><code class="docutils literal notranslate"><span class="pre">is_valid_directed_edge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.latlng_to_cell"><code class="docutils literal notranslate"><span class="pre">latlng_to_cell()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.local_ij_to_cell"><code class="docutils literal notranslate"><span class="pre">local_ij_to_cell()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.origin_to_directed_edges"><code class="docutils literal notranslate"><span class="pre">origin_to_directed_edges()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.str_to_int"><code class="docutils literal notranslate"><span class="pre">str_to_int()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.uncompact_cells"><code class="docutils literal notranslate"><span class="pre">uncompact_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.versions"><code class="docutils literal notranslate"><span class="pre">versions()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -396,10 +476,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="api-reference">
-<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h1>
+<h1>API reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h1>
 <p>This page lists the functions that are common to each of the
 <a class="reference internal" href="api_comparison.html"><span class="doc std std-doc">provided APIs</span></a>.
 The APIs differ only in their input/output types
@@ -407,11 +487,11 @@ The APIs differ only in their input/output types
 <p>These functions align with those explained in the
 <a class="reference external" href="https://h3geo.org/docs/api/indexing">core H3 documentation</a>.</p>
 <section id="summaries">
-<h2>Summaries<a class="headerlink" href="#summaries" title="Permalink to this heading">#</a></h2>
+<h2>Summaries<a class="headerlink" href="#summaries" title="Link to this heading">#</a></h2>
 <p>There is no strict hierarchy for H3 functions,
 but we’ll try to group functions in a reasonably logical manner.</p>
 <section id="identification">
-<h3>Identification<a class="headerlink" href="#identification" title="Permalink to this heading">#</a></h3>
+<h3>Identification<a class="headerlink" href="#identification" title="Link to this heading">#</a></h3>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#h3.is_valid_cell" title="h3.is_valid_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_cell</span></code></a>(h)</p></td>
@@ -433,7 +513,7 @@ but we’ll try to group functions in a reasonably logical manner.</p>
 </table>
 </section>
 <section id="cells">
-<h3>Cells<a class="headerlink" href="#cells" title="Permalink to this heading">#</a></h3>
+<h3>Cells<a class="headerlink" href="#cells" title="Link to this heading">#</a></h3>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#h3.latlng_to_cell" title="h3.latlng_to_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latlng_to_cell</span></code></a>(lat, lng, res)</p></td>
@@ -470,7 +550,7 @@ but we’ll try to group functions in a reasonably logical manner.</p>
 </table>
 </section>
 <section id="geographic-coordinates">
-<h3>Geographic coordinates<a class="headerlink" href="#geographic-coordinates" title="Permalink to this heading">#</a></h3>
+<h3>Geographic coordinates<a class="headerlink" href="#geographic-coordinates" title="Link to this heading">#</a></h3>
 <p>Functions relating H3 objects to geographic (lat/lng) coordinates.</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
@@ -499,14 +579,14 @@ but we’ll try to group functions in a reasonably logical manner.</p>
 </table>
 </section>
 <section id="hierarchical-relationships">
-<h3>Hierarchical relationships<a class="headerlink" href="#hierarchical-relationships" title="Permalink to this heading">#</a></h3>
+<h3>Hierarchical relationships<a class="headerlink" href="#hierarchical-relationships" title="Link to this heading">#</a></h3>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#h3.cell_to_parent" title="h3.cell_to_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_parent</span></code></a>(h[, res])</p></td>
 <td><p>Get the parent of a cell.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#h3.cell_to_children" title="h3.cell_to_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_children</span></code></a>(h[, res])</p></td>
-<td><p>Children of a cell.</p></td>
+<td><p>Children of a cell as an unordered collection.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#h3.cell_to_center_child" title="h3.cell_to_center_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_center_child</span></code></a>(h[, res])</p></td>
 <td><p>Get the center child of a cell at some finer resolution.</p></td>
@@ -515,14 +595,14 @@ but we’ll try to group functions in a reasonably logical manner.</p>
 </table>
 </section>
 <section id="cell-grid-relationships">
-<h3>Cell grid relationships<a class="headerlink" href="#cell-grid-relationships" title="Permalink to this heading">#</a></h3>
+<h3>Cell grid relationships<a class="headerlink" href="#cell-grid-relationships" title="Link to this heading">#</a></h3>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#h3.grid_ring" title="h3.grid_ring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_ring</span></code></a>(h[, k])</p></td>
-<td><p>Return unordered set of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></td>
+<td><p>Return unordered collection of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#h3.grid_disk" title="h3.grid_disk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_disk</span></code></a>(h[, k])</p></td>
-<td><p>Return unordered set of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">&lt;=</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></td>
+<td><p>Return unordered collection of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">&lt;=</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#h3.grid_distance" title="h3.grid_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_distance</span></code></a>(h1, h2)</p></td>
 <td><p>Compute the H3 distance between two cells.</p></td>
@@ -537,7 +617,7 @@ but we’ll try to group functions in a reasonably logical manner.</p>
 </table>
 </section>
 <section id="edges">
-<h3>Edges<a class="headerlink" href="#edges" title="Permalink to this heading">#</a></h3>
+<h3>Edges<a class="headerlink" href="#edges" title="Link to this heading">#</a></h3>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#h3.cells_to_directed_edge" title="h3.cells_to_directed_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cells_to_directed_edge</span></code></a>(origin, destination)</p></td>
@@ -559,7 +639,7 @@ but we’ll try to group functions in a reasonably logical manner.</p>
 </table>
 </section>
 <section id="ij-indexing">
-<h3>IJ-indexing<a class="headerlink" href="#ij-indexing" title="Permalink to this heading">#</a></h3>
+<h3>IJ-indexing<a class="headerlink" href="#ij-indexing" title="Link to this heading">#</a></h3>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#h3.get_base_cell_number" title="h3.get_base_cell_number"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_base_cell_number</span></code></a>(h)</p></td>
@@ -579,10 +659,10 @@ but we’ll try to group functions in a reasonably logical manner.</p>
 </section>
 </section>
 <section id="module-h3">
-<span id="definitions"></span><h2>Definitions<a class="headerlink" href="#module-h3" title="Permalink to this heading">#</a></h2>
+<span id="definitions"></span><h2>Definitions<a class="headerlink" href="#module-h3" title="Link to this heading">#</a></h2>
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3BaseException">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3BaseException</span></span><a class="headerlink" href="#h3.H3BaseException" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3BaseException</span></span><a class="headerlink" href="#h3.H3BaseException" title="Link to this definition">#</a></dt>
 <dd><p>Base H3 exception class.</p>
 <p>Concrete subclasses of this class correspond to specific
 error codes from the C library.</p>
@@ -593,76 +673,76 @@ C library error code.</p>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3CellInvalidError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3CellInvalidError</span></span><a class="headerlink" href="#h3.H3CellInvalidError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3CellInvalidError</span></span><a class="headerlink" href="#h3.H3CellInvalidError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3DirEdgeInvalidError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3DirEdgeInvalidError</span></span><a class="headerlink" href="#h3.H3DirEdgeInvalidError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3DirEdgeInvalidError</span></span><a class="headerlink" href="#h3.H3DirEdgeInvalidError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3DomainError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3DomainError</span></span><a class="headerlink" href="#h3.H3DomainError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3DomainError</span></span><a class="headerlink" href="#h3.H3DomainError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3DuplicateInputError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3DuplicateInputError</span></span><a class="headerlink" href="#h3.H3DuplicateInputError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3DuplicateInputError</span></span><a class="headerlink" href="#h3.H3DuplicateInputError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3FailedError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3FailedError</span></span><a class="headerlink" href="#h3.H3FailedError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3FailedError</span></span><a class="headerlink" href="#h3.H3FailedError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3GridNavigationError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3GridNavigationError</span></span><a class="headerlink" href="#h3.H3GridNavigationError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3GridNavigationError</span></span><a class="headerlink" href="#h3.H3GridNavigationError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3LatLngDomainError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3LatLngDomainError</span></span><a class="headerlink" href="#h3.H3LatLngDomainError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3LatLngDomainError</span></span><a class="headerlink" href="#h3.H3LatLngDomainError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3MemoryAllocError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3MemoryAllocError</span></span><a class="headerlink" href="#h3.H3MemoryAllocError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3MemoryAllocError</span></span><a class="headerlink" href="#h3.H3MemoryAllocError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3MemoryBoundsError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3MemoryBoundsError</span></span><a class="headerlink" href="#h3.H3MemoryBoundsError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3MemoryBoundsError</span></span><a class="headerlink" href="#h3.H3MemoryBoundsError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3MemoryError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3MemoryError</span></span><a class="headerlink" href="#h3.H3MemoryError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3MemoryError</span></span><a class="headerlink" href="#h3.H3MemoryError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3NotNeighborsError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3NotNeighborsError</span></span><a class="headerlink" href="#h3.H3NotNeighborsError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3NotNeighborsError</span></span><a class="headerlink" href="#h3.H3NotNeighborsError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3OptionInvalidError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3OptionInvalidError</span></span><a class="headerlink" href="#h3.H3OptionInvalidError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3OptionInvalidError</span></span><a class="headerlink" href="#h3.H3OptionInvalidError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3PentagonError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3PentagonError</span></span><a class="headerlink" href="#h3.H3PentagonError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3PentagonError</span></span><a class="headerlink" href="#h3.H3PentagonError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="h3.H3Poly">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3Poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">holes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#H3Poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.H3Poly" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3Poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">holes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#H3Poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.H3Poly" title="Link to this definition">#</a></dt>
 <dd><p>Container for loops of lat/lng points describing a polygon.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="h3.H3Poly.outer">
-<span class="sig-name descname"><span class="pre">outer</span></span><a class="headerlink" href="#h3.H3Poly.outer" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">outer</span></span><a class="headerlink" href="#h3.H3Poly.outer" title="Link to this definition">#</a></dt>
 <dd><p>List of lat/lng points describing the outer loop of the polygon</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -673,7 +753,7 @@ C library error code.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="h3.H3Poly.holes">
-<span class="sig-name descname"><span class="pre">holes</span></span><a class="headerlink" href="#h3.H3Poly.holes" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">holes</span></span><a class="headerlink" href="#h3.H3Poly.holes" title="Link to this definition">#</a></dt>
 <dd><p>List of loops of lat/lng points describing the holes of the polygon</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -710,7 +790,7 @@ C library error code.</p>
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="h3.H3Poly.loopcode">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loopcode</span></span><a class="headerlink" href="#h3.H3Poly.loopcode" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loopcode</span></span><a class="headerlink" href="#h3.H3Poly.loopcode" title="Link to this definition">#</a></dt>
 <dd><p>Short code for describing the length of the outer loop and each hole</p>
 <p>Example: <cite>[382/(18, 6, 6)]</cite> indicates an outer loop of 382 points,
 along with 3 holes with 18, 6, and 6 points, respectively.</p>
@@ -721,32 +801,32 @@ along with 3 holes with 18, 6, and 6 points, respectively.</p>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3ResDomainError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3ResDomainError</span></span><a class="headerlink" href="#h3.H3ResDomainError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3ResDomainError</span></span><a class="headerlink" href="#h3.H3ResDomainError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3ResMismatchError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3ResMismatchError</span></span><a class="headerlink" href="#h3.H3ResMismatchError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3ResMismatchError</span></span><a class="headerlink" href="#h3.H3ResMismatchError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3UndirEdgeInvalidError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3UndirEdgeInvalidError</span></span><a class="headerlink" href="#h3.H3UndirEdgeInvalidError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3UndirEdgeInvalidError</span></span><a class="headerlink" href="#h3.H3UndirEdgeInvalidError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3ValueError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3ValueError</span></span><a class="headerlink" href="#h3.H3ValueError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3ValueError</span></span><a class="headerlink" href="#h3.H3ValueError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3VertexInvalidError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3VertexInvalidError</span></span><a class="headerlink" href="#h3.H3VertexInvalidError" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3VertexInvalidError</span></span><a class="headerlink" href="#h3.H3VertexInvalidError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.UnknownH3ErrorCode">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">UnknownH3ErrorCode</span></span><a class="headerlink" href="#h3.UnknownH3ErrorCode" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">UnknownH3ErrorCode</span></span><a class="headerlink" href="#h3.UnknownH3ErrorCode" title="Link to this definition">#</a></dt>
 <dd><p>Indicates that the h3-py Python bindings have received an
 unrecognized error code from the C library.</p>
 <p>This should never happen. Please report if you get this error.</p>
@@ -756,7 +836,7 @@ H3BaseException class hierarchy.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.are_neighbor_cells">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">are_neighbor_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#are_neighbor_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.are_neighbor_cells" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">are_neighbor_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#are_neighbor_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.are_neighbor_cells" title="Link to this definition">#</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">h1</span></code> and <code class="docutils literal notranslate"><span class="pre">h2</span></code> are neighboring cells.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -773,7 +853,7 @@ H3BaseException class hierarchy.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.average_hexagon_area">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">average_hexagon_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km^2'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#average_hexagon_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.average_hexagon_area" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">average_hexagon_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km^2'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#average_hexagon_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.average_hexagon_area" title="Link to this definition">#</a></dt>
 <dd><p>Return the average area of an H3 <em>hexagon</em>
 for the given resolution.</p>
 <p>This average <em>excludes</em> pentagons.</p>
@@ -786,7 +866,7 @@ for the given resolution.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.average_hexagon_edge_length">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">average_hexagon_edge_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#average_hexagon_edge_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.average_hexagon_edge_length" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">average_hexagon_edge_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#average_hexagon_edge_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.average_hexagon_edge_length" title="Link to this definition">#</a></dt>
 <dd><p>Return the average <em>hexagon</em> edge length
 for the given resolution.</p>
 <p>This average <em>excludes</em> pentagons.</p>
@@ -799,7 +879,7 @@ for the given resolution.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cell_area">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km^2'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_area" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km^2'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_area" title="Link to this definition">#</a></dt>
 <dd><p>Compute the spherical surface area of a specific H3 cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -821,7 +901,7 @@ The function uses the spherical distance calculation given by
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cell_to_boundary">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_boundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_boundary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_boundary" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_boundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_boundary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_boundary" title="Link to this definition">#</a></dt>
 <dd><p>Return tuple of lat/lng pairs describing the cell boundary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -835,7 +915,7 @@ The function uses the spherical distance calculation given by
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cell_to_center_child">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_center_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_center_child"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_center_child" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_center_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_center_child"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_center_child" title="Link to this definition">#</a></dt>
 <dd><p>Get the center child of a cell at some finer resolution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -853,8 +933,8 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cell_to_children">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_children" title="Permalink to this definition">#</a></dt>
-<dd><p>Children of a cell.</p>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_children" title="Link to this definition">#</a></dt>
+<dd><p>Children of a cell as an unordered collection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -867,11 +947,13 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 <dd class="field-even"><p>unordered collection of H3Cell</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>There is currently no guaranteed order of the output cells.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cell_to_latlng">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_latlng</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_latlng"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_latlng" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_latlng</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_latlng"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_latlng" title="Link to this definition">#</a></dt>
 <dd><p>Return the center point of an H3 cell as a lat/lng pair.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -889,7 +971,7 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cell_to_local_ij">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_local_ij</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_local_ij"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_local_ij" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_local_ij</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_local_ij"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_local_ij" title="Link to this definition">#</a></dt>
 <dd><p>Return local (i,j) coordinates of cell <code class="docutils literal notranslate"><span class="pre">h</span></code> in relation to <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -915,7 +997,7 @@ you the property of (0, 0) being the <code class="docutils literal notranslate">
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cell_to_parent">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_parent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_parent" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_parent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_parent" title="Link to this definition">#</a></dt>
 <dd><p>Get the parent of a cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -933,7 +1015,7 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cells_to_directed_edge">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_directed_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cells_to_directed_edge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cells_to_directed_edge" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_directed_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cells_to_directed_edge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cells_to_directed_edge" title="Link to this definition">#</a></dt>
 <dd><p>Create an H3 Index denoting a unidirectional edge.</p>
 <p>The edge is constructed from neighboring cells <code class="docutils literal notranslate"><span class="pre">origin</span></code> and
 <code class="docutils literal notranslate"><span class="pre">destination</span></code>.</p>
@@ -955,10 +1037,10 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cells_to_geo">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cells_to_geo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cells_to_geo" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cells_to_geo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cells_to_geo" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cells</strong> (<em>iterable of H3 Cells</em>) – </p>
+<dd class="field-odd"><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3 Cells</em>) – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>in <cite>__geo_interface__</cite> format</p>
@@ -971,12 +1053,12 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cells_to_h3shape">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_h3shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cells_to_h3shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cells_to_h3shape" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_h3shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cells_to_h3shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cells_to_h3shape" title="Link to this definition">#</a></dt>
 <dd><p>Return a H3MultiPoly describing the area covered by a set of H3 cells.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cells</strong> (<em>iterable of H3 cells</em>) – </p></li>
+<li><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3 cells</em>) – </p></li>
 <li><p><strong>tight</strong> (<em>bool</em>) – If True, return H3Poly if possible. If False, always return H3MultiPoly</p></li>
 </ul>
 </dd>
@@ -996,23 +1078,25 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.compact_cells">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">compact_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#compact_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.compact_cells" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">compact_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#compact_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.compact_cells" title="Link to this definition">#</a></dt>
 <dd><p>Compact a collection of H3 cells by combining
 smaller cells into larger cells, if all child cells
 are present. Input cells must all share the same resolution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cells</strong> (<em>iterable of H3 Cells</em>) – </p>
+<dd class="field-odd"><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3 Cells</em>) – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>unordered collection of H3Cell</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>There is currently no guaranteed order of the output cells.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.directed_edge_to_cells">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">directed_edge_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#directed_edge_to_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.directed_edge_to_cells" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">directed_edge_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#directed_edge_to_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.directed_edge_to_cells" title="Link to this definition">#</a></dt>
 <dd><p>Return (origin, destination) tuple from H3 directed edge</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1030,7 +1114,7 @@ are present. Input cells must all share the same resolution.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.edge_length">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">edge_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#edge_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.edge_length" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">edge_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#edge_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.edge_length" title="Link to this definition">#</a></dt>
 <dd><p>Compute the spherical length of a specific H3 edge.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1050,7 +1134,7 @@ are present. Input cells must all share the same resolution.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.geo_to_cells">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">geo_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#geo_to_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.geo_to_cells" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">geo_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#geo_to_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.geo_to_cells" title="Link to this definition">#</a></dt>
 <dd><p>Convert from __geo_interface__ to cells.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1060,11 +1144,13 @@ are present. Input cells must all share the same resolution.</p>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>There is currently no guaranteed order of the output cells.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.geo_to_h3shape">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">geo_to_h3shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#geo_to_h3shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.geo_to_h3shape" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">geo_to_h3shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#geo_to_h3shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.geo_to_h3shape" title="Link to this definition">#</a></dt>
 <dd><p>Translate from __geo_interface__ to H3Shape.</p>
 <p><cite>geo</cite> either implements <cite>__geo_interface__</cite> or is a dict matching the format</p>
 <dl class="field-list simple">
@@ -1076,7 +1162,7 @@ are present. Input cells must all share the same resolution.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.get_base_cell_number">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_base_cell_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_base_cell_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_base_cell_number" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_base_cell_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_base_cell_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_base_cell_number" title="Link to this definition">#</a></dt>
 <dd><p>Return the base cell <em>number</em> (<code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">121</span></code>) of the given cell.</p>
 <p>The base cell <em>number</em> and the H3Index are two different representations
 of the same cell: the parent cell of resolution <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
@@ -1095,7 +1181,7 @@ H3Index.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.get_directed_edge_destination">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_directed_edge_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_directed_edge_destination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_directed_edge_destination" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_directed_edge_destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_directed_edge_destination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_directed_edge_destination" title="Link to this definition">#</a></dt>
 <dd><p>Destination cell from an H3 directed edge.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1109,7 +1195,7 @@ H3Index.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.get_directed_edge_origin">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_directed_edge_origin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_directed_edge_origin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_directed_edge_origin" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_directed_edge_origin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_directed_edge_origin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_directed_edge_origin" title="Link to this definition">#</a></dt>
 <dd><p>Origin cell from an H3 directed edge.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1123,7 +1209,7 @@ H3Index.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.get_icosahedron_faces">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_icosahedron_faces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_icosahedron_faces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_icosahedron_faces" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_icosahedron_faces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_icosahedron_faces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_icosahedron_faces" title="Link to this definition">#</a></dt>
 <dd><p>Return icosahedron faces intersecting a given H3 cell.</p>
 <p>There are twenty possible faces, ranging from 0–19.</p>
 <p>Note: Every interface returns a Python <code class="docutils literal notranslate"><span class="pre">set</span></code> of <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
@@ -1139,7 +1225,7 @@ H3Index.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.get_num_cells">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_num_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_num_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_num_cells" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_num_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_num_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_num_cells" title="Link to this definition">#</a></dt>
 <dd><p>Return the total number of <em>cells</em> (hexagons and pentagons)
 for the given resolution.</p>
 <dl class="field-list simple">
@@ -1151,7 +1237,7 @@ for the given resolution.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.get_pentagons">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_pentagons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_pentagons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_pentagons" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_pentagons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_pentagons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_pentagons" title="Link to this definition">#</a></dt>
 <dd><p>Return all pentagons at a given resolution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1165,7 +1251,7 @@ for the given resolution.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.get_res0_cells">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_res0_cells</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_res0_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_res0_cells" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_res0_cells</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_res0_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_res0_cells" title="Link to this definition">#</a></dt>
 <dd><p>Return all cells at resolution 0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1175,11 +1261,13 @@ for the given resolution.</p>
 <dd class="field-even"><p>unordered collection of H3Cell</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>There is currently no guaranteed order of the output cells.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.get_resolution">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_resolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_resolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_resolution" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">get_resolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#get_resolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.get_resolution" title="Link to this definition">#</a></dt>
 <dd><p>Return the resolution of an H3 cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1193,7 +1281,7 @@ for the given resolution.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.great_circle_distance">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">great_circle_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latlng1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latlng2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#great_circle_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.great_circle_distance" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">great_circle_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latlng1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latlng2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#great_circle_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.great_circle_distance" title="Link to this definition">#</a></dt>
 <dd><p>Compute the spherical distance between two (lat, lng) points.
 AKA: great circle distance or “haversine” distance.</p>
 <p>todo: overload to allow two cell inputs?</p>
@@ -1213,8 +1301,8 @@ AKA: great circle distance or “haversine” distance.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.grid_disk">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_disk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_disk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_disk" title="Permalink to this definition">#</a></dt>
-<dd><p>Return unordered set of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">&lt;=</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_disk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_disk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_disk" title="Link to this definition">#</a></dt>
+<dd><p>Return unordered collection of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">&lt;=</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.
 That is, the ‘filled-in’ disk.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1227,11 +1315,13 @@ That is, the ‘filled-in’ disk.</p>
 <dd class="field-even"><p>unordered collection of H3Cell</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>There is currently no guaranteed order of the output cells.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.grid_distance">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_distance" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_distance" title="Link to this definition">#</a></dt>
 <dd><p>Compute the H3 distance between two cells.</p>
 <p>The H3 distance is defined as the length of the shortest
 path between the cells in the graph formed by connecting
@@ -1253,7 +1343,7 @@ cells are too far apart to compute the distance.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.grid_path_cells">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_path_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_path_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_path_cells" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_path_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_path_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_path_cells" title="Link to this definition">#</a></dt>
 <dd><p>Returns the ordered collection of cells denoting a
 minimum-length non-unique path between cells.</p>
 <dl class="field-list simple">
@@ -1274,8 +1364,8 @@ minimum-length non-unique path between cells.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.grid_ring">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_ring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_ring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_ring" title="Permalink to this definition">#</a></dt>
-<dd><p>Return unordered set of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_ring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_ring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_ring" title="Link to this definition">#</a></dt>
+<dd><p>Return unordered collection of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.
 That is, the “hollow” ring.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1288,11 +1378,13 @@ That is, the “hollow” ring.</p>
 <dd class="field-even"><p>unordered collection of H3Cell</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>There is currently no guaranteed order of the output cells.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.h3shape_to_cells">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">h3shape_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#h3shape_to_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.h3shape_to_cells" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">h3shape_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#h3shape_to_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.h3shape_to_cells" title="Link to this definition">#</a></dt>
 <dd><p>Return the set of H3 cells at a given resolution whose center points
 are contained within an <cite>H3Poly</cite> or <cite>H3MultiPoly</cite>.</p>
 <dl class="field-list simple">
@@ -1321,11 +1413,13 @@ are contained within an <cite>H3Poly</cite> or <cite>H3MultiPoly</cite>.</p>
 <span class="go"> &#39;86283095fffffff&#39;}</span>
 </pre></div>
 </div>
+<p class="rubric">Notes</p>
+<p>There is currently no guaranteed order of the output cells.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.h3shape_to_geo">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">h3shape_to_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#h3shape_to_geo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.h3shape_to_geo" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">h3shape_to_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#h3shape_to_geo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.h3shape_to_geo" title="Link to this definition">#</a></dt>
 <dd><p>Translate from H3Shape to a __geo_interface__ dict.</p>
 <p><cite>h3shape</cite> should be either H3Poly or H3MultiPoly</p>
 <dl class="field-list simple">
@@ -1337,7 +1431,7 @@ are contained within an <cite>H3Poly</cite> or <cite>H3MultiPoly</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.int_to_str">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">int_to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#int_to_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.int_to_str" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">int_to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#int_to_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.int_to_str" title="Link to this definition">#</a></dt>
 <dd><p>Converts an H3 64-bit integer index to a hexadecimal string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1354,7 +1448,7 @@ are contained within an <cite>H3Poly</cite> or <cite>H3MultiPoly</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.is_pentagon">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">is_pentagon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#is_pentagon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.is_pentagon" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">is_pentagon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#is_pentagon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.is_pentagon" title="Link to this definition">#</a></dt>
 <dd><p>Identify if an H3 cell is a pentagon.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1374,7 +1468,7 @@ Will return <code class="docutils literal notranslate"><span class="pre">False</
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.is_res_class_III">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">is_res_class_III</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#is_res_class_III"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.is_res_class_III" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">is_res_class_III</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#is_res_class_III"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.is_res_class_III" title="Link to this definition">#</a></dt>
 <dd><p>Determine if cell has orientation “Class II” or “Class III”.</p>
 <p>The orientation of pentagons/hexagons on the icosahedron can be one
 of two types: “Class II” or “Class III”.</p>
@@ -1402,7 +1496,7 @@ alternates between resolutions.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.is_valid_cell">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">is_valid_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#is_valid_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.is_valid_cell" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">is_valid_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#is_valid_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.is_valid_cell" title="Link to this definition">#</a></dt>
 <dd><p>Validates an H3 cell (hexagon or pentagon).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1413,7 +1507,7 @@ alternates between resolutions.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.is_valid_directed_edge">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">is_valid_directed_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#is_valid_directed_edge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.is_valid_directed_edge" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">is_valid_directed_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#is_valid_directed_edge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.is_valid_directed_edge" title="Link to this definition">#</a></dt>
 <dd><p>Validates an H3 unidirectional edge.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1424,7 +1518,7 @@ alternates between resolutions.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.latlng_to_cell">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">latlng_to_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#latlng_to_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.latlng_to_cell" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">latlng_to_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#latlng_to_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.latlng_to_cell" title="Link to this definition">#</a></dt>
 <dd><p>Return the cell containing the (lat, lng) point
 for a given resolution.</p>
 <dl class="field-list simple">
@@ -1436,7 +1530,7 @@ for a given resolution.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.local_ij_to_cell">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">local_ij_to_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#local_ij_to_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.local_ij_to_cell" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">local_ij_to_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#local_ij_to_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.local_ij_to_cell" title="Link to this definition">#</a></dt>
 <dd><p>Return cell at local (i,j) position relative to the <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1462,7 +1556,7 @@ you the property of (0, 0) being the <code class="docutils literal notranslate">
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.origin_to_directed_edges">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">origin_to_directed_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#origin_to_directed_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.origin_to_directed_edges" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">origin_to_directed_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#origin_to_directed_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.origin_to_directed_edges" title="Link to this definition">#</a></dt>
 <dd><p>Return all directed edges starting from <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1476,7 +1570,7 @@ you the property of (0, 0) being the <code class="docutils literal notranslate">
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.str_to_int">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">str_to_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#str_to_int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.str_to_int" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">str_to_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#str_to_int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.str_to_int" title="Link to this definition">#</a></dt>
 <dd><p>Converts a hexadecimal string to an H3 64-bit integer index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1493,13 +1587,13 @@ you the property of (0, 0) being the <code class="docutils literal notranslate">
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.uncompact_cells">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">uncompact_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#uncompact_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.uncompact_cells" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">uncompact_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#uncompact_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.uncompact_cells" title="Link to this definition">#</a></dt>
 <dd><p>Reverse the <cite>compact_cells</cite> operation.</p>
 <p>Return a collection of H3 cells, all of resolution <code class="docutils literal notranslate"><span class="pre">res</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cells</strong> (<em>iterable of H3Cell</em>) – </p></li>
+<li><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3Cell</em>) – </p></li>
 <li><p><strong>res</strong> (<em>int</em>) – Resolution of desired output cells.</p></li>
 </ul>
 </dd>
@@ -1514,11 +1608,13 @@ you the property of (0, 0) being the <code class="docutils literal notranslate">
 </ul>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>There is currently no guaranteed order of the output cells.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.versions">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.versions" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.versions" title="Link to this definition">#</a></dt>
 <dd><p>Version numbers for the Python (wrapper) and C (wrapped) libraries.</p>
 <p>Versions are output as strings of the form <code class="docutils literal notranslate"><span class="pre">'X.Y.Z'</span></code>.
 C and Python should match on <code class="docutils literal notranslate"><span class="pre">X</span></code> (major) and <code class="docutils literal notranslate"><span class="pre">Y</span></code> (minor),
@@ -1590,6 +1686,7 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -1606,7 +1703,79 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ij-indexing">IJ-indexing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-h3">Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-h3">Definitions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3BaseException"><code class="docutils literal notranslate"><span class="pre">H3BaseException</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3CellInvalidError"><code class="docutils literal notranslate"><span class="pre">H3CellInvalidError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3DirEdgeInvalidError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DomainError"><code class="docutils literal notranslate"><span class="pre">H3DomainError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DuplicateInputError"><code class="docutils literal notranslate"><span class="pre">H3DuplicateInputError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3FailedError"><code class="docutils literal notranslate"><span class="pre">H3FailedError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3GridNavigationError"><code class="docutils literal notranslate"><span class="pre">H3GridNavigationError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3LatLngDomainError"><code class="docutils literal notranslate"><span class="pre">H3LatLngDomainError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryAllocError"><code class="docutils literal notranslate"><span class="pre">H3MemoryAllocError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryBoundsError"><code class="docutils literal notranslate"><span class="pre">H3MemoryBoundsError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryError"><code class="docutils literal notranslate"><span class="pre">H3MemoryError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3NotNeighborsError"><code class="docutils literal notranslate"><span class="pre">H3NotNeighborsError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3OptionInvalidError"><code class="docutils literal notranslate"><span class="pre">H3OptionInvalidError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3PentagonError"><code class="docutils literal notranslate"><span class="pre">H3PentagonError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly"><code class="docutils literal notranslate"><span class="pre">H3Poly</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.outer"><code class="docutils literal notranslate"><span class="pre">H3Poly.outer</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.holes"><code class="docutils literal notranslate"><span class="pre">H3Poly.holes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.loopcode"><code class="docutils literal notranslate"><span class="pre">H3Poly.loopcode</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResDomainError"><code class="docutils literal notranslate"><span class="pre">H3ResDomainError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResMismatchError"><code class="docutils literal notranslate"><span class="pre">H3ResMismatchError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3UndirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3UndirEdgeInvalidError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ValueError"><code class="docutils literal notranslate"><span class="pre">H3ValueError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3VertexInvalidError"><code class="docutils literal notranslate"><span class="pre">H3VertexInvalidError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.UnknownH3ErrorCode"><code class="docutils literal notranslate"><span class="pre">UnknownH3ErrorCode</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.are_neighbor_cells"><code class="docutils literal notranslate"><span class="pre">are_neighbor_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_area"><code class="docutils literal notranslate"><span class="pre">average_hexagon_area()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_edge_length"><code class="docutils literal notranslate"><span class="pre">average_hexagon_edge_length()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_area"><code class="docutils literal notranslate"><span class="pre">cell_area()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_boundary"><code class="docutils literal notranslate"><span class="pre">cell_to_boundary()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_center_child"><code class="docutils literal notranslate"><span class="pre">cell_to_center_child()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_children"><code class="docutils literal notranslate"><span class="pre">cell_to_children()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_latlng"><code class="docutils literal notranslate"><span class="pre">cell_to_latlng()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_local_ij"><code class="docutils literal notranslate"><span class="pre">cell_to_local_ij()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_parent"><code class="docutils literal notranslate"><span class="pre">cell_to_parent()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_directed_edge"><code class="docutils literal notranslate"><span class="pre">cells_to_directed_edge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_geo"><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_h3shape"><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.compact_cells"><code class="docutils literal notranslate"><span class="pre">compact_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_cells"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.edge_length"><code class="docutils literal notranslate"><span class="pre">edge_length()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_cells"><code class="docutils literal notranslate"><span class="pre">geo_to_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_h3shape"><code class="docutils literal notranslate"><span class="pre">geo_to_h3shape()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_base_cell_number"><code class="docutils literal notranslate"><span class="pre">get_base_cell_number()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_destination"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_destination()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_origin"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_origin()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_icosahedron_faces"><code class="docutils literal notranslate"><span class="pre">get_icosahedron_faces()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_num_cells"><code class="docutils literal notranslate"><span class="pre">get_num_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_pentagons"><code class="docutils literal notranslate"><span class="pre">get_pentagons()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_res0_cells"><code class="docutils literal notranslate"><span class="pre">get_res0_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_resolution"><code class="docutils literal notranslate"><span class="pre">get_resolution()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.great_circle_distance"><code class="docutils literal notranslate"><span class="pre">great_circle_distance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_disk"><code class="docutils literal notranslate"><span class="pre">grid_disk()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_distance"><code class="docutils literal notranslate"><span class="pre">grid_distance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_path_cells"><code class="docutils literal notranslate"><span class="pre">grid_path_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_ring"><code class="docutils literal notranslate"><span class="pre">grid_ring()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_cells"><code class="docutils literal notranslate"><span class="pre">h3shape_to_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_geo"><code class="docutils literal notranslate"><span class="pre">h3shape_to_geo()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.int_to_str"><code class="docutils literal notranslate"><span class="pre">int_to_str()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_pentagon"><code class="docutils literal notranslate"><span class="pre">is_pentagon()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_res_class_III"><code class="docutils literal notranslate"><span class="pre">is_res_class_III()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_cell"><code class="docutils literal notranslate"><span class="pre">is_valid_cell()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_directed_edge"><code class="docutils literal notranslate"><span class="pre">is_valid_directed_edge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.latlng_to_cell"><code class="docutils literal notranslate"><span class="pre">latlng_to_cell()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.local_ij_to_cell"><code class="docutils literal notranslate"><span class="pre">local_ij_to_cell()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.origin_to_directed_edges"><code class="docutils literal notranslate"><span class="pre">origin_to_directed_edges()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.str_to_int"><code class="docutils literal notranslate"><span class="pre">str_to_int()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.uncompact_cells"><code class="docutils literal notranslate"><span class="pre">uncompact_cells()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.versions"><code class="docutils literal notranslate"><span class="pre">versions()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
@@ -1655,8 +1824,8 @@ By Uber Technologies
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

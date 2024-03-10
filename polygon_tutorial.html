@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>H3 and (Multi)Polygons &#8212; h3-py</title>
   
@@ -19,52 +18,48 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'polygon_tutorial';</script>
     <link rel="canonical" href="https://uber.github.io/h3-py/polygon_tutorial.html" />
-    <link rel="shortcut icon" href="_static/logo.svg"/>
+    <link rel="icon" href="_static/logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -76,10 +71,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -120,11 +114,16 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -158,7 +157,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="nav bd-sidenav">
@@ -411,10 +421,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="h3-and-multi-polygons">
-<h1>H3 and (Multi)Polygons<a class="headerlink" href="#h3-and-multi-polygons" title="Permalink to this heading">#</a></h1>
+<h1>H3 and (Multi)Polygons<a class="headerlink" href="#h3-and-multi-polygons" title="Link to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">h3-py</span></code> can convert between sets of cells and GeoJSON-like polygon and multipolygon shapes.</p>
 <p>We use the abstract base class <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> and its concrete child classes <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>
 to represent these shapes.
@@ -487,7 +497,7 @@ with other Python geospatial libraries.</p>
 </div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="h3poly">
-<h1>H3Poly<a class="headerlink" href="#h3poly" title="Permalink to this heading">#</a></h1>
+<h1>H3Poly<a class="headerlink" href="#h3poly" title="Link to this heading">#</a></h1>
 <p>We can create a simple <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> object by providing a list of the <strong>latitude/longitude pairs</strong> that describe its exterior.
 Optionally, holes can be added to the polygon by appending additional lat/lng lists do describe them.</p>
 <div class="cell docutils container">
@@ -537,7 +547,7 @@ Optionally, holes can be added to the polygon by appending additional lat/lng li
 </div>
 </div>
 <section id="string-representation-and-attributes">
-<h2>String representation and attributes<a class="headerlink" href="#string-representation-and-attributes" title="Permalink to this heading">#</a></h2>
+<h2>String representation and attributes<a class="headerlink" href="#string-representation-and-attributes" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> string representation given by its <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> shows the number of vertices in the outer loop of the polygon, followed
 by the number of vertices in each hole.</p>
 <p>A representation like</p>
@@ -575,7 +585,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </section>
 <section id="geo-interface">
-<h2><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code><a class="headerlink" href="#geo-interface" title="Permalink to this heading">#</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code><a class="headerlink" href="#geo-interface" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">H3Poly.__geo_interface__</span></code> gives a GeoJSON representation of the polygon as described in <a class="reference external" href="https://gist.github.com/sgillies/2217756">https://gist.github.com/sgillies/2217756</a></p>
 <p><strong>Note the differences in this representation</strong>: Points are given in <strong>lng/lat</strong> order (but the <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> constructor expects <strong>lat/lng</strong> order), and the last vertex repeats the first.</p>
 <div class="cell docutils container">
@@ -628,7 +638,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </section>
 <section id="polygon-to-cells">
-<h2>Polygon to cells<a class="headerlink" href="#polygon-to-cells" title="Permalink to this heading">#</a></h2>
+<h2>Polygon to cells<a class="headerlink" href="#polygon-to-cells" title="Link to this heading">#</a></h2>
 <p>We can get all the H3 cells whose centroids fall within an <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> by using <code class="docutils literal notranslate"><span class="pre">h3.h3shape_to_cells()</span></code> and specifying the resolution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -661,7 +671,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </section>
 <section id="h3-polygons-don-t-need-to-follow-the-right-hand-rule">
-<h2>H3 Polygons don’t need to follow the right-hand rule<a class="headerlink" href="#h3-polygons-don-t-need-to-follow-the-right-hand-rule" title="Permalink to this heading">#</a></h2>
+<h2>H3 Polygons don’t need to follow the right-hand rule<a class="headerlink" href="#h3-polygons-don-t-need-to-follow-the-right-hand-rule" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> objects do not need to follow the “right-hand rule”, unlike GeoJSON Polygons.
 The right-hand rule requires that vertices in outer loops are listed in counterclockwise
 order and holes are listed in clockwise order.
@@ -704,7 +714,7 @@ the hole won’t be rendered correctly, but the conversion to cells will remain 
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="h3multipoly">
-<h1>H3MultiPoly<a class="headerlink" href="#h3multipoly" title="Permalink to this heading">#</a></h1>
+<h1>H3MultiPoly<a class="headerlink" href="#h3multipoly" title="Link to this heading">#</a></h1>
 <p>An <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> can be created from <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> objects. The string representation of the <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>
 gives the number of vertices in the outer loop of each <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code>, along with the number of vertices
 in each hole (if there are any).</p>
@@ -737,7 +747,7 @@ in each hole (if there are any).</p>
 </div>
 </div>
 <section id="multipolygon-to-cells">
-<h2>MultiPolygon to cells<a class="headerlink" href="#multipolygon-to-cells" title="Permalink to this heading">#</a></h2>
+<h2>MultiPolygon to cells<a class="headerlink" href="#multipolygon-to-cells" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">h3.h3shape_to_cells()</span></code> works on both <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> objects (both are subclasses of <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -749,7 +759,7 @@ in each hole (if there are any).</p>
 </div>
 </section>
 <section id="h3multipoly-affordances">
-<h2>H3MultiPoly affordances<a class="headerlink" href="#h3multipoly-affordances" title="Permalink to this heading">#</a></h2>
+<h2>H3MultiPoly affordances<a class="headerlink" href="#h3multipoly-affordances" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Calling <code class="docutils literal notranslate"><span class="pre">len()</span></code> on an <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> gives the number of polygons</p></li>
 <li><p>You can iterate through a <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>, with the elements being the underlying <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code>s</p></li>
@@ -778,7 +788,7 @@ in each hole (if there are any).</p>
 </div>
 </section>
 <section id="id1">
-<h2><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code><a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> implements <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code>, and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> objects can also be created through <code class="docutils literal notranslate"><span class="pre">h3.geo_to_h3shape()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -799,7 +809,7 @@ in each hole (if there are any).</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="cells-to-h3poly-or-h3multipoly">
-<h1>Cells to H3Poly or H3MultiPoly<a class="headerlink" href="#cells-to-h3poly-or-h3multipoly" title="Permalink to this heading">#</a></h1>
+<h1>Cells to H3Poly or H3MultiPoly<a class="headerlink" href="#cells-to-h3poly-or-h3multipoly" title="Link to this heading">#</a></h1>
 <p>If you have a set of H3 cells that you would like to visualize, you may want to convert them to <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> or <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> objects using <code class="docutils literal notranslate"><span class="pre">h3.cells_to_h3shape()</span></code> and then use <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> to get their GeoJSON representation. Or you could
 use <code class="docutils literal notranslate"><span class="pre">h3.cells_to_geo()</span></code> to get the GeoJSON dictionary directly.</p>
 <div class="cell docutils container">
@@ -834,7 +844,7 @@ use <code class="docutils literal notranslate"><span class="pre">h3.cells_to_geo
 </div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="api-summary">
-<h1>API Summary<a class="headerlink" href="#api-summary" title="Permalink to this heading">#</a></h1>
+<h1>API Summary<a class="headerlink" href="#api-summary" title="Link to this heading">#</a></h1>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Geo object&quot;</span> <span class="o">&lt;-&gt;</span> <span class="n">H3Shape</span> <span class="o">&lt;-&gt;</span> <span class="n">H3</span> <span class="n">cells</span>
 </pre></div>
 </div>
@@ -857,7 +867,7 @@ implement <code class="docutils literal notranslate"><span class="pre">__geo_int
 <li><p><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></p></li>
 </ul>
 <section id="equivalance-notes">
-<h2>Equivalance notes<a class="headerlink" href="#equivalance-notes" title="Permalink to this heading">#</a></h2>
+<h2>Equivalance notes<a class="headerlink" href="#equivalance-notes" title="Link to this heading">#</a></h2>
 <p>Note that if an object <code class="docutils literal notranslate"><span class="pre">a</span></code> is an <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code>
 then the following two expressions are equivalent:</p>
 <ul class="simple">
@@ -871,7 +881,7 @@ then the following two expressions are equivalent:</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="interfacing-with-geopandas-and-other-libraries">
-<h1>Interfacing with GeoPandas and other libraries<a class="headerlink" href="#interfacing-with-geopandas-and-other-libraries" title="Permalink to this heading">#</a></h1>
+<h1>Interfacing with GeoPandas and other libraries<a class="headerlink" href="#interfacing-with-geopandas-and-other-libraries" title="Link to this heading">#</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> compatibility allows <code class="docutils literal notranslate"><span class="pre">h3-py</span></code> to work with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and other geospatial libraries easily.</p>
 <p>To demonstrate, we start with a GeoPandas <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> describing the five New York City boroughs.</p>
 <div class="cell docutils container">
@@ -890,7 +900,7 @@ then the following two expressions are equivalent:</p>
 </div>
 </div>
 <section id="use-a-compatible-crs-before-applying-h3-functions">
-<h2>Use a compatible CRS before applying H3 functions<a class="headerlink" href="#use-a-compatible-crs-before-applying-h3-functions" title="Permalink to this heading">#</a></h2>
+<h2>Use a compatible CRS before applying H3 functions<a class="headerlink" href="#use-a-compatible-crs-before-applying-h3-functions" title="Link to this heading">#</a></h2>
 <p>The function <code class="docutils literal notranslate"><span class="pre">h3.geo_to_cells(geo,</span> <span class="pre">res)</span></code> takes some “geo object” that implements <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> (<a class="reference external" href="https://gist.github.com/sgillies/2217756">https://gist.github.com/sgillies/2217756</a>) — like a Shapely Polygon or MultiPolygon — and converts it to the set of cells whose centroids are contained in <code class="docutils literal notranslate"><span class="pre">geo</span></code>.</p>
 <p><strong>Common Pitfall</strong>: Be careful about what CRS you are using. <code class="docutils literal notranslate"><span class="pre">h3-py</span></code> expects coordinates as latitude-longitude pairs. The CRS of the current dataframe (EPSG:2263) gives coordinates in feet! You should first convert the data to something compatible. A common choice is <strong>EPSG:4326/WGS84</strong>. You’ll get incorrect results if you apply <code class="docutils literal notranslate"><span class="pre">h3.geo_to_cells</span></code> without converting.</p>
 <div class="cell docutils container">
@@ -927,7 +937,7 @@ then the following two expressions are equivalent:</p>
 </div>
 </section>
 <section id="converting-a-geo-to-h3-cells">
-<h2>Converting a geo to H3 cells<a class="headerlink" href="#converting-a-geo-to-h3-cells" title="Permalink to this heading">#</a></h2>
+<h2>Converting a geo to H3 cells<a class="headerlink" href="#converting-a-geo-to-h3-cells" title="Link to this heading">#</a></h2>
 <p>First, we select one of the boroughs and get the Shapely <code class="docutils literal notranslate"><span class="pre">MultiPolygon</span></code> describing it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -954,7 +964,7 @@ then the following two expressions are equivalent:</p>
 </div>
 </section>
 <section id="converting-all-geos-in-a-geodataframe-to-cells">
-<h2>Converting all geos in a GeoDataFrame to cells<a class="headerlink" href="#converting-all-geos-in-a-geodataframe-to-cells" title="Permalink to this heading">#</a></h2>
+<h2>Converting all geos in a GeoDataFrame to cells<a class="headerlink" href="#converting-all-geos-in-a-geodataframe-to-cells" title="Link to this heading">#</a></h2>
 <p>We can apply <code class="docutils literal notranslate"><span class="pre">geo_to_cells()</span></code> to each of the Shapely geometries in the <code class="docutils literal notranslate"><span class="pre">df.geometry</span></code> column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -966,7 +976,7 @@ then the following two expressions are equivalent:</p>
 </div>
 </section>
 <section id="converting-cells-to-geo-objects">
-<h2>Converting cells to “geo objects”<a class="headerlink" href="#converting-cells-to-geo-objects" title="Permalink to this heading">#</a></h2>
+<h2>Converting cells to “geo objects”<a class="headerlink" href="#converting-cells-to-geo-objects" title="Link to this heading">#</a></h2>
 <p>If we assign <code class="docutils literal notranslate"><span class="pre">df.geometry</span> <span class="pre">=</span> <span class="pre">cell_column</span></code> we’ll get an error because the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column of a <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code> must contain valid geometry objects.
 We can obtain compatible objects by converting the cells to <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> by applying <code class="docutils literal notranslate"><span class="pre">h3.cells_to_h3shape()</span></code>.</p>
 <p>(Note that, unfortunately, Pandas has some logic to identify iterable members of a series and then renders a tuple of the elements, rather than our preferred <code class="docutils literal notranslate"><span class="pre">H3MultiPoly.__repr__</span></code> representation.)</p>
@@ -1011,7 +1021,7 @@ We can obtain compatible objects by converting the cells to <code class="docutil
 </div>
 </section>
 <section id="visualizing-h3-cells">
-<h2>Visualizing H3 cells<a class="headerlink" href="#visualizing-h3-cells" title="Permalink to this heading">#</a></h2>
+<h2>Visualizing H3 cells<a class="headerlink" href="#visualizing-h3-cells" title="Link to this heading">#</a></h2>
 <p>We took some Shapely geometry objects, converted them to H3 cells, and converted those back to Shapely geometry objects in a <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code>.</p>
 <p>We can visualize the results with our helper function.</p>
 <div class="cell docutils container">
@@ -1062,6 +1072,7 @@ We can obtain compatible objects by converting the cells to <code class="docutil
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1145,8 +1156,8 @@ By Uber Technologies
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>
