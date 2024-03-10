@@ -21,7 +21,7 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v4.5.0
+      - uses: actions/setup-python@v5.0.0
         with:
           python-version: '${{ matrix.python-version }}'
 
