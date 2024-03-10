@@ -39,7 +39,7 @@ annotations: rebuild
 	cp _skbuild/*/cmake-build/src/h3/_cy/*.html ./annotations
 
 test:
-	./env/bin/cythonize -i tests/cython_example.pyx
+	./env/bin/cythonize -i tests/test_cython/cython_example.pyx
 	./env/bin/pytest tests --cov=h3 --cov-report term-missing --durations=10
 
 lint:
