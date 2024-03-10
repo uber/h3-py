@@ -1,6 +1,8 @@
 import h3
 import pytest
 
+from .. import util as u
+
 
 class MockGeoInterface:
     def __init__(self, dictionary):
@@ -111,9 +113,12 @@ def test_polyfill_with_hole():
     out = h3.h3shape_to_cells(poly, res=9)
     assert len(out) == 1214
 
-    foo = lambda x: h3.h3shape_to_cells(h3.H3Poly(x), 9)
-    # todo: foo = lambda x: h3.H3Poly(x).to_cells(9)
-    assert out == foo(sf_7x7) - foo(sf_hole1)
+    foo = lambda x: set(h3.h3shape_to_cells(h3.H3Poly(x), 9))
+
+    assert u.same_set(
+        out,
+        foo(sf_7x7) - foo(sf_hole1)
+    )
 
 
 def test_polyfill_with_two_holes():
@@ -122,8 +127,11 @@ def test_polyfill_with_two_holes():
     out = h3.h3shape_to_cells(poly, 9)
     assert len(out) == 1172
 
-    foo = lambda x: h3.h3shape_to_cells(h3.H3Poly(x), 9)
-    assert out == foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2))
+    foo = lambda x: set(h3.h3shape_to_cells(h3.H3Poly(x), 9))
+    assert u.same_set(
+        out,
+        foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2))
+    )
 
 
 def test_polyfill_geo_json_compliant():

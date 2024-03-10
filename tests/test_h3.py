@@ -3,6 +3,8 @@ from pytest import approx
 
 import h3
 
+from . import util as u
+
 
 def test_is_valid_cell():
     assert h3.is_valid_cell('85283473fffffff')
@@ -77,7 +79,7 @@ def test_grid_disk():
         '8928308283bffff',
     }
 
-    assert out == expected
+    assert u.same_set(out, expected)
 
 
 def test_grid_disk2():
@@ -108,7 +110,7 @@ def test_grid_disk2():
         '8928308280bffff',
     }
 
-    assert out == expected
+    assert u.same_set(out, expected)
 
 
 def test_grid_disk_pentagon():
@@ -126,7 +128,7 @@ def test_grid_disk_pentagon():
         '821c37fffffffff',
     }
 
-    assert out == expected
+    assert u.same_set(out, expected)
 
 
 def test_grid_ring():
@@ -141,8 +143,11 @@ def test_grid_ring():
         '8928308283bffff',
     }
 
-    assert out == expected
-    assert out == h3.grid_disk(h, 1) - h3.grid_disk(h, 0)
+    assert u.same_set(out, expected)
+    assert u.same_set(
+        out,
+        set(h3.grid_disk(h, 1)) - set(h3.grid_disk(h, 0))
+    )
 
 
 def test_grid_ring2():
@@ -164,8 +169,11 @@ def test_grid_ring2():
         '89283082867ffff',
     }
 
-    assert out == expected
-    assert out == h3.grid_disk(h, 2) - h3.grid_disk(h, 1)
+    assert u.same_set(out, expected)
+    assert u.same_set(
+        out,
+        set(h3.grid_disk(h, 2)) - set(h3.grid_disk(h, 1))
+    )
 
 
 def test_grid_ring_pentagon():
@@ -180,7 +188,7 @@ def test_grid_ring_pentagon():
         '821c37fffffffff',
     }
 
-    assert out == expected
+    assert u.same_set(out, expected)
 
 
 def test_compact_and_uncompact_cells():
@@ -202,12 +210,12 @@ def test_compact_and_uncompact_cells():
     uncompact_cells = h3.uncompact_cells(compact_cells, 9)
     assert len(uncompact_cells) == 1253
 
-    assert uncompact_cells == cells
+    assert u.same_set(uncompact_cells, cells)
 
 
 def test_compact_cells_and_uncompact_cells_nothing():
-    assert h3.compact_cells([]) == set()
-    assert h3.uncompact_cells([], 9) == set()
+    assert h3.compact_cells([]) == []
+    assert h3.uncompact_cells([], 9) == []
 
 
 def test_uncompact_cells_error():

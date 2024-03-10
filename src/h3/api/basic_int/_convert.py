@@ -14,5 +14,4 @@ def _in_collection(cells):
     return _cy.iter_to_mv(it)
 
 
-_out_unordered = set
-_out_ordered = list
+_out_collection = list

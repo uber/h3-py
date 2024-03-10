@@ -386,7 +386,7 @@ cpdef get_icosahedron_faces(H3int h):
 
     # todo: wait? do faces start from 0 or 1?
     # we could do this check/processing in the int_mv object
-    out = {f for f in faces if f >= 0}
+    out = [f for f in faces if f >= 0]
 
     return out
 

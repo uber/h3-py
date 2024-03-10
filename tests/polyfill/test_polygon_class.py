@@ -6,8 +6,8 @@ def test_repr():
     a = '8928308280fffff'
     b = h3.grid_ring(a, 5).pop()
 
-    cells1 = h3.grid_ring(b, 2) | {a}
-    cells2 = cells1 | {b}
+    cells1 = h3.grid_ring(b, 2) + [a]
+    cells2 = cells1 + [b]
 
     mpoly1 = h3.cells_to_h3shape(cells1)
     mpoly2 = h3.cells_to_h3shape(cells2)

@@ -13,8 +13,7 @@ from ._convert import (
     _in_scalar,
     _out_scalar,
     _in_collection,
-    _out_unordered,
-    _out_ordered,
+    _out_collection,
 )
 
 
@@ -258,7 +257,7 @@ def cell_to_boundary(h):
 
 def grid_disk(h, k=1):
     """
-    Return unordered set of cells with H3 distance ``<= k`` from ``h``.
+    Return unordered collection of cells with H3 distance ``<= k`` from ``h``.
     That is, the 'filled-in' disk.
 
     Parameters
@@ -270,15 +269,19 @@ def grid_disk(h, k=1):
     Returns
     -------
     unordered collection of H3Cell
+
+    Notes
+    -----
+    There is currently no guaranteed order of the output cells.
     """
     mv = _cy.grid_disk(_in_scalar(h), k)
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def grid_ring(h, k=1):
     """
-    Return unordered set of cells with H3 distance ``== k`` from ``h``.
+    Return unordered collection of cells with H3 distance ``== k`` from ``h``.
     That is, the "hollow" ring.
 
     Parameters
@@ -290,15 +293,19 @@ def grid_ring(h, k=1):
     Returns
     -------
     unordered collection of H3Cell
+
+    Notes
+    -----
+    There is currently no guaranteed order of the output cells.
     """
     mv = _cy.grid_ring(_in_scalar(h), k)
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def cell_to_children(h, res=None):
     """
-    Children of a cell.
+    Children of a cell as an unordered collection.
 
     Parameters
     ----------
@@ -310,10 +317,14 @@ def cell_to_children(h, res=None):
     Returns
     -------
     unordered collection of H3Cell
+
+    Notes
+    -----
+    There is currently no guaranteed order of the output cells.
     """
     mv = _cy.cell_to_children(_in_scalar(h), res)
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 # todo: nogil for expensive C operation?
@@ -330,12 +341,16 @@ def compact_cells(cells):
     Returns
     -------
     unordered collection of H3Cell
+
+    Notes
+    -----
+    There is currently no guaranteed order of the output cells.
     """
     # todo: does compact_cells work on mixed-resolution collections?
     hu = _in_collection(cells)
     hc = _cy.compact_cells(hu)
 
-    return _out_unordered(hc)
+    return _out_collection(hc)
 
 
 def uncompact_cells(cells, res):
@@ -359,11 +374,15 @@ def uncompact_cells(cells, res):
     todo: add test to make sure an error is returned when input
     contains cell smaller than output res.
     https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
+
+    Notes
+    -----
+    There is currently no guaranteed order of the output cells.
     """
     hc = _in_collection(cells)
     hu = _cy.uncompact_cells(hc, res)
 
-    return _out_unordered(hu)
+    return _out_collection(hu)
 
 
 def h3shape_to_cells(h3shape, res):
@@ -396,6 +415,10 @@ def h3shape_to_cells(h3shape, res):
      '862830947ffffff',
      '862830957ffffff',
      '86283095fffffff'}
+
+    Notes
+    -----
+    There is currently no guaranteed order of the output cells.
     """
 
     # todo: not sure if i want this dispatch logic here. maybe in the objects?
@@ -410,7 +433,7 @@ def h3shape_to_cells(h3shape, res):
     else:
         raise ValueError('Unrecognized type: ' + str(type(h3shape)))
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def cells_to_h3shape(cells, tight=True):
@@ -457,6 +480,10 @@ def geo_to_cells(geo, res):
         Both H3Poly and H3MultiPoly implement the interface.
     res : int
         Resolution of desired output cells.
+
+    Notes
+    -----
+    There is currently no guaranteed order of the output cells.
     """
     h3shape = geo_to_h3shape(geo)
     return h3shape_to_cells(h3shape, res)
@@ -643,7 +670,7 @@ def origin_to_directed_edges(origin):
     """
     mv = _cy.origin_to_directed_edges(_in_scalar(origin))
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def directed_edge_to_boundary(edge):
@@ -667,7 +694,7 @@ def grid_path_cells(start, end):
     """
     mv = _cy.grid_path_cells(_in_scalar(start), _in_scalar(end))
 
-    return _out_ordered(mv)
+    return _out_collection(mv)
 
 
 def is_res_class_III(h):
@@ -715,7 +742,7 @@ def get_pentagons(res):
     """
     mv = _cy.get_pentagons(res)
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def get_res0_cells():
@@ -729,10 +756,14 @@ def get_res0_cells():
     Returns
     -------
     unordered collection of H3Cell
+
+    Notes
+    -----
+    There is currently no guaranteed order of the output cells.
     """
     mv = _cy.get_res0_cells()
 
-    return _out_unordered(mv)
+    return _out_collection(mv)
 
 
 def cell_to_center_child(h, res=None):

@@ -12,5 +12,4 @@ def _in_collection(x):
     return np.asarray(x, dtype='uint64')
 
 
-_out_unordered = _in_collection
-_out_ordered = _in_collection
+_out_collection = _in_collection

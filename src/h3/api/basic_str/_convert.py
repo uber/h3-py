@@ -10,11 +10,5 @@ def _in_collection(cells):
     return _cy.iter_to_mv(it)
 
 
-def _out_unordered(mv):
-    # todo: should this be an (immutable) frozenset?
-    return set(_cy.int_to_str(h) for h in mv)
-
-
-def _out_ordered(mv):
-    # todo: should this be an (immutable) tuple?
+def _out_collection(mv):
     return list(_cy.int_to_str(h) for h in mv)

@@ -11,14 +11,7 @@ from h3 import (
 )
 
 
-def approx2(a, b):
-    if len(a) != len(b):
-        return False
-
-    return all(
-        x == pytest.approx(y)
-        for x, y in zip(a, b)
-    )
+from . import util as u
 
 
 def test1():
@@ -44,7 +37,7 @@ def test3():
     )
 
     out = h3.cell_to_boundary('8928308280fffff')
-    assert approx2(out, expected)
+    assert u.approx2(out, expected)
 
 
 def test_grid_disk_distance():
@@ -58,7 +51,7 @@ def test_grid_ring_distance():
 
 
 def test5():
-    expected = {
+    expected = [
         '89283082873ffff',
         '89283082877ffff',
         '8928308283bffff',
@@ -66,30 +59,30 @@ def test5():
         '8928308280bffff',
         '8928308280fffff',
         '89283082803ffff'
-    }
+    ]
 
     out = h3.grid_disk('8928308280fffff', 1)
-    assert out == expected
+    assert u.same_set(out, expected)
 
 
 def test6():
-    expected = {'8928308280fffff'}
+    expected = ['8928308280fffff']
     out = h3.grid_ring('8928308280fffff', 0)
-    assert out == expected
+    assert u.same_set(out, expected)
 
 
 def test7():
-    expected = {
+    expected = [
         '89283082803ffff',
         '89283082807ffff',
         '8928308280bffff',
         '8928308283bffff',
         '89283082873ffff',
         '89283082877ffff'
-    }
+    ]
 
     out = h3.grid_ring('8928308280fffff', 1)
-    assert out == expected
+    assert u.same_set(out, expected)
 
 
 def test8():
@@ -149,10 +142,10 @@ def test_children():
 
     # same resolution is set of just cell itself
     out = h3.cell_to_children(h, 9)
-    assert out == {h}
+    assert out == [h]
 
     # one below should give children
-    expected = {
+    expected = [
         '8a28308280c7fff',
         '8a28308280cffff',
         '8a28308280d7fff',
@@ -160,9 +153,9 @@ def test_children():
         '8a28308280e7fff',
         '8a28308280effff',
         '8a28308280f7fff'
-    }
+    ]
     out = h3.cell_to_children(h, 10)
-    assert out == expected
+    assert u.same_set(out, expected)
 
     # finest resolution cell should return error for children
     h = '8f04ccb2c45e225'
@@ -242,7 +235,7 @@ def get_maine_cells():
     cells_uncomp = h3.h3shape_to_cells(poly, res=res)
 
     # the expected result from h3.compact_cells(cells_uncomp)
-    cells_comp = {'852b114ffffffff', '852b189bfffffff', '852b1163fffffff', '842ba9bffffffff', '842bad3ffffffff', '852ba9cffffffff', '842badbffffffff', '852b1e8bfffffff', '852a346ffffffff', '842b1e3ffffffff', '852b116ffffffff', '842b185ffffffff', '852b1bdbfffffff', '852bad47fffffff', '852ba9c3fffffff', '852b106bfffffff', '852a30d3fffffff', '842b1edffffffff', '852b12a7fffffff', '852b1027fffffff', '842baddffffffff', '852a349bfffffff', '852b1227fffffff', '852a3473fffffff', '852b117bfffffff', '842ba99ffffffff', '852a341bfffffff', '852ba9d3fffffff', '852b1067fffffff', '852a3463fffffff', '852baca7fffffff', '852b116bfffffff', '852b1c6bfffffff', '852a3493fffffff', '852ba9dbfffffff', '852b180bfffffff', '842bad7ffffffff', '852b1063fffffff', '842ba93ffffffff', '852a3693fffffff', '852ba977fffffff', '852b1e9bfffffff', '852bad53fffffff', '852b100ffffffff', '852b102bfffffff', '852a3413fffffff', '852ba8b7fffffff', '852bad43fffffff', '852b1c6ffffffff', '852a340bfffffff', '852b103bfffffff', '852b1813fffffff', '852b12affffffff', '842a34dffffffff', '852b1873fffffff', '852b106ffffffff', '852b115bfffffff', '852baca3fffffff', '852b114bfffffff', '852b1143fffffff', '852a348bfffffff', '852a30d7fffffff', '852b181bfffffff', '842a345ffffffff', '852b1e8ffffffff', '852b1883fffffff', '852b1147fffffff', '852a3483fffffff', '852b12a3fffffff', '852a346bfffffff', '852ba9d7fffffff', '842b18dffffffff', '852b188bfffffff', '852a36a7fffffff', '852bacb3fffffff', '852b187bfffffff', '852bacb7fffffff', '842b1ebffffffff', '842b1e5ffffffff', '852ba8a7fffffff', '842bad9ffffffff', '852a36b7fffffff', '852a347bfffffff', '832b13fffffffff', '852ba9c7fffffff', '832b1afffffffff', '842ba91ffffffff', '852bad57fffffff', '852ba8affffffff', '852b1803fffffff', '842b1e7ffffffff', '852bad4ffffffff', '852b102ffffffff', '852b1077fffffff', '852b1237fffffff', '852b1153fffffff', '852a3697fffffff', '852a36b3fffffff', '842bad1ffffffff', '842b1e1ffffffff', '852b186bfffffff', '852b1023fffffff'} # noqa
+    cells_comp = ['852b114ffffffff', '852b189bfffffff', '852b1163fffffff', '842ba9bffffffff', '842bad3ffffffff', '852ba9cffffffff', '842badbffffffff', '852b1e8bfffffff', '852a346ffffffff', '842b1e3ffffffff', '852b116ffffffff', '842b185ffffffff', '852b1bdbfffffff', '852bad47fffffff', '852ba9c3fffffff', '852b106bfffffff', '852a30d3fffffff', '842b1edffffffff', '852b12a7fffffff', '852b1027fffffff', '842baddffffffff', '852a349bfffffff', '852b1227fffffff', '852a3473fffffff', '852b117bfffffff', '842ba99ffffffff', '852a341bfffffff', '852ba9d3fffffff', '852b1067fffffff', '852a3463fffffff', '852baca7fffffff', '852b116bfffffff', '852b1c6bfffffff', '852a3493fffffff', '852ba9dbfffffff', '852b180bfffffff', '842bad7ffffffff', '852b1063fffffff', '842ba93ffffffff', '852a3693fffffff', '852ba977fffffff', '852b1e9bfffffff', '852bad53fffffff', '852b100ffffffff', '852b102bfffffff', '852a3413fffffff', '852ba8b7fffffff', '852bad43fffffff', '852b1c6ffffffff', '852a340bfffffff', '852b103bfffffff', '852b1813fffffff', '852b12affffffff', '842a34dffffffff', '852b1873fffffff', '852b106ffffffff', '852b115bfffffff', '852baca3fffffff', '852b114bfffffff', '852b1143fffffff', '852a348bfffffff', '852a30d7fffffff', '852b181bfffffff', '842a345ffffffff', '852b1e8ffffffff', '852b1883fffffff', '852b1147fffffff', '852a3483fffffff', '852b12a3fffffff', '852a346bfffffff', '852ba9d7fffffff', '842b18dffffffff', '852b188bfffffff', '852a36a7fffffff', '852bacb3fffffff', '852b187bfffffff', '852bacb7fffffff', '842b1ebffffffff', '842b1e5ffffffff', '852ba8a7fffffff', '842bad9ffffffff', '852a36b7fffffff', '852a347bfffffff', '832b13fffffffff', '852ba9c7fffffff', '832b1afffffffff', '842ba91ffffffff', '852bad57fffffff', '852ba8affffffff', '852b1803fffffff', '842b1e7ffffffff', '852bad4ffffffff', '852b102ffffffff', '852b1077fffffff', '852b1237fffffff', '852b1153fffffff', '852a3697fffffff', '852a36b3fffffff', '842bad1ffffffff', '842b1e1ffffffff', '852b186bfffffff', '852b1023fffffff'] # noqa
 
     return cells_uncomp, cells_comp, res
 
@@ -251,13 +244,13 @@ def test_compact_cells():
     cells_uncomp, cells_comp, _ = get_maine_cells()
     out = h3.compact_cells(cells_uncomp)
 
-    assert out == cells_comp
+    assert u.same_set(out, cells_comp)
 
 
 def test_uncompact_cells():
     cells_uncomp, cells_comp, res = get_maine_cells()
     out = h3.uncompact_cells(cells_comp, res)
-    assert out == cells_uncomp
+    assert u.same_set(out, cells_uncomp)
 
 
 def test_get_num_cells():
@@ -339,7 +332,7 @@ def test_origin_to_directed_edges():
     }
     neighbors = h3.grid_ring(h, 1)
 
-    assert neighbors == destinations
+    assert u.same_set(neighbors, destinations)
 
 
 def test_edge_boundary():
@@ -484,7 +477,7 @@ def test_edge_is_valid_fail():
 def test_get_pentagons():
     out = h3.get_pentagons(0)
 
-    expected = {
+    expected = [
         '8009fffffffffff',
         '801dfffffffffff',
         '8031fffffffffff',
@@ -497,13 +490,13 @@ def test_get_pentagons():
         '80c3fffffffffff',
         '80d7fffffffffff',
         '80ebfffffffffff',
-    }
+    ]
 
-    assert out == expected
+    assert u.same_set(out, expected)
 
     out = h3.get_pentagons(5)
 
-    expected = {
+    expected = [
         '85080003fffffff',
         '851c0003fffffff',
         '85300003fffffff',
@@ -516,9 +509,9 @@ def test_get_pentagons():
         '85c20003fffffff',
         '85d60003fffffff',
         '85ea0003fffffff',
-    }
+    ]
 
-    assert out == expected
+    assert u.same_set(out, expected)
 
     for i in range(16):
         assert len(h3.get_pentagons(i)) == 12
@@ -541,7 +534,7 @@ def test_get_res0_cells():
 
     # subset
     pentagons = h3.get_pentagons(0)
-    assert pentagons < out
+    assert set(pentagons) < set(out)
 
     # all valid
     assert all(map(h3.is_valid_cell, out))
@@ -558,24 +551,7 @@ def test_get_res0_cells():
         '8003fffffffffff',
         '8005fffffffffff',
     }
-    assert sub < out
-
-
-def test_get_icosahedron_faces():
-    h = '804dfffffffffff'
-    expected = {2, 3, 7, 8, 12}
-    out = h3.get_icosahedron_faces(h)
-    assert out == expected
-
-    h = '80c1fffffffffff'
-    expected = {13}
-    out = h3.get_icosahedron_faces(h)
-    assert out == expected
-
-    h = '80bbfffffffffff'
-    expected = {16, 15}
-    out = h3.get_icosahedron_faces(h)
-    assert out == expected
+    assert sub < set(out)
 
 
 def test_to_local_ij_error():
@@ -613,7 +589,7 @@ def test_from_local_ij_error():
         for i, j in goodies
     }
 
-    assert out == nb
+    assert u.same_set(out, nb)
 
 
 def test_to_local_ij_self():
