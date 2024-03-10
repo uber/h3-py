@@ -51,6 +51,6 @@ jobs:
           cp _skbuild/*/cmake-build/src/h3/_cy/*.html ./annotations
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4.3.1
+        uses: actions/upload-artifact@v3
         with:
           path: ./annotations
