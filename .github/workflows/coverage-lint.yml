@@ -36,7 +36,7 @@ jobs:
       - name: Coverage
         run: |
           pip install Cython
-          cythonize -i tests/cython_example.pyx
+          cythonize -i tests/test_cython/cython_example.pyx
           pytest --cov=h3 --full-trace --cov-report=xml
 
       - name: Upload coverage to Codecov
