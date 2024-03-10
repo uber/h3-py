@@ -52,7 +52,7 @@ jobs:
         run: pytest --cov=h3 --full-trace
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.1
         with:
           path: ./dist
 
@@ -136,7 +136,7 @@ jobs:
           pipx run twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.1
         with:
           path: wheelhouse/*.whl
 
