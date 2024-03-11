@@ -25,15 +25,15 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-20.04]
+        os: [ubuntu-22.04]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.1.1
         with:
           submodules: recursive
 
       - name: Setup Python
-        uses: actions/setup-python@v4.5.0
+        uses: actions/setup-python@v5.0.0
 
       - name: Make sdist
         run: |
@@ -69,42 +69,39 @@ jobs:
           - os: windows-latest
             build: 'cp3*-win_amd64'
             name: Windows 64-bit
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             build: 'cp*-manylinux_x86_64'
             name: Linux Intel glibc 64-bit
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             build: 'cp*-musllinux_x86_64'
             name: Linux Intel musl 64-bit
-          - os: ubuntu-20.04
-            build: 'cp36-manylinux_aarch64'
-            name: Linux Aarch64 3.6
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             build: 'cp37-manylinux_aarch64'
             name: Linux Aarch64 3.7
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             build: 'cp38-manylinux_aarch64'
             name: Linux Aarch64 3.8
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             build: 'cp39-manylinux_aarch64'
             name: Linux Aarch64 3.9
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             build: 'cp310-manylinux_aarch64'
             name: Linux Aarch64 3.10
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             build: 'cp311-manylinux_aarch64'
             name: Linux Aarch64 3.11
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             build: 'cp312-manylinux_aarch64'
             name: Linux Aarch64 3.12
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.1.1
         with:
           submodules: recursive
 
       ## Setup Env
 
-      - uses: ilammy/msvc-dev-cmd@v1.12.0
+      - uses: ilammy/msvc-dev-cmd@v1.13.0
         if: runner.os == 'Windows'
 
       - name: Set Windows variables
@@ -116,7 +113,7 @@ jobs:
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v2.1.0
+        uses: docker/setup-qemu-action@v3.0.0
         with:
           platforms: aarch64
 
@@ -142,7 +139,7 @@ jobs:
 
   upload_all:
     needs: [make_sdist, make_cibw_v2_wheels]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
