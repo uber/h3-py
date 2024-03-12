@@ -16,6 +16,14 @@ avoid adding features or APIs which do not map onto the
 
 - None
 
+## [4.0.0b3] - 2024-03-11
+
+- Change supported Python versions to 3.7, 3.8, 3.9, 3.10, 3.11, 3.12 (#324, #325, #347, #348)
+- New `h3.Polygon()`/GeoJSON interface (#301)
+- Use functions instead of methods for the interface functions (#334)
+- Use `list` instead of `set` for unordered Python outputs (#339)
+
+
 ## [4.0.0b2] - 2022-11-23
 
 - Build Python 3.11 wheels (#297)
