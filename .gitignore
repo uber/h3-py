@@ -4,7 +4,7 @@ h3c/
 h3/out/
 
 # Generated C code from Cython test
-tests/*.c
+tests/**/*.c
 # Cython HTML annotations
 *.html
 
