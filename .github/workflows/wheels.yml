@@ -56,7 +56,7 @@ jobs:
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v4.3.1
         with:
-          name: dist
+          name: temp_result_sdist
           path: ./dist
 
   make_cibw_v2_wheels:
@@ -138,7 +138,7 @@ jobs:
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v4.3.1
         with:
-          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          name: temp_result_${{ matrix.os }}-${{ strategy.job-index }}
           path: wheelhouse/*.whl
 
   upload_all:
@@ -163,5 +163,8 @@ jobs:
       - name: Merge Artifacts
         uses: actions/upload-artifact/merge@v4
         with:
-          name: my-amazing-merged-artifact
-          pattern: cibw-wheels-*
+          name: wheels_and_sdist
+          pattern: temp_result_*
+          delete-merged: true
+          retention-days: 7
+          compression-level: 9
