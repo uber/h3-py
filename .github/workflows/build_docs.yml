@@ -43,5 +43,5 @@ jobs:
     steps:
       - uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # do we need this escaping?
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/_build/html
