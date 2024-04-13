@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-22.04
     if: github.event.pull_request.merged == true
 
-    setps:
+    steps:
       - uses: peaceiris/actions-gh-pages@v3.9.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
