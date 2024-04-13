@@ -6,10 +6,12 @@ on:
   pull_request:
     branches: ['*']
 
-jobs:
-  build-docs:
+defaults:
+  run:
     runs-on: ubuntu-22.04
 
+jobs:
+  build-docs:
     steps:
       - uses: actions/checkout@v4.1.1
         with:
@@ -31,7 +33,6 @@ jobs:
 
   upload-docs:
     needs: [build-docs]
-    runs-on: ubuntu-22.04
     if: github.event.pull_request.merged == true
 
     steps:
