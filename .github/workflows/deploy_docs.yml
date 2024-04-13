@@ -4,8 +4,9 @@ name: deploy_docs
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
+  pull_request:
+    branches: ['*']
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
@@ -39,10 +40,13 @@ jobs:
         run: |
           jupyter-book build docs/ --keep-going --all
 
+  upload-docs:
+    needs: [build-docs]
+    runs-on: ubuntu-22.04
+    if: github.event.pull_request.merged == true
 
-      # Deploy the book's HTML to gh-pages branch
-      - name: GitHub Pages action
-        uses: peaceiris/actions-gh-pages@v3.9.3
+    setps:
+      - uses: peaceiris/actions-gh-pages@v3.9.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/_build/html
