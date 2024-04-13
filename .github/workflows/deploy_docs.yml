@@ -27,6 +27,7 @@ jobs:
         run: |
           pip install --upgrade pip setuptools wheel
           pip install -r requirements.in
+          pip install -r requirements-dev.txt
           pip install .[all]
 
       - name: Lint
