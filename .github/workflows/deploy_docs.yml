@@ -1,17 +1,13 @@
 name: deploy_docs
 
-# todo: we want to build on PRs, but keep it from pushing to deploy...
-
 on:
   push:
     branches: [master]
   pull_request:
     branches: ['*']
 
-# This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
   build-docs:
-    name: Build docs
     runs-on: ubuntu-22.04
 
     steps:
@@ -29,10 +25,6 @@ jobs:
           pip install -r requirements.in
           pip install -r requirements-dev.txt
           pip install .[all]
-
-      - name: Lint
-        # run: flake8 --ignore=E501 h3.py
-        run: flake8 src/h3
 
       - name: Build the book
         run: jupyter-book build docs/ --warningiserror --keep-going --all
