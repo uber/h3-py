@@ -25,7 +25,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-22.04]
+        os: [ubuntu-22.04]  # TODO: we only need sdist on one os, no need for matrix
 
     steps:
       - uses: actions/checkout@v4.1.1
@@ -138,7 +138,7 @@ jobs:
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v4.3.1
         with:
-          name: wheels
+          name: wheels-${{ github.run_id }}-${{ github.job }}  # TODO: maybe use matrix os instead?
           path: wheelhouse/*.whl
 
   upload_all:
@@ -146,11 +146,10 @@ jobs:
     runs-on: ubuntu-22.04
     if: github.event_name == 'release' && github.event.action == 'published'
 
-    # todo we might want to collect all the individual wheel/dist artifacts and put them in a single artifact?
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: wheels
+          name: wheels # TODO: this will be broken for now
           path: dist
 
       - uses: pypa/gh-action-pypi-publish@v1.5.1
