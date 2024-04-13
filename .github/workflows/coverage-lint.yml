@@ -54,4 +54,5 @@ jobs:
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v4.3.1
         with:
+          name: annotations
           path: ./annotations

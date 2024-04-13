@@ -32,6 +32,7 @@ jobs:
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v4.3.1
         with:
+          name: html
           path: docs/_build/html
 
   deploy-docs:
@@ -42,5 +43,5 @@ jobs:
     steps:
       - uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # do we need this escaping?
           publish_dir: docs/_build/html

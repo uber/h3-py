@@ -54,6 +54,7 @@ jobs:
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v4.3.1
         with:
+          name: wheels
           path: ./dist
 
   make_cibw_v2_wheels:
@@ -135,6 +136,7 @@ jobs:
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v4.3.1
         with:
+          name: wheels
           path: wheelhouse/*.whl
 
   upload_all:
@@ -145,7 +147,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: artifact
+          name: wheels
           path: dist
 
       - uses: pypa/gh-action-pypi-publish@v1.5.1
