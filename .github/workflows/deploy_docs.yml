@@ -29,6 +29,11 @@ jobs:
       - name: Build the book
         run: jupyter-book build docs/ --warningiserror --keep-going --all
 
+      - name: Upload artifacts to GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          path: docs/_build/html
+
   upload-docs:
     needs: [build-docs]
     runs-on: ubuntu-22.04
