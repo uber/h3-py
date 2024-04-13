@@ -4,31 +4,16 @@ format: jb-book
 
 root: intro
 parts:
-- caption: Getting started
+- caption: h3-py
   chapters:
   - file: api_comparison
   - file: api_reference
+  - file: polygon_tutorial
 
-- caption: Contributing
+- caption: Sundries
   chapters:
-  - file: contributing
-  # - file: jupyter_book_notes
   - file: _changelog
-    title: Change log
-
-- caption: External links
-  chapters:
-  - url: https://github.com/uber/h3-py-notebooks
-    title: Example Notebooks
-  - url: https://h3geo.org/
-    title: H3 Project Homepage
-  - url: https://github.com/uber/h3-py
-    title: h3-py on GitHub
-  - url: https://github.com/uber/h3
-    title: H3 on GitHub
-  - url: https://github.com/uber/h3/discussions
-    title: GitHub Discussions
-  - url: https://stackoverflow.com/questions/tagged/h3
-    title: H3 Stack Overflow
-  - url: https://join.slack.com/t/h3-core/shared_invite/zt-g6u5r1hf-W_~uVJmfeiWtMQuBGc1NNg
-    title: H3 Slack
+    title: CHANGELOG
+  - file: contributing
+  - file: project_links
+    title: Project Links

@@ -1,4 +1,4 @@
-# API reference
+# API Reference
 
 This page lists the functions that are common to each of the
 [provided APIs](api_comparison).

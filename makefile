@@ -4,6 +4,7 @@ PYTHON=$(shell command -v python || command -v python3)
 
 
 build-docs:
+	./env/bin/pip install -r requirements-dev.txt
 	./env/bin/jupyter-book build docs/ --warningiserror --keep-going --all
 
 open:
