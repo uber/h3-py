@@ -1,4 +1,4 @@
-name: deploy_docs
+name: build_docs
 
 on:
   push:
@@ -34,13 +34,13 @@ jobs:
         with:
           path: docs/_build/html
 
-  upload-docs:
+  deploy-docs:
     needs: [build-docs]
     runs-on: ubuntu-22.04
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged
 
     steps:
-      - uses: peaceiris/actions-gh-pages@v3.9.3
+      - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/_build/html
