@@ -33,12 +33,8 @@ jobs:
         # run: flake8 --ignore=E501 h3.py
         run: flake8 src/h3
 
-      # Build the book
       - name: Build the book
-        # turn off warningiserror just for https://github.com/uber/h3-py/pull/283
-        # jupyter-book build docs/ --warningiserror --keep-going --all
-        run: |
-          jupyter-book build docs/ --keep-going --all
+        run: jupyter-book build docs/ --warningiserror --keep-going --all
 
   upload-docs:
     needs: [build-docs]
