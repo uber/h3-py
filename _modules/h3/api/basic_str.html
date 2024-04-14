@@ -1,0 +1,1472 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>h3.api.basic_str &#8212; h3-py</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/h3/api/basic_str';</script>
+    <link rel="canonical" href="https://uber.github.io/h3-py/_modules/h3/api/basic_str.html" />
+    <link rel="icon" href="../../../_static/logo.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="h3-py - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.svg" class="logo__image only-dark" alt="h3-py - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">h3-py</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../api_comparison.html">API Comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../polygon_tutorial.html">Polygon Tutorial</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Sundries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../_changelog.html">CHANGELOG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_links.html">Project Links</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/uber/h3-py" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for h3.api.basic_str</h1><div class="highlight"><pre>
+<span></span><span class="c1"># This file is **symlinked** across the APIs to ensure they are exactly the same.</span>
+
+<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">_cy</span>
+<span class="kn">from</span> <span class="nn">..._h3shape</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">H3Shape</span><span class="p">,</span>
+    <span class="n">H3Poly</span><span class="p">,</span>
+    <span class="n">H3MultiPoly</span><span class="p">,</span>
+    <span class="n">geo_to_h3shape</span><span class="p">,</span>
+    <span class="n">h3shape_to_geo</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">._convert</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_in_scalar</span><span class="p">,</span>
+    <span class="n">_out_scalar</span><span class="p">,</span>
+    <span class="n">_in_collection</span><span class="p">,</span>
+    <span class="n">_out_collection</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="versions">
+<a class="viewcode-back" href="../../../api_reference.html#h3.versions">[docs]</a>
+<span class="k">def</span> <span class="nf">versions</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Version numbers for the Python (wrapper) and C (wrapped) libraries.</span>
+
+<span class="sd">    Versions are output as strings of the form ``&#39;X.Y.Z&#39;``.</span>
+<span class="sd">    C and Python should match on ``X`` (major) and ``Y`` (minor),</span>
+<span class="sd">    but may differ on ``Z`` (patch).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict like ``{&#39;c&#39;: &#39;X.Y.Z&#39;, &#39;python&#39;: &#39;A.B.C&#39;}``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">..._version</span> <span class="kn">import</span> <span class="n">__version__</span>
+
+    <span class="n">v</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">_cy</span><span class="o">.</span><span class="n">c_version</span><span class="p">(),</span>
+        <span class="s1">&#39;python&#39;</span><span class="p">:</span> <span class="n">__version__</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">v</span></div>
+
+
+
+<div class="viewcode-block" id="str_to_int">
+<a class="viewcode-back" href="../../../api_reference.html#h3.str_to_int">[docs]</a>
+<span class="k">def</span> <span class="nf">str_to_int</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a hexadecimal string to an H3 64-bit integer index.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : str</span>
+<span class="sd">        Hexadecimal string like ``&#39;89754e64993ffff&#39;``</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">        Unsigned 64-bit integer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">str_to_int</span><span class="p">(</span><span class="n">h</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="int_to_str">
+<a class="viewcode-back" href="../../../api_reference.html#h3.int_to_str">[docs]</a>
+<span class="k">def</span> <span class="nf">int_to_str</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts an H3 64-bit integer index to a hexadecimal string.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : int</span>
+<span class="sd">        Unsigned 64-bit integer</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        Hexadecimal string like ``&#39;89754e64993ffff&#39;``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">int_to_str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_num_cells">
+<a class="viewcode-back" href="../../../api_reference.html#h3.get_num_cells">[docs]</a>
+<span class="k">def</span> <span class="nf">get_num_cells</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the total number of *cells* (hexagons and pentagons)</span>
+<span class="sd">    for the given resolution.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">get_num_cells</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="average_hexagon_area">
+<a class="viewcode-back" href="../../../api_reference.html#h3.average_hexagon_area">[docs]</a>
+<span class="k">def</span> <span class="nf">average_hexagon_area</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;km^2&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the average area of an H3 *hexagon*</span>
+<span class="sd">    for the given resolution.</span>
+
+<span class="sd">    This average *excludes* pentagons.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">average_hexagon_area</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="average_hexagon_edge_length">
+<a class="viewcode-back" href="../../../api_reference.html#h3.average_hexagon_edge_length">[docs]</a>
+<span class="k">def</span> <span class="nf">average_hexagon_edge_length</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;km&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the average *hexagon* edge length</span>
+<span class="sd">    for the given resolution.</span>
+
+<span class="sd">    This average *excludes* pentagons.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">average_hexagon_edge_length</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="is_valid_cell">
+<a class="viewcode-back" href="../../../api_reference.html#h3.is_valid_cell">[docs]</a>
+<span class="k">def</span> <span class="nf">is_valid_cell</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validates an H3 cell (hexagon or pentagon).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">is_valid_cell</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="is_valid_directed_edge">
+<a class="viewcode-back" href="../../../api_reference.html#h3.is_valid_directed_edge">[docs]</a>
+<span class="k">def</span> <span class="nf">is_valid_directed_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validates an H3 unidirectional edge.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">is_valid_directed_edge</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="latlng_to_cell">
+<a class="viewcode-back" href="../../../api_reference.html#h3.latlng_to_cell">[docs]</a>
+<span class="k">def</span> <span class="nf">latlng_to_cell</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lng</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the cell containing the (lat, lng) point</span>
+<span class="sd">    for a given resolution.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    H3Cell</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_out_scalar</span><span class="p">(</span><span class="n">_cy</span><span class="o">.</span><span class="n">latlng_to_cell</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lng</span><span class="p">,</span> <span class="n">res</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="cell_to_latlng">
+<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_latlng">[docs]</a>
+<span class="k">def</span> <span class="nf">cell_to_latlng</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the center point of an H3 cell as a lat/lng pair.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    lat : float</span>
+<span class="sd">        Latitude</span>
+<span class="sd">    lng : float</span>
+<span class="sd">        Longitude</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cell_to_latlng</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="get_resolution">
+<a class="viewcode-back" href="../../../api_reference.html#h3.get_resolution">[docs]</a>
+<span class="k">def</span> <span class="nf">get_resolution</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the resolution of an H3 cell.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># todo: could also work for edges</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">get_resolution</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="cell_to_parent">
+<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_parent">[docs]</a>
+<span class="k">def</span> <span class="nf">cell_to_parent</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the parent of a cell.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+<span class="sd">    res : int or None, optional</span>
+<span class="sd">        The resolution for the parent</span>
+<span class="sd">        If ``None``, then ``res = resolution(h) - 1``</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    H3Cell</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cell_to_parent</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">_out_scalar</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">p</span></div>
+
+
+
+<div class="viewcode-block" id="grid_distance">
+<a class="viewcode-back" href="../../../api_reference.html#h3.grid_distance">[docs]</a>
+<span class="k">def</span> <span class="nf">grid_distance</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the H3 distance between two cells.</span>
+
+<span class="sd">    The H3 distance is defined as the length of the shortest</span>
+<span class="sd">    path between the cells in the graph formed by connecting</span>
+<span class="sd">    adjacent cells.</span>
+
+<span class="sd">    This function will raise an exception if the</span>
+<span class="sd">    cells are too far apart to compute the distance.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h1 : H3Cell</span>
+<span class="sd">    h2 : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span>
+    <span class="n">h2</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h2</span><span class="p">)</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">grid_distance</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">d</span></div>
+
+
+
+<div class="viewcode-block" id="cell_to_boundary">
+<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_boundary">[docs]</a>
+<span class="k">def</span> <span class="nf">cell_to_boundary</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return tuple of lat/lng pairs describing the cell boundary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of (lat, lng) tuples</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cell_to_boundary</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="grid_disk">
+<a class="viewcode-back" href="../../../api_reference.html#h3.grid_disk">[docs]</a>
+<span class="k">def</span> <span class="nf">grid_disk</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return unordered collection of cells with H3 distance ``&lt;= k`` from ``h``.</span>
+<span class="sd">    That is, the &#39;filled-in&#39; disk.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+<span class="sd">    k : int</span>
+<span class="sd">        Size of disk.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unordered collection of H3Cell</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    There is currently no guaranteed order of the output cells.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">grid_disk</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="n">k</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="grid_ring">
+<a class="viewcode-back" href="../../../api_reference.html#h3.grid_ring">[docs]</a>
+<span class="k">def</span> <span class="nf">grid_ring</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return unordered collection of cells with H3 distance ``== k`` from ``h``.</span>
+<span class="sd">    That is, the &quot;hollow&quot; ring.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+<span class="sd">    k : int</span>
+<span class="sd">        Size of ring.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unordered collection of H3Cell</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    There is currently no guaranteed order of the output cells.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">grid_ring</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="n">k</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="cell_to_children">
+<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_children">[docs]</a>
+<span class="k">def</span> <span class="nf">cell_to_children</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Children of a cell as an unordered collection.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+<span class="sd">    res : int or None, optional</span>
+<span class="sd">        The resolution for the children.</span>
+<span class="sd">        If ``None``, then ``res = resolution(h) + 1``</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unordered collection of H3Cell</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    There is currently no guaranteed order of the output cells.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cell_to_children</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="n">res</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># todo: nogil for expensive C operation?</span>
+<div class="viewcode-block" id="compact_cells">
+<a class="viewcode-back" href="../../../api_reference.html#h3.compact_cells">[docs]</a>
+<span class="k">def</span> <span class="nf">compact_cells</span><span class="p">(</span><span class="n">cells</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compact a collection of H3 cells by combining</span>
+<span class="sd">    smaller cells into larger cells, if all child cells</span>
+<span class="sd">    are present. Input cells must all share the same resolution.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cells : iterable of H3 Cells</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unordered collection of H3Cell</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    There is currently no guaranteed order of the output cells.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># todo: does compact_cells work on mixed-resolution collections?</span>
+    <span class="n">hu</span> <span class="o">=</span> <span class="n">_in_collection</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+    <span class="n">hc</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">compact_cells</span><span class="p">(</span><span class="n">hu</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">hc</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="uncompact_cells">
+<a class="viewcode-back" href="../../../api_reference.html#h3.uncompact_cells">[docs]</a>
+<span class="k">def</span> <span class="nf">uncompact_cells</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reverse the `compact_cells` operation.</span>
+
+<span class="sd">    Return a collection of H3 cells, all of resolution ``res``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cells : iterable of H3Cell</span>
+<span class="sd">    res : int</span>
+<span class="sd">        Resolution of desired output cells.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unordered collection of H3Cell</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    todo: add test to make sure an error is returned when input</span>
+<span class="sd">    contains cell smaller than output res.</span>
+<span class="sd">    https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    There is currently no guaranteed order of the output cells.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hc</span> <span class="o">=</span> <span class="n">_in_collection</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+    <span class="n">hu</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">uncompact_cells</span><span class="p">(</span><span class="n">hc</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">hu</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="h3shape_to_cells">
+<a class="viewcode-back" href="../../../api_reference.html#h3.h3shape_to_cells">[docs]</a>
+<span class="k">def</span> <span class="nf">h3shape_to_cells</span><span class="p">(</span><span class="n">h3shape</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the set of H3 cells at a given resolution whose center points</span>
+<span class="sd">    are contained within an `H3Poly` or `H3MultiPoly`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h3shape : H3shape</span>
+<span class="sd">    res : int</span>
+<span class="sd">        Resolution of the output cells</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unordered collection of H3Cell</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; poly = H3Poly(</span>
+<span class="sd">    ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),</span>
+<span class="sd">    ...      (37.82, -122.54)],</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; h3.h3shape_to_cells(poly, 6)</span>
+<span class="sd">    {&#39;862830807ffffff&#39;,</span>
+<span class="sd">     &#39;862830827ffffff&#39;,</span>
+<span class="sd">     &#39;86283082fffffff&#39;,</span>
+<span class="sd">     &#39;862830877ffffff&#39;,</span>
+<span class="sd">     &#39;862830947ffffff&#39;,</span>
+<span class="sd">     &#39;862830957ffffff&#39;,</span>
+<span class="sd">     &#39;86283095fffffff&#39;}</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    There is currently no guaranteed order of the output cells.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># todo: not sure if i want this dispatch logic here. maybe in the objects?</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h3shape</span><span class="p">,</span> <span class="n">H3Poly</span><span class="p">):</span>
+        <span class="n">poly</span> <span class="o">=</span> <span class="n">h3shape</span>
+        <span class="n">mv</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">polygon_to_cells</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">outer</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">holes</span><span class="o">=</span><span class="n">poly</span><span class="o">.</span><span class="n">holes</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h3shape</span><span class="p">,</span> <span class="n">H3MultiPoly</span><span class="p">):</span>
+        <span class="n">mpoly</span> <span class="o">=</span> <span class="n">h3shape</span>
+        <span class="n">mv</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">polygons_to_cells</span><span class="p">(</span><span class="n">mpoly</span><span class="o">.</span><span class="n">polys</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h3shape</span><span class="p">,</span> <span class="n">H3Shape</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized H3Shape: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h3shape</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized type: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">h3shape</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="cells_to_h3shape">
+<a class="viewcode-back" href="../../../api_reference.html#h3.cells_to_h3shape">[docs]</a>
+<span class="k">def</span> <span class="nf">cells_to_h3shape</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a H3MultiPoly describing the area covered by a set of H3 cells.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cells : iterable of H3 cells</span>
+<span class="sd">    tight : bool</span>
+<span class="sd">        If True, return H3Poly if possible. If False, always return H3MultiPoly</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    H3Poly | H3MultiPoly</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; cells = [&#39;8428309ffffffff&#39;, &#39;842830dffffffff&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; h3.cells_to_h3shape(cells, tight=True)</span>
+<span class="sd">    &lt;H3Poly: [10]&gt;</span>
+<span class="sd">    &gt;&gt;&gt; h3.cells_to_h3shape(cells, tight=False)</span>
+<span class="sd">    &lt;H3MultiPoly: [10]&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">_in_collection</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+    <span class="n">mpoly</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cells_to_multi_polygon</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+
+    <span class="n">polys</span> <span class="o">=</span> <span class="p">[</span><span class="n">H3Poly</span><span class="p">(</span><span class="o">*</span><span class="n">poly</span><span class="p">)</span> <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">mpoly</span><span class="p">]</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">H3MultiPoly</span><span class="p">(</span><span class="o">*</span><span class="n">polys</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tight</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="geo_to_cells">
+<a class="viewcode-back" href="../../../api_reference.html#h3.geo_to_cells">[docs]</a>
+<span class="k">def</span> <span class="nf">geo_to_cells</span><span class="p">(</span><span class="n">geo</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert from __geo_interface__ to cells.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    geo : an object implementing `__geo_interface__` or a dictionary in that format.</span>
+<span class="sd">        Both H3Poly and H3MultiPoly implement the interface.</span>
+<span class="sd">    res : int</span>
+<span class="sd">        Resolution of desired output cells.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    There is currently no guaranteed order of the output cells.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h3shape</span> <span class="o">=</span> <span class="n">geo_to_h3shape</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">h3shape_to_cells</span><span class="p">(</span><span class="n">h3shape</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="cells_to_geo">
+<a class="viewcode-back" href="../../../api_reference.html#h3.cells_to_geo">[docs]</a>
+<span class="k">def</span> <span class="nf">cells_to_geo</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cells : iterable of H3 Cells</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        in `__geo_interface__` format</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h3shape</span> <span class="o">=</span> <span class="n">cells_to_h3shape</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="n">tight</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">h3shape_to_geo</span><span class="p">(</span><span class="n">h3shape</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="is_pentagon">
+<a class="viewcode-back" href="../../../api_reference.html#h3.is_pentagon">[docs]</a>
+<span class="k">def</span> <span class="nf">is_pentagon</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Identify if an H3 cell is a pentagon.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Index</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">        ``True`` if input is a valid H3 cell which is a pentagon.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    A pentagon should *also* pass ``is_valid_cell()``.</span>
+<span class="sd">    Will return ``False`` for valid H3Edge.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">is_pentagon</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="get_base_cell_number">
+<a class="viewcode-back" href="../../../api_reference.html#h3.get_base_cell_number">[docs]</a>
+<span class="k">def</span> <span class="nf">get_base_cell_number</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the base cell *number* (``0`` to ``121``) of the given cell.</span>
+
+<span class="sd">    The base cell *number* and the H3Index are two different representations</span>
+<span class="sd">    of the same cell: the parent cell of resolution ``0``.</span>
+
+<span class="sd">    The base cell *number* is encoded within the corresponding</span>
+<span class="sd">    H3Index.</span>
+
+<span class="sd">    todo: could work with edges</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">get_base_cell_number</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="are_neighbor_cells">
+<a class="viewcode-back" href="../../../api_reference.html#h3.are_neighbor_cells">[docs]</a>
+<span class="k">def</span> <span class="nf">are_neighbor_cells</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns ``True`` if ``h1`` and ``h2`` are neighboring cells.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h1 : H3Cell</span>
+<span class="sd">    h2 : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span>
+    <span class="n">h2</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">are_neighbor_cells</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="cells_to_directed_edge">
+<a class="viewcode-back" href="../../../api_reference.html#h3.cells_to_directed_edge">[docs]</a>
+<span class="k">def</span> <span class="nf">cells_to_directed_edge</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">destination</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an H3 Index denoting a unidirectional edge.</span>
+
+<span class="sd">    The edge is constructed from neighboring cells ``origin`` and</span>
+<span class="sd">    ``destination``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    origin : H3Cell</span>
+<span class="sd">    destination : H3Cell</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        When cells are not adjacent.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    H3Edge</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cells_to_directed_edge</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">_out_scalar</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">e</span></div>
+
+
+
+<div class="viewcode-block" id="get_directed_edge_origin">
+<a class="viewcode-back" href="../../../api_reference.html#h3.get_directed_edge_origin">[docs]</a>
+<span class="k">def</span> <span class="nf">get_directed_edge_origin</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Origin cell from an H3 directed edge.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e : H3Edge</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    H3Cell</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">get_directed_edge_origin</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">_out_scalar</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">o</span></div>
+
+
+
+<div class="viewcode-block" id="get_directed_edge_destination">
+<a class="viewcode-back" href="../../../api_reference.html#h3.get_directed_edge_destination">[docs]</a>
+<span class="k">def</span> <span class="nf">get_directed_edge_destination</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Destination cell from an H3 directed edge.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e : H3Edge</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    H3Cell</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">get_directed_edge_destination</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">_out_scalar</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">d</span></div>
+
+
+
+<div class="viewcode-block" id="directed_edge_to_cells">
+<a class="viewcode-back" href="../../../api_reference.html#h3.directed_edge_to_cells">[docs]</a>
+<span class="k">def</span> <span class="nf">directed_edge_to_cells</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return (origin, destination) tuple from H3 directed edge</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e : H3Edge</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    H3Cell</span>
+<span class="sd">        Origin cell of edge</span>
+<span class="sd">    H3Cell</span>
+<span class="sd">        Destination cell of edge</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">o</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">directed_edge_to_cells</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">o</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">_out_scalar</span><span class="p">(</span><span class="n">o</span><span class="p">),</span> <span class="n">_out_scalar</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">o</span><span class="p">,</span> <span class="n">d</span></div>
+
+
+
+<div class="viewcode-block" id="origin_to_directed_edges">
+<a class="viewcode-back" href="../../../api_reference.html#h3.origin_to_directed_edges">[docs]</a>
+<span class="k">def</span> <span class="nf">origin_to_directed_edges</span><span class="p">(</span><span class="n">origin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return all directed edges starting from ``origin`` cell.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    origin : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unordered collection of H3Edge</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">origin_to_directed_edges</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">origin</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">directed_edge_to_boundary</span><span class="p">(</span><span class="n">edge</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">directed_edge_to_boundary</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">edge</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="grid_path_cells">
+<a class="viewcode-back" href="../../../api_reference.html#h3.grid_path_cells">[docs]</a>
+<span class="k">def</span> <span class="nf">grid_path_cells</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the ordered collection of cells denoting a</span>
+<span class="sd">    minimum-length non-unique path between cells.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    start : H3Cell</span>
+<span class="sd">    end : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ordered collection of H3Cell</span>
+<span class="sd">        Starting with ``start``, and ending with ``end``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">grid_path_cells</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">start</span><span class="p">),</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">end</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="is_res_class_III">
+<a class="viewcode-back" href="../../../api_reference.html#h3.is_res_class_III">[docs]</a>
+<span class="k">def</span> <span class="nf">is_res_class_III</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determine if cell has orientation &quot;Class II&quot; or &quot;Class III&quot;.</span>
+
+<span class="sd">    The orientation of pentagons/hexagons on the icosahedron can be one</span>
+<span class="sd">    of two types: &quot;Class II&quot; or &quot;Class III&quot;.</span>
+
+<span class="sd">    All cells within a resolution have the same type, and the type</span>
+<span class="sd">    alternates between resolutions.</span>
+
+<span class="sd">    &quot;Class II&quot; cells have resolutions:  0,2,4,6,8,10,12,14</span>
+<span class="sd">    &quot;Class III&quot; cells have resolutions: 1,3,5,7,9,11,13,15</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">        ``True`` if ``h`` is &quot;Class III&quot;.</span>
+<span class="sd">        ``False`` if ``h`` is &quot;Class II&quot;.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    1. https://uber.github.io/h3/#/documentation/core-library/coordinate-systems</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">is_res_class_iii</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="get_pentagons">
+<a class="viewcode-back" href="../../../api_reference.html#h3.get_pentagons">[docs]</a>
+<span class="k">def</span> <span class="nf">get_pentagons</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return all pentagons at a given resolution.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    res : int</span>
+<span class="sd">        Resolution of the pentagons</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unordered collection of H3Cell</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">get_pentagons</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_res0_cells">
+<a class="viewcode-back" href="../../../api_reference.html#h3.get_res0_cells">[docs]</a>
+<span class="k">def</span> <span class="nf">get_res0_cells</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return all cells at resolution 0.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unordered collection of H3Cell</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    There is currently no guaranteed order of the output cells.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">get_res0_cells</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="cell_to_center_child">
+<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_center_child">[docs]</a>
+<span class="k">def</span> <span class="nf">cell_to_center_child</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the center child of a cell at some finer resolution.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+<span class="sd">    res : int or None, optional</span>
+<span class="sd">        The resolution for the child cell</span>
+<span class="sd">        If ``None``, then ``res = resolution(h) + 1``</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    H3Cell</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cell_to_center_child</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">_out_scalar</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">p</span></div>
+
+
+
+<div class="viewcode-block" id="get_icosahedron_faces">
+<a class="viewcode-back" href="../../../api_reference.html#h3.get_icosahedron_faces">[docs]</a>
+<span class="k">def</span> <span class="nf">get_icosahedron_faces</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return icosahedron faces intersecting a given H3 cell.</span>
+
+<span class="sd">    There are twenty possible faces, ranging from 0--19.</span>
+
+<span class="sd">    Note: Every interface returns a Python ``set`` of ``int``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Python ``set`` of ``int``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">faces</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">get_icosahedron_faces</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">faces</span></div>
+
+
+
+<div class="viewcode-block" id="cell_to_local_ij">
+<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_local_ij">[docs]</a>
+<span class="k">def</span> <span class="nf">cell_to_local_ij</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return local (i,j) coordinates of cell ``h`` in relation to ``origin`` cell</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    origin : H3Cell</span>
+<span class="sd">        Origin/central cell for defining i,j coordinates.</span>
+<span class="sd">    h: H3Cell</span>
+<span class="sd">        Destination cell whose i,j coordinates we&#39;d like, based off</span>
+<span class="sd">        of the origin cell.</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple (i, j) of integer local coordinates of cell ``h``</span>
+
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+
+<span class="sd">    The ``origin`` cell does not define (0, 0) for the IJ coordinate space.</span>
+<span class="sd">    (0, 0) refers to the center of the base cell containing origin at the</span>
+<span class="sd">    resolution of `origin`.</span>
+<span class="sd">    Subtracting the IJ coordinates of ``origin`` from every cell would get</span>
+<span class="sd">    you the property of (0, 0) being the ``origin``.</span>
+
+<span class="sd">    This is done so we don&#39;t need to keep recomputing the coordinates of</span>
+<span class="sd">    ``origin`` if not needed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">origin</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cell_to_local_ij</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span></div>
+
+
+
+<div class="viewcode-block" id="local_ij_to_cell">
+<a class="viewcode-back" href="../../../api_reference.html#h3.local_ij_to_cell">[docs]</a>
+<span class="k">def</span> <span class="nf">local_ij_to_cell</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return cell at local (i,j) position relative to the ``origin`` cell.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    origin : H3Cell</span>
+<span class="sd">        Origin/central cell for defining i,j coordinates.</span>
+<span class="sd">    i, j: int</span>
+<span class="sd">        Integer coordinates with respect to ``origin`` cell.</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    H3Cell at local (i,j) position relative to the ``origin`` cell</span>
+
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+
+<span class="sd">    The ``origin`` cell does not define (0, 0) for the IJ coordinate space.</span>
+<span class="sd">    (0, 0) refers to the center of the base cell containing origin at the</span>
+<span class="sd">    resolution of ``origin``.</span>
+<span class="sd">    Subtracting the IJ coordinates of ``origin`` from every cell would get</span>
+<span class="sd">    you the property of (0, 0) being the ``origin``.</span>
+
+<span class="sd">    This is done so we don&#39;t need to keep recomputing the coordinates of</span>
+<span class="sd">    ``origin`` if not needed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">origin</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">local_ij_to_cell</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_out_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">h</span></div>
+
+
+
+<div class="viewcode-block" id="cell_area">
+<a class="viewcode-back" href="../../../api_reference.html#h3.cell_area">[docs]</a>
+<span class="k">def</span> <span class="nf">cell_area</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;km^2&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the spherical surface area of a specific H3 cell.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+<span class="sd">    unit: str</span>
+<span class="sd">        Unit for area result (``&#39;km^2&#39;``, &#39;m^2&#39;, or &#39;rads^2&#39;)</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    The area of the H3 cell in the given units</span>
+
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function breaks the cell into spherical triangles, and computes</span>
+<span class="sd">    their spherical area.</span>
+<span class="sd">    The function uses the spherical distance calculation given by</span>
+<span class="sd">    `great_circle_distance`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cell_area</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="edge_length">
+<a class="viewcode-back" href="../../../api_reference.html#h3.edge_length">[docs]</a>
+<span class="k">def</span> <span class="nf">edge_length</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;km&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the spherical length of a specific H3 edge.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+<span class="sd">    unit: str</span>
+<span class="sd">        Unit for length result (&#39;km&#39;, &#39;m&#39;, or &#39;rads&#39;)</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    The length of the edge in the given units</span>
+
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function uses the spherical distance calculation given by</span>
+<span class="sd">    `great_circle_distance`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">edge_length</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="great_circle_distance">
+<a class="viewcode-back" href="../../../api_reference.html#h3.great_circle_distance">[docs]</a>
+<span class="k">def</span> <span class="nf">great_circle_distance</span><span class="p">(</span><span class="n">latlng1</span><span class="p">,</span> <span class="n">latlng2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;km&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the spherical distance between two (lat, lng) points.</span>
+<span class="sd">    AKA: great circle distance or &quot;haversine&quot; distance.</span>
+
+<span class="sd">    todo: overload to allow two cell inputs?</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    latlng1 : tuple</span>
+<span class="sd">        (lat, lng) tuple in degrees</span>
+<span class="sd">    latlng2 : tuple</span>
+<span class="sd">        (lat, lng) tuple in degrees</span>
+<span class="sd">    unit: str</span>
+<span class="sd">        Unit for distance result (&#39;km&#39;, &#39;m&#39;, or &#39;rads&#39;)</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    The spherical distance between the points in the given units</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lat1</span><span class="p">,</span> <span class="n">lng1</span> <span class="o">=</span> <span class="n">latlng1</span>
+    <span class="n">lat2</span><span class="p">,</span> <span class="n">lng2</span> <span class="o">=</span> <span class="n">latlng2</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">great_circle_distance</span><span class="p">(</span>
+        <span class="n">lat1</span><span class="p">,</span> <span class="n">lng1</span><span class="p">,</span>
+        <span class="n">lat2</span><span class="p">,</span> <span class="n">lng2</span><span class="p">,</span>
+        <span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span>
+    <span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Uber Technologies
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2021.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

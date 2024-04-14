@@ -1,0 +1,801 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>API Comparison &#8212; h3-py</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_comparison';</script>
+    <link rel="canonical" href="https://uber.github.io/h3-py/api_comparison.html" />
+    <link rel="icon" href="_static/logo.svg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api_reference.html" />
+    <link rel="prev" title="h3-py: Uber’s H3 Hexagonal Hierarchical Geospatial Indexing System in Python" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.svg" class="logo__image only-light" alt="h3-py - Home"/>
+    <script>document.write(`<img src="_static/logo.svg" class="logo__image only-dark" alt="h3-py - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">h3-py</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">API Comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polygon_tutorial.html">Polygon Tutorial</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Sundries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="_changelog.html">CHANGELOG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_links.html">Project Links</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/uber/h3-py" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/uber/h3-py/edit/master/docs/api_comparison.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/api_comparison.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>API Comparison</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-there-multiple-apis">Why are there multiple APIs?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-options">API Options</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-api-basic-str"><code class="docutils literal notranslate"><span class="pre">h3.api.basic_str</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-api-basic-int"><code class="docutils literal notranslate"><span class="pre">h3.api.basic_int</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-api-numpy-int"><code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-api-memview-int"><code class="docutils literal notranslate"><span class="pre">h3.api.memview_int</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-speed-comparison">API speed comparison</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-code">Example code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timing-results">Timing results</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="api-comparison">
+<h1>API Comparison<a class="headerlink" href="#api-comparison" title="Link to this heading">#</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">h3-py</span></code> library provides several APIs which share the same functions,
+but differ in their input and output types:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">h3.api.basic_str</span></code> (the <em>default</em> <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">h3</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">h3.api.basic_str</span> <span class="pre">as</span> <span class="pre">h3</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3.api.basic_int</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h3.api.memview_int</span></code></p></li>
+</ul>
+<section id="why-are-there-multiple-apis">
+<h2>Why are there multiple APIs?<a class="headerlink" href="#why-are-there-multiple-apis" title="Link to this heading">#</a></h2>
+<!-- TODO: if i make this a notebook, do i get to have the headings i want?
+BETTER: keep as markdown, but let the launcher convert the markdown to a notebook for people to run and test! -->
+<p>Under the hood in the C library, H3 indices are represented as
+unsigned 64-bit integers (<code class="docutils literal notranslate"><span class="pre">uint64_t</span></code>), and collections of indexes
+are represented with C arrays.</p>
+<p>For human readability, we often represent integer
+indices (<code class="docutils literal notranslate"><span class="pre">578536630256664575</span></code>) in their
+hexadecimal format (<code class="docutils literal notranslate"><span class="pre">8075fffffffffff</span></code>).</p>
+<p>The <em>default</em> Python API (via <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">h3</span></code> or <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">h3.api.basic_str</span></code>),
+represents indices in their hexadecimal
+format as a Python <code class="docutils literal notranslate"><span class="pre">str</span></code>s and uses standard Python collection types like
+<code class="docutils literal notranslate"><span class="pre">set</span></code> and <code class="docutils literal notranslate"><span class="pre">list</span></code>. These conventions make it more natural to work with
+<code class="docutils literal notranslate"><span class="pre">h3-py</span></code> objects in Python, but come at the cost of converting back and forth
+between the C and Python representations.</p>
+<p>Alternative APIs like <code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code> give up some of the Python conveniences to gain
+speed by dealing with the C memory more directly and avoiding the conversion
+costs.</p>
+<p>Multiple APIs give users the power to choose the one that best fits their
+needs, based on speed and convenience.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Note that the APIs are all 100% compatible, and it is easy to convert
+between them with functions like <code class="docutils literal notranslate"><span class="pre">int_to_str</span></code> (links!) and <code class="docutils literal notranslate"><span class="pre">str_to_int</span></code>.</p>
+<p>For example, one common pattern is to use <code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code> for any
+computationally-heavy work, and convert the output to <code class="docutils literal notranslate"><span class="pre">str</span></code> and <code class="docutils literal notranslate"><span class="pre">list</span></code>/<code class="docutils literal notranslate"><span class="pre">set</span></code>
+(akin to <code class="docutils literal notranslate"><span class="pre">h3.api.basic_str</span></code>) to inspect or report the results.</p>
+</div>
+</section>
+<section id="api-options">
+<h2>API Options<a class="headerlink" href="#api-options" title="Link to this heading">#</a></h2>
+<section id="h3-api-basic-str">
+<h3><code class="docutils literal notranslate"><span class="pre">h3.api.basic_str</span></code><a class="headerlink" href="#h3-api-basic-str" title="Link to this heading">#</a></h3>
+<p>H3 indexes are represented as Python <code class="docutils literal notranslate"><span class="pre">str</span></code>s,
+using <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">set</span></code> for collections.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">h3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">latlng_to_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
+<span class="go">&#39;8075fffffffffff&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">grid_ring</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">{&#39;8055fffffffffff&#39;,</span>
+<span class="go"> &#39;8059fffffffffff&#39;,</span>
+<span class="go"> &#39;807dfffffffffff&#39;,</span>
+<span class="go"> &#39;8083fffffffffff&#39;,</span>
+<span class="go"> &#39;8099fffffffffff&#39;}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">basic_str</span></code> is the default API provided when you <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">h3</span></code>. That is,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h3.api.basic_str</span> <span class="k">as</span> <span class="nn">h3</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h3</span>
+</pre></div>
+</div>
+<p>are equivalent.</p>
+</div>
+</section>
+<section id="h3-api-basic-int">
+<h3><code class="docutils literal notranslate"><span class="pre">h3.api.basic_int</span></code><a class="headerlink" href="#h3-api-basic-int" title="Link to this heading">#</a></h3>
+<p>H3 indexes are represented as Python <code class="docutils literal notranslate"><span class="pre">int</span></code>s, using <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">set</span></code> for collections.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">h3.api.basic_int</span> <span class="k">as</span> <span class="nn">h3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">latlng_to_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
+<span class="go">578536630256664575</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">grid_ring</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">{577973680303243263,</span>
+<span class="go"> 578044049047420927,</span>
+<span class="go"> 578677367745019903,</span>
+<span class="go"> 578782920861286399,</span>
+<span class="go"> 579169948954263551}</span>
+</pre></div>
+</div>
+</section>
+<section id="h3-api-numpy-int">
+<h3><code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code><a class="headerlink" href="#h3-api-numpy-int" title="Link to this heading">#</a></h3>
+<p>H3 indexes are represented as <code class="docutils literal notranslate"><span class="pre">numpy.uint64</span></code>s, using <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+for collections.</p>
+<p>The intention is for this API to be faster and more memory-efficient by
+not requiring <code class="docutils literal notranslate"><span class="pre">int</span></code> to <code class="docutils literal notranslate"><span class="pre">str</span></code> conversion and by using
+no-copy <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays instead of Python <code class="docutils literal notranslate"><span class="pre">list</span></code>s and <code class="docutils literal notranslate"><span class="pre">set</span></code>s.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">h3.api.numpy_int</span> <span class="k">as</span> <span class="nn">h3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">latlng_to_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
+<span class="go">578536630256664575</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">grid_ring</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">array([578782920861286399, 578044049047420927, 577973680303243263,</span>
+<span class="go">       578677367745019903, 579169948954263551], dtype=uint64)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">h3-py</span></code> has no runtime dependencies on other libraries, so the standard
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">h3</span></code> will not install any additional libraries.</p>
+<p>However, <code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code> does require <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.
+To install <code class="docutils literal notranslate"><span class="pre">numpy</span></code> (if it isn’t already) along
+with <code class="docutils literal notranslate"><span class="pre">h3</span></code>, you can run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">h3[numpy]</span></code>.</p>
+</div>
+</section>
+<section id="h3-api-memview-int">
+<h3><code class="docutils literal notranslate"><span class="pre">h3.api.memview_int</span></code><a class="headerlink" href="#h3-api-memview-int" title="Link to this heading">#</a></h3>
+<p>H3 indexes are represented as <code class="docutils literal notranslate"><span class="pre">uint64</span></code>s, using Python
+<a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#memoryview"><code class="docutils literal notranslate"><span class="pre">memoryview</span></code> objects</a>
+for collections.</p>
+<p>This API has the same benefits as <code class="docutils literal notranslate"><span class="pre">numpy_int</span></code>, except it uses
+(the less well-known but dependency-free) <code class="docutils literal notranslate"><span class="pre">memoryview</span></code>.
+In fact, <code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code> is essentially just a light wrapper around
+<code class="docutils literal notranslate"><span class="pre">h3.api.memview_int</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">h3.api.memview_int</span> <span class="k">as</span> <span class="nn">h3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">latlng_to_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
+<span class="go">578536630256664575</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mv</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">grid_ring</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mv</span>
+<span class="go">&lt;MemoryView of &#39;array&#39; at 0x11188c710&gt;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">578782920861286399</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+<span class="go">[578782920861286399,</span>
+<span class="go"> 578044049047420927,</span>
+<span class="go"> 577973680303243263,</span>
+<span class="go"> 578677367745019903,</span>
+<span class="go"> 579169948954263551]</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">memview_int</span></code> API with the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library, note that the
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html"><code class="docutils literal notranslate"><span class="pre">numpy.array</span></code></a>
+conversion function <strong>creates a copy</strong> of the data.</p>
+<p>On the other hand,
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.asarray.html"><code class="docutils literal notranslate"><span class="pre">numpy.asarray</span></code></a>
+<strong>does not create a copy</strong>, and the
+result points to the same memory location as the original <code class="docutils literal notranslate"><span class="pre">memoryview</span></code> object.</p>
+<p>For example, consider the setup:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">h3.api.memview_int</span> <span class="k">as</span> <span class="nn">h3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">latlng_to_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mv</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">grid_ring</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+<span class="go">[578782920861286399,</span>
+<span class="go"> 578044049047420927,</span>
+<span class="go"> 577973680303243263,</span>
+<span class="go"> 578677367745019903,</span>
+<span class="go"> 579169948954263551]</span>
+</pre></div>
+</div>
+<p>Running <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">np.array(mv)</span></code> <strong>creates a copy</strong> of the memory view, so
+modifying <code class="docutils literal notranslate"><span class="pre">mv</span></code> leaves <code class="docutils literal notranslate"><span class="pre">a</span></code> unchanged:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([578782920861286399, 578044049047420927, 577973680303243263,</span>
+<span class="go">       578677367745019903, 579169948954263551], dtype=uint64)</span>
+</pre></div>
+</div>
+<p>Running <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">np.asarray(mv)</span></code> <strong>does not create a copy</strong>, so modifying <code class="docutils literal notranslate"><span class="pre">mv</span></code> also
+modifies <code class="docutils literal notranslate"><span class="pre">a</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mv</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">grid_ring</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([                 0, 578044049047420927, 577973680303243263,</span>
+<span class="go">       578677367745019903, 579169948954263551], dtype=uint64)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="api-speed-comparison">
+<h2>API speed comparison<a class="headerlink" href="#api-speed-comparison" title="Link to this heading">#</a></h2>
+<p>We time an example task to compare across APIs.</p>
+<p>We also compare the option of doing most of the computation in one of the
+faster APIs (using the <code class="docutils literal notranslate"><span class="pre">int</span></code> representation of H3 indexes),
+and then converting the results to the more familiar
+format of Python <code class="docutils literal notranslate"><span class="pre">str</span></code> objects.</p>
+<section id="example-code">
+<h3>Example code<a class="headerlink" href="#example-code" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h3</span>
+<span class="kn">import</span> <span class="nn">h3.api.numpy_int</span>
+
+
+<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">h3_lib</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">h</span>   <span class="o">=</span> <span class="n">h3_lib</span><span class="o">.</span><span class="n">latlng_to_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">h3_lib</span><span class="o">.</span><span class="n">grid_disk</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">h3_lib</span><span class="o">.</span><span class="n">compact_cells</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="k">def</span> <span class="nf">compute_and_convert</span><span class="p">(</span><span class="n">h3_lib</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">h3_lib</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="n">h3</span><span class="o">.</span><span class="n">int_to_str</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">out</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">out</span>
+</pre></div>
+</div>
+</section>
+<section id="timing-results">
+<h3>Timing results<a class="headerlink" href="#timing-results" title="Link to this heading">#</a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>These are example timings on a single computer; you can run the
+benchmarks yourself with the
+<a class="reference external" href="https://github.com/uber/h3-py-notebooks/blob/master/notebooks/time_h3_apis.ipynb">original notebook</a>.</p>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>API</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">compute()</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">compute_and_convert()</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">h3.api.basic_str</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">59.8</span> <span class="pre">ms</span></code></p></td>
+<td><p>n/a</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">h3.api.basic_int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">35.4</span> <span class="pre">ms</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">35.6</span> <span class="pre">ms</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">h3.api.memview_int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">7.12</span> <span class="pre">ms</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">7.76</span> <span class="pre">ms</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">7.06</span> <span class="pre">ms</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">7.61</span> <span class="pre">ms</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For this example, we typically see about a 6–8x speedup between:</p>
+<ul class="simple">
+<li><p>computing with the <code class="docutils literal notranslate"><span class="pre">h3.api.basic_str</span></code> interface</p></li>
+<li><p>computing with the <code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code> interface, and then converting the results back to <code class="docutils literal notranslate"><span class="pre">str</span></code></p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>h3-py</strong>: Uber’s H3 Hexagonal Hierarchical Geospatial Indexing System in Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api_reference.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-there-multiple-apis">Why are there multiple APIs?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-options">API Options</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-api-basic-str"><code class="docutils literal notranslate"><span class="pre">h3.api.basic_str</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-api-basic-int"><code class="docutils literal notranslate"><span class="pre">h3.api.basic_int</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-api-numpy-int"><code class="docutils literal notranslate"><span class="pre">h3.api.numpy_int</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-api-memview-int"><code class="docutils literal notranslate"><span class="pre">h3.api.memview_int</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-speed-comparison">API speed comparison</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-code">Example code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timing-results">Timing results</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Uber Technologies
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2021.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
