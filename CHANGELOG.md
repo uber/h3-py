@@ -18,6 +18,10 @@ avoid adding features or APIs which do not map onto the
 
 - None
 
+## [4.0.0b4] - 2024-04-14
+
+No changes.
+
 ## [4.0.0b3] - 2024-03-11
 
 - Change supported Python versions to 3.7, 3.8, 3.9, 3.10, 3.11, 3.12 (#324, #325, #347, #348)
