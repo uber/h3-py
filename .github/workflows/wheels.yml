@@ -154,7 +154,7 @@ jobs:
           retention-days: 7
           compression-level: 9
 
-  upload_all:
+  to_pypi:
     needs: [merge]
     if: github.event_name == 'release' && github.event.action == 'published'
     runs-on: ubuntu-latest
@@ -165,6 +165,6 @@ jobs:
           name: wheels_and_sdist
           path: dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.5.1
+      - uses: pypa/gh-action-pypi-publish@v1.8.14
         with:
           password: ${{ secrets.pypi_password }}
