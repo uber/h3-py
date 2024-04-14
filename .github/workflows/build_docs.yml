@@ -38,7 +38,7 @@ jobs:
   deploy-docs:
     needs: [build-docs]
     runs-on: ubuntu-22.04
-    if: github.event.pull_request.merged
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - uses: peaceiris/actions-gh-pages@v4
