@@ -20,7 +20,7 @@ avoid adding features or APIs which do not map onto the
 
 ## [4.0.0b4] - 2024-04-14
 
-No changes.
+No changes, just testing: #360
 
 ## [4.0.0b3] - 2024-03-11
 
