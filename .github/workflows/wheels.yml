@@ -128,7 +128,6 @@ jobs:
           CIBW_ARCHS_LINUX: auto aarch64
           CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_BUILD: ${{ matrix.build }}
-          CIBW_SKIP: ${{ matrix.skip }}
 
       - name: Check with Twine
         run: |
