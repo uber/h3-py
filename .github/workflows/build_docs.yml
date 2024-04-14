@@ -29,19 +29,15 @@ jobs:
       - name: Build the book
         run: jupyter-book build docs/ --warningiserror --keep-going --all
 
-      - name: Upload artifacts to GitHub
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4.3.1
         with:
           name: html
           path: docs/_build/html
 
-  deploy-docs:
-    needs: [build-docs]
-    runs-on: ubuntu-22.04
-    if: github.event.pull_request.merged
-
-    steps:
-      - uses: peaceiris/actions-gh-pages@v4
+      - name: Upload to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/master'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/_build/html
