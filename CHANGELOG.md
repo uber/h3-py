@@ -1,4 +1,6 @@
-# Versioning
+# CHANGELOG
+
+## Versioning
 
 The H3 core library adheres to [Semantic Versioning](http://semver.org/).
 H3-Py has a `major.minor.patch` version scheme. The major and minor version

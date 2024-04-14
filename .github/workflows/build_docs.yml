@@ -1,0 +1,47 @@
+name: build_docs
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: ['*']
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4.1.1
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v5.0.0
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip setuptools wheel
+          pip install -r requirements.in
+          pip install -r requirements-dev.txt
+          pip install .[all]
+
+      - name: Build the book
+        run: jupyter-book build docs/ --warningiserror --keep-going --all
+
+      - name: Upload artifacts to GitHub
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: html
+          path: docs/_build/html
+
+  deploy-docs:
+    needs: [build-docs]
+    runs-on: ubuntu-22.04
+    if: github.event.pull_request.merged
+
+    steps:
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_build/html

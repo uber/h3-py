@@ -40,10 +40,11 @@ jobs:
           pytest --cov=h3 --full-trace --cov-report=xml
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.0.0
+        uses: codecov/codecov-action@v4.3.0
         with:
           file: ./coverage.xml
           fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Copy Cython annotations to project dir
         run: |
@@ -51,6 +52,7 @@ jobs:
           cp _skbuild/*/cmake-build/src/h3/_cy/*.html ./annotations
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.1
         with:
+          name: annotations
           path: ./annotations

@@ -1,4 +1,4 @@
-# API reference
+# API Reference
 
 This page lists the functions that are common to each of the
 [provided APIs](api_comparison).
@@ -59,8 +59,6 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    average_hexagon_edge_length
    cell_to_boundary
    directed_edge_to_boundary
-   polygon_to_cells
-   cells_to_polygons
 ```
 
 ### Hierarchical relationships
