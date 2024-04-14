@@ -63,10 +63,10 @@ jobs:
         # macos-13 is an intel runner, macos-14 is apple silicon.
         include:
           - os: macos-13
-            build: 'cp*-macosx*'
+            build: 'cp*-macosx_x86_64'
             name: macOS13
           - os: macos-14
-            build: 'cp*-macosx*'
+            build: 'cp*-macosx_arm64'
             name: macOS14
           - os: windows-latest
             build: 'cp3*-win_amd64'
