@@ -55,12 +55,11 @@ jobs:
           path: ./dist
 
   make_wheels:
-    name: 'cibuildwheel: ${{ matrix.name }}'
+    name: 'cibw: ${{ matrix.name }}'
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # macos-13 is an intel runner, macos-14 is apple silicon.
         include:
           - os: macos-13
             build: 'cp*-macosx_x86_64'
@@ -68,15 +67,22 @@ jobs:
           - os: macos-14
             build: 'cp*-macosx_arm64'
             name: macOS14
+
           - os: windows-latest
             build: 'cp3*-win_amd64'
             name: Windows 64-bit
+
           - os: ubuntu-22.04
             build: 'cp*-manylinux_x86_64'
             name: Linux Intel glibc 64-bit
+
           - os: ubuntu-22.04
             build: 'cp*-musllinux_x86_64'
             name: Linux Intel musl 64-bit
+          - os: ubuntu-22.04
+            build: 'cp*-musllinux_x86_64'
+            name: Linux Intel musl 64-bit
+
           - os: ubuntu-22.04
             build: 'cp37-manylinux_aarch64'
             name: Linux Aarch64 3.7
@@ -101,8 +107,6 @@ jobs:
         with:
           submodules: recursive
 
-      ## Setup Env
-
       - uses: ilammy/msvc-dev-cmd@v1.13.0
         if: runner.os == 'Windows'
 
@@ -118,8 +122,6 @@ jobs:
         uses: docker/setup-qemu-action@v3.0.0
         with:
           platforms: aarch64
-
-      ## Build
 
       - uses: pypa/cibuildwheel@v2.17.0
         env:
