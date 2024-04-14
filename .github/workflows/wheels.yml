@@ -99,6 +99,9 @@ jobs:
             name: Linux Intel musl 64-bit 3.12
 
           - os: ubuntu-22.04
+            build: 'cp36-manylinux_aarch64'
+            name: Linux Aarch64 3.6
+          - os: ubuntu-22.04
             build: 'cp37-manylinux_aarch64'
             name: Linux Aarch64 3.7
           - os: ubuntu-22.04
