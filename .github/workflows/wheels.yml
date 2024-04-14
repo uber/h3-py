@@ -60,7 +60,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # macos-13 is an intel runner, macos-14 is apple silicon
+        # macos-13 is an intel runner, macos-14 is apple silicon.
         include:
           - os: macos-13
             build: 'cp*-macosx*'
