@@ -35,12 +35,12 @@ jobs:
           name: html
           path: docs/_build/html
 
-  deploy-docs:
-    needs: [build-docs]
-    runs-on: ubuntu-22.04
-    # if: github.ref == 'refs/heads/master'
+  # deploy-docs:
+  #   needs: [build-docs]
+  #   runs-on: ubuntu-22.04
+  #   # if: github.ref == 'refs/heads/master'
 
-    steps:
+  #   steps:
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
