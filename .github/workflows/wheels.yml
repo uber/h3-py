@@ -19,13 +19,8 @@ on:
 
 jobs:
   make_sdist:
-    name: 'SDist: ${{ matrix.os }}'
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-22.04]  # TODO: we only need sdist on one os, no need for matrix
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4.1.1
