@@ -141,24 +141,9 @@ jobs:
           name: temp_result_${{ matrix.os }}-${{ strategy.job-index }}
           path: wheelhouse/*.whl
 
-  upload_all:
-    needs: [make_sdist, make_cibw_v2_wheels]
-    runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published'
-
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: wheels # TODO: this will be broken for now
-          path: dist
-
-      - uses: pypa/gh-action-pypi-publish@v1.5.1
-        with:
-          password: ${{ secrets.pypi_password }}
-
   merge:
-    runs-on: ubuntu-latest
     needs: [make_sdist, make_cibw_v2_wheels]
+    runs-on: ubuntu-latest
     steps:
       - name: Merge Artifacts
         uses: actions/upload-artifact/merge@v4
@@ -168,3 +153,18 @@ jobs:
           delete-merged: true
           retention-days: 7
           compression-level: 9
+
+  upload_all:
+    needs: [merge]
+    if: github.event_name == 'release' && github.event.action == 'published'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: wheels_and_sdist
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@v1.5.1
+        with:
+          password: ${{ secrets.pypi_password }}
