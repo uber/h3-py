@@ -60,10 +60,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        # macos-13 is an intel runner, macos-14 is apple silicon
         include:
-          - os: macos-latest
+          - os: macos-13
             build: 'cp*-macosx*'
-            name: macOS
+            name: macOS13
+          - os: macos-14
+            build: 'cp*-macosx*'
+            name: macOS14
           - os: windows-latest
             build: 'cp3*-win_amd64'
             name: Windows 64-bit
@@ -117,7 +121,7 @@ jobs:
 
       ## Build
 
-      - uses: pypa/cibuildwheel@v2.16.5
+      - uses: pypa/cibuildwheel@v2.17.0
         env:
           CIBW_TEST_REQUIRES: pytest numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
