@@ -13,6 +13,7 @@ These functions align with those explained in the
 There is no strict hierarchy for H3 functions,
 but we'll try to group functions in a reasonably logical manner.
 
+
 ### Identification
 
 ```{eval-rst}
@@ -108,6 +109,31 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    get_icosahedron_faces
    cell_to_local_ij
    local_ij_to_cell
+```
+
+### Polygon objects
+
+```{eval-rst}
+.. currentmodule:: h3
+
+.. autosummary::
+   H3Shape
+   H3Poly
+   H3MultiPoly
+```
+
+### Polygon conversion functions
+
+```{eval-rst}
+.. currentmodule:: h3
+
+.. autosummary::
+   h3shape_to_geo
+   geo_to_h3shape
+   h3shape_to_cells
+   cells_to_h3shape
+   geo_to_cells
+   cells_to_geo
 ```
 
 

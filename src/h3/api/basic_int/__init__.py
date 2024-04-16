@@ -388,11 +388,11 @@ def uncompact_cells(cells, res):
 def h3shape_to_cells(h3shape, res):
     """
     Return the set of H3 cells at a given resolution whose center points
-    are contained within an `H3Poly` or `H3MultiPoly`.
+    are contained within an ``H3Poly`` or ``H3MultiPoly``.
 
     Parameters
     ----------
-    h3shape : H3shape
+    h3shape : ``H3shape``
     res : int
         Resolution of the output cells
 
@@ -408,13 +408,13 @@ def h3shape_to_cells(h3shape, res):
     ...      (37.82, -122.54)],
     ... )
     >>> h3.h3shape_to_cells(poly, 6)
-    {'862830807ffffff',
+    ['862830807ffffff',
      '862830827ffffff',
      '86283082fffffff',
      '862830877ffffff',
      '862830947ffffff',
      '862830957ffffff',
-     '86283095fffffff'}
+     '86283095fffffff']
 
     Notes
     -----
@@ -438,13 +438,14 @@ def h3shape_to_cells(h3shape, res):
 
 def cells_to_h3shape(cells, tight=True):
     """
-    Return a H3MultiPoly describing the area covered by a set of H3 cells.
+    Return an ``H3Shape`` describing the area covered by a set of H3 cells.
+    Will return ``H3Poly`` or ``H3MultiPoly``.
 
     Parameters
     ----------
     cells : iterable of H3 cells
     tight : bool
-        If True, return H3Poly if possible. If False, always return H3MultiPoly
+        If True, return ``H3Poly`` if possible. If False, always return ``H3MultiPoly``.
 
     Returns
     -------
@@ -472,12 +473,12 @@ def cells_to_h3shape(cells, tight=True):
 
 
 def geo_to_cells(geo, res):
-    """Convert from __geo_interface__ to cells.
+    """Convert from ``__geo_interface__`` to cells.
 
     Parameters
     ----------
-    geo : an object implementing `__geo_interface__` or a dictionary in that format.
-        Both H3Poly and H3MultiPoly implement the interface.
+    geo : an object implementing ``__geo_interface__`` or a dictionary in that format.
+        Both ``H3Poly`` and ``H3MultiPoly`` implement the interface.
     res : int
         Resolution of desired output cells.
 
@@ -491,9 +492,14 @@ def geo_to_cells(geo, res):
 
 def cells_to_geo(cells, tight=True):
     """
+    Convert from cells to a ``__geo_interface__`` dict.
+
     Parameters
     ----------
     cells : iterable of H3 Cells
+    tight : bool
+        When ``True``, returns an ``H3Poly`` when possible.
+        When ``False``, always returns an ``H3MultiPoly``.
 
     Returns
     -------
@@ -907,7 +913,7 @@ def cell_area(h, unit='km^2'):
     This function breaks the cell into spherical triangles, and computes
     their spherical area.
     The function uses the spherical distance calculation given by
-    `great_circle_distance`.
+    ``great_circle_distance()``.
     """
     h = _in_scalar(h)
 
@@ -933,7 +939,7 @@ def edge_length(e, unit='km'):
     Notes
     -----
     This function uses the spherical distance calculation given by
-    `great_circle_distance`.
+    ``great_circle_distance()``.
     """
     e = _in_scalar(e)
 
