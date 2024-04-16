@@ -1,5 +1,10 @@
 # API Quick Reference
 
+
+```{attention}
+Function names changed significantly with `h3-py` `v4.0` to align with the C library: https://h3geo.org/docs/library/migration-3.x/functions
+```
+
 We list the functions that are shared between the
 [provided APIs](api_comparison).
 The APIs differ only in their input/output types
