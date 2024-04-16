@@ -92,6 +92,13 @@ def average_hexagon_area(res, unit='km^2'):
 
     This average *excludes* pentagons.
 
+    Parameters
+    ----------
+    res : int
+        H3 resolution
+    unit: str
+        Unit for area result (``'km^2'``, ``'m^2'``, or ``'rads^2'``)
+
     Returns
     -------
     float
@@ -105,6 +112,13 @@ def average_hexagon_edge_length(res, unit='km'):
     for the given resolution.
 
     This average *excludes* pentagons.
+
+    Parameters
+    ----------
+    res : int
+        H3 resolution
+    unit: str
+        Unit for length result (``'km'``, ``'m'``, or ``'rads'``)
 
     Returns
     -------
@@ -346,7 +360,6 @@ def compact_cells(cells):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    # todo: does compact_cells work on mixed-resolution collections?
     hu = _in_collection(cells)
     hc = _cy.compact_cells(hu)
 
@@ -355,7 +368,7 @@ def compact_cells(cells):
 
 def uncompact_cells(cells, res):
     """
-    Reverse the `compact_cells` operation.
+    Reverse the ``compact_cells`` operation.
 
     Return a collection of H3 cells, all of resolution ``res``.
 
