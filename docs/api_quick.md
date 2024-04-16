@@ -1,6 +1,5 @@
 # API Quick Reference
 
-
 ```{attention}
 Function names changed significantly with `h3-py` `v4.0` to align with the C library: https://h3geo.org/docs/library/migration-3.x/functions
 ```
@@ -119,6 +118,11 @@ The ``H3Poly`` and ``H3MultiPoly`` objects and their related functions allow use
 The objects and functions also compatible with the popular [``__geo_interface__`` protocol](https://gist.github.com/sgillies/2217756), which is used by Python geospatial libraries like [GeoPandas](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.__geo_interface__.html) and many plotting libraries.
 
 See the [polygon tutorial](./polygon_tutorial.ipynb) for a walkthrough.
+
+```{warning}
+As with other `h3-py` functions, the polygon interface expects coordinate pairs in **lat/lng** order.
+Note that this is reversed from ``__geo_interface__`` objects, which are given in **lng/lat** order.
+```
 
 ### Polygon objects
 
