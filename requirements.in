@@ -12,4 +12,4 @@ cmake
 
 jupyter-book
 flake8
-sphinx<7.3
+sphinx<7.3  # https://github.com/sphinx-doc/sphinx/issues/12290
