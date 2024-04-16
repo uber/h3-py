@@ -12,3 +12,4 @@ cmake
 
 jupyter-book
 flake8
+sphinx<7.3
