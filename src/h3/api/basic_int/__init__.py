@@ -387,7 +387,7 @@ def uncompact_cells(cells, res):
 
 def h3shape_to_cells(h3shape, res):
     """
-    Return the set of H3 cells at a given resolution whose center points
+    Return the collection of H3 cells at a given resolution whose center points
     are contained within an ``H3Poly`` or ``H3MultiPoly``.
 
     Parameters
@@ -398,7 +398,7 @@ def h3shape_to_cells(h3shape, res):
 
     Returns
     -------
-    unordered collection of H3Cell
+    list of H3Cell
 
     Examples
     --------
@@ -438,7 +438,7 @@ def h3shape_to_cells(h3shape, res):
 
 def cells_to_h3shape(cells, tight=True):
     """
-    Return an ``H3Shape`` describing the area covered by a set of H3 cells.
+    Return an ``H3Shape`` describing the area covered by a collection of H3 cells.
     Will return ``H3Poly`` or ``H3MultiPoly``.
 
     Parameters
