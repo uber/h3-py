@@ -1,6 +1,7 @@
 # API Verbose Reference
 
-TODO: full docs for each function and object. refer back to for high level groupings
+This page gives the full documentation for each function and object.
+Refer back to [](api_quick.md) for context and logical groupings.
 
 ```{eval-rst}
 .. automodule:: h3

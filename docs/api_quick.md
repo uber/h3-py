@@ -37,8 +37,6 @@ and should be generally aligned with the
    get_pentagons
    get_num_cells
    get_resolution
-   compact_cells
-   uncompact_cells
 ```
 
 ## Geographic coordinates
@@ -67,6 +65,8 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    cell_to_parent
    cell_to_children
    cell_to_center_child
+   compact_cells
+   uncompact_cells
 ```
 
 ## Cell grid relationships
