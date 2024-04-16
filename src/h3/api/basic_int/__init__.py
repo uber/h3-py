@@ -214,9 +214,9 @@ def cell_to_parent(h, res=None):
 
 def grid_distance(h1, h2):
     """
-    Compute the H3 distance between two cells.
+    Compute the grid distance between two cells.
 
-    The H3 distance is defined as the length of the shortest
+    The grid distance is defined as the length of the shortest
     path between the cells in the graph formed by connecting
     adjacent cells.
 
@@ -257,7 +257,7 @@ def cell_to_boundary(h):
 
 def grid_disk(h, k=1):
     """
-    Return unordered collection of cells with H3 distance ``<= k`` from ``h``.
+    Return unordered collection of cells with grid distance ``<= k`` from ``h``.
     That is, the "filled-in" disk.
 
     Parameters
@@ -281,7 +281,7 @@ def grid_disk(h, k=1):
 
 def grid_ring(h, k=1):
     """
-    Return unordered collection of cells with H3 distance ``== k`` from ``h``.
+    Return unordered collection of cells with grid distance ``== k`` from ``h``.
     That is, the "hollow" ring.
 
     Parameters
