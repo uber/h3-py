@@ -8,6 +8,7 @@ parts:
   chapters:
   - file: api_comparison
   - file: api_reference
+  - file: api_verbose
   - file: polygon_tutorial
 
 - caption: Sundries

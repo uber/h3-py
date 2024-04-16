@@ -135,12 +135,3 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    geo_to_cells
    cells_to_geo
 ```
-
-
-## Definitions
-
-```{eval-rst}
-.. automodule:: h3
-    :members:
-    :imported-members:
-```
