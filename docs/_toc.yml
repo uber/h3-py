@@ -14,7 +14,5 @@ parts:
 - caption: Sundries
   chapters:
   - file: _changelog
-    title: CHANGELOG
   - file: contributing
   - file: project_links
-    title: Project Links
