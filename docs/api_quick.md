@@ -121,7 +121,7 @@ See the [polygon tutorial](./polygon_tutorial.ipynb) for a walkthrough.
 
 ```{warning}
 As with other `h3-py` functions, the polygon interface expects coordinate pairs in **lat/lng** order.
-Note that this is reversed from ``__geo_interface__`` objects, which are given in **lng/lat** order.
+Note that this is reversed from [``__geo_interface__``](https://gist.github.com/sgillies/2217756) objects, which are given in **lng/lat** order.
 ```
 
 ### Polygon objects
