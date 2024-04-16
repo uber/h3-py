@@ -1,20 +1,16 @@
 # API Quick Reference
 
-This page lists the functions that are common to each of the
+We list the functions that are shared between the
 [provided APIs](api_comparison).
 The APIs differ only in their input/output types
-(e.g., `int` vs. `str` or `set` vs `numpy.array`).
+(e.g., `int` vs. `str` or `list` vs `numpy.array`).
 
-These functions align with those explained in the
-[core H3 documentation](https://h3geo.org/docs/api/indexing).
+These functions correspond to those explained in the
+[H3 C library documentation](https://h3geo.org/docs/api/indexing),
+and should be generally aligned with the
+[other language bindings](https://h3geo.org/docs/community/bindings).
 
-## Summaries
-
-There is no strict hierarchy for H3 functions,
-but we'll try to group functions in a reasonably logical manner.
-
-
-### Identification
+## Identification
 
 ```{eval-rst}
 .. currentmodule:: h3
@@ -27,7 +23,7 @@ but we'll try to group functions in a reasonably logical manner.
    versions
 ```
 
-### Cells
+## Cells
 
 ```{eval-rst}
 .. currentmodule:: h3
@@ -45,7 +41,7 @@ but we'll try to group functions in a reasonably logical manner.
    uncompact_cells
 ```
 
-### Geographic coordinates
+## Geographic coordinates
 
 Functions relating H3 objects to geographic (lat/lng) coordinates.
 
@@ -62,7 +58,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    directed_edge_to_boundary
 ```
 
-### Hierarchical relationships
+## Hierarchical relationships
 
 ```{eval-rst}
 .. currentmodule:: h3
@@ -73,7 +69,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    cell_to_center_child
 ```
 
-### Cell grid relationships
+## Cell grid relationships
 
 ```{eval-rst}
 .. currentmodule:: h3
@@ -86,7 +82,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    grid_path_cells
 ```
 
-### Edges
+## Edges
 
 ```{eval-rst}
 .. currentmodule:: h3
@@ -99,7 +95,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    get_directed_edge_origin
 ```
 
-### IJ-indexing
+## IJ-indexing
 
 ```{eval-rst}
 .. currentmodule:: h3

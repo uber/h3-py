@@ -258,7 +258,7 @@ def cell_to_boundary(h):
 def grid_disk(h, k=1):
     """
     Return unordered collection of cells with H3 distance ``<= k`` from ``h``.
-    That is, the 'filled-in' disk.
+    That is, the "filled-in" disk.
 
     Parameters
     ----------
@@ -900,7 +900,7 @@ def cell_area(h, unit='km^2'):
     ----------
     h : H3Cell
     unit: str
-        Unit for area result (``'km^2'``, 'm^2', or 'rads^2')
+        Unit for area result (``'km^2'``, ``'m^2'``, or ``'rads^2'``)
 
 
     Returns
@@ -928,7 +928,7 @@ def edge_length(e, unit='km'):
     ----------
     h : H3Cell
     unit: str
-        Unit for length result ('km', 'm', or 'rads')
+        Unit for length result (``'km'``, ``'m'``, or ``'rads'``)
 
 
     Returns
@@ -960,7 +960,7 @@ def great_circle_distance(latlng1, latlng2, unit='km'):
     latlng2 : tuple
         (lat, lng) tuple in degrees
     unit: str
-        Unit for distance result ('km', 'm', or 'rads')
+        Unit for distance result (``'km'``, ``'m'``, or ``'rads'``)
 
 
     Returns
