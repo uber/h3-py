@@ -690,6 +690,18 @@ def origin_to_directed_edges(origin):
 
 
 def directed_edge_to_boundary(edge):
+    """
+    Returns points representing the edge (line of points
+    describing the boundary between two cells).
+
+    Parameters
+    ----------
+    edge : H3Edge
+
+    Returns
+    -------
+    tuple of (lat, lng) tuples
+    """
     return _cy.directed_edge_to_boundary(_in_scalar(edge))
 
 
