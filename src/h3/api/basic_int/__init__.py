@@ -369,15 +369,12 @@ def uncompact_cells(cells, res):
     -------
     unordered collection of H3Cell
 
-    Raises
-    ------
-    todo: add test to make sure an error is returned when input
-    contains cell smaller than output res.
-    https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
-
     Notes
     -----
     There is currently no guaranteed order of the output cells.
+
+    TODO: add test to make sure an error is returned when input contains cell smaller than output res.
+    https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
     """
     hc = _in_collection(cells)
     hu = _cy.uncompact_cells(hc, res)

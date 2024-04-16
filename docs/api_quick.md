@@ -29,8 +29,6 @@ and should be generally aligned with the
 .. currentmodule:: h3
 
 .. autosummary::
-   latlng_to_cell
-   cell_to_latlng
    int_to_str
    str_to_int
    get_res0_cells
@@ -47,6 +45,8 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. currentmodule:: h3
 
 .. autosummary::
+   latlng_to_cell
+   cell_to_latlng
    great_circle_distance
    average_hexagon_area
    cell_area
