@@ -372,10 +372,10 @@ def uncompact_cells(cells, res):
     Notes
     -----
     There is currently no guaranteed order of the output cells.
-
-    TODO: add test to make sure an error is returned when input contains cell smaller than output res.
-    https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
     """
+    # TODO: add test to make sure an error is returned when input contains cell
+    # smaller than output res.
+
     hc = _in_collection(cells)
     hu = _cy.uncompact_cells(hc, res)
 
@@ -958,7 +958,6 @@ def great_circle_distance(latlng1, latlng2, unit='km'):
         (lat, lng) tuple in degrees
     unit: str
         Unit for distance result (``'km'``, ``'m'``, or ``'rads'``)
-
 
     Returns
     -------
