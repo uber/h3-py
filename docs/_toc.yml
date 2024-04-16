@@ -6,10 +6,10 @@ root: intro
 parts:
 - caption: h3-py
   chapters:
-  - file: api_comparison
-  - file: api_reference
+  - file: api_quick
   - file: api_verbose
   - file: polygon_tutorial
+  - file: api_comparison
 
 - caption: Sundries
   chapters:

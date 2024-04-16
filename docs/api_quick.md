@@ -1,4 +1,4 @@
-# API Reference
+# API Quick Reference
 
 This page lists the functions that are common to each of the
 [provided APIs](api_comparison).
@@ -111,6 +111,14 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    local_ij_to_cell
 ```
 
+## Polygon interface
+
+The ``H3Poly`` and ``H3MultiPoly`` objects and their related functions allow users to represent (multi)polygons of lat/lng points and convert back and forth between H3 cells.
+
+The objects and functions also compatible with the popular [``__geo_interface__`` protocol](https://gist.github.com/sgillies/2217756), which is used by Python geospatial libraries like [GeoPandas](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.__geo_interface__.html) and many plotting libraries.
+
+See the [polygon tutorial](./polygon_tutorial.ipynb) for a walkthrough.
+
 ### Polygon objects
 
 ```{eval-rst}
@@ -122,7 +130,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    H3MultiPoly
 ```
 
-### Polygon conversion functions
+### Conversion functions
 
 ```{eval-rst}
 .. currentmodule:: h3
