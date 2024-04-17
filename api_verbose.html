@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>API Reference &#8212; h3-py</title>
+    <title>API Verbose Reference &#8212; h3-py</title>
   
   
   
@@ -42,7 +42,7 @@
   <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
@@ -57,13 +57,13 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference';</script>
-    <link rel="canonical" href="https://uber.github.io/h3-py/api_reference.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_verbose';</script>
+    <link rel="canonical" href="https://uber.github.io/h3-py/api_verbose.html" />
     <link rel="icon" href="_static/logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Polygon Tutorial" href="polygon_tutorial.html" />
-    <link rel="prev" title="API Comparison" href="api_comparison.html" />
+    <link rel="prev" title="API Quick Reference" href="api_quick.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -172,14 +172,15 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">h3-py</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="api_comparison.html">API Comparison</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_quick.html">API Quick Reference</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">API Verbose Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polygon_tutorial.html">Polygon Tutorial</a></li>
 
 
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="api_comparison.html">Comparison of APIs</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Sundries</span></p>
 <ul class="nav bd-sidenav">
@@ -257,7 +258,7 @@
       
       
       
-      <li><a href="https://github.com/uber/h3-py/edit/master/docs/api_reference.md" target="_blank"
+      <li><a href="https://github.com/uber/h3-py/edit/master/docs/api_verbose.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -287,7 +288,7 @@
       
       
       
-      <li><a href="_sources/api_reference.md" target="_blank"
+      <li><a href="_sources/api_verbose.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -371,7 +372,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>API Reference</h1>
+    <h1>API Verbose Reference</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -381,89 +382,82 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summaries">Summaries</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identification">Identification</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cells">Cells</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geographic-coordinates">Geographic coordinates</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hierarchical-relationships">Hierarchical relationships</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-grid-relationships">Cell grid relationships</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#edges">Edges</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ij-indexing">IJ-indexing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3BaseException"><code class="docutils literal notranslate"><span class="pre">H3BaseException</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3CellInvalidError"><code class="docutils literal notranslate"><span class="pre">H3CellInvalidError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3DirEdgeInvalidError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DomainError"><code class="docutils literal notranslate"><span class="pre">H3DomainError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DuplicateInputError"><code class="docutils literal notranslate"><span class="pre">H3DuplicateInputError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3FailedError"><code class="docutils literal notranslate"><span class="pre">H3FailedError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3GridNavigationError"><code class="docutils literal notranslate"><span class="pre">H3GridNavigationError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3LatLngDomainError"><code class="docutils literal notranslate"><span class="pre">H3LatLngDomainError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryAllocError"><code class="docutils literal notranslate"><span class="pre">H3MemoryAllocError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryBoundsError"><code class="docutils literal notranslate"><span class="pre">H3MemoryBoundsError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryError"><code class="docutils literal notranslate"><span class="pre">H3MemoryError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MultiPoly"><code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MultiPoly.polys"><code class="docutils literal notranslate"><span class="pre">H3MultiPoly.polys</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-h3">Definitions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3BaseException"><code class="docutils literal notranslate"><span class="pre">H3BaseException</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3CellInvalidError"><code class="docutils literal notranslate"><span class="pre">H3CellInvalidError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3DirEdgeInvalidError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DomainError"><code class="docutils literal notranslate"><span class="pre">H3DomainError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DuplicateInputError"><code class="docutils literal notranslate"><span class="pre">H3DuplicateInputError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3FailedError"><code class="docutils literal notranslate"><span class="pre">H3FailedError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3GridNavigationError"><code class="docutils literal notranslate"><span class="pre">H3GridNavigationError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3LatLngDomainError"><code class="docutils literal notranslate"><span class="pre">H3LatLngDomainError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryAllocError"><code class="docutils literal notranslate"><span class="pre">H3MemoryAllocError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryBoundsError"><code class="docutils literal notranslate"><span class="pre">H3MemoryBoundsError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryError"><code class="docutils literal notranslate"><span class="pre">H3MemoryError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3NotNeighborsError"><code class="docutils literal notranslate"><span class="pre">H3NotNeighborsError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3OptionInvalidError"><code class="docutils literal notranslate"><span class="pre">H3OptionInvalidError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3PentagonError"><code class="docutils literal notranslate"><span class="pre">H3PentagonError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly"><code class="docutils literal notranslate"><span class="pre">H3Poly</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.outer"><code class="docutils literal notranslate"><span class="pre">H3Poly.outer</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.holes"><code class="docutils literal notranslate"><span class="pre">H3Poly.holes</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.loopcode"><code class="docutils literal notranslate"><span class="pre">H3Poly.loopcode</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3NotNeighborsError"><code class="docutils literal notranslate"><span class="pre">H3NotNeighborsError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3OptionInvalidError"><code class="docutils literal notranslate"><span class="pre">H3OptionInvalidError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3PentagonError"><code class="docutils literal notranslate"><span class="pre">H3PentagonError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly"><code class="docutils literal notranslate"><span class="pre">H3Poly</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.outer"><code class="docutils literal notranslate"><span class="pre">H3Poly.outer</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.holes"><code class="docutils literal notranslate"><span class="pre">H3Poly.holes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.loopcode"><code class="docutils literal notranslate"><span class="pre">H3Poly.loopcode</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResDomainError"><code class="docutils literal notranslate"><span class="pre">H3ResDomainError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResMismatchError"><code class="docutils literal notranslate"><span class="pre">H3ResMismatchError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3UndirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3UndirEdgeInvalidError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ValueError"><code class="docutils literal notranslate"><span class="pre">H3ValueError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3VertexInvalidError"><code class="docutils literal notranslate"><span class="pre">H3VertexInvalidError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.UnknownH3ErrorCode"><code class="docutils literal notranslate"><span class="pre">UnknownH3ErrorCode</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.are_neighbor_cells"><code class="docutils literal notranslate"><span class="pre">are_neighbor_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_area"><code class="docutils literal notranslate"><span class="pre">average_hexagon_area()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_edge_length"><code class="docutils literal notranslate"><span class="pre">average_hexagon_edge_length()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_area"><code class="docutils literal notranslate"><span class="pre">cell_area()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_boundary"><code class="docutils literal notranslate"><span class="pre">cell_to_boundary()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_center_child"><code class="docutils literal notranslate"><span class="pre">cell_to_center_child()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_children"><code class="docutils literal notranslate"><span class="pre">cell_to_children()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_latlng"><code class="docutils literal notranslate"><span class="pre">cell_to_latlng()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_local_ij"><code class="docutils literal notranslate"><span class="pre">cell_to_local_ij()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_parent"><code class="docutils literal notranslate"><span class="pre">cell_to_parent()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_directed_edge"><code class="docutils literal notranslate"><span class="pre">cells_to_directed_edge()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_geo"><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_h3shape"><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.compact_cells"><code class="docutils literal notranslate"><span class="pre">compact_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_cells"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.edge_length"><code class="docutils literal notranslate"><span class="pre">edge_length()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_cells"><code class="docutils literal notranslate"><span class="pre">geo_to_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_h3shape"><code class="docutils literal notranslate"><span class="pre">geo_to_h3shape()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_base_cell_number"><code class="docutils literal notranslate"><span class="pre">get_base_cell_number()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_destination"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_destination()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_origin"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_origin()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_icosahedron_faces"><code class="docutils literal notranslate"><span class="pre">get_icosahedron_faces()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_num_cells"><code class="docutils literal notranslate"><span class="pre">get_num_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_pentagons"><code class="docutils literal notranslate"><span class="pre">get_pentagons()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_res0_cells"><code class="docutils literal notranslate"><span class="pre">get_res0_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_resolution"><code class="docutils literal notranslate"><span class="pre">get_resolution()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.great_circle_distance"><code class="docutils literal notranslate"><span class="pre">great_circle_distance()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_disk"><code class="docutils literal notranslate"><span class="pre">grid_disk()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_distance"><code class="docutils literal notranslate"><span class="pre">grid_distance()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_path_cells"><code class="docutils literal notranslate"><span class="pre">grid_path_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_ring"><code class="docutils literal notranslate"><span class="pre">grid_ring()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_cells"><code class="docutils literal notranslate"><span class="pre">h3shape_to_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_geo"><code class="docutils literal notranslate"><span class="pre">h3shape_to_geo()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.int_to_str"><code class="docutils literal notranslate"><span class="pre">int_to_str()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_pentagon"><code class="docutils literal notranslate"><span class="pre">is_pentagon()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_res_class_III"><code class="docutils literal notranslate"><span class="pre">is_res_class_III()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_cell"><code class="docutils literal notranslate"><span class="pre">is_valid_cell()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_directed_edge"><code class="docutils literal notranslate"><span class="pre">is_valid_directed_edge()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.latlng_to_cell"><code class="docutils literal notranslate"><span class="pre">latlng_to_cell()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.local_ij_to_cell"><code class="docutils literal notranslate"><span class="pre">local_ij_to_cell()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.origin_to_directed_edges"><code class="docutils literal notranslate"><span class="pre">origin_to_directed_edges()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.str_to_int"><code class="docutils literal notranslate"><span class="pre">str_to_int()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.uncompact_cells"><code class="docutils literal notranslate"><span class="pre">uncompact_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.versions"><code class="docutils literal notranslate"><span class="pre">versions()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResDomainError"><code class="docutils literal notranslate"><span class="pre">H3ResDomainError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResMismatchError"><code class="docutils literal notranslate"><span class="pre">H3ResMismatchError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Shape"><code class="docutils literal notranslate"><span class="pre">H3Shape</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3UndirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3UndirEdgeInvalidError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ValueError"><code class="docutils literal notranslate"><span class="pre">H3ValueError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3VertexInvalidError"><code class="docutils literal notranslate"><span class="pre">H3VertexInvalidError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.UnknownH3ErrorCode"><code class="docutils literal notranslate"><span class="pre">UnknownH3ErrorCode</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.are_neighbor_cells"><code class="docutils literal notranslate"><span class="pre">are_neighbor_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_area"><code class="docutils literal notranslate"><span class="pre">average_hexagon_area()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_edge_length"><code class="docutils literal notranslate"><span class="pre">average_hexagon_edge_length()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_area"><code class="docutils literal notranslate"><span class="pre">cell_area()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_boundary"><code class="docutils literal notranslate"><span class="pre">cell_to_boundary()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_center_child"><code class="docutils literal notranslate"><span class="pre">cell_to_center_child()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_children"><code class="docutils literal notranslate"><span class="pre">cell_to_children()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_latlng"><code class="docutils literal notranslate"><span class="pre">cell_to_latlng()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_local_ij"><code class="docutils literal notranslate"><span class="pre">cell_to_local_ij()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_parent"><code class="docutils literal notranslate"><span class="pre">cell_to_parent()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_directed_edge"><code class="docutils literal notranslate"><span class="pre">cells_to_directed_edge()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_geo"><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_h3shape"><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.compact_cells"><code class="docutils literal notranslate"><span class="pre">compact_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_boundary"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_boundary()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_cells"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.edge_length"><code class="docutils literal notranslate"><span class="pre">edge_length()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_cells"><code class="docutils literal notranslate"><span class="pre">geo_to_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_h3shape"><code class="docutils literal notranslate"><span class="pre">geo_to_h3shape()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_base_cell_number"><code class="docutils literal notranslate"><span class="pre">get_base_cell_number()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_destination"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_destination()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_origin"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_origin()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_icosahedron_faces"><code class="docutils literal notranslate"><span class="pre">get_icosahedron_faces()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_num_cells"><code class="docutils literal notranslate"><span class="pre">get_num_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_pentagons"><code class="docutils literal notranslate"><span class="pre">get_pentagons()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_res0_cells"><code class="docutils literal notranslate"><span class="pre">get_res0_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_resolution"><code class="docutils literal notranslate"><span class="pre">get_resolution()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.great_circle_distance"><code class="docutils literal notranslate"><span class="pre">great_circle_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_disk"><code class="docutils literal notranslate"><span class="pre">grid_disk()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_distance"><code class="docutils literal notranslate"><span class="pre">grid_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_path_cells"><code class="docutils literal notranslate"><span class="pre">grid_path_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_ring"><code class="docutils literal notranslate"><span class="pre">grid_ring()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_cells"><code class="docutils literal notranslate"><span class="pre">h3shape_to_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_geo"><code class="docutils literal notranslate"><span class="pre">h3shape_to_geo()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.int_to_str"><code class="docutils literal notranslate"><span class="pre">int_to_str()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_pentagon"><code class="docutils literal notranslate"><span class="pre">is_pentagon()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_res_class_III"><code class="docutils literal notranslate"><span class="pre">is_res_class_III()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_cell"><code class="docutils literal notranslate"><span class="pre">is_valid_cell()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_directed_edge"><code class="docutils literal notranslate"><span class="pre">is_valid_directed_edge()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.latlng_to_cell"><code class="docutils literal notranslate"><span class="pre">latlng_to_cell()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.local_ij_to_cell"><code class="docutils literal notranslate"><span class="pre">local_ij_to_cell()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.origin_to_directed_edges"><code class="docutils literal notranslate"><span class="pre">origin_to_directed_edges()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.str_to_int"><code class="docutils literal notranslate"><span class="pre">str_to_int()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.uncompact_cells"><code class="docutils literal notranslate"><span class="pre">uncompact_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.versions"><code class="docutils literal notranslate"><span class="pre">versions()</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -475,189 +469,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="api-reference">
-<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h1>
-<p>This page lists the functions that are common to each of the
-<a class="reference internal" href="api_comparison.html"><span class="doc std std-doc">provided APIs</span></a>.
-The APIs differ only in their input/output types
-(e.g., <code class="docutils literal notranslate"><span class="pre">int</span></code> vs. <code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">set</span></code> vs <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code>).</p>
-<p>These functions align with those explained in the
-<a class="reference external" href="https://h3geo.org/docs/api/indexing">core H3 documentation</a>.</p>
-<section id="summaries">
-<h2>Summaries<a class="headerlink" href="#summaries" title="Link to this heading">#</a></h2>
-<p>There is no strict hierarchy for H3 functions,
-but we’ll try to group functions in a reasonably logical manner.</p>
-<section id="identification">
-<h3>Identification<a class="headerlink" href="#identification" title="Link to this heading">#</a></h3>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.is_valid_cell" title="h3.is_valid_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_cell</span></code></a>(h)</p></td>
-<td><p>Validates an H3 cell (hexagon or pentagon).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.is_pentagon" title="h3.is_pentagon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_pentagon</span></code></a>(h)</p></td>
-<td><p>Identify if an H3 cell is a pentagon.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.is_res_class_III" title="h3.is_res_class_III"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_res_class_III</span></code></a>(h)</p></td>
-<td><p>Determine if cell has orientation &quot;Class II&quot; or &quot;Class III&quot;.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.is_valid_directed_edge" title="h3.is_valid_directed_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_directed_edge</span></code></a>(edge)</p></td>
-<td><p>Validates an H3 unidirectional edge.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.versions" title="h3.versions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">versions</span></code></a>()</p></td>
-<td><p>Version numbers for the Python (wrapper) and C (wrapped) libraries.</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="cells">
-<h3>Cells<a class="headerlink" href="#cells" title="Link to this heading">#</a></h3>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.latlng_to_cell" title="h3.latlng_to_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latlng_to_cell</span></code></a>(lat, lng, res)</p></td>
-<td><p>Return the cell containing the (lat, lng) point for a given resolution.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.cell_to_latlng" title="h3.cell_to_latlng"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_latlng</span></code></a>(h)</p></td>
-<td><p>Return the center point of an H3 cell as a lat/lng pair.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.int_to_str" title="h3.int_to_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int_to_str</span></code></a>(x)</p></td>
-<td><p>Converts an H3 64-bit integer index to a hexadecimal string.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.str_to_int" title="h3.str_to_int"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str_to_int</span></code></a>(h)</p></td>
-<td><p>Converts a hexadecimal string to an H3 64-bit integer index.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.get_res0_cells" title="h3.get_res0_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_res0_cells</span></code></a>()</p></td>
-<td><p>Return all cells at resolution 0.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.get_pentagons" title="h3.get_pentagons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pentagons</span></code></a>(res)</p></td>
-<td><p>Return all pentagons at a given resolution.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.get_num_cells" title="h3.get_num_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_num_cells</span></code></a>(res)</p></td>
-<td><p>Return the total number of <em>cells</em> (hexagons and pentagons) for the given resolution.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.get_resolution" title="h3.get_resolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_resolution</span></code></a>(h)</p></td>
-<td><p>Return the resolution of an H3 cell.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.compact_cells" title="h3.compact_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compact_cells</span></code></a>(cells)</p></td>
-<td><p>Compact a collection of H3 cells by combining smaller cells into larger cells, if all child cells are present.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.uncompact_cells" title="h3.uncompact_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uncompact_cells</span></code></a>(cells, res)</p></td>
-<td><p>Reverse the <cite>compact_cells</cite> operation.</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="geographic-coordinates">
-<h3>Geographic coordinates<a class="headerlink" href="#geographic-coordinates" title="Link to this heading">#</a></h3>
-<p>Functions relating H3 objects to geographic (lat/lng) coordinates.</p>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.great_circle_distance" title="h3.great_circle_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">great_circle_distance</span></code></a>(latlng1, latlng2[, unit])</p></td>
-<td><p>Compute the spherical distance between two (lat, lng) points.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.average_hexagon_area" title="h3.average_hexagon_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_hexagon_area</span></code></a>(res[, unit])</p></td>
-<td><p>Return the average area of an H3 <em>hexagon</em> for the given resolution.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.cell_area" title="h3.cell_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_area</span></code></a>(h[, unit])</p></td>
-<td><p>Compute the spherical surface area of a specific H3 cell.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.edge_length" title="h3.edge_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_length</span></code></a>(e[, unit])</p></td>
-<td><p>Compute the spherical length of a specific H3 edge.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.average_hexagon_edge_length" title="h3.average_hexagon_edge_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_hexagon_edge_length</span></code></a>(res[, unit])</p></td>
-<td><p>Return the average <em>hexagon</em> edge length for the given resolution.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.cell_to_boundary" title="h3.cell_to_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_boundary</span></code></a>(h)</p></td>
-<td><p>Return tuple of lat/lng pairs describing the cell boundary.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">directed_edge_to_boundary</span></code>(edge)</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="hierarchical-relationships">
-<h3>Hierarchical relationships<a class="headerlink" href="#hierarchical-relationships" title="Link to this heading">#</a></h3>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.cell_to_parent" title="h3.cell_to_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_parent</span></code></a>(h[, res])</p></td>
-<td><p>Get the parent of a cell.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.cell_to_children" title="h3.cell_to_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_children</span></code></a>(h[, res])</p></td>
-<td><p>Children of a cell as an unordered collection.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.cell_to_center_child" title="h3.cell_to_center_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_center_child</span></code></a>(h[, res])</p></td>
-<td><p>Get the center child of a cell at some finer resolution.</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="cell-grid-relationships">
-<h3>Cell grid relationships<a class="headerlink" href="#cell-grid-relationships" title="Link to this heading">#</a></h3>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.grid_ring" title="h3.grid_ring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_ring</span></code></a>(h[, k])</p></td>
-<td><p>Return unordered collection of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.grid_disk" title="h3.grid_disk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_disk</span></code></a>(h[, k])</p></td>
-<td><p>Return unordered collection of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">&lt;=</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.grid_distance" title="h3.grid_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_distance</span></code></a>(h1, h2)</p></td>
-<td><p>Compute the H3 distance between two cells.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.are_neighbor_cells" title="h3.are_neighbor_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">are_neighbor_cells</span></code></a>(h1, h2)</p></td>
-<td><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">h1</span></code> and <code class="docutils literal notranslate"><span class="pre">h2</span></code> are neighboring cells.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.grid_path_cells" title="h3.grid_path_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_path_cells</span></code></a>(start, end)</p></td>
-<td><p>Returns the ordered collection of cells denoting a minimum-length non-unique path between cells.</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="edges">
-<h3>Edges<a class="headerlink" href="#edges" title="Link to this heading">#</a></h3>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.cells_to_directed_edge" title="h3.cells_to_directed_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cells_to_directed_edge</span></code></a>(origin, destination)</p></td>
-<td><p>Create an H3 Index denoting a unidirectional edge.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.get_directed_edge_destination" title="h3.get_directed_edge_destination"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_directed_edge_destination</span></code></a>(e)</p></td>
-<td><p>Destination cell from an H3 directed edge.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.directed_edge_to_cells" title="h3.directed_edge_to_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">directed_edge_to_cells</span></code></a>(e)</p></td>
-<td><p>Return (origin, destination) tuple from H3 directed edge</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.origin_to_directed_edges" title="h3.origin_to_directed_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">origin_to_directed_edges</span></code></a>(origin)</p></td>
-<td><p>Return all directed edges starting from <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.get_directed_edge_origin" title="h3.get_directed_edge_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_directed_edge_origin</span></code></a>(e)</p></td>
-<td><p>Origin cell from an H3 directed edge.</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="ij-indexing">
-<h3>IJ-indexing<a class="headerlink" href="#ij-indexing" title="Link to this heading">#</a></h3>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.get_base_cell_number" title="h3.get_base_cell_number"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_base_cell_number</span></code></a>(h)</p></td>
-<td><p>Return the base cell <em>number</em> (<code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">121</span></code>) of the given cell.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.get_icosahedron_faces" title="h3.get_icosahedron_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_icosahedron_faces</span></code></a>(h)</p></td>
-<td><p>Return icosahedron faces intersecting a given H3 cell.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#h3.cell_to_local_ij" title="h3.cell_to_local_ij"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_local_ij</span></code></a>(origin, h)</p></td>
-<td><p>Return local (i,j) coordinates of cell <code class="docutils literal notranslate"><span class="pre">h</span></code> in relation to <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#h3.local_ij_to_cell" title="h3.local_ij_to_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">local_ij_to_cell</span></code></a>(origin, i, j)</p></td>
-<td><p>Return cell at local (i,j) position relative to the <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="module-h3">
-<span id="definitions"></span><h2>Definitions<a class="headerlink" href="#module-h3" title="Link to this heading">#</a></h2>
-<dl class="py exception">
+  <section class="tex2jax_ignore mathjax_ignore" id="api-verbose-reference">
+<h1>API Verbose Reference<a class="headerlink" href="#api-verbose-reference" title="Link to this heading">#</a></h1>
+<p>This page gives the full documentation for each function and object.
+Refer back to <a class="reference internal" href="api_quick.html"><span class="std std-doc">API Quick Reference</span></a> for context and logical groupings.</p>
+<dl class="py exception" id="module-h3">
 <dt class="sig sig-object py" id="h3.H3BaseException">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3BaseException</span></span><a class="headerlink" href="#h3.H3BaseException" title="Link to this definition">#</a></dt>
 <dd><p>Base H3 exception class.</p>
@@ -718,6 +534,23 @@ C library error code.</p>
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3MemoryError</span></span><a class="headerlink" href="#h3.H3MemoryError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="h3.H3MultiPoly">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3MultiPoly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">polys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#H3MultiPoly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.H3MultiPoly" title="Link to this definition">#</a></dt>
+<dd><p>Container for multiple <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> polygons.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="h3.H3MultiPoly.polys">
+<span class="sig-name descname"><span class="pre">polys</span></span><a class="headerlink" href="#h3.H3MultiPoly.polys" title="Link to this definition">#</a></dt>
+<dd><p>List of lat/lng points describing the outer loop of the polygon</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#h3.H3Poly" title="h3.H3Poly">H3Poly</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3NotNeighborsError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3NotNeighborsError</span></span><a class="headerlink" href="#h3.H3NotNeighborsError" title="Link to this definition">#</a></dt>
@@ -736,7 +569,7 @@ C library error code.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="h3.H3Poly">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3Poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">holes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#H3Poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.H3Poly" title="Link to this definition">#</a></dt>
-<dd><p>Container for loops of lat/lng points describing a polygon.</p>
+<dd><p>Container for loops of lat/lng points describing a polygon, possibly with holes.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="h3.H3Poly.outer">
 <span class="sig-name descname"><span class="pre">outer</span></span><a class="headerlink" href="#h3.H3Poly.outer" title="Link to this definition">#</a></dt>
@@ -789,9 +622,9 @@ C library error code.</p>
 <dt class="sig sig-object py" id="h3.H3Poly.loopcode">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loopcode</span></span><a class="headerlink" href="#h3.H3Poly.loopcode" title="Link to this definition">#</a></dt>
 <dd><p>Short code for describing the length of the outer loop and each hole</p>
-<p>Example: <cite>[382/(18, 6, 6)]</cite> indicates an outer loop of 382 points,
+<p>Example: <code class="docutils literal notranslate"><span class="pre">[382/(18,</span> <span class="pre">6,</span> <span class="pre">6)]</span></code> indicates an outer loop of 382 points,
 along with 3 holes with 18, 6, and 6 points, respectively.</p>
-<p>Example: <cite>[15]</cite> indicates an outer loop of 15 points and no holes.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">[15]</span></code> indicates an outer loop of 15 points and no holes.</p>
 </dd></dl>
 
 </dd></dl>
@@ -805,6 +638,12 @@ along with 3 holes with 18, 6, and 6 points, respectively.</p>
 <dt class="sig sig-object py" id="h3.H3ResMismatchError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3ResMismatchError</span></span><a class="headerlink" href="#h3.H3ResMismatchError" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="h3.H3Shape">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3Shape</span></span><a class="reference internal" href="_modules/h3/_h3shape.html#H3Shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.H3Shape" title="Link to this definition">#</a></dt>
+<dd><p>Abstract parent class of <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>.</p>
+</dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="h3.H3UndirEdgeInvalidError">
@@ -838,8 +677,8 @@ H3BaseException class hierarchy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h1</strong> (<em>H3Cell</em>) – </p></li>
-<li><p><strong>h2</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>h1</strong> (<em>H3Cell</em>)</p></li>
+<li><p><strong>h2</strong> (<em>H3Cell</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -855,8 +694,14 @@ H3BaseException class hierarchy.</p>
 for the given resolution.</p>
 <p>This average <em>excludes</em> pentagons.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>res</strong> (<em>int</em>) – H3 resolution</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit for area result (<code class="docutils literal notranslate"><span class="pre">'km^2'</span></code>, <code class="docutils literal notranslate"><span class="pre">'m^2'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'rads^2'</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -868,8 +713,14 @@ for the given resolution.</p>
 for the given resolution.</p>
 <p>This average <em>excludes</em> pentagons.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>res</strong> (<em>int</em>) – H3 resolution</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit for length result (<code class="docutils literal notranslate"><span class="pre">'km'</span></code>, <code class="docutils literal notranslate"><span class="pre">'m'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'rads'</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -881,8 +732,8 @@ for the given resolution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
-<li><p><strong>unit</strong> (<em>str</em>) – Unit for area result (<code class="docutils literal notranslate"><span class="pre">'km^2'</span></code>, ‘m^2’, or ‘rads^2’)</p></li>
+<li><p><strong>h</strong> (<em>H3Cell</em>)</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit for area result (<code class="docutils literal notranslate"><span class="pre">'km^2'</span></code>, <code class="docutils literal notranslate"><span class="pre">'m^2'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'rads^2'</span></code>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -893,7 +744,7 @@ for the given resolution.</p>
 <p>This function breaks the cell into spherical triangles, and computes
 their spherical area.
 The function uses the spherical distance calculation given by
-<cite>great_circle_distance</cite>.</p>
+<code class="docutils literal notranslate"><span class="pre">great_circle_distance()</span></code>.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -902,7 +753,7 @@ The function uses the spherical distance calculation given by
 <dd><p>Return tuple of lat/lng pairs describing the cell boundary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>tuple of (lat, lng) tuples</p>
@@ -917,7 +768,7 @@ The function uses the spherical distance calculation given by
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>h</strong> (<em>H3Cell</em>)</p></li>
 <li><p><strong>res</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The resolution for the child cell
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, then <code class="docutils literal notranslate"><span class="pre">res</span> <span class="pre">=</span> <span class="pre">resolution(h)</span> <span class="pre">+</span> <span class="pre">1</span></code></p></li>
 </ul>
@@ -935,7 +786,7 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>h</strong> (<em>H3Cell</em>)</p></li>
 <li><p><strong>res</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The resolution for the children.
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, then <code class="docutils literal notranslate"><span class="pre">res</span> <span class="pre">=</span> <span class="pre">resolution(h)</span> <span class="pre">+</span> <span class="pre">1</span></code></p></li>
 </ul>
@@ -954,7 +805,7 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 <dd><p>Return the center point of an H3 cell as a lat/lng pair.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -999,7 +850,7 @@ you the property of (0, 0) being the <code class="docutils literal notranslate">
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>h</strong> (<em>H3Cell</em>)</p></li>
 <li><p><strong>res</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The resolution for the parent
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, then <code class="docutils literal notranslate"><span class="pre">res</span> <span class="pre">=</span> <span class="pre">resolution(h)</span> <span class="pre">-</span> <span class="pre">1</span></code></p></li>
 </ul>
@@ -1019,8 +870,8 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>origin</strong> (<em>H3Cell</em>) – </p></li>
-<li><p><strong>destination</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>origin</strong> (<em>H3Cell</em>)</p></li>
+<li><p><strong>destination</strong> (<em>H3Cell</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -1035,9 +886,14 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cells_to_geo">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cells_to_geo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cells_to_geo" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Convert from cells to a <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> dict.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3 Cells</em>) – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3 Cells</em>)</p></li>
+<li><p><strong>tight</strong> (<em>bool</em>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code>, returns an <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> when possible.
+When <code class="docutils literal notranslate"><span class="pre">False</span></code>, always returns an <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>in <cite>__geo_interface__</cite> format</p>
@@ -1051,16 +907,17 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.cells_to_h3shape">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cells_to_h3shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cells_to_h3shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cells_to_h3shape" title="Link to this definition">#</a></dt>
-<dd><p>Return a H3MultiPoly describing the area covered by a set of H3 cells.</p>
+<dd><p>Return an <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> describing the area covered by a collection of H3 cells.
+Will return <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> or <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3 cells</em>) – </p></li>
-<li><p><strong>tight</strong> (<em>bool</em>) – If True, return H3Poly if possible. If False, always return H3MultiPoly</p></li>
+<li><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3 cells</em>)</p></li>
+<li><p><strong>tight</strong> (<em>bool</em>) – If True, return <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> if possible. If False, always return <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#h3.H3Poly" title="h3.H3Poly">H3Poly</a> | H3MultiPoly</p>
+<dd class="field-even"><p><a class="reference internal" href="#h3.H3Poly" title="h3.H3Poly">H3Poly</a> | <a class="reference internal" href="#h3.H3MultiPoly" title="h3.H3MultiPoly">H3MultiPoly</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -1081,7 +938,7 @@ smaller cells into larger cells, if all child cells
 are present. Input cells must all share the same resolution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3 Cells</em>) – </p>
+<dd class="field-odd"><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3 Cells</em>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>unordered collection of H3Cell</p>
@@ -1092,12 +949,27 @@ are present. Input cells must all share the same resolution.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="h3.directed_edge_to_boundary">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">directed_edge_to_boundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#directed_edge_to_boundary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.directed_edge_to_boundary" title="Link to this definition">#</a></dt>
+<dd><p>Returns points representing the edge (line of points
+describing the boundary between two cells).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>edge</strong> (<em>H3Edge</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple of (lat, lng) tuples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="h3.directed_edge_to_cells">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">directed_edge_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#directed_edge_to_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.directed_edge_to_cells" title="Link to this definition">#</a></dt>
 <dd><p>Return (origin, destination) tuple from H3 directed edge</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>e</strong> (<em>H3Edge</em>) – </p>
+<dd class="field-odd"><p><strong>e</strong> (<em>H3Edge</em>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -1116,8 +988,8 @@ are present. Input cells must all share the same resolution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
-<li><p><strong>unit</strong> (<em>str</em>) – Unit for length result (‘km’, ‘m’, or ‘rads’)</p></li>
+<li><p><strong>h</strong> (<em>H3Cell</em>)</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit for length result (<code class="docutils literal notranslate"><span class="pre">'km'</span></code>, <code class="docutils literal notranslate"><span class="pre">'m'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'rads'</span></code>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -1126,17 +998,17 @@ are present. Input cells must all share the same resolution.</p>
 </dl>
 <p class="rubric">Notes</p>
 <p>This function uses the spherical distance calculation given by
-<cite>great_circle_distance</cite>.</p>
+<code class="docutils literal notranslate"><span class="pre">great_circle_distance()</span></code>.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.geo_to_cells">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">geo_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#geo_to_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.geo_to_cells" title="Link to this definition">#</a></dt>
-<dd><p>Convert from __geo_interface__ to cells.</p>
+<dd><p>Convert from <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> to cells.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>geo</strong> (an object implementing <cite>__geo_interface__</cite> or a dictionary in that format.) – Both H3Poly and H3MultiPoly implement the interface.</p></li>
+<li><p><strong>geo</strong> (an object implementing <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> or a dictionary in that format.) – Both <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> implement the interface.</p></li>
 <li><p><strong>res</strong> (<em>int</em>) – Resolution of desired output cells.</p></li>
 </ul>
 </dd>
@@ -1148,11 +1020,11 @@ are present. Input cells must all share the same resolution.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.geo_to_h3shape">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">geo_to_h3shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#geo_to_h3shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.geo_to_h3shape" title="Link to this definition">#</a></dt>
-<dd><p>Translate from __geo_interface__ to H3Shape.</p>
-<p><cite>geo</cite> either implements <cite>__geo_interface__</cite> or is a dict matching the format</p>
+<dd><p>Translate from <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> to H3Shape.</p>
+<p><code class="docutils literal notranslate"><span class="pre">geo</span></code> either implements <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> or is a dict matching the format</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>H3Shape</p>
+<dd class="field-odd"><p><a class="reference internal" href="#h3.H3Shape" title="h3.H3Shape">H3Shape</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1168,7 +1040,7 @@ H3Index.</p>
 <p>todo: could work with edges</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>int</p>
@@ -1182,7 +1054,7 @@ H3Index.</p>
 <dd><p>Destination cell from an H3 directed edge.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>e</strong> (<em>H3Edge</em>) – </p>
+<dd class="field-odd"><p><strong>e</strong> (<em>H3Edge</em>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>H3Cell</p>
@@ -1196,7 +1068,7 @@ H3Index.</p>
 <dd><p>Origin cell from an H3 directed edge.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>e</strong> (<em>H3Edge</em>) – </p>
+<dd class="field-odd"><p><strong>e</strong> (<em>H3Edge</em>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>H3Cell</p>
@@ -1212,7 +1084,7 @@ H3Index.</p>
 <p>Note: Every interface returns a Python <code class="docutils literal notranslate"><span class="pre">set</span></code> of <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Python <code class="docutils literal notranslate"><span class="pre">set</span></code> of <code class="docutils literal notranslate"><span class="pre">int</span></code></p>
@@ -1252,7 +1124,7 @@ for the given resolution.</p>
 <dd><p>Return all cells at resolution 0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong></p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>unordered collection of H3Cell</p>
@@ -1268,7 +1140,7 @@ for the given resolution.</p>
 <dd><p>Return the resolution of an H3 cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>int</p>
@@ -1287,7 +1159,7 @@ AKA: great circle distance or “haversine” distance.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>latlng1</strong> (<em>tuple</em>) – (lat, lng) tuple in degrees</p></li>
 <li><p><strong>latlng2</strong> (<em>tuple</em>) – (lat, lng) tuple in degrees</p></li>
-<li><p><strong>unit</strong> (<em>str</em>) – Unit for distance result (‘km’, ‘m’, or ‘rads’)</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit for distance result (<code class="docutils literal notranslate"><span class="pre">'km'</span></code>, <code class="docutils literal notranslate"><span class="pre">'m'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'rads'</span></code>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -1299,12 +1171,12 @@ AKA: great circle distance or “haversine” distance.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.grid_disk">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_disk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_disk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_disk" title="Link to this definition">#</a></dt>
-<dd><p>Return unordered collection of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">&lt;=</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.
-That is, the ‘filled-in’ disk.</p>
+<dd><p>Return unordered collection of cells with grid distance <code class="docutils literal notranslate"><span class="pre">&lt;=</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.
+That is, the “filled-in” disk.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>h</strong> (<em>H3Cell</em>)</p></li>
 <li><p><strong>k</strong> (<em>int</em>) – Size of disk.</p></li>
 </ul>
 </dd>
@@ -1319,8 +1191,8 @@ That is, the ‘filled-in’ disk.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.grid_distance">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_distance" title="Link to this definition">#</a></dt>
-<dd><p>Compute the H3 distance between two cells.</p>
-<p>The H3 distance is defined as the length of the shortest
+<dd><p>Compute the grid distance between two cells.</p>
+<p>The grid distance is defined as the length of the shortest
 path between the cells in the graph formed by connecting
 adjacent cells.</p>
 <p>This function will raise an exception if the
@@ -1328,8 +1200,8 @@ cells are too far apart to compute the distance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h1</strong> (<em>H3Cell</em>) – </p></li>
-<li><p><strong>h2</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>h1</strong> (<em>H3Cell</em>)</p></li>
+<li><p><strong>h2</strong> (<em>H3Cell</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -1346,8 +1218,8 @@ minimum-length non-unique path between cells.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>start</strong> (<em>H3Cell</em>) – </p></li>
-<li><p><strong>end</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>start</strong> (<em>H3Cell</em>)</p></li>
+<li><p><strong>end</strong> (<em>H3Cell</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1362,12 +1234,12 @@ minimum-length non-unique path between cells.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.grid_ring">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">grid_ring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#grid_ring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.grid_ring" title="Link to this definition">#</a></dt>
-<dd><p>Return unordered collection of cells with H3 distance <code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.
+<dd><p>Return unordered collection of cells with grid distance <code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.
 That is, the “hollow” ring.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h</strong> (<em>H3Cell</em>) – </p></li>
+<li><p><strong>h</strong> (<em>H3Cell</em>)</p></li>
 <li><p><strong>k</strong> (<em>int</em>) – Size of ring.</p></li>
 </ul>
 </dd>
@@ -1382,17 +1254,17 @@ That is, the “hollow” ring.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.h3shape_to_cells">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">h3shape_to_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#h3shape_to_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.h3shape_to_cells" title="Link to this definition">#</a></dt>
-<dd><p>Return the set of H3 cells at a given resolution whose center points
-are contained within an <cite>H3Poly</cite> or <cite>H3MultiPoly</cite>.</p>
+<dd><p>Return the collection of H3 cells at a given resolution whose center points
+are contained within an <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> or <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>h3shape</strong> (<em>H3shape</em>) – </p></li>
+<li><p><strong>h3shape</strong> (<code class="docutils literal notranslate"><span class="pre">H3shape</span></code>)</p></li>
 <li><p><strong>res</strong> (<em>int</em>) – Resolution of the output cells</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>unordered collection of H3Cell</p>
+<dd class="field-even"><p>list of H3Cell</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -1401,13 +1273,13 @@ are contained within an <cite>H3Poly</cite> or <cite>H3MultiPoly</cite>.</p>
 <span class="gp">... </span>     <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">h3shape_to_cells</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="go">{&#39;862830807ffffff&#39;,</span>
+<span class="go">[&#39;862830807ffffff&#39;,</span>
 <span class="go"> &#39;862830827ffffff&#39;,</span>
 <span class="go"> &#39;86283082fffffff&#39;,</span>
 <span class="go"> &#39;862830877ffffff&#39;,</span>
 <span class="go"> &#39;862830947ffffff&#39;,</span>
 <span class="go"> &#39;862830957ffffff&#39;,</span>
-<span class="go"> &#39;86283095fffffff&#39;}</span>
+<span class="go"> &#39;86283095fffffff&#39;]</span>
 </pre></div>
 </div>
 <p class="rubric">Notes</p>
@@ -1417,8 +1289,8 @@ are contained within an <cite>H3Poly</cite> or <cite>H3MultiPoly</cite>.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.h3shape_to_geo">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">h3shape_to_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#h3shape_to_geo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.h3shape_to_geo" title="Link to this definition">#</a></dt>
-<dd><p>Translate from H3Shape to a __geo_interface__ dict.</p>
-<p><cite>h3shape</cite> should be either H3Poly or H3MultiPoly</p>
+<dd><p>Translate from an <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> to a <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> dict.</p>
+<p><code class="docutils literal notranslate"><span class="pre">h3shape</span></code> should be either <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> or <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
@@ -1449,7 +1321,7 @@ are contained within an <cite>H3Poly</cite> or <cite>H3MultiPoly</cite>.</p>
 <dd><p>Identify if an H3 cell is a pentagon.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>h</strong> (<em>H3Index</em>) – </p>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Index</em>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if input is a valid H3 cell which is a pentagon.</p>
@@ -1475,7 +1347,7 @@ alternates between resolutions.</p>
 “Class III” cells have resolutions: 1,3,5,7,9,11,13,15</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>) – </p>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">h</span></code> is “Class III”.
@@ -1557,7 +1429,7 @@ you the property of (0, 0) being the <code class="docutils literal notranslate">
 <dd><p>Return all directed edges starting from <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>origin</strong> (<em>H3Cell</em>) – </p>
+<dd class="field-odd"><p><strong>origin</strong> (<em>H3Cell</em>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>unordered collection of H3Edge</p>
@@ -1585,24 +1457,17 @@ you the property of (0, 0) being the <code class="docutils literal notranslate">
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.uncompact_cells">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">uncompact_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cells</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#uncompact_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.uncompact_cells" title="Link to this definition">#</a></dt>
-<dd><p>Reverse the <cite>compact_cells</cite> operation.</p>
+<dd><p>Reverse the <code class="docutils literal notranslate"><span class="pre">compact_cells</span></code> operation.</p>
 <p>Return a collection of H3 cells, all of resolution <code class="docutils literal notranslate"><span class="pre">res</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3Cell</em>) – </p></li>
+<li><p><strong>cells</strong> (<em>iterable</em><em> of </em><em>H3Cell</em>)</p></li>
 <li><p><strong>res</strong> (<em>int</em>) – Resolution of desired output cells.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>unordered collection of H3Cell</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>todo</strong> – add test to make sure an error is returned when input:</p></li>
-<li><p><strong>contains cell smaller than output res.</strong> – </p></li>
-<li><p><strong>https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425</strong> – </p></li>
-</ul>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -1623,7 +1488,6 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
 </dl>
 </dd></dl>
 
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1657,12 +1521,12 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="api_comparison.html"
+       href="api_quick.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">API Comparison</p>
+        <p class="prev-next-title">API Quick Reference</p>
       </div>
     </a>
     <a class="right-next"
@@ -1690,89 +1554,82 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summaries">Summaries</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identification">Identification</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cells">Cells</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geographic-coordinates">Geographic coordinates</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hierarchical-relationships">Hierarchical relationships</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-grid-relationships">Cell grid relationships</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#edges">Edges</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ij-indexing">IJ-indexing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3BaseException"><code class="docutils literal notranslate"><span class="pre">H3BaseException</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3CellInvalidError"><code class="docutils literal notranslate"><span class="pre">H3CellInvalidError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3DirEdgeInvalidError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DomainError"><code class="docutils literal notranslate"><span class="pre">H3DomainError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DuplicateInputError"><code class="docutils literal notranslate"><span class="pre">H3DuplicateInputError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3FailedError"><code class="docutils literal notranslate"><span class="pre">H3FailedError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3GridNavigationError"><code class="docutils literal notranslate"><span class="pre">H3GridNavigationError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3LatLngDomainError"><code class="docutils literal notranslate"><span class="pre">H3LatLngDomainError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryAllocError"><code class="docutils literal notranslate"><span class="pre">H3MemoryAllocError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryBoundsError"><code class="docutils literal notranslate"><span class="pre">H3MemoryBoundsError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryError"><code class="docutils literal notranslate"><span class="pre">H3MemoryError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MultiPoly"><code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MultiPoly.polys"><code class="docutils literal notranslate"><span class="pre">H3MultiPoly.polys</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-h3">Definitions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3BaseException"><code class="docutils literal notranslate"><span class="pre">H3BaseException</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3CellInvalidError"><code class="docutils literal notranslate"><span class="pre">H3CellInvalidError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3DirEdgeInvalidError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DomainError"><code class="docutils literal notranslate"><span class="pre">H3DomainError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DuplicateInputError"><code class="docutils literal notranslate"><span class="pre">H3DuplicateInputError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3FailedError"><code class="docutils literal notranslate"><span class="pre">H3FailedError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3GridNavigationError"><code class="docutils literal notranslate"><span class="pre">H3GridNavigationError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3LatLngDomainError"><code class="docutils literal notranslate"><span class="pre">H3LatLngDomainError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryAllocError"><code class="docutils literal notranslate"><span class="pre">H3MemoryAllocError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryBoundsError"><code class="docutils literal notranslate"><span class="pre">H3MemoryBoundsError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3MemoryError"><code class="docutils literal notranslate"><span class="pre">H3MemoryError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3NotNeighborsError"><code class="docutils literal notranslate"><span class="pre">H3NotNeighborsError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3OptionInvalidError"><code class="docutils literal notranslate"><span class="pre">H3OptionInvalidError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3PentagonError"><code class="docutils literal notranslate"><span class="pre">H3PentagonError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly"><code class="docutils literal notranslate"><span class="pre">H3Poly</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.outer"><code class="docutils literal notranslate"><span class="pre">H3Poly.outer</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.holes"><code class="docutils literal notranslate"><span class="pre">H3Poly.holes</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.loopcode"><code class="docutils literal notranslate"><span class="pre">H3Poly.loopcode</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3NotNeighborsError"><code class="docutils literal notranslate"><span class="pre">H3NotNeighborsError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3OptionInvalidError"><code class="docutils literal notranslate"><span class="pre">H3OptionInvalidError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3PentagonError"><code class="docutils literal notranslate"><span class="pre">H3PentagonError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly"><code class="docutils literal notranslate"><span class="pre">H3Poly</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.outer"><code class="docutils literal notranslate"><span class="pre">H3Poly.outer</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.holes"><code class="docutils literal notranslate"><span class="pre">H3Poly.holes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Poly.loopcode"><code class="docutils literal notranslate"><span class="pre">H3Poly.loopcode</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResDomainError"><code class="docutils literal notranslate"><span class="pre">H3ResDomainError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResMismatchError"><code class="docutils literal notranslate"><span class="pre">H3ResMismatchError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3UndirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3UndirEdgeInvalidError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ValueError"><code class="docutils literal notranslate"><span class="pre">H3ValueError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3VertexInvalidError"><code class="docutils literal notranslate"><span class="pre">H3VertexInvalidError</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.UnknownH3ErrorCode"><code class="docutils literal notranslate"><span class="pre">UnknownH3ErrorCode</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.are_neighbor_cells"><code class="docutils literal notranslate"><span class="pre">are_neighbor_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_area"><code class="docutils literal notranslate"><span class="pre">average_hexagon_area()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_edge_length"><code class="docutils literal notranslate"><span class="pre">average_hexagon_edge_length()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_area"><code class="docutils literal notranslate"><span class="pre">cell_area()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_boundary"><code class="docutils literal notranslate"><span class="pre">cell_to_boundary()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_center_child"><code class="docutils literal notranslate"><span class="pre">cell_to_center_child()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_children"><code class="docutils literal notranslate"><span class="pre">cell_to_children()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_latlng"><code class="docutils literal notranslate"><span class="pre">cell_to_latlng()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_local_ij"><code class="docutils literal notranslate"><span class="pre">cell_to_local_ij()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_parent"><code class="docutils literal notranslate"><span class="pre">cell_to_parent()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_directed_edge"><code class="docutils literal notranslate"><span class="pre">cells_to_directed_edge()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_geo"><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_h3shape"><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.compact_cells"><code class="docutils literal notranslate"><span class="pre">compact_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_cells"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.edge_length"><code class="docutils literal notranslate"><span class="pre">edge_length()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_cells"><code class="docutils literal notranslate"><span class="pre">geo_to_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_h3shape"><code class="docutils literal notranslate"><span class="pre">geo_to_h3shape()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_base_cell_number"><code class="docutils literal notranslate"><span class="pre">get_base_cell_number()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_destination"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_destination()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_origin"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_origin()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_icosahedron_faces"><code class="docutils literal notranslate"><span class="pre">get_icosahedron_faces()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_num_cells"><code class="docutils literal notranslate"><span class="pre">get_num_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_pentagons"><code class="docutils literal notranslate"><span class="pre">get_pentagons()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_res0_cells"><code class="docutils literal notranslate"><span class="pre">get_res0_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_resolution"><code class="docutils literal notranslate"><span class="pre">get_resolution()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.great_circle_distance"><code class="docutils literal notranslate"><span class="pre">great_circle_distance()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_disk"><code class="docutils literal notranslate"><span class="pre">grid_disk()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_distance"><code class="docutils literal notranslate"><span class="pre">grid_distance()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_path_cells"><code class="docutils literal notranslate"><span class="pre">grid_path_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_ring"><code class="docutils literal notranslate"><span class="pre">grid_ring()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_cells"><code class="docutils literal notranslate"><span class="pre">h3shape_to_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_geo"><code class="docutils literal notranslate"><span class="pre">h3shape_to_geo()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.int_to_str"><code class="docutils literal notranslate"><span class="pre">int_to_str()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_pentagon"><code class="docutils literal notranslate"><span class="pre">is_pentagon()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_res_class_III"><code class="docutils literal notranslate"><span class="pre">is_res_class_III()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_cell"><code class="docutils literal notranslate"><span class="pre">is_valid_cell()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_directed_edge"><code class="docutils literal notranslate"><span class="pre">is_valid_directed_edge()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.latlng_to_cell"><code class="docutils literal notranslate"><span class="pre">latlng_to_cell()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.local_ij_to_cell"><code class="docutils literal notranslate"><span class="pre">local_ij_to_cell()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.origin_to_directed_edges"><code class="docutils literal notranslate"><span class="pre">origin_to_directed_edges()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.str_to_int"><code class="docutils literal notranslate"><span class="pre">str_to_int()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.uncompact_cells"><code class="docutils literal notranslate"><span class="pre">uncompact_cells()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.versions"><code class="docutils literal notranslate"><span class="pre">versions()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResDomainError"><code class="docutils literal notranslate"><span class="pre">H3ResDomainError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ResMismatchError"><code class="docutils literal notranslate"><span class="pre">H3ResMismatchError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3Shape"><code class="docutils literal notranslate"><span class="pre">H3Shape</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3UndirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3UndirEdgeInvalidError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3ValueError"><code class="docutils literal notranslate"><span class="pre">H3ValueError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3VertexInvalidError"><code class="docutils literal notranslate"><span class="pre">H3VertexInvalidError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.UnknownH3ErrorCode"><code class="docutils literal notranslate"><span class="pre">UnknownH3ErrorCode</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.are_neighbor_cells"><code class="docutils literal notranslate"><span class="pre">are_neighbor_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_area"><code class="docutils literal notranslate"><span class="pre">average_hexagon_area()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.average_hexagon_edge_length"><code class="docutils literal notranslate"><span class="pre">average_hexagon_edge_length()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_area"><code class="docutils literal notranslate"><span class="pre">cell_area()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_boundary"><code class="docutils literal notranslate"><span class="pre">cell_to_boundary()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_center_child"><code class="docutils literal notranslate"><span class="pre">cell_to_center_child()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_children"><code class="docutils literal notranslate"><span class="pre">cell_to_children()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_latlng"><code class="docutils literal notranslate"><span class="pre">cell_to_latlng()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_local_ij"><code class="docutils literal notranslate"><span class="pre">cell_to_local_ij()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_parent"><code class="docutils literal notranslate"><span class="pre">cell_to_parent()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_directed_edge"><code class="docutils literal notranslate"><span class="pre">cells_to_directed_edge()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_geo"><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_h3shape"><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.compact_cells"><code class="docutils literal notranslate"><span class="pre">compact_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_boundary"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_boundary()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_cells"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.edge_length"><code class="docutils literal notranslate"><span class="pre">edge_length()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_cells"><code class="docutils literal notranslate"><span class="pre">geo_to_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.geo_to_h3shape"><code class="docutils literal notranslate"><span class="pre">geo_to_h3shape()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_base_cell_number"><code class="docutils literal notranslate"><span class="pre">get_base_cell_number()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_destination"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_destination()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_directed_edge_origin"><code class="docutils literal notranslate"><span class="pre">get_directed_edge_origin()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_icosahedron_faces"><code class="docutils literal notranslate"><span class="pre">get_icosahedron_faces()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_num_cells"><code class="docutils literal notranslate"><span class="pre">get_num_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_pentagons"><code class="docutils literal notranslate"><span class="pre">get_pentagons()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_res0_cells"><code class="docutils literal notranslate"><span class="pre">get_res0_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.get_resolution"><code class="docutils literal notranslate"><span class="pre">get_resolution()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.great_circle_distance"><code class="docutils literal notranslate"><span class="pre">great_circle_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_disk"><code class="docutils literal notranslate"><span class="pre">grid_disk()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_distance"><code class="docutils literal notranslate"><span class="pre">grid_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_path_cells"><code class="docutils literal notranslate"><span class="pre">grid_path_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.grid_ring"><code class="docutils literal notranslate"><span class="pre">grid_ring()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_cells"><code class="docutils literal notranslate"><span class="pre">h3shape_to_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.h3shape_to_geo"><code class="docutils literal notranslate"><span class="pre">h3shape_to_geo()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.int_to_str"><code class="docutils literal notranslate"><span class="pre">int_to_str()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_pentagon"><code class="docutils literal notranslate"><span class="pre">is_pentagon()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_res_class_III"><code class="docutils literal notranslate"><span class="pre">is_res_class_III()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_cell"><code class="docutils literal notranslate"><span class="pre">is_valid_cell()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_directed_edge"><code class="docutils literal notranslate"><span class="pre">is_valid_directed_edge()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.latlng_to_cell"><code class="docutils literal notranslate"><span class="pre">latlng_to_cell()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.local_ij_to_cell"><code class="docutils literal notranslate"><span class="pre">local_ij_to_cell()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.origin_to_directed_edges"><code class="docutils literal notranslate"><span class="pre">origin_to_directed_edges()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.str_to_int"><code class="docutils literal notranslate"><span class="pre">str_to_int()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.uncompact_cells"><code class="docutils literal notranslate"><span class="pre">uncompact_cells()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.versions"><code class="docutils literal notranslate"><span class="pre">versions()</span></code></a></li>
 </ul>
   </nav></div>
 
@@ -1797,7 +1654,7 @@ By Uber Technologies
 
   <p class="copyright">
     
-      © Copyright 2021.
+      © Copyright 2024.
       <br/>
     
   </p>

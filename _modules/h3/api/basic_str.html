@@ -41,7 +41,7 @@
   <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
@@ -171,14 +171,15 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">h3-py</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../api_comparison.html">API Comparison</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_quick.html">API Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_verbose.html">API Verbose Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../polygon_tutorial.html">Polygon Tutorial</a></li>
 
 
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="../../../api_comparison.html">Comparison of APIs</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Sundries</span></p>
 <ul class="nav bd-sidenav">
@@ -323,7 +324,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="versions">
-<a class="viewcode-back" href="../../../api_reference.html#h3.versions">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.versions">[docs]</a>
 <span class="k">def</span> <span class="nf">versions</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Version numbers for the Python (wrapper) and C (wrapped) libraries.</span>
@@ -348,7 +349,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="str_to_int">
-<a class="viewcode-back" href="../../../api_reference.html#h3.str_to_int">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.str_to_int">[docs]</a>
 <span class="k">def</span> <span class="nf">str_to_int</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts a hexadecimal string to an H3 64-bit integer index.</span>
@@ -368,7 +369,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="int_to_str">
-<a class="viewcode-back" href="../../../api_reference.html#h3.int_to_str">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.int_to_str">[docs]</a>
 <span class="k">def</span> <span class="nf">int_to_str</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts an H3 64-bit integer index to a hexadecimal string.</span>
@@ -388,7 +389,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="get_num_cells">
-<a class="viewcode-back" href="../../../api_reference.html#h3.get_num_cells">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.get_num_cells">[docs]</a>
 <span class="k">def</span> <span class="nf">get_num_cells</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the total number of *cells* (hexagons and pentagons)</span>
@@ -403,13 +404,20 @@ document.write(`
 
 
 <div class="viewcode-block" id="average_hexagon_area">
-<a class="viewcode-back" href="../../../api_reference.html#h3.average_hexagon_area">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.average_hexagon_area">[docs]</a>
 <span class="k">def</span> <span class="nf">average_hexagon_area</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;km^2&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the average area of an H3 *hexagon*</span>
 <span class="sd">    for the given resolution.</span>
 
 <span class="sd">    This average *excludes* pentagons.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    res : int</span>
+<span class="sd">        H3 resolution</span>
+<span class="sd">    unit: str</span>
+<span class="sd">        Unit for area result (``&#39;km^2&#39;``, ``&#39;m^2&#39;``, or ``&#39;rads^2&#39;``)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -420,13 +428,20 @@ document.write(`
 
 
 <div class="viewcode-block" id="average_hexagon_edge_length">
-<a class="viewcode-back" href="../../../api_reference.html#h3.average_hexagon_edge_length">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.average_hexagon_edge_length">[docs]</a>
 <span class="k">def</span> <span class="nf">average_hexagon_edge_length</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;km&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the average *hexagon* edge length</span>
 <span class="sd">    for the given resolution.</span>
 
 <span class="sd">    This average *excludes* pentagons.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    res : int</span>
+<span class="sd">        H3 resolution</span>
+<span class="sd">    unit: str</span>
+<span class="sd">        Unit for length result (``&#39;km&#39;``, ``&#39;m&#39;``, or ``&#39;rads&#39;``)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -437,7 +452,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="is_valid_cell">
-<a class="viewcode-back" href="../../../api_reference.html#h3.is_valid_cell">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.is_valid_cell">[docs]</a>
 <span class="k">def</span> <span class="nf">is_valid_cell</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Validates an H3 cell (hexagon or pentagon).</span>
@@ -455,7 +470,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="is_valid_directed_edge">
-<a class="viewcode-back" href="../../../api_reference.html#h3.is_valid_directed_edge">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.is_valid_directed_edge">[docs]</a>
 <span class="k">def</span> <span class="nf">is_valid_directed_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Validates an H3 unidirectional edge.</span>
@@ -473,7 +488,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="latlng_to_cell">
-<a class="viewcode-back" href="../../../api_reference.html#h3.latlng_to_cell">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.latlng_to_cell">[docs]</a>
 <span class="k">def</span> <span class="nf">latlng_to_cell</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lng</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the cell containing the (lat, lng) point</span>
@@ -489,7 +504,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="cell_to_latlng">
-<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_latlng">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cell_to_latlng">[docs]</a>
 <span class="k">def</span> <span class="nf">cell_to_latlng</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the center point of an H3 cell as a lat/lng pair.</span>
@@ -510,7 +525,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="get_resolution">
-<a class="viewcode-back" href="../../../api_reference.html#h3.get_resolution">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.get_resolution">[docs]</a>
 <span class="k">def</span> <span class="nf">get_resolution</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the resolution of an H3 cell.</span>
@@ -529,7 +544,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="cell_to_parent">
-<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_parent">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cell_to_parent">[docs]</a>
 <span class="k">def</span> <span class="nf">cell_to_parent</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the parent of a cell.</span>
@@ -554,12 +569,12 @@ document.write(`
 
 
 <div class="viewcode-block" id="grid_distance">
-<a class="viewcode-back" href="../../../api_reference.html#h3.grid_distance">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.grid_distance">[docs]</a>
 <span class="k">def</span> <span class="nf">grid_distance</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute the H3 distance between two cells.</span>
+<span class="sd">    Compute the grid distance between two cells.</span>
 
-<span class="sd">    The H3 distance is defined as the length of the shortest</span>
+<span class="sd">    The grid distance is defined as the length of the shortest</span>
 <span class="sd">    path between the cells in the graph formed by connecting</span>
 <span class="sd">    adjacent cells.</span>
 
@@ -585,7 +600,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="cell_to_boundary">
-<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_boundary">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cell_to_boundary">[docs]</a>
 <span class="k">def</span> <span class="nf">cell_to_boundary</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return tuple of lat/lng pairs describing the cell boundary.</span>
@@ -603,11 +618,11 @@ document.write(`
 
 
 <div class="viewcode-block" id="grid_disk">
-<a class="viewcode-back" href="../../../api_reference.html#h3.grid_disk">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.grid_disk">[docs]</a>
 <span class="k">def</span> <span class="nf">grid_disk</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return unordered collection of cells with H3 distance ``&lt;= k`` from ``h``.</span>
-<span class="sd">    That is, the &#39;filled-in&#39; disk.</span>
+<span class="sd">    Return unordered collection of cells with grid distance ``&lt;= k`` from ``h``.</span>
+<span class="sd">    That is, the &quot;filled-in&quot; disk.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -630,10 +645,10 @@ document.write(`
 
 
 <div class="viewcode-block" id="grid_ring">
-<a class="viewcode-back" href="../../../api_reference.html#h3.grid_ring">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.grid_ring">[docs]</a>
 <span class="k">def</span> <span class="nf">grid_ring</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return unordered collection of cells with H3 distance ``== k`` from ``h``.</span>
+<span class="sd">    Return unordered collection of cells with grid distance ``== k`` from ``h``.</span>
 <span class="sd">    That is, the &quot;hollow&quot; ring.</span>
 
 <span class="sd">    Parameters</span>
@@ -657,7 +672,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="cell_to_children">
-<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_children">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cell_to_children">[docs]</a>
 <span class="k">def</span> <span class="nf">cell_to_children</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Children of a cell as an unordered collection.</span>
@@ -685,7 +700,7 @@ document.write(`
 
 <span class="c1"># todo: nogil for expensive C operation?</span>
 <div class="viewcode-block" id="compact_cells">
-<a class="viewcode-back" href="../../../api_reference.html#h3.compact_cells">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.compact_cells">[docs]</a>
 <span class="k">def</span> <span class="nf">compact_cells</span><span class="p">(</span><span class="n">cells</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compact a collection of H3 cells by combining</span>
@@ -704,7 +719,6 @@ document.write(`
 <span class="sd">    -----</span>
 <span class="sd">    There is currently no guaranteed order of the output cells.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># todo: does compact_cells work on mixed-resolution collections?</span>
     <span class="n">hu</span> <span class="o">=</span> <span class="n">_in_collection</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
     <span class="n">hc</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">compact_cells</span><span class="p">(</span><span class="n">hu</span><span class="p">)</span>
 
@@ -713,10 +727,10 @@ document.write(`
 
 
 <div class="viewcode-block" id="uncompact_cells">
-<a class="viewcode-back" href="../../../api_reference.html#h3.uncompact_cells">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.uncompact_cells">[docs]</a>
 <span class="k">def</span> <span class="nf">uncompact_cells</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Reverse the `compact_cells` operation.</span>
+<span class="sd">    Reverse the ``compact_cells`` operation.</span>
 
 <span class="sd">    Return a collection of H3 cells, all of resolution ``res``.</span>
 
@@ -730,16 +744,13 @@ document.write(`
 <span class="sd">    -------</span>
 <span class="sd">    unordered collection of H3Cell</span>
 
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    todo: add test to make sure an error is returned when input</span>
-<span class="sd">    contains cell smaller than output res.</span>
-<span class="sd">    https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425</span>
-
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    There is currently no guaranteed order of the output cells.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: add test to make sure an error is returned when input contains cell</span>
+    <span class="c1"># smaller than output res.</span>
+
     <span class="n">hc</span> <span class="o">=</span> <span class="n">_in_collection</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
     <span class="n">hu</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">uncompact_cells</span><span class="p">(</span><span class="n">hc</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
 
@@ -748,21 +759,21 @@ document.write(`
 
 
 <div class="viewcode-block" id="h3shape_to_cells">
-<a class="viewcode-back" href="../../../api_reference.html#h3.h3shape_to_cells">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.h3shape_to_cells">[docs]</a>
 <span class="k">def</span> <span class="nf">h3shape_to_cells</span><span class="p">(</span><span class="n">h3shape</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return the set of H3 cells at a given resolution whose center points</span>
-<span class="sd">    are contained within an `H3Poly` or `H3MultiPoly`.</span>
+<span class="sd">    Return the collection of H3 cells at a given resolution whose center points</span>
+<span class="sd">    are contained within an ``H3Poly`` or ``H3MultiPoly``.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    h3shape : H3shape</span>
+<span class="sd">    h3shape : ``H3shape``</span>
 <span class="sd">    res : int</span>
 <span class="sd">        Resolution of the output cells</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    unordered collection of H3Cell</span>
+<span class="sd">    list of H3Cell</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -772,13 +783,13 @@ document.write(`
 <span class="sd">    ...      (37.82, -122.54)],</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; h3.h3shape_to_cells(poly, 6)</span>
-<span class="sd">    {&#39;862830807ffffff&#39;,</span>
+<span class="sd">    [&#39;862830807ffffff&#39;,</span>
 <span class="sd">     &#39;862830827ffffff&#39;,</span>
 <span class="sd">     &#39;86283082fffffff&#39;,</span>
 <span class="sd">     &#39;862830877ffffff&#39;,</span>
 <span class="sd">     &#39;862830947ffffff&#39;,</span>
 <span class="sd">     &#39;862830957ffffff&#39;,</span>
-<span class="sd">     &#39;86283095fffffff&#39;}</span>
+<span class="sd">     &#39;86283095fffffff&#39;]</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -802,16 +813,17 @@ document.write(`
 
 
 <div class="viewcode-block" id="cells_to_h3shape">
-<a class="viewcode-back" href="../../../api_reference.html#h3.cells_to_h3shape">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cells_to_h3shape">[docs]</a>
 <span class="k">def</span> <span class="nf">cells_to_h3shape</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return a H3MultiPoly describing the area covered by a set of H3 cells.</span>
+<span class="sd">    Return an ``H3Shape`` describing the area covered by a collection of H3 cells.</span>
+<span class="sd">    Will return ``H3Poly`` or ``H3MultiPoly``.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    cells : iterable of H3 cells</span>
 <span class="sd">    tight : bool</span>
-<span class="sd">        If True, return H3Poly if possible. If False, always return H3MultiPoly</span>
+<span class="sd">        If True, return ``H3Poly`` if possible. If False, always return ``H3MultiPoly``.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -840,14 +852,14 @@ document.write(`
 
 
 <div class="viewcode-block" id="geo_to_cells">
-<a class="viewcode-back" href="../../../api_reference.html#h3.geo_to_cells">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.geo_to_cells">[docs]</a>
 <span class="k">def</span> <span class="nf">geo_to_cells</span><span class="p">(</span><span class="n">geo</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert from __geo_interface__ to cells.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert from ``__geo_interface__`` to cells.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    geo : an object implementing `__geo_interface__` or a dictionary in that format.</span>
-<span class="sd">        Both H3Poly and H3MultiPoly implement the interface.</span>
+<span class="sd">    geo : an object implementing ``__geo_interface__`` or a dictionary in that format.</span>
+<span class="sd">        Both ``H3Poly`` and ``H3MultiPoly`` implement the interface.</span>
 <span class="sd">    res : int</span>
 <span class="sd">        Resolution of desired output cells.</span>
 
@@ -861,12 +873,17 @@ document.write(`
 
 
 <div class="viewcode-block" id="cells_to_geo">
-<a class="viewcode-back" href="../../../api_reference.html#h3.cells_to_geo">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cells_to_geo">[docs]</a>
 <span class="k">def</span> <span class="nf">cells_to_geo</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert from cells to a ``__geo_interface__`` dict.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    cells : iterable of H3 Cells</span>
+<span class="sd">    tight : bool</span>
+<span class="sd">        When ``True``, returns an ``H3Poly`` when possible.</span>
+<span class="sd">        When ``False``, always returns an ``H3MultiPoly``.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -879,7 +896,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="is_pentagon">
-<a class="viewcode-back" href="../../../api_reference.html#h3.is_pentagon">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.is_pentagon">[docs]</a>
 <span class="k">def</span> <span class="nf">is_pentagon</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Identify if an H3 cell is a pentagon.</span>
@@ -903,7 +920,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="get_base_cell_number">
-<a class="viewcode-back" href="../../../api_reference.html#h3.get_base_cell_number">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.get_base_cell_number">[docs]</a>
 <span class="k">def</span> <span class="nf">get_base_cell_number</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the base cell *number* (``0`` to ``121``) of the given cell.</span>
@@ -929,7 +946,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="are_neighbor_cells">
-<a class="viewcode-back" href="../../../api_reference.html#h3.are_neighbor_cells">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.are_neighbor_cells">[docs]</a>
 <span class="k">def</span> <span class="nf">are_neighbor_cells</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns ``True`` if ``h1`` and ``h2`` are neighboring cells.</span>
@@ -951,7 +968,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="cells_to_directed_edge">
-<a class="viewcode-back" href="../../../api_reference.html#h3.cells_to_directed_edge">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cells_to_directed_edge">[docs]</a>
 <span class="k">def</span> <span class="nf">cells_to_directed_edge</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">destination</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create an H3 Index denoting a unidirectional edge.</span>
@@ -983,7 +1000,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="get_directed_edge_origin">
-<a class="viewcode-back" href="../../../api_reference.html#h3.get_directed_edge_origin">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.get_directed_edge_origin">[docs]</a>
 <span class="k">def</span> <span class="nf">get_directed_edge_origin</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Origin cell from an H3 directed edge.</span>
@@ -1005,7 +1022,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="get_directed_edge_destination">
-<a class="viewcode-back" href="../../../api_reference.html#h3.get_directed_edge_destination">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.get_directed_edge_destination">[docs]</a>
 <span class="k">def</span> <span class="nf">get_directed_edge_destination</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Destination cell from an H3 directed edge.</span>
@@ -1027,7 +1044,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="directed_edge_to_cells">
-<a class="viewcode-back" href="../../../api_reference.html#h3.directed_edge_to_cells">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.directed_edge_to_cells">[docs]</a>
 <span class="k">def</span> <span class="nf">directed_edge_to_cells</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return (origin, destination) tuple from H3 directed edge</span>
@@ -1052,7 +1069,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="origin_to_directed_edges">
-<a class="viewcode-back" href="../../../api_reference.html#h3.origin_to_directed_edges">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.origin_to_directed_edges">[docs]</a>
 <span class="k">def</span> <span class="nf">origin_to_directed_edges</span><span class="p">(</span><span class="n">origin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return all directed edges starting from ``origin`` cell.</span>
@@ -1071,12 +1088,27 @@ document.write(`
 
 
 
+<div class="viewcode-block" id="directed_edge_to_boundary">
+<a class="viewcode-back" href="../../../api_verbose.html#h3.directed_edge_to_boundary">[docs]</a>
 <span class="k">def</span> <span class="nf">directed_edge_to_boundary</span><span class="p">(</span><span class="n">edge</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">directed_edge_to_boundary</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">edge</span><span class="p">))</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns points representing the edge (line of points</span>
+<span class="sd">    describing the boundary between two cells).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    edge : H3Edge</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of (lat, lng) tuples</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">directed_edge_to_boundary</span><span class="p">(</span><span class="n">_in_scalar</span><span class="p">(</span><span class="n">edge</span><span class="p">))</span></div>
+
 
 
 <div class="viewcode-block" id="grid_path_cells">
-<a class="viewcode-back" href="../../../api_reference.html#h3.grid_path_cells">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.grid_path_cells">[docs]</a>
 <span class="k">def</span> <span class="nf">grid_path_cells</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the ordered collection of cells denoting a</span>
@@ -1099,7 +1131,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="is_res_class_III">
-<a class="viewcode-back" href="../../../api_reference.html#h3.is_res_class_III">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.is_res_class_III">[docs]</a>
 <span class="k">def</span> <span class="nf">is_res_class_III</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Determine if cell has orientation &quot;Class II&quot; or &quot;Class III&quot;.</span>
@@ -1132,7 +1164,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="get_pentagons">
-<a class="viewcode-back" href="../../../api_reference.html#h3.get_pentagons">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.get_pentagons">[docs]</a>
 <span class="k">def</span> <span class="nf">get_pentagons</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return all pentagons at a given resolution.</span>
@@ -1153,7 +1185,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="get_res0_cells">
-<a class="viewcode-back" href="../../../api_reference.html#h3.get_res0_cells">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.get_res0_cells">[docs]</a>
 <span class="k">def</span> <span class="nf">get_res0_cells</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return all cells at resolution 0.</span>
@@ -1177,7 +1209,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="cell_to_center_child">
-<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_center_child">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cell_to_center_child">[docs]</a>
 <span class="k">def</span> <span class="nf">cell_to_center_child</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the center child of a cell at some finer resolution.</span>
@@ -1202,7 +1234,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="get_icosahedron_faces">
-<a class="viewcode-back" href="../../../api_reference.html#h3.get_icosahedron_faces">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.get_icosahedron_faces">[docs]</a>
 <span class="k">def</span> <span class="nf">get_icosahedron_faces</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return icosahedron faces intersecting a given H3 cell.</span>
@@ -1227,7 +1259,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="cell_to_local_ij">
-<a class="viewcode-back" href="../../../api_reference.html#h3.cell_to_local_ij">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cell_to_local_ij">[docs]</a>
 <span class="k">def</span> <span class="nf">cell_to_local_ij</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return local (i,j) coordinates of cell ``h`` in relation to ``origin`` cell</span>
@@ -1269,7 +1301,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="local_ij_to_cell">
-<a class="viewcode-back" href="../../../api_reference.html#h3.local_ij_to_cell">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.local_ij_to_cell">[docs]</a>
 <span class="k">def</span> <span class="nf">local_ij_to_cell</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return cell at local (i,j) position relative to the ``origin`` cell.</span>
@@ -1309,7 +1341,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="cell_area">
-<a class="viewcode-back" href="../../../api_reference.html#h3.cell_area">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cell_area">[docs]</a>
 <span class="k">def</span> <span class="nf">cell_area</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;km^2&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the spherical surface area of a specific H3 cell.</span>
@@ -1318,7 +1350,7 @@ document.write(`
 <span class="sd">    ----------</span>
 <span class="sd">    h : H3Cell</span>
 <span class="sd">    unit: str</span>
-<span class="sd">        Unit for area result (``&#39;km^2&#39;``, &#39;m^2&#39;, or &#39;rads^2&#39;)</span>
+<span class="sd">        Unit for area result (``&#39;km^2&#39;``, ``&#39;m^2&#39;``, or ``&#39;rads^2&#39;``)</span>
 
 
 <span class="sd">    Returns</span>
@@ -1331,7 +1363,7 @@ document.write(`
 <span class="sd">    This function breaks the cell into spherical triangles, and computes</span>
 <span class="sd">    their spherical area.</span>
 <span class="sd">    The function uses the spherical distance calculation given by</span>
-<span class="sd">    `great_circle_distance`.</span>
+<span class="sd">    ``great_circle_distance()``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
 
@@ -1340,7 +1372,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="edge_length">
-<a class="viewcode-back" href="../../../api_reference.html#h3.edge_length">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.edge_length">[docs]</a>
 <span class="k">def</span> <span class="nf">edge_length</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;km&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the spherical length of a specific H3 edge.</span>
@@ -1349,7 +1381,7 @@ document.write(`
 <span class="sd">    ----------</span>
 <span class="sd">    h : H3Cell</span>
 <span class="sd">    unit: str</span>
-<span class="sd">        Unit for length result (&#39;km&#39;, &#39;m&#39;, or &#39;rads&#39;)</span>
+<span class="sd">        Unit for length result (``&#39;km&#39;``, ``&#39;m&#39;``, or ``&#39;rads&#39;``)</span>
 
 
 <span class="sd">    Returns</span>
@@ -1360,7 +1392,7 @@ document.write(`
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    This function uses the spherical distance calculation given by</span>
-<span class="sd">    `great_circle_distance`.</span>
+<span class="sd">    ``great_circle_distance()``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">e</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
@@ -1369,7 +1401,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="great_circle_distance">
-<a class="viewcode-back" href="../../../api_reference.html#h3.great_circle_distance">[docs]</a>
+<a class="viewcode-back" href="../../../api_verbose.html#h3.great_circle_distance">[docs]</a>
 <span class="k">def</span> <span class="nf">great_circle_distance</span><span class="p">(</span><span class="n">latlng1</span><span class="p">,</span> <span class="n">latlng2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;km&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the spherical distance between two (lat, lng) points.</span>
@@ -1384,8 +1416,7 @@ document.write(`
 <span class="sd">    latlng2 : tuple</span>
 <span class="sd">        (lat, lng) tuple in degrees</span>
 <span class="sd">    unit: str</span>
-<span class="sd">        Unit for distance result (&#39;km&#39;, &#39;m&#39;, or &#39;rads&#39;)</span>
-
+<span class="sd">        Unit for distance result (``&#39;km&#39;``, ``&#39;m&#39;``, or ``&#39;rads&#39;``)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -1439,7 +1470,7 @@ By Uber Technologies
 
   <p class="copyright">
     
-      © Copyright 2021.
+      © Copyright 2024.
       <br/>
     
   </p>

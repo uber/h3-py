@@ -1,0 +1,800 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>API Quick Reference &#8212; h3-py</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_quick';</script>
+    <link rel="canonical" href="https://uber.github.io/h3-py/api_quick.html" />
+    <link rel="icon" href="_static/logo.svg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Verbose Reference" href="api_verbose.html" />
+    <link rel="prev" title="h3-py: Uber’s H3 Hexagonal Hierarchical Geospatial Indexing System in Python" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.svg" class="logo__image only-light" alt="h3-py - Home"/>
+    <script>document.write(`<img src="_static/logo.svg" class="logo__image only-dark" alt="h3-py - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">h3-py</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">API Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_verbose.html">API Verbose Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polygon_tutorial.html">Polygon Tutorial</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="api_comparison.html">Comparison of APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Sundries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="_changelog.html">CHANGELOG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_links.html">Project Links</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/uber/h3-py" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/uber/h3-py/edit/master/docs/api_quick.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/api_quick.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>API Quick Reference</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identification">Identification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#index-representation">Index representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-properties">Cell properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geographic-coordinates">Geographic coordinates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hierarchical-relationships">Hierarchical relationships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-grid-relationships">Cell grid relationships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#edges">Edges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-interface">Polygon interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-objects">Polygon objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion-functions">Conversion functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specialized-functions">Specialized functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-py-library"><code class="docutils literal notranslate"><span class="pre">h3-py</span></code> library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ij-indexing">IJ-indexing</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="api-quick-reference">
+<h1>API Quick Reference<a class="headerlink" href="#api-quick-reference" title="Link to this heading">#</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Function names changed significantly with <code class="docutils literal notranslate"><span class="pre">h3-py</span></code> <code class="docutils literal notranslate"><span class="pre">v4.0</span></code> to align with the C library: <a class="reference external" href="https://h3geo.org/docs/library/migration-3.x/functions">https://h3geo.org/docs/library/migration-3.x/functions</a></p>
+</div>
+<p>We list the functions that are shared between the
+<a class="reference internal" href="api_comparison.html"><span class="doc std std-doc">provided APIs</span></a>.
+The APIs differ only in their input/output types
+(e.g., <code class="docutils literal notranslate"><span class="pre">int</span></code> vs. <code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">list</span></code> vs <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code>).</p>
+<p>These functions correspond to those explained in the
+<a class="reference external" href="https://h3geo.org/docs/api/indexing">H3 C library documentation</a>,
+and should be generally aligned with the
+<a class="reference external" href="https://h3geo.org/docs/community/bindings">other language bindings</a>.</p>
+<section id="identification">
+<h2>Identification<a class="headerlink" href="#identification" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.is_valid_cell" title="h3.is_valid_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_cell</span></code></a>(h)</p></td>
+<td><p>Validates an H3 cell (hexagon or pentagon).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.is_pentagon" title="h3.is_pentagon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_pentagon</span></code></a>(h)</p></td>
+<td><p>Identify if an H3 cell is a pentagon.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.is_res_class_III" title="h3.is_res_class_III"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_res_class_III</span></code></a>(h)</p></td>
+<td><p>Determine if cell has orientation &quot;Class II&quot; or &quot;Class III&quot;.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.is_valid_directed_edge" title="h3.is_valid_directed_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_directed_edge</span></code></a>(edge)</p></td>
+<td><p>Validates an H3 unidirectional edge.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="index-representation">
+<h2>Index representation<a class="headerlink" href="#index-representation" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.int_to_str" title="h3.int_to_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int_to_str</span></code></a>(x)</p></td>
+<td><p>Converts an H3 64-bit integer index to a hexadecimal string.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.str_to_int" title="h3.str_to_int"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str_to_int</span></code></a>(h)</p></td>
+<td><p>Converts a hexadecimal string to an H3 64-bit integer index.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cell-properties">
+<h2>Cell properties<a class="headerlink" href="#cell-properties" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.get_res0_cells" title="h3.get_res0_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_res0_cells</span></code></a>()</p></td>
+<td><p>Return all cells at resolution 0.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.get_pentagons" title="h3.get_pentagons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pentagons</span></code></a>(res)</p></td>
+<td><p>Return all pentagons at a given resolution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.get_num_cells" title="h3.get_num_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_num_cells</span></code></a>(res)</p></td>
+<td><p>Return the total number of <em>cells</em> (hexagons and pentagons) for the given resolution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.get_resolution" title="h3.get_resolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_resolution</span></code></a>(h)</p></td>
+<td><p>Return the resolution of an H3 cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.get_base_cell_number" title="h3.get_base_cell_number"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_base_cell_number</span></code></a>(h)</p></td>
+<td><p>Return the base cell <em>number</em> (<code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">121</span></code>) of the given cell.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="geographic-coordinates">
+<h2>Geographic coordinates<a class="headerlink" href="#geographic-coordinates" title="Link to this heading">#</a></h2>
+<p>Functions relating H3 objects to geographic (lat/lng) coordinates.</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.latlng_to_cell" title="h3.latlng_to_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latlng_to_cell</span></code></a>(lat, lng, res)</p></td>
+<td><p>Return the cell containing the (lat, lng) point for a given resolution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_latlng" title="h3.cell_to_latlng"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_latlng</span></code></a>(h)</p></td>
+<td><p>Return the center point of an H3 cell as a lat/lng pair.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_area" title="h3.cell_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_area</span></code></a>(h[, unit])</p></td>
+<td><p>Compute the spherical surface area of a specific H3 cell.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.edge_length" title="h3.edge_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_length</span></code></a>(e[, unit])</p></td>
+<td><p>Compute the spherical length of a specific H3 edge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_boundary" title="h3.cell_to_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_boundary</span></code></a>(h)</p></td>
+<td><p>Return tuple of lat/lng pairs describing the cell boundary.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.directed_edge_to_boundary" title="h3.directed_edge_to_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">directed_edge_to_boundary</span></code></a>(edge)</p></td>
+<td><p>Returns points representing the edge (line of points describing the boundary between two cells).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.great_circle_distance" title="h3.great_circle_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">great_circle_distance</span></code></a>(latlng1, latlng2[, unit])</p></td>
+<td><p>Compute the spherical distance between two (lat, lng) points.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.average_hexagon_area" title="h3.average_hexagon_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_hexagon_area</span></code></a>(res[, unit])</p></td>
+<td><p>Return the average area of an H3 <em>hexagon</em> for the given resolution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.average_hexagon_edge_length" title="h3.average_hexagon_edge_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_hexagon_edge_length</span></code></a>(res[, unit])</p></td>
+<td><p>Return the average <em>hexagon</em> edge length for the given resolution.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="hierarchical-relationships">
+<h2>Hierarchical relationships<a class="headerlink" href="#hierarchical-relationships" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_parent" title="h3.cell_to_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_parent</span></code></a>(h[, res])</p></td>
+<td><p>Get the parent of a cell.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_children" title="h3.cell_to_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_children</span></code></a>(h[, res])</p></td>
+<td><p>Children of a cell as an unordered collection.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_center_child" title="h3.cell_to_center_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_center_child</span></code></a>(h[, res])</p></td>
+<td><p>Get the center child of a cell at some finer resolution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.compact_cells" title="h3.compact_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compact_cells</span></code></a>(cells)</p></td>
+<td><p>Compact a collection of H3 cells by combining smaller cells into larger cells, if all child cells are present.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.uncompact_cells" title="h3.uncompact_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uncompact_cells</span></code></a>(cells, res)</p></td>
+<td><p>Reverse the <code class="docutils literal notranslate"><span class="pre">compact_cells</span></code> operation.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cell-grid-relationships">
+<h2>Cell grid relationships<a class="headerlink" href="#cell-grid-relationships" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.grid_ring" title="h3.grid_ring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_ring</span></code></a>(h[, k])</p></td>
+<td><p>Return unordered collection of cells with grid distance <code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.grid_disk" title="h3.grid_disk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_disk</span></code></a>(h[, k])</p></td>
+<td><p>Return unordered collection of cells with grid distance <code class="docutils literal notranslate"><span class="pre">&lt;=</span> <span class="pre">k</span></code> from <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.grid_distance" title="h3.grid_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_distance</span></code></a>(h1, h2)</p></td>
+<td><p>Compute the grid distance between two cells.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.are_neighbor_cells" title="h3.are_neighbor_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">are_neighbor_cells</span></code></a>(h1, h2)</p></td>
+<td><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">h1</span></code> and <code class="docutils literal notranslate"><span class="pre">h2</span></code> are neighboring cells.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.grid_path_cells" title="h3.grid_path_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_path_cells</span></code></a>(start, end)</p></td>
+<td><p>Returns the ordered collection of cells denoting a minimum-length non-unique path between cells.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edges">
+<h2>Edges<a class="headerlink" href="#edges" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.cells_to_directed_edge" title="h3.cells_to_directed_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cells_to_directed_edge</span></code></a>(origin, destination)</p></td>
+<td><p>Create an H3 Index denoting a unidirectional edge.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.get_directed_edge_destination" title="h3.get_directed_edge_destination"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_directed_edge_destination</span></code></a>(e)</p></td>
+<td><p>Destination cell from an H3 directed edge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.directed_edge_to_cells" title="h3.directed_edge_to_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">directed_edge_to_cells</span></code></a>(e)</p></td>
+<td><p>Return (origin, destination) tuple from H3 directed edge</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.origin_to_directed_edges" title="h3.origin_to_directed_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">origin_to_directed_edges</span></code></a>(origin)</p></td>
+<td><p>Return all directed edges starting from <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.get_directed_edge_origin" title="h3.get_directed_edge_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_directed_edge_origin</span></code></a>(e)</p></td>
+<td><p>Origin cell from an H3 directed edge.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="polygon-interface">
+<h2>Polygon interface<a class="headerlink" href="#polygon-interface" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> objects and their related functions allow users to represent (multi)polygons of lat/lng points and convert back and forth between H3 cells.</p>
+<p>The objects and functions also compatible with the popular <a class="reference external" href="https://gist.github.com/sgillies/2217756"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> protocol</a>, which is used by Python geospatial libraries like <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.__geo_interface__.html">GeoPandas</a> and many plotting libraries.</p>
+<p>See the <a class="reference internal" href="polygon_tutorial.html"><span class="std std-doc">polygon tutorial</span></a> for a walkthrough.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>As with other <code class="docutils literal notranslate"><span class="pre">h3-py</span></code> functions, the polygon interface expects coordinate pairs in <strong>lat/lng</strong> order.
+Note that this is reversed from <a class="reference external" href="https://gist.github.com/sgillies/2217756"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code></a> objects, which are given in <strong>lng/lat</strong> order.</p>
+</div>
+<section id="polygon-objects">
+<h3>Polygon objects<a class="headerlink" href="#polygon-objects" title="Link to this heading">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.H3Shape" title="h3.H3Shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H3Shape</span></code></a>()</p></td>
+<td><p>Abstract parent class of <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.H3Poly" title="h3.H3Poly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H3Poly</span></code></a>(outer, *holes)</p></td>
+<td><p>Container for loops of lat/lng points describing a polygon, possibly with holes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.H3MultiPoly" title="h3.H3MultiPoly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H3MultiPoly</span></code></a>(*polys)</p></td>
+<td><p>Container for multiple <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> polygons.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="conversion-functions">
+<h3>Conversion functions<a class="headerlink" href="#conversion-functions" title="Link to this heading">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.h3shape_to_geo" title="h3.h3shape_to_geo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">h3shape_to_geo</span></code></a>(h3shape)</p></td>
+<td><p>Translate from an <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> to a <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> dict.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.geo_to_h3shape" title="h3.geo_to_h3shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_to_h3shape</span></code></a>(geo)</p></td>
+<td><p>Translate from <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> to H3Shape.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.h3shape_to_cells" title="h3.h3shape_to_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">h3shape_to_cells</span></code></a>(h3shape, res)</p></td>
+<td><p>Return the collection of H3 cells at a given resolution whose center points are contained within an <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> or <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.cells_to_h3shape" title="h3.cells_to_h3shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cells_to_h3shape</span></code></a>(cells[, tight])</p></td>
+<td><p>Return an <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> describing the area covered by a collection of H3 cells.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.geo_to_cells" title="h3.geo_to_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_to_cells</span></code></a>(geo, res)</p></td>
+<td><p>Convert from <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> to cells.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.cells_to_geo" title="h3.cells_to_geo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cells_to_geo</span></code></a>(cells[, tight])</p></td>
+<td><p>Convert from cells to a <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> dict.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="specialized-functions">
+<h2>Specialized functions<a class="headerlink" href="#specialized-functions" title="Link to this heading">#</a></h2>
+<section id="h3-py-library">
+<h3><code class="docutils literal notranslate"><span class="pre">h3-py</span></code> library<a class="headerlink" href="#h3-py-library" title="Link to this heading">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.versions" title="h3.versions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">versions</span></code></a>()</p></td>
+<td><p>Version numbers for the Python (wrapper) and C (wrapped) libraries.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ij-indexing">
+<h3>IJ-indexing<a class="headerlink" href="#ij-indexing" title="Link to this heading">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.get_icosahedron_faces" title="h3.get_icosahedron_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_icosahedron_faces</span></code></a>(h)</p></td>
+<td><p>Return icosahedron faces intersecting a given H3 cell.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_local_ij" title="h3.cell_to_local_ij"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_local_ij</span></code></a>(origin, h)</p></td>
+<td><p>Return local (i,j) coordinates of cell <code class="docutils literal notranslate"><span class="pre">h</span></code> in relation to <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.local_ij_to_cell" title="h3.local_ij_to_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">local_ij_to_cell</span></code></a>(origin, i, j)</p></td>
+<td><p>Return cell at local (i,j) position relative to the <code class="docutils literal notranslate"><span class="pre">origin</span></code> cell.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>h3-py</strong>: Uber’s H3 Hexagonal Hierarchical Geospatial Indexing System in Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api_verbose.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Verbose Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identification">Identification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#index-representation">Index representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-properties">Cell properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geographic-coordinates">Geographic coordinates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hierarchical-relationships">Hierarchical relationships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-grid-relationships">Cell grid relationships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#edges">Edges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-interface">Polygon interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-objects">Polygon objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion-functions">Conversion functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specialized-functions">Specialized functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-py-library"><code class="docutils literal notranslate"><span class="pre">h3-py</span></code> library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ij-indexing">IJ-indexing</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Uber Technologies
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

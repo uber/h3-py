@@ -41,7 +41,7 @@
   <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>
@@ -171,14 +171,15 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">h3-py</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../api_comparison.html">API Comparison</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_quick.html">API Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_verbose.html">API Verbose Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../polygon_tutorial.html">Polygon Tutorial</a></li>
 
 
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="../../api_comparison.html">Comparison of APIs</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Sundries</span></p>
 <ul class="nav bd-sidenav">
@@ -306,18 +307,24 @@ document.write(`
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
 
+<div class="viewcode-block" id="H3Shape">
+<a class="viewcode-back" href="../../api_verbose.html#h3.H3Shape">[docs]</a>
 <span class="k">class</span> <span class="nc">H3Shape</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract parent class of ``H3Poly`` and ``H3MultiPoly``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">__geo_interface__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; https://github.com/pytest-dev/pytest-cov/issues/428 &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; https://github.com/pytest-dev/pytest-cov/issues/428 &quot;&quot;&quot;</span></div>
+
 
 
 <div class="viewcode-block" id="H3Poly">
-<a class="viewcode-back" href="../../api_reference.html#h3.H3Poly">[docs]</a>
+<a class="viewcode-back" href="../../api_verbose.html#h3.H3Poly">[docs]</a>
 <span class="k">class</span> <span class="nc">H3Poly</span><span class="p">(</span><span class="n">H3Shape</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Container for loops of lat/lng points describing a polygon.</span>
+<span class="sd">    Container for loops of lat/lng points describing a polygon, possibly with holes.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -381,10 +388,10 @@ document.write(`
     <span class="k">def</span> <span class="nf">loopcode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Short code for describing the length of the outer loop and each hole</span>
 
-<span class="sd">        Example: `[382/(18, 6, 6)]` indicates an outer loop of 382 points,</span>
+<span class="sd">        Example: ``[382/(18, 6, 6)]`` indicates an outer loop of 382 points,</span>
 <span class="sd">        along with 3 holes with 18, 6, and 6 points, respectively.</span>
 
-<span class="sd">        Example: `[15]` indicates an outer loop of 15 points and no holes.</span>
+<span class="sd">        Example: ``[15]`` indicates an outer loop of 15 points and no holes.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">outer</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outer</span><span class="p">)</span>
         <span class="n">holes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">holes</span><span class="p">))</span>
@@ -407,7 +414,17 @@ document.write(`
 
 
 
+<div class="viewcode-block" id="H3MultiPoly">
+<a class="viewcode-back" href="../../api_verbose.html#h3.H3MultiPoly">[docs]</a>
 <span class="k">class</span> <span class="nc">H3MultiPoly</span><span class="p">(</span><span class="n">H3Shape</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Container for multiple ``H3Poly`` polygons.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    polys : list[H3Poly]</span>
+<span class="sd">        List of lat/lng points describing the outer loop of the polygon</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">polys</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">polys</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">polys</span><span class="p">)</span>
 
@@ -461,7 +478,8 @@ document.write(`
         <span class="n">ll3</span> <span class="o">=</span> <span class="n">_mpoly_to_LL3</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">gj_dict</span> <span class="o">=</span> <span class="n">_LL3_to_geojson_dict</span><span class="p">(</span><span class="n">ll3</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">gj_dict</span>
+        <span class="k">return</span> <span class="n">gj_dict</span></div>
+
 
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -571,12 +589,12 @@ document.write(`
 
 
 <div class="viewcode-block" id="geo_to_h3shape">
-<a class="viewcode-back" href="../../api_reference.html#h3.geo_to_h3shape">[docs]</a>
+<a class="viewcode-back" href="../../api_verbose.html#h3.geo_to_h3shape">[docs]</a>
 <span class="k">def</span> <span class="nf">geo_to_h3shape</span><span class="p">(</span><span class="n">geo</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Translate from __geo_interface__ to H3Shape.</span>
+<span class="sd">    Translate from ``__geo_interface__`` to H3Shape.</span>
 
-<span class="sd">    `geo` either implements `__geo_interface__` or is a dict matching the format</span>
+<span class="sd">    ``geo`` either implements ``__geo_interface__`` or is a dict matching the format</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -610,12 +628,12 @@ document.write(`
 
 
 <div class="viewcode-block" id="h3shape_to_geo">
-<a class="viewcode-back" href="../../api_reference.html#h3.h3shape_to_geo">[docs]</a>
+<a class="viewcode-back" href="../../api_verbose.html#h3.h3shape_to_geo">[docs]</a>
 <span class="k">def</span> <span class="nf">h3shape_to_geo</span><span class="p">(</span><span class="n">h3shape</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Translate from H3Shape to a __geo_interface__ dict.</span>
+<span class="sd">    Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.</span>
 
-<span class="sd">    `h3shape` should be either H3Poly or H3MultiPoly</span>
+<span class="sd">    ``h3shape`` should be either ``H3Poly`` or ``H3MultiPoly``</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -663,7 +681,7 @@ By Uber Technologies
 
   <p class="copyright">
     
-      © Copyright 2021.
+      © Copyright 2024.
       <br/>
     
   </p>

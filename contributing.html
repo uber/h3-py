@@ -42,7 +42,7 @@
   <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
@@ -172,14 +172,15 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">h3-py</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="api_comparison.html">API Comparison</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_quick.html">API Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_verbose.html">API Verbose Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polygon_tutorial.html">Polygon Tutorial</a></li>
 
 
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="api_comparison.html">Comparison of APIs</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Sundries</span></p>
 <ul class="current nav bd-sidenav">
@@ -358,9 +359,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -376,21 +375,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-and-cython">Python and Cython</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-organization">Project organization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docstring-conventions">Docstring conventions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#website">Website</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todos">TODOs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-projects-with-nice-docs">Other projects with nice docs</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -402,42 +386,15 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="contributing">
 <h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h1>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>This page still a work in progress.</p>
-</div>
-<section id="python-and-cython">
-<h2>Python and Cython<a class="headerlink" href="#python-and-cython" title="Link to this heading">#</a></h2>
-<p>todo</p>
-</section>
-<section id="project-organization">
-<h2>Project organization<a class="headerlink" href="#project-organization" title="Link to this heading">#</a></h2>
-<p>todo</p>
-</section>
-<section id="docstring-conventions">
-<h2>Docstring conventions<a class="headerlink" href="#docstring-conventions" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">https://numpydoc.readthedocs.io/en/latest/format.html</a></p>
-</section>
-<section id="website">
-<h2>Website<a class="headerlink" href="#website" title="Link to this heading">#</a></h2>
-<section id="todos">
-<h3>TODOs<a class="headerlink" href="#todos" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>release PDF version of docs with each library verison/release?</p></li>
-<li><p>page on “anatomy of an H3 index”</p></li>
-</ul>
-</section>
-<section id="other-projects-with-nice-docs">
-<h3>Other projects with nice docs<a class="headerlink" href="#other-projects-with-nice-docs" title="Link to this heading">#</a></h3>
-<p>For reference, here are some other projects whose docs we should
-consider when styling our own:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://toolz.readthedocs.io/en/latest/api.html">https://toolz.readthedocs.io/en/latest/api.html</a></p></li>
-<li><p><a class="reference external" href="http://xarray.pydata.org/">http://xarray.pydata.org/</a></p></li>
-<li><p><a class="reference external" href="https://docs.dask.org/en/latest/api.html">https://docs.dask.org/en/latest/api.html</a></p></li>
-</ul>
-</section>
-</section>
+<p>Contributions from the community are welcome!</p>
+<p>Please feel free to
+<a class="reference external" href="https://github.com/uber/h3-py/issues">file an issue</a>,
+open a
+<a class="reference external" href="https://github.com/uber/h3-py/pulls">pull request</a>,
+or start a
+<a class="reference external" href="https://github.com/uber/h3-py/discussions">discussion in Github</a>
+or in the
+<a class="reference external" href="https://join.slack.com/t/h3-core/shared_invite/zt-g6u5r1hf-W_~uVJmfeiWtMQuBGc1NNg">H3 Slack</a>.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -495,27 +452,7 @@ consider when styling our own:</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-and-cython">Python and Cython</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-organization">Project organization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docstring-conventions">Docstring conventions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#website">Website</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todos">TODOs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-projects-with-nice-docs">Other projects with nice docs</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>
@@ -536,7 +473,7 @@ By Uber Technologies
 
   <p class="copyright">
     
-      © Copyright 2021.
+      © Copyright 2024.
       <br/>
     
   </p>
