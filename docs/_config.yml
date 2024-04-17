@@ -1,8 +1,3 @@
-#######################################################################################
-# A default configuration that will be loaded for all jupyter books
-# See the documentation for help and more options:
-# https://jupyterbook.org/customize/config.html
-
 title: h3-py
 author: 'Uber Technologies'
 copyright: "2024"
