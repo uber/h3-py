@@ -24,10 +24,9 @@ and should be generally aligned with the
    is_pentagon
    is_res_class_III
    is_valid_directed_edge
-   versions
 ```
 
-## Cells
+## Index representation
 
 ```{eval-rst}
 .. currentmodule:: h3
@@ -35,10 +34,20 @@ and should be generally aligned with the
 .. autosummary::
    int_to_str
    str_to_int
+```
+
+
+## Cell properties
+
+```{eval-rst}
+.. currentmodule:: h3
+
+.. autosummary::
    get_res0_cells
    get_pentagons
    get_num_cells
    get_resolution
+   get_base_cell_number
 ```
 
 ## Geographic coordinates
@@ -51,13 +60,13 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 .. autosummary::
    latlng_to_cell
    cell_to_latlng
-   great_circle_distance
-   average_hexagon_area
    cell_area
    edge_length
-   average_hexagon_edge_length
    cell_to_boundary
    directed_edge_to_boundary
+   great_circle_distance
+   average_hexagon_area
+   average_hexagon_edge_length
 ```
 
 ## Hierarchical relationships
@@ -99,18 +108,6 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    get_directed_edge_origin
 ```
 
-## IJ-indexing
-
-```{eval-rst}
-.. currentmodule:: h3
-
-.. autosummary::
-   get_base_cell_number
-   get_icosahedron_faces
-   cell_to_local_ij
-   local_ij_to_cell
-```
-
 ## Polygon interface
 
 The ``H3Poly`` and ``H3MultiPoly`` objects and their related functions allow users to represent (multi)polygons of lat/lng points and convert back and forth between H3 cells.
@@ -147,4 +144,27 @@ Note that this is reversed from [``__geo_interface__``](https://gist.github.com/
    cells_to_h3shape
    geo_to_cells
    cells_to_geo
+```
+
+
+## Specialized functions
+
+### `h3-py` library
+
+```{eval-rst}
+.. currentmodule:: h3
+
+.. autosummary::
+   versions
+```
+
+### IJ-indexing
+
+```{eval-rst}
+.. currentmodule:: h3
+
+.. autosummary::
+   get_icosahedron_faces
+   cell_to_local_ij
+   local_ij_to_cell
 ```
