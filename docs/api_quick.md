@@ -1,6 +1,6 @@
 # API Quick Reference
 
-```{attention}
+```{tip}
 Function names changed significantly with `h3-py` `v4.0` to align with the C library: https://h3geo.org/docs/library/migration-3.x/functions
 ```
 
@@ -116,7 +116,7 @@ The objects and functions also compatible with the popular [``__geo_interface__`
 
 See the [polygon tutorial](./polygon_tutorial.ipynb) for a walkthrough.
 
-```{warning}
+```{tip}
 As with other `h3-py` functions, the polygon interface expects coordinate pairs in **lat/lng** order.
 Note that this is reversed from [``__geo_interface__``](https://gist.github.com/sgillies/2217756) objects, which are given in **lng/lat** order.
 ```
