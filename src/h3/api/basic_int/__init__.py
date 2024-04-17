@@ -92,6 +92,13 @@ def average_hexagon_area(res, unit='km^2'):
 
     This average *excludes* pentagons.
 
+    Parameters
+    ----------
+    res : int
+        H3 resolution
+    unit: str
+        Unit for area result (``'km^2'``, ``'m^2'``, or ``'rads^2'``)
+
     Returns
     -------
     float
@@ -105,6 +112,13 @@ def average_hexagon_edge_length(res, unit='km'):
     for the given resolution.
 
     This average *excludes* pentagons.
+
+    Parameters
+    ----------
+    res : int
+        H3 resolution
+    unit: str
+        Unit for length result (``'km'``, ``'m'``, or ``'rads'``)
 
     Returns
     -------
@@ -214,9 +228,9 @@ def cell_to_parent(h, res=None):
 
 def grid_distance(h1, h2):
     """
-    Compute the H3 distance between two cells.
+    Compute the grid distance between two cells.
 
-    The H3 distance is defined as the length of the shortest
+    The grid distance is defined as the length of the shortest
     path between the cells in the graph formed by connecting
     adjacent cells.
 
@@ -257,8 +271,8 @@ def cell_to_boundary(h):
 
 def grid_disk(h, k=1):
     """
-    Return unordered collection of cells with H3 distance ``<= k`` from ``h``.
-    That is, the 'filled-in' disk.
+    Return unordered collection of cells with grid distance ``<= k`` from ``h``.
+    That is, the "filled-in" disk.
 
     Parameters
     ----------
@@ -281,7 +295,7 @@ def grid_disk(h, k=1):
 
 def grid_ring(h, k=1):
     """
-    Return unordered collection of cells with H3 distance ``== k`` from ``h``.
+    Return unordered collection of cells with grid distance ``== k`` from ``h``.
     That is, the "hollow" ring.
 
     Parameters
@@ -346,7 +360,6 @@ def compact_cells(cells):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    # todo: does compact_cells work on mixed-resolution collections?
     hu = _in_collection(cells)
     hc = _cy.compact_cells(hu)
 
@@ -355,7 +368,7 @@ def compact_cells(cells):
 
 def uncompact_cells(cells, res):
     """
-    Reverse the `compact_cells` operation.
+    Reverse the ``compact_cells`` operation.
 
     Return a collection of H3 cells, all of resolution ``res``.
 
@@ -369,16 +382,13 @@ def uncompact_cells(cells, res):
     -------
     unordered collection of H3Cell
 
-    Raises
-    ------
-    todo: add test to make sure an error is returned when input
-    contains cell smaller than output res.
-    https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c#L425
-
     Notes
     -----
     There is currently no guaranteed order of the output cells.
     """
+    # TODO: add test to make sure an error is returned when input contains cell
+    # smaller than output res.
+
     hc = _in_collection(cells)
     hu = _cy.uncompact_cells(hc, res)
 
@@ -387,18 +397,18 @@ def uncompact_cells(cells, res):
 
 def h3shape_to_cells(h3shape, res):
     """
-    Return the set of H3 cells at a given resolution whose center points
-    are contained within an `H3Poly` or `H3MultiPoly`.
+    Return the collection of H3 cells at a given resolution whose center points
+    are contained within an ``H3Poly`` or ``H3MultiPoly``.
 
     Parameters
     ----------
-    h3shape : H3shape
+    h3shape : ``H3shape``
     res : int
         Resolution of the output cells
 
     Returns
     -------
-    unordered collection of H3Cell
+    list of H3Cell
 
     Examples
     --------
@@ -408,13 +418,13 @@ def h3shape_to_cells(h3shape, res):
     ...      (37.82, -122.54)],
     ... )
     >>> h3.h3shape_to_cells(poly, 6)
-    {'862830807ffffff',
+    ['862830807ffffff',
      '862830827ffffff',
      '86283082fffffff',
      '862830877ffffff',
      '862830947ffffff',
      '862830957ffffff',
-     '86283095fffffff'}
+     '86283095fffffff']
 
     Notes
     -----
@@ -438,13 +448,14 @@ def h3shape_to_cells(h3shape, res):
 
 def cells_to_h3shape(cells, tight=True):
     """
-    Return a H3MultiPoly describing the area covered by a set of H3 cells.
+    Return an ``H3Shape`` describing the area covered by a collection of H3 cells.
+    Will return ``H3Poly`` or ``H3MultiPoly``.
 
     Parameters
     ----------
     cells : iterable of H3 cells
     tight : bool
-        If True, return H3Poly if possible. If False, always return H3MultiPoly
+        If True, return ``H3Poly`` if possible. If False, always return ``H3MultiPoly``.
 
     Returns
     -------
@@ -472,12 +483,12 @@ def cells_to_h3shape(cells, tight=True):
 
 
 def geo_to_cells(geo, res):
-    """Convert from __geo_interface__ to cells.
+    """Convert from ``__geo_interface__`` to cells.
 
     Parameters
     ----------
-    geo : an object implementing `__geo_interface__` or a dictionary in that format.
-        Both H3Poly and H3MultiPoly implement the interface.
+    geo : an object implementing ``__geo_interface__`` or a dictionary in that format.
+        Both ``H3Poly`` and ``H3MultiPoly`` implement the interface.
     res : int
         Resolution of desired output cells.
 
@@ -491,9 +502,14 @@ def geo_to_cells(geo, res):
 
 def cells_to_geo(cells, tight=True):
     """
+    Convert from cells to a ``__geo_interface__`` dict.
+
     Parameters
     ----------
     cells : iterable of H3 Cells
+    tight : bool
+        When ``True``, returns an ``H3Poly`` when possible.
+        When ``False``, always returns an ``H3MultiPoly``.
 
     Returns
     -------
@@ -674,6 +690,18 @@ def origin_to_directed_edges(origin):
 
 
 def directed_edge_to_boundary(edge):
+    """
+    Returns points representing the edge (line of points
+    describing the boundary between two cells).
+
+    Parameters
+    ----------
+    edge : H3Edge
+
+    Returns
+    -------
+    tuple of (lat, lng) tuples
+    """
     return _cy.directed_edge_to_boundary(_in_scalar(edge))
 
 
@@ -894,7 +922,7 @@ def cell_area(h, unit='km^2'):
     ----------
     h : H3Cell
     unit: str
-        Unit for area result (``'km^2'``, 'm^2', or 'rads^2')
+        Unit for area result (``'km^2'``, ``'m^2'``, or ``'rads^2'``)
 
 
     Returns
@@ -907,7 +935,7 @@ def cell_area(h, unit='km^2'):
     This function breaks the cell into spherical triangles, and computes
     their spherical area.
     The function uses the spherical distance calculation given by
-    `great_circle_distance`.
+    ``great_circle_distance()``.
     """
     h = _in_scalar(h)
 
@@ -922,7 +950,7 @@ def edge_length(e, unit='km'):
     ----------
     h : H3Cell
     unit: str
-        Unit for length result ('km', 'm', or 'rads')
+        Unit for length result (``'km'``, ``'m'``, or ``'rads'``)
 
 
     Returns
@@ -933,7 +961,7 @@ def edge_length(e, unit='km'):
     Notes
     -----
     This function uses the spherical distance calculation given by
-    `great_circle_distance`.
+    ``great_circle_distance()``.
     """
     e = _in_scalar(e)
 
@@ -954,8 +982,7 @@ def great_circle_distance(latlng1, latlng2, unit='km'):
     latlng2 : tuple
         (lat, lng) tuple in degrees
     unit: str
-        Unit for distance result ('km', 'm', or 'rads')
-
+        Unit for distance result (``'km'``, ``'m'``, or ``'rads'``)
 
     Returns
     -------

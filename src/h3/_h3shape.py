@@ -2,6 +2,9 @@ from abc import ABCMeta, abstractmethod
 
 
 class H3Shape(metaclass=ABCMeta):
+    """
+    Abstract parent class of ``H3Poly`` and ``H3MultiPoly``.
+    """
     @property
     @abstractmethod
     def __geo_interface__(self):
@@ -10,7 +13,7 @@ class H3Shape(metaclass=ABCMeta):
 
 class H3Poly(H3Shape):
     """
-    Container for loops of lat/lng points describing a polygon.
+    Container for loops of lat/lng points describing a polygon, possibly with holes.
 
     Attributes
     ----------
@@ -74,10 +77,10 @@ class H3Poly(H3Shape):
     def loopcode(self):
         """ Short code for describing the length of the outer loop and each hole
 
-        Example: `[382/(18, 6, 6)]` indicates an outer loop of 382 points,
+        Example: ``[382/(18, 6, 6)]`` indicates an outer loop of 382 points,
         along with 3 holes with 18, 6, and 6 points, respectively.
 
-        Example: `[15]` indicates an outer loop of 15 points and no holes.
+        Example: ``[15]`` indicates an outer loop of 15 points and no holes.
         """
         outer = len(self.outer)
         holes = tuple(map(len, self.holes))
@@ -100,6 +103,14 @@ class H3Poly(H3Shape):
 
 
 class H3MultiPoly(H3Shape):
+    """
+    Container for multiple ``H3Poly`` polygons.
+
+    Attributes
+    ----------
+    polys : list[H3Poly]
+        List of lat/lng points describing the outer loop of the polygon
+    """
     def __init__(self, *polys):
         self.polys = tuple(polys)
 
@@ -264,9 +275,9 @@ def _open_ring(ll1):
 
 def geo_to_h3shape(geo):
     """
-    Translate from __geo_interface__ to H3Shape.
+    Translate from ``__geo_interface__`` to H3Shape.
 
-    `geo` either implements `__geo_interface__` or is a dict matching the format
+    ``geo`` either implements ``__geo_interface__`` or is a dict matching the format
 
     Returns
     -------
@@ -300,9 +311,9 @@ def geo_to_h3shape(geo):
 
 def h3shape_to_geo(h3shape):
     """
-    Translate from H3Shape to a __geo_interface__ dict.
+    Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.
 
-    `h3shape` should be either H3Poly or H3MultiPoly
+    ``h3shape`` should be either ``H3Poly`` or ``H3MultiPoly``
 
     Returns
     -------
