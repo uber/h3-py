@@ -18,6 +18,18 @@ avoid adding features or APIs which do not map onto the
 
 - None
 
+## [4.0.0] - 2024-05-02
+
+Full release including all chnanges in the beta releases below. Highlights:
+
+- Function name changes: https://github.com/uber/h3/blob/master/dev-docs/RFCs/v4.0.0/names_for_concepts_types_functions.md
+- Use `list` instead of `set` for unordered Python outputs (#339)
+- New `h3.Polygon()`/GeoJSON interface (#301)
+- New error system
+- Expose the Cython API (#234)
+    + Note: The Cython API is not yet stable, and should only be used for experimentation
+
+
 ## [4.0.0b4] - 2024-04-14
 
 No changes, just testing: #360
