@@ -75,7 +75,7 @@ sf_hole2 = [
 
 def test_geo_interface():
     poly = h3.LatLngPoly(sf_hole1)
-    mpoly = h3.H3MultiPoly(poly)
+    mpoly = h3.LatLngMultiPoly(poly)
 
     assert poly.__geo_interface__['type'] == 'Polygon'
     assert mpoly.__geo_interface__['type'] == 'MultiPolygon'
@@ -89,10 +89,10 @@ def test_geo_interface():
 
 def test_shape_repr():
     poly = h3.LatLngPoly(sf_hole1)
-    mpoly = h3.H3MultiPoly(poly)
+    mpoly = h3.LatLngMultiPoly(poly)
 
     assert (
-        '<H3MultiPoly: [3]>'
+        '<LatLngMultiPoly: [3]>'
         == str(mpoly)
         == repr(mpoly)
     )
@@ -178,7 +178,7 @@ def test_geo_to_h3shape():
     for shape in h3shapes:
         assert shape.__geo_interface__ == expected
 
-    mpolys = map(h3.H3MultiPoly, h3shapes)
+    mpolys = map(h3.LatLngMultiPoly, h3shapes)
 
     multi_expected = {
         'type': 'MultiPolygon',
@@ -196,7 +196,7 @@ def test_geo_to_h3shape():
 
 def test_geo_to_h3shape_passthrough():
     poly = h3.LatLngPoly(latlng_open())
-    mpoly = h3.H3MultiPoly(poly)
+    mpoly = h3.LatLngMultiPoly(poly)
 
     for shape in [poly, mpoly]:
         assert h3.geo_to_h3shape(shape) is shape
@@ -378,10 +378,10 @@ def test_cells_to_h3shape_2grid_disk():
 def test_multipoly_checks():
 
     with pytest.raises(ValueError):
-        h3.H3MultiPoly('foo')
+        h3.LatLngMultiPoly('foo')
 
     with pytest.raises(ValueError):
-        h3.H3MultiPoly(1)
+        h3.LatLngMultiPoly(1)
 
     with pytest.raises(ValueError):
-        h3.H3MultiPoly([[(1, 2), (3, 4)]])
+        h3.LatLngMultiPoly([[(1, 2), (3, 4)]])

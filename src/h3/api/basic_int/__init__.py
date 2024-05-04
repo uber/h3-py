@@ -4,7 +4,7 @@ from ... import _cy
 from ..._h3shape import (
     H3Shape,
     LatLngPoly,
-    H3MultiPoly,
+    LatLngMultiPoly,
     geo_to_h3shape,
     h3shape_to_geo,
 )
@@ -398,7 +398,7 @@ def uncompact_cells(cells, res):
 def h3shape_to_cells(h3shape, res):
     """
     Return the collection of H3 cells at a given resolution whose center points
-    are contained within an ``LatLngPoly`` or ``H3MultiPoly``.
+    are contained within an ``LatLngPoly`` or ``LatLngMultiPoly``.
 
     Parameters
     ----------
@@ -435,7 +435,7 @@ def h3shape_to_cells(h3shape, res):
     if isinstance(h3shape, LatLngPoly):
         poly = h3shape
         mv = _cy.polygon_to_cells(poly.outer, res, holes=poly.holes)
-    elif isinstance(h3shape, H3MultiPoly):
+    elif isinstance(h3shape, LatLngMultiPoly):
         mpoly = h3shape
         mv = _cy.polygons_to_cells(mpoly.polys, res)
     elif isinstance(h3shape, H3Shape):
@@ -449,18 +449,18 @@ def h3shape_to_cells(h3shape, res):
 def cells_to_h3shape(cells, tight=True):
     """
     Return an ``H3Shape`` describing the area covered by a collection of H3 cells.
-    Will return ``LatLngPoly`` or ``H3MultiPoly``.
+    Will return ``LatLngPoly`` or ``LatLngMultiPoly``.
 
     Parameters
     ----------
     cells : iterable of H3 cells
     tight : bool
         If True, return ``LatLngPoly`` if possible.
-        If False, always return ``H3MultiPoly``.
+        If False, always return ``LatLngMultiPoly``.
 
     Returns
     -------
-    LatLngPoly | H3MultiPoly
+    LatLngPoly | LatLngMultiPoly
 
     Examples
     --------
@@ -469,13 +469,13 @@ def cells_to_h3shape(cells, tight=True):
     >>> h3.cells_to_h3shape(cells, tight=True)
     <LatLngPoly: [10]>
     >>> h3.cells_to_h3shape(cells, tight=False)
-    <H3MultiPoly: [10]>
+    <LatLngMultiPoly: [10]>
     """
     cells = _in_collection(cells)
     mpoly = _cy.cells_to_multi_polygon(cells)
 
     polys = [LatLngPoly(*poly) for poly in mpoly]
-    out = H3MultiPoly(*polys)
+    out = LatLngMultiPoly(*polys)
 
     if tight and len(out) == 1:
         out = out[0]
@@ -489,7 +489,7 @@ def geo_to_cells(geo, res):
     Parameters
     ----------
     geo : an object implementing ``__geo_interface__`` or a dictionary in that format.
-        Both ``LatLngPoly`` and ``H3MultiPoly`` implement the interface.
+        Both ``LatLngPoly`` and ``LatLngMultiPoly`` implement the interface.
     res : int
         Resolution of desired output cells.
 
@@ -510,7 +510,7 @@ def cells_to_geo(cells, tight=True):
     cells : iterable of H3 Cells
     tight : bool
         When ``True``, returns an ``LatLngPoly`` when possible.
-        When ``False``, always returns an ``H3MultiPoly``.
+        When ``False``, always returns an ``LatLngMultiPoly``.
 
     Returns
     -------

@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 
 class H3Shape(metaclass=ABCMeta):
     """
-    Abstract parent class of ``LatLngPoly`` and ``H3MultiPoly``.
+    Abstract parent class of ``LatLngPoly`` and ``LatLngMultiPoly``.
     """
     @property
     @abstractmethod
@@ -102,7 +102,7 @@ class LatLngPoly(H3Shape):
         return gj_dict
 
 
-class H3MultiPoly(H3Shape):
+class LatLngMultiPoly(H3Shape):
     """
     Container for multiple ``LatLngPoly`` polygons.
 
@@ -116,12 +116,12 @@ class H3MultiPoly(H3Shape):
 
         for p in self.polys:
             if not isinstance(p, LatLngPoly):
-                raise ValueError('H3MultiPoly requires each input to be an LatLngPoly object, instead got: ' + str(p)) # noqa
+                raise ValueError('LatLngMultiPoly requires each input to be an LatLngPoly object, instead got: ' + str(p)) # noqa
 
     def __repr__(self):
         out = [p.loopcode for p in self.polys]
         out = ', '.join(out)
-        out = '<H3MultiPoly: {}>'.format(out)
+        out = '<LatLngMultiPoly: {}>'.format(out)
         return out
 
     def __iter__(self):
@@ -135,16 +135,17 @@ class H3MultiPoly(H3Shape):
         TODO: Pandas series or dataframe representation changes depending
         on if __len__ is defined.
 
-        I'd prefer the one that states `H3MultiPoly`. It seems like Pandas is assuming
-        an iterable is best-described by its elements when choosing the representation.
+        I'd prefer the one that states `LatLngMultiPoly`.
+        It seems like Pandas is assuming an iterable is best-described
+        by its elements when choosing the representation.
 
         when __len__ *IS NOT* defined:
 
-        0                      <H3MultiPoly: [368], [20], [6]>
-        1    <H3MultiPoly: [632/(6, 6, 6, 6, 6)], [290/(6,)...
-        2    <H3MultiPoly: [490/(6, 6, 10, 10, 14, 10, 6)],...
-        3    <H3MultiPoly: [344/(6,)], [22], [6], [10], [6]...
-        4    <H3MultiPoly: [382/(18, 6, 6)], [32], [6], [18...
+        0                      <LatLngMultiPoly: [368], [20], [6]>
+        1    <LatLngMultiPoly: [632/(6, 6, 6, 6, 6)], [290/(6,)...
+        2    <LatLngMultiPoly: [490/(6, 6, 10, 10, 14, 10, 6)],...
+        3    <LatLngMultiPoly: [344/(6,)], [22], [6], [10], [6]...
+        4    <LatLngMultiPoly: [382/(18, 6, 6)], [32], [6], [18...
 
         when __len__ *IS* defined:
 
@@ -203,7 +204,7 @@ def _LL3_to_mpoly(ll3):
         for ll2 in ll3
     ]
 
-    mpoly = H3MultiPoly(*polys)
+    mpoly = LatLngMultiPoly(*polys)
 
     return mpoly
 
@@ -284,7 +285,7 @@ def geo_to_h3shape(geo):
     H3Shape
     """
 
-    # geo can be dict, a __geo_interface__, a string, LatLngPoly or H3MultiPoly
+    # geo can be dict, a __geo_interface__, a string, LatLngPoly or LatLngMultiPoly
     if isinstance(geo, H3Shape):
         return geo
 
@@ -313,7 +314,7 @@ def h3shape_to_geo(h3shape):
     """
     Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.
 
-    ``h3shape`` should be either ``LatLngPoly`` or ``H3MultiPoly``
+    ``h3shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``
 
     Returns
     -------
