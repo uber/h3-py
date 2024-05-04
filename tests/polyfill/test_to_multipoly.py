@@ -11,7 +11,7 @@ def test_cells_to_h3shape():
     mpoly = h3.cells_to_h3shape(cells, tight=False)
     poly = mpoly[0]
 
-    poly2 = h3.H3Poly(poly.outer, *poly.holes)
+    poly2 = h3.LatLngPoly(poly.outer, *poly.holes)
     out = h3.h3shape_to_cells(poly2, 9)
 
     assert u.same_set(out, cells)
@@ -22,7 +22,7 @@ def test_cells_to_h3shape_tight():
     cells = h3.grid_disk(h, 1)
 
     poly = h3.cells_to_h3shape(cells, tight=True)
-    poly2 = h3.H3Poly(poly.outer, *poly.holes)
+    poly2 = h3.LatLngPoly(poly.outer, *poly.holes)
     out = h3.h3shape_to_cells(poly2, 9)
 
     assert u.same_set(out, cells)

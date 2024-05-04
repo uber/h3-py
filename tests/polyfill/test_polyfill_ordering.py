@@ -44,7 +44,7 @@ def input_permutations(geo, res=5):
     g = chain_toggle_map(reverse, g)
 
     for p in g:
-        poly = h3.H3Poly(*p)
+        poly = h3.LatLngPoly(*p)
         cells = h3.h3shape_to_cells(poly, res=res)
         yield cells
 

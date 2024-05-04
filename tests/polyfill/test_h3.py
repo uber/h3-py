@@ -74,7 +74,7 @@ sf_hole2 = [
 
 
 def test_geo_interface():
-    poly = h3.H3Poly(sf_hole1)
+    poly = h3.LatLngPoly(sf_hole1)
     mpoly = h3.H3MultiPoly(poly)
 
     assert poly.__geo_interface__['type'] == 'Polygon'
@@ -88,7 +88,7 @@ def test_geo_interface():
 
 
 def test_shape_repr():
-    poly = h3.H3Poly(sf_hole1)
+    poly = h3.LatLngPoly(sf_hole1)
     mpoly = h3.H3MultiPoly(poly)
 
     assert (
@@ -99,7 +99,7 @@ def test_shape_repr():
 
 
 def test_polyfill():
-    poly = h3.H3Poly(sf_7x7)
+    poly = h3.LatLngPoly(sf_7x7)
     out = h3.h3shape_to_cells(poly, res=9)
 
     assert len(out) == 1253
@@ -108,12 +108,12 @@ def test_polyfill():
 
 
 def test_polyfill_with_hole():
-    poly = h3.H3Poly(sf_7x7, sf_hole1)
+    poly = h3.LatLngPoly(sf_7x7, sf_hole1)
 
     out = h3.h3shape_to_cells(poly, res=9)
     assert len(out) == 1214
 
-    foo = lambda x: set(h3.h3shape_to_cells(h3.H3Poly(x), 9))
+    foo = lambda x: set(h3.h3shape_to_cells(h3.LatLngPoly(x), 9))
 
     assert u.same_set(
         out,
@@ -123,11 +123,11 @@ def test_polyfill_with_hole():
 
 def test_polyfill_with_two_holes():
 
-    poly = h3.H3Poly(sf_7x7, sf_hole1, sf_hole2)
+    poly = h3.LatLngPoly(sf_7x7, sf_hole1, sf_hole2)
     out = h3.h3shape_to_cells(poly, 9)
     assert len(out) == 1172
 
-    foo = lambda x: set(h3.h3shape_to_cells(h3.H3Poly(x), 9))
+    foo = lambda x: set(h3.h3shape_to_cells(h3.LatLngPoly(x), 9))
     assert u.same_set(
         out,
         foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2))
@@ -148,7 +148,7 @@ def test_polyfill_geo_interface_compliant():
 
 def test_poly_opens_loop():
     loop = lnglat_closed()
-    poly = h3.H3Poly(loop)
+    poly = h3.LatLngPoly(loop)
 
     assert loop[0] == loop[-1]
     assert len(poly.outer) == len(loop) - 1
@@ -158,8 +158,8 @@ def test_geo_to_h3shape():
     h3shapes = [
         h3.geo_to_h3shape(get_mocked(lnglat_open())),
         h3.geo_to_h3shape(get_mocked(lnglat_closed())),
-        h3.H3Poly(latlng_open()),
-        h3.H3Poly(latlng_closed()),
+        h3.LatLngPoly(latlng_open()),
+        h3.LatLngPoly(latlng_closed()),
     ]
 
     for s in h3shapes:
@@ -195,7 +195,7 @@ def test_geo_to_h3shape():
 
 
 def test_geo_to_h3shape_passthrough():
-    poly = h3.H3Poly(latlng_open())
+    poly = h3.LatLngPoly(latlng_open())
     mpoly = h3.H3MultiPoly(poly)
 
     for shape in [poly, mpoly]:
@@ -237,7 +237,7 @@ def test_polyfill_down_under():
         (-33.8556, 151.1979),
     ]
 
-    poly = h3.H3Poly(sydney)
+    poly = h3.LatLngPoly(sydney)
     out = h3.h3shape_to_cells(poly, 9)
     assert len(out) == 92
     assert '89be0e34207ffff' in out
@@ -253,7 +253,7 @@ def test_polyfill_far_east():
         (41.925781, 142.864838),
     ]
 
-    poly = h3.H3Poly(geo)
+    poly = h3.LatLngPoly(geo)
     out = h3.h3shape_to_cells(poly, 9)
     assert len(out) == 18507
     assert '892e18d16c3ffff' in out
@@ -269,7 +269,7 @@ def test_polyfill_southern_tip():
         (-55.416544, -67.642822),
     ]
 
-    poly = h3.H3Poly(geo)
+    poly = h3.LatLngPoly(geo)
     out = h3.h3shape_to_cells(poly, 9)
     assert len(out) == 223247
     assert '89df4000003ffff' in out
@@ -285,7 +285,7 @@ def test_polyfill_null_island():
         (-3, -3),
     ]
 
-    poly = h3.H3Poly(geo)
+    poly = h3.LatLngPoly(geo)
     out = h3.h3shape_to_cells(poly, 4)
     assert len(out) == 345
     assert '847421bffffffff' in out
@@ -306,7 +306,7 @@ def test_cells_to_h3shape_single():
     poly = mpoly[0]
 
     vertices = h3.cell_to_boundary(h)
-    expected_poly = h3.H3Poly(vertices)
+    expected_poly = h3.LatLngPoly(vertices)
 
     assert set(poly.outer) == set(expected_poly.outer)
     assert poly.holes == expected_poly.holes == ()

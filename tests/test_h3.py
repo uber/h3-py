@@ -201,7 +201,7 @@ def test_compact_and_uncompact_cells():
         (37.8151571999998453, -122.4798767000009008),
     ]
 
-    poly = h3.H3Poly(sf_7x7)
+    poly = h3.LatLngPoly(sf_7x7)
     cells = h3.h3shape_to_cells(poly, 9)
 
     compact_cells = h3.compact_cells(cells)

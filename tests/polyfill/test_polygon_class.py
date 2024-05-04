@@ -17,18 +17,18 @@ def test_repr():
     mpoly2 = sorted(map(str, mpoly2))
 
     assert mpoly1 == [
-        '<H3Poly: [30/(18,)]>',
-        '<H3Poly: [6]>',
+        '<LatLngPoly: [30/(18,)]>',
+        '<LatLngPoly: [6]>',
     ]
 
     assert mpoly2 == [
-        '<H3Poly: [30/(18,)]>',
-        '<H3Poly: [6]>',
-        '<H3Poly: [6]>',
+        '<LatLngPoly: [30/(18,)]>',
+        '<LatLngPoly: [6]>',
+        '<LatLngPoly: [6]>',
     ]
 
 
-def test_h3poly_len():
+def test_LatLngPoly_len():
     cells = {'8928308280fffff'}
 
     poly = h3.cells_to_h3shape(cells, tight=True)
