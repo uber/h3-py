@@ -110,7 +110,7 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
 
 ## Polygon interface
 
-The ``LatLngPoly`` and ``H3MultiPoly`` objects and their related functions allow users to represent (multi)polygons of lat/lng points and convert back and forth between H3 cells.
+The ``LatLngPoly`` and ``LatLngMultiPoly`` objects and their related functions allow users to represent (multi)polygons of lat/lng points and convert back and forth between H3 cells.
 
 The objects and functions also compatible with the popular [``__geo_interface__`` protocol](https://gist.github.com/sgillies/2217756), which is used by Python geospatial libraries like [GeoPandas](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.__geo_interface__.html) and many plotting libraries.
 
@@ -129,7 +129,7 @@ Note that this is reversed from [``__geo_interface__``](https://gist.github.com/
 .. autosummary::
    H3Shape
    LatLngPoly
-   H3MultiPoly
+   LatLngMultiPoly
 ```
 
 ### Conversion functions
