@@ -38,7 +38,7 @@ def test_LatLngPoly_len():
 
 
 def test_bad_subclass():
-    class H3Shoop(h3.H3Shape):
+    class H3Shoop(h3.Shape):
         def __geo_interface__():
             pass
 

@@ -2,7 +2,7 @@
 
 from ... import _cy
 from ..._h3shape import (
-    H3Shape,
+    Shape,
     LatLngPoly,
     LatLngMultiPoly,
     geo_to_shape,
@@ -438,8 +438,8 @@ def shape_to_cells(shape, res):
     elif isinstance(shape, LatLngMultiPoly):
         mpoly = shape
         mv = _cy.polygons_to_cells(mpoly.polys, res)
-    elif isinstance(shape, H3Shape):
-        raise ValueError('Unrecognized H3Shape: ' + str(shape))
+    elif isinstance(shape, Shape):
+        raise ValueError('Unrecognized Shape: ' + str(shape))
     else:
         raise ValueError('Unrecognized type: ' + str(type(shape)))
 
@@ -448,7 +448,7 @@ def shape_to_cells(shape, res):
 
 def cells_to_shape(cells, tight=True):
     """
-    Return an ``H3Shape`` describing the area covered by a collection of H3 cells.
+    Return an ``Shape`` describing the area covered by a collection of H3 cells.
     Will return ``LatLngPoly`` or ``LatLngMultiPoly``.
 
     Parameters
