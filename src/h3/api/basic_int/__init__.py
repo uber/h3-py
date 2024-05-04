@@ -5,8 +5,8 @@ from ..._h3shape import (
     H3Shape,
     LatLngPoly,
     LatLngMultiPoly,
-    geo_to_h3shape,
-    h3shape_to_geo,
+    geo_to_shape,
+    shape_to_geo,
 )
 
 from ._convert import (
@@ -395,14 +395,14 @@ def uncompact_cells(cells, res):
     return _out_collection(hu)
 
 
-def h3shape_to_cells(h3shape, res):
+def shape_to_cells(shape, res):
     """
     Return the collection of H3 cells at a given resolution whose center points
     are contained within an ``LatLngPoly`` or ``LatLngMultiPoly``.
 
     Parameters
     ----------
-    h3shape : ``H3shape``
+    shape : ``H3shape``
     res : int
         Resolution of the output cells
 
@@ -417,7 +417,7 @@ def h3shape_to_cells(h3shape, res):
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
     ...      (37.82, -122.54)],
     ... )
-    >>> h3.h3shape_to_cells(poly, 6)
+    >>> h3.shape_to_cells(poly, 6)
     ['862830807ffffff',
      '862830827ffffff',
      '86283082fffffff',
@@ -432,21 +432,21 @@ def h3shape_to_cells(h3shape, res):
     """
 
     # todo: not sure if i want this dispatch logic here. maybe in the objects?
-    if isinstance(h3shape, LatLngPoly):
-        poly = h3shape
+    if isinstance(shape, LatLngPoly):
+        poly = shape
         mv = _cy.polygon_to_cells(poly.outer, res, holes=poly.holes)
-    elif isinstance(h3shape, LatLngMultiPoly):
-        mpoly = h3shape
+    elif isinstance(shape, LatLngMultiPoly):
+        mpoly = shape
         mv = _cy.polygons_to_cells(mpoly.polys, res)
-    elif isinstance(h3shape, H3Shape):
-        raise ValueError('Unrecognized H3Shape: ' + str(h3shape))
+    elif isinstance(shape, H3Shape):
+        raise ValueError('Unrecognized H3Shape: ' + str(shape))
     else:
-        raise ValueError('Unrecognized type: ' + str(type(h3shape)))
+        raise ValueError('Unrecognized type: ' + str(type(shape)))
 
     return _out_collection(mv)
 
 
-def cells_to_h3shape(cells, tight=True):
+def cells_to_shape(cells, tight=True):
     """
     Return an ``H3Shape`` describing the area covered by a collection of H3 cells.
     Will return ``LatLngPoly`` or ``LatLngMultiPoly``.
@@ -466,9 +466,9 @@ def cells_to_h3shape(cells, tight=True):
     --------
 
     >>> cells = ['8428309ffffffff', '842830dffffffff']
-    >>> h3.cells_to_h3shape(cells, tight=True)
+    >>> h3.cells_to_shape(cells, tight=True)
     <LatLngPoly: [10]>
-    >>> h3.cells_to_h3shape(cells, tight=False)
+    >>> h3.cells_to_shape(cells, tight=False)
     <LatLngMultiPoly: [10]>
     """
     cells = _in_collection(cells)
@@ -497,8 +497,8 @@ def geo_to_cells(geo, res):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    h3shape = geo_to_h3shape(geo)
-    return h3shape_to_cells(h3shape, res)
+    shape = geo_to_shape(geo)
+    return shape_to_cells(shape, res)
 
 
 def cells_to_geo(cells, tight=True):
@@ -517,8 +517,8 @@ def cells_to_geo(cells, tight=True):
     dict
         in `__geo_interface__` format
     """
-    h3shape = cells_to_h3shape(cells, tight=tight)
-    return h3shape_to_geo(h3shape)
+    shape = cells_to_shape(cells, tight=tight)
+    return shape_to_geo(shape)
 
 
 def is_pentagon(h):

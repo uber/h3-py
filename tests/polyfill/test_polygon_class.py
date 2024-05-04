@@ -9,8 +9,8 @@ def test_repr():
     cells1 = h3.grid_ring(b, 2) + [a]
     cells2 = cells1 + [b]
 
-    mpoly1 = h3.cells_to_h3shape(cells1)
-    mpoly2 = h3.cells_to_h3shape(cells2)
+    mpoly1 = h3.cells_to_shape(cells1)
+    mpoly2 = h3.cells_to_shape(cells2)
 
     # unfortunately output order is nondeterministic
     mpoly1 = sorted(map(str, mpoly1))
@@ -31,7 +31,7 @@ def test_repr():
 def test_LatLngPoly_len():
     cells = {'8928308280fffff'}
 
-    poly = h3.cells_to_h3shape(cells, tight=True)
+    poly = h3.cells_to_shape(cells, tight=True)
 
     with pytest.raises(NotImplementedError):
         len(poly)
@@ -43,4 +43,4 @@ def test_bad_subclass():
             pass
 
     with pytest.raises(ValueError):
-        h3.h3shape_to_cells(H3Shoop(), res=9)
+        h3.shape_to_cells(H3Shoop(), res=9)

@@ -274,7 +274,7 @@ def _open_ring(ll1):
     return ll1
 
 
-def geo_to_h3shape(geo):
+def geo_to_shape(geo):
     """
     Translate from ``__geo_interface__`` to H3Shape.
 
@@ -300,24 +300,24 @@ def geo_to_h3shape(geo):
 
     if t == 'Polygon':
         ll2 = coord
-        h3shape = _LL2_to_polygon(ll2)
+        shape = _LL2_to_polygon(ll2)
     elif t == 'MultiPolygon':
         ll3 = coord
-        h3shape = _LL3_to_mpoly(ll3)
+        shape = _LL3_to_mpoly(ll3)
     else:
         raise ValueError('Unrecognized type: ' + str(t))
 
-    return h3shape
+    return shape
 
 
-def h3shape_to_geo(h3shape):
+def shape_to_geo(shape):
     """
     Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.
 
-    ``h3shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``
+    ``shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``
 
     Returns
     -------
     dict
     """
-    return h3shape.__geo_interface__
+    return shape.__geo_interface__

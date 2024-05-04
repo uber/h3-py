@@ -1,4 +1,4 @@
-""" Test that `h3shape_to_cells` can take in polygon inputs
+""" Test that `shape_to_cells` can take in polygon inputs
 where the LinearRings may or may not follow the right hand rule,
 and they may or may not be closed loops (where the last element
 is equal to the first).
@@ -45,7 +45,7 @@ def input_permutations(geo, res=5):
 
     for p in g:
         poly = h3.LatLngPoly(*p)
-        cells = h3.h3shape_to_cells(poly, res=res)
+        cells = h3.shape_to_cells(poly, res=res)
         yield cells
 
 

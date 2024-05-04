@@ -35,7 +35,7 @@ def get_us_box_coords():
     return outer, hole1, hole2
 
 
-def test_h3shape_to_cells():
+def test_shape_to_cells():
 
     # approximate lat/lngs for State of Maine
     maine = [
@@ -72,16 +72,16 @@ def test_h3shape_to_cells():
     }
 
     poly = h3.LatLngPoly(maine)
-    out = h3.h3shape_to_cells(poly, 3)
+    out = h3.shape_to_cells(poly, 3)
 
     assert u.same_set(out, expected)
 
 
-def test_h3shape_to_cells2():
+def test_shape_to_cells2():
     lnglat, _, _ = get_us_box_coords()
 
     poly = h3.LatLngPoly(lnglat)
-    out = h3.h3shape_to_cells(poly, 5)
+    out = h3.shape_to_cells(poly, 5)
 
     assert len(out) == 7063
 
@@ -92,21 +92,21 @@ def test_h3shape_to_cells2():
 #     pass
 
 
-def test_h3shape_to_cells_holes():
+def test_shape_to_cells_holes():
 
     outer, hole1, hole2 = get_us_box_coords()
 
     assert 7063 == len(
-        h3.h3shape_to_cells(h3.LatLngPoly(outer), 5)
+        h3.shape_to_cells(h3.LatLngPoly(outer), 5)
     )
 
     for res in 1, 2, 3, 4, 5:
-        cells_all = h3.h3shape_to_cells(h3.LatLngPoly(outer), res)
+        cells_all = h3.shape_to_cells(h3.LatLngPoly(outer), res)
         poly = h3.LatLngPoly(outer, hole1, hole2)
-        cells_holes = set(h3.h3shape_to_cells(poly, res=res))
+        cells_holes = set(h3.shape_to_cells(poly, res=res))
 
-        cells_1 = set(h3.h3shape_to_cells(h3.LatLngPoly(hole1), res))
-        cells_2 = set(h3.h3shape_to_cells(h3.LatLngPoly(hole2), res))
+        cells_1 = set(h3.shape_to_cells(h3.LatLngPoly(hole1), res))
+        cells_2 = set(h3.shape_to_cells(h3.LatLngPoly(hole2), res))
 
         assert len(cells_all) == len(cells_holes) + len(cells_1) + len(cells_2)
         assert u.same_set(
@@ -118,14 +118,14 @@ def test_h3shape_to_cells_holes():
 def test_resolution():
     poly = h3.LatLngPoly([])
 
-    assert h3.h3shape_to_cells(poly, 0) == []
-    assert h3.h3shape_to_cells(poly, 15) == []
+    assert h3.shape_to_cells(poly, 0) == []
+    assert h3.shape_to_cells(poly, 15) == []
 
     with pytest.raises(H3ResDomainError):
-        h3.h3shape_to_cells(poly, -1)
+        h3.shape_to_cells(poly, -1)
 
     with pytest.raises(H3ResDomainError):
-        h3.h3shape_to_cells(poly, 16)
+        h3.shape_to_cells(poly, 16)
 
 
 def test_invalid_polygon():
@@ -136,16 +136,16 @@ def test_invalid_polygon():
     """
     with pytest.raises(TypeError):
         poly = h3.LatLngPoly([1, 2, 3])
-        h3.h3shape_to_cells(poly, 4)
+        h3.shape_to_cells(poly, 4)
 
     with pytest.raises(ValueError):
         poly = h3.LatLngPoly([[1, 2, 3]])
-        h3.h3shape_to_cells(poly, 4)
+        h3.shape_to_cells(poly, 4)
 
 
 def test_bad_geo_input():
     with pytest.raises(ValueError):
-        h3.h3shape_to_cells('not a shape', 9)
+        h3.shape_to_cells('not a shape', 9)
 
     with pytest.raises(ValueError):
         h3.geo_to_cells({'type': 'not a shape', 'coordinates': None}, 9)
