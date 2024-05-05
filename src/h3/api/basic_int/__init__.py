@@ -1,7 +1,7 @@
 # This file is **symlinked** across the APIs to ensure they are exactly the same.
 
 from ... import _cy
-from ..._shape import (
+from ..._h3shape import (
     Shape,
     LatLngPoly,
     LatLngMultiPoly,
