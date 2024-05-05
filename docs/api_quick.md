@@ -140,7 +140,7 @@ Note that this is reversed from [``__geo_interface__``](https://gist.github.com/
 .. autosummary::
    h3shape_to_geo
    geo_to_h3shape
-   shape_to_cells
+   h3shape_to_cells
    cells_to_h3shape
    geo_to_cells
    cells_to_geo
