@@ -4,26 +4,26 @@ import h3
 from .. import util as u
 
 
-def test_cells_to_shape():
+def test_cells_to_h3shape():
     h = '8928308280fffff'
     cells = h3.grid_disk(h, 1)
 
-    mpoly = h3.cells_to_shape(cells, tight=False)
+    mpoly = h3.cells_to_h3shape(cells, tight=False)
     poly = mpoly[0]
 
     poly2 = h3.LatLngPoly(poly.outer, *poly.holes)
-    out = h3.shape_to_cells(poly2, 9)
+    out = h3.h3shape_to_cells(poly2, 9)
 
     assert u.same_set(out, cells)
 
 
-def test_cells_to_shape_tight():
+def test_cells_to_h3shape_tight():
     h = '8928308280fffff'
     cells = h3.grid_disk(h, 1)
 
-    poly = h3.cells_to_shape(cells, tight=True)
+    poly = h3.cells_to_h3shape(cells, tight=True)
     poly2 = h3.LatLngPoly(poly.outer, *poly.holes)
-    out = h3.shape_to_cells(poly2, 9)
+    out = h3.h3shape_to_cells(poly2, 9)
 
     assert u.same_set(out, cells)
 
@@ -35,10 +35,10 @@ def test_2_polys():
     # cells should be a center hex, and the 2-ring around it
     # (with the 1-ring being absent)
 
-    mpoly = h3.cells_to_shape(cells)
+    mpoly = h3.cells_to_h3shape(cells)
 
     out = [
-        set(h3.shape_to_cells(poly, 9))
+        set(h3.h3shape_to_cells(poly, 9))
         for poly in mpoly
     ]
 

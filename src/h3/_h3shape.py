@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class Shape(metaclass=ABCMeta):
+class H3Shape(metaclass=ABCMeta):
     """
     Abstract parent class of ``LatLngPoly`` and ``LatLngMultiPoly``.
     """
@@ -11,7 +11,7 @@ class Shape(metaclass=ABCMeta):
         """ https://github.com/pytest-dev/pytest-cov/issues/428 """
 
 
-class LatLngPoly(Shape):
+class LatLngPoly(H3Shape):
     """
     Container for loops of lat/lng points describing a polygon, possibly with holes.
 
@@ -102,7 +102,7 @@ class LatLngPoly(Shape):
         return gj_dict
 
 
-class LatLngMultiPoly(Shape):
+class LatLngMultiPoly(H3Shape):
     """
     Container for multiple ``LatLngPoly`` polygons.
 
@@ -274,19 +274,19 @@ def _open_ring(ll1):
     return ll1
 
 
-def geo_to_shape(geo):
+def geo_to_h3shape(geo):
     """
-    Translate from ``__geo_interface__`` to Shape.
+    Translate from ``__geo_interface__`` to H3Shape.
 
     ``geo`` either implements ``__geo_interface__`` or is a dict matching the format
 
     Returns
     -------
-    Shape
+    H3Shape
     """
 
     # geo can be dict, a __geo_interface__, a string, LatLngPoly or LatLngMultiPoly
-    if isinstance(geo, Shape):
+    if isinstance(geo, H3Shape):
         return geo
 
     if hasattr(geo, '__geo_interface__'):
@@ -310,9 +310,9 @@ def geo_to_shape(geo):
     return shape
 
 
-def shape_to_geo(shape):
+def h3shape_to_geo(shape):
     """
-    Translate from an ``Shape`` to a ``__geo_interface__`` dict.
+    Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.
 
     ``shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``
 

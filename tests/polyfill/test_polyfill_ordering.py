@@ -45,7 +45,7 @@ def input_permutations(geo, res=5):
 
     for p in g:
         poly = h3.LatLngPoly(*p)
-        cells = h3.shape_to_cells(poly, res=res)
+        cells = h3.h3shape_to_cells(poly, res=res)
         yield cells
 
 

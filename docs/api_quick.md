@@ -138,10 +138,10 @@ Note that this is reversed from [``__geo_interface__``](https://gist.github.com/
 .. currentmodule:: h3
 
 .. autosummary::
-   shape_to_geo
-   geo_to_shape
+   h3shape_to_geo
+   geo_to_h3shape
    shape_to_cells
-   cells_to_shape
+   cells_to_h3shape
    geo_to_cells
    cells_to_geo
 ```
