@@ -448,7 +448,7 @@ def h3shape_to_cells(shape, res):
 
 def cells_to_h3shape(cells, tight=True):
     """
-    Return an ``Shape`` describing the area covered by a collection of H3 cells.
+    Return an ``H3Shape`` describing the area covered by a collection of H3 cells.
     Will return ``LatLngPoly`` or ``LatLngMultiPoly``.
 
     Parameters
