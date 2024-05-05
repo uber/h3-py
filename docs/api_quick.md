@@ -127,7 +127,7 @@ Note that this is reversed from [``__geo_interface__``](https://gist.github.com/
 .. currentmodule:: h3
 
 .. autosummary::
-   Shape
+   H3Shape
    LatLngPoly
    LatLngMultiPoly
 ```

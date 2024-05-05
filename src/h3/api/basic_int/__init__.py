@@ -402,7 +402,7 @@ def shape_to_cells(shape, res):
 
     Parameters
     ----------
-    shape : ``Shape``
+    shape : ``H3shape``
     res : int
         Resolution of the output cells
 
