@@ -402,7 +402,7 @@ def h3shape_to_cells(h3shape, res):
 
     Parameters
     ----------
-    shape : ``H3Shape``
+    h3shape : ``H3Shape``
     res : int
         Resolution of the output cells
 
@@ -433,10 +433,10 @@ def h3shape_to_cells(h3shape, res):
 
     # todo: not sure if i want this dispatch logic here. maybe in the objects?
     if isinstance(h3shape, LatLngPoly):
-        poly = shape
+        poly = h3shape
         mv = _cy.polygon_to_cells(poly.outer, res, holes=poly.holes)
     elif isinstance(h3shape, LatLngMultiPoly):
-        mpoly = shape
+        mpoly = h3shape
         mv = _cy.polygons_to_cells(mpoly.polys, res)
     elif isinstance(h3shape, H3Shape):
         raise ValueError('Unrecognized H3Shape: ' + str(h3shape))
@@ -497,7 +497,7 @@ def geo_to_cells(geo, res):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    shape = geo_to_h3shape(geo)
+    h3shape = geo_to_h3shape(geo)
     return h3shape_to_cells(h3shape, res)
 
 
@@ -517,7 +517,7 @@ def cells_to_geo(cells, tight=True):
     dict
         in `__geo_interface__` format
     """
-    shape = cells_to_h3shape(cells, tight=tight)
+    h3shape = cells_to_h3shape(cells, tight=tight)
     return h3shape_to_geo(h3shape)
 
 
