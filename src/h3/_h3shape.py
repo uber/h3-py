@@ -310,14 +310,14 @@ def geo_to_h3shape(geo):
     return shape
 
 
-def h3shape_to_geo(shape):
+def h3shape_to_geo(h3shape):
     """
     Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.
 
-    ``shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``
+    ``h3shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``
 
     Returns
     -------
     dict
     """
-    return shape.__geo_interface__
+    return h3shape.__geo_interface__
