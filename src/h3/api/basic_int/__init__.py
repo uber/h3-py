@@ -395,7 +395,7 @@ def uncompact_cells(cells, res):
     return _out_collection(hu)
 
 
-def h3shape_to_cells(shape, res):
+def h3shape_to_cells(h3shape, res):
     """
     Return the collection of H3 cells at a given resolution whose center points
     are contained within an ``LatLngPoly`` or ``LatLngMultiPoly``.
@@ -432,16 +432,16 @@ def h3shape_to_cells(shape, res):
     """
 
     # todo: not sure if i want this dispatch logic here. maybe in the objects?
-    if isinstance(shape, LatLngPoly):
+    if isinstance(h3shape, LatLngPoly):
         poly = shape
         mv = _cy.polygon_to_cells(poly.outer, res, holes=poly.holes)
-    elif isinstance(shape, LatLngMultiPoly):
+    elif isinstance(h3shape, LatLngMultiPoly):
         mpoly = shape
         mv = _cy.polygons_to_cells(mpoly.polys, res)
-    elif isinstance(shape, H3Shape):
-        raise ValueError('Unrecognized Shape: ' + str(shape))
+    elif isinstance(h3shape, H3Shape):
+        raise ValueError('Unrecognized H3Shape: ' + str(h3shape))
     else:
-        raise ValueError('Unrecognized type: ' + str(type(shape)))
+        raise ValueError('Unrecognized type: ' + str(type(h3shape)))
 
     return _out_collection(mv)
 
@@ -498,7 +498,7 @@ def geo_to_cells(geo, res):
     There is currently no guaranteed order of the output cells.
     """
     shape = geo_to_h3shape(geo)
-    return h3shape_to_cells(shape, res)
+    return h3shape_to_cells(h3shape, res)
 
 
 def cells_to_geo(cells, tight=True):
@@ -518,7 +518,7 @@ def cells_to_geo(cells, tight=True):
         in `__geo_interface__` format
     """
     shape = cells_to_h3shape(cells, tight=tight)
-    return h3shape_to_geo(shape)
+    return h3shape_to_geo(h3shape)
 
 
 def is_pentagon(h):
