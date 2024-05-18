@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 
 class H3Shape(metaclass=ABCMeta):
     """
-    Abstract parent class of ``H3Poly`` and ``H3MultiPoly``.
+    Abstract parent class of ``LatLngPoly`` and ``LatLngMultiPoly``.
     """
     @property
     @abstractmethod
@@ -11,7 +11,7 @@ class H3Shape(metaclass=ABCMeta):
         """ https://github.com/pytest-dev/pytest-cov/issues/428 """
 
 
-class H3Poly(H3Shape):
+class LatLngPoly(H3Shape):
     """
     Container for loops of lat/lng points describing a polygon, possibly with holes.
 
@@ -28,34 +28,34 @@ class H3Poly(H3Shape):
 
     A polygon with a single outer ring consisting of 4 points, having no holes:
 
-    >>> H3Poly(
+    >>> LatLngPoly(
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34), (37.82, -122.54)],
     ... )
-    <H3Poly: [4]>
+    <LatLngPoly: [4]>
 
     The same polygon, but with one hole consisting of 3 points:
 
-    >>> H3Poly(
+    >>> LatLngPoly(
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34), (37.82, -122.54)],
     ...     [(37.76, -122.51), (37.76, -122.44), (37.81, -122.51)],
     ... )
-    <H3Poly: [4/(3,)]>
+    <LatLngPoly: [4/(3,)]>
 
     The same as above, but with one additional hole, made up of 5 points:
 
-    >>> H3Poly(
+    >>> LatLngPoly(
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34), (37.82, -122.54)],
     ...     [(37.76, -122.51), (37.76, -122.44), (37.81, -122.51)],
     ...     [(37.71, -122.43), (37.71, -122.37), (37.73, -122.37), (37.75, -122.41),
     ...      (37.73, -122.43)],
     ... )
-    <H3Poly: [4/(3, 5)]>
+    <LatLngPoly: [4/(3, 5)]>
     """
     def __init__(self, outer, *holes):
         loops = [outer] + list(holes)
         for loop in loops:
             if len(loop) in (1, 2):
-                raise ValueError('Non-empty H3Poly loops need at least 3 points.')
+                raise ValueError('Non-empty LatLngPoly loops need at least 3 points.')
 
         self.outer = tuple(_open_ring(outer))
         self.holes = tuple(
@@ -64,14 +64,14 @@ class H3Poly(H3Shape):
         )
 
     def __repr__(self):
-        return '<H3Poly: {}>'.format(self.loopcode)
+        return '<LatLngPoly: {}>'.format(self.loopcode)
 
     def __len__(self):
         """
         Should this be the number of points in the outer loop,
         the number of holes (or +1 for the outer loop)?
         """
-        raise NotImplementedError('No clear definition of length for H3Poly.')
+        raise NotImplementedError('No clear definition of length for LatLngPoly.')
 
     @property
     def loopcode(self):
@@ -102,26 +102,26 @@ class H3Poly(H3Shape):
         return gj_dict
 
 
-class H3MultiPoly(H3Shape):
+class LatLngMultiPoly(H3Shape):
     """
-    Container for multiple ``H3Poly`` polygons.
+    Container for multiple ``LatLngPoly`` polygons.
 
     Attributes
     ----------
-    polys : list[H3Poly]
+    polys : list[LatLngPoly]
         List of lat/lng points describing the outer loop of the polygon
     """
     def __init__(self, *polys):
         self.polys = tuple(polys)
 
         for p in self.polys:
-            if not isinstance(p, H3Poly):
-                raise ValueError('H3MultiPoly requires each input to be an H3Poly object, instead got: ' + str(p)) # noqa
+            if not isinstance(p, LatLngPoly):
+                raise ValueError('LatLngMultiPoly requires each input to be an LatLngPoly object, instead got: ' + str(p)) # noqa
 
     def __repr__(self):
         out = [p.loopcode for p in self.polys]
         out = ', '.join(out)
-        out = '<H3MultiPoly: {}>'.format(out)
+        out = '<LatLngMultiPoly: {}>'.format(out)
         return out
 
     def __iter__(self):
@@ -135,24 +135,25 @@ class H3MultiPoly(H3Shape):
         TODO: Pandas series or dataframe representation changes depending
         on if __len__ is defined.
 
-        I'd prefer the one that states `H3MultiPoly`. It seems like Pandas is assuming
-        an iterable is best-described by its elements when choosing the representation.
+        I'd prefer the one that states `LatLngMultiPoly`.
+        It seems like Pandas is assuming an iterable is best-described
+        by its elements when choosing the representation.
 
         when __len__ *IS NOT* defined:
 
-        0                      <H3MultiPoly: [368], [20], [6]>
-        1    <H3MultiPoly: [632/(6, 6, 6, 6, 6)], [290/(6,)...
-        2    <H3MultiPoly: [490/(6, 6, 10, 10, 14, 10, 6)],...
-        3    <H3MultiPoly: [344/(6,)], [22], [6], [10], [6]...
-        4    <H3MultiPoly: [382/(18, 6, 6)], [32], [6], [18...
+        0                      <LatLngMultiPoly: [368], [20], [6]>
+        1    <LatLngMultiPoly: [632/(6, 6, 6, 6, 6)], [290/(6,)...
+        2    <LatLngMultiPoly: [490/(6, 6, 10, 10, 14, 10, 6)],...
+        3    <LatLngMultiPoly: [344/(6,)], [22], [6], [10], [6]...
+        4    <LatLngMultiPoly: [382/(18, 6, 6)], [32], [6], [18...
 
         when __len__ *IS* defined:
 
-        0     (<H3Poly: [368]>, <H3Poly: [20]>, <H3Poly: [6]>)
-        1    (<H3Poly: [632/(6, 6, 6, 6, 6)]>, <H3Poly: [29...
-        2    (<H3Poly: [490/(6, 6, 10, 10, 14, 10, 6)]>, <H...
-        3    (<H3Poly: [344/(6,)]>, <H3Poly: [22]>, <H3Poly...
-        4    (<H3Poly: [382/(18, 6, 6)]>, <H3Poly: [32]>, <...
+        0     (<LatLngPoly: [368]>, <LatLngPoly: [20]>, <LatLngPoly: [6]>)
+        1    (<LatLngPoly: [632/(6, 6, 6, 6, 6)]>, <LatLngPoly: [29...
+        2    (<LatLngPoly: [490/(6, 6, 10, 10, 14, 10, 6)]>, <H...
+        3    (<LatLngPoly: [344/(6,)]>, <LatLngPoly: [22]>, <LatLngPoly...
+        4    (<LatLngPoly: [382/(18, 6, 6)]>, <LatLngPoly: [32]>, <...
         """
         return len(self.polys)
 
@@ -203,13 +204,13 @@ def _LL3_to_mpoly(ll3):
         for ll2 in ll3
     ]
 
-    mpoly = H3MultiPoly(*polys)
+    mpoly = LatLngMultiPoly(*polys)
 
     return mpoly
 
 
-def _polygon_to_LL2(h3poly):
-    ll2 = [h3poly.outer] + list(h3poly.holes)
+def _polygon_to_LL2(LatLngPoly):
+    ll2 = [LatLngPoly.outer] + list(LatLngPoly.holes)
     ll2 = tuple(
         _close_ring(_swap_latlng(ll1))
         for ll1 in ll2
@@ -223,7 +224,7 @@ def _LL2_to_polygon(ll2):
         _swap_latlng(ll1)
         for ll1 in ll2
     ]
-    h3poly = H3Poly(*ll2)
+    h3poly = LatLngPoly(*ll2)
 
     return h3poly
 
@@ -284,7 +285,7 @@ def geo_to_h3shape(geo):
     H3Shape
     """
 
-    # geo can be dict, a __geo_interface__, a string, H3Poly or H3MultiPoly
+    # geo can be dict, a __geo_interface__, a string, LatLngPoly or LatLngMultiPoly
     if isinstance(geo, H3Shape):
         return geo
 
@@ -299,21 +300,21 @@ def geo_to_h3shape(geo):
 
     if t == 'Polygon':
         ll2 = coord
-        h3shape = _LL2_to_polygon(ll2)
+        shape = _LL2_to_polygon(ll2)
     elif t == 'MultiPolygon':
         ll3 = coord
-        h3shape = _LL3_to_mpoly(ll3)
+        shape = _LL3_to_mpoly(ll3)
     else:
         raise ValueError('Unrecognized type: ' + str(t))
 
-    return h3shape
+    return shape
 
 
 def h3shape_to_geo(h3shape):
     """
     Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.
 
-    ``h3shape`` should be either ``H3Poly`` or ``H3MultiPoly``
+    ``h3shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``
 
     Returns
     -------

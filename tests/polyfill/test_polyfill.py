@@ -71,7 +71,7 @@ def test_h3shape_to_cells():
         '832badfffffffff'
     }
 
-    poly = h3.H3Poly(maine)
+    poly = h3.LatLngPoly(maine)
     out = h3.h3shape_to_cells(poly, 3)
 
     assert u.same_set(out, expected)
@@ -80,7 +80,7 @@ def test_h3shape_to_cells():
 def test_h3shape_to_cells2():
     lnglat, _, _ = get_us_box_coords()
 
-    poly = h3.H3Poly(lnglat)
+    poly = h3.LatLngPoly(lnglat)
     out = h3.h3shape_to_cells(poly, 5)
 
     assert len(out) == 7063
@@ -97,15 +97,16 @@ def test_h3shape_to_cells_holes():
     outer, hole1, hole2 = get_us_box_coords()
 
     assert 7063 == len(
-        h3.h3shape_to_cells(h3.H3Poly(outer), 5)
+        h3.h3shape_to_cells(h3.LatLngPoly(outer), 5)
     )
 
     for res in 1, 2, 3, 4, 5:
-        cells_all = h3.h3shape_to_cells(h3.H3Poly(outer), res)
-        cells_holes = set(h3.h3shape_to_cells(h3.H3Poly(outer, hole1, hole2), res=res))
+        cells_all = h3.h3shape_to_cells(h3.LatLngPoly(outer), res)
+        poly = h3.LatLngPoly(outer, hole1, hole2)
+        cells_holes = set(h3.h3shape_to_cells(poly, res=res))
 
-        cells_1 = set(h3.h3shape_to_cells(h3.H3Poly(hole1), res))
-        cells_2 = set(h3.h3shape_to_cells(h3.H3Poly(hole2), res))
+        cells_1 = set(h3.h3shape_to_cells(h3.LatLngPoly(hole1), res))
+        cells_2 = set(h3.h3shape_to_cells(h3.LatLngPoly(hole2), res))
 
         assert len(cells_all) == len(cells_holes) + len(cells_1) + len(cells_2)
         assert u.same_set(
@@ -115,7 +116,7 @@ def test_h3shape_to_cells_holes():
 
 
 def test_resolution():
-    poly = h3.H3Poly([])
+    poly = h3.LatLngPoly([])
 
     assert h3.h3shape_to_cells(poly, 0) == []
     assert h3.h3shape_to_cells(poly, 15) == []
@@ -134,11 +135,11 @@ def test_invalid_polygon():
     some `cdef` functions.
     """
     with pytest.raises(TypeError):
-        poly = h3.H3Poly([1, 2, 3])
+        poly = h3.LatLngPoly([1, 2, 3])
         h3.h3shape_to_cells(poly, 4)
 
     with pytest.raises(ValueError):
-        poly = h3.H3Poly([[1, 2, 3]])
+        poly = h3.LatLngPoly([[1, 2, 3]])
         h3.h3shape_to_cells(poly, 4)
 
 
