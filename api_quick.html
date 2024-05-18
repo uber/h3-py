@@ -581,7 +581,7 @@ and should be generally aligned with the
 </section>
 <section id="polygon-interface">
 <h2>Polygon interface<a class="headerlink" href="#polygon-interface" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> objects and their related functions allow users to represent (multi)polygons of lat/lng points and convert back and forth between H3 cells.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> and <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> objects and their related functions allow users to represent (multi)polygons of lat/lng points and convert back and forth between H3 cells.</p>
 <p>The objects and functions also compatible with the popular <a class="reference external" href="https://gist.github.com/sgillies/2217756"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> protocol</a>, which is used by Python geospatial libraries like <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.__geo_interface__.html">GeoPandas</a> and many plotting libraries.</p>
 <p>See the <a class="reference internal" href="polygon_tutorial.html"><span class="std std-doc">polygon tutorial</span></a> for a walkthrough.</p>
 <div class="admonition tip">
@@ -594,13 +594,13 @@ Note that this is reversed from <a class="reference external" href="https://gist
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.H3Shape" title="h3.H3Shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H3Shape</span></code></a>()</p></td>
-<td><p>Abstract parent class of <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>.</p></td>
+<td><p>Abstract parent class of <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> and <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.H3Poly" title="h3.H3Poly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H3Poly</span></code></a>(outer, *holes)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.LatLngPoly" title="h3.LatLngPoly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LatLngPoly</span></code></a>(outer, *holes)</p></td>
 <td><p>Container for loops of lat/lng points describing a polygon, possibly with holes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.H3MultiPoly" title="h3.H3MultiPoly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H3MultiPoly</span></code></a>(*polys)</p></td>
-<td><p>Container for multiple <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> polygons.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.LatLngMultiPoly" title="h3.LatLngMultiPoly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code></a>(*polys)</p></td>
+<td><p>Container for multiple <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> polygons.</p></td>
 </tr>
 </tbody>
 </table>
@@ -616,9 +616,9 @@ Note that this is reversed from <a class="reference external" href="https://gist
 <td><p>Translate from <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> to H3Shape.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.h3shape_to_cells" title="h3.h3shape_to_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">h3shape_to_cells</span></code></a>(h3shape, res)</p></td>
-<td><p>Return the collection of H3 cells at a given resolution whose center points are contained within an <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> or <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>.</p></td>
+<td><p>Return the collection of H3 cells at a given resolution whose center points are contained within an <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> or <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.cells_to_h3shape" title="h3.cells_to_h3shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cells_to_h3shape</span></code></a>(cells[, tight])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.cells_to_h3shape" title="h3.cells_to_h3shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cells_to_h3shape</span></code></a>(cells, *[, tight])</p></td>
 <td><p>Return an <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> describing the area covered by a collection of H3 cells.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.geo_to_cells" title="h3.geo_to_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_to_cells</span></code></a>(geo, res)</p></td>

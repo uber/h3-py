@@ -311,7 +311,7 @@ document.write(`
 <a class="viewcode-back" href="../../api_verbose.html#h3.H3Shape">[docs]</a>
 <span class="k">class</span> <span class="nc">H3Shape</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Abstract parent class of ``H3Poly`` and ``H3MultiPoly``.</span>
+<span class="sd">    Abstract parent class of ``LatLngPoly`` and ``LatLngMultiPoly``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
@@ -320,9 +320,9 @@ document.write(`
 
 
 
-<div class="viewcode-block" id="H3Poly">
-<a class="viewcode-back" href="../../api_verbose.html#h3.H3Poly">[docs]</a>
-<span class="k">class</span> <span class="nc">H3Poly</span><span class="p">(</span><span class="n">H3Shape</span><span class="p">):</span>
+<div class="viewcode-block" id="LatLngPoly">
+<a class="viewcode-back" href="../../api_verbose.html#h3.LatLngPoly">[docs]</a>
+<span class="k">class</span> <span class="nc">LatLngPoly</span><span class="p">(</span><span class="n">H3Shape</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Container for loops of lat/lng points describing a polygon, possibly with holes.</span>
 
@@ -339,34 +339,34 @@ document.write(`
 
 <span class="sd">    A polygon with a single outer ring consisting of 4 points, having no holes:</span>
 
-<span class="sd">    &gt;&gt;&gt; H3Poly(</span>
+<span class="sd">    &gt;&gt;&gt; LatLngPoly(</span>
 <span class="sd">    ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34), (37.82, -122.54)],</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &lt;H3Poly: [4]&gt;</span>
+<span class="sd">    &lt;LatLngPoly: [4]&gt;</span>
 
 <span class="sd">    The same polygon, but with one hole consisting of 3 points:</span>
 
-<span class="sd">    &gt;&gt;&gt; H3Poly(</span>
+<span class="sd">    &gt;&gt;&gt; LatLngPoly(</span>
 <span class="sd">    ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34), (37.82, -122.54)],</span>
 <span class="sd">    ...     [(37.76, -122.51), (37.76, -122.44), (37.81, -122.51)],</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &lt;H3Poly: [4/(3,)]&gt;</span>
+<span class="sd">    &lt;LatLngPoly: [4/(3,)]&gt;</span>
 
 <span class="sd">    The same as above, but with one additional hole, made up of 5 points:</span>
 
-<span class="sd">    &gt;&gt;&gt; H3Poly(</span>
+<span class="sd">    &gt;&gt;&gt; LatLngPoly(</span>
 <span class="sd">    ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34), (37.82, -122.54)],</span>
 <span class="sd">    ...     [(37.76, -122.51), (37.76, -122.44), (37.81, -122.51)],</span>
 <span class="sd">    ...     [(37.71, -122.43), (37.71, -122.37), (37.73, -122.37), (37.75, -122.41),</span>
 <span class="sd">    ...      (37.73, -122.43)],</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &lt;H3Poly: [4/(3, 5)]&gt;</span>
+<span class="sd">    &lt;LatLngPoly: [4/(3, 5)]&gt;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outer</span><span class="p">,</span> <span class="o">*</span><span class="n">holes</span><span class="p">):</span>
         <span class="n">loops</span> <span class="o">=</span> <span class="p">[</span><span class="n">outer</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">holes</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="n">loops</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Non-empty H3Poly loops need at least 3 points.&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Non-empty LatLngPoly loops need at least 3 points.&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">outer</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_open_ring</span><span class="p">(</span><span class="n">outer</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">holes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
@@ -375,14 +375,14 @@ document.write(`
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;&lt;H3Poly: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loopcode</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;LatLngPoly: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loopcode</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Should this be the number of points in the outer loop,</span>
 <span class="sd">        the number of holes (or +1 for the outer loop)?</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;No clear definition of length for H3Poly.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;No clear definition of length for LatLngPoly.&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">loopcode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -414,28 +414,28 @@ document.write(`
 
 
 
-<div class="viewcode-block" id="H3MultiPoly">
-<a class="viewcode-back" href="../../api_verbose.html#h3.H3MultiPoly">[docs]</a>
-<span class="k">class</span> <span class="nc">H3MultiPoly</span><span class="p">(</span><span class="n">H3Shape</span><span class="p">):</span>
+<div class="viewcode-block" id="LatLngMultiPoly">
+<a class="viewcode-back" href="../../api_verbose.html#h3.LatLngMultiPoly">[docs]</a>
+<span class="k">class</span> <span class="nc">LatLngMultiPoly</span><span class="p">(</span><span class="n">H3Shape</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Container for multiple ``H3Poly`` polygons.</span>
+<span class="sd">    Container for multiple ``LatLngPoly`` polygons.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">    polys : list[H3Poly]</span>
+<span class="sd">    polys : list[LatLngPoly]</span>
 <span class="sd">        List of lat/lng points describing the outer loop of the polygon</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">polys</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">polys</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">polys</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">polys</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">H3Poly</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;H3MultiPoly requires each input to be an H3Poly object, instead got: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="c1"># noqa</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">LatLngPoly</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;LatLngMultiPoly requires each input to be an LatLngPoly object, instead got: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="c1"># noqa</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">loopcode</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">polys</span><span class="p">]</span>
         <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;&lt;H3MultiPoly: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;&lt;LatLngMultiPoly: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">out</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -449,24 +449,25 @@ document.write(`
 <span class="sd">        TODO: Pandas series or dataframe representation changes depending</span>
 <span class="sd">        on if __len__ is defined.</span>
 
-<span class="sd">        I&#39;d prefer the one that states `H3MultiPoly`. It seems like Pandas is assuming</span>
-<span class="sd">        an iterable is best-described by its elements when choosing the representation.</span>
+<span class="sd">        I&#39;d prefer the one that states `LatLngMultiPoly`.</span>
+<span class="sd">        It seems like Pandas is assuming an iterable is best-described</span>
+<span class="sd">        by its elements when choosing the representation.</span>
 
 <span class="sd">        when __len__ *IS NOT* defined:</span>
 
-<span class="sd">        0                      &lt;H3MultiPoly: [368], [20], [6]&gt;</span>
-<span class="sd">        1    &lt;H3MultiPoly: [632/(6, 6, 6, 6, 6)], [290/(6,)...</span>
-<span class="sd">        2    &lt;H3MultiPoly: [490/(6, 6, 10, 10, 14, 10, 6)],...</span>
-<span class="sd">        3    &lt;H3MultiPoly: [344/(6,)], [22], [6], [10], [6]...</span>
-<span class="sd">        4    &lt;H3MultiPoly: [382/(18, 6, 6)], [32], [6], [18...</span>
+<span class="sd">        0                      &lt;LatLngMultiPoly: [368], [20], [6]&gt;</span>
+<span class="sd">        1    &lt;LatLngMultiPoly: [632/(6, 6, 6, 6, 6)], [290/(6,)...</span>
+<span class="sd">        2    &lt;LatLngMultiPoly: [490/(6, 6, 10, 10, 14, 10, 6)],...</span>
+<span class="sd">        3    &lt;LatLngMultiPoly: [344/(6,)], [22], [6], [10], [6]...</span>
+<span class="sd">        4    &lt;LatLngMultiPoly: [382/(18, 6, 6)], [32], [6], [18...</span>
 
 <span class="sd">        when __len__ *IS* defined:</span>
 
-<span class="sd">        0     (&lt;H3Poly: [368]&gt;, &lt;H3Poly: [20]&gt;, &lt;H3Poly: [6]&gt;)</span>
-<span class="sd">        1    (&lt;H3Poly: [632/(6, 6, 6, 6, 6)]&gt;, &lt;H3Poly: [29...</span>
-<span class="sd">        2    (&lt;H3Poly: [490/(6, 6, 10, 10, 14, 10, 6)]&gt;, &lt;H...</span>
-<span class="sd">        3    (&lt;H3Poly: [344/(6,)]&gt;, &lt;H3Poly: [22]&gt;, &lt;H3Poly...</span>
-<span class="sd">        4    (&lt;H3Poly: [382/(18, 6, 6)]&gt;, &lt;H3Poly: [32]&gt;, &lt;...</span>
+<span class="sd">        0     (&lt;LatLngPoly: [368]&gt;, &lt;LatLngPoly: [20]&gt;, &lt;LatLngPoly: [6]&gt;)</span>
+<span class="sd">        1    (&lt;LatLngPoly: [632/(6, 6, 6, 6, 6)]&gt;, &lt;LatLngPoly: [29...</span>
+<span class="sd">        2    (&lt;LatLngPoly: [490/(6, 6, 10, 10, 14, 10, 6)]&gt;, &lt;H...</span>
+<span class="sd">        3    (&lt;LatLngPoly: [344/(6,)]&gt;, &lt;LatLngPoly: [22]&gt;, &lt;LatLngPoly...</span>
+<span class="sd">        4    (&lt;LatLngPoly: [382/(18, 6, 6)]&gt;, &lt;LatLngPoly: [32]&gt;, &lt;...</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polys</span><span class="p">)</span>
 
@@ -518,13 +519,13 @@ document.write(`
         <span class="k">for</span> <span class="n">ll2</span> <span class="ow">in</span> <span class="n">ll3</span>
     <span class="p">]</span>
 
-    <span class="n">mpoly</span> <span class="o">=</span> <span class="n">H3MultiPoly</span><span class="p">(</span><span class="o">*</span><span class="n">polys</span><span class="p">)</span>
+    <span class="n">mpoly</span> <span class="o">=</span> <span class="n">LatLngMultiPoly</span><span class="p">(</span><span class="o">*</span><span class="n">polys</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">mpoly</span>
 
 
-<span class="k">def</span> <span class="nf">_polygon_to_LL2</span><span class="p">(</span><span class="n">h3poly</span><span class="p">):</span>
-    <span class="n">ll2</span> <span class="o">=</span> <span class="p">[</span><span class="n">h3poly</span><span class="o">.</span><span class="n">outer</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">h3poly</span><span class="o">.</span><span class="n">holes</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_polygon_to_LL2</span><span class="p">(</span><span class="n">LatLngPoly</span><span class="p">):</span>
+    <span class="n">ll2</span> <span class="o">=</span> <span class="p">[</span><span class="n">LatLngPoly</span><span class="o">.</span><span class="n">outer</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">LatLngPoly</span><span class="o">.</span><span class="n">holes</span><span class="p">)</span>
     <span class="n">ll2</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
         <span class="n">_close_ring</span><span class="p">(</span><span class="n">_swap_latlng</span><span class="p">(</span><span class="n">ll1</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">ll1</span> <span class="ow">in</span> <span class="n">ll2</span>
@@ -538,7 +539,7 @@ document.write(`
         <span class="n">_swap_latlng</span><span class="p">(</span><span class="n">ll1</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ll1</span> <span class="ow">in</span> <span class="n">ll2</span>
     <span class="p">]</span>
-    <span class="n">h3poly</span> <span class="o">=</span> <span class="n">H3Poly</span><span class="p">(</span><span class="o">*</span><span class="n">ll2</span><span class="p">)</span>
+    <span class="n">h3poly</span> <span class="o">=</span> <span class="n">LatLngPoly</span><span class="p">(</span><span class="o">*</span><span class="n">ll2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">h3poly</span>
 
@@ -601,7 +602,7 @@ document.write(`
 <span class="sd">    H3Shape</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># geo can be dict, a __geo_interface__, a string, H3Poly or H3MultiPoly</span>
+    <span class="c1"># geo can be dict, a __geo_interface__, a string, LatLngPoly or LatLngMultiPoly</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geo</span><span class="p">,</span> <span class="n">H3Shape</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">geo</span>
 
@@ -616,14 +617,14 @@ document.write(`
 
     <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;Polygon&#39;</span><span class="p">:</span>
         <span class="n">ll2</span> <span class="o">=</span> <span class="n">coord</span>
-        <span class="n">h3shape</span> <span class="o">=</span> <span class="n">_LL2_to_polygon</span><span class="p">(</span><span class="n">ll2</span><span class="p">)</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">_LL2_to_polygon</span><span class="p">(</span><span class="n">ll2</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;MultiPolygon&#39;</span><span class="p">:</span>
         <span class="n">ll3</span> <span class="o">=</span> <span class="n">coord</span>
-        <span class="n">h3shape</span> <span class="o">=</span> <span class="n">_LL3_to_mpoly</span><span class="p">(</span><span class="n">ll3</span><span class="p">)</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">_LL3_to_mpoly</span><span class="p">(</span><span class="n">ll3</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized type: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
 
-    <span class="k">return</span> <span class="n">h3shape</span></div>
+    <span class="k">return</span> <span class="n">shape</span></div>
 
 
 
@@ -633,7 +634,7 @@ document.write(`
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.</span>
 
-<span class="sd">    ``h3shape`` should be either ``H3Poly`` or ``H3MultiPoly``</span>
+<span class="sd">    ``h3shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>

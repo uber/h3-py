@@ -383,20 +383,20 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Polygon Tutorial</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#h3poly">H3Poly</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngpoly">LatLngPoly</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-representation-and-attributes">String representation and attributes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geo-interface"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-to-cells">Polygon to cells</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-polygons-don-t-need-to-follow-the-right-hand-rule">H3 Polygons don’t need to follow the right-hand rule</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#h3multipoly">H3MultiPoly</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngmultipoly">LatLngMultiPoly</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multipolygon-to-cells">MultiPolygon to cells</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3multipoly-affordances">H3MultiPoly affordances</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngmultipoly-affordances">LatLngMultiPoly affordances</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cells-to-h3poly-or-h3multipoly">Cells to H3Poly or H3MultiPoly</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cells-to-latlngpoly-or-latlngmultipoly">Cells to LatLngPoly or LatLngMultiPoly</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#api-summary">API Summary</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalance-notes">Equivalance notes</a></li>
 </ul>
@@ -424,13 +424,13 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="polygon-tutorial">
 <h1>Polygon Tutorial<a class="headerlink" href="#polygon-tutorial" title="Link to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">h3-py</span></code> can convert between sets of cells and GeoJSON-like polygon and multipolygon shapes.</p>
-<p>We use the abstract base class <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> and its concrete child classes <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>
+<p>We use the abstract base class <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> and its concrete child classes <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> and <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code>
 to represent these shapes.
-Any references or function names that use “H3Shape” will apply to both <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> objects.</p>
+Any references or function names that use “H3Shape” will apply to both <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> and <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> objects.</p>
 <p><code class="docutils literal notranslate"><span class="pre">h3-py</span></code> is also compatible with Python objects that implement <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> (<a class="reference external" href="https://gist.github.com/sgillies/2217756">https://gist.github.com/sgillies/2217756</a>),
 making it easy to interface with other Python geospatial libraries.
 We’ll refer to any such object as a “geo” or “geo object”.</p>
-<p><code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> both implement <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> (making them geo objects themselves),
+<p><code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> and <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> both implement <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> (making them geo objects themselves),
 and can be created from other geo objects, like Shapely’s <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> or <code class="docutils literal notranslate"><span class="pre">MultiPolygon</span></code> objects that occur
 when using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>.</p>
 <p>Below, we’ll explain the <code class="docutils literal notranslate"><span class="pre">h3-py</span></code> API for working with these shapes, and how the library interacts
@@ -481,9 +481,9 @@ with other Python geospatial libraries.</p>
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="h3poly">
-<h1>H3Poly<a class="headerlink" href="#h3poly" title="Link to this heading">#</a></h1>
-<p>We can create a simple <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> object by providing a list of the <strong>latitude/longitude pairs</strong> that describe its exterior.
+<section class="tex2jax_ignore mathjax_ignore" id="latlngpoly">
+<h1>LatLngPoly<a class="headerlink" href="#latlngpoly" title="Link to this heading">#</a></h1>
+<p>We can create a simple <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> object by providing a list of the <strong>latitude/longitude pairs</strong> that describe its exterior.
 Optionally, holes can be added to the polygon by appending additional lat/lng lists do describe them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -493,17 +493,17 @@ Optionally, holes can be added to the polygon by appending additional lat/lng li
     <span class="p">(</span><span class="mf">37.733</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.501</span><span class="p">)</span>
 <span class="p">]</span>
 
-<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">H3Poly</span><span class="p">(</span><span class="n">outer</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">LatLngPoly</span><span class="p">(</span><span class="n">outer</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 <span class="n">plot_shape</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3Poly: [3]&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3]&gt;
 </pre></div>
 </div>
-<img alt="_images/12be88ab38718ef3c78711c9303226b25fae1be9f267719890333476c3c16b9e.png" src="_images/12be88ab38718ef3c78711c9303226b25fae1be9f267719890333476c3c16b9e.png" />
+<img alt="_images/1c1b07eddda53a0668081267ef396ec56968efa33675182fe3685272160702fb.png" src="_images/1c1b07eddda53a0668081267ef396ec56968efa33675182fe3685272160702fb.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -514,17 +514,17 @@ Optionally, holes can be added to the polygon by appending additional lat/lng li
     <span class="p">(</span><span class="mf">37.788</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.454</span><span class="p">),</span>
 <span class="p">]</span>
 
-<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">H3Poly</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">hole1</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">LatLngPoly</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">hole1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 <span class="n">plot_shape</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3Poly: [3/(3,)]&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3/(3,)]&gt;
 </pre></div>
 </div>
-<img alt="_images/1f320919597509843fb100a05f86bdab7fbfdf11c400b885867eb029541b6bef.png" src="_images/1f320919597509843fb100a05f86bdab7fbfdf11c400b885867eb029541b6bef.png" />
+<img alt="_images/6fcd3542d4aeaf73a3cb9ad5e46275e6960f9244abf97cf34a1619bab150a648.png" src="_images/6fcd3542d4aeaf73a3cb9ad5e46275e6960f9244abf97cf34a1619bab150a648.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -536,43 +536,43 @@ Optionally, holes can be added to the polygon by appending additional lat/lng li
     <span class="p">(</span><span class="mf">37.769</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.496</span><span class="p">),</span>
 <span class="p">]</span>
 
-<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">H3Poly</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">hole1</span><span class="p">,</span> <span class="n">hole2</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">LatLngPoly</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">hole1</span><span class="p">,</span> <span class="n">hole2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 <span class="n">plot_shape</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3Poly: [3/(3, 4)]&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3/(3, 4)]&gt;
 </pre></div>
 </div>
-<img alt="_images/0b1604459fa4bb378fb485fdf97d01a12adee0817c947b455da2095aac044c19.png" src="_images/0b1604459fa4bb378fb485fdf97d01a12adee0817c947b455da2095aac044c19.png" />
+<img alt="_images/03c0a54e1ebe600ed04e147e5cb6d9c6856d78f6482e427b84f985b3adc00c8b.png" src="_images/03c0a54e1ebe600ed04e147e5cb6d9c6856d78f6482e427b84f985b3adc00c8b.png" />
 </div>
 </div>
 <section id="string-representation-and-attributes">
 <h2>String representation and attributes<a class="headerlink" href="#string-representation-and-attributes" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> string representation given by its <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> shows the number of vertices in the outer loop of the polygon, followed
+<p>The <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> string representation given by its <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> shows the number of vertices in the outer loop of the polygon, followed
 by the number of vertices in each hole.</p>
 <p>A representation like</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">H3Poly</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">LatLngPoly</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>denotes a polygon whose outer boundary consists of 3 vertices and which has 2 holes,
 with 3 and 4 vertices respectively.</p>
 <p>We can access the coordinates describing the polygon through the attributes:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">H3Poly.outer</span></code> gives the list of lat/lng points making up the outer loop of the polygon.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">H3Poly.holes</span></code> gives each of the lists of lat/lng points making up the holes of the polygon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LatLngPoly.outer</span></code> gives the list of lat/lng points making up the outer loop of the polygon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LatLngPoly.holes</span></code> gives each of the lists of lat/lng points making up the holes of the polygon.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">H3Poly</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">hole1</span><span class="p">,</span> <span class="n">hole2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">LatLngPoly</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">hole1</span><span class="p">,</span> <span class="n">hole2</span><span class="p">)</span>
 <span class="n">poly</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3Poly: [3/(3, 4)]&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3/(3, 4)]&gt;
 </pre></div>
 </div>
 </div>
@@ -608,8 +608,8 @@ with 3 and 4 vertices respectively.</p>
 </section>
 <section id="geo-interface">
 <h2><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code><a class="headerlink" href="#geo-interface" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">H3Poly.__geo_interface__</span></code> gives a GeoJSON representation of the polygon as described in <a class="reference external" href="https://gist.github.com/sgillies/2217756">https://gist.github.com/sgillies/2217756</a></p>
-<p><strong>Note the differences in this representation</strong>: Points are given in <strong>lng/lat</strong> order (but the <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> constructor expects <strong>lat/lng</strong> order), and the last vertex repeats the first.</p>
+<p><code class="docutils literal notranslate"><span class="pre">LatLngPoly.__geo_interface__</span></code> gives a GeoJSON representation of the polygon as described in <a class="reference external" href="https://gist.github.com/sgillies/2217756">https://gist.github.com/sgillies/2217756</a></p>
+<p><strong>Note the differences in this representation</strong>: Points are given in <strong>lng/lat</strong> order (but the <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> constructor expects <strong>lat/lng</strong> order), and the last vertex repeats the first.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">__geo_interface__</span>
@@ -650,7 +650,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 </div>
-<p>We can create an <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> object from a GeoJSON-like dictionary or an object that implements <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> using <code class="docutils literal notranslate"><span class="pre">h3.geo_to_h3shape()</span></code>.</p>
+<p>We can create an <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> object from a GeoJSON-like dictionary or an object that implements <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> using <code class="docutils literal notranslate"><span class="pre">h3.geo_to_h3shape()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h3</span><span class="o">.</span><span class="n">geo_to_h3shape</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
@@ -658,7 +658,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3Poly: [3/(3, 4)]&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3/(3, 4)]&gt;
 </pre></div>
 </div>
 </div>
@@ -679,12 +679,12 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3Poly: [3/(3, 4)]&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3/(3, 4)]&gt;
 </pre></div>
 </div>
 </div>
 </div>
-<p>Also note that <code class="docutils literal notranslate"><span class="pre">H3Poly.__geo_interface__</span></code> is equivalent to calling <code class="docutils literal notranslate"><span class="pre">h3.h3shape_to_geo()</span></code> on an <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> object.</p>
+<p>Also note that <code class="docutils literal notranslate"><span class="pre">LatLngPoly.__geo_interface__</span></code> is equivalent to calling <code class="docutils literal notranslate"><span class="pre">h3.h3shape_to_geo()</span></code> on an <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poly</span><span class="o">.</span><span class="n">__geo_interface__</span> <span class="o">==</span> <span class="n">h3</span><span class="o">.</span><span class="n">h3shape_to_geo</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
@@ -700,7 +700,7 @@ with 3 and 4 vertices respectively.</p>
 </section>
 <section id="polygon-to-cells">
 <h2>Polygon to cells<a class="headerlink" href="#polygon-to-cells" title="Link to this heading">#</a></h2>
-<p>We can get all the H3 cells whose centroids fall within an <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> by using <code class="docutils literal notranslate"><span class="pre">h3.h3shape_to_cells()</span></code> and specifying the resolution.</p>
+<p>We can get all the H3 cells whose centroids fall within an <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> by using <code class="docutils literal notranslate"><span class="pre">h3.h3shape_to_cells()</span></code> and specifying the resolution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h3</span><span class="o">.</span><span class="n">h3shape_to_cells</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
@@ -721,7 +721,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2a4f30e4a4160d092f557e289c79ffbde7da502308df7edf269dcc8f12367f74.png" src="_images/2a4f30e4a4160d092f557e289c79ffbde7da502308df7edf269dcc8f12367f74.png" />
+<img alt="_images/ee7a0b988f2eded3015ea5ad6e303cd1fff96458d0f40639aa7a694e1c48d598.png" src="_images/ee7a0b988f2eded3015ea5ad6e303cd1fff96458d0f40639aa7a694e1c48d598.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -731,7 +731,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a52157c2d20d5cfbf3965d9fad9fcb0d5c8c52f2169aac622de2b68d1ba694ae.png" src="_images/a52157c2d20d5cfbf3965d9fad9fcb0d5c8c52f2169aac622de2b68d1ba694ae.png" />
+<img alt="_images/c8e67e86e8f8c0a25f16dd6e451fd1c6dee0072d2f1b07e421a87fdb5be41374.png" src="_images/c8e67e86e8f8c0a25f16dd6e451fd1c6dee0072d2f1b07e421a87fdb5be41374.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -741,80 +741,80 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b8f9921921ca73c40bf9fecc4279af02199c3ebcc4ef4321ff2957b47a7b8e12.png" src="_images/b8f9921921ca73c40bf9fecc4279af02199c3ebcc4ef4321ff2957b47a7b8e12.png" />
+<img alt="_images/03daf04e7aaa130f6ea96fd49ac87d0e6479339d3376c0379b16a31b57c18975.png" src="_images/03daf04e7aaa130f6ea96fd49ac87d0e6479339d3376c0379b16a31b57c18975.png" />
 </div>
 </div>
 </section>
 <section id="h3-polygons-don-t-need-to-follow-the-right-hand-rule">
 <h2>H3 Polygons don’t need to follow the right-hand rule<a class="headerlink" href="#h3-polygons-don-t-need-to-follow-the-right-hand-rule" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> objects do not need to follow the “right-hand rule”, unlike GeoJSON Polygons.
+<p><code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> objects do not need to follow the “right-hand rule”, unlike GeoJSON Polygons.
 The right-hand rule requires that vertices in outer loops are listed in counterclockwise
 order and holes are listed in clockwise order.
 <code class="docutils literal notranslate"><span class="pre">h3-py</span></code> accepts loops in any order and will usually interpret them as the user intended, for example,
 converting to sets of cells. However, <code class="docutils literal notranslate"><span class="pre">h3-py</span></code> won’t re-order your loops to
 conform to the right-hand rule, so be careful if you’re using <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> to plot them.</p>
-<p>Obeying the right-hand rule is only a concern when creating <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> objects from external input; <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> or <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>
-objects created through <code class="docutils literal notranslate"><span class="pre">h3.cells_to_shape()</span></code> <strong>will respect the right-hand rule</strong>.</p>
+<p>Obeying the right-hand rule is only a concern when creating <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> objects from external input; <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> or <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code>
+objects created through <code class="docutils literal notranslate"><span class="pre">h3.cells_to_h3shape()</span></code> <strong>will respect the right-hand rule</strong>.</p>
 <p>For example, if we reverse the order of one of the holes in our example polygon above,
 the hole won’t be rendered correctly, but the conversion to cells will remain unchanged.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Respects right-hand rule</span>
-<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">H3Poly</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">hole1</span><span class="p">,</span> <span class="n">hole2</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">LatLngPoly</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">hole1</span><span class="p">,</span> <span class="n">hole2</span><span class="p">)</span>
 <span class="n">plot_shape_and_cells</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b8f9921921ca73c40bf9fecc4279af02199c3ebcc4ef4321ff2957b47a7b8e12.png" src="_images/b8f9921921ca73c40bf9fecc4279af02199c3ebcc4ef4321ff2957b47a7b8e12.png" />
+<img alt="_images/03daf04e7aaa130f6ea96fd49ac87d0e6479339d3376c0379b16a31b57c18975.png" src="_images/03daf04e7aaa130f6ea96fd49ac87d0e6479339d3376c0379b16a31b57c18975.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Does not respect right-hand-rule; second hole is reversed</span>
 <span class="c1"># Conversion to cells still works, tho!</span>
-<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">H3Poly</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">hole1</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">hole2</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">LatLngPoly</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">hole1</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">hole2</span><span class="p">)</span>
 <span class="n">plot_shape_and_cells</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d56f2d2802fb66cc7ea39696b61d37a088cca9f9f11ca59776f3264af18a4092.png" src="_images/d56f2d2802fb66cc7ea39696b61d37a088cca9f9f11ca59776f3264af18a4092.png" />
+<img alt="_images/a6f4488d01024962cd84e1b8b8be619d93d5d787c0590b6343250aaad514f2ea.png" src="_images/a6f4488d01024962cd84e1b8b8be619d93d5d787c0590b6343250aaad514f2ea.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Does not respect right-hand-rule; outer loop and second hole are both reversed</span>
 <span class="c1"># Conversion to cells still works, tho!</span>
-<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">H3Poly</span><span class="p">(</span><span class="n">outer</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">hole1</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">hole2</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">LatLngPoly</span><span class="p">(</span><span class="n">outer</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">hole1</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">hole2</span><span class="p">)</span>
 <span class="n">plot_shape_and_cells</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d18233f8e3a658ae115a9d3d7b0d67ad729db8c470299bcfb8c6a6ecfe66af49.png" src="_images/d18233f8e3a658ae115a9d3d7b0d67ad729db8c470299bcfb8c6a6ecfe66af49.png" />
+<img alt="_images/99855c0c5893296a0b693496cf593b288ea56cbc860299eaa7b4f5a2a1ac388e.png" src="_images/99855c0c5893296a0b693496cf593b288ea56cbc860299eaa7b4f5a2a1ac388e.png" />
 </div>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="h3multipoly">
-<h1>H3MultiPoly<a class="headerlink" href="#h3multipoly" title="Link to this heading">#</a></h1>
-<p>An <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> can be created from <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> objects. The string representation of the <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>
-gives the number of vertices in the outer loop of each <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code>, along with the number of vertices
+<section class="tex2jax_ignore mathjax_ignore" id="latlngmultipoly">
+<h1>LatLngMultiPoly<a class="headerlink" href="#latlngmultipoly" title="Link to this heading">#</a></h1>
+<p>An <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> can be created from <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> objects. The string representation of the <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code>
+gives the number of vertices in the outer loop of each <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code>, along with the number of vertices
 in each hole (if there are any).</p>
-<p>For example <code class="docutils literal notranslate"><span class="pre">&lt;H3MultiPoly:</span> <span class="pre">[3],</span> <span class="pre">[4/(5,)]&gt;</span></code> represents an <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> consisting of two <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> polygons:</p>
+<p>For example <code class="docutils literal notranslate"><span class="pre">&lt;LatLngMultiPoly:</span> <span class="pre">[3],</span> <span class="pre">[4/(5,)]&gt;</span></code> represents an <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> consisting of two <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> polygons:</p>
 <ul class="simple">
 <li><p>the first polygon has 3 outer vertices and no holes</p></li>
 <li><p>the second polygon has 4 outer vertices and 1 hole with 5 vertices</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poly1</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">H3Poly</span><span class="p">([(</span><span class="mf">37.804</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.412</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.778</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.507</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.733</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.501</span><span class="p">)])</span>
-<span class="n">poly2</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">H3Poly</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poly1</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">LatLngPoly</span><span class="p">([(</span><span class="mf">37.804</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.412</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.778</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.507</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.733</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.501</span><span class="p">)])</span>
+<span class="n">poly2</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">LatLngPoly</span><span class="p">(</span>
     <span class="p">[(</span><span class="mf">37.803</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.408</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.736</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.491</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.738</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.380</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.787</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.39</span><span class="p">)],</span>
     <span class="p">[(</span><span class="mf">37.760</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.441</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.772</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.427</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.773</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.404</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.758</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.401</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.745</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.428</span><span class="p">)]</span>
 <span class="p">)</span>
-<span class="n">mpoly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">H3MultiPoly</span><span class="p">(</span><span class="n">poly1</span><span class="p">,</span> <span class="n">poly2</span><span class="p">)</span>
+<span class="n">mpoly</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">LatLngMultiPoly</span><span class="p">(</span><span class="n">poly1</span><span class="p">,</span> <span class="n">poly2</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">poly1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">poly2</span><span class="p">)</span>
@@ -823,9 +823,9 @@ in each hole (if there are any).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3Poly: [3]&gt;
-&lt;H3Poly: [4/(5,)]&gt;
-&lt;H3MultiPoly: [3], [4/(5,)]&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3]&gt;
+&lt;LatLngPoly: [4/(5,)]&gt;
+&lt;LatLngMultiPoly: [3], [4/(5,)]&gt;
 </pre></div>
 </div>
 </div>
@@ -837,12 +837,12 @@ in each hole (if there are any).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8df3c7b6380d7a489429174f6d6827581625da3b6166639ee9b76c1605cbcb91.png" src="_images/8df3c7b6380d7a489429174f6d6827581625da3b6166639ee9b76c1605cbcb91.png" />
+<img alt="_images/53151ee01ba7524c53dc5940bcb493f6fba9413b1accf0427f453b5d611bdbff.png" src="_images/53151ee01ba7524c53dc5940bcb493f6fba9413b1accf0427f453b5d611bdbff.png" />
 </div>
 </div>
 <section id="multipolygon-to-cells">
 <h2>MultiPolygon to cells<a class="headerlink" href="#multipolygon-to-cells" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">h3.h3shape_to_cells()</span></code> works on both <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> objects (both are subclasses of <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">h3.h3shape_to_cells()</span></code> works on both <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> and <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> objects (both are subclasses of <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cells</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">h3shape_to_cells</span><span class="p">(</span><span class="n">mpoly</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
@@ -851,15 +851,15 @@ in each hole (if there are any).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/fa750bd363b7f8874b6a0a9b27915803046b8d3acd4f308506c9a40e12c1b707.png" src="_images/fa750bd363b7f8874b6a0a9b27915803046b8d3acd4f308506c9a40e12c1b707.png" />
+<img alt="_images/a23c21cb1e2ca59bb9d4365759f3bc3ff727f04df95fcbb115b60aeb3393afd6.png" src="_images/a23c21cb1e2ca59bb9d4365759f3bc3ff727f04df95fcbb115b60aeb3393afd6.png" />
 </div>
 </div>
 </section>
-<section id="h3multipoly-affordances">
-<h2>H3MultiPoly affordances<a class="headerlink" href="#h3multipoly-affordances" title="Link to this heading">#</a></h2>
+<section id="latlngmultipoly-affordances">
+<h2>LatLngMultiPoly affordances<a class="headerlink" href="#latlngmultipoly-affordances" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Calling <code class="docutils literal notranslate"><span class="pre">len()</span></code> on an <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> gives the number of polygons</p></li>
-<li><p>You can iterate through a <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>, with the elements being the underlying <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code>s</p></li>
+<li><p>Calling <code class="docutils literal notranslate"><span class="pre">len()</span></code> on an <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> gives the number of polygons</p></li>
+<li><p>You can iterate through a <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code>, with the elements being the underlying <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code>s</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -881,8 +881,8 @@ in each hole (if there are any).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3Poly: [3]&gt;
-&lt;H3Poly: [4/(5,)]&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3]&gt;
+&lt;LatLngPoly: [4/(5,)]&gt;
 </pre></div>
 </div>
 </div>
@@ -894,7 +894,7 @@ in each hole (if there are any).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;H3Poly: [3]&gt;, &lt;H3Poly: [4/(5,)]&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;LatLngPoly: [3]&gt;, &lt;LatLngPoly: [4/(5,)]&gt;]
 </pre></div>
 </div>
 </div>
@@ -902,7 +902,7 @@ in each hole (if there are any).</p>
 </section>
 <section id="id1">
 <h2><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code><a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> implements <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code>, and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> objects can also be created through <code class="docutils literal notranslate"><span class="pre">h3.geo_to_h3shape()</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> implements <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code>, and <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> objects can also be created through <code class="docutils literal notranslate"><span class="pre">h3.geo_to_h3shape()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">mpoly</span><span class="o">.</span><span class="n">__geo_interface__</span>
@@ -939,16 +939,16 @@ in each hole (if there are any).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3MultiPoly: [3], [4/(5,)]&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngMultiPoly: [3], [4/(5,)]&gt;
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="cells-to-h3poly-or-h3multipoly">
-<h1>Cells to H3Poly or H3MultiPoly<a class="headerlink" href="#cells-to-h3poly-or-h3multipoly" title="Link to this heading">#</a></h1>
-<p>If you have a set of H3 cells that you would like to visualize, you may want to convert them to <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> or <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> objects using <code class="docutils literal notranslate"><span class="pre">h3.cells_to_h3shape()</span></code> and then use <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> to get their GeoJSON representation. Or you could
+<section class="tex2jax_ignore mathjax_ignore" id="cells-to-latlngpoly-or-latlngmultipoly">
+<h1>Cells to LatLngPoly or LatLngMultiPoly<a class="headerlink" href="#cells-to-latlngpoly-or-latlngmultipoly" title="Link to this heading">#</a></h1>
+<p>If you have a set of H3 cells that you would like to visualize, you may want to convert them to <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> or <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> objects using <code class="docutils literal notranslate"><span class="pre">h3.cells_to_h3shape()</span></code> and then use <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> to get their GeoJSON representation. Or you could
 use <code class="docutils literal notranslate"><span class="pre">h3.cells_to_geo()</span></code> to get the GeoJSON dictionary directly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -982,7 +982,7 @@ use <code class="docutils literal notranslate"><span class="pre">h3.cells_to_geo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/33b9f132cd3f871b3383e763a37aa445b5736f72b5c000e09672a6b9338fbadd.png" src="_images/33b9f132cd3f871b3383e763a37aa445b5736f72b5c000e09672a6b9338fbadd.png" />
+<img alt="_images/e99ec0292ff9e67d7fd8612d90dec4fc39c9fff3692e28a23cd28e9b4339e873.png" src="_images/e99ec0292ff9e67d7fd8612d90dec4fc39c9fff3692e28a23cd28e9b4339e873.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -992,7 +992,7 @@ use <code class="docutils literal notranslate"><span class="pre">h3.cells_to_geo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3Poly: [30/(18,)]&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [30/(18,)]&gt;
 </pre></div>
 </div>
 </div>
@@ -1017,7 +1017,7 @@ use <code class="docutils literal notranslate"><span class="pre">h3.cells_to_geo
 </div>
 <p>“Geo objects” are any Python object that implements <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code>. This is a widely used
 standard in geospatial Python and is used by libraries like <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and Shapely.</p>
-<p><code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> is an abstract class implemented by <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code>, each of which
+<p><code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> is an abstract class implemented by <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> and <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code>, each of which
 implement <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code> and can be created from external “Geo objects”:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">geo_to_h3shape()</span></code></p></li>
@@ -1151,7 +1151,7 @@ then the following two expressions are equivalent:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bcb437c33a3f967b958277d7664d57f27a2b19b3419dfbe142df31b68334ff29.png" src="_images/bcb437c33a3f967b958277d7664d57f27a2b19b3419dfbe142df31b68334ff29.png" />
+<img alt="_images/8a30eedaf8117c24e9fda559533d764dc27c0272debdea54d68304f6f4b28c7c.png" src="_images/8a30eedaf8117c24e9fda559533d764dc27c0272debdea54d68304f6f4b28c7c.png" />
 </div>
 </div>
 <section id="use-a-compatible-crs-before-applying-h3-functions">
@@ -1332,7 +1332,7 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/76f5072a63fcc76e674d0f94a3692efe4c56c192fcce2938949f51a878089543.png" src="_images/76f5072a63fcc76e674d0f94a3692efe4c56c192fcce2938949f51a878089543.png" />
+<img alt="_images/894852eb02359cf94a79fd1a2f0f5f434f4ddec9591ed0eb5ad6b464bc81e294.png" src="_images/894852eb02359cf94a79fd1a2f0f5f434f4ddec9591ed0eb5ad6b464bc81e294.png" />
 </div>
 </div>
 </section>
@@ -1362,7 +1362,7 @@ Name: geometry, dtype: object
 <h2>Converting cells to “geo objects”<a class="headerlink" href="#converting-cells-to-geo-objects" title="Link to this heading">#</a></h2>
 <p>If we assign <code class="docutils literal notranslate"><span class="pre">df.geometry</span> <span class="pre">=</span> <span class="pre">cell_column</span></code> we’ll get an error because the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column of a <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code> must contain valid geometry objects.
 We can obtain compatible objects by converting the cells to <code class="docutils literal notranslate"><span class="pre">H3Shape</span></code> by applying <code class="docutils literal notranslate"><span class="pre">h3.cells_to_h3shape()</span></code>.</p>
-<p>(Note that, unfortunately, Pandas has some logic to identify iterable members of a series and then renders a tuple of the elements, rather than our preferred <code class="docutils literal notranslate"><span class="pre">H3MultiPoly.__repr__</span></code> representation.)</p>
+<p>(Note that, unfortunately, Pandas has some logic to identify iterable members of a series and then renders a tuple of the elements, rather than our preferred <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly.__repr__</span></code> representation.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shape_column</span> <span class="o">=</span> <span class="n">cell_column</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">h3</span><span class="o">.</span><span class="n">cells_to_h3shape</span><span class="p">)</span>
@@ -1371,17 +1371,17 @@ We can obtain compatible objects by converting the cells to <code class="docutil
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                                      &lt;H3Poly: [132]&gt;
-1    (&lt;H3Poly: [178/(6,)]&gt;, &lt;H3Poly: [66/(6,)]&gt;, &lt;H...
-2           (&lt;H3Poly: [166/(6, 6, 6)]&gt;, &lt;H3Poly: [6]&gt;)
-3                                      &lt;H3Poly: [120]&gt;
-4     (&lt;H3Poly: [120]&gt;, &lt;H3Poly: [10]&gt;, &lt;H3Poly: [6]&gt;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                                  &lt;LatLngPoly: [132]&gt;
+1    (&lt;LatLngPoly: [178/(6,)]&gt;, &lt;LatLngPoly: [66/(6...
+2    (&lt;LatLngPoly: [166/(6, 6, 6)]&gt;, &lt;LatLngPoly: [...
+3                                  &lt;LatLngPoly: [120]&gt;
+4    (&lt;LatLngPoly: [120]&gt;, &lt;LatLngPoly: [10]&gt;, &lt;Lat...
 Name: geometry, dtype: object
 </pre></div>
 </div>
 </div>
 </div>
-<p>Note that the column now consists of <code class="docutils literal notranslate"><span class="pre">H3Poly</span></code> and <code class="docutils literal notranslate"><span class="pre">H3MultiPoly</span></code> objects.</p>
+<p>Note that the column now consists of <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> and <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> objects.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shape_column</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1389,7 +1389,7 @@ Name: geometry, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3Poly: [132]&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [132]&gt;
 </pre></div>
 </div>
 </div>
@@ -1401,7 +1401,7 @@ Name: geometry, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;H3MultiPoly: [178/(6,)], [66/(6,)], [22], [30], [10], [6], [6]&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngMultiPoly: [178/(6,)], [66/(6,)], [22], [30], [10], [6], [6]&gt;
 </pre></div>
 </div>
 </div>
@@ -1449,7 +1449,7 @@ Name: geometry, dtype: geometry
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/dc748c83d36d3ce849bf4e636e3b9b44a4ff6075a88d9c014716995f930b3bf2.png" src="_images/dc748c83d36d3ce849bf4e636e3b9b44a4ff6075a88d9c014716995f930b3bf2.png" />
+<img alt="_images/54448fc2c665d0924a55a89242906f76a8b66488242cd1a063cb5d743be42d6c.png" src="_images/54448fc2c665d0924a55a89242906f76a8b66488242cd1a063cb5d743be42d6c.png" />
 </div>
 </div>
 </section>
@@ -1520,20 +1520,20 @@ Name: geometry, dtype: geometry
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Polygon Tutorial</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#h3poly">H3Poly</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngpoly">LatLngPoly</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-representation-and-attributes">String representation and attributes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geo-interface"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-to-cells">Polygon to cells</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-polygons-don-t-need-to-follow-the-right-hand-rule">H3 Polygons don’t need to follow the right-hand rule</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#h3multipoly">H3MultiPoly</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngmultipoly">LatLngMultiPoly</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multipolygon-to-cells">MultiPolygon to cells</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3multipoly-affordances">H3MultiPoly affordances</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngmultipoly-affordances">LatLngMultiPoly affordances</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cells-to-h3poly-or-h3multipoly">Cells to H3Poly or H3MultiPoly</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cells-to-latlngpoly-or-latlngmultipoly">Cells to LatLngPoly or LatLngMultiPoly</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#api-summary">API Summary</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalance-notes">Equivalance notes</a></li>
 </ul>
