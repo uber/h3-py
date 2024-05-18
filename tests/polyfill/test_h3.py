@@ -386,16 +386,21 @@ def test_multipoly_checks():
     with pytest.raises(ValueError):
         h3.LatLngMultiPoly([[(1, 2), (3, 4)]])
 
+
 def test_z_coord():
-    loop = [
-        [37.813, -122.408, 0.0],
-        [37.707, -122.512, 0.0],
-        [37.815, -122.479, 0.0],
-    ]
+    loop = latlng_open()
 
-    geo = get_mocked(loop)
-    shape = h3.geo_to_h3shape(geo)
+    loop2d = [(lat, lng)      for lat, lng in loop]
+    loop3d = [(lat, lng, 0.0) for lat, lng in loop]
 
-    out = h3.h3shape_to_cells(shape, 9)
-    assert len(out) > 300
-    # todo: maybe compare that the cells are the same when you do the 2d version
+    geo2d = get_mocked(loop2d)
+    geo3d = get_mocked(loop3d)
+
+    shape2 = h3.geo_to_h3shape(geo2d)
+    shape3 = h3.geo_to_h3shape(geo3d)
+
+    out2 = h3.h3shape_to_cells(shape2, 9)
+    out3 = h3.h3shape_to_cells(shape3, 9)
+
+    assert len(out2) > 300
+    assert set(out2) == set(out3)
