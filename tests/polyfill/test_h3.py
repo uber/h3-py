@@ -385,3 +385,33 @@ def test_multipoly_checks():
 
     with pytest.raises(ValueError):
         h3.LatLngMultiPoly([[(1, 2), (3, 4)]])
+
+
+def test_3d_geo():
+    loop = lnglat_open()
+
+    loop2d = [(lng, lat)      for lng, lat in loop]
+    loop3d = [(lng, lat, 0.0) for lng, lat in loop]
+
+    geo2d = get_mocked(loop2d)
+    geo3d = get_mocked(loop3d)
+
+    shape2 = h3.geo_to_h3shape(geo2d)
+    shape3 = h3.geo_to_h3shape(geo3d)
+
+    out2 = h3.h3shape_to_cells(shape2, 9)
+    out3 = h3.h3shape_to_cells(shape3, 9)
+
+    assert len(out2) == 344
+    assert set(out2) == set(out3)
+
+
+def test_against_3d_polygons():
+    # LatLngPoly still expects just a lat/lng. it won't handle 3d coords
+    loop3d = [
+        (lat, lng, 0.0)
+        for lat, lng in latlng_open()
+    ]
+
+    with pytest.raises(ValueError):
+        h3.LatLngPoly(loop3d)

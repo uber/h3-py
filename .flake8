@@ -15,4 +15,6 @@ ignore =
     # E731 do not assign a lambda expression, use a def
     E731,
     # https://stackoverflow.com/questions/67942075/w504-line-break-after-binary-operator
-    W503,W504
+    W503,W504,
+    # E272 multiple spaces before keyword
+    E272
