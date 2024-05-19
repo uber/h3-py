@@ -368,6 +368,11 @@ document.write(`
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Non-empty LatLngPoly loops need at least 3 points.&#39;</span><span class="p">)</span>
 
+            <span class="n">point_dimensions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">loop</span><span class="p">))</span>
+            <span class="c1"># empty set is possible for empty polygons, so we check if a subset</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">point_dimensions</span> <span class="o">&lt;=</span> <span class="p">{</span><span class="mi">2</span><span class="p">}):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;LatLngPoly only accepts 2D points: lat/lng.&#39;</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">outer</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_open_ring</span><span class="p">(</span><span class="n">outer</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">holes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
             <span class="n">_open_ring</span><span class="p">(</span><span class="n">hole</span><span class="p">)</span>
@@ -524,8 +529,8 @@ document.write(`
     <span class="k">return</span> <span class="n">mpoly</span>
 
 
-<span class="k">def</span> <span class="nf">_polygon_to_LL2</span><span class="p">(</span><span class="n">LatLngPoly</span><span class="p">):</span>
-    <span class="n">ll2</span> <span class="o">=</span> <span class="p">[</span><span class="n">LatLngPoly</span><span class="o">.</span><span class="n">outer</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">LatLngPoly</span><span class="o">.</span><span class="n">holes</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_polygon_to_LL2</span><span class="p">(</span><span class="n">poly</span><span class="p">):</span>
+    <span class="n">ll2</span> <span class="o">=</span> <span class="p">[</span><span class="n">poly</span><span class="o">.</span><span class="n">outer</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">holes</span><span class="p">)</span>
     <span class="n">ll2</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
         <span class="n">_close_ring</span><span class="p">(</span><span class="n">_swap_latlng</span><span class="p">(</span><span class="n">ll1</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">ll1</span> <span class="ow">in</span> <span class="n">ll2</span>
@@ -534,7 +539,17 @@ document.write(`
     <span class="k">return</span> <span class="n">ll2</span>
 
 
+<span class="k">def</span> <span class="nf">_remove_z</span><span class="p">(</span><span class="n">ll1</span><span class="p">):</span>
+    <span class="n">ll1</span> <span class="o">=</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">z</span> <span class="ow">in</span> <span class="n">ll1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">ll1</span>
+
+
 <span class="k">def</span> <span class="nf">_LL2_to_polygon</span><span class="p">(</span><span class="n">ll2</span><span class="p">):</span>
+    <span class="n">ll2</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_remove_z</span><span class="p">(</span><span class="n">ll1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ll1</span> <span class="ow">in</span> <span class="n">ll2</span>
+    <span class="p">]</span>
+
     <span class="n">ll2</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">_swap_latlng</span><span class="p">(</span><span class="n">ll1</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ll1</span> <span class="ow">in</span> <span class="n">ll2</span>
