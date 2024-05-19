@@ -219,7 +219,16 @@ def _polygon_to_LL2(LatLngPoly):
     return ll2
 
 
+def remove_z(ll1):
+    ll1 = [(a,b) for a, b, *z in ll1]
+    return ll1
+
 def _LL2_to_polygon(ll2):
+    ll2 = [
+        remove_z(ll1)
+        for ll1 in ll2
+    ]
+
     ll2 = [
         _swap_latlng(ll1)
         for ll1 in ll2

@@ -388,10 +388,10 @@ def test_multipoly_checks():
 
 
 def test_z_coord():
-    loop = latlng_open()
+    loop = lnglat_open()
 
-    loop2d = [(lat, lng)      for lat, lng in loop]
-    loop3d = [(lat, lng, 0.0) for lat, lng in loop]
+    loop2d = [(lng, lat)      for lng, lat in loop]
+    loop3d = [(lng, lat, 0.0) for lng, lat in loop]
 
     geo2d = get_mocked(loop2d)
     geo3d = get_mocked(loop3d)
@@ -402,5 +402,5 @@ def test_z_coord():
     out2 = h3.h3shape_to_cells(shape2, 9)
     out3 = h3.h3shape_to_cells(shape3, 9)
 
-    assert len(out2) > 300
+    assert len(out2) == 344
     assert set(out2) == set(out3)
