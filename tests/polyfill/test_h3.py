@@ -387,7 +387,7 @@ def test_multipoly_checks():
         h3.LatLngMultiPoly([[(1, 2), (3, 4)]])
 
 
-def test_z_coord():
+def test_3d_geo():
     loop = lnglat_open()
 
     loop2d = [(lng, lat)      for lng, lat in loop]
@@ -407,6 +407,7 @@ def test_z_coord():
 
 
 def test_against_3d_polygons():
+    # LatLngPoly still expects just a lat/lng. it won't handle 3d coords
     loop3d = [
         (lat, lng, 0.0)
         for lat, lng in latlng_open()
