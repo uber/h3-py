@@ -57,6 +57,11 @@ class LatLngPoly(H3Shape):
             if len(loop) in (1, 2):
                 raise ValueError('Non-empty LatLngPoly loops need at least 3 points.')
 
+            point_dimensions = set(map(len, loop))
+            # empty set is possible for empty polygons, so we check if a subset
+            if not (point_dimensions <= {2}):
+                raise ValueError('LatLngPoly only accepts 2D points: lat/lng.')
+
         self.outer = tuple(_open_ring(outer))
         self.holes = tuple(
             _open_ring(hole)
@@ -219,13 +224,14 @@ def _polygon_to_LL2(LatLngPoly):
     return ll2
 
 
-def remove_z(ll1):
-    ll1 = [(a,b) for a, b, *z in ll1]
+def _remove_z(ll1):
+    ll1 = [(a, b) for a, b, *z in ll1]
     return ll1
+
 
 def _LL2_to_polygon(ll2):
     ll2 = [
-        remove_z(ll1)
+        _remove_z(ll1)
         for ll1 in ll2
     ]
 

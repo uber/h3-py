@@ -404,3 +404,13 @@ def test_z_coord():
 
     assert len(out2) == 344
     assert set(out2) == set(out3)
+
+
+def test_against_3d_polygons():
+    loop3d = [
+        (lat, lng, 0.0)
+        for lat, lng in latlng_open()
+    ]
+
+    with pytest.raises(ValueError):
+        h3.LatLngPoly(loop3d)
