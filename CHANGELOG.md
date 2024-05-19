@@ -18,6 +18,11 @@ avoid adding features or APIs which do not map onto the
 
 - None
 
+## [4.0.0b5] - 2024-05-19
+
+- Rename `H3Poly` and `H3MultiPoly` to `LatLngPoly` and `LatLngMultiPoly` (#364)
+- Add ability to convert from `__geo_interface__` objects with Z-coordinate (#371)
+
 ## [4.0.0b4] - 2024-04-14
 
 No changes, just testing: #360
@@ -28,7 +33,6 @@ No changes, just testing: #360
 - New `h3.Polygon()`/GeoJSON interface (#301)
 - Use functions instead of methods for the interface functions (#334)
 - Use `list` instead of `set` for unordered Python outputs (#339)
-
 
 ## [4.0.0b2] - 2022-11-23
 
