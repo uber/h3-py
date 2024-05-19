@@ -214,8 +214,8 @@ def _LL3_to_mpoly(ll3):
     return mpoly
 
 
-def _polygon_to_LL2(LatLngPoly):
-    ll2 = [LatLngPoly.outer] + list(LatLngPoly.holes)
+def _polygon_to_LL2(poly):
+    ll2 = [poly.outer] + list(poly.holes)
     ll2 = tuple(
         _close_ring(_swap_latlng(ll1))
         for ll1 in ll2
