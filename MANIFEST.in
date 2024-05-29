@@ -1,6 +1,9 @@
 # MANIFEST.in commands specified here:
 # https://packaging.python.org/en/latest/guides/using-manifest-in/#manifest-in-commands
 
+prune docs/
+prune .github/
+
 include CHANGELOG.md
 include CMakeLists.txt
 include LICENSE
@@ -22,3 +25,4 @@ include src/h3lib/CMakeLists.txt
 graft src/h3lib/cmake
 graft src/h3lib/src/h3lib
 exclude MANIFEST.in
+exclude .*
