@@ -3,4 +3,5 @@ requires = [
     'scikit-build',
     'cython',
     'cmake',
+    'setuptools-scm',
 ]
