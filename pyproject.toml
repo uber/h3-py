@@ -9,9 +9,10 @@ build-backend = 'scikit_build_core.build'
 
 [project]
 name = 'h3'
+version = '4.0.0b6'
 description = 'Hierarchical hexagonal geospatial indexing system'
 readme = 'readme.md'
-license = 'Apache 2.0 License'
+license = {file = 'LICENSE'}
 authors = [
   { name = 'Uber Technologies', email = 'ajfriend@gmail.com' },
 ]

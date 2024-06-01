@@ -1,10 +1,15 @@
-cmake_minimum_required(VERSION 3.7.2)
+cmake_minimum_required(VERSION 3.15...3.26)
 
-project(h3)
+project(${SKBUILD_PROJECT_NAME} LANGUAGES C)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Always make a release build
 set(CMAKE_BUILD_TYPE Release)
+
+find_package(
+  Python
+  COMPONENTS Interpreter Development.Module
+  REQUIRED)
 
 # Avoid building tooling we won't need for release
 # See all options with `cmake -LA` in an `h3/build` directory,
