@@ -1,6 +1,59 @@
 [build-system]
 requires = [
-    'scikit-build',
+    'scikit-build-core',
     'cython',
     'cmake',
+]
+build-backend = 'scikit_build_core.build'
+
+
+[project]
+name = 'h3'
+description = 'Hierarchical hexagonal geospatial indexing system'
+readme = 'readme.md'
+license = 'Apache 2.0 License'
+authors = [
+  { name = 'Uber Technologies', email = 'ajfriend@gmail.com' },
+]
+maintainers = [
+  { name = 'AJ Friend', email = "ajfriend@gmail.com" },
+]
+requires-python = '>=3.8'
+
+dependencies = []
+
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Science/Research',
+    'License :: OSI Approved :: Apache Software License',
+    'Programming Language :: C',
+    'Programming Language :: Cython',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Operating System :: MacOS :: MacOS X',
+    'Operating System :: POSIX :: Linux',
+    'Operating System :: Microsoft :: Windows',
+    'Topic :: Scientific/Engineering :: GIS',
+]
+
+[project.urls]
+Homepage = "https://github.com/organization/package"
+Documentation = "https://package.readthedocs.io/"
+"Bug Tracker" = "https://github.com/organization/package/issues"
+Discussions = "https://github.com/organization/package/discussions"
+Changelog = "https://package.readthedocs.io/en/latest/changelog.html"
+
+
+[project.optional-dependencies]
+numpy = ['numpy']
+test = ['pytest', 'pytest-cov', 'flake8', 'pylint']
+all = ['numpy', 'pytest', 'pytest-cov', 'flake8', 'pylint']
+docs = [
+    'jupyter-book',
+    'flake8',
+    'sphinx>=7.3.3', # https://github.com/sphinx-doc/sphinx/issues/12290
 ]
