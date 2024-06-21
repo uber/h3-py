@@ -1,20 +1,28 @@
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
-find_package(Cython MODULE REQUIRED)
+# find_package(Cython MODULE REQUIRED)
 # find_package(PythonExtensions MODULE REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 # Build Cython annotations
-set(CYTHON_ANNOTATE TRUE)
+# set(CYTHON_ANNOTATE TRUE)
 
 macro(add_cython_file filename)
-    add_cython_target(${filename} C PY3 OUTPUT_VAR filename_out)
-    add_library(${filename} MODULE ${filename_out})
-    # python_extension_module(${filename})
+    add_custom_command(
+      OUTPUT "${filename}.c"
+      COMMENT
+        "Making ${CMAKE_CURRENT_BINARY_DIR}/${filename}.c from ${CMAKE_CURRENT_SOURCE_DIR}/${filename}.pyx"
+      COMMAND Python::Interpreter -m cython
+              "${CMAKE_CURRENT_SOURCE_DIR}/${filename}.pyx" --output-file "${filename}.c" -I ${CMAKE_CURRENT_SOURCE_DIR}
+      DEPENDS "${filename}.pyx"
+      VERBATIM)
+
+    python_add_library(${filename} MODULE "${filename}.c" WITH_SOABI)
+
     set_property(TARGET ${filename} PROPERTY C_STANDARD 99)
-    target_link_libraries(${filename} h3)
-    install(TARGETS ${filename} LIBRARY DESTINATION src/h3/_cy)
+    target_link_libraries(${filename} PRIVATE h3)
+    install(TARGETS ${filename} LIBRARY DESTINATION ${SKBUILD_PROJECT_NAME}/_cy)
 endmacro()
 
 # GLOB pattern is recommended against
@@ -44,5 +52,5 @@ install(
         memory.pxd
         memory.pyx
     DESTINATION
-        src/h3/_cy
+        ${SKBUILD_PROJECT_NAME}/_cy
 )

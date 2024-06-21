@@ -15,7 +15,6 @@ init: purge
 	$(PYTHON) -m venv env
 	./env/bin/pip install --upgrade pip wheel setuptools
 	./env/bin/pip install .[all]
-	./env/bin/pip install -r requirements.in
 
 clear:
 	-./env/bin/pip uninstall -y h3
