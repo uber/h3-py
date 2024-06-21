@@ -1,12 +1,6 @@
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
-# find_package(Cython MODULE REQUIRED)
-# find_package(PythonExtensions MODULE REQUIRED)
-
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-
-# Build Cython annotations
-# set(CYTHON_ANNOTATE TRUE)
 
 macro(add_cython_file filename)
     add_custom_command(
