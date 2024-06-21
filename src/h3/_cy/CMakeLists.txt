@@ -1,5 +1,7 @@
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+
 find_package(Cython MODULE REQUIRED)
-find_package(PythonExtensions MODULE REQUIRED)
+# find_package(PythonExtensions MODULE REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -7,9 +9,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 set(CYTHON_ANNOTATE TRUE)
 
 macro(add_cython_file filename)
-    add_cython_target(${filename} C PY3)
-    add_library(${filename} MODULE ${filename} ${LIB_SOURCE_FILES} ${CONFIGURED_API_HEADER})
-    python_extension_module(${filename})
+    add_cython_target(${filename} C PY3 OUTPUT_VAR filename_out)
+    add_library(${filename} MODULE ${filename_out})
+    # python_extension_module(${filename})
     set_property(TARGET ${filename} PROPERTY C_STANDARD 99)
     target_link_libraries(${filename} h3)
     install(TARGETS ${filename} LIBRARY DESTINATION src/h3/_cy)
