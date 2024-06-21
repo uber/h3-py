@@ -26,7 +26,7 @@ jobs:
           pip install .[all]
 
       - name: Lint
-        run: flake8 src/h3 setup.py tests
+        run: flake8 src/h3 tests
 
       - name: Pylint
         # As a test for visibility of API bindings, we want to ensure that pylint has no
