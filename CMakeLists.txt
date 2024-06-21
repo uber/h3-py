@@ -42,4 +42,4 @@ install(
     FILES
         "${CMAKE_CURRENT_BINARY_DIR}/src/h3lib/src/h3lib/include/h3api.h"
     DESTINATION
-        src/h3/_cy)
+        ${SKBUILD_PROJECT_NAME}/_cy)

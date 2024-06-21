@@ -50,9 +50,9 @@ Changelog = "https://package.readthedocs.io/en/latest/changelog.html"
 
 
 [project.optional-dependencies]
-numpy = ['numpy']
+numpy = ['numpy<2']
 test = ['pytest', 'pytest-cov', 'flake8', 'pylint']
-all = ['numpy', 'pytest', 'pytest-cov', 'flake8', 'pylint']
+all = ['numpy<2', 'pytest', 'pytest-cov', 'flake8', 'pylint']
 docs = [
     'jupyter-book',
     'flake8',

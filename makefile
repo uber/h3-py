@@ -39,11 +39,12 @@ annotations: rebuild
 	cp _skbuild/*/cmake-build/src/h3/_cy/*.html ./annotations
 
 test:
-	./env/bin/cythonize -i tests/test_cython/cython_example.pyx
+	./env/bin/pip install cython
+	./env/bin/cythonize tests/test_cython/cython_example.pyx
 	./env/bin/pytest tests --cov=h3 --cov-report term-missing --durations=10
 
 lint:
-	./env/bin/flake8 src/h3 setup.py tests
+	./env/bin/flake8 src/h3 tests
 	./env/bin/pylint --disable=all --enable=import-error tests/
 
 lab:
