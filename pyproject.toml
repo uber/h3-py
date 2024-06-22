@@ -17,7 +17,7 @@ authors = [
   { name = 'Uber Technologies', email = 'ajfriend@gmail.com' },
 ]
 maintainers = [
-  { name = 'AJ Friend', email = "ajfriend@gmail.com" },
+  { name = 'AJ Friend', email = 'ajfriend@gmail.com' },
 ]
 requires-python = '>=3.8'
 
@@ -42,11 +42,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/organization/package"
-Documentation = "https://package.readthedocs.io/"
-"Bug Tracker" = "https://github.com/organization/package/issues"
-Discussions = "https://github.com/organization/package/discussions"
-Changelog = "https://package.readthedocs.io/en/latest/changelog.html"
+Homepage = 'https://github.com/organization/package'
+Documentation = 'https://package.readthedocs.io/'
+'Bug Tracker' = 'https://github.com/organization/package/issues'
+Discussions = 'https://github.com/organization/package/discussions'
+Changelog = 'https://package.readthedocs.io/en/latest/changelog.html'
 
 
 [project.optional-dependencies]
@@ -67,3 +67,9 @@ all = [
     'sphinx>=7.3.3',
 ]
 
+[tool.coverage.run]
+omit = [
+    '*/h3/api/basic_int/__init__.py',
+    '*/h3/api/memview_int/__init__.py',
+    '*/h3/api/numpy_int/__init__.py'
+]
