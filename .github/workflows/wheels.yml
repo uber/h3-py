@@ -46,7 +46,7 @@ jobs:
           pip install h3.tar.gz[test]
 
       - name: Test sdist
-        run: pytest --cov=h3 --full-trace
+        run: pytest
 
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v4.3.1

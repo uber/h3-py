@@ -65,6 +65,9 @@ all = [
     'pylint',
 ]
 
+[tool.pytest.ini_options]
+addopts = "--cov=h3 --cov=tests --cov-report=term-missing --durations=10"
+
 [tool.coverage.run]
 omit = [
     '*/h3/api/basic_int/__init__.py',
