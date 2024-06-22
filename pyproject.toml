@@ -71,3 +71,20 @@ omit = [
     '*/h3/api/memview_int/__init__.py',
     '*/h3/api/numpy_int/__init__.py'
 ]
+
+
+[tool.scikit-build]
+sdist.exclude = [
+    'src/h3lib',
+    'docs',
+    'dev_notes.md',
+    'makefile',
+]
+sdist.include = [
+    'src/h3lib/LICENSE',
+    'src/h3lib/README.md',
+    'src/h3lib/VERSION',
+    'src/h3lib/CMakeLists.txt',
+    'src/h3lib/cmake/*',
+    'src/h3lib/src/h3lib/*'
+]
