@@ -39,8 +39,10 @@ def test_LatLngPoly_len():
 
 def test_bad_subclass():
     class H3Shoop(h3.H3Shape):
-        def __geo_interface__():
-            pass
+        def __geo_interface__(self):
+            return 'foo'
 
+    shoop = H3Shoop()
+    shoop.__geo_interface__()
     with pytest.raises(ValueError):
-        h3.h3shape_to_cells(H3Shoop(), res=9)
+        h3.h3shape_to_cells(shoop, res=9)

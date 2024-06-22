@@ -135,12 +135,10 @@ def test_invalid_polygon():
     some `cdef` functions.
     """
     with pytest.raises(TypeError):
-        poly = h3.LatLngPoly([1, 2, 3])
-        h3.h3shape_to_cells(poly, 4)
+        h3.LatLngPoly([1, 2, 3])
 
     with pytest.raises(ValueError):
-        poly = h3.LatLngPoly([[1, 2, 3]])
-        h3.h3shape_to_cells(poly, 4)
+        h3.LatLngPoly([[1, 2, 3]])
 
 
 def test_bad_geo_input():
