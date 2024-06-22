@@ -4,7 +4,7 @@ PYTHON=$(shell command -v python || command -v python3)
 
 
 build-docs:
-	./env/bin/pip install -r requirements-dev.txt
+	./env/bin/pip install .[all]
 	./env/bin/jupyter-book build docs/ --warningiserror --keep-going --all
 
 open:
@@ -14,12 +14,12 @@ init: purge
 	git submodule update --init
 	$(PYTHON) -m venv env
 	./env/bin/pip install --upgrade pip wheel setuptools
-	./env/bin/pip install .[all]
+	./env/bin/pip install .[test]
 
 clear:
 	-./env/bin/pip uninstall -y h3
 	-@rm -rf MANIFEST
-	-@rm -rf .pytest_cache _skbuild dist .coverage build docs/_build
+	-@rm -rf .pytest_cache _skbuild dist .coverage build docs/_build .ruff_cache
 	-@find . -type d -name '__pycache__' | xargs rm -r
 	-@find . -type d -name '*.egg-info' | xargs rm -r
 	-@find . -type f -name '*.pyc' | xargs rm -r
@@ -29,7 +29,7 @@ clear:
 	-@find ./tests -type f -name '*.html' | xargs rm -r
 
 rebuild: clear
-	./env/bin/pip install .[all]
+	./env/bin/pip install .[test]
 
 purge: clear
 	-@rm -rf env
@@ -44,5 +44,5 @@ lint:
 	./env/bin/pylint --disable=all --enable=import-error tests/
 
 lab:
-	./env/bin/pip install -r requirements-dev.txt
+	./env/bin/pip install .[all]
 	./env/bin/jupyter lab
