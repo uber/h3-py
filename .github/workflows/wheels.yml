@@ -77,12 +77,6 @@ jobs:
             name: Linux Intel glibc 64-bit
 
           - os: ubuntu-22.04
-            build: 'cp36-musllinux_x86_64'
-            name: Linux Intel musl 64-bit 3.6
-          - os: ubuntu-22.04
-            build: 'cp37-musllinux_x86_64'
-            name: Linux Intel musl 64-bit 3.7
-          - os: ubuntu-22.04
             build: 'cp38-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.8
           - os: ubuntu-22.04
@@ -98,12 +92,6 @@ jobs:
             build: 'cp312-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.12
 
-          - os: ubuntu-22.04
-            build: 'cp36-manylinux_aarch64'
-            name: Linux Aarch64 3.6
-          - os: ubuntu-22.04
-            build: 'cp37-manylinux_aarch64'
-            name: Linux Aarch64 3.7
           - os: ubuntu-22.04
             build: 'cp38-manylinux_aarch64'
             name: Linux Aarch64 3.8
