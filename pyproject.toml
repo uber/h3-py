@@ -52,9 +52,18 @@ Changelog = "https://package.readthedocs.io/en/latest/changelog.html"
 [project.optional-dependencies]
 numpy = ['numpy<2']
 test = ['pytest', 'pytest-cov', 'flake8', 'pylint']
-all = ['numpy<2', 'pytest', 'pytest-cov', 'flake8', 'pylint']
 docs = [
     'jupyter-book',
     'flake8',
     'sphinx>=7.3.3', # https://github.com/sphinx-doc/sphinx/issues/12290
 ]
+all = [
+    'numpy<2',
+    'pytest',
+    'pytest-cov',
+    'flake8',
+    'pylint',
+    'jupyter-book',
+    'sphinx>=7.3.3', # https://github.com/sphinx-doc/sphinx/issues/12290
+]
+
