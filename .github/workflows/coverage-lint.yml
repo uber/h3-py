@@ -23,7 +23,7 @@ jobs:
       - name: Install from source
         run: |
           pip install --upgrade pip setuptools wheel
-          pip install .[all]
+          pip install .[test]
 
       - name: Lint
         run: flake8 src/h3 tests
