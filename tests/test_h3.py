@@ -6,6 +6,10 @@ import h3
 from . import util as u
 
 
+def test_approx_helper():
+    assert not u.approx2('abc', 'abdc')
+
+
 def test_is_valid_cell():
     assert h3.is_valid_cell('85283473fffffff')
     assert h3.is_valid_cell('850dab63fffffff')

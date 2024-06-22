@@ -41,7 +41,6 @@ jobs:
       - name: Install from sdist
         run: |
           pip install --upgrade pip setuptools wheel
-          pip install pytest
           cp dist/h3-*.tar.gz h3.tar.gz
           pip install h3.tar.gz[test]
 
