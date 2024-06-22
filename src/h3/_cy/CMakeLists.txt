@@ -26,6 +26,8 @@ add_cython_file(edges)
 add_cython_file(error_system)
 add_cython_file(latlng)
 add_cython_file(memory)
+add_cython_file(vertex)
+
 add_cython_file(to_multipoly)
 add_cython_file(util)
 
