@@ -64,6 +64,6 @@ all = [
     'flake8',
     'pylint',
     'jupyter-book',
-    'sphinx>=7.3.3', # https://github.com/sphinx-doc/sphinx/issues/12290
+    'sphinx>=7.3.3',
 ]
 
