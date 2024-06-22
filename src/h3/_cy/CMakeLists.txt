@@ -21,14 +21,13 @@ endmacro()
 
 # GLOB pattern is recommended against
 # https://cmake.org/cmake/help/v3.14/command/file.html?highlight=file#filesystem
-add_cython_file(util)
-add_cython_file(latlng)
 add_cython_file(cells)
 add_cython_file(edges)
-add_cython_file(to_multipoly)
 add_cython_file(error_system)
+add_cython_file(latlng)
 add_cython_file(memory)
-
+add_cython_file(to_multipoly)
+add_cython_file(util)
 
 # Include pyx and pxd files in distribution for use by Cython API
 install(
@@ -37,14 +36,14 @@ install(
         cells.pyx
         edges.pxd
         edges.pyx
+        error_system.pyx
+        h3lib.pxd
         latlng.pxd
         latlng.pyx
-        h3lib.pxd
-        util.pxd
-        util.pyx
-        error_system.pyx
         memory.pxd
         memory.pyx
+        util.pxd
+        util.pyx
     DESTINATION
         ${SKBUILD_PROJECT_NAME}/_cy
 )
