@@ -19,7 +19,6 @@ init: purge
 clear:
 	-./env/bin/pip uninstall -y h3
 	-@rm -rf MANIFEST
-	-@rm -rf annotations
 	-@rm -rf .pytest_cache _skbuild dist .coverage build docs/_build
 	-@find . -type d -name '__pycache__' | xargs rm -r
 	-@find . -type d -name '*.egg-info' | xargs rm -r
@@ -27,16 +26,13 @@ clear:
 	-@find . -type f -name '*.so' | xargs rm -r
 	-@find . -type d -name '*.ipynb_checkpoints' | xargs rm -r
 	-@find ./tests -type f -name '*.c' | xargs rm -r
+	-@find ./tests -type f -name '*.html' | xargs rm -r
 
 rebuild: clear
 	./env/bin/pip install .[all]
 
 purge: clear
 	-@rm -rf env
-
-annotations: rebuild
-	mkdir -p annotations
-	cp _skbuild/*/cmake-build/src/h3/_cy/*.html ./annotations
 
 test:
 	./env/bin/pip install cython
