@@ -14,9 +14,7 @@ Because H3-Py is versioned in lockstep with the H3 core library, please
 avoid adding features or APIs which do not map onto the
 [H3 core API](https://uber.github.io/h3/#/documentation/api-reference/).
 
-## Unreleased
-
-## [4.0.0b6] - 2024-08-23
+## Unreleased - 2024-08-23
 
 - Added bindings for `cellToVertex`, `cellToVertexes`, `vertexToLatLng`, and `isValidVertex` (#323)
 
