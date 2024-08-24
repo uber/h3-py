@@ -997,6 +997,7 @@ def great_circle_distance(latlng1, latlng2, unit='km'):
         unit = unit
     )
 
+
 def cell_to_vertex(h, vertex_num):
     """
     Return a (specified) vertex of an H3 cell.
@@ -1013,9 +1014,11 @@ def cell_to_vertex(h, vertex_num):
     """
     return _cy.cell_to_vertex(_in_scalar(h), vertex_num)
 
+
 def cell_to_vertexes(h):
     """
-    Return a list of vertices of an H3 cell. The list will always be of length 6. If a pentagon is entered, the last element will be 0.
+    Return a list of vertices of an H3 cell. The list will always be of length 6.
+    If a pentagon is entered, the last element will be 0.
 
     Parameters
     ----------
@@ -1029,6 +1032,7 @@ def cell_to_vertexes(h):
     arr = [str_to_int(a) for a in _out_collection(mv)]
     return arr if len(arr) == 6 else arr + [0]
 
+
 def vertex_to_latlng(v):
     """
     Return latitude and longitude of a vertex.
@@ -1040,8 +1044,10 @@ def vertex_to_latlng(v):
     lng : float
         Longitude
     """
-    if isinstance(v, str): v = str_to_int(v)
+    if isinstance(v, str):
+        v = str_to_int(v)
     return _cy.vertex_to_latlng(v)
+
 
 def is_valid_vertex(v):
     """
@@ -1051,8 +1057,9 @@ def is_valid_vertex(v):
     -------
     bool
     """
-    if isinstance(v, str): v = str_to_int(v)
     try:
+        if isinstance(v, str):
+            v = str_to_int(v)
         return _cy.is_valid_vertex(v)
     except (ValueError, TypeError):
         return False
