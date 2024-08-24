@@ -1012,13 +1012,14 @@ def cell_to_vertex(h, vertex_num):
     -------
     The vertex
     """
-    return _cy.cell_to_vertex(_in_scalar(h), vertex_num)
+    h = _in_scalar(h)
+    return _cy.cell_to_vertex(h, vertex_num)
 
 
 def cell_to_vertexes(h):
     """
-    Return a list of vertices of an H3 cell. The list will always be of length 6.
-    If a pentagon is entered, the last element will be 0.
+    Return a list of vertexes of an H3 cell. 
+    The list will be of length 5 for pentagons and 6 for hexagons.
 
     Parameters
     ----------
@@ -1026,11 +1027,12 @@ def cell_to_vertexes(h):
 
     Returns
     -------
-    A list of vertices
+    A list of vertexes
     """
-    mv = _cy.cell_to_vertexes(_in_scalar(h))
+    h = _in_scalar(h)
+    mv = _cy.cell_to_vertexes(h)
     arr = [str_to_int(a) for a in _out_collection(mv)]
-    return arr if len(arr) == 6 else arr + [0]
+    return arr
 
 
 def vertex_to_latlng(v):
@@ -1044,8 +1046,7 @@ def vertex_to_latlng(v):
     lng : float
         Longitude
     """
-    if isinstance(v, str):
-        v = str_to_int(v)
+    v = _in_scalar(v)
     return _cy.vertex_to_latlng(v)
 
 
@@ -1058,8 +1059,7 @@ def is_valid_vertex(v):
     bool
     """
     try:
-        if isinstance(v, str):
-            v = str_to_int(v)
+        v = _in_scalar(v)
         return _cy.is_valid_vertex(v)
     except (ValueError, TypeError):
         return False
