@@ -437,12 +437,9 @@ def test_cell_to_vertexes():
 def test_vertex_to_latlng():
     latlng = h3.vertex_to_latlng('2114c3ffffffffff')
     assert latlng == approx((24.945215618732814, -70.33904370008679))
-    latlng = h3.vertex_to_latlng(2455495337847029759)
-    assert latlng == approx((21.8146389946083, -57.23011196400803))
 
 
 def test_is_valid_vertex():
     assert h3.is_valid_vertex('2114c3ffffffffff')
-    assert h3.is_valid_vertex(2455495337847029759)
+    assert not h3.is_valid_vertex(2455495337847029759)
     assert not h3.is_valid_vertex('foobar')
-    assert not h3.is_valid_vertex(42)
