@@ -16,7 +16,9 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-- None
+## [4.0.0b6] - 2024-08-23
+
+- Added bindings for `cellToVertex`, `cellToVertexes`, `vertexToLatLng`, and `isValidVertex` (#323)
 
 ## [4.0.0b5] - 2024-05-19
 
