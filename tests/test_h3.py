@@ -387,3 +387,62 @@ def test_grid_path_cells():
 
     with pytest.raises(h3.H3ResMismatchError):
         h3.grid_path_cells(h1, '8001fffffffffff')
+
+
+def test_cell_to_vertex():
+    # pentagon
+    assert h3.cell_to_vertex('814c3ffffffffff', 0) == 2311688013026951167
+    assert h3.cell_to_vertex('814c3ffffffffff', 1) == 2383745607064879103
+    assert h3.cell_to_vertex('814c3ffffffffff', 2) == 2455803201102807039
+    assert h3.cell_to_vertex('814c3ffffffffff', 3) == 2527860795140734975
+    assert h3.cell_to_vertex('814c3ffffffffff', 4) == 2599918389178662911
+    try:
+        h3.cell_to_vertex('814c3ffffffffff', 5)
+    except h3._cy.error_system.H3DomainError:
+        pass
+    else: 
+        assert False
+
+    # hexagon
+    assert h3.cell_to_vertex('814d7ffffffffff', 0) == 2311710003259506687
+    assert h3.cell_to_vertex('814d7ffffffffff', 1) == 2455495337847029759
+    assert h3.cell_to_vertex('814d7ffffffffff', 2) == 2383437743809101823
+    assert h3.cell_to_vertex('814d7ffffffffff', 3) == 2599918389178662911
+    assert h3.cell_to_vertex('814d7ffffffffff', 4) == 2527860795140734975
+    assert h3.cell_to_vertex('814d7ffffffffff', 5) == 2599931583318196223
+
+
+def test_cell_to_vertexes():
+    # pentagon
+    assert h3.cell_to_vertexes('814c3ffffffffff') == [
+        2311688013026951167,
+        2383745607064879103,
+        2455803201102807039,
+        2527860795140734975,
+        2599918389178662911,
+        0
+    ]
+
+    # hexagon
+    assert h3.cell_to_vertexes('814d7ffffffffff') == [
+        2311710003259506687,
+        2455495337847029759,
+        2383437743809101823,
+        2599918389178662911,
+        2527860795140734975,
+        2599931583318196223,
+    ]
+
+
+def test_vertex_to_latlng():
+    latlng = h3.vertex_to_latlng('2114c3ffffffffff')
+    assert latlng == approx((24.945215618732814, -70.33904370008679))
+    latlng = h3.vertex_to_latlng(2455495337847029759)
+    assert latlng == approx((21.8146389946083, -57.23011196400803))
+
+
+def test_is_valid_vertex():
+    assert h3.is_valid_vertex('2114c3ffffffffff')
+    assert h3.is_valid_vertex(2455495337847029759)
+    assert not h3.is_valid_vertex('foobar')
+    assert not h3.is_valid_vertex(42)
