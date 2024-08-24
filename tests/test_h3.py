@@ -400,7 +400,7 @@ def test_cell_to_vertex():
         h3.cell_to_vertex('814c3ffffffffff', 5)
     except h3._cy.error_system.H3DomainError:
         pass
-    else: 
+    else:
         assert False
 
     # hexagon
