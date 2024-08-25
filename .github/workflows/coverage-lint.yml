@@ -44,7 +44,7 @@ jobs:
         with:
           file: ./coverage.xml
           fail_ci_if_error: true
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_2024_08_25 }}
 
       - name: Copy Cython annotations to project dir
         run: |
