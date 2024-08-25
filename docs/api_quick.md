@@ -24,6 +24,7 @@ and should be generally aligned with the
    is_pentagon
    is_res_class_III
    is_valid_directed_edge
+   is_valid_vertex
 ```
 
 ## Index representation
@@ -106,6 +107,17 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    directed_edge_to_cells
    origin_to_directed_edges
    get_directed_edge_origin
+```
+
+## Vertexes
+
+```{eval-rst}
+.. currentmodule:: h3
+
+.. autosummary::
+   cell_to_vertex
+   cell_to_vertexes
+   vertex_to_latlng
 ```
 
 ## Polygon interface
