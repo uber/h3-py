@@ -63,12 +63,12 @@ conda install h3-py
 ## APIs
 
 [api_comparison]: https://uber.github.io/h3-py/api_comparison
-[api_reference]: https://uber.github.io/h3-py/api_reference
+[api_quick]: https://uber.github.io/h3-py/api_quick
 
 We provide [multiple APIs][api_comparison] in `h3-py`.
 
 - All APIs have the same set of functions;
-  see the [API reference][api_reference].
+  see the [API reference][api_quick].
 - The APIs differ only in their input/output formats;
   see the [API comparison page][api_comparison].
 
