@@ -1032,8 +1032,7 @@ def cell_to_vertexes(h):
     """
     h = _in_scalar(h)
     mv = _cy.cell_to_vertexes(h)
-    arr = [str_to_int(a) for a in _out_collection(mv)]
-    return _out_collection(arr)
+    return _out_collection(mv)
 
 
 def vertex_to_latlng(v):
