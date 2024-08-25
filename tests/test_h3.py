@@ -391,11 +391,11 @@ def test_grid_path_cells():
 
 def test_cell_to_vertex():
     # pentagon
-    assert h3.cell_to_vertex('814c3ffffffffff', 0) == 2311688013026951167
-    assert h3.cell_to_vertex('814c3ffffffffff', 1) == 2383745607064879103
-    assert h3.cell_to_vertex('814c3ffffffffff', 2) == 2455803201102807039
-    assert h3.cell_to_vertex('814c3ffffffffff', 3) == 2527860795140734975
-    assert h3.cell_to_vertex('814c3ffffffffff', 4) == 2599918389178662911
+    assert h3.cell_to_vertex('814c3ffffffffff', 0) == '2014c3ffffffffff'
+    assert h3.cell_to_vertex('814c3ffffffffff', 1) == '2114c3ffffffffff'
+    assert h3.cell_to_vertex('814c3ffffffffff', 2) == '2214c3ffffffffff'
+    assert h3.cell_to_vertex('814c3ffffffffff', 3) == '2314c3ffffffffff'
+    assert h3.cell_to_vertex('814c3ffffffffff', 4) == '2414c3ffffffffff'
     try:
         h3.cell_to_vertex('814c3ffffffffff', 5)
     except h3._cy.error_system.H3DomainError:
@@ -404,32 +404,32 @@ def test_cell_to_vertex():
         assert False
 
     # hexagon
-    assert h3.cell_to_vertex('814d7ffffffffff', 0) == 2311710003259506687
-    assert h3.cell_to_vertex('814d7ffffffffff', 1) == 2455495337847029759
-    assert h3.cell_to_vertex('814d7ffffffffff', 2) == 2383437743809101823
-    assert h3.cell_to_vertex('814d7ffffffffff', 3) == 2599918389178662911
-    assert h3.cell_to_vertex('814d7ffffffffff', 4) == 2527860795140734975
-    assert h3.cell_to_vertex('814d7ffffffffff', 5) == 2599931583318196223
+    assert h3.cell_to_vertex('814d7ffffffffff', 0) == '2014d7ffffffffff'
+    assert h3.cell_to_vertex('814d7ffffffffff', 1) == '2213abffffffffff'
+    assert h3.cell_to_vertex('814d7ffffffffff', 2) == '2113abffffffffff'
+    assert h3.cell_to_vertex('814d7ffffffffff', 3) == '2414c3ffffffffff'
+    assert h3.cell_to_vertex('814d7ffffffffff', 4) == '2314c3ffffffffff'
+    assert h3.cell_to_vertex('814d7ffffffffff', 5) == '2414cfffffffffff'
 
 
 def test_cell_to_vertexes():
     # pentagon
     assert h3.cell_to_vertexes('814c3ffffffffff') == [
-        2311688013026951167,
-        2383745607064879103,
-        2455803201102807039,
-        2527860795140734975,
-        2599918389178662911,
+        '2014c3ffffffffff',
+        '2114c3ffffffffff',
+        '2214c3ffffffffff',
+        '2314c3ffffffffff',
+        '2414c3ffffffffff',
     ]
 
     # hexagon
     assert h3.cell_to_vertexes('814d7ffffffffff') == [
-        2311710003259506687,
-        2455495337847029759,
-        2383437743809101823,
-        2599918389178662911,
-        2527860795140734975,
-        2599931583318196223,
+        '2014d7ffffffffff',
+        '2213abffffffffff',
+        '2113abffffffffff',
+        '2414c3ffffffffff',
+        '2314c3ffffffffff',
+        '2414cfffffffffff',
     ]
 
 
