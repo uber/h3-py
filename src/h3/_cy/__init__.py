@@ -58,6 +58,9 @@ from .latlng import (
     cell_to_boundary,
     directed_edge_to_boundary,
     great_circle_distance,
+)
+
+from .vertex import (
     cell_to_vertex,
     cell_to_vertexes,
     vertex_to_latlng,
