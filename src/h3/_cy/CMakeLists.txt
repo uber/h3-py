@@ -24,6 +24,7 @@ add_cython_file(edges)
 add_cython_file(to_multipoly)
 add_cython_file(error_system)
 add_cython_file(memory)
+add_cython_file(vertex)
 
 
 # Include pyx and pxd files in distribution for use by Cython API
@@ -41,6 +42,8 @@ install(
         error_system.pyx
         memory.pxd
         memory.pyx
+        vertex.pxd
+        vertex.pyx
     DESTINATION
         src/h3/_cy
 )
