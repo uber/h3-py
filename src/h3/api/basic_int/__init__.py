@@ -1013,12 +1013,13 @@ def cell_to_vertex(h, vertex_num):
     The vertex
     """
     h = _in_scalar(h)
-    return _cy.cell_to_vertex(h, vertex_num)
+    h = _cy.cell_to_vertex(h, vertex_num)
+    return _out_scalar(h)
 
 
 def cell_to_vertexes(h):
     """
-    Return a list of vertexes of an H3 cell. 
+    Return a list of vertexes of an H3 cell.
     The list will be of length 5 for pentagons and 6 for hexagons.
 
     Parameters
@@ -1032,7 +1033,7 @@ def cell_to_vertexes(h):
     h = _in_scalar(h)
     mv = _cy.cell_to_vertexes(h)
     arr = [str_to_int(a) for a in _out_collection(mv)]
-    return arr
+    return _out_collection(arr)
 
 
 def vertex_to_latlng(v):
