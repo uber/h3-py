@@ -1434,6 +1434,85 @@ document.write(`
         <span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span>
     <span class="p">)</span></div>
 
+
+
+<div class="viewcode-block" id="cell_to_vertex">
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cell_to_vertex">[docs]</a>
+<span class="k">def</span> <span class="nf">cell_to_vertex</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">vertex_num</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a (specified) vertex of an H3 cell.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+<span class="sd">    vertex_num : int</span>
+<span class="sd">        Vertex number (0-5)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    The vertex</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cell_to_vertex</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">vertex_num</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_out_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="cell_to_vertexes">
+<a class="viewcode-back" href="../../../api_verbose.html#h3.cell_to_vertexes">[docs]</a>
+<span class="k">def</span> <span class="nf">cell_to_vertexes</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a list of vertexes of an H3 cell.</span>
+<span class="sd">    The list will be of length 5 for pentagons and 6 for hexagons.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h : H3Cell</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A list of vertexes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">mv</span> <span class="o">=</span> <span class="n">_cy</span><span class="o">.</span><span class="n">cell_to_vertexes</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_out_collection</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="vertex_to_latlng">
+<a class="viewcode-back" href="../../../api_verbose.html#h3.vertex_to_latlng">[docs]</a>
+<span class="k">def</span> <span class="nf">vertex_to_latlng</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return latitude and longitude of a vertex.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    lat : float</span>
+<span class="sd">        Latitude</span>
+<span class="sd">    lng : float</span>
+<span class="sd">        Longitude</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">vertex_to_latlng</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="is_valid_vertex">
+<a class="viewcode-back" href="../../../api_verbose.html#h3.is_valid_vertex">[docs]</a>
+<span class="k">def</span> <span class="nf">is_valid_vertex</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validates an H3 vertex.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">is_valid_vertex</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
 </pre></div>
 
                 </article>

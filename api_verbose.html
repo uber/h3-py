@@ -426,6 +426,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_latlng"><code class="docutils literal notranslate"><span class="pre">cell_to_latlng()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_local_ij"><code class="docutils literal notranslate"><span class="pre">cell_to_local_ij()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_parent"><code class="docutils literal notranslate"><span class="pre">cell_to_parent()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_vertex"><code class="docutils literal notranslate"><span class="pre">cell_to_vertex()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_vertexes"><code class="docutils literal notranslate"><span class="pre">cell_to_vertexes()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_directed_edge"><code class="docutils literal notranslate"><span class="pre">cells_to_directed_edge()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_geo"><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_h3shape"><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape()</span></code></a></li>
@@ -455,12 +457,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_res_class_III"><code class="docutils literal notranslate"><span class="pre">is_res_class_III()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_cell"><code class="docutils literal notranslate"><span class="pre">is_valid_cell()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_directed_edge"><code class="docutils literal notranslate"><span class="pre">is_valid_directed_edge()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_vertex"><code class="docutils literal notranslate"><span class="pre">is_valid_vertex()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.latlng_to_cell"><code class="docutils literal notranslate"><span class="pre">latlng_to_cell()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.local_ij_to_cell"><code class="docutils literal notranslate"><span class="pre">local_ij_to_cell()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.origin_to_directed_edges"><code class="docutils literal notranslate"><span class="pre">origin_to_directed_edges()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.str_to_int"><code class="docutils literal notranslate"><span class="pre">str_to_int()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.uncompact_cells"><code class="docutils literal notranslate"><span class="pre">uncompact_cells()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.versions"><code class="docutils literal notranslate"><span class="pre">versions()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.vertex_to_latlng"><code class="docutils literal notranslate"><span class="pre">vertex_to_latlng()</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -860,6 +864,38 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>H3Cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="h3.cell_to_vertex">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertex_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_vertex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_vertex" title="Link to this definition">#</a></dt>
+<dd><p>Return a (specified) vertex of an H3 cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>)</p></li>
+<li><p><strong>vertex_num</strong> (<em>int</em>) – Vertex number (0-5)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>The vertex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="h3.cell_to_vertexes">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_vertexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_vertexes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_vertexes" title="Link to this definition">#</a></dt>
+<dd><p>Return a list of vertexes of an H3 cell.
+The list will be of length 5 for pentagons and 6 for hexagons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>h</strong> (<em>H3Cell</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of vertexes</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1390,6 +1426,17 @@ alternates between resolutions.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="h3.is_valid_vertex">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">is_valid_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#is_valid_vertex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.is_valid_vertex" title="Link to this definition">#</a></dt>
+<dd><p>Validates an H3 vertex.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="h3.latlng_to_cell">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">latlng_to_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#latlng_to_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.latlng_to_cell" title="Link to this definition">#</a></dt>
 <dd><p>Return the cell containing the (lat, lng) point
@@ -1488,6 +1535,21 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict like <code class="docutils literal notranslate"><span class="pre">{'c':</span> <span class="pre">'X.Y.Z',</span> <span class="pre">'python':</span> <span class="pre">'A.B.C'}</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="h3.vertex_to_latlng">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">vertex_to_latlng</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#vertex_to_latlng"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.vertex_to_latlng" title="Link to this definition">#</a></dt>
+<dd><p>Return latitude and longitude of a vertex.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>lat</strong> (<em>float</em>) – Latitude</p></li>
+<li><p><strong>lng</strong> (<em>float</em>) – Longitude</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1599,6 +1661,8 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_latlng"><code class="docutils literal notranslate"><span class="pre">cell_to_latlng()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_local_ij"><code class="docutils literal notranslate"><span class="pre">cell_to_local_ij()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_parent"><code class="docutils literal notranslate"><span class="pre">cell_to_parent()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_vertex"><code class="docutils literal notranslate"><span class="pre">cell_to_vertex()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_vertexes"><code class="docutils literal notranslate"><span class="pre">cell_to_vertexes()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_directed_edge"><code class="docutils literal notranslate"><span class="pre">cells_to_directed_edge()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_geo"><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_h3shape"><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape()</span></code></a></li>
@@ -1628,12 +1692,14 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_res_class_III"><code class="docutils literal notranslate"><span class="pre">is_res_class_III()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_cell"><code class="docutils literal notranslate"><span class="pre">is_valid_cell()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_directed_edge"><code class="docutils literal notranslate"><span class="pre">is_valid_directed_edge()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.is_valid_vertex"><code class="docutils literal notranslate"><span class="pre">is_valid_vertex()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.latlng_to_cell"><code class="docutils literal notranslate"><span class="pre">latlng_to_cell()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.local_ij_to_cell"><code class="docutils literal notranslate"><span class="pre">local_ij_to_cell()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.origin_to_directed_edges"><code class="docutils literal notranslate"><span class="pre">origin_to_directed_edges()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.str_to_int"><code class="docutils literal notranslate"><span class="pre">str_to_int()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.uncompact_cells"><code class="docutils literal notranslate"><span class="pre">uncompact_cells()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.versions"><code class="docutils literal notranslate"><span class="pre">versions()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.vertex_to_latlng"><code class="docutils literal notranslate"><span class="pre">vertex_to_latlng()</span></code></a></li>
 </ul>
   </nav></div>
 

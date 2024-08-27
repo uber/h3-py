@@ -392,6 +392,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hierarchical-relationships">Hierarchical relationships</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-grid-relationships">Cell grid relationships</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#edges">Edges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vertexes">Vertexes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-interface">Polygon interface</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-objects">Polygon objects</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion-functions">Conversion functions</a></li>
@@ -442,6 +443,9 @@ and should be generally aligned with the
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.is_valid_directed_edge" title="h3.is_valid_directed_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_directed_edge</span></code></a>(edge)</p></td>
 <td><p>Validates an H3 unidirectional edge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.is_valid_vertex" title="h3.is_valid_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_vertex</span></code></a>(v)</p></td>
+<td><p>Validates an H3 vertex.</p></td>
 </tr>
 </tbody>
 </table>
@@ -584,6 +588,23 @@ and should be generally aligned with the
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.get_directed_edge_origin" title="h3.get_directed_edge_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_directed_edge_origin</span></code></a>(e)</p></td>
 <td><p>Origin cell from an H3 directed edge.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="vertexes">
+<h2>Vertexes<a class="headerlink" href="#vertexes" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_vertex" title="h3.cell_to_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_vertex</span></code></a>(h, vertex_num)</p></td>
+<td><p>Return a (specified) vertex of an H3 cell.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_vertexes" title="h3.cell_to_vertexes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_vertexes</span></code></a>(h)</p></td>
+<td><p>Return a list of vertexes of an H3 cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.vertex_to_latlng" title="h3.vertex_to_latlng"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vertex_to_latlng</span></code></a>(v)</p></td>
+<td><p>Return latitude and longitude of a vertex.</p></td>
 </tr>
 </tbody>
 </table>
@@ -747,6 +768,7 @@ Note that this is reversed from <a class="reference external" href="https://gist
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hierarchical-relationships">Hierarchical relationships</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-grid-relationships">Cell grid relationships</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#edges">Edges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vertexes">Vertexes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-interface">Polygon interface</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-objects">Polygon objects</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion-functions">Conversion functions</a></li>
