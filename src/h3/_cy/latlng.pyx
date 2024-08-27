@@ -8,7 +8,7 @@ from .util cimport (
     check_edge,
     check_res,
     deg2coord,
-    coord2deg,
+    coord2deg
 )
 
 from .error_system cimport check_for_error

@@ -69,6 +69,7 @@ cdef extern from 'h3api.h':
     int isPentagon(H3int h) nogil
     int isResClassIII(H3int h) nogil
     int isValidDirectedEdge(H3int edge) nogil
+    int isValidVertex(H3int v) nogil
 
     double degsToRads(double degrees) nogil
     double radsToDegs(double radians) nogil
@@ -79,6 +80,10 @@ cdef extern from 'h3api.h':
     H3Error latLngToCell(const LatLng *g, int res, H3int *out) nogil
     H3Error cellToLatLng(H3int h, LatLng *) nogil
     H3Error gridDistance(H3int h1, H3int h2, int64_t *distance) nogil
+
+    H3Error cellToVertex(H3int cell, int vertexNum, H3int *out) nogil
+    H3Error cellToVertexes(H3int cell, H3int *vertexes) nogil
+    H3Error vertexToLatLng(H3int vertex, LatLng *coord) nogil
 
     H3Error maxGridDiskSize(int k, int64_t *out) nogil # num/out/N?
     H3Error gridDisk(H3int h, int k, H3int *out) nogil

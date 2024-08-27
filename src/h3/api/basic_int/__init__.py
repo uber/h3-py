@@ -996,3 +996,70 @@ def great_circle_distance(latlng1, latlng2, unit='km'):
         lat2, lng2,
         unit = unit
     )
+
+
+def cell_to_vertex(h, vertex_num):
+    """
+    Return a (specified) vertex of an H3 cell.
+
+    Parameters
+    ----------
+    h : H3Cell
+    vertex_num : int
+        Vertex number (0-5)
+
+    Returns
+    -------
+    The vertex
+    """
+    h = _in_scalar(h)
+    h = _cy.cell_to_vertex(h, vertex_num)
+    return _out_scalar(h)
+
+
+def cell_to_vertexes(h):
+    """
+    Return a list of vertexes of an H3 cell.
+    The list will be of length 5 for pentagons and 6 for hexagons.
+
+    Parameters
+    ----------
+    h : H3Cell
+
+    Returns
+    -------
+    A list of vertexes
+    """
+    h = _in_scalar(h)
+    mv = _cy.cell_to_vertexes(h)
+    return _out_collection(mv)
+
+
+def vertex_to_latlng(v):
+    """
+    Return latitude and longitude of a vertex.
+
+    Returns
+    -------
+    lat : float
+        Latitude
+    lng : float
+        Longitude
+    """
+    v = _in_scalar(v)
+    return _cy.vertex_to_latlng(v)
+
+
+def is_valid_vertex(v):
+    """
+    Validates an H3 vertex.
+
+    Returns
+    -------
+    bool
+    """
+    try:
+        v = _in_scalar(v)
+        return _cy.is_valid_vertex(v)
+    except (ValueError, TypeError):
+        return False
