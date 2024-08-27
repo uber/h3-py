@@ -391,3 +391,58 @@ def test_grid_path_cells():
 
     with pytest.raises(h3.H3ResMismatchError):
         h3.grid_path_cells(h1, '8001fffffffffff')
+
+
+def test_cell_to_vertex():
+    # pentagon
+    assert h3.cell_to_vertex('814c3ffffffffff', 0) == '2014c3ffffffffff'
+    assert h3.cell_to_vertex('814c3ffffffffff', 1) == '2114c3ffffffffff'
+    assert h3.cell_to_vertex('814c3ffffffffff', 2) == '2214c3ffffffffff'
+    assert h3.cell_to_vertex('814c3ffffffffff', 3) == '2314c3ffffffffff'
+    assert h3.cell_to_vertex('814c3ffffffffff', 4) == '2414c3ffffffffff'
+    try:
+        h3.cell_to_vertex('814c3ffffffffff', 5)
+    except h3._cy.error_system.H3DomainError:
+        pass
+    else:
+        assert False
+
+    # hexagon
+    assert h3.cell_to_vertex('814d7ffffffffff', 0) == '2014d7ffffffffff'
+    assert h3.cell_to_vertex('814d7ffffffffff', 1) == '2213abffffffffff'
+    assert h3.cell_to_vertex('814d7ffffffffff', 2) == '2113abffffffffff'
+    assert h3.cell_to_vertex('814d7ffffffffff', 3) == '2414c3ffffffffff'
+    assert h3.cell_to_vertex('814d7ffffffffff', 4) == '2314c3ffffffffff'
+    assert h3.cell_to_vertex('814d7ffffffffff', 5) == '2414cfffffffffff'
+
+
+def test_cell_to_vertexes():
+    # pentagon
+    assert h3.cell_to_vertexes('814c3ffffffffff') == [
+        '2014c3ffffffffff',
+        '2114c3ffffffffff',
+        '2214c3ffffffffff',
+        '2314c3ffffffffff',
+        '2414c3ffffffffff',
+    ]
+
+    # hexagon
+    assert h3.cell_to_vertexes('814d7ffffffffff') == [
+        '2014d7ffffffffff',
+        '2213abffffffffff',
+        '2113abffffffffff',
+        '2414c3ffffffffff',
+        '2314c3ffffffffff',
+        '2414cfffffffffff',
+    ]
+
+
+def test_vertex_to_latlng():
+    latlng = h3.vertex_to_latlng('2114c3ffffffffff')
+    assert latlng == approx((24.945215618732814, -70.33904370008679))
+
+
+def test_is_valid_vertex():
+    assert h3.is_valid_vertex('2114c3ffffffffff')
+    assert not h3.is_valid_vertex(2455495337847029759)
+    assert not h3.is_valid_vertex('foobar')

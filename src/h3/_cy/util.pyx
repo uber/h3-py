@@ -1,4 +1,4 @@
-from .h3lib cimport H3int, H3str, isValidCell, isValidDirectedEdge
+from .h3lib cimport H3int, H3str, isValidCell, isValidDirectedEdge, isValidVertex
 
 cimport h3lib
 
@@ -7,6 +7,7 @@ from .error_system import (
     H3DomainError,
     H3DirEdgeInvalidError,
     H3CellInvalidError,
+    H3VertexInvalidError
 )
 
 cdef h3lib.LatLng deg2coord(double lat, double lng) nogil:
@@ -72,6 +73,10 @@ cdef check_cell(H3int h):
 cdef check_edge(H3int e):
     if isValidDirectedEdge(e) == 0:
         raise H3DirEdgeInvalidError('Integer is not a valid H3 edge: {}'.format(hex(e)))
+
+cdef check_vertex(H3int v):
+    if isValidVertex(v) == 0:
+        raise H3VertexInvalidError('Integer is not a valid H3 vertex: {}'.format(hex(v)))
 
 cdef check_res(int res):
     if (res < 0) or (res > 15):

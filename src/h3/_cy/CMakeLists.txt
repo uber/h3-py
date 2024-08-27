@@ -44,6 +44,8 @@ install(
         memory.pyx
         util.pxd
         util.pyx
+        vertex.pxd
+        vertex.pyx
     DESTINATION
         ${SKBUILD_PROJECT_NAME}/_cy
 )
