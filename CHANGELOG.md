@@ -18,6 +18,10 @@ avoid adding features or APIs which do not map onto the
 
 None.
 
+## [4.0.0b7] - 2024-09-04
+
+- Use `pyproject.toml` and `scikit-build-core` (#378)
+
 ## [4.0.0b6] - 2024-09-03
 
 - Added bindings for `cellToVertex`, `cellToVertexes`, `vertexToLatLng`, and `isValidVertex` (#323)
