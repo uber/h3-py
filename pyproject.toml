@@ -1,6 +1,93 @@
 [build-system]
-requires = [
-    'scikit-build',
-    'cython',
-    'cmake',
+requires = ['scikit-build-core', 'cython']
+build-backend = 'scikit_build_core.build'
+
+[project]
+name = 'h3'
+version = '4.0.0b6'
+description = "Uber's hierarchical hexagonal geospatial indexing system"
+readme = 'readme.md'
+license = {file = 'LICENSE'}
+authors = [
+  { name = 'Uber Technologies', email = 'ajfriend@gmail.com' },
+]
+maintainers = [
+  { name = 'AJ Friend', email = 'ajfriend@gmail.com' },
+]
+requires-python = '>=3.8'
+
+dependencies = []
+
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Science/Research',
+    'License :: OSI Approved :: Apache Software License',
+    'Programming Language :: C',
+    'Programming Language :: Cython',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Operating System :: MacOS :: MacOS X',
+    'Operating System :: POSIX :: Linux',
+    'Operating System :: Microsoft :: Windows',
+    'Topic :: Scientific/Engineering :: GIS',
+]
+
+[project.urls]
+Homepage = 'https://github.com/organization/package'
+Documentation = 'https://package.readthedocs.io/'
+'Bug Tracker' = 'https://github.com/organization/package/issues'
+Discussions = 'https://github.com/organization/package/discussions'
+Changelog = 'https://package.readthedocs.io/en/latest/changelog.html'
+
+
+[project.optional-dependencies]
+numpy = ['numpy']
+test = ['pytest', 'pytest-cov', 'flake8', 'pylint', 'numpy']
+all = [
+    'jupyter-book',
+    'flake8',
+    'sphinx>=7.3.3', # https://github.com/sphinx-doc/sphinx/issues/12290
+    'jupyterlab',
+    'jupyterlab-geojson',
+    'geopandas',
+    'geodatasets',
+    'matplotlib',
+    'contextily',
+    'cartopy',
+    'geoviews',
+    'numpy',
+    'pytest',
+    'pytest-cov',
+    'pylint',
+]
+
+[tool.pytest.ini_options]
+addopts = "--cov=h3 --cov=tests --cov-report=term-missing --durations=10"
+
+[tool.coverage.run]
+omit = [
+    '*/h3/api/basic_int/__init__.py',
+    '*/h3/api/memview_int/__init__.py',
+    '*/h3/api/numpy_int/__init__.py'
+]
+
+
+[tool.scikit-build]
+sdist.exclude = [
+    'src/h3lib',
+    'docs',
+    'dev_notes.md',
+    'makefile',
+]
+sdist.include = [
+    'src/h3lib/LICENSE',
+    'src/h3lib/README.md',
+    'src/h3lib/VERSION',
+    'src/h3lib/CMakeLists.txt',
+    'src/h3lib/cmake/*',
+    'src/h3lib/src/h3lib/*'
 ]

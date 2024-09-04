@@ -39,10 +39,10 @@ jobs:
       - name: Install from source
         run: |
           pip install --upgrade pip setuptools wheel
-          pip install .[all]
+          pip install .[test]
 
       - name: Tests
         run: |
-          pip install Cython
-          cythonize -i tests/test_cython/cython_example.pyx
-          pytest tests --cov=h3 --full-trace
+          pip install cython
+          cythonize tests/test_cython/cython_example.pyx
+          pytest

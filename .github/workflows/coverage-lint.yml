@@ -23,10 +23,10 @@ jobs:
       - name: Install from source
         run: |
           pip install --upgrade pip setuptools wheel
-          pip install .[all]
+          pip install .[test]
 
       - name: Lint
-        run: flake8 src/h3 setup.py tests
+        run: flake8 src/h3 tests
 
       - name: Pylint
         # As a test for visibility of API bindings, we want to ensure that pylint has no
@@ -35,9 +35,9 @@ jobs:
 
       - name: Coverage
         run: |
-          pip install Cython
-          cythonize -i tests/test_cython/cython_example.pyx
-          pytest --cov=h3 --full-trace --cov-report=xml
+          pip install cython
+          cythonize tests/test_cython/cython_example.pyx
+          pytest --cov-report=xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4.3.0
@@ -45,14 +45,3 @@ jobs:
           file: ./coverage.xml
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Copy Cython annotations to project dir
-        run: |
-          mkdir annotations
-          cp _skbuild/*/cmake-build/src/h3/_cy/*.html ./annotations
-
-      - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4.3.1
-        with:
-          name: annotations
-          path: ./annotations
