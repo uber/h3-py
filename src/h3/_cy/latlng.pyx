@@ -157,6 +157,10 @@ def polygon_to_cells(outer, int res, holes=None):
         uint64_t n
 
     check_res(res)
+
+    if not outer:
+        return H3MemoryManager(0).to_mv()
+
     gp = GeoPolygon(outer, holes=holes)
 
     check_for_error(
