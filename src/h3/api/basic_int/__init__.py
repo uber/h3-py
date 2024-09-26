@@ -446,6 +446,13 @@ def h3shape_to_cells(h3shape, res):
     return _out_collection(mv)
 
 
+def polygon_to_cells(h3shape, res):
+    """
+    Alias for ``h3shape_to_cells``.
+    """
+    return h3shape_to_cells(h3shape, res)
+
+
 def cells_to_h3shape(cells, *, tight=True):
     """
     Return an ``H3Shape`` describing the area covered by a collection of H3 cells.
