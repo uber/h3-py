@@ -11,7 +11,7 @@ cpdef H3int cell_to_parent(H3int h, res=*) except 0
 cpdef int64_t cell_to_children_size(H3int h, res=*) except -1
 cpdef H3int[:] cell_to_children(H3int h, res=*)
 cpdef H3int cell_to_center_child(H3int h, res=*) except 0
-cpdef int64_t cell_to_child_pos(int parent_res, H3int child) except -1
+cpdef int64_t cell_to_child_pos(H3int child, int parent_res) except -1
 cpdef H3int child_pos_to_cell(H3int parent, int child_res, int64_t child_pos) except 0
 cpdef H3int[:] compact_cells(const H3int[:] hu)
 cpdef H3int[:] uncompact_cells(const H3int[:] hc, int res)

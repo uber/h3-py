@@ -367,7 +367,7 @@ def cell_to_children(h, res=None):
     return _out_collection(mv)
 
 
-def cell_to_child_pos(res, child):
+def cell_to_child_pos(child, res):
     """
     Child position index of given cell, with respect to parent of resolution ``res``.
 
@@ -375,9 +375,9 @@ def cell_to_child_pos(res, child):
 
     Parameters
     ----------
+    child : H3Cell
     res : int
         Parent resolution
-    child : H3Cell
 
     Returns
     -------
@@ -385,7 +385,7 @@ def cell_to_child_pos(res, child):
         Integer index of the child with respect to parent cell.
     """
     child = _in_scalar(child)
-    return _cy.cell_to_child_pos(res, child)
+    return _cy.cell_to_child_pos(child, res)
 
 
 def child_pos_to_cell(parent, child_res, child_pos):

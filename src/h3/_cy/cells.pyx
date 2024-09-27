@@ -208,7 +208,7 @@ cpdef H3int cell_to_center_child(H3int h, res=None) except 0:
     return child
 
 
-cpdef int64_t cell_to_child_pos(int parent_res, H3int child) except -1:
+cpdef int64_t cell_to_child_pos(H3int child, int parent_res) except -1:
     cdef:
         int64_t child_pos
 

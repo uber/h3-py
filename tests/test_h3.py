@@ -448,15 +448,12 @@ def test_is_valid_vertex():
 def test_child_pos():
     h = '88283080ddfffff'
 
-    assert h3.cell_to_child_pos(8, h) == 0
-    assert h3.cell_to_child_pos(7, h) == 6
-    assert h3.cell_to_child_pos(6, h) == 41
+    assert h3.cell_to_child_pos(h, 8) == 0
+    assert h3.cell_to_child_pos(h, 7) == 6
+    assert h3.cell_to_child_pos(h, 6) == 41
 
     with pytest.raises(h3.H3BaseException):
-        h3.cell_to_child_pos(9, h)
-
-    with pytest.raises(h3.H3BaseException):
-        h3.cell_to_child_pos(9, h)
+        h3.cell_to_child_pos(h, 9)
 
     with pytest.raises(h3.H3BaseException):
         h3.child_pos_to_cell(h, 9, -1)
@@ -499,7 +496,7 @@ def test_child_pos3():
     def roundtrip(child, res_parent):
         res_child = h3.get_resolution(child)
         parent = h3.cell_to_parent(child, res_parent)
-        pos = h3.cell_to_child_pos(res_parent, child)
+        pos = h3.cell_to_child_pos(child, res_parent)
         return h3.child_pos_to_cell(parent, res_child, pos)
 
     res_pairs = [
