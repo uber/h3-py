@@ -446,45 +446,45 @@ def test_is_valid_vertex():
 
 
 def test_child_pos():
-    cell = '88283080ddfffff'
+    h = '88283080ddfffff'
 
-    assert h3.cell_to_child_pos(8, cell) == 0
-    assert h3.cell_to_child_pos(7, cell) == 6
-    assert h3.cell_to_child_pos(6, cell) == 41
-
-    with pytest.raises(h3.H3BaseException):
-        h3.cell_to_child_pos(9, cell)
+    assert h3.cell_to_child_pos(8, h) == 0
+    assert h3.cell_to_child_pos(7, h) == 6
+    assert h3.cell_to_child_pos(6, h) == 41
 
     with pytest.raises(h3.H3BaseException):
-        h3.cell_to_child_pos(9, cell)
+        h3.cell_to_child_pos(9, h)
 
     with pytest.raises(h3.H3BaseException):
-        h3.child_pos_to_cell(cell, 9, -1)
+        h3.cell_to_child_pos(9, h)
 
     with pytest.raises(h3.H3BaseException):
-        h3.child_pos_to_cell(cell, 9, 10000)
+        h3.child_pos_to_cell(h, 9, -1)
+
+    with pytest.raises(h3.H3BaseException):
+        h3.child_pos_to_cell(h, 9, 10000)
 
 
 def test_child_pos2():
-    cell = '88283080ddfffff'
-    assert cell == h3.child_pos_to_cell(
-        cell,
-        8,
-        0,
-    )
+    h = '88283080ddfffff'
+    assert h == h3.child_pos_to_cell(h, 8, 0)
+    assert h == h3.child_pos_to_cell(h3.cell_to_parent(h, 7), 8, 6)
+    assert h == h3.child_pos_to_cell(h3.cell_to_parent(h, 6), 8, 41)
 
-    assert cell == h3.child_pos_to_cell(
-        h3.cell_to_parent(cell, 7),
-        8,
-        6,
-    )
-    assert cell == h3.child_pos_to_cell(
-        h3.cell_to_parent(cell, 6),
-        8,
-        41,
-    )
 
 def test_cell_to_children_size():
-    assert h3.cell_to_children_size('88283080ddfffff') == 7
-    # for r in range(16):
+    h = '8053fffffffffff' # hexagon
+    for r in range(16):
+        assert h3.cell_to_children_size(h, r) == 7**r
+
+def test_cell_to_children_size2():
+    cells = h3.get_res0_cells()
+
+    for r in range(16):
+        total_cells = 120*(7**r) + 2
+
+        assert total_cells == sum(
+            h3.cell_to_children_size(h, r)
+            for h in cells
+        )
 
