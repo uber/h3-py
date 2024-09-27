@@ -81,6 +81,8 @@ Functions relating H3 objects to geographic (lat/lng) coordinates.
    cell_to_center_child
    compact_cells
    uncompact_cells
+   cell_to_child_pos
+   child_pos_to_cell
 ```
 
 ## Cell grid relationships

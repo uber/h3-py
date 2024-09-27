@@ -36,6 +36,8 @@ from .cells import (
     get_icosahedron_faces,
     cell_to_local_ij,
     local_ij_to_cell,
+    cell_to_child_pos,
+    child_pos_to_cell,
 )
 
 from .edges import (

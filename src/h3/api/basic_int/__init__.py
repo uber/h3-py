@@ -922,6 +922,65 @@ def local_ij_to_cell(origin, i, j):
     return h
 
 
+def cell_to_child_pos(child, parent_res):
+    """
+    TODO
+
+    Parameters
+    ----------
+    child: H3Cell
+        TODO
+    parent_res: int
+        TODO
+
+
+    Returns
+    -------
+    TODO
+
+
+    Notes
+    -----
+
+    TODO
+    """
+    child = _in_scalar(child)
+
+    h = _cy.cell_to_child_pos(child, parent_res)
+
+    return h
+
+
+def child_pos_to_cell(child_pos, parent, child_res):
+    """
+    TODO
+
+    Parameters
+    ----------
+    child_pos: int
+        TODO
+    parent: H3Cell
+        TODO
+    child_res: int
+        TODO
+
+    Returns
+    -------
+    TODO
+
+
+    Notes
+    -----
+    TODO
+    """
+    parent = _in_scalar(parent)
+
+    h = _cy.child_pos_to_cell(child_pos, parent, child_res)
+    h = _out_scalar(h)
+
+    return h
+
+
 def cell_area(h, unit='km^2'):
     """
     Compute the spherical surface area of a specific H3 cell.

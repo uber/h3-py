@@ -446,3 +446,31 @@ def test_is_valid_vertex():
     assert h3.is_valid_vertex('2114c3ffffffffff')
     assert not h3.is_valid_vertex(2455495337847029759)
     assert not h3.is_valid_vertex('foobar')
+
+
+def test_child_pos():
+    assert h3.cell_to_child_pos('88283080ddfffff', 8) == 0
+    assert h3.cell_to_child_pos('88283080ddfffff', 7) == 6
+    assert h3.cell_to_child_pos('88283080ddfffff', 6) == 41
+
+    with pytest.raises(h3.H3BaseException):
+        h3.cell_to_child_pos("88283080ddfffff", 9)
+
+    with pytest.raises(h3.H3BaseException):
+        h3.cell_to_child_pos("88283080ddfffff", 9)
+
+    assert h3.child_pos_to_cell(0, '88283080ddfffff', 8) == '88283080ddfffff'
+    assert h3.child_pos_to_cell(
+        6,
+        h3.cell_to_parent('88283080ddfffff', 7),
+        8) == '88283080ddfffff'
+    assert h3.child_pos_to_cell(
+        41,
+        h3.cell_to_parent('88283080ddfffff', 6),
+        8) == "88283080ddfffff"
+
+    with pytest.raises(h3.H3BaseException):
+        h3.child_pos_to_cell(-1, "88283080ddfffff", 9)
+
+    with pytest.raises(h3.H3BaseException):
+        h3.child_pos_to_cell(10000, "88283080ddfffff", 9)

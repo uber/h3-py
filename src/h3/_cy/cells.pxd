@@ -22,3 +22,5 @@ cpdef H3int[:] get_res0_cells()
 cpdef get_icosahedron_faces(H3int h)
 cpdef (int, int) cell_to_local_ij(H3int origin, H3int h) except *
 cpdef H3int local_ij_to_cell(H3int origin, int i, int j) except 0
+cpdef int64_t cell_to_child_pos(H3int cell, int res) except *
+cpdef H3int child_pos_to_cell(int64_t pos, H3int origin, int res) except 0

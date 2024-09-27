@@ -417,3 +417,28 @@ cpdef H3int local_ij_to_cell(H3int origin, int i, int j) except 0:
         check_for_error_msg(err, msg)
 
     return out
+
+cpdef int64_t cell_to_child_pos(H3int child, int parentRes) except *:
+    cdef:
+        int64_t out
+
+    err = h3lib.cellToChildPos(child, parentRes, &out)
+    if err:
+        msg = "Couldn't find child pos with cell {} from res {}."
+        msg = msg.format(hex(child), parentRes)
+        check_for_error_msg(err, msg)
+
+    return out
+
+cpdef H3int child_pos_to_cell(int64_t childPos, H3int parent, int childRes) except 0:
+    cdef:
+        H3int child
+
+    err = h3lib.childPosToCell(childPos, parent, childRes, &child)
+    if err:
+        msg = "Couldn't find child with pos {} from parent {} with res {}."
+        msg = msg.format(childPos, hex(parent), childRes)
+        check_for_error_msg(err, msg)
+
+    return child
+
