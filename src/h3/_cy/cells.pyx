@@ -139,12 +139,12 @@ cpdef H3int[:] grid_ring(H3int h, int k):
 
     return mv
 
+
 cpdef H3int cell_to_parent(H3int h, res=None) except 0:
     cdef:
         H3int parent
 
-    check_cell(h) # todo: do we want to check for validity here? or leave correctness to the user?
-
+    check_cell(h)
     if res is None:
         res = get_resolution(h) - 1
 
@@ -162,7 +162,6 @@ cpdef int64_t cell_to_children_size(H3int h, res=None) except -1:
         int64_t n
 
     check_cell(h)
-
     if res is None:
         res = get_resolution(h) + 1
 
@@ -176,8 +175,10 @@ cpdef int64_t cell_to_children_size(H3int h, res=None) except -1:
 
 
 cpdef H3int[:] cell_to_children(H3int h, res=None):
+    check_cell(h)
     if res is None:
         res = get_resolution(h) + 1
+
     n = cell_to_children_size(h, res)
 
     hmm = H3MemoryManager(n)
@@ -195,7 +196,6 @@ cpdef H3int cell_to_center_child(H3int h, res=None) except 0:
         H3int child
 
     check_cell(h)
-
     if res is None:
         res = get_resolution(h) + 1
 
