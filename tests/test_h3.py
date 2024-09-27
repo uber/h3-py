@@ -449,31 +449,45 @@ def test_is_valid_vertex():
 
 
 def test_child_pos():
-    assert h3.cell_to_child_pos(8, '88283080ddfffff') == 0
-    assert h3.cell_to_child_pos(7, '88283080ddfffff') == 6
-    assert h3.cell_to_child_pos(6, '88283080ddfffff') == 41
+    cell = '88283080ddfffff'
+
+    assert h3.cell_to_child_pos(8, cell) == 0
+    assert h3.cell_to_child_pos(7, cell) == 6
+    assert h3.cell_to_child_pos(6, cell) == 41
 
     with pytest.raises(h3.H3BaseException):
-        h3.cell_to_child_pos(9, '88283080ddfffff')
+        h3.cell_to_child_pos(9, cell)
 
     with pytest.raises(h3.H3BaseException):
-        h3.cell_to_child_pos(9, '88283080ddfffff')
+        h3.cell_to_child_pos(9, cell)
 
-    assert h3.child_pos_to_cell('88283080ddfffff', 8, 0) == '88283080ddfffff'
+    with pytest.raises(h3.H3BaseException):
+        h3.child_pos_to_cell(cell, 9, -1)
 
-    assert '88283080ddfffff' == h3.child_pos_to_cell(
-        h3.cell_to_parent('88283080ddfffff', 7),
+    with pytest.raises(h3.H3BaseException):
+        h3.child_pos_to_cell(cell, 9, 10000)
+
+
+def test_child_pos2():
+    cell = '88283080ddfffff'
+    assert cell == h3.child_pos_to_cell(
+        cell,
+        8,
+        0,
+    )
+
+    assert cell == h3.child_pos_to_cell(
+        h3.cell_to_parent(cell, 7),
         8,
         6,
     )
-    assert '88283080ddfffff' == h3.child_pos_to_cell(
-        h3.cell_to_parent('88283080ddfffff', 6),
+    assert cell == h3.child_pos_to_cell(
+        h3.cell_to_parent(cell, 6),
         8,
         41,
     )
 
-    with pytest.raises(h3.H3BaseException):
-        h3.child_pos_to_cell('88283080ddfffff', 9, -1)
+def test_cell_to_children_size():
+    assert h3.cell_to_children_size('88283080ddfffff') == 7
+    # for r in range(16):
 
-    with pytest.raises(h3.H3BaseException):
-        h3.child_pos_to_cell('88283080ddfffff', 9, 10000)
