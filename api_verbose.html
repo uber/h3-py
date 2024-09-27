@@ -422,7 +422,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_area"><code class="docutils literal notranslate"><span class="pre">cell_area()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_boundary"><code class="docutils literal notranslate"><span class="pre">cell_to_boundary()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_center_child"><code class="docutils literal notranslate"><span class="pre">cell_to_center_child()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_child_pos"><code class="docutils literal notranslate"><span class="pre">cell_to_child_pos()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_children"><code class="docutils literal notranslate"><span class="pre">cell_to_children()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_children_size"><code class="docutils literal notranslate"><span class="pre">cell_to_children_size()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_latlng"><code class="docutils literal notranslate"><span class="pre">cell_to_latlng()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_local_ij"><code class="docutils literal notranslate"><span class="pre">cell_to_local_ij()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_parent"><code class="docutils literal notranslate"><span class="pre">cell_to_parent()</span></code></a></li>
@@ -431,6 +433,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_directed_edge"><code class="docutils literal notranslate"><span class="pre">cells_to_directed_edge()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_geo"><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_h3shape"><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.child_pos_to_cell"><code class="docutils literal notranslate"><span class="pre">child_pos_to_cell()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.compact_cells"><code class="docutils literal notranslate"><span class="pre">compact_cells()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_boundary"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_boundary()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_cells"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_cells()</span></code></a></li>
@@ -788,6 +791,27 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="h3.cell_to_child_pos">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_child_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_child_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_child_pos" title="Link to this definition">#</a></dt>
+<dd><p>Child position index of given cell, with respect to its parent at <code class="docutils literal notranslate"><span class="pre">res_parent</span></code>.</p>
+<p>The reverse operation can be done with <code class="docutils literal notranslate"><span class="pre">child_pos_to_cell</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>child</strong> (<em>H3Cell</em>)</p></li>
+<li><p><strong>res_parent</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Integer index of the child with respect to parent cell.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="h3.cell_to_children">
 <span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_children" title="Link to this definition">#</a></dt>
 <dd><p>Children of a cell as an unordered collection.</p>
@@ -805,6 +829,27 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 </dl>
 <p class="rubric">Notes</p>
 <p>There is currently no guaranteed order of the output cells.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="h3.cell_to_children_size">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">cell_to_children_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#cell_to_children_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.cell_to_children_size" title="Link to this definition">#</a></dt>
+<dd><p>Number of children at resolution <code class="docutils literal notranslate"><span class="pre">res</span></code> of given cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>H3Cell</em>)</p></li>
+<li><p><strong>res</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The resolution for the children.
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, then <code class="docutils literal notranslate"><span class="pre">res</span> <span class="pre">=</span> <span class="pre">resolution(h)</span> <span class="pre">+</span> <span class="pre">1</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Count of children</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -969,6 +1014,25 @@ If False, always return <code class="docutils literal notranslate"><span class="
 <span class="go">&lt;LatLngMultiPoly: [10]&gt;</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="h3.child_pos_to_cell">
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">child_pos_to_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_child</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#child_pos_to_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.child_pos_to_cell" title="Link to this definition">#</a></dt>
+<dd><p>Get child H3 cell from a parent cell, child resolution, and child position index.</p>
+<p>The reverse operation can be done with <code class="docutils literal notranslate"><span class="pre">cell_to_child_pos</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>H3Cell</em>)</p></li>
+<li><p><strong>res_child</strong> (<em>int</em>) – Child cell resolution</p></li>
+<li><p><strong>child_pos</strong> (<em>int</em>) – Integer position of child cell, releative to parent.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>H3Cell</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1664,7 +1728,9 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_area"><code class="docutils literal notranslate"><span class="pre">cell_area()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_boundary"><code class="docutils literal notranslate"><span class="pre">cell_to_boundary()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_center_child"><code class="docutils literal notranslate"><span class="pre">cell_to_center_child()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_child_pos"><code class="docutils literal notranslate"><span class="pre">cell_to_child_pos()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_children"><code class="docutils literal notranslate"><span class="pre">cell_to_children()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_children_size"><code class="docutils literal notranslate"><span class="pre">cell_to_children_size()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_latlng"><code class="docutils literal notranslate"><span class="pre">cell_to_latlng()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_local_ij"><code class="docutils literal notranslate"><span class="pre">cell_to_local_ij()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cell_to_parent"><code class="docutils literal notranslate"><span class="pre">cell_to_parent()</span></code></a></li>
@@ -1673,6 +1739,7 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_directed_edge"><code class="docutils literal notranslate"><span class="pre">cells_to_directed_edge()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_geo"><code class="docutils literal notranslate"><span class="pre">cells_to_geo()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.cells_to_h3shape"><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.child_pos_to_cell"><code class="docutils literal notranslate"><span class="pre">child_pos_to_cell()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.compact_cells"><code class="docutils literal notranslate"><span class="pre">compact_cells()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_boundary"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_boundary()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.directed_edge_to_cells"><code class="docutils literal notranslate"><span class="pre">directed_edge_to_cells()</span></code></a></li>

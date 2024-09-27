@@ -537,10 +537,19 @@ and should be generally aligned with the
 <tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_center_child" title="h3.cell_to_center_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_center_child</span></code></a>(h[, res])</p></td>
 <td><p>Get the center child of a cell at some finer resolution.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.compact_cells" title="h3.compact_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compact_cells</span></code></a>(cells)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_children_size" title="h3.cell_to_children_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_children_size</span></code></a>(h[, res])</p></td>
+<td><p>Number of children at resolution <code class="docutils literal notranslate"><span class="pre">res</span></code> of given cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.cell_to_child_pos" title="h3.cell_to_child_pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_to_child_pos</span></code></a>(child, res_parent)</p></td>
+<td><p>Child position index of given cell, with respect to its parent at <code class="docutils literal notranslate"><span class="pre">res_parent</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.child_pos_to_cell" title="h3.child_pos_to_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">child_pos_to_cell</span></code></a>(parent, res_child, child_pos)</p></td>
+<td><p>Get child H3 cell from a parent cell, child resolution, and child position index.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.compact_cells" title="h3.compact_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compact_cells</span></code></a>(cells)</p></td>
 <td><p>Compact a collection of H3 cells by combining smaller cells into larger cells, if all child cells are present.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.uncompact_cells" title="h3.uncompact_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uncompact_cells</span></code></a>(cells, res)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.uncompact_cells" title="h3.uncompact_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uncompact_cells</span></code></a>(cells, res)</p></td>
 <td><p>Reverse the <code class="docutils literal notranslate"><span class="pre">compact_cells</span></code> operation.</p></td>
 </tr>
 </tbody>
