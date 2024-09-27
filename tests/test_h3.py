@@ -473,18 +473,18 @@ def test_child_pos2():
 
 
 def test_cell_to_children_size():
-    h = '8053fffffffffff' # hexagon
+    h = '8053fffffffffff'  # hexagon
     for r in range(16):
         assert h3.cell_to_children_size(h, r) == 7**r
+
 
 def test_cell_to_children_size2():
     cells = h3.get_res0_cells()
 
     for r in range(16):
-        total_cells = 120*(7**r) + 2
+        total_cells = 120 * (7**r) + 2
 
         assert total_cells == sum(
             h3.cell_to_children_size(h, r)
             for h in cells
         )
-
