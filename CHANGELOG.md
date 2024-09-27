@@ -16,11 +16,12 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-None.
+- Add `cell_to_child_pos`, `child_pos_to_cell`, `cell_to_children_size` (#405)
 
 ## [4.1.0b1] - 2024-09-26
 
 - Bump h3lib to v4.1.0 (#402)
+- Add `polygon_to_cells` alias (#399)
 
 ## [4.0.0b7] - 2024-09-04
 
@@ -28,7 +29,7 @@ None.
 
 ## [4.0.0b6] - 2024-09-03
 
-- Added bindings for `cellToVertex`, `cellToVertexes`, `vertexToLatLng`, and `isValidVertex` (#323)
+- Added bindings for `cellToVertex`, `cellToVertexes`, `vertexToLatLng`, and `isValidVertex` (#388)
 
 ## [4.0.0b5] - 2024-05-19
 
