@@ -488,3 +488,21 @@ def test_cell_to_children_size2():
             h3.cell_to_children_size(h, r)
             for h in cells
         )
+
+def test_child_pos3():
+    def cells_at_res(res):
+        cells = h3.get_res0_cells()
+        for parent in cells:
+            yield from h3.cell_to_children(parent, res)
+
+    def roundtrip(children, res_parent):
+        for c in children:
+            parent = h3.cell_to_parent(c, res_parent)
+            pos = h3.cell_to_child_pos(res_parent, c)
+            yield h3.child_pos_to_cell(parent, res_child, pos)
+
+    for res_parent in [0,1]:
+        for res_child in [0,1,2,3]:
+            if res_parent <= res_child:
+                children = set(cells_at_res(res_child))
+                assert set(roundtrip(children, res_parent)) == children
