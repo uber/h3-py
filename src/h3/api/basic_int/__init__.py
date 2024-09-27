@@ -185,7 +185,8 @@ def cell_to_latlng(h):
     lng : float
         Longitude
     """
-    return _cy.cell_to_latlng(_in_scalar(h))
+    h = _in_scalar(h)
+    return _cy.cell_to_latlng(h)
 
 
 def get_resolution(h):
@@ -201,7 +202,8 @@ def get_resolution(h):
     int
     """
     # todo: could also work for edges
-    return _cy.get_resolution(_in_scalar(h))
+    h = _in_scalar(h)
+    return _cy.get_resolution(h)
 
 
 def cell_to_parent(h, res=None):
@@ -266,7 +268,8 @@ def cell_to_boundary(h):
     -------
     tuple of (lat, lng) tuples
     """
-    return _cy.cell_to_boundary(_in_scalar(h))
+    h = _in_scalar(h)
+    return _cy.cell_to_boundary(h)
 
 
 def grid_disk(h, k=1):
@@ -288,7 +291,8 @@ def grid_disk(h, k=1):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    mv = _cy.grid_disk(_in_scalar(h), k)
+    h = _in_scalar(h)
+    mv = _cy.grid_disk(h, k)
 
     return _out_collection(mv)
 
@@ -312,9 +316,30 @@ def grid_ring(h, k=1):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    mv = _cy.grid_ring(_in_scalar(h), k)
+    h = _in_scalar(h)
+    mv = _cy.grid_ring(h, k)
 
     return _out_collection(mv)
+
+
+def cell_to_children_size(h, res=None):
+    """
+    Number of children at resolution ``res`` of given cell.
+
+    Parameters
+    ----------
+    h : H3Cell
+    res : int or None, optional
+        The resolution for the children.
+        If ``None``, then ``res = resolution(h) + 1``
+
+    Returns
+    -------
+    int
+        Count of children
+    """
+    h = _in_scalar(h)
+    return _cy.cell_to_children_size(h, res)
 
 
 def cell_to_children(h, res=None):
@@ -336,9 +361,56 @@ def cell_to_children(h, res=None):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    mv = _cy.cell_to_children(_in_scalar(h), res)
+    h = _in_scalar(h)
+    mv = _cy.cell_to_children(h, res)
 
     return _out_collection(mv)
+
+
+def cell_to_child_pos(child, res_parent):
+    """
+    Child position index of given cell, with respect to its parent at ``res_parent``.
+
+    The reverse operation can be done with ``child_pos_to_cell``.
+
+    Parameters
+    ----------
+    child : H3Cell
+    res_parent : int
+
+    Returns
+    -------
+    int
+        Integer index of the child with respect to parent cell.
+    """
+    child = _in_scalar(child)
+    return _cy.cell_to_child_pos(child, res_parent)
+
+
+def child_pos_to_cell(parent, res_child, child_pos):
+    """
+    Get child H3 cell from a parent cell, child resolution, and child position index.
+
+    The reverse operation can be done with ``cell_to_child_pos``.
+
+    Parameters
+    ----------
+    parent : H3Cell
+    res_child : int
+        Child cell resolution
+    child_pos : int
+        Integer position of child cell, releative to parent.
+
+
+    Returns
+    -------
+    H3Cell
+    """
+    parent = _in_scalar(parent)
+    child = _cy.child_pos_to_cell(parent, res_child, child_pos)
+    child = _out_scalar(child)
+
+    return child
 
 
 # todo: nogil for expensive C operation?

@@ -400,12 +400,9 @@ def test_cell_to_vertex():
     assert h3.cell_to_vertex('814c3ffffffffff', 2) == '2214c3ffffffffff'
     assert h3.cell_to_vertex('814c3ffffffffff', 3) == '2314c3ffffffffff'
     assert h3.cell_to_vertex('814c3ffffffffff', 4) == '2414c3ffffffffff'
-    try:
+
+    with pytest.raises(h3.H3DomainError):
         h3.cell_to_vertex('814c3ffffffffff', 5)
-    except h3._cy.error_system.H3DomainError:
-        pass
-    else:
-        assert False
 
     # hexagon
     assert h3.cell_to_vertex('814d7ffffffffff', 0) == '2014d7ffffffffff'
@@ -446,3 +443,69 @@ def test_is_valid_vertex():
     assert h3.is_valid_vertex('2114c3ffffffffff')
     assert not h3.is_valid_vertex(2455495337847029759)
     assert not h3.is_valid_vertex('foobar')
+
+
+def test_child_pos():
+    h = '88283080ddfffff'
+
+    assert h3.cell_to_child_pos(h, 8) == 0
+    assert h3.cell_to_child_pos(h, 7) == 6
+    assert h3.cell_to_child_pos(h, 6) == 41
+
+    with pytest.raises(h3.H3BaseException):
+        h3.cell_to_child_pos(h, 9)
+
+    with pytest.raises(h3.H3BaseException):
+        h3.child_pos_to_cell(h, 9, -1)
+
+    with pytest.raises(h3.H3BaseException):
+        h3.child_pos_to_cell(h, 9, 10000)
+
+
+def test_child_pos2():
+    h = '88283080ddfffff'
+    assert h == h3.child_pos_to_cell(h, 8, 0)
+    assert h == h3.child_pos_to_cell(h3.cell_to_parent(h, 7), 8, 6)
+    assert h == h3.child_pos_to_cell(h3.cell_to_parent(h, 6), 8, 41)
+
+
+def test_cell_to_children_size():
+    h = '8053fffffffffff'  # hexagon
+    for r in range(16):
+        assert h3.cell_to_children_size(h, r) == 7**r
+
+
+def test_cell_to_children_size2():
+    cells = h3.get_res0_cells()
+
+    for r in range(16):
+        total_cells = 120 * (7**r) + 2
+
+        assert total_cells == sum(
+            h3.cell_to_children_size(h, r)
+            for h in cells
+        )
+
+
+def test_child_pos3():
+    def cells_at_res(res):
+        cells = h3.get_res0_cells()
+        for parent in cells:
+            yield from h3.cell_to_children(parent, res)
+
+    def roundtrip(child, res_parent):
+        res_child = h3.get_resolution(child)
+        parent = h3.cell_to_parent(child, res_parent)
+        pos = h3.cell_to_child_pos(child, res_parent)
+        return h3.child_pos_to_cell(parent, res_child, pos)
+
+    res_pairs = [
+        (res_parent, res_child)
+        for res_parent in [0, 1]
+        for res_child in [0, 1, 2, 3]
+        if res_parent <= res_child
+    ]
+
+    for res_parent, res_child in res_pairs:
+        for child in cells_at_res(res_child):
+            assert child == roundtrip(child, res_parent)

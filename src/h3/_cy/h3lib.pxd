@@ -90,6 +90,8 @@ cdef extern from 'h3api.h':
 
     H3Error cellToParent(     H3int h, int parentRes, H3int *parent) nogil
     H3Error cellToCenterChild(H3int h, int childRes,  H3int *child) nogil
+    H3Error cellToChildPos(H3int child, int parentRes, int64_t *out) nogil
+    H3Error childPosToCell(int64_t childPos, H3int parent, int childRes, H3int *child) nogil
 
     H3Error cellToChildrenSize(H3int h, int childRes, int64_t *num) nogil # num/out/N?
     H3Error cellToChildren(    H3int h, int childRes, H3int *children) nogil

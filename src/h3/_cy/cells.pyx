@@ -3,7 +3,7 @@ from .h3lib cimport bool, int64_t, H3int, H3ErrorCodes
 
 from .util cimport (
     check_cell,
-    check_res,
+    check_res,  # we don't use?
     check_distance,
 )
 
@@ -139,12 +139,12 @@ cpdef H3int[:] grid_ring(H3int h, int k):
 
     return mv
 
+
 cpdef H3int cell_to_parent(H3int h, res=None) except 0:
     cdef:
         H3int parent
 
-    check_cell(h) # todo: do we want to check for validity here? or leave correctness to the user?
-
+    check_cell(h)
     if res is None:
         res = get_resolution(h) - 1
 
@@ -157,12 +157,11 @@ cpdef H3int cell_to_parent(H3int h, res=None) except 0:
     return parent
 
 
-cpdef H3int[:] cell_to_children(H3int h, res=None):
+cpdef int64_t cell_to_children_size(H3int h, res=None) except -1:
     cdef:
         int64_t n
 
     check_cell(h)
-
     if res is None:
         res = get_resolution(h) + 1
 
@@ -171,6 +170,16 @@ cpdef H3int[:] cell_to_children(H3int h, res=None):
         msg = 'Invalid child resolution {} for cell {}.'
         msg = msg.format(res, hex(h))
         check_for_error_msg(err, msg)
+
+    return n
+
+
+cpdef H3int[:] cell_to_children(H3int h, res=None):
+    check_cell(h)
+    if res is None:
+        res = get_resolution(h) + 1
+
+    n = cell_to_children_size(h, res)
 
     hmm = H3MemoryManager(n)
     check_for_error(
@@ -181,12 +190,12 @@ cpdef H3int[:] cell_to_children(H3int h, res=None):
     return mv
 
 
+
 cpdef H3int cell_to_center_child(H3int h, res=None) except 0:
     cdef:
         H3int child
 
     check_cell(h)
-
     if res is None:
         res = get_resolution(h) + 1
 
@@ -198,6 +207,33 @@ cpdef H3int cell_to_center_child(H3int h, res=None) except 0:
 
     return child
 
+
+cpdef int64_t cell_to_child_pos(H3int child, int parent_res) except -1:
+    cdef:
+        int64_t child_pos
+
+    check_cell(child)
+    err = h3lib.cellToChildPos(child, parent_res, &child_pos)
+    if err:
+        msg = "Couldn't find child pos of cell {} at res {}."
+        msg = msg.format(hex(child), parent_res)
+        check_for_error_msg(err, msg)
+
+    return child_pos
+
+
+cpdef H3int child_pos_to_cell(H3int parent, int child_res, int64_t child_pos) except 0:
+    cdef:
+        H3int child
+
+    check_cell(parent)
+    err = h3lib.childPosToCell(child_pos, parent, child_res, &child)
+    if err:
+        msg = "Couldn't find child with pos {} at res {} from parent {}."
+        msg = msg.format(child_pos, child_res, hex(parent))
+        check_for_error_msg(err, msg)
+
+    return child
 
 
 cpdef H3int[:] compact_cells(const H3int[:] hu):
