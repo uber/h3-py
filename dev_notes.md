@@ -48,7 +48,7 @@ git submodule update --init
 ## Releasing a new version
 
 - update `CHANGELOG.md` to reflect any changes since the last release
-- update the `h3-py` version in `src/h3/_version.py`
+- update the `h3-py` version in `pyproject.toml`
 - create PR, get reviews, and merge with these changes
 - go to https://github.com/uber/h3-py/releases and "Draft a new release"
     - set the tag version and the release to the version. e.g., `v3.7.2`

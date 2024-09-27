@@ -18,6 +18,10 @@ avoid adding features or APIs which do not map onto the
 
 None.
 
+## [4.1.0b1] - 2024-09-26
+
+- Bump h3lib to v4.1.0 (#402)
+
 ## [4.0.0b7] - 2024-09-04
 
 - Use `pyproject.toml` and `scikit-build-core` (#378)
