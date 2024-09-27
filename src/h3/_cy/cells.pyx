@@ -3,7 +3,7 @@ from .h3lib cimport bool, int64_t, H3int, H3ErrorCodes
 
 from .util cimport (
     check_cell,
-    check_res,
+    check_res,  # we don't use?
     check_distance,
 )
 
@@ -198,6 +198,33 @@ cpdef H3int cell_to_center_child(H3int h, res=None) except 0:
 
     return child
 
+
+cpdef int64_t cell_to_child_pos(int parent_res, H3int child) except -1:
+    cdef:
+        int64_t child_pos
+
+    check_cell(child)
+    err = h3lib.cellToChildPos(child, parent_res, &child_pos)
+    if err:
+        msg = 'Invalid!' # TODO
+        # msg = msg.format(parent_res, hex(child))
+        check_for_error_msg(err, msg)
+
+    return child_pos
+
+
+cpdef H3int child_pos_to_cell(H3int parent, int child_res, int64_t child_pos) except 0:
+    cdef:
+        H3int child
+
+    check_cell(parent)
+    err = h3lib.childPosToCell(child_pos, parent, child_res, &child)
+    if err:
+        msg = 'Invalid!' # TODO
+        # msg = msg.format(parent_res, hex(child))
+        check_for_error_msg(err, msg)
+
+    return child
 
 
 cpdef H3int[:] compact_cells(const H3int[:] hu):

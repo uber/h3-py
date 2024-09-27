@@ -341,6 +341,19 @@ def cell_to_children(h, res=None):
     return _out_collection(mv)
 
 
+def cell_to_child_pos(res, child):
+    child = _in_scalar(child)
+    return _cy.cell_to_child_pos(res, child)
+
+
+def child_pos_to_cell(parent, child_res, child_pos):
+    parent = _in_scalar(parent)
+    child = _cy.child_pos_to_cell(parent, child_res, child_pos)
+    child = _out_scalar(child)
+
+    return child
+
+
 # todo: nogil for expensive C operation?
 def compact_cells(cells):
     """

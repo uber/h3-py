@@ -23,6 +23,8 @@ from .cells import (
     grid_disk,
     grid_ring,
     cell_to_children,
+    cell_to_child_pos,
+    child_pos_to_cell,
     compact_cells,
     uncompact_cells,
     get_num_cells,
