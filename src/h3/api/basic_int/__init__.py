@@ -185,7 +185,8 @@ def cell_to_latlng(h):
     lng : float
         Longitude
     """
-    return _cy.cell_to_latlng(_in_scalar(h))
+    h = _in_scalar(h)
+    return _cy.cell_to_latlng(h)
 
 
 def get_resolution(h):
@@ -201,7 +202,8 @@ def get_resolution(h):
     int
     """
     # todo: could also work for edges
-    return _cy.get_resolution(_in_scalar(h))
+    h = _in_scalar(h)
+    return _cy.get_resolution(h)
 
 
 def cell_to_parent(h, res=None):
@@ -266,7 +268,8 @@ def cell_to_boundary(h):
     -------
     tuple of (lat, lng) tuples
     """
-    return _cy.cell_to_boundary(_in_scalar(h))
+    h = _in_scalar(h)
+    return _cy.cell_to_boundary(h)
 
 
 def grid_disk(h, k=1):
@@ -288,7 +291,8 @@ def grid_disk(h, k=1):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    mv = _cy.grid_disk(_in_scalar(h), k)
+    h = _in_scalar(h)
+    mv = _cy.grid_disk(h, k)
 
     return _out_collection(mv)
 
@@ -312,9 +316,15 @@ def grid_ring(h, k=1):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    mv = _cy.grid_ring(_in_scalar(h), k)
+    h = _in_scalar(h)
+    mv = _cy.grid_ring(h, k)
 
     return _out_collection(mv)
+
+
+def cell_to_children_size(h, res=None):
+    h = _in_scalar(h)
+    return _cy.cell_to_children_size(h, res)
 
 
 def cell_to_children(h, res=None):
@@ -336,7 +346,8 @@ def cell_to_children(h, res=None):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    mv = _cy.cell_to_children(_in_scalar(h), res)
+    h = _in_scalar(h)
+    mv = _cy.cell_to_children(h, res)
 
     return _out_collection(mv)
 
