@@ -400,12 +400,9 @@ def test_cell_to_vertex():
     assert h3.cell_to_vertex('814c3ffffffffff', 2) == '2214c3ffffffffff'
     assert h3.cell_to_vertex('814c3ffffffffff', 3) == '2314c3ffffffffff'
     assert h3.cell_to_vertex('814c3ffffffffff', 4) == '2414c3ffffffffff'
-    try:
+
+    with pytest.raises(h3.H3DomainError):
         h3.cell_to_vertex('814c3ffffffffff', 5)
-    except h3._cy.error_system.H3DomainError:
-        pass
-    else:
-        assert False
 
     # hexagon
     assert h3.cell_to_vertex('814d7ffffffffff', 0) == '2014d7ffffffffff'
