@@ -215,8 +215,8 @@ cpdef int64_t cell_to_child_pos(int parent_res, H3int child) except -1:
     check_cell(child)
     err = h3lib.cellToChildPos(child, parent_res, &child_pos)
     if err:
-        msg = 'Invalid!' # TODO
-        # msg = msg.format(parent_res, hex(child))
+        msg = "Couldn't find child pos of cell {} at res {}."
+        msg = msg.format(hex(child), parent_res)
         check_for_error_msg(err, msg)
 
     return child_pos
@@ -229,8 +229,8 @@ cpdef H3int child_pos_to_cell(H3int parent, int child_res, int64_t child_pos) ex
     check_cell(parent)
     err = h3lib.childPosToCell(child_pos, parent, child_res, &child)
     if err:
-        msg = 'Invalid!' # TODO
-        # msg = msg.format(parent_res, hex(child))
+        msg = "Couldn't find child with pos {} at res {} from parent {}."
+        msg = msg.format(child_pos, child_res, hex(parent))
         check_for_error_msg(err, msg)
 
     return child
