@@ -323,6 +323,21 @@ def grid_ring(h, k=1):
 
 
 def cell_to_children_size(h, res=None):
+    """
+    Number of children at resolution ``res`` of given cell.
+
+    Parameters
+    ----------
+    h : H3Cell
+    res : int or None, optional
+        The resolution for the children.
+        If ``None``, then ``res = resolution(h) + 1``
+
+    Returns
+    -------
+    int
+        Count of children
+    """
     h = _in_scalar(h)
     return _cy.cell_to_children_size(h, res)
 
@@ -353,11 +368,45 @@ def cell_to_children(h, res=None):
 
 
 def cell_to_child_pos(res, child):
+    """
+    Child position index of given cell, with respect to parent of resolution ``res``.
+
+    The reverse operation can be done with ``child_pos_to_cell``.
+
+    Parameters
+    ----------
+    res : int
+        Parent resolution
+    child : H3Cell
+
+    Returns
+    -------
+    int
+        Integer index of the child with respect to parent cell.
+    """
     child = _in_scalar(child)
     return _cy.cell_to_child_pos(res, child)
 
 
 def child_pos_to_cell(parent, child_res, child_pos):
+    """
+    Get child H3 cell from a parent cell, child resolution, and child position index.
+
+    The reverse operation can be done with ``cell_to_child_pos``.
+
+    Parameters
+    ----------
+    parent : H3Cell
+    child_res : int
+        Child cell resolution
+    child_pos : int
+        Integer position of child cell, releative to parent.
+
+
+    Returns
+    -------
+    H3Cell
+    """
     parent = _in_scalar(parent)
     child = _cy.child_pos_to_cell(parent, child_res, child_pos)
     child = _out_scalar(child)
