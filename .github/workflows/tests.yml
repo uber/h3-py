@@ -17,7 +17,8 @@ jobs:
         python-version: ['3.9', '3.10', '3.11', '3.12']
         numpy-version: ['<2', '>=2']
         include:
-          - python-version: '3.8'
+          - os: macos-latest
+            python-version: '3.8'
             numpy-version: '<2'
 
     steps:
