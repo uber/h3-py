@@ -53,7 +53,7 @@ def str_to_int(h):
     int
         Unsigned 64-bit integer
     """
-    return _cy.str_to_int(h)
+    return _cy.str_to_int(str(h))
 
 
 def int_to_str(x):
