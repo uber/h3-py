@@ -8,13 +8,14 @@ on:
 
 jobs:
   tests:
-    name: Py${{ matrix.python-version }} ${{ matrix.os }}
+    name: Py${{ matrix.python-version }} ${{ matrix.os }} NumPy${{ matrix.numpy-version }}
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-22.04]
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        numpy-version: ['<2', '>=2']
 
     steps:
       - uses: actions/checkout@v4.1.1
@@ -40,6 +41,10 @@ jobs:
         run: |
           pip install --upgrade pip setuptools wheel
           pip install .[test]
+
+      - name: Install NumPy
+        run: |
+          pip install --force-reinstall "numpy${{ matrix.numpy-version }}"
 
       - name: Tests
         run: |
