@@ -14,8 +14,8 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-22.04]
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
-        numpy-version: ['<2.0.0', '>=2.0.0']
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+        numpy-version: ['<2', '>=2']
 
     steps:
       - uses: actions/checkout@v4.1.1
