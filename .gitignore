@@ -30,6 +30,7 @@ pip-log.txt
 # Unit test / coverage reports
 .coverage
 coverage.xml
+coverage.lcov
 .tox
 nosetests.xml
 .noseids

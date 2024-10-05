@@ -1,8 +1,8 @@
-name: coverage-lint
+name: pr-coverage-lint
 
 on:
-  push:
-    branches: [master]
+  pull_request:
+    branches: ['*']
 
 jobs:
   tests:
@@ -35,11 +35,11 @@ jobs:
         run: |
           pip install cython
           cythonize tests/test_cython/cython_example.pyx
-          pytest --cov-report=xml
+          pytest --cov-report=lcov
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.3.0
+      - name: Report coverage
+        uses: romeovs/lcov-reporter-action@v0.3.1
         with:
-          file: ./coverage.xml
-          fail_ci_if_error: true
-          token: ${{ secrets.CODECOV_TOKEN }}
+          filter-changed-files: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./coverage.lcov
