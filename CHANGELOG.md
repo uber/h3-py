@@ -18,6 +18,10 @@ avoid adding features or APIs which do not map onto the
 
 None.
 
+## [4.1.0b3] - 2024-10-05
+
+- Allow for `str` subtypes, like `numpy.str_` (#408)
+
 ## [4.1.0b2] - 2024-09-27
 
 - Add `cell_to_child_pos`, `child_pos_to_cell`, `cell_to_children_size` (#405)
