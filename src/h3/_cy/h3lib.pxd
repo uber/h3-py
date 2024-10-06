@@ -1,7 +1,8 @@
+# cython: c_string_type=unicode, c_string_encoding=utf8
 from cpython cimport bool
 from libc.stdint cimport uint32_t, uint64_t, int64_t
 
-ctypedef basestring H3str
+ctypedef object H3str
 
 cdef extern from 'h3api.h':
     cdef int H3_VERSION_MAJOR

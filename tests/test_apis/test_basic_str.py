@@ -22,3 +22,22 @@ def test5():
 
     out = h3.grid_disk('8928308280fffff', 1)
     assert u.same_set(out, expected)
+
+
+def test_string_subtypes():
+
+    class my_str(str):
+        pass
+
+    expected = [
+        '89283082873ffff',
+        '89283082877ffff',
+        '8928308283bffff',
+        '89283082807ffff',
+        '8928308280bffff',
+        '8928308280fffff',
+        '89283082803ffff'
+    ]
+
+    out = h3.grid_disk(my_str('8928308280fffff'), 1)
+    assert u.same_set(out, expected)
