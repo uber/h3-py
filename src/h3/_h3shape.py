@@ -5,10 +5,11 @@ class H3Shape(metaclass=ABCMeta):
     """
     Abstract parent class of ``LatLngPoly`` and ``LatLngMultiPoly``.
     """
+
     @property
     @abstractmethod
     def __geo_interface__(self):
-        """ https://github.com/pytest-dev/pytest-cov/issues/428 """
+        """https://github.com/pytest-dev/pytest-cov/issues/428"""
 
 
 class LatLngPoly(H3Shape):
@@ -51,6 +52,7 @@ class LatLngPoly(H3Shape):
     ... )
     <LatLngPoly: [4/(3, 5)]>
     """
+
     def __init__(self, outer, *holes):
         loops = [outer] + list(holes)
         for loop in loops:
@@ -63,10 +65,7 @@ class LatLngPoly(H3Shape):
                 raise ValueError('LatLngPoly only accepts 2D points: lat/lng.')
 
         self.outer = tuple(_open_ring(outer))
-        self.holes = tuple(
-            _open_ring(hole)
-            for hole in holes
-        )
+        self.holes = tuple(_open_ring(hole) for hole in holes)
 
     def __repr__(self):
         return '<LatLngPoly: {}>'.format(self.loopcode)
@@ -80,7 +79,7 @@ class LatLngPoly(H3Shape):
 
     @property
     def loopcode(self):
-        """ Short code for describing the length of the outer loop and each hole
+        """Short code for describing the length of the outer loop and each hole
 
         Example: ``[382/(18, 6, 6)]`` indicates an outer loop of 382 points,
         along with 3 holes with 18, 6, and 6 points, respectively.
@@ -116,12 +115,13 @@ class LatLngMultiPoly(H3Shape):
     polys : list[LatLngPoly]
         List of lat/lng points describing the outer loop of the polygon
     """
+
     def __init__(self, *polys):
         self.polys = tuple(polys)
 
         for p in self.polys:
             if not isinstance(p, LatLngPoly):
-                raise ValueError('LatLngMultiPoly requires each input to be an LatLngPoly object, instead got: ' + str(p)) # noqa
+                raise ValueError('LatLngMultiPoly requires each input to be an LatLngPoly object, instead got: ' + str(p))  # fmt: skip
 
     def __repr__(self):
         out = [p.loopcode for p in self.polys]
@@ -133,8 +133,7 @@ class LatLngMultiPoly(H3Shape):
         return iter(self.polys)
 
     def __len__(self):
-        """ Give the number of polygons in this multi-polygon.
-        """
+        """Give the number of polygons in this multi-polygon."""
 
         """
         TODO: Pandas series or dataframe representation changes depending
@@ -195,19 +194,13 @@ LL3: list of LL2s (i.e., several polygons with holes)
 
 
 def _mpoly_to_LL3(mpoly):
-    ll3 = tuple(
-        _polygon_to_LL2(poly)
-        for poly in mpoly
-    )
+    ll3 = tuple(_polygon_to_LL2(poly) for poly in mpoly)
 
     return ll3
 
 
 def _LL3_to_mpoly(ll3):
-    polys = [
-        _LL2_to_polygon(ll2)
-        for ll2 in ll3
-    ]
+    polys = [_LL2_to_polygon(ll2) for ll2 in ll3]
 
     mpoly = LatLngMultiPoly(*polys)
 
@@ -216,10 +209,7 @@ def _LL3_to_mpoly(ll3):
 
 def _polygon_to_LL2(poly):
     ll2 = [poly.outer] + list(poly.holes)
-    ll2 = tuple(
-        _close_ring(_swap_latlng(ll1))
-        for ll1 in ll2
-    )
+    ll2 = tuple(_close_ring(_swap_latlng(ll1)) for ll1 in ll2)
 
     return ll2
 
@@ -230,15 +220,9 @@ def _remove_z(ll1):
 
 
 def _LL2_to_polygon(ll2):
-    ll2 = [
-        _remove_z(ll1)
-        for ll1 in ll2
-    ]
+    ll2 = [_remove_z(ll1) for ll1 in ll2]
 
-    ll2 = [
-        _swap_latlng(ll1)
-        for ll1 in ll2
-    ]
+    ll2 = [_swap_latlng(ll1) for ll1 in ll2]
     h3poly = LatLngPoly(*ll2)
 
     return h3poly
@@ -263,9 +247,7 @@ def _LL3_to_geojson_dict(ll3):
 
 
 def _swap_latlng(ll1):
-    ll1 = tuple(
-        (b, a) for a, b in ll1
-    )
+    ll1 = tuple((b, a) for a, b in ll1)
     return ll1
 
 

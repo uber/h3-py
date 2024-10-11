@@ -37,13 +37,7 @@ def test_2_polys():
 
     mpoly = h3.cells_to_h3shape(cells)
 
-    out = [
-        set(h3.h3shape_to_cells(poly, 9))
-        for poly in mpoly
-    ]
+    out = [set(h3.h3shape_to_cells(poly, 9)) for poly in mpoly]
 
-    assert u.same_set(
-        set.union(*out),
-        cells
-    )
+    assert u.same_set(set.union(*out), cells)
     assert set(map(len, out)) == {1, 12}

@@ -9,7 +9,7 @@ def test_int_output():
     lng = -122.418307270836
 
     assert h3.latlng_to_cell(lat, lng, 9) == 617700169958293503
-    assert h3.latlng_to_cell(lat, lng, 9) == 0x8928308280fffff
+    assert h3.latlng_to_cell(lat, lng, 9) == 0x8928308280FFFFF
 
 
 def test_grid_disk():

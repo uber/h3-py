@@ -70,9 +70,7 @@ from .vertex import (
     is_valid_vertex,
 )
 
-from .to_multipoly import (
-    cells_to_multi_polygon
-)
+from .to_multipoly import cells_to_multi_polygon
 
 from .util import (
     c_version,
@@ -87,11 +85,9 @@ from .memory import (
 from .error_system import (
     UnknownH3ErrorCode,
     H3BaseException,
-
     H3GridNavigationError,
     H3MemoryError,
     H3ValueError,
-
     H3FailedError,
     H3DomainError,
     H3LatLngDomainError,

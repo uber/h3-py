@@ -8,11 +8,9 @@ import h3
 h3_exceptions = {
     # h3.UnknownH3ErrorCode
     h3.H3BaseException: None,
-
     h3.H3GridNavigationError: None,
     h3.H3MemoryError: None,
     h3.H3ValueError: None,
-
     h3.H3FailedError: 1,
     h3.H3DomainError: 2,
     h3.H3LatLngDomainError: 3,

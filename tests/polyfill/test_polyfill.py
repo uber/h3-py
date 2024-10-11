@@ -7,36 +7,29 @@ from .. import util as u
 
 
 def get_us_box_coords():
-
     # big center chunk of the US in lat/lng order
     outer = [
         [42.68, -110.61],
         [32.17, -109.02],
-        [31.57,  -94.26],
-        [42.94,  -89.38],
-        [42.68, -110.61]
+        [31.57, -94.26],
+        [42.94, -89.38],
+        [42.68, -110.61],
     ]
 
     hole1 = [
         [39.77, -105.07],
         [34.81, -104.72],
-        [34.77,  -98.39],
-        [40.14,  -96.72],
-        [39.77, -105.07]
+        [34.77, -98.39],
+        [40.14, -96.72],
+        [39.77, -105.07],
     ]
 
-    hole2 = [
-        [41.37, -98.61],
-        [40.04, -91.80],
-        [42.32, -91.80],
-        [41.37, -98.61]
-    ]
+    hole2 = [[41.37, -98.61], [40.04, -91.80], [42.32, -91.80], [41.37, -98.61]]
 
     return outer, hole1, hole2
 
 
 def test_h3shape_to_cells():
-
     # approximate lat/lngs for State of Maine
     maine = [
         (45.137, -67.137),
@@ -68,7 +61,7 @@ def test_h3shape_to_cells():
         '832b1afffffffff',
         '832b1efffffffff',
         '832ba9fffffffff',
-        '832badfffffffff'
+        '832badfffffffff',
     }
 
     poly = h3.LatLngPoly(maine)
@@ -93,12 +86,9 @@ def test_h3shape_to_cells2():
 
 
 def test_h3shape_to_cells_holes():
-
     outer, hole1, hole2 = get_us_box_coords()
 
-    assert 7063 == len(
-        h3.h3shape_to_cells(h3.LatLngPoly(outer), 5)
-    )
+    assert 7063 == len(h3.h3shape_to_cells(h3.LatLngPoly(outer), 5))
 
     for res in 1, 2, 3, 4, 5:
         cells_all = h3.h3shape_to_cells(h3.LatLngPoly(outer), res)
@@ -109,10 +99,7 @@ def test_h3shape_to_cells_holes():
         cells_2 = set(h3.h3shape_to_cells(h3.LatLngPoly(hole2), res))
 
         assert len(cells_all) == len(cells_holes) + len(cells_1) + len(cells_2)
-        assert u.same_set(
-            cells_all,
-            set.union(cells_holes, cells_1, cells_2)
-        )
+        assert u.same_set(cells_all, set.union(cells_holes, cells_1, cells_2))
 
 
 def test_resolution():

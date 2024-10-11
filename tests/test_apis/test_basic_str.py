@@ -17,7 +17,7 @@ def test5():
         '89283082807ffff',
         '8928308280bffff',
         '8928308280fffff',
-        '89283082803ffff'
+        '89283082803ffff',
     ]
 
     out = h3.grid_disk('8928308280fffff', 1)
@@ -25,7 +25,6 @@ def test5():
 
 
 def test_string_subtypes():
-
     class my_str(str):
         pass
 
@@ -36,7 +35,7 @@ def test_string_subtypes():
         '89283082807ffff',
         '8928308280bffff',
         '8928308280fffff',
-        '89283082803ffff'
+        '89283082803ffff',
     ]
 
     out = h3.grid_disk(my_str('8928308280fffff'), 1)

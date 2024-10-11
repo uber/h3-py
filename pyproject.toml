@@ -46,10 +46,10 @@ Changelog = 'https://package.readthedocs.io/en/latest/changelog.html'
 
 [project.optional-dependencies]
 numpy = ['numpy']
-test = ['pytest', 'pytest-cov', 'flake8', 'pylint', 'numpy']
+test = ['pytest', 'pytest-cov', 'ruff', 'numpy']
 all = [
+    'h3[test]',
     'jupyter-book',
-    'flake8',
     'sphinx>=7.3.3', # https://github.com/sphinx-doc/sphinx/issues/12290
     'jupyterlab',
     'jupyterlab-geojson',
@@ -59,14 +59,50 @@ all = [
     'contextily',
     'cartopy',
     'geoviews',
-    'numpy',
-    'pytest',
-    'pytest-cov',
-    'pylint',
 ]
 
 [tool.pytest.ini_options]
 addopts = "--cov=h3 --cov=tests --cov-report=term-missing --durations=10"
+
+[tool.ruff]
+src = [
+    "src",
+    "tests",
+]
+
+lint.select = [
+    "E",
+    "F",
+    "W",
+]
+
+lint.extend-select = [
+    "I",
+]
+
+lint.ignore = [
+    "E251",  # unexpected spaces around keyword / parameter equals
+    "E272",  # multiple spaces before keyword
+    # sometimes I just want to line up decimal points...
+    "E201",  # whitespace after '['
+    "E241",  # multiple spaces after ','
+    "E731",  # do not assign a lambda expression, use a def
+    # Ignore when using formatter (https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules)
+    "E501",  # Line-too-long;
+]
+
+respect-gitignore = true
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "single"
+
+[tool.ruff.per-file-ignores]
+# Do not enforce usage in init files
+"__init__.py" = [
+    "E402",
+    "F401",
+]
 
 [tool.coverage.run]
 omit = [

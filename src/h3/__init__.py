@@ -6,11 +6,9 @@ from ._version import __version__
 from ._cy import (
     UnknownH3ErrorCode,
     H3BaseException,
-
     H3GridNavigationError,
     H3MemoryError,
     H3ValueError,
-
     H3FailedError,
     H3DomainError,
     H3LatLngDomainError,

@@ -8,8 +8,9 @@ Test all permutations of these rules on polygons with
 may follow a different subset of rules.
 """
 
-import h3
 import itertools
+
+import h3
 
 
 def reverse(loop):
@@ -21,7 +22,7 @@ def drop_last(loop):
 
 
 def toggle_map(func, poly):
-    """ Return all permutations of `func` being applied or not
+    """Return all permutations of `func` being applied or not
     to each element of `poly`
 
     returns iterable of length 2**len(poly)
@@ -50,29 +51,28 @@ def input_permutations(geo, res=5):
 
 
 def get_us_box_coords():
-
     # big center chunk of the US in lat/lng order
     outer = [
         [42.68, -110.61],
         [32.17, -109.02],
-        [31.57,  -94.26],
-        [42.94,  -89.38],
-        [42.68, -110.61]
+        [31.57, -94.26],
+        [42.94, -89.38],
+        [42.68, -110.61],
     ]
 
     hole1 = [
         [39.77, -105.07],
         [34.81, -104.72],
-        [34.77,  -98.39],
-        [40.14,  -96.72],
-        [39.77, -105.07]
+        [34.77, -98.39],
+        [40.14, -96.72],
+        [39.77, -105.07],
     ]
 
     hole2 = [
         [41.37, -98.61],
         [40.04, -91.80],
         [42.32, -91.80],
-        [41.37, -98.61]
+        [41.37, -98.61],
     ]
 
     return outer, hole1, hole2
