@@ -97,7 +97,7 @@ respect-gitignore = true
 indent-style = "space"
 quote-style = "single"
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 # Do not enforce usage in init files
 "__init__.py" = [
     "E402",
