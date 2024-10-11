@@ -1,9 +1,10 @@
 import numpy as np  # only run this test suite if numpy is installed
 import pytest
+
 from h3.api import (
     basic_int,
-    numpy_int,
     memview_int,
+    numpy_int,
 )
 
 # todo: check when a copy is made, and when it isn't

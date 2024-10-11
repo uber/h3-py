@@ -1,6 +1,5 @@
 import h3.api.basic_str as h3
 
-
 from .. import util as u
 
 

@@ -1,6 +1,6 @@
-import h3
 import pytest
 
+import h3
 from h3 import H3ResDomainError
 
 from .. import util as u

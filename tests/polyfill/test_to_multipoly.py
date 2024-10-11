@@ -1,6 +1,5 @@
 import h3
 
-
 from .. import util as u
 
 
