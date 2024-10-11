@@ -41,6 +41,7 @@ test:
 
 lint:
 	./env/bin/ruff check --fix
+	./env/bin/ruff format
 
 lab:
 	./env/bin/pip install .[all]
