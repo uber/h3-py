@@ -18,7 +18,7 @@ avoid adding features or APIs which do not map onto the
 
 None.
 
-## [4.1.0] - TBD
+## [4.1.0] - 2024-10-13
 
 - Final v4.1 release inculdes all v4.x changes below.
 

@@ -15,10 +15,8 @@
 
 
 ----
-## ANNOUNCEMENT: v4.0.0 beta released!
-Install the latest beta version with `pip install h3 --pre`
-or with
-`pip install 'h3==4.0.0b3'`. <br>
+## ANNOUNCEMENT: v4.1.0 final released on 2024-10-13!
+
 Feedback is welcome via
 [Issues](https://github.com/uber/h3-py/issues/new),
 [Discussions](https://github.com/uber/h3/discussions),
