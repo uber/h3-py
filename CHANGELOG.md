@@ -18,6 +18,10 @@ avoid adding features or APIs which do not map onto the
 
 None.
 
+## [4.1.0] - TBD
+
+- Final v4.1 release inculdes all v4.x changes below.
+
 ## [4.1.0b3] - 2024-10-05
 
 - Allow for `str` subtypes, like `numpy.str_` (#408)
