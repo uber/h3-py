@@ -15,7 +15,7 @@
 
 
 ----
-## ANNOUNCEMENT: v4.1.0 final released on 2024-10-13!
+## ANNOUNCEMENT: v4.1 final released on 2024-10-13!
 
 Feedback is welcome via
 [Issues](https://github.com/uber/h3-py/issues/new),
@@ -105,5 +105,5 @@ Use `h3.versions()` to see the version numbers for both
 ```python
 >>> import h3
 >>> h3.versions()
-{'c': '3.6.3', 'python': '3.6.1'}
+{'c': '4.1.0', 'python': '4.1.1'}
 ```
