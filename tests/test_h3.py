@@ -148,10 +148,7 @@ def test_grid_ring():
     }
 
     assert u.same_set(out, expected)
-    assert u.same_set(
-        out,
-        set(h3.grid_disk(h, 1)) - set(h3.grid_disk(h, 0))
-    )
+    assert u.same_set(out, set(h3.grid_disk(h, 1)) - set(h3.grid_disk(h, 0)))
 
 
 def test_grid_ring2():
@@ -174,10 +171,7 @@ def test_grid_ring2():
     }
 
     assert u.same_set(out, expected)
-    assert u.same_set(
-        out,
-        set(h3.grid_disk(h, 2)) - set(h3.grid_disk(h, 1))
-    )
+    assert u.same_set(out, set(h3.grid_disk(h, 2)) - set(h3.grid_disk(h, 1)))
 
 
 def test_grid_ring_pentagon():
@@ -328,14 +322,10 @@ def test_directed_edge_to_cells():
 
 
 def test_origin_to_directed_edges():
-    h3_uni_edges = h3.origin_to_directed_edges(
-        '8928308280fffff'
-    )
+    h3_uni_edges = h3.origin_to_directed_edges('8928308280fffff')
     assert len(h3_uni_edges) == 6
 
-    h3_uni_edge_pentagon = h3.origin_to_directed_edges(
-        '821c07fffffffff'
-    )
+    h3_uni_edge_pentagon = h3.origin_to_directed_edges('821c07fffffffff')
     assert len(h3_uni_edge_pentagon) == 5
 
 
@@ -481,10 +471,7 @@ def test_cell_to_children_size2():
     for r in range(16):
         total_cells = 120 * (7**r) + 2
 
-        assert total_cells == sum(
-            h3.cell_to_children_size(h, r)
-            for h in cells
-        )
+        assert total_cells == sum(h3.cell_to_children_size(h, r) for h in cells)
 
 
 def test_child_pos3():

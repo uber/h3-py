@@ -1,5 +1,6 @@
-import h3
 import pytest
+
+import h3
 
 from . import util as u
 
@@ -7,10 +8,7 @@ from . import util as u
 def cell_perimiter1(h, unit='km'):
     edges = h3.origin_to_directed_edges(h)
 
-    dists = [
-        h3.edge_length(e, unit=unit)
-        for e in edges
-    ]
+    dists = [h3.edge_length(e, unit=unit) for e in edges]
 
     assert all(d > 0 for d in dists)
 
@@ -23,8 +21,7 @@ def cell_perimiter2(h, unit='km'):
     verts += (verts[0],)
 
     dists = [
-        h3.great_circle_distance(verts[i], verts[i + 1], unit=unit)
-        for i in range(N)
+        h3.great_circle_distance(verts[i], verts[i + 1], unit=unit) for i in range(N)
     ]
 
     assert all(d > 0 for d in dists)
@@ -33,6 +30,7 @@ def cell_perimiter2(h, unit='km'):
 
 
 def test_areas_at_00():
+    # fmt: off
     areas_km2 = [
         2.562182162955495529e+06,
         4.476842018179409206e+05,
@@ -51,11 +49,9 @@ def test_areas_at_00():
         4.664070326136773890e-06,
         6.662957615868890711e-07,
     ]
+    # fmt: on
 
-    out = [
-        h3.cell_area(h3.latlng_to_cell(0, 0, r), unit='km^2')
-        for r in range(16)
-    ]
+    out = [h3.cell_area(h3.latlng_to_cell(0, 0, r), unit='km^2') for r in range(16)]
 
     assert u.approx2(out, areas_km2)
 
@@ -78,10 +74,7 @@ def test_areas_at_00():
         1.641537700693487648e-14,
     ]
 
-    out = [
-        h3.cell_area(h3.latlng_to_cell(0, 0, r), unit='rads^2')
-        for r in range(16)
-    ]
+    out = [h3.cell_area(h3.latlng_to_cell(0, 0, r), unit='rads^2') for r in range(16)]
 
     assert u.approx2(out, areas_rads2)
 

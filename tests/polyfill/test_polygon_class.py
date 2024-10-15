@@ -1,5 +1,6 @@
-import h3
 import pytest
+
+import h3
 
 
 def test_repr():

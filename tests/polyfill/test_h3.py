@@ -1,5 +1,6 @@
-import h3
 import pytest
+
+import h3
 
 from .. import util as u
 
@@ -28,9 +29,7 @@ def latlng_closed():
 
 
 def swap_latlng(ll1):
-    ll1 = tuple(
-        (b, a) for a, b in ll1
-    )
+    ll1 = tuple((b, a) for a, b in ll1)
     return ll1
 
 
@@ -43,10 +42,12 @@ def lnglat_closed():
 
 
 def get_mocked(loop):
-    geo = MockGeoInterface({
-        'type': 'Polygon',
-        'coordinates': [loop]
-    })
+    geo = MockGeoInterface(
+        {
+            'type': 'Polygon',
+            'coordinates': [loop],
+        }
+    )
 
     return geo
 
@@ -82,8 +83,7 @@ def test_geo_interface():
 
     assert (
         poly.__geo_interface__['coordinates']
-        ==
-        mpoly.__geo_interface__['coordinates'][0]
+        == mpoly.__geo_interface__['coordinates'][0]
     )
 
 
@@ -91,11 +91,7 @@ def test_shape_repr():
     poly = h3.LatLngPoly(sf_hole1)
     mpoly = h3.LatLngMultiPoly(poly)
 
-    assert (
-        '<LatLngMultiPoly: [3]>'
-        == str(mpoly)
-        == repr(mpoly)
-    )
+    assert '<LatLngMultiPoly: [3]>' == str(mpoly) == repr(mpoly)
 
 
 def test_polyfill():
@@ -125,23 +121,16 @@ def test_polyfill_with_hole():
 
     foo = lambda x: set(h3.h3shape_to_cells(h3.LatLngPoly(x), 9))
 
-    assert u.same_set(
-        out,
-        foo(sf_7x7) - foo(sf_hole1)
-    )
+    assert u.same_set(out, foo(sf_7x7) - foo(sf_hole1))
 
 
 def test_polyfill_with_two_holes():
-
     poly = h3.LatLngPoly(sf_7x7, sf_hole1, sf_hole2)
     out = h3.h3shape_to_cells(poly, 9)
     assert len(out) == 1172
 
     foo = lambda x: set(h3.h3shape_to_cells(h3.LatLngPoly(x), 9))
-    assert u.same_set(
-        out,
-        foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2))
-    )
+    assert u.same_set(out, foo(sf_7x7) - (foo(sf_hole1) | foo(sf_hole2)))
 
 
 def test_polyfill_geo_json_compliant():
@@ -177,12 +166,14 @@ def test_geo_to_h3shape():
 
     expected = {
         'type': 'Polygon',
-        'coordinates': ((
-            (-122.408, 37.813),
-            (-122.512, 37.707),
-            (-122.479, 37.815),
-            (-122.408, 37.813),
-        ),)
+        'coordinates': (
+            (
+                (-122.408, 37.813),
+                (-122.512, 37.707),
+                (-122.479, 37.815),
+                (-122.408, 37.813),
+            ),
+        ),
     }
 
     for shape in shapes:
@@ -192,12 +183,16 @@ def test_geo_to_h3shape():
 
     multi_expected = {
         'type': 'MultiPolygon',
-        'coordinates': (((
-            (-122.408, 37.813),
-            (-122.512, 37.707),
-            (-122.479, 37.815),
-            (-122.408, 37.813),
-        ),),)
+        'coordinates': (
+            (
+                (
+                    (-122.408, 37.813),
+                    (-122.512, 37.707),
+                    (-122.479, 37.815),
+                    (-122.408, 37.813),
+                ),
+            ),
+        ),
     }
 
     for mp in mpolys:
@@ -360,8 +355,12 @@ def test_cells_to_h3shape_non_contiguous():
 def test_cells_to_h3shape_hole():
     # Six hexagons in a ring around a hole
     cells = [
-        '892830828c7ffff', '892830828d7ffff', '8928308289bffff',
-        '89283082813ffff', '8928308288fffff', '89283082883ffff',
+        '892830828c7ffff',
+        '892830828d7ffff',
+        '8928308289bffff',
+        '89283082813ffff',
+        '8928308288fffff',
+        '89283082883ffff',
     ]
     mpoly = h3.cells_to_h3shape(cells, tight=False)
 
@@ -386,7 +385,6 @@ def test_cells_to_h3shape_2grid_disk():
 
 
 def test_multipoly_checks():
-
     with pytest.raises(ValueError):
         h3.LatLngMultiPoly('foo')
 
@@ -400,7 +398,7 @@ def test_multipoly_checks():
 def test_3d_geo():
     loop = lnglat_open()
 
-    loop2d = [(lng, lat)      for lng, lat in loop]
+    loop2d = [(lng, lat) for lng, lat in loop]
     loop3d = [(lng, lat, 0.0) for lng, lat in loop]
 
     geo2d = get_mocked(loop2d)
@@ -418,10 +416,7 @@ def test_3d_geo():
 
 def test_against_3d_polygons():
     # LatLngPoly still expects just a lat/lng. it won't handle 3d coords
-    loop3d = [
-        (lat, lng, 0.0)
-        for lat, lng in latlng_open()
-    ]
+    loop3d = [(lat, lng, 0.0) for lat, lng in latlng_open()]
 
     with pytest.raises(ValueError):
         h3.LatLngPoly(loop3d)

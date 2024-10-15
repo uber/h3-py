@@ -3,17 +3,16 @@
 from ... import _cy
 from ..._h3shape import (
     H3Shape,
-    LatLngPoly,
     LatLngMultiPoly,
+    LatLngPoly,
     geo_to_h3shape,
     h3shape_to_geo,
 )
-
 from ._convert import (
-    _in_scalar,
-    _out_scalar,
     _in_collection,
+    _in_scalar,
     _out_collection,
+    _out_scalar,
 )
 
 
@@ -1071,9 +1070,11 @@ def great_circle_distance(latlng1, latlng2, unit='km'):
     lat1, lng1 = latlng1
     lat2, lng2 = latlng2
     return _cy.great_circle_distance(
-        lat1, lng1,
-        lat2, lng2,
-        unit = unit
+        lat1,
+        lng1,
+        lat2,
+        lng2,
+        unit=unit,
     )
 
 
