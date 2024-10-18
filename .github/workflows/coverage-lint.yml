@@ -23,28 +23,8 @@ jobs:
           pip install --upgrade pip setuptools wheel
           pip install .[test]
 
-      - name: Install CLI Reviewdog
-        uses: reviewdog/action-setup@v1
-
-      # Order is important for these commands
-      # Run the actual fixes first so that they are picked up by next GH step but
-      # removed from the final run of the linter.
-      # Second run of the linter will report unfixable issues via reviewdog
       - name: Run Linting
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ruff format .
-          ruff check . --fix-only
-          ruff check . | reviewdog -efm="%f:%l:%c: %m" -reporter=github-pr-review -level=warning
-
-      # Picks up file changes from the previous action
-      - name: Suggest Fixes
-        uses: reviewdog/action-suggester@v1
-        with:
-          tool_name: ruff
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          level: warning
+        uses: astral-sh/ruff-action@v1
 
       - name: Coverage
         run: |
