@@ -15,7 +15,4 @@ def approx2(a, b):
     if len(a) != len(b):
         return False
 
-    return all(
-        x == pytest.approx(y)
-        for x, y in zip(a, b)
-    )
+    return all(x == pytest.approx(y) for x, y in zip(a, b))
