@@ -90,6 +90,9 @@ jobs:
           - os: ubuntu-22.04
             build: 'cp312-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.12
+          - os: ubuntu-22.04
+            build: 'cp313-musllinux_x86_64'
+            name: Linux Intel musl 64-bit 3.13
 
           - os: ubuntu-22.04
             build: 'cp38-manylinux_aarch64'
@@ -106,6 +109,9 @@ jobs:
           - os: ubuntu-22.04
             build: 'cp312-manylinux_aarch64'
             name: Linux Aarch64 3.12
+          - os: ubuntu-22.04
+            build: 'cp313-manylinux_aarch64'
+            name: Linux Aarch64 3.13
 
     steps:
       - uses: actions/checkout@v4.1.1
