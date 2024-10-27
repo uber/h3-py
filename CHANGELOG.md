@@ -20,7 +20,7 @@ None.
 
 ## [4.1.2] - 2024-10-26
 
-- Build Python 3.13 wheels
+- Build Python 3.13 wheels (#425)
 
 ## [4.1.1] - 2024-10-13
 
