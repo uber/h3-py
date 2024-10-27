@@ -23,13 +23,8 @@ jobs:
           pip install --upgrade pip setuptools wheel
           pip install .[test]
 
-      - name: Lint
-        run: flake8 src/h3 tests
-
-      - name: Pylint
-        # As a test for visibility of API bindings, we want to ensure that pylint has no
-        # `import-error` warnings for h3 imports.
-        run: pylint --disable=all --enable=import-error tests/
+      - name: Run Linting
+        uses: astral-sh/ruff-action@v1.1.1
 
       - name: Coverage
         run: |
