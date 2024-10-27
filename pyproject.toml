@@ -107,7 +107,6 @@ select = [
     'F',
     'W',
     'Q',
-    'F401',  # Unused imports
 ]
 ignore = [
     'E221',  # Multiple spaces before operator
@@ -119,9 +118,7 @@ ignore = [
 ]
 
 fixable = ['ALL']
-unfixable = [
-    #'F401',  # unused imports
-]
+unfixable = []
 
 [tool.ruff.lint.per-file-ignores]
 "*.ipynb" = [
