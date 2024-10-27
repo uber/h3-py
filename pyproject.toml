@@ -106,7 +106,7 @@ select = [
     'E',
     'F',
     'W',
-    'Q000',
+    'Q',
     'F401',  # Unused imports
 ]
 ignore = [
