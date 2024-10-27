@@ -111,6 +111,8 @@ select = [
     'Q',
     'W',
     # 'D',  # todo. this is nice!
+    # 'PL',  # todo. some interesting ideas
+    # 'DOC',  # todo: interesting
 ]
 ignore = [
     'E221',  # Multiple spaces before operator
@@ -119,6 +121,7 @@ ignore = [
     'E251',  # Unexpected spaces around keyword / parameter equals
     'E272',  # Multiple spaces before keyword
     'E731',  # Do not assign a `lambda` expression, use a `def`
+    # 'PLR2004',
 ]
 
 [tool.ruff.lint.per-file-ignores]
