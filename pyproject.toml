@@ -99,15 +99,18 @@ respect-gitignore = true
 line-length = 88
 
 [tool.ruff.lint]
+# https://docs.astral.sh/ruff/rules/
+preview = true
+explicit-preview-rules = false  # https://docs.astral.sh/ruff/preview/#selecting-single-preview-rules
 select = [
     'E',
-    'W',  # https://docs.astral.sh/ruff/rules/#warning-w
+    'W',
     'Q000',
-    'F401',  # unused imports
+    'F401',  # Unused imports
 ]
 ignore = [
     'E731',  # Do not assign a `lambda` expression, use a `def`
-    'E241',  # multiple spaces after ','
+    'E241',  # Multiple spaces after ','
     'E221',  # Multiple spaces before operator
     'E272',  # Multiple spaces before keyword
     'E251',  # Unexpected spaces around keyword / parameter equals
