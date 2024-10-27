@@ -95,13 +95,13 @@ src = [
     'src',
     'tests',
 ]
-respect-gitignore = true
 line-length = 88
 
 [tool.ruff.lint]
+flake8-quotes.inline-quotes = 'single'
+
 # https://docs.astral.sh/ruff/rules/
-preview = true
-explicit-preview-rules = false  # https://docs.astral.sh/ruff/preview/#selecting-single-preview-rules
+preview = true  # https://docs.astral.sh/ruff/preview/#selecting-single-preview-rules
 select = [
     'A',
     # 'B',  # todo
@@ -131,6 +131,3 @@ ignore = [
 'test*.py' = [
     # 'D',  # maybe just the need for docstring
 ]
-
-[tool.ruff.lint.flake8-quotes]
-inline-quotes = 'single'
