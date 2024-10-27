@@ -103,10 +103,14 @@ line-length = 88
 preview = true
 explicit-preview-rules = false  # https://docs.astral.sh/ruff/preview/#selecting-single-preview-rules
 select = [
+    'A',
+    # 'B',  # todo
+    # 'COM',  # todo
     'E',
     'F',
     'Q',
     'W',
+    # 'D',  # todo. this is nice!
 ]
 ignore = [
     'E221',  # Multiple spaces before operator
@@ -117,12 +121,12 @@ ignore = [
     'E731',  # Do not assign a `lambda` expression, use a `def`
 ]
 
-fixable = ['ALL']
-unfixable = []
-
 [tool.ruff.lint.per-file-ignores]
 '*.ipynb' = [
     'E501',  # Line too long (104 > 88)
+]
+'test*.py' = [
+    # 'D',  # maybe just the need for docstring
 ]
 
 [tool.ruff.lint.flake8-quotes]
