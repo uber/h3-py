@@ -105,8 +105,8 @@ explicit-preview-rules = false  # https://docs.astral.sh/ruff/preview/#selecting
 select = [
     'E',
     'F',
-    'W',
     'Q',
+    'W',
 ]
 ignore = [
     'E221',  # Multiple spaces before operator
