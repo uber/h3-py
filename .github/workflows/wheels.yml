@@ -23,12 +23,12 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4.2.2
         with:
           submodules: recursive
 
       - name: Setup Python
-        uses: actions/setup-python@v5.0.0
+        uses: actions/setup-python@v5.3.0
         with:
           python-version: 3.11
 
@@ -48,7 +48,7 @@ jobs:
         run: pytest
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4.3.1
+        uses: actions/upload-artifact@v4.4.3
         with:
           name: temp_result_sdist
           path: ./dist
@@ -90,6 +90,9 @@ jobs:
           - os: ubuntu-22.04
             build: 'cp312-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.12
+          - os: ubuntu-22.04
+            build: 'cp313-musllinux_x86_64'
+            name: Linux Intel musl 64-bit 3.13
 
           - os: ubuntu-22.04
             build: 'cp38-manylinux_aarch64'
@@ -106,9 +109,12 @@ jobs:
           - os: ubuntu-22.04
             build: 'cp312-manylinux_aarch64'
             name: Linux Aarch64 3.12
+          - os: ubuntu-22.04
+            build: 'cp313-manylinux_aarch64'
+            name: Linux Aarch64 3.13
 
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4.2.2
         with:
           submodules: recursive
 
@@ -124,11 +130,11 @@ jobs:
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v3.0.0
+        uses: docker/setup-qemu-action@v3.2.0
         with:
           platforms: aarch64
 
-      - uses: pypa/cibuildwheel@v2.17.0
+      - uses: pypa/cibuildwheel@v2.21.3
         env:
           CIBW_TEST_REQUIRES: pytest pytest-cov numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
@@ -140,7 +146,7 @@ jobs:
           pipx run twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4.3.1
+        uses: actions/upload-artifact@v4.4.3
         with:
           name: temp_result_${{ matrix.os }}-${{ strategy.job-index }}
           path: wheelhouse/*.whl
@@ -150,7 +156,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Merge Artifacts
-        uses: actions/upload-artifact/merge@v4
+        uses: actions/upload-artifact/merge@v4.4.3
         with:
           name: wheels_and_sdist
           pattern: temp_result_*
@@ -164,11 +170,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/download-artifact@v4.1.7
+      - uses: actions/download-artifact@v4.1.8
         with:
           name: wheels_and_sdist
           path: dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.8.14
+      - uses: pypa/gh-action-pypi-publish@v1.10.3
         with:
           password: ${{ secrets.pypi_password }}
