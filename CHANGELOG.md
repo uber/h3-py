@@ -18,6 +18,10 @@ avoid adding features or APIs which do not map onto the
 
 None.
 
+## [4.1.2] - 2024-10-26
+
+- Build Python 3.13 wheels
+
 ## [4.1.1] - 2024-10-13
 
 - Make sure docs and PyPI page are up-to-date.
