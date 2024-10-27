@@ -92,8 +92,8 @@ sdist.include = [
 
 [tool.ruff]
 src = [
-    "src",
-    "tests",
+    'src',
+    'tests',
 ]
 respect-gitignore = true
 line-length = 88
@@ -121,7 +121,7 @@ fixable = ['ALL']
 unfixable = []
 
 [tool.ruff.lint.per-file-ignores]
-"*.ipynb" = [
+'*.ipynb' = [
     'E501',  # Line too long (104 > 88)
 ]
 
