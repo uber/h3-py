@@ -4,7 +4,7 @@ build-backend = 'scikit_build_core.build'
 
 [project]
 name = 'h3'
-version = '4.1.1'
+version = '4.1.2'
 description = "Uber's hierarchical hexagonal geospatial indexing system"
 readme = 'readme.md'
 license = {file = 'LICENSE'}
@@ -30,6 +30,7 @@ classifiers = [
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
     'Operating System :: MacOS :: MacOS X',
     'Operating System :: POSIX :: Linux',
     'Operating System :: Microsoft :: Windows',
@@ -48,8 +49,8 @@ Changelog = 'https://package.readthedocs.io/en/latest/changelog.html'
 numpy = ['numpy']
 test = ['pytest', 'pytest-cov', 'ruff', 'numpy']
 all = [
+    'h3[test]',
     'jupyter-book',
-    'flake8',
     'sphinx>=7.3.3', # https://github.com/sphinx-doc/sphinx/issues/12290
     'jupyterlab',
     'jupyterlab-geojson',
@@ -59,10 +60,6 @@ all = [
     'contextily',
     'cartopy',
     'geoviews',
-    'numpy',
-    'pytest',
-    'pytest-cov',
-    'pylint',
 ]
 
 [tool.pytest.ini_options]
