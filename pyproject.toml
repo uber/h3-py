@@ -96,8 +96,33 @@ src = [
     "tests",
 ]
 respect-gitignore = true
+line-length = 88
 
-lint.select = ["Q000"]
+[tool.ruff.lint]
+select = [
+    'E',
+    'W',  # https://docs.astral.sh/ruff/rules/#warning-w
+    'Q000',
+    'F401',  # unused imports
+]
+ignore = [
+    'E731',  # Do not assign a `lambda` expression, use a `def`
+    'E241',  # multiple spaces after ','
+    'E221',  # Multiple spaces before operator
+    'E272',  # Multiple spaces before keyword
+    'E251',  # Unexpected spaces around keyword / parameter equals
+    'E231',  # Missing whitespace after ','
+]
+
+fixable = ['ALL']
+unfixable = [
+    'F401',  # unused imports
+]
+
+[tool.ruff.lint.per-file-ignores]
+"*.ipynb" = [
+    'E501',  # Line too long (104 > 88)
+]
 
 [tool.ruff.lint.flake8-quotes]
-inline-quotes = "single"
+inline-quotes = 'single'

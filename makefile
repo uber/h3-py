@@ -40,7 +40,10 @@ test:
 	./env/bin/pytest
 
 lint:
-	./env/bin/ruff check --fix
+	./env/bin/ruff check --preview
+
+fix:
+	./env/bin/ruff check --preview --fix
 
 lab:
 	./env/bin/pip install .[all]
