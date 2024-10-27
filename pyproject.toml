@@ -104,6 +104,7 @@ preview = true
 explicit-preview-rules = false  # https://docs.astral.sh/ruff/preview/#selecting-single-preview-rules
 select = [
     'E',
+    'F',
     'W',
     'Q000',
     'F401',  # Unused imports
@@ -125,6 +126,7 @@ unfixable = [
 [tool.ruff.lint.per-file-ignores]
 "*.ipynb" = [
     'E501',  # Line too long (104 > 88)
+    'F841',  # Local variable is assigned to but never used
 ]
 
 [tool.ruff.lint.flake8-quotes]
