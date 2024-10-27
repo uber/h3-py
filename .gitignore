@@ -2,6 +2,7 @@ h3c/
 *.py[cod]
 .cache/
 h3/out/
+.ruff_cache/
 
 # Generated C code from Cython test
 tests/**/*.c
