@@ -46,7 +46,7 @@ Changelog = 'https://package.readthedocs.io/en/latest/changelog.html'
 
 [project.optional-dependencies]
 numpy = ['numpy']
-test = ['pytest', 'pytest-cov', 'flake8', 'pylint', 'numpy']
+test = ['pytest', 'pytest-cov', 'ruff', 'numpy']
 all = [
     'jupyter-book',
     'flake8',
@@ -91,3 +91,16 @@ sdist.include = [
     'src/h3lib/cmake/*',
     'src/h3lib/src/h3lib/*'
 ]
+
+
+[tool.ruff]
+src = [
+    "src",
+    "tests",
+]
+respect-gitignore = true
+
+lint.select = ["Q000"]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
