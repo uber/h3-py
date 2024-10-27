@@ -128,7 +128,7 @@ jobs:
         with:
           platforms: aarch64
 
-      - uses: pypa/cibuildwheel@v2.17.0
+      - uses: pypa/cibuildwheel@v2.21.3
         env:
           CIBW_TEST_REQUIRES: pytest pytest-cov numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
