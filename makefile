@@ -40,8 +40,10 @@ test:
 	./env/bin/pytest
 
 lint:
-	./env/bin/flake8 src/h3 tests
-	./env/bin/pylint --disable=all --enable=import-error tests/
+	./env/bin/ruff check
+
+fix:
+	./env/bin/ruff check --fix
 
 lab:
 	./env/bin/pip install .[all]

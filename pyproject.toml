@@ -47,7 +47,7 @@ Changelog = 'https://package.readthedocs.io/en/latest/changelog.html'
 
 [project.optional-dependencies]
 numpy = ['numpy']
-test = ['pytest', 'pytest-cov', 'flake8', 'pylint', 'numpy']
+test = ['pytest', 'pytest-cov', 'ruff', 'numpy']
 all = [
     'h3[test]',
     'jupyter-book',
@@ -87,4 +87,47 @@ sdist.include = [
     'src/h3lib/CMakeLists.txt',
     'src/h3lib/cmake/*',
     'src/h3lib/src/h3lib/*'
+]
+
+
+[tool.ruff]
+src = [
+    'src',
+    'tests',
+]
+line-length = 88
+
+[tool.ruff.lint]
+flake8-quotes.inline-quotes = 'single'
+
+# https://docs.astral.sh/ruff/rules/
+preview = true  # https://docs.astral.sh/ruff/preview/#selecting-single-preview-rules
+select = [
+    'A',
+    # 'B',  # todo
+    # 'COM',  # todo
+    'E',
+    'F',
+    'Q',
+    'W',
+    # 'D',  # todo. this is nice!
+    # 'PL',  # todo. some interesting ideas
+    # 'DOC',  # todo: interesting
+]
+ignore = [
+    'E221',  # Multiple spaces before operator
+    'E231',  # Missing whitespace after ','
+    'E241',  # Multiple spaces after ','
+    'E251',  # Unexpected spaces around keyword / parameter equals
+    'E272',  # Multiple spaces before keyword
+    'E731',  # Do not assign a `lambda` expression, use a `def`
+    # 'PLR2004',
+]
+
+[tool.ruff.lint.per-file-ignores]
+'*.ipynb' = [
+    'E501',  # Line too long (104 > 88)
+]
+'test*.py' = [
+    # 'D',  # maybe just the need for docstring
 ]
