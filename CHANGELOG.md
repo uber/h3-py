@@ -16,7 +16,7 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-None.
+- Update to v4.2.0.
 
 ## [4.1.2] - 2024-10-26
 

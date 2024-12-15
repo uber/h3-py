@@ -58,6 +58,8 @@ from .latlng import (
     cell_to_latlng,
     polygon_to_cells,
     polygons_to_cells,
+    polygon_to_cells_experimental,
+    polygons_to_cells_experimental,
     cell_to_boundary,
     directed_edge_to_boundary,
     great_circle_distance,

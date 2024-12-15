@@ -196,6 +196,80 @@ def polygons_to_cells(polygons, int res):
     return hmm.to_mv()
 
 
+def polygon_to_cells_experimental(outer, int res, int flags, holes=None):
+    """ Get the set of cells whose center is contained in a polygon.
+
+    The polygon is defined similarity to the GeoJson standard, with an exterior
+    `outer` ring of lat/lng points, and a list of `holes`, each of which are also
+    rings of lat/lng points.
+
+    Each ring may be in clockwise or counter-clockwise order
+    (right-hand rule or not), and may or may not be a closed loop (where the last
+    element is equal to the first).
+    The GeoJSON spec requires the right-hand rule and a closed loop, but
+    this function relaxes those constraints.
+
+    Unlike the GeoJson standard, the elements of the lat/lng pairs of each
+    ring are in lat/lng order, instead of lng/lat order.
+
+    We'll handle translation to different formats in the Python code,
+    rather than the Cython code.
+
+    Parameters
+    ----------
+    outer : list or tuple
+        A ring given by a sequence of lat/lng pairs.
+    res : int
+        The resolution of the output hexagons
+    flags : int
+        Polygon to cells flags, such as containment mode.
+    holes : list or tuple
+        A collection of rings, each given by a sequence of lat/lng pairs.
+        These describe any the "holes" in the polygon.
+    """
+    cdef:
+        uint64_t n
+
+    check_res(res)
+
+    if not outer:
+        return H3MemoryManager(0).to_mv()
+
+    gp = GeoPolygon(outer, holes=holes)
+
+    check_for_error(
+        h3lib.maxPolygonToCellsSizeExperimental(&gp.gp, res, flags, &n)
+    )
+
+    hmm = H3MemoryManager(n)
+    check_for_error(
+        h3lib.polygonToCellsExperimental(&gp.gp, res, flags, n, hmm.ptr)
+    )
+    mv = hmm.to_mv()
+
+    return mv
+
+
+def polygons_to_cells_experimental(polygons, int res, int flags):
+    mvs = [
+        polygon_to_cells_experimental(outer=poly.outer, res=res, holes=poly.holes, flags=flags)
+        for poly in polygons
+    ]
+
+    n = sum(map(len, mvs))
+    hmm = H3MemoryManager(n)
+
+    # probably super inefficient, but it is working!
+    # tood: move this to C
+    k = 0
+    for mv in mvs:
+        for v in mv:
+            hmm.ptr[k] = v
+            k += 1
+
+    return hmm.to_mv()
+
+
 def cell_to_boundary(H3int h):
     """Compose an array of geo-coordinates that outlines a hexagonal cell"""
     cdef:

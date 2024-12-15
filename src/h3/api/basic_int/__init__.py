@@ -467,7 +467,7 @@ def uncompact_cells(cells, res):
     return _out_collection(hu)
 
 
-def h3shape_to_cells(h3shape, res):
+def h3shape_to_cells(h3shape, res, flags=0, experimental=False):
     """
     Return the collection of H3 cells at a given resolution whose center points
     are contained within an ``LatLngPoly`` or ``LatLngMultiPoly``.
@@ -477,6 +477,10 @@ def h3shape_to_cells(h3shape, res):
     h3shape : ``H3Shape``
     res : int
         Resolution of the output cells
+    flags : int
+        Containment mode flags
+    experimental : bool
+        Whether to use experimental algorithm.
 
     Returns
     -------
@@ -506,10 +510,16 @@ def h3shape_to_cells(h3shape, res):
     # todo: not sure if i want this dispatch logic here. maybe in the objects?
     if isinstance(h3shape, LatLngPoly):
         poly = h3shape
-        mv = _cy.polygon_to_cells(poly.outer, res, holes=poly.holes)
+        if experimental:
+            mv = _cy.polygon_to_cells_experimental(poly.outer, res=res, holes=poly.holes, flags=flags)
+        else:
+            mv = _cy.polygon_to_cells(poly.outer, res=res, holes=poly.holes)
     elif isinstance(h3shape, LatLngMultiPoly):
         mpoly = h3shape
-        mv = _cy.polygons_to_cells(mpoly.polys, res)
+        if experimental:
+            mv = _cy.polygons_to_cells_experimental(mpoly.polys, res=res, flags=flags)
+        else:
+            mv = _cy.polygons_to_cells(mpoly.polys, res=res)
     elif isinstance(h3shape, H3Shape):
         raise ValueError('Unrecognized H3Shape: ' + str(h3shape))
     else:
@@ -518,11 +528,11 @@ def h3shape_to_cells(h3shape, res):
     return _out_collection(mv)
 
 
-def polygon_to_cells(h3shape, res):
+def polygon_to_cells(h3shape, res, flags=0, experimental=False):
     """
     Alias for ``h3shape_to_cells``.
     """
-    return h3shape_to_cells(h3shape, res)
+    return h3shape_to_cells(h3shape, res, flags=flags, experimental=experimental)
 
 
 def cells_to_h3shape(cells, *, tight=True):
