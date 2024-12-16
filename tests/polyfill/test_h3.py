@@ -116,6 +116,7 @@ def test_polygon_to_cells():
     assert '89283080527ffff' in out
     assert '89283095edbffff' in out
 
+
 def test_polygon_to_cells_experimental():
     poly = h3.LatLngPoly(sf_7x7)
     # Note that `polygon_to_cells` is an alias for `h3shape_to_cells`

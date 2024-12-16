@@ -511,7 +511,12 @@ def h3shape_to_cells(h3shape, res, flags=0, experimental=False):
     if isinstance(h3shape, LatLngPoly):
         poly = h3shape
         if experimental:
-            mv = _cy.polygon_to_cells_experimental(poly.outer, res=res, holes=poly.holes, flags=flags)
+            mv = _cy.polygon_to_cells_experimental(
+                poly.outer,
+                res=res,
+                holes=poly.holes,
+                flags=flags
+            )
         else:
             mv = _cy.polygon_to_cells(poly.outer, res=res, holes=poly.holes)
     elif isinstance(h3shape, LatLngMultiPoly):
