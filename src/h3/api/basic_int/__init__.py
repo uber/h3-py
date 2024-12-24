@@ -536,7 +536,7 @@ def h3shape_to_cells_experimental(h3shape, res, flags=0):
     h3shape : ``H3Shape``
     res : int
         Resolution of the output cells
-    flags : int or string
+    flags : ``ContainmentMode``, int, or string
         Containment mode flags
 
     Returns
@@ -550,7 +550,7 @@ def h3shape_to_cells_experimental(h3shape, res, flags=0):
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
     ...      (37.82, -122.54)],
     ... )
-    >>> h3.h3shape_to_cells_experimental(poly, 6, 'containment_center')
+    >>> h3.h3shape_to_cells_experimental(poly, 6, h3.ContainmentMode.containment_center)
     ['862830807ffffff',
      '862830827ffffff',
      '86283082fffffff',
