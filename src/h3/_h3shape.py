@@ -1,4 +1,12 @@
 from abc import ABCMeta, abstractmethod
+from enum import Enum
+
+
+class ContainmentMode(int, Enum):
+    containment_center = 0
+    containment_full = 1
+    containment_overlapping = 2
+    containment_overlapping_bbox = 3
 
 
 class H3Shape(metaclass=ABCMeta):
