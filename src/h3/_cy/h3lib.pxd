@@ -168,6 +168,9 @@ cdef extern from 'h3api.h':
     H3Error maxPolygonToCellsSize(const GeoPolygon *geoPolygon, int res, uint32_t flags, uint64_t *count)
     H3Error polygonToCells(const GeoPolygon *geoPolygon, int res, uint32_t flags, H3int *out)
 
+    H3Error maxPolygonToCellsSizeExperimental(const GeoPolygon *geoPolygon, int res, uint32_t flags, uint64_t *count)
+    H3Error polygonToCellsExperimental(const GeoPolygon *geoPolygon, int res, uint32_t flags, uint64_t sz, H3int *out)
+
     # ctypedef struct GeoMultiPolygon:
     #     int numPolygons
     #     GeoPolygon *polygons
