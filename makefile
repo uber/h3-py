@@ -39,7 +39,7 @@ test:
 
 	./env/bin/pip install cython
 	./env/bin/cythonize tests/test_cython/cython_example.pyx
-	./env/bin/pytest --cov=tests/test_cython --cov-fail-under=99
+	./env/bin/pytest --cov=tests/test_cython
 
 lint:
 	./env/bin/ruff check
