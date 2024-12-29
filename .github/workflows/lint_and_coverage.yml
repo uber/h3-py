@@ -1,0 +1,37 @@
+name: lint_and_coverage
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: ['*']
+
+jobs:
+  linting:
+    name: Lint and Coverage
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install from source
+        run: pip install .[test]
+
+      - name: Run Linting
+        uses: astral-sh/ruff-action@v3
+
+      - name: Coverage Requirement - Library
+        run: |
+          pytest --cov=tests/test_lib --cov-fail-under=100
+
+      - name: Coverage - Cython
+        run: |
+          pip install cython
+          cythonize tests/test_cython/cython_example.pyx
+          pytest --cov=tests/test_cython

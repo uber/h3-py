@@ -35,9 +35,11 @@ purge: clear
 	-@rm -rf env
 
 test:
+	./env/bin/pytest --cov=tests/test_lib --cov-fail-under=100
+
 	./env/bin/pip install cython
 	./env/bin/cythonize tests/test_cython/cython_example.pyx
-	./env/bin/pytest
+	./env/bin/pytest --cov=tests/test_cython
 
 lint:
 	./env/bin/ruff check
