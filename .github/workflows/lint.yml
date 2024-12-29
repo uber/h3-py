@@ -1,4 +1,4 @@
-name: coverage-lint
+name: lint
 
 on:
   push:
@@ -7,9 +7,9 @@ on:
     branches: ['*']
 
 jobs:
-  tests:
-    name: Coverage and Lint
-    runs-on: ubuntu-22.04
+  linting:
+    name: Lint
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4.2.2
@@ -18,10 +18,16 @@ jobs:
 
       - uses: actions/setup-python@v5.3.0
         with:
-          python-version: 3.11
+          python-version: 3.12
 
       - name: Install from source
         run: pip install .[test]
 
       - name: Run Linting
         uses: astral-sh/ruff-action@v3
+
+      - name: Coverage
+        run: |
+          pip install cython
+          cythonize tests/test_cython/cython_example.pyx
+          pytest --cov-fail-under=99
