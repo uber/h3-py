@@ -1,0 +1,27 @@
+name: coverage-lint
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: ['*']
+
+jobs:
+  tests:
+    name: Coverage and Lint
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v5.3.0
+        with:
+          python-version: 3.11
+
+      - name: Install from source
+        run: pip install .[test]
+
+      - name: Run Linting
+        uses: astral-sh/ruff-action@v3
