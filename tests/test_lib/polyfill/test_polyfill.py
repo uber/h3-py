@@ -146,6 +146,9 @@ def test_bad_geo_input():
         h3.h3shape_to_cells('not a shape', 9)
 
     with pytest.raises(ValueError):
+        h3.h3shape_to_cells_experimental('not a shape', res=9)
+
+    with pytest.raises(ValueError):
         h3.geo_to_cells({'type': 'not a shape', 'coordinates': None}, 9)
 
 

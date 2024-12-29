@@ -44,5 +44,9 @@ def test_bad_subclass():
 
     shoop = H3Shoop()
     shoop.__geo_interface__()
+
     with pytest.raises(ValueError):
         h3.h3shape_to_cells(shoop, res=9)
+
+    with pytest.raises(ValueError):
+        h3.h3shape_to_cells_experimental(shoop, res=9)

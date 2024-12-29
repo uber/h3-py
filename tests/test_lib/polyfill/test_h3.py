@@ -174,9 +174,37 @@ def test_polygon_to_cells_experimental_invalid_mode():
     poly = h3.LatLngPoly(sf_7x7)
     for flags in [1.0, 'containment_overlapping_bbox_abc', None]:
         with pytest.raises(ValueError):
-            print(flags)
             # Note that `polygon_to_cells` is an alias for `h3shape_to_cells`
             h3.polygon_to_cells_experimental(poly, res=9, flags=flags)
+
+
+def test_poly_to_cells_experimental_mpoly():
+    mpoly = h3.LatLngMultiPoly(
+        h3.LatLngPoly(sf_hole1),
+        h3.LatLngPoly(sf_hole2),
+    )
+
+    assert (
+        set(h3.polygon_to_cells_experimental(mpoly, res=9))
+        ==
+        set(h3.polygon_to_cells_experimental(mpoly, res=9, flags='containment_center'))
+    )
+
+    assert (
+        set(h3.polygon_to_cells_experimental(mpoly, res=9))
+        <
+        set(h3.polygon_to_cells_experimental(
+            mpoly,
+            res=9,
+            flags='containment_overlapping'
+        ))
+    )
+
+    assert 120 == len(h3.polygon_to_cells_experimental(
+        mpoly,
+        res=9,
+        flags='containment_overlapping'
+    ))
 
 
 def test_polyfill_with_hole():
