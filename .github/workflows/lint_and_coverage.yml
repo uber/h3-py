@@ -26,8 +26,12 @@ jobs:
       - name: Run Linting
         uses: astral-sh/ruff-action@v3
 
-      - name: Coverage Requirement
+      - name: Coverage Requirement - Library
+        run: |
+          pytest --cov=tests/test_lib --cov-fail-under=100
+
+      - name: Coverage - Cython
         run: |
           pip install cython
           cythonize tests/test_cython/cython_example.pyx
-          pytest --cov-fail-under=99
+          pytest --cov=tests/test_cython
