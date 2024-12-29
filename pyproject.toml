@@ -63,7 +63,7 @@ all = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "--cov=h3 --cov=tests --cov-report=term-missing --durations=10"
+addopts = "--cov=h3 --cov-report=term-missing --durations=10"
 
 [tool.coverage.run]
 omit = [
