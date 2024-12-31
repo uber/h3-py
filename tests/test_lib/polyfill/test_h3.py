@@ -120,7 +120,7 @@ def test_polygon_to_cells():
 def test_h3shape_to_cells_experimental():
     poly = h3.LatLngPoly(sf_7x7)
 
-    out = h3.h3shape_to_cells_experimental(poly, res=9, containment='center')
+    out = h3.h3shape_to_cells_experimental(poly, res=9, contain='center')
 
     assert len(out) == 1253
     assert '89283080527ffff' in out
@@ -130,7 +130,7 @@ def test_h3shape_to_cells_experimental():
 def test_h3shape_to_cells_experimental_full():
     poly = h3.LatLngPoly(sf_7x7)
 
-    out = h3.h3shape_to_cells_experimental(poly, res=9, containment='full')
+    out = h3.h3shape_to_cells_experimental(poly, res=9, contain='full')
 
     assert len(out) == 1175
     assert '89283082a1bffff' in out
@@ -141,7 +141,7 @@ def test_h3shape_to_cells_experimental_full():
 def test_h3shape_to_cells_experimental_overlapping():
     poly = h3.LatLngPoly(sf_7x7)
 
-    out = h3.h3shape_to_cells_experimental(poly, res=9, containment='overlap')
+    out = h3.h3shape_to_cells_experimental(poly, res=9, contain='overlap')
 
     assert len(out) == 1334
     assert '89283080527ffff' in out
@@ -150,7 +150,7 @@ def test_h3shape_to_cells_experimental_overlapping():
 
 def test_h3shape_to_cells_experimental_overlapping_bbox():
     poly = h3.LatLngPoly(sf_7x7)
-    out = h3.h3shape_to_cells_experimental(poly, res=9, containment='bbox_overlap')
+    out = h3.h3shape_to_cells_experimental(poly, res=9, contain='bbox_overlap')
 
     assert len(out) == 1416
     assert '89283080527ffff' in out
@@ -163,7 +163,7 @@ def test_h3shape_to_cells_experimental_invalid_mode():
         h3.h3shape_to_cells_experimental(
             poly,
             res = 9,
-            containment = 'containment_overlapping_bbox_abc',
+            contain = 'contain_overlapping_bbox_abc',
         )
 
 
@@ -176,7 +176,7 @@ def test_poly_to_cells_experimental_mpoly():
     assert (
         set(h3.h3shape_to_cells_experimental(mpoly, res=9))
         ==
-        set(h3.h3shape_to_cells_experimental(mpoly, res=9, containment='center'))
+        set(h3.h3shape_to_cells_experimental(mpoly, res=9, contain='center'))
     )
 
     assert (
@@ -185,14 +185,14 @@ def test_poly_to_cells_experimental_mpoly():
         set(h3.h3shape_to_cells_experimental(
             mpoly,
             res = 9,
-            containment = 'overlap'
+            contain = 'overlap'
         ))
     )
 
     assert 120 == len(h3.h3shape_to_cells_experimental(
         mpoly,
         res = 9,
-        containment = 'overlap'
+        contain = 'overlap'
     ))
 
 

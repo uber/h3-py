@@ -525,12 +525,12 @@ def polygon_to_cells(h3shape, res):
     return h3shape_to_cells(h3shape, res)
 
 
-def h3shape_to_cells_experimental(h3shape, res, containment='center'):
+def h3shape_to_cells_experimental(h3shape, res, contain='center'):
     """
     Experimental function similar to ``h3shape_to_cells``, but with support for
     multiple cell containment modes.
 
-    Using ``containment='center'`` should give identical behavior as
+    Using ``contain='center'`` should give identical behavior as
     ``h3shape_to_cells``.
 
     Note that this function is **experimental** and has no API stability gaurantees
@@ -542,7 +542,7 @@ def h3shape_to_cells_experimental(h3shape, res, containment='center'):
     h3shape : ``H3Shape``
     res : int
         Resolution of the output cells
-    containment : {'center', 'full', 'overlap', 'bbox_overlap'}
+    contain : {'center', 'full', 'overlap', 'bbox_overlap'}
         Specifies the containment condition.
             - 'center': Cell center is contained in shape
             - 'full': Cell is fully contained in shape
@@ -574,14 +574,14 @@ def h3shape_to_cells_experimental(h3shape, res, containment='center'):
     There is currently no guaranteed order of the output cells.
     """
 
-    containment_modes = {
+    contain_modes = {
         'center': 0,
         'full': 1,
         'overlap': 2,
         'bbox_overlap': 3,
     }
 
-    flag = containment_modes[containment]
+    flag = contain_modes[contain]
 
     # todo: not sure if i want this dispatch logic here. maybe in the objects?
     if isinstance(h3shape, LatLngPoly):
