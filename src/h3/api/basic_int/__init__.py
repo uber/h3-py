@@ -525,6 +525,7 @@ def polygon_to_cells(h3shape, res):
     return h3shape_to_cells(h3shape, res)
 
 
+# TODO: better docstring explaining experimental options
 def h3shape_to_cells_experimental(h3shape, res, containment='center'):
     """
     Return the collection of H3 cells at a given resolution whose center points
@@ -595,13 +596,6 @@ def h3shape_to_cells_experimental(h3shape, res, containment='center'):
         raise ValueError('Unrecognized type: ' + str(type(h3shape)))
 
     return _out_collection(mv)
-
-
-def polygon_to_cells_experimental(h3shape, res, containment='center'):
-    """
-    Alias for ``h3shape_to_cells_experimental``.
-    """
-    return h3shape_to_cells_experimental(h3shape, res, containment=containment)
 
 
 def cells_to_h3shape(cells, *, tight=True):
