@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from enum import Enum
 
 
 class H3Shape(metaclass=ABCMeta):
