@@ -533,6 +533,10 @@ def h3shape_to_cells_experimental(h3shape, res, containment='center'):
     Using ``containment='center'`` should give identical behavior as
     ``h3shape_to_cells``.
 
+    Note that this function is **experimental** and has no API stability gaurantees
+    across versions, so it may change in the future.
+
+
     Parameters
     ----------
     h3shape : ``H3Shape``
