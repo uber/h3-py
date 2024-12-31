@@ -2,7 +2,6 @@
 
 from ... import _cy
 from ..._h3shape import (
-    ContainmentMode,
     H3Shape,
     LatLngPoly,
     LatLngMultiPoly,
@@ -526,7 +525,7 @@ def polygon_to_cells(h3shape, res):
     return h3shape_to_cells(h3shape, res)
 
 
-def h3shape_to_cells_experimental(h3shape, res, flags=0):
+def h3shape_to_cells_experimental(h3shape, res, containment='center'):
     """
     Return the collection of H3 cells at a given resolution whose center points
     are contained within an ``LatLngPoly`` or ``LatLngMultiPoly``.
@@ -536,8 +535,8 @@ def h3shape_to_cells_experimental(h3shape, res, flags=0):
     h3shape : ``H3Shape``
     res : int
         Resolution of the output cells
-    flags : ``ContainmentMode``, int, or string
-        Containment mode flags
+    containment: str
+        'center', 'full', 'overlap', 'bbox_overlap'
 
     Returns
     -------
@@ -550,7 +549,7 @@ def h3shape_to_cells_experimental(h3shape, res, flags=0):
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
     ...      (37.82, -122.54)],
     ... )
-    >>> h3.h3shape_to_cells_experimental(poly, 6, h3.ContainmentMode.containment_center)
+    >>> h3.h3shape_to_cells_experimental(poly, 6, 'center')
     ['862830807ffffff',
      '862830827ffffff',
      '86283082fffffff',
@@ -564,30 +563,27 @@ def h3shape_to_cells_experimental(h3shape, res, flags=0):
     There is currently no guaranteed order of the output cells.
     """
 
-    if isinstance(flags, str):
-        try:
-            flags = ContainmentMode[flags]
-        except KeyError as e:
-            raise ValueError('Unrecognized flags: ' + flags) from e
-    if isinstance(flags, ContainmentMode):
-        flags = int(flags)
-    if not isinstance(flags, int):
-        raise ValueError(
-            'Flags should be ContainmentMode, str, or int, but got: ' + str(type(flags))
-        )
+    containment_modes = {
+        'center': 0,
+        'full': 1,
+        'overlap': 2,
+        'bbox_overlap': 3,
+    }
+
+    flag = containment_modes[containment]
 
     # todo: not sure if i want this dispatch logic here. maybe in the objects?
     if isinstance(h3shape, LatLngPoly):
         poly = h3shape
         mv = _cy.polygon_to_cells_experimental(
             poly.outer,
-            res=res,
-            holes=poly.holes,
-            flags=flags
+            res = res,
+            holes = poly.holes,
+            flag = flag,
         )
     elif isinstance(h3shape, LatLngMultiPoly):
         mpoly = h3shape
-        mv = _cy.polygons_to_cells_experimental(mpoly.polys, res=res, flags=flags)
+        mv = _cy.polygons_to_cells_experimental(mpoly.polys, res=res, flag=flag)
     elif isinstance(h3shape, H3Shape):
         raise ValueError('Unrecognized H3Shape: ' + str(h3shape))
     else:
@@ -596,11 +592,11 @@ def h3shape_to_cells_experimental(h3shape, res, flags=0):
     return _out_collection(mv)
 
 
-def polygon_to_cells_experimental(h3shape, res, flags=0):
+def polygon_to_cells_experimental(h3shape, res, containment='center'):
     """
     Alias for ``h3shape_to_cells_experimental``.
     """
-    return h3shape_to_cells_experimental(h3shape, res, flags=flags)
+    return h3shape_to_cells_experimental(h3shape, res, containment=containment)
 
 
 def cells_to_h3shape(cells, *, tight=True):

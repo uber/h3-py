@@ -119,9 +119,9 @@ def test_polygon_to_cells():
 
 def test_polygon_to_cells_experimental():
     poly = h3.LatLngPoly(sf_7x7)
-    for flags in [0, 'containment_center', h3.ContainmentMode.containment_center]:
+    for flags in ['center']:
         # Note that `polygon_to_cells` is an alias for `h3shape_to_cells`
-        out = h3.polygon_to_cells_experimental(poly, res=9, flags=flags)
+        out = h3.polygon_to_cells_experimental(poly, res=9, containment=flags)
 
         assert len(out) == 1253
         assert '89283080527ffff' in out
@@ -130,9 +130,9 @@ def test_polygon_to_cells_experimental():
 
 def test_polygon_to_cells_experimental_full():
     poly = h3.LatLngPoly(sf_7x7)
-    for flags in [1, 'containment_full', h3.ContainmentMode.containment_full]:
+    for flags in ['full']:
         # Note that `polygon_to_cells` is an alias for `h3shape_to_cells`
-        out = h3.polygon_to_cells_experimental(poly, res=9, flags=flags)
+        out = h3.polygon_to_cells_experimental(poly, res=9, containment=flags)
 
         assert len(out) == 1175
         assert '89283082a1bffff' in out
@@ -142,13 +142,9 @@ def test_polygon_to_cells_experimental_full():
 
 def test_polygon_to_cells_experimental_overlapping():
     poly = h3.LatLngPoly(sf_7x7)
-    for flags in [
-        2,
-        'containment_overlapping',
-        h3.ContainmentMode.containment_overlapping
-    ]:
+    for flags in ['overlap']:
         # Note that `polygon_to_cells` is an alias for `h3shape_to_cells`
-        out = h3.polygon_to_cells_experimental(poly, res=9, flags=flags)
+        out = h3.polygon_to_cells_experimental(poly, res=9, containment=flags)
 
         assert len(out) == 1334
         assert '89283080527ffff' in out
@@ -158,12 +154,10 @@ def test_polygon_to_cells_experimental_overlapping():
 def test_polygon_to_cells_experimental_overlapping_bbox():
     poly = h3.LatLngPoly(sf_7x7)
     for flags in [
-        3,
-        'containment_overlapping_bbox',
-        h3.ContainmentMode.containment_overlapping_bbox
+        'bbox_overlap'
     ]:
         # Note that `polygon_to_cells` is an alias for `h3shape_to_cells`
-        out = h3.polygon_to_cells_experimental(poly, res=9, flags=flags)
+        out = h3.polygon_to_cells_experimental(poly, res=9, containment=flags)
 
         assert len(out) == 1416
         assert '89283080527ffff' in out
@@ -172,10 +166,10 @@ def test_polygon_to_cells_experimental_overlapping_bbox():
 
 def test_polygon_to_cells_experimental_invalid_mode():
     poly = h3.LatLngPoly(sf_7x7)
-    for flags in [1.0, 'containment_overlapping_bbox_abc', None]:
-        with pytest.raises(ValueError):
+    for flags in ['containment_overlapping_bbox_abc']:
+        with pytest.raises(KeyError):
             # Note that `polygon_to_cells` is an alias for `h3shape_to_cells`
-            h3.polygon_to_cells_experimental(poly, res=9, flags=flags)
+            h3.polygon_to_cells_experimental(poly, res=9, containment=flags)
 
 
 def test_poly_to_cells_experimental_mpoly():
@@ -187,7 +181,7 @@ def test_poly_to_cells_experimental_mpoly():
     assert (
         set(h3.polygon_to_cells_experimental(mpoly, res=9))
         ==
-        set(h3.polygon_to_cells_experimental(mpoly, res=9, flags='containment_center'))
+        set(h3.polygon_to_cells_experimental(mpoly, res=9, containment='center'))
     )
 
     assert (
@@ -196,14 +190,14 @@ def test_poly_to_cells_experimental_mpoly():
         set(h3.polygon_to_cells_experimental(
             mpoly,
             res=9,
-            flags='containment_overlapping'
+            containment='overlap'
         ))
     )
 
     assert 120 == len(h3.polygon_to_cells_experimental(
         mpoly,
-        res=9,
-        flags='containment_overlapping'
+        res = 9,
+        containment = 'overlap'
     ))
 
 

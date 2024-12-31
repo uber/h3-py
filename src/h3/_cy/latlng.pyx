@@ -196,7 +196,7 @@ def polygons_to_cells(polygons, int res):
     return hmm.to_mv()
 
 
-def polygon_to_cells_experimental(outer, int res, int flags, holes=None):
+def polygon_to_cells_experimental(outer, int res, int flag, holes=None):
     """ Get the set of cells whose center is contained in a polygon.
 
     The polygon is defined similarity to the GeoJson standard, with an exterior
@@ -221,8 +221,8 @@ def polygon_to_cells_experimental(outer, int res, int flags, holes=None):
         A ring given by a sequence of lat/lng pairs.
     res : int
         The resolution of the output hexagons
-    flags : int
-        Polygon to cells flags, such as containment mode.
+    flag : int
+        Polygon to cells flag, such as containment mode.
     holes : list or tuple
         A collection of rings, each given by a sequence of lat/lng pairs.
         These describe any the "holes" in the polygon.
@@ -238,21 +238,21 @@ def polygon_to_cells_experimental(outer, int res, int flags, holes=None):
     gp = GeoPolygon(outer, holes=holes)
 
     check_for_error(
-        h3lib.maxPolygonToCellsSizeExperimental(&gp.gp, res, flags, &n)
+        h3lib.maxPolygonToCellsSizeExperimental(&gp.gp, res, flag, &n)
     )
 
     hmm = H3MemoryManager(n)
     check_for_error(
-        h3lib.polygonToCellsExperimental(&gp.gp, res, flags, n, hmm.ptr)
+        h3lib.polygonToCellsExperimental(&gp.gp, res, flag, n, hmm.ptr)
     )
     mv = hmm.to_mv()
 
     return mv
 
 
-def polygons_to_cells_experimental(polygons, int res, int flags):
+def polygons_to_cells_experimental(polygons, int res, int flag):
     mvs = [
-        polygon_to_cells_experimental(outer=poly.outer, res=res, holes=poly.holes, flags=flags)
+        polygon_to_cells_experimental(outer=poly.outer, res=res, holes=poly.holes, flag=flag)
         for poly in polygons
     ]
 
