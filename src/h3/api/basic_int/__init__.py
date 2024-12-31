@@ -525,11 +525,13 @@ def polygon_to_cells(h3shape, res):
     return h3shape_to_cells(h3shape, res)
 
 
-# TODO: better docstring explaining experimental options
 def h3shape_to_cells_experimental(h3shape, res, containment='center'):
     """
-    Return the collection of H3 cells at a given resolution whose center points
-    are contained within an ``LatLngPoly`` or ``LatLngMultiPoly``.
+    Experimental function similar to ``h3shape_to_cells``, but with support for
+    multiple cell containment modes.
+
+    Using ``containment='center'`` should give identical behavior as
+    ``h3shape_to_cells``.
 
     Parameters
     ----------
@@ -542,7 +544,6 @@ def h3shape_to_cells_experimental(h3shape, res, containment='center'):
             - 'full': Cell is fully contained in shape
             - 'overlap': Cell is partially contained in shape
             - 'bbox_overlap': Cell bounding box is partially contained in shape
-
 
     Returns
     -------
