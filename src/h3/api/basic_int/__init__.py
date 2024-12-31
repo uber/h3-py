@@ -535,8 +535,13 @@ def h3shape_to_cells_experimental(h3shape, res, containment='center'):
     h3shape : ``H3Shape``
     res : int
         Resolution of the output cells
-    containment: str
-        'center', 'full', 'overlap', 'bbox_overlap'
+    containment : {'center', 'full', 'overlap', 'bbox_overlap'}
+        Specifies the containment condition.
+            - 'center': Cell center is contained in shape
+            - 'full': Cell is fully contained in shape
+            - 'overlap': Cell is partially contained in shape
+            - 'bbox_overlap': Cell bounding box is partially contained in shape
+
 
     Returns
     -------
