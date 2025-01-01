@@ -14,18 +14,6 @@
 [![codecov](https://codecov.io/gh/uber/h3-py/branch/master/graph/badge.svg)](https://codecov.io/gh/uber/h3-py)
 
 
-----
-## ANNOUNCEMENT: v4.1 final released on 2024-10-13!
-
-Feedback is welcome via
-[Issues](https://github.com/uber/h3-py/issues/new),
-[Discussions](https://github.com/uber/h3/discussions),
-and
-[Slack](https://join.slack.com/t/h3-core/shared_invite/zt-g6u5r1hf-W_~uVJmfeiWtMQuBGc1NNg).
-
-----
-
-
 Python bindings for the [H3 core library](https://h3geo.org/).
 
 - Documentation: [uber.github.io/h3-py](https://uber.github.io/h3-py)
