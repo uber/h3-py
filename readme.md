@@ -2,8 +2,6 @@
 
 # **h3-py**: Uber's H3 Hexagonal Hierarchical Geospatial Indexing System in Python
 
-<!-- TODO: have a nice 3d image of hexagons up front -->
-
 [![PyPI version](https://badge.fury.io/py/h3.svg)](https://badge.fury.io/py/h3)
 [![PyPI downloads](https://img.shields.io/pypi/dm/h3.svg)](https://pypistats.org/packages/h3)
 [![conda](https://img.shields.io/conda/vn/conda-forge/h3-py.svg)](https://anaconda.org/conda-forge/h3-py)
@@ -11,19 +9,7 @@
 [![version](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/uber/h3-py/blob/master/LICENSE)
 
 [![Tests](https://github.com/uber/h3-py/workflows/tests/badge.svg)](https://github.com/uber/h3-py/actions)
-[![codecov](https://codecov.io/gh/uber/h3-py/branch/master/graph/badge.svg)](https://codecov.io/gh/uber/h3-py)
-
-
-----
-## ANNOUNCEMENT: v4.1 final released on 2024-10-13!
-
-Feedback is welcome via
-[Issues](https://github.com/uber/h3-py/issues/new),
-[Discussions](https://github.com/uber/h3/discussions),
-and
-[Slack](https://join.slack.com/t/h3-core/shared_invite/zt-g6u5r1hf-W_~uVJmfeiWtMQuBGc1NNg).
-
-----
+[![codecov](https://codecov.io/gh/uber/h3-py/branch/master/graph/badge.svg)](https://codecov.io/gh/uber/h3-py) <!-- todo: drop codecov badge, since we no longer use it -->
 
 
 Python bindings for the [H3 core library](https://h3geo.org/).
