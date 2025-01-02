@@ -28,10 +28,10 @@ jobs:
 
       - name: Coverage Requirement - Library
         run: |
-          pytest --cov=tests/test_lib --cov-fail-under=100
+          pytest tests/test_lib --cov=h3 --cov=tests/test_lib --cov-fail-under=100
 
       - name: Coverage - Cython
         run: |
           pip install cython
           cythonize tests/test_cython/cython_example.pyx
-          pytest --cov=tests/test_cython
+          pytest tests/test_cython --cov=tests/test_cython
