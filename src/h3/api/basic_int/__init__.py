@@ -1,4 +1,5 @@
 # This file is **symlinked** across the APIs to ensure they are exactly the same.
+from typing import Literal
 
 from ... import _cy
 from ..._h3shape import (
@@ -525,7 +526,11 @@ def polygon_to_cells(h3shape, res):
     return h3shape_to_cells(h3shape, res)
 
 
-def h3shape_to_cells_experimental(h3shape, res, contain='center'):
+def h3shape_to_cells_experimental(
+    h3shape: H3Shape,
+    res: int,
+    contain: Literal['center', 'full', 'overlap', 'bbox_overlap'] = 'center',
+):
     """
     Experimental function similar to ``h3shape_to_cells``, but with support for
     multiple cell containment modes.
@@ -542,12 +547,14 @@ def h3shape_to_cells_experimental(h3shape, res, contain='center'):
     h3shape : ``H3Shape``
     res : int
         Resolution of the output cells
-    contain : {'center', 'full', 'overlap', 'bbox_overlap'}
+    contain : {'center', 'full', 'overlap', 'bbox_overlap'}, optional
         Specifies the containment condition.
             - 'center': Cell center is contained in shape
             - 'full': Cell is fully contained in shape
             - 'overlap': Cell is partially contained in shape
             - 'bbox_overlap': Cell bounding box is partially contained in shape
+
+        Default is 'center'.
 
     Returns
     -------
