@@ -467,6 +467,7 @@ def uncompact_cells(cells, res):
 
     return _out_collection(hu)
 
+
 def polygon_to_cells(h3shape, res):
     """
     Alias for ``h3shape_to_cells``.
