@@ -467,6 +467,12 @@ def uncompact_cells(cells, res):
 
     return _out_collection(hu)
 
+def polygon_to_cells(h3shape, res):
+    """
+    Alias for ``h3shape_to_cells``.
+    """
+    return h3shape_to_cells(h3shape, res)
+
 
 def h3shape_to_cells(h3shape, res):
     """
@@ -519,11 +525,15 @@ def h3shape_to_cells(h3shape, res):
     return _out_collection(mv)
 
 
-def polygon_to_cells(h3shape, res):
+def polygon_to_cells_experimental(
+    h3shape: H3Shape,
+    res: int,
+    contain: Literal['center', 'full', 'overlap', 'bbox_overlap'] = 'center',
+):
     """
-    Alias for ``h3shape_to_cells``.
+    Alias for ``h3shape_to_cells_experimental``.
     """
-    return h3shape_to_cells(h3shape, res)
+    return h3shape_to_cells_experimental(h3shape, res, contain)
 
 
 def h3shape_to_cells_experimental(
