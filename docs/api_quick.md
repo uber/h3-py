@@ -168,6 +168,7 @@ Note that this is reversed from [``__geo_interface__``](https://gist.github.com/
 
 .. autosummary::
    polygon_to_cells
+   polygon_to_cells_experimental
    h3shape_to_cells_experimental
 ```
 
