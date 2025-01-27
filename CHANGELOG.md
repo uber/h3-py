@@ -16,7 +16,11 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-- Update to v4.2.0. (#432)
+None.
+
+## [4.2.0] - 2025-01-26
+
+- Update h3lib to v4.2.0. (#432)
 - Add `h3shape_to_cells_experimental` (#436)
     - Add `polygon_to_cells_experimental` alias
 
