@@ -1,8 +1,8 @@
 # This file is **symlinked** across the APIs to ensure they are exactly the same.
+from typing import Literal
 
 from ... import _cy
 from ..._h3shape import (
-    ContainmentMode,
     H3Shape,
     LatLngPoly,
     LatLngMultiPoly,
@@ -468,6 +468,13 @@ def uncompact_cells(cells, res):
     return _out_collection(hu)
 
 
+def polygon_to_cells(h3shape, res):
+    """
+    Alias for ``h3shape_to_cells``.
+    """
+    return h3shape_to_cells(h3shape, res)
+
+
 def h3shape_to_cells(h3shape, res):
     """
     Return the collection of H3 cells at a given resolution whose center points
@@ -519,25 +526,46 @@ def h3shape_to_cells(h3shape, res):
     return _out_collection(mv)
 
 
-def polygon_to_cells(h3shape, res):
+def polygon_to_cells_experimental(
+    h3shape: H3Shape,
+    res: int,
+    contain: Literal['center', 'full', 'overlap', 'bbox_overlap'] = 'center',
+):
     """
-    Alias for ``h3shape_to_cells``.
+    Alias for ``h3shape_to_cells_experimental``.
     """
-    return h3shape_to_cells(h3shape, res)
+    return h3shape_to_cells_experimental(h3shape, res, contain)
 
 
-def h3shape_to_cells_experimental(h3shape, res, flags=0):
+def h3shape_to_cells_experimental(
+    h3shape: H3Shape,
+    res: int,
+    contain: Literal['center', 'full', 'overlap', 'bbox_overlap'] = 'center',
+):
     """
-    Return the collection of H3 cells at a given resolution whose center points
-    are contained within an ``LatLngPoly`` or ``LatLngMultiPoly``.
+    Experimental function similar to ``h3shape_to_cells``, but with support for
+    multiple cell containment modes.
+
+    Using ``contain='center'`` should give identical behavior as
+    ``h3shape_to_cells``.
+
+    Note that this function is **experimental** and has no API stability gaurantees
+    across versions, so it may change in the future.
+
 
     Parameters
     ----------
     h3shape : ``H3Shape``
     res : int
         Resolution of the output cells
-    flags : ``ContainmentMode``, int, or string
-        Containment mode flags
+    contain : {'center', 'full', 'overlap', 'bbox_overlap'}, optional
+        Specifies the containment condition.
+            - 'center': Cell center is contained in shape
+            - 'full': Cell is fully contained in shape
+            - 'overlap': Cell is partially contained in shape
+            - 'bbox_overlap': Cell bounding box is partially contained in shape
+
+        Default is 'center'.
 
     Returns
     -------
@@ -550,7 +578,7 @@ def h3shape_to_cells_experimental(h3shape, res, flags=0):
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
     ...      (37.82, -122.54)],
     ... )
-    >>> h3.h3shape_to_cells_experimental(poly, 6, h3.ContainmentMode.containment_center)
+    >>> h3.h3shape_to_cells_experimental(poly, 6, 'center')
     ['862830807ffffff',
      '862830827ffffff',
      '86283082fffffff',
@@ -564,43 +592,33 @@ def h3shape_to_cells_experimental(h3shape, res, flags=0):
     There is currently no guaranteed order of the output cells.
     """
 
-    if isinstance(flags, str):
-        try:
-            flags = ContainmentMode[flags]
-        except KeyError as e:
-            raise ValueError('Unrecognized flags: ' + flags) from e
-    if isinstance(flags, ContainmentMode):
-        flags = int(flags)
-    if not isinstance(flags, int):
-        raise ValueError(
-            'Flags should be ContainmentMode, str, or int, but got: ' + str(type(flags))
-        )
+    contain_modes = {
+        'center': 0,
+        'full': 1,
+        'overlap': 2,
+        'bbox_overlap': 3,
+    }
+
+    flag = contain_modes[contain]
 
     # todo: not sure if i want this dispatch logic here. maybe in the objects?
     if isinstance(h3shape, LatLngPoly):
         poly = h3shape
         mv = _cy.polygon_to_cells_experimental(
             poly.outer,
-            res=res,
-            holes=poly.holes,
-            flags=flags
+            res = res,
+            holes = poly.holes,
+            flag = flag,
         )
     elif isinstance(h3shape, LatLngMultiPoly):
         mpoly = h3shape
-        mv = _cy.polygons_to_cells_experimental(mpoly.polys, res=res, flags=flags)
+        mv = _cy.polygons_to_cells_experimental(mpoly.polys, res=res, flag=flag)
     elif isinstance(h3shape, H3Shape):
         raise ValueError('Unrecognized H3Shape: ' + str(h3shape))
     else:
         raise ValueError('Unrecognized type: ' + str(type(h3shape)))
 
     return _out_collection(mv)
-
-
-def polygon_to_cells_experimental(h3shape, res, flags=0):
-    """
-    Alias for ``h3shape_to_cells_experimental``.
-    """
-    return h3shape_to_cells_experimental(h3shape, res, flags=flags)
 
 
 def cells_to_h3shape(cells, *, tight=True):

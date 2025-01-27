@@ -161,6 +161,17 @@ Note that this is reversed from [``__geo_interface__``](https://gist.github.com/
    cells_to_geo
 ```
 
+#### Additional functions
+
+```{eval-rst}
+.. currentmodule:: h3
+
+.. autosummary::
+   polygon_to_cells
+   polygon_to_cells_experimental
+   h3shape_to_cells_experimental
+```
+
 
 ## Specialized functions
 

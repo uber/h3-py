@@ -17,6 +17,8 @@ avoid adding features or APIs which do not map onto the
 ## Unreleased
 
 - Update to v4.2.0. (#432)
+- Add `h3shape_to_cells_experimental` (#436)
+    - Add `polygon_to_cells_experimental` alias
 
 ## [4.1.2] - 2024-10-26
 
