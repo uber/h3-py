@@ -30,7 +30,7 @@
   <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -371,7 +371,6 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.ContainmentMode"><code class="docutils literal notranslate"><span class="pre">ContainmentMode</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3BaseException"><code class="docutils literal notranslate"><span class="pre">H3BaseException</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3CellInvalidError"><code class="docutils literal notranslate"><span class="pre">H3CellInvalidError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3DirEdgeInvalidError</span></code></a></li>
@@ -473,13 +472,7 @@
 <h1>API Verbose Reference<a class="headerlink" href="#api-verbose-reference" title="Link to this heading">#</a></h1>
 <p>This page gives the full documentation for each function and object.
 Refer back to <a class="reference internal" href="api_quick.html"><span class="std std-doc">API Quick Reference</span></a> for context and logical groupings.</p>
-<dl class="py class" id="module-h3">
-<dt class="sig sig-object py" id="h3.ContainmentMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">ContainmentMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/_h3shape.html#ContainmentMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.ContainmentMode" title="Link to this definition">#</a></dt>
-<dd><p>Containment modes for use with <code class="docutils literal notranslate"><span class="pre">polygon_to_cells_experimental</span></code>.</p>
-</dd></dl>
-
-<dl class="py exception">
+<dl class="py exception" id="module-h3">
 <dt class="sig sig-object py" id="h3.H3BaseException">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">H3BaseException</span></span><a class="headerlink" href="#h3.H3BaseException" title="Link to this definition">#</a></dt>
 <dd><p>Base H3 exception class.</p>
@@ -1388,15 +1381,29 @@ are contained within an <code class="docutils literal notranslate"><span class="
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.h3shape_to_cells_experimental">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">h3shape_to_cells_experimental</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#h3shape_to_cells_experimental"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.h3shape_to_cells_experimental" title="Link to this definition">#</a></dt>
-<dd><p>Return the collection of H3 cells at a given resolution whose center points
-are contained within an <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> or <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code>.</p>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">h3shape_to_cells_experimental</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#h3.H3Shape" title="h3._h3shape.H3Shape"><span class="pre">H3Shape</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'center'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'full'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'overlap'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'bbox_overlap'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#h3shape_to_cells_experimental"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.h3shape_to_cells_experimental" title="Link to this definition">#</a></dt>
+<dd><p>Experimental function similar to <code class="docutils literal notranslate"><span class="pre">h3shape_to_cells</span></code>, but with support for
+multiple cell containment modes.</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">contain='center'</span></code> should give identical behavior as
+<code class="docutils literal notranslate"><span class="pre">h3shape_to_cells</span></code>.</p>
+<p>Note that this function is <strong>experimental</strong> and has no API stability gaurantees
+across versions, so it may change in the future.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h3shape</strong> (<code class="docutils literal notranslate"><span class="pre">H3Shape</span></code>)</p></li>
 <li><p><strong>res</strong> (<em>int</em>) – Resolution of the output cells</p></li>
-<li><p><strong>flags</strong> (<code class="docutils literal notranslate"><span class="pre">ContainmentMode</span></code>, int, or string) – Containment mode flags</p></li>
+<li><p><strong>contain</strong> (<em>{'center'</em><em>, </em><em>'full'</em><em>, </em><em>'overlap'</em><em>, </em><em>'bbox_overlap'}</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Specifies the containment condition.</dt><dd><ul>
+<li><p>’center’: Cell center is contained in shape</p></li>
+<li><p>’full’: Cell is fully contained in shape</p></li>
+<li><p>’overlap’: Cell is partially contained in shape</p></li>
+<li><p>’bbox_overlap’: Cell bounding box is partially contained in shape</p></li>
+</ul>
+</dd>
+</dl>
+<p>Default is ‘center’.</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -1408,7 +1415,7 @@ are contained within an <code class="docutils literal notranslate"><span class="
 <span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span>
 <span class="gp">... </span>     <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">h3shape_to_cells_experimental</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">h3</span><span class="o">.</span><span class="n">ContainmentMode</span><span class="o">.</span><span class="n">containment_center</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">h3shape_to_cells_experimental</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">)</span>
 <span class="go">[&#39;862830807ffffff&#39;,</span>
 <span class="go"> &#39;862830827ffffff&#39;,</span>
 <span class="go"> &#39;86283082fffffff&#39;,</span>
@@ -1592,7 +1599,7 @@ you the property of (0, 0) being the <code class="docutils literal notranslate">
 
 <dl class="py function">
 <dt class="sig sig-object py" id="h3.polygon_to_cells_experimental">
-<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">polygon_to_cells_experimental</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#polygon_to_cells_experimental"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.polygon_to_cells_experimental" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">h3.</span></span><span class="sig-name descname"><span class="pre">polygon_to_cells_experimental</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h3shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#h3.H3Shape" title="h3._h3shape.H3Shape"><span class="pre">H3Shape</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'center'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'full'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'overlap'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'bbox_overlap'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/h3/api/basic_str.html#polygon_to_cells_experimental"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#h3.polygon_to_cells_experimental" title="Link to this definition">#</a></dt>
 <dd><p>Alias for <code class="docutils literal notranslate"><span class="pre">h3shape_to_cells_experimental</span></code>.</p>
 </dd></dl>
 
@@ -1729,7 +1736,6 @@ but may differ on <code class="docutils literal notranslate"><span class="pre">Z
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.ContainmentMode"><code class="docutils literal notranslate"><span class="pre">ContainmentMode</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3BaseException"><code class="docutils literal notranslate"><span class="pre">H3BaseException</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3CellInvalidError"><code class="docutils literal notranslate"><span class="pre">H3CellInvalidError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3.H3DirEdgeInvalidError"><code class="docutils literal notranslate"><span class="pre">H3DirEdgeInvalidError</span></code></a></li>
