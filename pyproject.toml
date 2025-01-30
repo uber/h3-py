@@ -38,11 +38,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = 'https://github.com/organization/package'
-Documentation = 'https://package.readthedocs.io/'
-'Bug Tracker' = 'https://github.com/organization/package/issues'
-Discussions = 'https://github.com/organization/package/discussions'
-Changelog = 'https://package.readthedocs.io/en/latest/changelog.html'
+Homepage = 'https://github.com/uber/h3-py'
+Documentation = 'https://uber.github.io/h3-py/'
+'Bug Tracker' = 'https://github.com/uber/h3-py/issues'
+Discussions = 'https://github.com/uber/h3-py/discussions'
+Changelog = 'https://uber.github.io/h3-py/_changelog.html'
 
 
 [project.optional-dependencies]
