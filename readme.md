@@ -1,4 +1,4 @@
-<img align="right" src="https://uber.github.io/img/h3Logo-color.svg" alt="H3 Logo" width="200">
+<img align="right" src="https://uber.github.io/img/h3Logo-color.svg" alt="H3 Logo" width="130">
 
 # **h3-py**: Uber's H3 Hexagonal Hierarchical Geospatial Indexing System in Python
 
