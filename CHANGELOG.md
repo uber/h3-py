@@ -18,6 +18,10 @@ avoid adding features or APIs which do not map onto the
 
 None.
 
+## [4.2.2] - 2025-03-10
+
+- Update h3lib to v4.2.1. (#450)
+
 ## [4.2.1] - 2025-01-31
 
 - Correct pyproject.toml links for PyPI (#441)
