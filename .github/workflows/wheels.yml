@@ -112,7 +112,9 @@ jobs:
           - os: ubuntu-22.04
             build: 'cp313-manylinux_aarch64'
             name: Linux Aarch64 3.13
-
+          - os: windows-arm64
+            build: 'cp3*-win_arm64'
+            name: Windows ARM64
     steps:
       - uses: actions/checkout@v4.2.2
         with:
