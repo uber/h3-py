@@ -112,7 +112,7 @@ jobs:
           - os: ubuntu-22.04
             build: 'cp313-manylinux_aarch64'
             name: Linux Aarch64 3.13
-          - os: windows-arm64
+          - os: windows-11-arm
             build: 'cp3*-win_arm64'
             name: Windows ARM64
     steps:
