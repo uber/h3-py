@@ -16,7 +16,7 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-None.
+- Update h3lib to v4.3.0. (#)
 
 ## [4.2.2] - 2025-03-10
 
