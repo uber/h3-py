@@ -139,6 +139,7 @@ cdef extern from 'h3api.h':
     H3Error localIjToCell(H3int origin, const CoordIJ *ij, uint32_t mode, H3int *out) nogil
 
     H3Error gridDiskDistances(H3int origin, int k, H3int *out, int *distances) nogil
+    H3Error gridRing(H3int origin, int k, H3int *out) nogil
     H3Error gridRingUnsafe(H3int origin, int k, H3int *out) nogil
 
     H3Error areNeighborCells(H3int origin, H3int destination, int *out) nogil
