@@ -4,7 +4,7 @@ build-backend = 'scikit_build_core.build'
 
 [project]
 name = 'h3'
-version = '4.2.2'
+version = '4.3.0'
 description = "Uber's hierarchical hexagonal geospatial indexing system"
 readme = 'readme.md'
 license = {file = 'LICENSE'}
