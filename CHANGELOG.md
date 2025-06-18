@@ -16,7 +16,10 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-- Update h3lib to v4.3.0. (#461)
+## [4.3.0] - 2025-06-17
+
+- Update `h3lib` to v4.3.0. (#461)
+    - Uses `gridRing` (uber/h3#1016) instead of Cython fallback logic.
 
 ## [4.2.2] - 2025-03-10
 
