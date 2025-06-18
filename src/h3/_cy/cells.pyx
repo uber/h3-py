@@ -87,41 +87,6 @@ cpdef H3int[:] grid_disk(H3int h, int k):
     return mv
 
 
-cpdef H3int[:] _ring_fallback(H3int h, int k):
-    """
-    `ring` tries to call `h3lib.hexRing` first; if that fails, we call
-    this function, which relies on `h3lib.kRingDistances`.
-
-    Failures for `h3lib.hexRing` happen when the algorithm runs into a pentagon.
-    """
-    cdef:
-        int64_t n
-        int[:] distances  ## todo: weird, this needs to be specified to avoid errors. cython bug?
-
-    check_cell(h)
-    check_distance(k)
-
-    check_for_error(
-        h3lib.maxGridDiskSize(k, &n)
-    )
-    hmm = H3MemoryManager(n)
-
-    # parallel array of cell distances from `h`.
-    # idea: instead of a memoryview object, have a my_mv object that can return a ptr, but does the correct logic when it has length 0
-    # then can always just return the pointer, instead of the weird &mv[0] syntax
-    distances = int_mv(n)
-    check_for_error(
-        h3lib.gridDiskDistances(h, k, hmm.ptr, &distances[0])
-    )
-
-    for i,v in enumerate(distances):
-        if v != k:
-            hmm.ptr[i] = 0
-
-    mv = hmm.to_mv()
-
-    return mv
-
 cpdef H3int[:] grid_ring(H3int h, int k):
     """ Return cells at grid distance `== k` from `h`.
     Collection is "hollow" for k >= 1.
@@ -131,11 +96,10 @@ cpdef H3int[:] grid_ring(H3int h, int k):
 
     n = 6*k if k > 0 else 1
     hmm = H3MemoryManager(n)
-    err = h3lib.gridRingUnsafe(h, k, hmm.ptr)
-    if err:
-        mv = _ring_fallback(h, k)
-    else:
-        mv = hmm.to_mv()
+    check_for_error(
+        h3lib.gridRing(h, k, hmm.ptr)
+    )
+    mv = hmm.to_mv()
 
     return mv
 
