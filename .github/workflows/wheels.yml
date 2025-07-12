@@ -71,6 +71,19 @@ jobs:
             build: 'cp3*-win_amd64'
             name: Windows 64-bit
 
+          - os: windows-11-arm 
+            build: 'cp310-win_arm64'
+            name: Windows ARM64 3.10
+          - os: windows-11-arm
+            build: 'cp311-win_arm64'
+            name: Windows ARM64 3.11
+          - os: windows-11-arm
+            build: 'cp312-win_arm64'
+            name: Windows ARM64 3.12
+          - os: windows-11-arm
+            build: 'cp313-win_arm64'
+            name: Windows ARM64 3.13
+
           - os: ubuntu-22.04
             build: 'cp*-manylinux_x86_64'
             name: Linux Intel glibc 64-bit
@@ -118,8 +131,17 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: ilammy/msvc-dev-cmd@v1.13.0
-        if: runner.os == 'Windows'
+      - name: Set MSVC for Windows-x64  
+        uses: bus1/cabuild/action/msdevshell@e22aba57d6e74891d059d66501b6b5aed8123c4d  # v1
+        if: matrix.os == 'windows-latest'
+        with:
+          architecture: x64
+          
+      - name: Set MSVC for Windows-ARM64
+        uses: bus1/cabuild/action/msdevshell@e22aba57d6e74891d059d66501b6b5aed8123c4d  # v1
+        if: matrix.os == 'windows-11-arm'
+        with:
+          architecture: arm64
 
       - name: Set Windows variables
         if: runner.os == 'Windows'
