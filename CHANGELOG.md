@@ -16,6 +16,12 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
+None.
+
+## [4.3.1] - 2025-08-10
+
+- Build wheels for Windows on ARM64 (#463)
+
 ## [4.3.0] - 2025-06-17
 
 - Update `h3lib` to v4.3.0. (#461)
