@@ -71,9 +71,6 @@ jobs:
             build: 'cp3*-win_amd64'
             name: Windows 64-bit
 
-          - os: windows-11-arm 
-            build: 'cp310-win_arm64'
-            name: Windows ARM64 3.10
           - os: windows-11-arm
             build: 'cp311-win_arm64'
             name: Windows ARM64 3.11
@@ -132,16 +129,16 @@ jobs:
           submodules: recursive
 
       - name: Set MSVC for Windows-x64  
-        uses: bus1/cabuild/action/msdevshell@e22aba57d6e74891d059d66501b6b5aed8123c4d  # v1
+        uses: microsoft/setup-msbuild@v2
         if: matrix.os == 'windows-latest'
         with:
-          architecture: x64
-          
+          msbuild-architecture: x64
+
       - name: Set MSVC for Windows-ARM64
-        uses: bus1/cabuild/action/msdevshell@e22aba57d6e74891d059d66501b6b5aed8123c4d  # v1
+        uses: microsoft/setup-msbuild@v2
         if: matrix.os == 'windows-11-arm'
         with:
-          architecture: arm64
+          msbuild-architecture: arm64
 
       - name: Set Windows variables
         if: runner.os == 'Windows'
@@ -156,7 +153,7 @@ jobs:
         with:
           platforms: aarch64
 
-      - uses: pypa/cibuildwheel@v2.21.3
+      - uses: pypa/cibuildwheel@v3.1.3
         env:
           CIBW_TEST_REQUIRES: pytest pytest-cov numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
