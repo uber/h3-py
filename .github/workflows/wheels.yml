@@ -48,7 +48,7 @@ jobs:
         run: pytest
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4.4.3
+        uses: actions/upload-artifact@v5.0.0
         with:
           name: temp_result_sdist
           path: ./dist
@@ -165,7 +165,7 @@ jobs:
           pipx run twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4.4.3
+        uses: actions/upload-artifact@v5.0.0
         with:
           name: temp_result_${{ matrix.os }}-${{ strategy.job-index }}
           path: wheelhouse/*.whl
@@ -175,7 +175,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Merge Artifacts
-        uses: actions/upload-artifact/merge@v4.4.3
+        uses: actions/upload-artifact/merge@v5.0.0
         with:
           name: wheels_and_sdist
           pattern: temp_result_*
