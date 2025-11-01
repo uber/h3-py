@@ -80,6 +80,9 @@ jobs:
           - os: windows-11-arm
             build: 'cp313-win_arm64'
             name: Windows ARM64 3.13
+          - os: windows-11-arm
+            build: 'cp314-win_arm64'
+            name: Windows ARM64 3.14
 
           - os: ubuntu-22.04
             build: 'cp*-manylinux_x86_64'
@@ -103,6 +106,9 @@ jobs:
           - os: ubuntu-22.04
             build: 'cp313-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.13
+          - os: ubuntu-22.04
+            build: 'cp314-musllinux_x86_64'
+            name: Linux Intel musl 64-bit 3.14
 
           - os: ubuntu-22.04
             build: 'cp38-manylinux_aarch64'
@@ -122,6 +128,9 @@ jobs:
           - os: ubuntu-22.04
             build: 'cp313-manylinux_aarch64'
             name: Linux Aarch64 3.13
+          - os: ubuntu-22.04
+            build: 'cp314-manylinux_aarch64'
+            name: Linux Aarch64 3.14
 
     steps:
       - uses: actions/checkout@v5.0.0
