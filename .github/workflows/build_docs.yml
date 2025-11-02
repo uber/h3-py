@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5.0.0
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v5.3.0
+      - uses: actions/setup-python@v6.0.0
         with:
           python-version: 3.11
 
@@ -28,7 +28,7 @@ jobs:
         run: jupyter-book build docs/ --warningiserror --keep-going --all
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4.4.3
+        uses: actions/upload-artifact@v5.0.0
         with:
           name: html
           path: docs/_build/html
