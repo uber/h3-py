@@ -109,4 +109,11 @@ from .error_system import (
     H3MemoryAllocError,
     H3MemoryBoundsError,
     H3OptionInvalidError,
+    H3IndexInvalidError,
+    H3BaseCellDomainError,
+    H3DigitDomainError,
+    H3DeletedDigitError,
+
+    get_H3_ERROR_END,
+    error_code_to_exception,
 )

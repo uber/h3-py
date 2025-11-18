@@ -29,6 +29,11 @@ cdef extern from 'h3api.h':
         E_MEMORY_ALLOC = 13
         E_MEMORY_BOUNDS = 14
         E_OPTION_INVALID = 15
+        E_INDEX_INVALID = 16
+        E_BASE_CELL_DOMAIN = 17
+        E_DIGIT_DOMAIN = 18
+        E_DELETED_DIGIT = 19
+        H3_ERROR_END  # sentinel value
 
     ctypedef struct LatLng:
         double lat  # in radians
