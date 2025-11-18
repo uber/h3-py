@@ -50,7 +50,7 @@ numpy = ['numpy']
 test = ['pytest', 'pytest-cov', 'ruff', 'numpy']
 all = [
     'h3[test]',
-    'jupyter-book',
+    'jupyter-book<2',
     'sphinx>=7.3.3', # https://github.com/sphinx-doc/sphinx/issues/12290
     'jupyterlab',
     'jupyterlab-geojson',
