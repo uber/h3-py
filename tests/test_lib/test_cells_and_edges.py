@@ -700,3 +700,17 @@ def test_construct_cell_inverses():
 
     assert h3.construct_cell(*h3.deconstruct_cell(h)) == h
     assert h3.deconstruct_cell(h3.construct_cell(*components)) == components
+
+
+def test_construct_cell_inverses_int_api():
+    # same inverse test as above, but in int api
+    import h3.api.basic_int as h3
+
+    h = 0x8ff3ac688d63446
+    components = (121, 6, 5, 4, 3, 2, 1, 0, 6, 5, 4, 3, 2, 1, 0, 6)
+
+    assert h3.construct_cell(*components) == h
+    assert h3.deconstruct_cell(h) == components
+
+    assert h3.construct_cell(*h3.deconstruct_cell(h)) == h
+    assert h3.deconstruct_cell(h3.construct_cell(*components)) == components
