@@ -16,7 +16,7 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-- Update h3lib to v4.4.1. (#470)
+- Update `h3lib` to v4.4.1. (#470)
     - Add new error codes and error helper functions:
         - `H3IndexInvalidError`
         - `H3BaseCellDomainError`
