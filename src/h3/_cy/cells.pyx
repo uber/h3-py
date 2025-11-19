@@ -8,6 +8,7 @@ from .util cimport (
 )
 
 from .error_system cimport (
+    H3Error,
     check_for_error,
     check_for_error_msg,
 )
@@ -56,6 +57,33 @@ cpdef int get_resolution(H3int h) except -1:
     check_cell(h)
 
     return h3lib.getResolution(h)
+
+cpdef int get_index_digit(H3int h, int res) except -1:
+    cdef:
+        int digit
+
+    check_cell(h)
+
+    check_for_error(
+        h3lib.getIndexDigit(h, res, &digit)
+    )
+
+    return digit
+
+cpdef H3int construct_cell(int base_cell_number, const int[:] digits) except 0:
+    cdef:
+        H3int out
+        int res = len(digits)
+        H3Error err
+
+    if res > 0:
+        err = h3lib.constructCell(res, base_cell_number, &digits[0], &out)
+    else:
+        err = h3lib.constructCell(res, base_cell_number, NULL, &out)
+
+    check_for_error(err)
+
+    return out
 
 
 cpdef int grid_distance(H3int h1, H3int h2) except -1:

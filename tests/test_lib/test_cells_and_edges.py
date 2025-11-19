@@ -604,3 +604,43 @@ def test_is_valid_index():
     assert not h3.is_valid_index('8a28308280fffff')
     assert not h3.is_valid_index(123)
     assert not h3.is_valid_index('abcd')
+
+
+def test_is_valid_index_2():
+    import h3.api.basic_int as h3
+
+    h = h3.latlng_to_cell(0,0,9)
+    assert h3.is_valid_index(h)
+    assert not h3.is_valid_index(h + 1)
+    assert not h3.is_valid_directed_edge(h)
+    assert not h3.is_valid_vertex(h)
+
+    e = h3.origin_to_directed_edges(h)[0]
+    assert h3.is_valid_index(e)
+    assert not h3.is_valid_index(e + 1)
+    assert not h3.is_valid_cell(e)
+    assert not h3.is_valid_vertex(e)
+
+    v = h3.cell_to_vertex(h, 0)
+    assert h3.is_valid_index(v)
+    assert not h3.is_valid_index(v + 1)
+    assert not h3.is_valid_cell(v)
+    assert not h3.is_valid_directed_edge(v)
+
+
+
+def test_get_index_digit():
+    assert h3.get_index_digit('822377fffffffff', 1) == 5
+    assert h3.get_index_digit('822377fffffffff', 2) == 6
+    assert h3.get_index_digit('822377fffffffff', 3) == 7
+    assert h3.get_index_digit('822377fffffffff', 15) == 7
+
+    with pytest.raises(H3ResDomainError):
+        h3.get_index_digit('822377fffffffff', 16)
+
+    with pytest.raises(H3ResDomainError):
+        h3.get_index_digit('822377fffffffff', 0)
+
+    with pytest.raises(H3ResDomainError):
+        h3.get_index_digit('822377fffffffff',-1)
+

@@ -83,6 +83,8 @@ cdef extern from 'h3api.h':
 
     int getResolution(H3int h) nogil
     int getBaseCellNumber(H3int h) nogil
+    H3Error getIndexDigit(H3int h, int res, int *out) nogil
+    H3Error constructCell(int res, int baseCellNumber, const int *digits, H3int *out) nogil
 
     H3Error latLngToCell(const LatLng *g, int res, H3int *out) nogil
     H3Error cellToLatLng(H3int h, LatLng *) nogil

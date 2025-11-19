@@ -1,5 +1,6 @@
 # This file is **symlinked** across the APIs to ensure they are exactly the same.
 from typing import Literal
+from array import array
 
 from ... import _cy
 from ..._h3shape import (
@@ -752,6 +753,27 @@ def get_base_cell_number(h):
     int
     """
     return _cy.get_base_cell_number(_in_scalar(h))
+
+
+def get_index_digit(h, res):
+    return _cy.get_index_digit(_in_scalar(h), res)
+
+
+def construct_cell(base_cell_number, *digits, res=None):
+    if (res is not None) and (len(digits) != res):
+        raise ValueError('Resolution must match number of digits.')
+
+    digits = array('i', digits)
+    o = _cy.construct_cell(base_cell_number, digits)
+    return _out_scalar(o)
+
+
+def deconstruct_cell(h):
+    res = get_resolution(h)
+    bc = get_base_cell_number(h)
+    digits = [get_index_digit(h, r) for r in range(res)]
+
+    return (bc, *digits)
 
 
 def are_neighbor_cells(h1, h2):
