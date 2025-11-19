@@ -8,6 +8,9 @@ from h3 import (
     H3ResMismatchError,
     H3CellInvalidError,
     H3NotNeighborsError,
+    H3DigitDomainError,
+    H3BaseCellDomainError,
+    H3DeletedDigitError,
 )
 
 
@@ -642,3 +645,57 @@ def test_get_index_digit():
 
     with pytest.raises(H3ResDomainError):
         h3.get_index_digit('822377fffffffff',-1)
+
+
+def test_construct_cell():
+    bc = 17
+    assert h3.construct_cell(bc, 5, 6) == '822377fffffffff'
+    assert h3.construct_cell(bc) == '8023fffffffffff'
+
+    digits = [0]*15
+    assert h3.construct_cell(bc, *digits) == '8f2200000000000'
+
+    with pytest.raises(H3ResDomainError):
+        digits = [0]*16
+        h3.construct_cell(bc, *digits)
+
+    with pytest.raises(ValueError):
+        digits = [1,2,3,4]
+        h3.construct_cell(bc, *digits, res=2)
+
+    with pytest.raises(H3DigitDomainError):
+        h3.construct_cell(121, 1, 7)  # 7 is not a valid digit
+
+    with pytest.raises(H3DigitDomainError):
+        h3.construct_cell(121, 45)  # 45 is not a valid digit
+
+    with pytest.raises(H3DigitDomainError):
+        h3.construct_cell(121, -1)  # -1 is not a valid digit
+
+    with pytest.raises(H3BaseCellDomainError):
+        h3.construct_cell(122)  # one past last base cell number
+
+    with pytest.raises(H3DeletedDigitError):
+        # 4 is a pentagon base cell. first nonzero digit can't be a 1
+        h3.construct_cell(4, 1)
+
+    with pytest.raises(H3DeletedDigitError):
+        # 4 is a pentagon base cell. first nonzero digit can't be a 1
+        h3.construct_cell(4, 0,0,0, 0, 1)
+
+
+def test_deconstruct_cell():
+    h = '822377fffffffff'
+    assert h3.deconstruct_cell(h) == (17, 5, 6)
+
+def construct_cell_inverses():
+    # demonstrate functions are inverses of each other
+
+    h = '8ff3ac688d63446'
+    components = (121, 6, 5, 4, 3, 2, 1, 0, 6, 5, 4, 3, 2, 1, 0, 6)
+
+    assert h3.construct_cell(*components) == h
+    assert h3.deconstruct_cell(h) == components
+
+    assert h3.construct_cell(*h3.deconstruct_cell(h)) == h
+    assert h3.deconstruct_cell(h3.construct_cell(*components)) == components
