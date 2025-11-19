@@ -686,14 +686,14 @@ def test_construct_cell():
 
 def test_deconstruct_cell():
     h = '822377fffffffff'
-    assert h3.deconstruct_cell(h) == (17, 5, 6)
+    assert h3.deconstruct_cell(h) == [17, 5, 6]
 
 
 def test_construct_cell_inverses():
     # demonstrate functions are inverses of each other
 
     h = '8ff3ac688d63446'
-    components = (121, 6, 5, 4, 3, 2, 1, 0, 6, 5, 4, 3, 2, 1, 0, 6)
+    components = [121, 6, 5, 4, 3, 2, 1, 0, 6, 5, 4, 3, 2, 1, 0, 6]
 
     assert h3.construct_cell(*components) == h
     assert h3.deconstruct_cell(h) == components
@@ -707,10 +707,15 @@ def test_construct_cell_inverses_int_api():
     import h3.api.basic_int as h3
 
     h = 0x8ff3ac688d63446
-    components = (121, 6, 5, 4, 3, 2, 1, 0, 6, 5, 4, 3, 2, 1, 0, 6)
+    components = [121, 6, 5, 4, 3, 2, 1, 0, 6, 5, 4, 3, 2, 1, 0, 6]
 
     assert h3.construct_cell(*components) == h
     assert h3.deconstruct_cell(h) == components
 
     assert h3.construct_cell(*h3.deconstruct_cell(h)) == h
     assert h3.deconstruct_cell(h3.construct_cell(*components)) == components
+
+
+def test_center_child_with_deconstruct():
+    for h in h3.get_res0_cells():
+        h3.construct_cell(*h3.deconstruct_cell(h), 0) == h3.cell_to_center_child(h)

@@ -844,9 +844,8 @@ def deconstruct_cell(h):
 
     Returns
     -------
-    tuple
-        A tuple containing the base cell *number* followed by the index
-        digits for resolutions ``1`` through the cell's resolution.
+    list of int
+        [base_cell_number, digit1, digit2, ..., digitN]
 
     Examples
     --------
@@ -861,12 +860,13 @@ def deconstruct_cell(h):
     '841e057ffffffff'
     >>> deconstruct_cell(h)
     (15, 0, 0, 5, 3)
+    >>> construct_cell(*deconstruct_cell(h), 0) == cell_to_center_child(h)
     """
     res = get_resolution(h)
     bc = get_base_cell_number(h)
     digits = [get_index_digit(h, r + 1) for r in range(res)]
 
-    return (bc, *digits)
+    return [bc, *digits]
 
 
 def are_neighbor_cells(h1, h2):
