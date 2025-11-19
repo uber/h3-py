@@ -628,7 +628,6 @@ def test_is_valid_index_2():
     assert not h3.is_valid_directed_edge(v)
 
 
-
 def test_get_index_digit():
     assert h3.get_index_digit('822377fffffffff', 1) == 5
     assert h3.get_index_digit('822377fffffffff', 2) == 6
@@ -643,4 +642,3 @@ def test_get_index_digit():
 
     with pytest.raises(H3ResDomainError):
         h3.get_index_digit('822377fffffffff',-1)
-
