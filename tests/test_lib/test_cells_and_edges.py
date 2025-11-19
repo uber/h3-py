@@ -652,11 +652,11 @@ def test_construct_cell():
     assert h3.construct_cell(bc, 5, 6) == '822377fffffffff'
     assert h3.construct_cell(bc) == '8023fffffffffff'
 
-    digits = [0]*15
+    digits = [0] * 15
     assert h3.construct_cell(bc, *digits) == '8f2200000000000'
 
     with pytest.raises(H3ResDomainError):
-        digits = [0]*16
+        digits = [0] * 16
         h3.construct_cell(bc, *digits)
 
     with pytest.raises(ValueError):
@@ -687,6 +687,7 @@ def test_construct_cell():
 def test_deconstruct_cell():
     h = '822377fffffffff'
     assert h3.deconstruct_cell(h) == (17, 5, 6)
+
 
 def construct_cell_inverses():
     # demonstrate functions are inverses of each other

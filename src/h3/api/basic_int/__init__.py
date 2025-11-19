@@ -771,7 +771,7 @@ def construct_cell(base_cell_number, *digits, res=None):
 def deconstruct_cell(h):
     res = get_resolution(h)
     bc = get_base_cell_number(h)
-    digits = [get_index_digit(h, r+1) for r in range(res)]
+    digits = [get_index_digit(h, r + 1) for r in range(res)]
 
     return (bc, *digits)
 
