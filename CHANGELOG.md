@@ -17,13 +17,11 @@ avoid adding features or APIs which do not map onto the
 ## Unreleased
 
 - Update `h3lib` to v4.4.1. (#470)
-    - Add new error codes and error helper functions:
+    - Add new error codes:
         - `H3IndexInvalidError`
         - `H3BaseCellDomainError`
         - `H3DigitDomainError`
         - `H3DeletedDigitError`
-        - `get_H3_ERROR_END` (not in public API)
-        - `error_code_to_exception` (not in public API)
     - Add new functions:
         - `is_valid_index`
         - `get_index_digit`
