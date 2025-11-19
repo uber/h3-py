@@ -130,7 +130,7 @@ def average_hexagon_edge_length(res, unit='km'):
 
 
 def is_valid_index(h):
-    """Validates an H3 index (cell, vertex, or directed edge).
+    """Validates *any* H3 index (cell, vertex, or directed edge).
 
     Returns
     -------
@@ -751,16 +751,82 @@ def get_base_cell_number(h):
     Returns
     -------
     int
+
+    Examples
+    --------
+    >>> h = construct_cell(57, 2, 1, 4)
+    >>> h
+    '83728cfffffffff'
+    >> get_base_cell_number(h)
+    57
     """
     return _cy.get_base_cell_number(_in_scalar(h))
 
 
 def get_index_digit(h, res):
+    """
+    Get the index digit of a cell at the given resolution.
+
+    Parameters
+    ----------
+    h : H3Cell
+        Cell whose index digit will be returned.
+    res : int
+        Resolution (``>= 1``) at which to read the digit.
+
+    Returns
+    -------
+    int
+        The index digit at the requested resolution.
+
+    Examples
+    --------
+    >>> h = construct_cell(7, 2, 1, 4)
+    >>> h
+    '830e8cfffffffff'
+    >>> get_index_digit(h, 1)
+    2
+    >>> get_index_digit(h, 2)
+    1
+    >>> get_index_digit(h, 3)
+    4
+    """
     return _cy.get_index_digit(_in_scalar(h), res)
 
 
 def construct_cell(base_cell_number, *digits, res=None):
+    """
+    Construct cell from base cell and digits.
+
+    Parameters
+    ----------
+    base_cell_number : int
+        Base cell *number* (``0`` to ``121``).
+    *digits : int
+        Sequence of index digits (``0`` to ``6``).
+        Length of digits will be the resulting resolution of the output cell.
+    res : int, optional
+        Resolution of the constructed cell. If provided, it must equal
+        ``len(digits)``; otherwise it is inferred from the number of digits.
+
+    Returns
+    -------
+    H3Cell
+        The constructed cell.
+
+    Examples
+    --------
+    >>> construct_cell(7, 2, 1, 4)  # resolution 3 cell
+    '830e8cfffffffff'
+
+    >>> construct_cell(15, 0, 0, 5, 3)  # resolution 4 cell
+    '841e057ffffffff'
+
+    >>> construct_cell(15, 0, 0, 5, 3, res=4)
+    '841e057ffffffff'
+    """
     if (res is not None) and (len(digits) != res):
+        # TODO: do a res mismatch error
         raise ValueError('Resolution must match number of digits.')
 
     digits = array('i', digits)
@@ -769,6 +835,34 @@ def construct_cell(base_cell_number, *digits, res=None):
 
 
 def deconstruct_cell(h):
+    """
+    Deconstruct cell into base cell and digits.
+
+    Parameters
+    ----------
+    h : H3Cell
+        Cell to deconstruct.
+
+    Returns
+    -------
+    tuple
+        A tuple containing the base cell *number* followed by the index
+        digits for resolutions ``1`` through the cell's resolution.
+
+    Examples
+    --------
+    >>> h = construct_cell(7, 2, 1, 4)  # resolution 3 cell
+    >>> h
+    '830e8cfffffffff'
+    >>> deconstruct_cell(h)
+    (7, 2, 1, 4)
+
+    >>> h = construct_cell(15, 0, 0, 5, 3)  # resolution 4 cell
+    >>> h
+    '841e057ffffffff'
+    >>> deconstruct_cell(h)
+    (15, 0, 0, 5, 3)
+    """
     res = get_resolution(h)
     bc = get_base_cell_number(h)
     digits = [get_index_digit(h, r + 1) for r in range(res)]
