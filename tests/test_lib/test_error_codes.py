@@ -1,6 +1,10 @@
 import pytest
 
 import h3
+from h3._cy import (
+    error_code_to_exception,
+    get_H3_ERROR_END,
+)
 
 # todo: maybe check the `check_for_error` function behavior directly?
 
@@ -14,25 +18,25 @@ h3_exceptions = {
     h3.H3ValueError: None,
 }
 
-for e in range(1, h3.get_H3_ERROR_END()):
-    ex = h3.error_code_to_exception(e)
+for e in range(1, get_H3_ERROR_END()):
+    ex = error_code_to_exception(e)
     h3_exceptions[ex] = e
 
 
 def test_num_error_codes():
-    assert h3.get_H3_ERROR_END() >= 20
-    assert h3.error_code_to_exception(19) == h3.H3DeletedDigitError
+    assert get_H3_ERROR_END() >= 20
+    assert error_code_to_exception(19) == h3.H3DeletedDigitError
 
     # H3_ERROR_END (and beyond) shouldn't be a valid error code
-    code = h3.get_H3_ERROR_END()
+    code = get_H3_ERROR_END()
     assert isinstance(
-        h3.error_code_to_exception(code),
+        error_code_to_exception(code),
         h3.UnknownH3ErrorCode
     )
 
-    code = h3.get_H3_ERROR_END() + 1
+    code = get_H3_ERROR_END() + 1
     assert isinstance(
-        h3.error_code_to_exception(code),
+        error_code_to_exception(code),
         h3.UnknownH3ErrorCode
     )
 
