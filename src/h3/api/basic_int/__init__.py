@@ -826,7 +826,6 @@ def construct_cell(base_cell_number, *digits, res=None):
     '841e057ffffffff'
     """
     if (res is not None) and (len(digits) != res):
-        # TODO: do a res mismatch error
         raise ValueError('Resolution must match number of digits.')
 
     digits = array('i', digits)
