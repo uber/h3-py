@@ -16,7 +16,7 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-None.
+- Add new error codes and helper functions
 
 ## [4.3.1] - 2025-08-10
 

@@ -597,3 +597,10 @@ def test_to_local_ij_self():
     out = h3.cell_to_local_ij(h, h)
 
     assert out == (-858, -2766)
+
+
+def test_is_valid_index():
+    assert h3.is_valid_index('8001fffffffffff')
+    assert not h3.is_valid_index('8a28308280fffff')
+    assert not h3.is_valid_index(123)
+    assert not h3.is_valid_index('abcd')

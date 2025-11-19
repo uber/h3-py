@@ -1,5 +1,6 @@
 from .h3lib cimport bool, int64_t, H3int
 
+cpdef bool is_valid_index(H3int h)
 cpdef bool is_valid_cell(H3int h)
 cpdef bool is_pentagon(H3int h)
 cpdef int get_base_cell_number(H3int h) except -1

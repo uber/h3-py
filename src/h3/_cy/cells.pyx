@@ -19,6 +19,14 @@ from .memory cimport (
 
 # todo: add notes about Cython exception handling
 
+cpdef bool is_valid_index(H3int h):
+    """Validates an H3 index (cell, vertex, or directed edge).
+
+    Returns
+    -------
+    boolean
+    """
+    return h3lib.isValidIndex(h) == 1
 
 # bool is a python type, so we don't need the except clause
 cpdef bool is_valid_cell(H3int h):

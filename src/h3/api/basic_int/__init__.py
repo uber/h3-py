@@ -128,6 +128,20 @@ def average_hexagon_edge_length(res, unit='km'):
     return _cy.average_hexagon_edge_length(res, unit)
 
 
+def is_valid_index(h):
+    """Validates an H3 index (cell, vertex, or directed edge).
+
+    Returns
+    -------
+    bool
+    """
+    try:
+        h = _in_scalar(h)
+        return _cy.is_valid_index(h)
+    except (ValueError, TypeError):
+        return False
+
+
 def is_valid_cell(h):
     """
     Validates an H3 cell (hexagon or pentagon).

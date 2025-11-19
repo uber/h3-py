@@ -76,6 +76,7 @@ cdef extern from 'h3api.h':
     int isResClassIII(H3int h) nogil
     int isValidDirectedEdge(H3int edge) nogil
     int isValidVertex(H3int v) nogil
+    int isValidIndex(H3int h) nogil
 
     double degsToRads(double degrees) nogil
     double radsToDegs(double radians) nogil
