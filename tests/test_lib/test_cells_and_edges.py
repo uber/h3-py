@@ -689,7 +689,7 @@ def test_deconstruct_cell():
     assert h3.deconstruct_cell(h) == (17, 5, 6)
 
 
-def construct_cell_inverses():
+def test_construct_cell_inverses():
     # demonstrate functions are inverses of each other
 
     h = '8ff3ac688d63446'
