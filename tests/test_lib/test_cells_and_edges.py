@@ -661,9 +661,9 @@ def test_get_index_digit_non_cells():
     v = h3.cell_to_vertexes(h)[0]
     assert v == '223de1afffffffff'
     assert h3.is_valid_vertex(v)
-    assert h3.get_index_digit(v, 1) == 3
-    assert h3.get_index_digit(v, 2) == 6
-    assert h3.get_index_digit(v, 3) == 4
+    assert h3.get_index_digit(v, 1) == 0
+    assert h3.get_index_digit(v, 2) == 3
+    assert h3.get_index_digit(v, 3) == 2
 
 
 def test_construct_cell():

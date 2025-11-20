@@ -3,7 +3,7 @@ from .h3lib cimport bool, int64_t, H3int, H3ErrorCodes
 
 from .util cimport (
     check_cell,
-    check_res,  # we don't use?
+    check_index,
     check_distance,
 )
 
@@ -62,7 +62,7 @@ cpdef int get_index_digit(H3int h, int res) except -1:
     cdef:
         int digit
 
-    check_cell(h)
+    check_index(h)
 
     check_for_error(
         h3lib.getIndexDigit(h, res, &digit)
