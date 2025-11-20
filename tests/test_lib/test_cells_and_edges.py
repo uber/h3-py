@@ -647,6 +647,25 @@ def test_get_index_digit():
         h3.get_index_digit('822377fffffffff',-1)
 
 
+def test_get_index_digit_non_cells():
+    h = h3.construct_cell(111, 3, 6, 4)
+    assert h == '83def4fffffffff'
+
+    e = h3.origin_to_directed_edges(h)[0]
+    assert e == '113def4fffffffff'
+    assert h3.is_valid_directed_edge(e)
+    assert h3.get_index_digit(e, 1) == 3
+    assert h3.get_index_digit(e, 2) == 6
+    assert h3.get_index_digit(e, 3) == 4
+
+    v = h3.cell_to_vertexes(h)[0]
+    assert v == '223de1afffffffff'
+    assert h3.is_valid_vertex(v)
+    assert h3.get_index_digit(v, 1) == 3
+    assert h3.get_index_digit(v, 2) == 6
+    assert h3.get_index_digit(v, 3) == 4
+
+
 def test_construct_cell():
     bc = 17
     assert h3.construct_cell(bc, 5, 6) == '822377fffffffff'
