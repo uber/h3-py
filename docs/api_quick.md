@@ -51,8 +51,8 @@ and should be generally aligned with the
    get_resolution
    get_base_cell_number
    get_index_digit
-   deconstruct_cell
    construct_cell
+   deconstruct_cell
 ```
 
 ## Geographic coordinates
