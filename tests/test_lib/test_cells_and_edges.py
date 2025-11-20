@@ -11,6 +11,7 @@ from h3 import (
     H3DigitDomainError,
     H3BaseCellDomainError,
     H3DeletedDigitError,
+    H3IndexInvalidError,
 )
 
 
@@ -658,12 +659,24 @@ def test_get_index_digit_non_cells():
     assert h3.get_index_digit(e, 2) == 6
     assert h3.get_index_digit(e, 3) == 4
 
+    e = h3.int_to_str(1 + h3.str_to_int(e))
+    assert not h3.is_valid_directed_edge(e)
+    assert not h3.is_valid_index(e)
+    with pytest.raises(H3IndexInvalidError):
+        h3.get_index_digit(e, 1)
+
     v = h3.cell_to_vertexes(h)[0]
     assert v == '223de1afffffffff'
     assert h3.is_valid_vertex(v)
     assert h3.get_index_digit(v, 1) == 0
     assert h3.get_index_digit(v, 2) == 3
     assert h3.get_index_digit(v, 3) == 2
+
+    v = h3.int_to_str(1 + h3.str_to_int(v))
+    assert not h3.is_valid_vertex(v)
+    assert not h3.is_valid_index(v)
+    with pytest.raises(H3IndexInvalidError):
+        h3.get_index_digit(v, 1)
 
 
 def test_construct_cell():
