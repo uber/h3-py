@@ -450,6 +450,9 @@ and should be generally aligned with the
 <tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.is_valid_vertex" title="h3.is_valid_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_vertex</span></code></a>(v)</p></td>
 <td><p>Validates an H3 vertex.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.is_valid_index" title="h3.is_valid_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_index</span></code></a>(h)</p></td>
+<td><p>Validates <em>any</em> H3 index (cell, vertex, or directed edge).</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -486,6 +489,15 @@ and should be generally aligned with the
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.get_base_cell_number" title="h3.get_base_cell_number"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_base_cell_number</span></code></a>(h)</p></td>
 <td><p>Return the base cell <em>number</em> (<code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">121</span></code>) of the given cell.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.get_index_digit" title="h3.get_index_digit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_index_digit</span></code></a>(h, res)</p></td>
+<td><p>Get the index digit of a cell at the given resolution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api_verbose.html#h3.construct_cell" title="h3.construct_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">construct_cell</span></code></a>(base_cell_number, *digits[, res])</p></td>
+<td><p>Construct cell from base cell and digits.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api_verbose.html#h3.deconstruct_cell" title="h3.deconstruct_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deconstruct_cell</span></code></a>(h)</p></td>
+<td><p>Deconstruct cell into base cell and digits.</p></td>
 </tr>
 </tbody>
 </table>
