@@ -8,6 +8,10 @@ from h3 import (
     H3ResMismatchError,
     H3CellInvalidError,
     H3NotNeighborsError,
+    H3DigitDomainError,
+    H3BaseCellDomainError,
+    H3DeletedDigitError,
+    H3IndexInvalidError,
 )
 
 
@@ -597,3 +601,153 @@ def test_to_local_ij_self():
     out = h3.cell_to_local_ij(h, h)
 
     assert out == (-858, -2766)
+
+
+def test_is_valid_index():
+    assert h3.is_valid_index('8001fffffffffff')
+    assert not h3.is_valid_index('8a28308280fffff')
+    assert not h3.is_valid_index(123)
+    assert not h3.is_valid_index('abcd')
+
+
+def test_is_valid_index_2():
+    import h3.api.basic_int as h3
+
+    h = h3.latlng_to_cell(0,0,9)
+    assert h3.is_valid_index(h)
+    assert not h3.is_valid_index(h + 1)
+    assert not h3.is_valid_directed_edge(h)
+    assert not h3.is_valid_vertex(h)
+
+    e = h3.origin_to_directed_edges(h)[0]
+    assert h3.is_valid_index(e)
+    assert not h3.is_valid_index(e + 1)
+    assert not h3.is_valid_cell(e)
+    assert not h3.is_valid_vertex(e)
+
+    v = h3.cell_to_vertex(h, 0)
+    assert h3.is_valid_index(v)
+    assert not h3.is_valid_index(v + 1)
+    assert not h3.is_valid_cell(v)
+    assert not h3.is_valid_directed_edge(v)
+
+
+def test_get_index_digit():
+    assert h3.get_index_digit('822377fffffffff', 1) == 5
+    assert h3.get_index_digit('822377fffffffff', 2) == 6
+    assert h3.get_index_digit('822377fffffffff', 3) == 7
+    assert h3.get_index_digit('822377fffffffff', 15) == 7
+
+    with pytest.raises(H3ResDomainError):
+        h3.get_index_digit('822377fffffffff', 16)
+
+    with pytest.raises(H3ResDomainError):
+        h3.get_index_digit('822377fffffffff', 0)
+
+    with pytest.raises(H3ResDomainError):
+        h3.get_index_digit('822377fffffffff',-1)
+
+
+def test_get_index_digit_non_cells():
+    h = h3.construct_cell(111, 3, 6, 4)
+    assert h == '83def4fffffffff'
+
+    e = h3.origin_to_directed_edges(h)[0]
+    assert e == '113def4fffffffff'
+    assert h3.is_valid_directed_edge(e)
+    assert h3.get_index_digit(e, 1) == 3
+    assert h3.get_index_digit(e, 2) == 6
+    assert h3.get_index_digit(e, 3) == 4
+
+    e = h3.int_to_str(1 + h3.str_to_int(e))
+    assert not h3.is_valid_directed_edge(e)
+    assert not h3.is_valid_index(e)
+    with pytest.raises(H3IndexInvalidError):
+        h3.get_index_digit(e, 1)
+
+    v = h3.cell_to_vertexes(h)[0]
+    assert v == '223de1afffffffff'
+    assert h3.is_valid_vertex(v)
+    assert h3.get_index_digit(v, 1) == 0
+    assert h3.get_index_digit(v, 2) == 3
+    assert h3.get_index_digit(v, 3) == 2
+
+    v = h3.int_to_str(1 + h3.str_to_int(v))
+    assert not h3.is_valid_vertex(v)
+    assert not h3.is_valid_index(v)
+    with pytest.raises(H3IndexInvalidError):
+        h3.get_index_digit(v, 1)
+
+
+def test_construct_cell():
+    bc = 17
+    assert h3.construct_cell(bc, 5, 6) == '822377fffffffff'
+    assert h3.construct_cell(bc) == '8023fffffffffff'
+
+    digits = [0] * 15
+    assert h3.construct_cell(bc, *digits) == '8f2200000000000'
+
+    with pytest.raises(H3ResDomainError):
+        digits = [0] * 16
+        h3.construct_cell(bc, *digits)
+
+    with pytest.raises(ValueError):
+        digits = [1,2,3,4]
+        h3.construct_cell(bc, *digits, res=2)
+
+    with pytest.raises(H3DigitDomainError):
+        h3.construct_cell(121, 1, 7)  # 7 is not a valid digit
+
+    with pytest.raises(H3DigitDomainError):
+        h3.construct_cell(121, 45)  # 45 is not a valid digit
+
+    with pytest.raises(H3DigitDomainError):
+        h3.construct_cell(121, -1)  # -1 is not a valid digit
+
+    with pytest.raises(H3BaseCellDomainError):
+        h3.construct_cell(122)  # one past last base cell number
+
+    with pytest.raises(H3DeletedDigitError):
+        # 4 is a pentagon base cell. first nonzero digit can't be a 1
+        h3.construct_cell(4, 1)
+
+    with pytest.raises(H3DeletedDigitError):
+        # 4 is a pentagon base cell. first nonzero digit can't be a 1
+        h3.construct_cell(4, 0,0,0, 0, 1)
+
+
+def test_deconstruct_cell():
+    h = '822377fffffffff'
+    assert h3.deconstruct_cell(h) == [17, 5, 6]
+
+
+def test_construct_cell_inverses():
+    # demonstrate functions are inverses of each other
+
+    h = '8ff3ac688d63446'
+    components = [121, 6, 5, 4, 3, 2, 1, 0, 6, 5, 4, 3, 2, 1, 0, 6]
+
+    assert h3.construct_cell(*components) == h
+    assert h3.deconstruct_cell(h) == components
+
+    assert h3.construct_cell(*h3.deconstruct_cell(h)) == h
+    assert h3.deconstruct_cell(h3.construct_cell(*components)) == components
+
+
+def test_construct_cell_inverses_int_api():
+    # same inverse test as above, but in int api
+    import h3.api.basic_int as h3
+
+    h = 0x8ff3ac688d63446
+    components = [121, 6, 5, 4, 3, 2, 1, 0, 6, 5, 4, 3, 2, 1, 0, 6]
+
+    assert h3.construct_cell(*components) == h
+    assert h3.deconstruct_cell(h) == components
+
+    assert h3.construct_cell(*h3.deconstruct_cell(h)) == h
+    assert h3.deconstruct_cell(h3.construct_cell(*components)) == components
+
+
+def test_center_child_with_deconstruct():
+    for h in h3.get_res0_cells():
+        h3.construct_cell(*h3.deconstruct_cell(h), 0) == h3.cell_to_center_child(h)

@@ -4,7 +4,7 @@ build-backend = 'scikit_build_core.build'
 
 [project]
 name = 'h3'
-version = '4.3.1'
+version = '4.4.0'
 description = "Uber's hierarchical hexagonal geospatial indexing system"
 readme = 'readme.md'
 license = {file = 'LICENSE'}
@@ -50,7 +50,7 @@ numpy = ['numpy']
 test = ['pytest', 'pytest-cov', 'ruff', 'numpy']
 all = [
     'h3[test]',
-    'jupyter-book',
+    'jupyter-book<2',
     'sphinx>=7.3.3', # https://github.com/sphinx-doc/sphinx/issues/12290
     'jupyterlab',
     'jupyterlab-geojson',

@@ -60,6 +60,10 @@ Summarizing, all exceptions originating from the C library inherit from
 - H3MemoryAllocError
 - H3MemoryBoundsError
 - H3OptionInvalidError
+- H3IndexInvalidError
+- H3BaseCellDomainError
+- H3DigitDomainError
+- H3DeletedDigitError
 
 
 # TODO: add tests verifying that concrete exception classes have the right error codes associated with them
@@ -87,6 +91,11 @@ from .h3lib cimport (
     E_MEMORY_ALLOC,
     E_MEMORY_BOUNDS,
     E_OPTION_INVALID,
+    E_INDEX_INVALID,
+    E_BASE_CELL_DOMAIN,
+    E_DIGIT_DOMAIN,
+    E_DELETED_DIGIT,
+    H3_ERROR_END  # sentinel value
 )
 
 @contextmanager
@@ -169,6 +178,10 @@ with _the_error(H3ValueError) as e:
     class H3NotNeighborsError(e): ...
     class H3ResMismatchError(e): ...
     class H3OptionInvalidError(e): ...
+    class H3IndexInvalidError(e): ...
+    class H3BaseCellDomainError(e): ...
+    class H3DigitDomainError(e): ...
+    class H3DeletedDigitError(e): ...
 
 
 """
@@ -192,6 +205,10 @@ error_mapping = {
     E_MEMORY_ALLOC:        H3MemoryAllocError,
     E_MEMORY_BOUNDS:       H3MemoryBoundsError,
     E_OPTION_INVALID:      H3OptionInvalidError,
+    E_INDEX_INVALID:       H3IndexInvalidError,
+    E_BASE_CELL_DOMAIN:    H3BaseCellDomainError,
+    E_DIGIT_DOMAIN:        H3DigitDomainError,
+    E_DELETED_DIGIT:       H3DeletedDigitError,
 }
 
 # Go back and modify the class definitions so that each concrete exception
@@ -207,18 +224,30 @@ for code, ex in error_mapping.items():
 # TODO: Move the helpers to util?
 # TODO: Unclear how/where to expose these functions. cdef/cpdef?
 
-cdef code_to_exception(H3Error err):
+cpdef error_code_to_exception(H3Error err):
+    """
+    Return Python exception corresponding to integer error code
+    given via the H3ErrorCodes enum in `h3api.h.in` in the C library.
+    """
     if err == E_SUCCESS:
         return None
     elif err in error_mapping:
         return error_mapping[err]
     else:
-        raise UnknownH3ErrorCode(err)
+        return UnknownH3ErrorCode(err)
 
 cdef check_for_error(H3Error err):
-    ex = code_to_exception(err)
+    ex = error_code_to_exception(err)
     if ex:
         raise ex
+
+cpdef H3Error get_H3_ERROR_END():
+    """
+    Return integer H3_ERROR_END from the H3ErrorCodes enum
+    in `h3api.h.in` in the C library, which is one greater than
+    the last valid error code.
+    """
+    return H3_ERROR_END
 
 # todo: There's no easy way to do `*args` in `cdef` functions, but I'm also
 # not sure this even needs to be a Cython `cdef` function at all, or that
@@ -226,6 +255,6 @@ cdef check_for_error(H3Error err):
 # todo: Revisit after we've played with this a bit.
 # todo: also: maybe the extra messages aren't that much more helpful...
 cdef check_for_error_msg(H3Error err, str msg):
-    ex = code_to_exception(err)
+    ex = error_code_to_exception(err)
     if ex:
         raise ex(msg)

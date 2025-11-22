@@ -26,4 +26,8 @@ from ._cy import (
     H3MemoryAllocError,
     H3MemoryBoundsError,
     H3OptionInvalidError,
+    H3IndexInvalidError,
+    H3BaseCellDomainError,
+    H3DigitDomainError,
+    H3DeletedDigitError,
 )

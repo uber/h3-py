@@ -1,6 +1,10 @@
 import pytest
 
 import h3
+from h3._cy import (
+    error_code_to_exception,
+    get_H3_ERROR_END,
+)
 
 # todo: maybe check the `check_for_error` function behavior directly?
 
@@ -12,23 +16,29 @@ h3_exceptions = {
     h3.H3GridNavigationError: None,
     h3.H3MemoryError: None,
     h3.H3ValueError: None,
-
-    h3.H3FailedError: 1,
-    h3.H3DomainError: 2,
-    h3.H3LatLngDomainError: 3,
-    h3.H3ResDomainError: 4,
-    h3.H3CellInvalidError: 5,
-    h3.H3DirEdgeInvalidError: 6,
-    h3.H3UndirEdgeInvalidError: 7,
-    h3.H3VertexInvalidError: 8,
-    h3.H3PentagonError: 9,
-    h3.H3DuplicateInputError: 10,
-    h3.H3NotNeighborsError: 11,
-    h3.H3ResMismatchError: 12,
-    h3.H3MemoryAllocError: 13,
-    h3.H3MemoryBoundsError: 14,
-    h3.H3OptionInvalidError: 15,
 }
+
+for e in range(1, get_H3_ERROR_END()):
+    ex = error_code_to_exception(e)
+    h3_exceptions[ex] = e
+
+
+def test_num_error_codes():
+    assert get_H3_ERROR_END() >= 20
+    assert error_code_to_exception(19) == h3.H3DeletedDigitError
+
+    # H3_ERROR_END (and beyond) shouldn't be a valid error code
+    code = get_H3_ERROR_END()
+    assert isinstance(
+        error_code_to_exception(code),
+        h3.UnknownH3ErrorCode
+    )
+
+    code = get_H3_ERROR_END() + 1
+    assert isinstance(
+        error_code_to_exception(code),
+        h3.UnknownH3ErrorCode
+    )
 
 
 def test_error_codes_match():

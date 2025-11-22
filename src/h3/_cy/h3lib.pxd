@@ -29,6 +29,11 @@ cdef extern from 'h3api.h':
         E_MEMORY_ALLOC = 13
         E_MEMORY_BOUNDS = 14
         E_OPTION_INVALID = 15
+        E_INDEX_INVALID = 16
+        E_BASE_CELL_DOMAIN = 17
+        E_DIGIT_DOMAIN = 18
+        E_DELETED_DIGIT = 19
+        H3_ERROR_END  # sentinel value
 
     ctypedef struct LatLng:
         double lat  # in radians
@@ -71,12 +76,15 @@ cdef extern from 'h3api.h':
     int isResClassIII(H3int h) nogil
     int isValidDirectedEdge(H3int edge) nogil
     int isValidVertex(H3int v) nogil
+    int isValidIndex(H3int h) nogil
 
     double degsToRads(double degrees) nogil
     double radsToDegs(double radians) nogil
 
     int getResolution(H3int h) nogil
     int getBaseCellNumber(H3int h) nogil
+    H3Error getIndexDigit(H3int h, int res, int *out) nogil
+    H3Error constructCell(int res, int baseCellNumber, const int *digits, H3int *out) nogil
 
     H3Error latLngToCell(const LatLng *g, int res, H3int *out) nogil
     H3Error cellToLatLng(H3int h, LatLng *) nogil

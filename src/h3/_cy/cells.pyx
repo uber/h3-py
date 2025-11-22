@@ -3,11 +3,12 @@ from .h3lib cimport bool, int64_t, H3int, H3ErrorCodes
 
 from .util cimport (
     check_cell,
-    check_res,  # we don't use?
+    check_index,
     check_distance,
 )
 
 from .error_system cimport (
+    H3Error,
     check_for_error,
     check_for_error_msg,
 )
@@ -19,6 +20,14 @@ from .memory cimport (
 
 # todo: add notes about Cython exception handling
 
+cpdef bool is_valid_index(H3int h):
+    """Validates an H3 index (cell, vertex, or directed edge).
+
+    Returns
+    -------
+    boolean
+    """
+    return h3lib.isValidIndex(h) == 1
 
 # bool is a python type, so we don't need the except clause
 cpdef bool is_valid_cell(H3int h):
@@ -48,6 +57,33 @@ cpdef int get_resolution(H3int h) except -1:
     check_cell(h)
 
     return h3lib.getResolution(h)
+
+cpdef int get_index_digit(H3int h, int res) except -1:
+    cdef:
+        int digit
+
+    check_index(h)
+
+    check_for_error(
+        h3lib.getIndexDigit(h, res, &digit)
+    )
+
+    return digit
+
+cpdef H3int construct_cell(int base_cell_number, const int[:] digits) except 0:
+    cdef:
+        H3int out
+        int res = len(digits)
+        H3Error err
+
+    if res > 0:
+        err = h3lib.constructCell(res, base_cell_number, &digits[0], &out)
+    else:
+        err = h3lib.constructCell(res, base_cell_number, NULL, &out)
+
+    check_for_error(err)
+
+    return out
 
 
 cpdef int grid_distance(H3int h1, H3int h2) except -1:

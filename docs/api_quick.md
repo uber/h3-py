@@ -25,6 +25,7 @@ and should be generally aligned with the
    is_res_class_III
    is_valid_directed_edge
    is_valid_vertex
+   is_valid_index
 ```
 
 ## Index representation
@@ -49,6 +50,9 @@ and should be generally aligned with the
    get_num_cells
    get_resolution
    get_base_cell_number
+   get_index_digit
+   construct_cell
+   deconstruct_cell
 ```
 
 ## Geographic coordinates

@@ -14,10 +14,13 @@ function interface and input conversion (string to int, for instance).
 """
 
 from .cells import (
+    is_valid_index,
     is_valid_cell,
     is_pentagon,
     get_base_cell_number,
     get_resolution,
+    get_index_digit,
+    construct_cell,
     cell_to_parent,
     grid_distance,
     grid_disk,
@@ -109,4 +112,11 @@ from .error_system import (
     H3MemoryAllocError,
     H3MemoryBoundsError,
     H3OptionInvalidError,
+    H3IndexInvalidError,
+    H3BaseCellDomainError,
+    H3DigitDomainError,
+    H3DeletedDigitError,
+
+    get_H3_ERROR_END,
+    error_code_to_exception,
 )

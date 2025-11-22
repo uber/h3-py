@@ -16,7 +16,17 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-None.
+- Update `h3lib` to v4.4.1. (#470)
+    - Add new error codes:
+        - `H3IndexInvalidError`
+        - `H3BaseCellDomainError`
+        - `H3DigitDomainError`
+        - `H3DeletedDigitError`
+    - Add new functions:
+        - `is_valid_index`
+        - `get_index_digit`
+        - `construct_cell`
+        - `deconstruct_cell`
 
 ## [4.3.1] - 2025-08-10
 
