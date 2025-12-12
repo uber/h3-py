@@ -16,6 +16,8 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
+## [4.4.0] - 2025-12-12
+
 - Update `h3lib` to v4.4.1. (#470)
     - Add new error codes:
         - `H3IndexInvalidError`
