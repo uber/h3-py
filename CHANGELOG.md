@@ -16,7 +16,11 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
-## [4.4.0] - 2025-12-12
+## [4.4.1] - 2025-12-15
+
+- Fix PyPI publishing issue (#474)
+
+## [4.4.0] - 2025-12-12 (never published on PyPI)
 
 - Update `h3lib` to v4.4.1. (#470)
     - Add new error codes:
