@@ -189,8 +189,22 @@ jobs:
           retention-days: 7
           compression-level: 9
 
-  to_pypi:
+  check_merged:
     needs: [merge]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download merged artifacts
+        uses: actions/download-artifact@v6.0.0
+        with:
+          name: wheels_and_sdist
+          path: dist
+
+      - name: Check all wheels and sdist with Twine
+        run: |
+          pipx run twine check dist/*
+
+  to_pypi:
+    needs: [check_merged]
     if: github.event_name == 'release' && github.event.action == 'published'
     runs-on: ubuntu-latest
 
