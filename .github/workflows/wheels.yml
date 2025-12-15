@@ -60,6 +60,9 @@ jobs:
     strategy:
       matrix:
         include:
+          - os: macos-14
+            build: 'cp*-macosx_arm64'
+            name: macOS14
           - os: macos-15
             build: 'cp*-macosx_arm64'
             name: macOS15
