@@ -1,6 +1,7 @@
 cimport h3lib
 from h3lib cimport H3int
 from .util cimport check_cell, coord2deg
+from .error_system cimport check_for_error
 
 
 # todo: it's driving me crazy that these three functions are all essentially the same linked list walker...
@@ -39,7 +40,9 @@ def _to_multi_polygon(const H3int[:] cells):
     for h in cells:
         check_cell(h)
 
-    h3lib.cellsToLinkedMultiPolygon(&cells[0], len(cells), &polygon)
+    check_for_error(
+        h3lib.cellsToLinkedMultiPolygon(&cells[0], len(cells), &polygon)
+    )
 
     out = walk_polys(&polygon)
 
