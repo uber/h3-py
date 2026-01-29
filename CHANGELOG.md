@@ -16,6 +16,10 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
+## [4.4.2] - 2026-01-29
+
+- Check for error from `cellsToLinkedMultiPolygon` (#477)
+
 ## [4.4.1] - 2025-12-15
 
 - Fix PyPI publishing issue (#474)
