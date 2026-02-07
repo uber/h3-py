@@ -23,12 +23,12 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v6.0.2
         with:
           submodules: recursive
 
       - name: Setup Python
-        uses: actions/setup-python@v6.0.0
+        uses: actions/setup-python@v6.2.0
         with:
           python-version: 3.11
 
@@ -48,7 +48,7 @@ jobs:
         run: pytest
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: temp_result_sdist
           path: ./dist
@@ -130,7 +130,7 @@ jobs:
             name: Linux Aarch64 3.14
 
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v6.0.2
         with:
           submodules: recursive
 
@@ -171,7 +171,7 @@ jobs:
           pipx run twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: temp_result_${{ matrix.os }}-${{ strategy.job-index }}
           path: wheelhouse/*.whl
@@ -194,7 +194,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download merged artifacts
-        uses: actions/download-artifact@v6.0.0
+        uses: actions/download-artifact@v7.0.0
         with:
           name: wheels_and_sdist
           path: dist
@@ -209,7 +209,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/download-artifact@v6.0.0
+      - uses: actions/download-artifact@v7.0.0
         with:
           name: wheels_and_sdist
           path: dist
