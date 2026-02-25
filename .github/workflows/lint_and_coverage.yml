@@ -16,24 +16,21 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v6.2.0
+      - uses: astral-sh/setup-uv@v7
         with:
-          python-version: 3.11
+          python-version: '3.11'
+
 
       - name: Install from source
-        run: |
-          pip install .[numpy]
-          pip install pytest pytest-cov ruff
+        run: uv sync --extra numpy
 
       - name: Run Linting
         uses: astral-sh/ruff-action@v3
 
       - name: Coverage Requirement - Library
-        run: |
-          pytest tests/test_lib --cov=h3 --cov=tests/test_lib --cov-fail-under=100
+        run: uv run pytest tests/test_lib --cov=h3 --cov=tests/test_lib --cov-fail-under=100
 
       - name: Coverage - Cython
         run: |
-          pip install cython
-          cythonize tests/test_cython/cython_example.pyx
-          pytest tests/test_cython --cov=tests/test_cython
+          uv run --with cython --with setuptools cythonize tests/test_cython/cython_example.pyx
+          uv run pytest tests/test_cython --cov=tests/test_cython

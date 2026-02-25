@@ -21,9 +21,10 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v6.2.0
+      - uses: astral-sh/setup-uv@v7
         with:
           python-version: '${{ matrix.python-version }}'
+
 
       ## Start Windows stuff
       - uses: ilammy/msvc-dev-cmd@v1.13.0
@@ -37,13 +38,9 @@ jobs:
       ## End Windows stuff
 
       - name: Install from source
-        run: |
-          pip install --upgrade pip setuptools wheel
-          pip install .[numpy]
-          pip install pytest pytest-cov ruff
+        run: uv sync --extra numpy
 
       - name: Tests
         run: |
-          pip install cython
-          cythonize tests/test_cython/cython_example.pyx
-          pytest
+          uv run --with cython --with setuptools cythonize tests/test_cython/cython_example.pyx
+          uv run pytest
