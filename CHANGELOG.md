@@ -16,6 +16,14 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
+## [4.5.0a1] - 2026-02-25
+
+- Update `h3lib` with draft v4.5 changes (adds `cellsToMultiPolygon`)
+- Drop Python 3.8 and 3.9 due to EOL; minimum is now Python 3.10
+- Document Python 3.14 support
+- Migrate build tooling from Makefile/pip to justfile/uv
+- CI uses uv, and runs justfile commands (rather than copying)
+
 ## [4.4.2] - 2026-01-29
 
 - Check for error from `cellsToLinkedMultiPolygon` (#477)
