@@ -35,6 +35,8 @@ jobs:
       - name: Make sdist
         run: uv build --sdist
 
+      # Test the sdist, NOT the local checkout.
+      # Use a fresh venv + uv pip install (not uv sync, which would build from source).
       - name: Install from sdist
         run: |
           uv venv
@@ -42,7 +44,8 @@ jobs:
           uv pip install h3.tar.gz[numpy] pytest pytest-cov
 
       - name: Test sdist
-        run: uv run pytest
+        # run pytest directly from the venv to avoid `uv run` syncing from the local checkout
+        run: .venv/bin/pytest
 
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v6.0.0

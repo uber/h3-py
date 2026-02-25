@@ -1,24 +1,23 @@
+# disable editable installs so uv sync does a full build of the C extension
 export UV_NO_EDITABLE := "1"
 
 _:
     just --list
 
+# force-rebuild the C extension to avoid stale builds
 reinstall:
     uv cache clean h3
     uv sync --reinstall-package h3
 
-test: reinstall
-    uv run pytest tests/test_lib --cov=h3 --cov=tests/test_lib --cov-fail-under=100
-
-test-cython: reinstall
-    uv run --with cython --with setuptools cythonize tests/test_cython/cython_example.pyx
-    uv run pytest tests/test_cython --cov=tests/test_cython
+# locally, always reinstall before testing
+test: reinstall ci-test
+test-cython: reinstall ci-test-cython
 
 lint:
-    uv run ruff check
+    uvx ruff check
 
 fix:
-    uv run ruff check --fix
+    uvx ruff check --fix
 
 lab:
     uv sync --group docs
@@ -49,3 +48,12 @@ purge:
 
 _rm pattern:
     -@find . -name "{{pattern}}" -prune -exec rm -rf {} +
+
+
+# CI builds once, so it would be inefficient to force reinstalls
+ci-test:
+    uv run pytest tests/test_lib --cov=h3 --cov=tests/test_lib --cov-fail-under=100
+
+ci-test-cython:
+    uv run --with cython --with setuptools cythonize tests/test_cython/cython_example.pyx
+    uv run pytest tests/test_cython --cov=tests/test_cython

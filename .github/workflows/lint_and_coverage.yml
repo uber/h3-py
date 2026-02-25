@@ -20,17 +20,16 @@ jobs:
         with:
           python-version: '3.11'
 
+      - uses: extractions/setup-just@v2
 
-      - name: Install from source
-        run: uv sync --extra numpy
+      - name: Lint
+        run: just lint
 
-      - name: Run Linting
-        uses: astral-sh/ruff-action@v3
+      - name: Install
+        run: uv sync
 
-      - name: Coverage Requirement - Library
-        run: uv run pytest tests/test_lib --cov=h3 --cov=tests/test_lib --cov-fail-under=100
+      - name: Coverage - Library
+        run: just ci-test
 
       - name: Coverage - Cython
-        run: |
-          uv run --with cython --with setuptools cythonize tests/test_cython/cython_example.pyx
-          uv run pytest tests/test_cython --cov=tests/test_cython
+        run: just ci-test-cython

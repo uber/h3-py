@@ -48,7 +48,7 @@ Changelog = 'https://uber.github.io/h3-py/_changelog.html'
 numpy = ['numpy']
 
 [dependency-groups]
-dev = ['pytest', 'pytest-cov', 'ruff', 'numpy']
+dev = ['pytest', 'pytest-cov', 'numpy']
 docs = [
     'numpy',
     'jupyter-book<2',

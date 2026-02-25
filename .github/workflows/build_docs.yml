@@ -22,12 +22,10 @@ jobs:
         with:
           python-version: '3.11'
 
-
-      - name: Install dependencies
-        run: uv sync --group docs
+      - uses: extractions/setup-just@v2
 
       - name: Build the book
-        run: uv run jupyter-book build docs/ --warningiserror --keep-going --all
+        run: just build-docs
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v6.0.0

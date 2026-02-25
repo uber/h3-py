@@ -25,6 +25,7 @@ jobs:
         with:
           python-version: '${{ matrix.python-version }}'
 
+      - uses: extractions/setup-just@v2
 
       ## Start Windows stuff
       - uses: ilammy/msvc-dev-cmd@v1.13.0
@@ -37,10 +38,11 @@ jobs:
           echo "CXX=cl.exe" >> $GITHUB_ENV
       ## End Windows stuff
 
-      - name: Install from source
-        run: uv sync --extra numpy
+      - name: Install
+        run: uv sync
 
       - name: Tests
-        run: |
-          uv run --with cython --with setuptools cythonize tests/test_cython/cython_example.pyx
-          uv run pytest
+        run: just ci-test
+
+      - name: Cython Tests
+        run: just ci-test-cython
