@@ -46,9 +46,9 @@ Changelog = 'https://uber.github.io/h3-py/_changelog.html'
 
 [project.optional-dependencies]
 numpy = ['numpy']
-test = ['pytest', 'pytest-cov', 'ruff', 'numpy']
 
 [dependency-groups]
+dev = ['pytest', 'pytest-cov', 'ruff', 'numpy']
 docs = [
     'jupyter-book<2',
     'sphinx>=7.3.3', # https://github.com/sphinx-doc/sphinx/issues/12290
@@ -72,6 +72,9 @@ omit = [
     '*/h3/api/numpy_int/__init__.py'
 ]
 
+
+[tool.uv]
+default-groups = ['dev']
 
 [tool.scikit-build]
 sdist.exclude = [

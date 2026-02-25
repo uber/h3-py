@@ -5,13 +5,13 @@ _:
 
 reinstall:
     uv cache clean h3
-    uv sync --extra test --reinstall-package h3
+    uv sync --reinstall-package h3
 
 test: reinstall
     uv run pytest tests/test_lib --cov=h3 --cov=tests/test_lib --cov-fail-under=100
 
 test-cython: reinstall
-    uv run cythonize tests/test_cython/cython_example.pyx
+    uv run --with cython --with setuptools cythonize tests/test_cython/cython_example.pyx
     uv run pytest tests/test_cython --cov=tests/test_cython
 
 lint:
@@ -42,6 +42,7 @@ purge:
     just _rm uv.lock
     just _rm .coverage
     just _rm build
+    just _rm _build
     just _rm _skbuild
     just _rm .ruff_cache
     uv cache clean h3

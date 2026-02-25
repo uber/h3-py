@@ -39,7 +39,8 @@ jobs:
       - name: Install from source
         run: |
           pip install --upgrade pip setuptools wheel
-          pip install .[test]
+          pip install .[numpy]
+          pip install pytest pytest-cov ruff
 
       - name: Tests
         run: |

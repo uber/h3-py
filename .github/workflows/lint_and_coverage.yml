@@ -21,7 +21,9 @@ jobs:
           python-version: 3.11
 
       - name: Install from source
-        run: pip install .[test]
+        run: |
+          pip install .[numpy]
+          pip install pytest pytest-cov ruff
 
       - name: Run Linting
         uses: astral-sh/ruff-action@v3

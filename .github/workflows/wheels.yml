@@ -42,7 +42,8 @@ jobs:
         run: |
           pip install --upgrade pip setuptools wheel
           cp dist/h3-*.tar.gz h3.tar.gz
-          pip install h3.tar.gz[test]
+          pip install h3.tar.gz[numpy]
+          pip install pytest pytest-cov
 
       - name: Test sdist
         run: pytest
