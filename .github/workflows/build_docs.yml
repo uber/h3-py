@@ -25,7 +25,7 @@ jobs:
       - uses: extractions/setup-just@v2
 
       - name: Build the book
-        run: just build-docs
+        run: just docs
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v6.0.0

@@ -23,11 +23,11 @@ lab:
     uv sync --group docs
     uv run jupyter lab
 
-build-docs:
+docs:
     uv sync --group docs
     uv run jupyter-book build docs/ --warningiserror --keep-going --all
 
-open:
+view:
     open docs/_build/html/index.html
 
 purge:
@@ -50,7 +50,7 @@ _rm pattern:
     -@find . -name "{{pattern}}" -prune -exec rm -rf {} +
 
 
-# CI builds once, so it would be inefficient to force reinstalls
+# CI builds in a separate step, so this command avoids forcing reinstalls
 ci-test:
     uv run pytest tests/test_lib --cov=h3 --cov=tests/test_lib --cov-fail-under=100
 

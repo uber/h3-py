@@ -82,7 +82,6 @@ sdist.exclude = [
     'src/h3lib',
     'docs',
     'dev_notes.md',
-    'makefile',
 ]
 sdist.include = [
     'src/h3lib/LICENSE',

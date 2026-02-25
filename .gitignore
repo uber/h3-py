@@ -1,77 +1,57 @@
-h3c/
+# Byte-compiled / optimized
 *.py[cod]
-.cache/
-h3/out/
-.ruff_cache/
-_build/
+__pycache__/
+
+# C extensions
+*.so
 
 # Generated C code from Cython test
 tests/**/*.c
 # Cython HTML annotations
 *.html
 
-# C extensions
-*.so
-
-# Packages
-*.egg
+# Build artifacts
+build/
+dist/
 *.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
 
-# Installer logs
-pip-log.txt
-
-# Unit test / coverage reports
+# Coverage
 .coverage
 coverage.xml
 coverage.lcov
-.tox
-nosetests.xml
-.noseids
-.pytest_cache
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
-
-*.csv
-build/
-env/
-env_docs/
-docs/_build/
 htmlcov/
 
-# vim/emacs backup files
+# Test
+.pytest_cache/
+
+# Tools
+.ruff_cache/
+.cache/
+
+# Docs
+_build/
+docs/_build/
+
+# Environment
+.venv/
+uv.lock
+
+# OS
+.DS_Store
+
+# Editor backup files
 *~
 \#*\#
 .\#*
 .*.sw*
 
-#DB snapshots
-db_snapshots/
-
-#OSX
-.DS_Store
-
-node_modules/
-bower_components/
-.sass-cache/
+# IDE
 .idea/
-.unison.*
 
+# IPython / Jupyter
 .ipynb_checkpoints/
-_skbuild/
-.venv/
-uv.lock
 
-# might want to remove this later when distributing
-MANIFEST
+# Legacy build dirs
+_skbuild/
+h3c/
+h3/out/
