@@ -70,6 +70,8 @@ bower_components/
 
 .ipynb_checkpoints/
 _skbuild/
+.venv/
+uv.lock
 
 # might want to remove this later when distributing
 MANIFEST

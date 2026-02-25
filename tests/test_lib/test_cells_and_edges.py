@@ -456,8 +456,12 @@ def test_versions():
     v_c = Version(v['c'])
     v_p = Version(v['python'])
 
-    # of X.Y.Z, X and Y must match
-    assert v_c.release[:2] == v_p.release[:2]
+    if v_p.is_prerelease:
+        # For alpha releases, only major version must match
+        assert v_c.release[0] == v_p.release[0]
+    else:  # pragma: no cover
+        # of X.Y.Z, X and Y must match
+        assert v_c.release[:2] == v_p.release[:2]
 
 
 def test_str_int_convert():
