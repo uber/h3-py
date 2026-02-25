@@ -89,6 +89,7 @@ sdist.include = [
     'src/h3lib/README.md',
     'src/h3lib/VERSION',
     'src/h3lib/CMakeLists.txt',
+    'src/h3lib/h3.pc.in',
     'src/h3lib/cmake/*',
     'src/h3lib/src/h3lib/*'
 ]
