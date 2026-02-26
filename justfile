@@ -13,19 +13,12 @@ reinstall:
 test: reinstall ci-test
 test-cython: reinstall ci-test-cython
 
-lint:
-    uvx ruff check
-
 fix:
     uvx ruff check --fix
 
 lab:
     uv sync --group docs
     uv run jupyter lab
-
-docs:
-    uv sync --group docs
-    uv run jupyter-book build docs/ --warningiserror --keep-going --all
 
 view:
     open docs/_build/html/index.html
@@ -50,10 +43,19 @@ _rm pattern:
     -@find . -name "{{pattern}}" -prune -exec rm -rf {} +
 
 
-# CI builds in a separate step, so this command avoids forcing reinstalls
+# Recipes below are used by CI workflows (.github/workflows/).
+# Changes here may break CI — update the workflows accordingly.
+
 ci-test:
     uv run pytest tests/test_lib --cov=h3 --cov=tests/test_lib --cov-fail-under=100
 
 ci-test-cython:
     uv run --with cython --with setuptools cythonize tests/test_cython/cython_example.pyx
     uv run pytest tests/test_cython --cov=tests/test_cython
+
+lint:
+    uvx ruff check
+
+docs:
+    uv sync --group docs
+    uv run jupyter-book build docs/ --warningiserror --keep-going --all
