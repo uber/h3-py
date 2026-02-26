@@ -27,25 +27,25 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup Python
-        uses: actions/setup-python@v6.2.0
+      - uses: astral-sh/setup-uv@v7
         with:
-          python-version: 3.11
+          python-version: '3.11'
+
 
       - name: Make sdist
-        run: |
-          python --version
-          pipx --version
-          pipx run build --sdist
+        run: uv build --sdist
 
+      # Test the sdist, NOT the local checkout.
+      # Use a fresh venv + uv pip install (not uv sync, which would build from source).
       - name: Install from sdist
         run: |
-          pip install --upgrade pip setuptools wheel
+          uv venv
           cp dist/h3-*.tar.gz h3.tar.gz
-          pip install h3.tar.gz[test]
+          uv pip install h3.tar.gz[numpy] pytest pytest-cov
 
       - name: Test sdist
-        run: pytest
+        # run pytest directly from the venv to avoid `uv run` syncing from the local checkout
+        run: .venv/bin/pytest
 
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v6.0.0
@@ -86,12 +86,6 @@ jobs:
             name: Linux Intel glibc 64-bit
 
           - os: ubuntu-22.04
-            build: 'cp38-musllinux_x86_64'
-            name: Linux Intel musl 64-bit 3.8
-          - os: ubuntu-22.04
-            build: 'cp39-musllinux_x86_64'
-            name: Linux Intel musl 64-bit 3.9
-          - os: ubuntu-22.04
             build: 'cp310-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.10
           - os: ubuntu-22.04
@@ -107,12 +101,6 @@ jobs:
             build: 'cp314-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.14
 
-          - os: ubuntu-22.04
-            build: 'cp38-manylinux_aarch64'
-            name: Linux Aarch64 3.8
-          - os: ubuntu-22.04
-            build: 'cp39-manylinux_aarch64'
-            name: Linux Aarch64 3.9
           - os: ubuntu-22.04
             build: 'cp310-manylinux_aarch64'
             name: Linux Aarch64 3.10
@@ -134,7 +122,9 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Set MSVC for Windows-x64  
+      - uses: astral-sh/setup-uv@v7
+
+      - name: Set MSVC for Windows-x64
         uses: microsoft/setup-msbuild@v2
         if: matrix.os == 'windows-latest'
         with:
@@ -161,14 +151,14 @@ jobs:
 
       - uses: pypa/cibuildwheel@v3.3.1
         env:
+          CIBW_BUILD_FRONTEND: 'build[uv]'
           CIBW_TEST_REQUIRES: pytest pytest-cov numpy
           CIBW_TEST_COMMAND: pytest {project}/tests
           CIBW_ARCHS_LINUX: auto aarch64
           CIBW_BUILD: ${{ matrix.build }}
 
       - name: Check with Twine
-        run: |
-          pipx run twine check wheelhouse/*
+        run: uvx twine check wheelhouse/*
 
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v6.0.0
@@ -193,6 +183,11 @@ jobs:
     needs: [merge]
     runs-on: ubuntu-latest
     steps:
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: false
+          ignore-empty-workdir: true
+
       - name: Download merged artifacts
         uses: actions/download-artifact@v7.0.0
         with:
@@ -200,8 +195,7 @@ jobs:
           path: dist
 
       - name: Check all wheels and sdist with Twine
-        run: |
-          pipx run twine check dist/*
+        run: uvx twine check dist/*
 
   to_pypi:
     needs: [check_merged]

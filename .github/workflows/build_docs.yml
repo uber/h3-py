@@ -18,17 +18,14 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v6.2.0
+      - uses: astral-sh/setup-uv@v7
         with:
-          python-version: 3.11
+          python-version: '3.11'
 
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip setuptools wheel
-          pip install .[all]
+      - uses: extractions/setup-just@v2
 
       - name: Build the book
-        run: jupyter-book build docs/ --warningiserror --keep-going --all
+        run: just docs
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v6.0.0

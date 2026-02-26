@@ -2,11 +2,20 @@
 
 ## Install for development
 
+This repo uses [`just`](https://github.com/casey/just) for running common development commands.
+
+To get started:
+
 - `git clone git@github.com:uber/h3-py.git`
 - `cd h3-py`
-- `make init`
-- `make test`
-- `make lint`
+- `just lint`
+- `just test`
+- `just test-cython`
+
+To build and view docs:
+
+- `just docs`
+- `just view`
 
 
 ## Docstrings
