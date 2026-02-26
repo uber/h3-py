@@ -186,6 +186,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           enable-cache: false
+          ignore-empty-workdir: true
 
       - name: Download merged artifacts
         uses: actions/download-artifact@v7.0.0
