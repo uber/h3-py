@@ -82,6 +82,10 @@ sdist.exclude = [
     'src/h3lib',
     'docs',
     'dev_notes.md',
+    'justfile',
+    '.github',
+    '.gitignore',
+    '.gitmodules',
 ]
 sdist.include = [
     'src/h3lib/LICENSE',

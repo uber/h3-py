@@ -456,10 +456,10 @@ def test_versions():
     v_c = Version(v['c'])
     v_p = Version(v['python'])
 
-    if v_p.is_prerelease:
-        # For alpha releases, only major version must match
-        assert v_c.release[0] == v_p.release[0]
-    else:  # pragma: no cover
+    # For all releases (including pre-release), major version must match
+    assert v_c.release[0] == v_p.release[0]
+
+    if not v_p.is_prerelease:  # pragma: no cover
         # of X.Y.Z, X and Y must match
         assert v_c.release[:2] == v_p.release[:2]
 
