@@ -332,10 +332,10 @@ def test_issue_482_with_antimeridian():
     assert len(mpoly[0].holes) == 0
     assert len(mpoly[0].outer) == 37
 
-    # Roundtrip fails: recovers 23/29, and not even a subset of the original.
+    # Roundtrip fails: recovers ~23/29, and not even a subset of the original.
     # TODO: assert_cells_roundtrip when h3shape_to_cells handles global polygons.
     cells_out = h3.h3shape_to_cells(mpoly, 0)
-    assert len(cells_out) == 23
+    assert len(cells_out) < len(cells0)  # exact count differs by OS
     assert not (set(cells_out) <= cells0)
 
     # --- cells1: remove antimeridian-crossing cells (26 remaining) ---
