@@ -82,10 +82,8 @@ def test_all_res0_cells():
         assert len(poly.outer) == 3
         assert len(poly.holes) == 0
 
-    # Unfortunately, the roundtrip doesn't work, since h3shape_to_cells
-    # can't handle the global polygons.
-    # We recover only a subset of the expected 122 res 0 cells.
-    # TODO: Update this test when h3shape_to_cells gets the correct answer.
+    # Roundtrip fails: h3shape_to_cells recovers only 69/122 cells.
+    # TODO: assert_cells_roundtrip when h3shape_to_cells handles global polygons.
     cells2 = h3.h3shape_to_cells(mpoly, 0)
     assert len(cells2) == 69
 
@@ -241,10 +239,10 @@ def test_equator_cells():
     poly = mpoly[0]
     assert len(poly.holes) == 1
 
-    # Unfortunately, current algo can't recover the original cells.
+    # Roundtrip fails: h3shape_to_cells recovers only 18/60 cells.
+    # TODO: assert_cells_roundtrip when h3shape_to_cells handles global polygons.
     cells2 = h3.h3shape_to_cells(mpoly, 1)
-    assert len(cells) == 60
-    assert len(cells2) == 18  # TODO: Update when all cells recoverable
+    assert len(cells2) == 18
 
 
 def test_prime_meridian():
@@ -265,21 +263,19 @@ def test_prime_meridian():
     ]
     mpoly = h3.cells_to_h3shape(cells, tight=False)
 
-    # Get correct mpoly output
     assert len(mpoly) == 1
     poly = mpoly[0]
     assert len(poly.holes) == 0
     assert len(poly.outer) == 128
 
-    # Unfortunately, we error when trying to recover cells from the polygon.
-    # Update test when algorithm can recover cells.
+    # Roundtrip fails: h3shape_to_cells raises on this global polygon.
+    # TODO: assert_cells_roundtrip when h3shape_to_cells handles global polygons.
     with pytest.raises(H3FailedError):
         h3.h3shape_to_cells(mpoly, 1)
 
 
 def test_anti_meridian():
-    """Continuous band of cells overlapping the anti-meridian.
-    """
+    """Continuous band of cells overlapping the anti-meridian."""
     cells = [
         '817ebffffffffff', '8133bffffffffff', '81047ffffffffff',
         '81f3bffffffffff', '81dbbffffffffff', '8132bffffffffff',
@@ -294,14 +290,13 @@ def test_anti_meridian():
     ]
     mpoly = h3.cells_to_h3shape(cells, tight=False)
 
-    # We get the correct polygon from the cells
     assert len(mpoly) == 1
     poly = mpoly[0]
     assert len(poly.holes) == 0
     assert len(poly.outer) == 117
 
-    # Unfortunately, we error when trying to recover cells from the polygon.
-    # TODO: Update test when algorithm can recover cells.
+    # Roundtrip fails: h3shape_to_cells raises on this global polygon.
+    # TODO: assert_cells_roundtrip when h3shape_to_cells handles global polygons.
     with pytest.raises(H3FailedError):
         h3.h3shape_to_cells(mpoly, 1)
 
@@ -331,46 +326,35 @@ def test_issue_482_with_antimeridian():
     # remove cell that is very close to north pole (maybe touches)
     cells2 = cells1 - {'8001fffffffffff'}
 
-    # ---cells0---
-    # gets correct multipolygon
+    # --- cells0: all 29 cells ---
     mpoly = h3.cells_to_h3shape(cells0, tight=False)
     assert len(mpoly) == 1
-    poly = mpoly[0]
-    assert len(poly.holes) == 0
-    assert len(poly.outer) == 37
+    assert len(mpoly[0].holes) == 0
+    assert len(mpoly[0].outer) == 37
 
-    # no error on cell recovery
+    # Roundtrip fails: recovers 23/29, and not even a subset of the original.
+    # TODO: assert_cells_roundtrip when h3shape_to_cells handles global polygons.
     cells_out = h3.h3shape_to_cells(mpoly, 0)
-
-    # but wrong set of cells
-    assert len(cells0) == 29
     assert len(cells_out) == 23
-    assert not (set(cells_out) <= cells0)  # not even a subset!
+    assert not (set(cells_out) <= cells0)
 
-    # ---cells1---
-    # gets correct multipolygon
+    # --- cells1: remove antimeridian-crossing cells (26 remaining) ---
     mpoly = h3.cells_to_h3shape(cells1, tight=False)
     assert len(mpoly) == 1
-    poly = mpoly[0]
-    assert len(poly.holes) == 0
-    assert len(poly.outer) == 37  # funny: same number of vertices
+    assert len(mpoly[0].holes) == 0
+    assert len(mpoly[0].outer) == 37
 
-    # no error on recovery
+    # Roundtrip fails: recovers 18/26, and not even a subset of the original.
+    # TODO: assert_cells_roundtrip when h3shape_to_cells handles global polygons.
     cells_out = h3.h3shape_to_cells(mpoly, 0)
-
-    # but wrong set of cells
-    assert len(cells1) == 26
     assert len(cells_out) == 18
-    assert not (set(cells_out) <= cells1)  # not even a subset!
+    assert not (set(cells_out) <= cells1)
 
-    # ---cells2---
-    # gets correct multipolygon
+    # --- cells2: also remove near-pole cell (25 remaining) ---
     mpoly = h3.cells_to_h3shape(cells2, tight=False)
     assert len(mpoly) == 1
-    poly = mpoly[0]
-    assert len(poly.holes) == 0
-    assert len(poly.outer) == 37  # funny: same number of vertices
+    assert len(mpoly[0].holes) == 0
+    assert len(mpoly[0].outer) == 37
 
-    # gets correct set of cells
-    cells_out = h3.h3shape_to_cells(mpoly, 0)
-    assert set(cells_out) == cells2
+    # Roundtrip succeeds.
+    assert_cells_roundtrip(list(cells2))
