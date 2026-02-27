@@ -1,7 +1,7 @@
 import pytest
 
 import h3
-from h3._cy.error_system import H3DuplicateInputError, H3ResMismatchError
+from h3._cy.error_system import H3DuplicateInputError, H3ResMismatchError, H3FailedError
 
 from .. import util as u
 
@@ -11,9 +11,7 @@ def assert_cells_roundtrip(cells):
     res = h3.get_resolution(cells[0])
     mpoly = h3.cells_to_h3shape(cells, tight=False)
 
-    recovered = set()
-    for poly in mpoly:
-        recovered.update(h3.h3shape_to_cells(poly, res))
+    recovered = h3.h3shape_to_cells(mpoly, res)
 
     assert u.same_set(recovered, cells)
 
@@ -65,30 +63,50 @@ def test_2_polys():
 
 def test_empty():
     mpoly = h3.cells_to_h3shape([], tight=False)
+    assert isinstance(mpoly, h3.LatLngMultiPoly)
+    assert len(mpoly) == 0
+
+    mpoly = h3.cells_to_h3shape([], tight=True)
+    assert isinstance(mpoly, h3.LatLngMultiPoly)
     assert len(mpoly) == 0
 
 
 def test_all_res0_cells():
-    """All 122 res-0 cells cover the globe.
-
-    cellsToMultiPolygon returns 8 thin triangular octants that tile the
-    globe correctly, but h3shape_to_cells misses cells whose centroids
-    fall near the edges of these very thin slices (recovers only ~69/122).
-    """
     cells = h3.get_res0_cells()
-    assert len(cells) == 122
-    h3.cells_to_h3shape(cells, tight=False)
-
-
-def test_pentagon_cell():
-    cells = [h3.get_pentagons(0)[0]]
     mpoly = h3.cells_to_h3shape(cells, tight=False)
 
-    assert len(mpoly) == 1
-    assert len(mpoly[0].holes) == 0
-    assert len(mpoly[0].outer) == 5  # pentagon has 5 verts
+    # We should get an "entire globe" multipolygon back
+    # The current implementation returns 8 triangles
+    assert len(mpoly) == 8
+    for poly in mpoly:
+        assert len(poly.outer) == 3
+        assert len(poly.holes) == 0
 
-    assert_cells_roundtrip(cells)
+    # Unfortunately, the roundtrip doesn't work, since h3shape_to_cells
+    # can't handle the global polygons.
+    # We recover only a subset of the expected 122 res 0 cells.
+    # TODO: Update this test when h3shape_to_cells gets the correct answer.
+    cells2 = h3.h3shape_to_cells(mpoly, 0)
+    assert len(cells2) == 69
+
+
+def test_pentagons():
+    for res in range(16):
+        cells = h3.get_pentagons(res)
+        mpoly = h3.cells_to_h3shape(cells, tight=False)
+
+        if res % 2 == 0:
+            expected_verts = 5
+        else:
+            # pentagons have distortion vertices at odd resolutions
+            expected_verts = 10
+
+        assert len(mpoly) == 12
+        for poly in mpoly:
+            assert len(poly.holes) == 0
+            assert len(poly.outer) == expected_verts
+
+        assert_cells_roundtrip(cells)
 
 
 def test_duplicate_cells_error():
@@ -116,8 +134,10 @@ def test_three_polygons():
     mpoly = h3.cells_to_h3shape(cells, tight=False)
 
     assert len(mpoly) == 3
-    hole_counts = sorted(len(p.holes) for p in mpoly)
-    assert hole_counts == [0, 1, 3]
+    hole_counts = [len(p.holes) for p in mpoly]
+
+    # Polygons are ordered by size, and we know the hole counts of each
+    assert hole_counts == [3, 1, 0]
 
     assert_cells_roundtrip(cells)
 
@@ -191,10 +211,7 @@ def test_issue_1049():
 
 
 def test_equator_cells():
-    """Global polygon near the equator.
-
-    cellsToMultiPolygon succeeds, but the output polygon spans the
-    antimeridian so h3shape_to_cells can't fill it back (loses cells).
+    """Continuous band of cells overlapping the equator.
     """
     cells = [
         '81807ffffffffff', '817efffffffffff', '81723ffffffffff',
@@ -218,14 +235,20 @@ def test_equator_cells():
         '818a7ffffffffff', '8186fffffffffff', '81707ffffffffff',
         '8182bffffffffff', '818f3ffffffffff', '8182fffffffffff',
     ]
-    h3.cells_to_h3shape(cells, tight=False)
+    mpoly = h3.cells_to_h3shape(cells, tight=False)
+
+    assert len(mpoly) == 1
+    poly = mpoly[0]
+    assert len(poly.holes) == 1
+
+    # Unfortunately, current algo can't recover the original cells.
+    cells2 = h3.h3shape_to_cells(mpoly, 1)
+    assert len(cells) == 60
+    assert len(cells2) == 18  # TODO: Update when all cells recoverable
 
 
 def test_prime_meridian():
-    """Global polygon near the prime meridian.
-
-    cellsToMultiPolygon succeeds, but the output polygon spans the
-    antimeridian so h3shape_to_cells raises H3FailedError.
+    """Continuous band of cells overlapping the prime meridian.
     """
     cells = [
         '81efbffffffffff', '81c07ffffffffff', '81d1bffffffffff',
@@ -240,14 +263,22 @@ def test_prime_meridian():
         '81997ffffffffff', '81753ffffffffff', '81033ffffffffff',
         '81f2bffffffffff', '8138bffffffffff',
     ]
-    h3.cells_to_h3shape(cells, tight=False)
+    mpoly = h3.cells_to_h3shape(cells, tight=False)
+
+    # Get correct mpoly output
+    assert len(mpoly) == 1
+    poly = mpoly[0]
+    assert len(poly.holes) == 0
+    assert len(poly.outer) == 128
+
+    # Unfortunately, we error when trying to recover cells from the polygon.
+    # Update test when algorithm can recover cells.
+    with pytest.raises(H3FailedError):
+        h3.h3shape_to_cells(mpoly, 1)
 
 
 def test_anti_meridian():
-    """Global polygon near the anti-meridian.
-
-    cellsToMultiPolygon succeeds, but the output polygon spans the
-    antimeridian so h3shape_to_cells raises H3FailedError.
+    """Continuous band of cells overlapping the anti-meridian.
     """
     cells = [
         '817ebffffffffff', '8133bffffffffff', '81047ffffffffff',
@@ -261,17 +292,29 @@ def test_anti_meridian():
         '81237ffffffffff', '810dbffffffffff', '81033ffffffffff',
         '81f2bffffffffff', '8147bffffffffff', '81f33ffffffffff',
     ]
-    h3.cells_to_h3shape(cells, tight=False)
+    mpoly = h3.cells_to_h3shape(cells, tight=False)
+
+    # We get the correct polygon from the cells
+    assert len(mpoly) == 1
+    poly = mpoly[0]
+    assert len(poly.holes) == 0
+    assert len(poly.outer) == 117
+
+    # Unfortunately, we error when trying to recover cells from the polygon.
+    # TODO: Update test when algorithm can recover cells.
+    with pytest.raises(H3FailedError):
+        h3.h3shape_to_cells(mpoly, 1)
 
 
 def test_issue_482_with_antimeridian():
-    """https://github.com/uber/h3-py/issues/482
+    """From https://github.com/uber/h3-py/issues/482
 
-    Previously raised ValueError ('loops need at least 3 points').
-    cellsToMultiPolygon now succeeds, but the output polygon spans the
-    antimeridian so it can't roundtrip through h3shape_to_cells.
+    Test three versions: the full set, removal of antimeridian overlaps, and removal
+    of one cell by the north pole also causing roundtrip issues.
+
+    Roundtrip works after removal of all troublesome cells.
     """
-    cells = [
+    cells0 = {
         '8001fffffffffff', '8005fffffffffff', '8009fffffffffff', '800bfffffffffff',
         '8011fffffffffff', '8015fffffffffff', '8017fffffffffff', '801ffffffffffff',
         '8021fffffffffff', '8025fffffffffff', '802dfffffffffff', '802ffffffffffff',
@@ -280,25 +323,54 @@ def test_issue_482_with_antimeridian():
         '8053fffffffffff', '8059fffffffffff', '8061fffffffffff', '8063fffffffffff',
         '8065fffffffffff', '8069fffffffffff', '806bfffffffffff', '8073fffffffffff',
         '8077fffffffffff',
-    ]
-    h3.cells_to_h3shape(cells, tight=False)
+    }
 
+    # remove cells that overlap the antimeridian
+    cells1 = cells0 - {'8005fffffffffff', '8017fffffffffff', '8033fffffffffff'}
 
-def test_issue_482_without_antimeridian():
-    """https://github.com/uber/h3-py/issues/482
+    # remove cell that is very close to north pole (maybe touches)
+    cells2 = cells1 - {'8001fffffffffff'}
 
-    Same issue but with antimeridian-crossing cells removed.
-    Previously raised H3FailedError. cellsToMultiPolygon now succeeds,
-    but the output polygon spans the antimeridian so it can't roundtrip
-    through h3shape_to_cells.
-    """
-    cells = [
-        '8001fffffffffff', '8009fffffffffff', '800bfffffffffff', '8011fffffffffff',
-        '8015fffffffffff', '801ffffffffffff', '8021fffffffffff', '8025fffffffffff',
-        '802dfffffffffff', '802ffffffffffff', '8031fffffffffff', '803dfffffffffff',
-        '803ffffffffffff', '8041fffffffffff', '8043fffffffffff', '804bfffffffffff',
-        '804ffffffffffff', '8053fffffffffff', '8059fffffffffff', '8061fffffffffff',
-        '8063fffffffffff', '8065fffffffffff', '8069fffffffffff', '806bfffffffffff',
-        '8073fffffffffff', '8077fffffffffff',
-    ]
-    h3.cells_to_h3shape(cells, tight=False)
+    # ---cells0---
+    # gets correct multipolygon
+    mpoly = h3.cells_to_h3shape(cells0, tight=False)
+    assert len(mpoly) == 1
+    poly = mpoly[0]
+    assert len(poly.holes) == 0
+    assert len(poly.outer) == 37
+
+    # no error on cell recovery
+    cells_out = h3.h3shape_to_cells(mpoly, 0)
+
+    # but wrong set of cells
+    assert len(cells0) == 29
+    assert len(cells_out) == 23
+    assert not (set(cells_out) <= cells0)  # not even a subset!
+
+    # ---cells1---
+    # gets correct multipolygon
+    mpoly = h3.cells_to_h3shape(cells1, tight=False)
+    assert len(mpoly) == 1
+    poly = mpoly[0]
+    assert len(poly.holes) == 0
+    assert len(poly.outer) == 37  # funny: same number of vertices
+
+    # no error on recovery
+    cells_out = h3.h3shape_to_cells(mpoly, 0)
+
+    # but wrong set of cells
+    assert len(cells1) == 26
+    assert len(cells_out) == 18
+    assert not (set(cells_out) <= cells1)  # not even a subset!
+
+    # ---cells2---
+    # gets correct multipolygon
+    mpoly = h3.cells_to_h3shape(cells2, tight=False)
+    assert len(mpoly) == 1
+    poly = mpoly[0]
+    assert len(poly.holes) == 0
+    assert len(poly.outer) == 37  # funny: same number of vertices
+
+    # gets correct set of cells
+    cells_out = h3.h3shape_to_cells(mpoly, 0)
+    assert set(cells_out) == cells2
