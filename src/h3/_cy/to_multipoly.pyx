@@ -8,10 +8,16 @@ cdef _loop_to_list(const h3lib.GeoLoop *loop):
     return [coord2deg(loop.verts[v]) for v in range(loop.numVerts)]
 
 
+cdef _poly_to_lists(const h3lib.GeoPolygon *poly):
+    return (
+        [_loop_to_list(&poly.geoloop)]
+        + [_loop_to_list(&poly.holes[h]) for h in range(poly.numHoles)]
+    )
+
+
 def _to_multi_polygon(const H3int[:] cells):
     cdef:
         h3lib.GeoMultiPolygon mpoly
-        h3lib.GeoPolygon *poly
         H3int cell
 
     for cell in cells:
@@ -22,14 +28,10 @@ def _to_multi_polygon(const H3int[:] cells):
     )
 
     try:
-        out = []
-        for p in range(mpoly.numPolygons):
-            poly = &mpoly.polygons[p]
-            # maybe a helper function here let's us avoid the `append`
-            out.append(
-                [_loop_to_list(&poly.geoloop)]
-                + [_loop_to_list(&poly.holes[h]) for h in range(poly.numHoles)]
-            )
+        out = [
+            _poly_to_lists(&mpoly.polygons[p])
+            for p in range(mpoly.numPolygons)
+        ]
     finally:
         h3lib.destroyGeoMultiPolygon(&mpoly)
 
