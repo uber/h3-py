@@ -4,60 +4,40 @@ from .util cimport check_cell, coord2deg
 from .error_system cimport check_for_error
 
 
-# todo: it's driving me crazy that these three functions are all essentially the same linked list walker...
-# grumble: no way to do iterators in with cdef functions!
-cdef walk_polys(const h3lib.LinkedGeoPolygon* L):
-    out = []
-    while L:
-        out += [walk_loops(L.data)]
-        L = L.next
-
-    return out
+cdef _loop_to_list(const h3lib.GeoLoop *loop):
+    return [coord2deg(loop.verts[v]) for v in range(loop.numVerts)]
 
 
-cdef walk_loops(const h3lib.LinkedGeoLoop* L):
-    out = []
-    while L:
-        out += [walk_coords(L.data)]
-        L = L.next
-
-    return out
-
-
-cdef walk_coords(const h3lib.LinkedLatLng* L):
-    out = []
-    while L:
-        out += [coord2deg(L.data)]
-        L = L.next
-
-    return out
-
-# todo: tuples instead of lists?
 def _to_multi_polygon(const H3int[:] cells):
     cdef:
-        h3lib.LinkedGeoPolygon polygon
+        h3lib.GeoMultiPolygon mpoly
+        h3lib.GeoPolygon *poly
+        H3int cell
 
-    for h in cells:
-        check_cell(h)
+    for cell in cells:
+        check_cell(cell)
 
     check_for_error(
-        h3lib.cellsToLinkedMultiPolygon(&cells[0], len(cells), &polygon)
+        h3lib.cellsToMultiPolygon(&cells[0], len(cells), &mpoly)
     )
 
-    out = walk_polys(&polygon)
-
-    # we're still responsible for cleaning up the passed in `polygon`,
-    # but not a problem here, since it is stack allocated
-    h3lib.destroyLinkedMultiPolygon(&polygon)
+    try:
+        out = []
+        for p in range(mpoly.numPolygons):
+            poly = &mpoly.polygons[p]
+            # maybe a helper function here let's us avoid the `append`
+            out.append(
+                [_loop_to_list(&poly.geoloop)]
+                + [_loop_to_list(&poly.holes[h]) for h in range(poly.numHoles)]
+            )
+    finally:
+        h3lib.destroyGeoMultiPolygon(&mpoly)
 
     return out
 
 
 def cells_to_multi_polygon(const H3int[:] cells):
-    # todo: gotta be a more elegant way to handle these...
     if len(cells) == 0:
         return []
 
-    multipoly = _to_multi_polygon(cells)
-
-    return multipoly
+    return _to_multi_polygon(cells)
