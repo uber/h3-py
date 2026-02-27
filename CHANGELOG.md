@@ -16,6 +16,14 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
+## [4.5.0a2] - 2026-02-27
+
+- `cells_to_h3shape`/`cells_to_geo` now handle all valid cell sets, including
+  sets that would produce global polygons crossing the antimeridian, poles, or are larger than a hemisphere
+  - Duplicate cells now raise `H3DuplicateInputError`
+  - Mixed-resolution cells now raise `H3ResMismatchError`
+  - Internal: switch from linked-list to array-based C API for cells-to-polygon conversion
+
 ## [4.5.0a1] - 2026-02-25
 
 - Update `h3lib` with draft v4.5 changes
