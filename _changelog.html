@@ -387,6 +387,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#versioning">Versioning</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unreleased">Unreleased</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a2-2026-02-27">[4.5.0a2] - 2026-02-27</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a1-2026-02-25">[4.5.0a1] - 2026-02-25</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">[4.4.2] - 2026-01-29</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">[4.4.1] - 2025-12-15</a></li>
@@ -456,6 +457,19 @@ avoid adding features or APIs which do not map onto the
 </section>
 <section id="unreleased">
 <h2>Unreleased<a class="headerlink" href="#unreleased" title="Link to this heading">#</a></h2>
+</section>
+<section id="a2-2026-02-27">
+<h2>[4.5.0a2] - 2026-02-27<a class="headerlink" href="#a2-2026-02-27" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cells_to_h3shape</span></code>/<code class="docutils literal notranslate"><span class="pre">cells_to_geo</span></code> now handle all valid cell sets, including
+sets that would produce global polygons crossing the antimeridian, poles, or are larger than a hemisphere</p>
+<ul>
+<li><p>Duplicate cells now raise <code class="docutils literal notranslate"><span class="pre">H3DuplicateInputError</span></code></p></li>
+<li><p>Mixed-resolution cells now raise <code class="docutils literal notranslate"><span class="pre">H3ResMismatchError</span></code></p></li>
+<li><p>Internal: switch from linked-list to array-based C API for cells-to-polygon conversion</p></li>
+</ul>
+</li>
+</ul>
 </section>
 <section id="a1-2026-02-25">
 <h2>[4.5.0a1] - 2026-02-25<a class="headerlink" href="#a1-2026-02-25" title="Link to this heading">#</a></h2>
@@ -836,6 +850,7 @@ experimentation</p></li>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#versioning">Versioning</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unreleased">Unreleased</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a2-2026-02-27">[4.5.0a2] - 2026-02-27</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a1-2026-02-25">[4.5.0a1] - 2026-02-25</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">[4.4.2] - 2026-01-29</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">[4.4.1] - 2025-12-15</a></li>
