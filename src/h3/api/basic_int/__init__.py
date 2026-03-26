@@ -160,7 +160,7 @@ def is_valid_cell(h):
 
 def is_valid_directed_edge(edge):
     """
-    Validates an H3 unidirectional edge.
+    Validates an H3 directed edge.
 
     Returns
     -------
