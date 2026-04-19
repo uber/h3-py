@@ -6,7 +6,8 @@ This repo uses [`just`](https://github.com/casey/just) for running common develo
 
 To get started:
 
-- `git clone git@github.com:uber/h3-py.git`
+- `git clone --recurse-submodules git@github.com:uber/h3-py.git`
+  - or fork the repository and `git clone --recurse-submodules https://github.com/{username}/h3-py.git`
 - `cd h3-py`
 - `just lint`
 - `just test`
