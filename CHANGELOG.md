@@ -16,6 +16,10 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
+## [4.5.0a3] - 2026-05-22
+
+- Update `h3lib` to v4.5.0 release
+
 ## [4.5.0a2] - 2026-02-27
 
 - `cells_to_h3shape`/`cells_to_geo` now handle all valid cell sets, including

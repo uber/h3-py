@@ -156,9 +156,6 @@ cdef extern from 'h3api.h':
     double greatCircleDistanceKm(const LatLng *a, const LatLng *b) nogil
     double greatCircleDistanceM(const LatLng *a, const LatLng *b) nogil
 
-    H3Error cellsToMultiPolygon(const H3int *cells, const int64_t numCells, GeoMultiPolygon *out)
-    void destroyGeoMultiPolygon(GeoMultiPolygon *mpoly)
-
     H3Error maxPolygonToCellsSize(const GeoPolygon *geoPolygon, int res, uint32_t flags, uint64_t *count)
     H3Error polygonToCells(const GeoPolygon *geoPolygon, int res, uint32_t flags, H3int *out)
 
@@ -184,3 +181,11 @@ cdef extern from 'h3api.h':
     # void h3ToString(H3int h, char *str, size_t sz)
 
     # void getH3intesFromUnidirectionalEdge(H3int edge, H3int *originDestination)
+
+
+# cellsToMultiPolygon and destroyGeoMultiPolygon are temporarily excluded
+# from the public API, so we use an internal header until they're moved
+# back into h3api.h
+cdef extern from 'cellsToMultiPoly.h':
+    H3Error cellsToMultiPolygon(const H3int *cells, const int64_t numCells, GeoMultiPolygon *out)
+    void destroyGeoMultiPolygon(GeoMultiPolygon *mpoly)
