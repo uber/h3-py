@@ -16,6 +16,10 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
+## [4.5.0] - 2026-05-29
+
+- Final v4.5 release includes all v4.5.x changes below
+
 ## [4.5.0a3] - 2026-05-22
 
 - Update `h3lib` to v4.5.0 release (#491)
@@ -152,7 +156,7 @@ Beta release; feedback welcome!
 - Website and API documentation; along with docstring cleanup.
 - Add support for linters and IDE tooling (#213)
 - Remove Py 3.5 wheel for Windows (#214)
-- Py 3.10 wheels and on more architectures (#220, #221, #223, #225) 
+- Py 3.10 wheels and on more architectures (#220, #221, #223, #225)
 - Greatly reduce sdist size (#227, #229)
 
 ## [3.7.3] - 2021-06-12
