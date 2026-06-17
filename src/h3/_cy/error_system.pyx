@@ -1,3 +1,4 @@
+# cython: freethreading_compatible=True
 """
 Exceptions from the h3-py library have three possible sources:
 
