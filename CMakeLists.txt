@@ -1,5 +1,16 @@
 cmake_minimum_required(VERSION 3.15...3.26)
 
+# --- BEGIN ANDROID CROSS-COMPILATION FIX ---
+# Buildozer/python-for-android uses standard pip install which doesn't natively 
+# pass a CMake toolchain file to scikit-build-core. This detects the Android compiler 
+# from the environment and forces CMake into cross-compilation mode to prevent 
+# it from building host (x86_64) binaries.
+if("$ENV{CC}" MATCHES "android" AND NOT DEFINED CMAKE_SYSTEM_NAME)
+    message(STATUS "Detected Android cross-compilation via environment variables. Setting CMAKE_SYSTEM_NAME=Android")
+    set(CMAKE_SYSTEM_NAME Android)
+endif()
+# --- END ANDROID CROSS-COMPILATION FIX ---
+
 project(${SKBUILD_PROJECT_NAME} LANGUAGES C)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
