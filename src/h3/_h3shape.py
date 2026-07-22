@@ -323,12 +323,12 @@ def h3shape_to_geo(h3shape, container='auto'):
     Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.
 
     ``h3shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``
-    
+
     Parameters
     ----------
     container : str, optional
-        Specify the desired GeoJSON output container. 
-        Options: 'auto', 'Polygon', 'MultiPolygon', 'Feature', 
+        Specify the desired GeoJSON output container.
+        Options: 'auto', 'Polygon', 'MultiPolygon', 'Feature',
         'FeatureCollection', or 'GeometryCollection'.
         Default is 'auto' (returns the simplest valid geometry).
 
@@ -338,6 +338,7 @@ def h3shape_to_geo(h3shape, container='auto'):
     """
     base_geo = h3shape.__geo_interface__
 
+    # Return immediately if no wrapping is needed
     if container == 'auto' or container == base_geo['type']:
         return base_geo
 
@@ -371,8 +372,9 @@ def h3shape_to_geo(h3shape, container='auto'):
             'geometries': [base_geo]
         }
 
-    # If we reach here, the requested container is either unknown or 
+    # If we reach here, the requested container is either unknown or
     # insufficient for the data (e.g., requesting a Polygon for MultiPolygon data).
     raise ValueError(
-        f"Requested container '{container}' is invalid or insufficient for data of type '{base_geo['type']}'."
+        f"Requested container '{container}' is invalid or insufficient "
+        f"for data of type '{base_geo['type']}'."
     )
