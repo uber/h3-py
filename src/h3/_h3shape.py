@@ -371,6 +371,8 @@ def h3shape_to_geo(h3shape, container='auto'):
             'geometries': [base_geo]
         }
 
-    # If a downgrade is requested (e.g., MultiPolygon to Polygon) which
-    # risks data loss, or an unknown container is passed, return safely.
-    return base_geo
+    # If we reach here, the requested container is either unknown or 
+    # insufficient for the data (e.g., requesting a Polygon for MultiPolygon data).
+    raise ValueError(
+        f"Requested container '{container}' is invalid or insufficient for data of type '{base_geo['type']}'."
+    )

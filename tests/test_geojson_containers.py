@@ -1,5 +1,5 @@
 import pytest
-from h3._h3shape import LatLngPoly, h3shape_to_geo
+from h3._h3shape import LatLngPoly, h3shape_to_geo, LatLngMultiPoly
 
 def test_h3shape_to_geo_containers():
     # Create a basic dummy polygon for testing
@@ -33,3 +33,16 @@ def test_h3shape_to_geo_containers():
     assert gc_geo['type'] == 'GeometryCollection'
     assert len(gc_geo['geometries']) == 1
     assert gc_geo['geometries'][0]['type'] == 'Polygon'
+
+def test_h3shape_to_geo_invalid_containers():
+    # 1. Test an unknown container string
+    poly = LatLngPoly([(37.68, -122.54), (37.68, -122.34), (37.82, -122.34)])
+    with pytest.raises(ValueError, match="invalid or insufficient"):
+        h3shape_to_geo(poly, container='InvalidString')
+
+    # 2. Test an insufficient container (MultiPolygon data into a Polygon container)
+    mpoly = LatLngMultiPoly([
+        [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34)]
+    ])
+    with pytest.raises(ValueError, match="invalid or insufficient"):
+        h3shape_to_geo(mpoly, container='Polygon')
