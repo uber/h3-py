@@ -184,13 +184,6 @@ LL0: lat/lng or lng/lat pair
 LL1: list of LL0s
 LL2: list of LL1s (i.e., a polygon with holes)
 LL3: list of LL2s (i.e., several polygons with holes)
-
-
-## TODO
-
-- Allow user to specify "container" in `cells_to_geojson`.
-    - That is, they may want a MultiPolygon even if the output fits in a Polygon
-    - 'auto', Polygon, MultiPolygon, FeatureCollection, GeometryCollection, ...
 """
 
 
@@ -325,14 +318,59 @@ def geo_to_h3shape(geo):
     return shape
 
 
-def h3shape_to_geo(h3shape):
+def h3shape_to_geo(h3shape, container='auto'):
     """
     Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.
 
     ``h3shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``
+    
+    Parameters
+    ----------
+    container : str, optional
+        Specify the desired GeoJSON output container. 
+        Options: 'auto', 'Polygon', 'MultiPolygon', 'Feature', 
+        'FeatureCollection', or 'GeometryCollection'.
+        Default is 'auto' (returns the simplest valid geometry).
 
     Returns
     -------
     dict
     """
-    return h3shape.__geo_interface__
+    base_geo = h3shape.__geo_interface__
+    
+    if container == 'auto' or container == base_geo['type']:
+        return base_geo
+        
+    # Upgrade a Polygon to a MultiPolygon if explicitly requested
+    if container == 'MultiPolygon' and base_geo['type'] == 'Polygon':
+        return {
+            'type': 'MultiPolygon',
+            'coordinates': (base_geo['coordinates'],)
+        }
+        
+    if container == 'Feature':
+        return {
+            'type': 'Feature',
+            'geometry': base_geo,
+            'properties': {}
+        }
+        
+    if container == 'FeatureCollection':
+        return {
+            'type': 'FeatureCollection',
+            'features': [{
+                'type': 'Feature',
+                'geometry': base_geo,
+                'properties': {}
+            }]
+        }
+        
+    if container == 'GeometryCollection':
+        return {
+            'type': 'GeometryCollection',
+            'geometries': [base_geo]
+        }
+        
+    # If a downgrade is requested (e.g., MultiPolygon to Polygon) which 
+    # risks data loss, or an unknown container is passed, return safely.
+    return base_geo
