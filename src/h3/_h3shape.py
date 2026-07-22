@@ -337,24 +337,24 @@ def h3shape_to_geo(h3shape, container='auto'):
     dict
     """
     base_geo = h3shape.__geo_interface__
-    
+
     if container == 'auto' or container == base_geo['type']:
         return base_geo
-        
+
     # Upgrade a Polygon to a MultiPolygon if explicitly requested
     if container == 'MultiPolygon' and base_geo['type'] == 'Polygon':
         return {
             'type': 'MultiPolygon',
             'coordinates': (base_geo['coordinates'],)
         }
-        
+
     if container == 'Feature':
         return {
             'type': 'Feature',
             'geometry': base_geo,
             'properties': {}
         }
-        
+
     if container == 'FeatureCollection':
         return {
             'type': 'FeatureCollection',
@@ -364,13 +364,13 @@ def h3shape_to_geo(h3shape, container='auto'):
                 'properties': {}
             }]
         }
-        
+
     if container == 'GeometryCollection':
         return {
             'type': 'GeometryCollection',
             'geometries': [base_geo]
         }
-        
-    # If a downgrade is requested (e.g., MultiPolygon to Polygon) which 
+
+    # If a downgrade is requested (e.g., MultiPolygon to Polygon) which
     # risks data loss, or an unknown container is passed, return safely.
     return base_geo
