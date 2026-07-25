@@ -43,18 +43,18 @@ def test_h3shape_to_geo_invalid_containers():
         h3shape_to_geo(poly, container='InvalidString')
 
     # 2. Test an insufficient container (MultiPolygon data into a Polygon container)
-    mpoly = LatLngMultiPoly([
-        [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34)]
-    ])
+    mpoly = LatLngMultiPoly(
+        LatLngPoly([(37.68, -122.54), (37.68, -122.34), (37.82, -122.34)])
+    )
     with pytest.raises(ValueError, match='invalid or insufficient'):
         h3shape_to_geo(mpoly, container='Polygon')
 
 
 def test_h3shape_to_geo_exact_match():
     # Test that requesting a MultiPolygon for MultiPolygon data succeeds
-    mpoly = LatLngMultiPoly([
-        [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34)]
-    ])
+    mpoly = LatLngMultiPoly(
+        LatLngPoly([(37.68, -122.54), (37.68, -122.34), (37.82, -122.34)])
+    )
 
     mp_geo = h3shape_to_geo(mpoly, container='MultiPolygon')
 
