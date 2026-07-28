@@ -474,8 +474,6 @@ def uncompact_cells(cells, res):
     -----
     There is currently no guaranteed order of the output cells.
     """
-    # TODO: add test to make sure an error is returned when input contains cell
-    # smaller than output res.
 
     hc = _in_collection(cells)
     hu = _cy.uncompact_cells(hc, res)

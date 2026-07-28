@@ -755,3 +755,13 @@ def test_construct_cell_inverses_int_api():
 def test_center_child_with_deconstruct():
     for h in h3.get_res0_cells():
         h3.construct_cell(*h3.deconstruct_cell(h), 0) == h3.cell_to_center_child(h)
+
+
+def test_uncompact_cells_invalid_resolution():
+    # Create a valid cell at resolution 5
+    h_res5 = h3.latlng_to_cell(0, 0, 5)
+
+    # Attempting to uncompact to a coarser resolution (4)
+    # should raise an H3ResDomainError
+    with pytest.raises(H3ResDomainError):
+        h3.uncompact_cells({h_res5}, 4)
