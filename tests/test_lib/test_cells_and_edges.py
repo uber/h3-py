@@ -131,7 +131,7 @@ def test_parent_err():
     except Exception as e:
         msg = str(e)
 
-    expected = f'Invalid parent resolution -1 for cell 0x{h}.'
+    expected = f'Invalid parent resolution -1 for cell {h}.'
 
     assert msg == expected
 
