@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -61,6 +61,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'polygon_tutorial';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="canonical" href="https://uber.github.io/h3-py/polygon_tutorial.html" />
     <link rel="icon" href="_static/logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -70,20 +71,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -109,7 +116,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -370,27 +421,27 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Polygon Tutorial</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngpoly">LatLngPoly</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngpoly">LatLngPoly</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-representation-and-attributes">String representation and attributes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geo-interface"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-to-cells">Polygon to cells</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-polygons-don-t-need-to-follow-the-right-hand-rule">H3 Polygons don’t need to follow the right-hand rule</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngmultipoly">LatLngMultiPoly</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngmultipoly">LatLngMultiPoly</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multipolygon-to-cells">MultiPolygon to cells</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngmultipoly-affordances">LatLngMultiPoly affordances</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cells-to-latlngpoly-or-latlngmultipoly">Cells to LatLngPoly or LatLngMultiPoly</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#api-summary">API Summary</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#api-summary">API Summary</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalance-notes">Equivalance notes</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interfacing-with-geopandas-and-other-libraries">Interfacing with GeoPandas and other libraries</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interfacing-with-geopandas-and-other-libraries">Interfacing with GeoPandas and other libraries</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-a-compatible-crs-before-applying-h3-functions">Use a compatible CRS before applying H3 functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-a-geo-to-h3-cells">Converting a geo to H3 cells</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-all-geos-in-a-geodataframe-to-cells">Converting all geos in a GeoDataFrame to cells</a></li>
@@ -502,7 +553,7 @@ Optionally, holes can be added to the polygon by appending additional lat/lng li
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3]&gt;
 </pre></div>
 </div>
-<img alt="_images/ba652716be963e666705f620d46905153d01d4b52cc691a5de94a623a0c4f85f.png" src="_images/ba652716be963e666705f620d46905153d01d4b52cc691a5de94a623a0c4f85f.png" />
+<img alt="_images/d89ef7ed43314d33d3d60645d6547d8de715359b5691b6ed0a7f91cfc4038b5c.png" src="_images/d89ef7ed43314d33d3d60645d6547d8de715359b5691b6ed0a7f91cfc4038b5c.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -523,7 +574,7 @@ Optionally, holes can be added to the polygon by appending additional lat/lng li
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3/(3,)]&gt;
 </pre></div>
 </div>
-<img alt="_images/33a0a0263990a70d36114ebb20ebf8e0d13ca56624cec4af4d35ad4e6ab124e6.png" src="_images/33a0a0263990a70d36114ebb20ebf8e0d13ca56624cec4af4d35ad4e6ab124e6.png" />
+<img alt="_images/730ea69a22d0f588cbaa1be0ce5bad8e22ff44db275188434dd28f777a420eb0.png" src="_images/730ea69a22d0f588cbaa1be0ce5bad8e22ff44db275188434dd28f777a420eb0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -545,7 +596,7 @@ Optionally, holes can be added to the polygon by appending additional lat/lng li
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;LatLngPoly: [3/(3, 4)]&gt;
 </pre></div>
 </div>
-<img alt="_images/0461d6fa003481feeafd01431b78b3079b0711735df16ef1c36621d0f00f5e05.png" src="_images/0461d6fa003481feeafd01431b78b3079b0711735df16ef1c36621d0f00f5e05.png" />
+<img alt="_images/cc7bc2561426d42d2fcf05169ec601be629879e9a895e09af1a50f6ba677f42e.png" src="_images/cc7bc2561426d42d2fcf05169ec601be629879e9a895e09af1a50f6ba677f42e.png" />
 </div>
 </div>
 <section id="string-representation-and-attributes">
@@ -721,7 +772,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/28760d4c34494e4f4fb54cfabff44d7e9bc8979a5d74e2a3a6cb2de9410260fd.png" src="_images/28760d4c34494e4f4fb54cfabff44d7e9bc8979a5d74e2a3a6cb2de9410260fd.png" />
+<img alt="_images/9a8a9a25a174c4897236aeaed58f6afdaabbe9ea5006a60569771f92e1a58b00.png" src="_images/9a8a9a25a174c4897236aeaed58f6afdaabbe9ea5006a60569771f92e1a58b00.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -731,7 +782,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c8bcaf6217143dd145496c64fcaa5a864d9def757468372d87fb8c6aa5571fd4.png" src="_images/c8bcaf6217143dd145496c64fcaa5a864d9def757468372d87fb8c6aa5571fd4.png" />
+<img alt="_images/cf2e9f6951c67de3610b021fe1acb5c917f5f93748677c22b48e0ac121970e18.png" src="_images/cf2e9f6951c67de3610b021fe1acb5c917f5f93748677c22b48e0ac121970e18.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -741,7 +792,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/50e77d8fadb95063f7eaae0ffdd9f46fa48d0c5af477d98762622b6c6e1b16fc.png" src="_images/50e77d8fadb95063f7eaae0ffdd9f46fa48d0c5af477d98762622b6c6e1b16fc.png" />
+<img alt="_images/74dda68b70d9f5a644a0cb47c691cf471f1efd49e15ac95a9beb2f65ca447bd5.png" src="_images/74dda68b70d9f5a644a0cb47c691cf471f1efd49e15ac95a9beb2f65ca447bd5.png" />
 </div>
 </div>
 </section>
@@ -766,7 +817,7 @@ the hole won’t be rendered correctly, but the conversion to cells will remain 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/50e77d8fadb95063f7eaae0ffdd9f46fa48d0c5af477d98762622b6c6e1b16fc.png" src="_images/50e77d8fadb95063f7eaae0ffdd9f46fa48d0c5af477d98762622b6c6e1b16fc.png" />
+<img alt="_images/74dda68b70d9f5a644a0cb47c691cf471f1efd49e15ac95a9beb2f65ca447bd5.png" src="_images/74dda68b70d9f5a644a0cb47c691cf471f1efd49e15ac95a9beb2f65ca447bd5.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -779,7 +830,7 @@ the hole won’t be rendered correctly, but the conversion to cells will remain 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/50e77d8fadb95063f7eaae0ffdd9f46fa48d0c5af477d98762622b6c6e1b16fc.png" src="_images/50e77d8fadb95063f7eaae0ffdd9f46fa48d0c5af477d98762622b6c6e1b16fc.png" />
+<img alt="_images/74dda68b70d9f5a644a0cb47c691cf471f1efd49e15ac95a9beb2f65ca447bd5.png" src="_images/74dda68b70d9f5a644a0cb47c691cf471f1efd49e15ac95a9beb2f65ca447bd5.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -792,7 +843,7 @@ the hole won’t be rendered correctly, but the conversion to cells will remain 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/50e77d8fadb95063f7eaae0ffdd9f46fa48d0c5af477d98762622b6c6e1b16fc.png" src="_images/50e77d8fadb95063f7eaae0ffdd9f46fa48d0c5af477d98762622b6c6e1b16fc.png" />
+<img alt="_images/74dda68b70d9f5a644a0cb47c691cf471f1efd49e15ac95a9beb2f65ca447bd5.png" src="_images/74dda68b70d9f5a644a0cb47c691cf471f1efd49e15ac95a9beb2f65ca447bd5.png" />
 </div>
 </div>
 </section>
@@ -837,7 +888,7 @@ in each hole (if there are any).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6f1c705410aed060b131055d12e782b382cd7d1edb9afb082371d79c5cbbdb5a.png" src="_images/6f1c705410aed060b131055d12e782b382cd7d1edb9afb082371d79c5cbbdb5a.png" />
+<img alt="_images/eb165bf57cb1f46e186836f9bba48879e9b35a0cf8925e42b46ca931bc3e626c.png" src="_images/eb165bf57cb1f46e186836f9bba48879e9b35a0cf8925e42b46ca931bc3e626c.png" />
 </div>
 </div>
 <section id="multipolygon-to-cells">
@@ -851,7 +902,7 @@ in each hole (if there are any).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ab3f76e72b4b1f44c0f7e6178ce8c12f44cf0b2b98ae314081da219a1cb5161a.png" src="_images/ab3f76e72b4b1f44c0f7e6178ce8c12f44cf0b2b98ae314081da219a1cb5161a.png" />
+<img alt="_images/13d30647a4a9eb2b3549cca557012ba96d9ba53c3d082501d689e64dfcd2a6c8.png" src="_images/13d30647a4a9eb2b3549cca557012ba96d9ba53c3d082501d689e64dfcd2a6c8.png" />
 </div>
 </div>
 </section>
@@ -982,7 +1033,7 @@ use <code class="docutils literal notranslate"><span class="pre">h3.cells_to_geo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8ebded96db055247c00837b426493e0aa9c03097b25ddd68fcf196bd7490d7de.png" src="_images/8ebded96db055247c00837b426493e0aa9c03097b25ddd68fcf196bd7490d7de.png" />
+<img alt="_images/a778659e0bfd184b9281f76b2171f684797ff753b4c2a3b671035aa7d5b4c1f3.png" src="_images/a778659e0bfd184b9281f76b2171f684797ff753b4c2a3b671035aa7d5b4c1f3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1151,7 +1202,7 @@ then the following two expressions are equivalent:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3e6574804950e17af075668503d03d9a35272700b2432d36c5fe05e5ca2f1a7f.png" src="_images/3e6574804950e17af075668503d03d9a35272700b2432d36c5fe05e5ca2f1a7f.png" />
+<img alt="_images/3488afe96e98e37e015a136a717ecdd0a10743d8def83c34e77dd4f7ed2f7325.png" src="_images/3488afe96e98e37e015a136a717ecdd0a10743d8def83c34e77dd4f7ed2f7325.png" />
 </div>
 </div>
 <section id="use-a-compatible-crs-before-applying-h3-functions">
@@ -1333,7 +1384,7 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/de81463dfec277965c80a90af4b5db22d624bf675d03835c33ab8520661a19c0.png" src="_images/de81463dfec277965c80a90af4b5db22d624bf675d03835c33ab8520661a19c0.png" />
+<img alt="_images/35a225d8a009242d2f8f4110e3188ef1f950f2dd4f5f83a3f8271a8f64e2bc2c.png" src="_images/35a225d8a009242d2f8f4110e3188ef1f950f2dd4f5f83a3f8271a8f64e2bc2c.png" />
 </div>
 </div>
 </section>
@@ -1450,7 +1501,7 @@ Name: geometry, dtype: geometry
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6b1a432abdd47112179acd1aeebca50f5ac25c5496097ec330fcde4dc90d4df2.png" src="_images/6b1a432abdd47112179acd1aeebca50f5ac25c5496097ec330fcde4dc90d4df2.png" />
+<img alt="_images/228184d5710e5ff11506b49b096e2dcf82287f7d4232ae4a4182ff01417c5b62.png" src="_images/228184d5710e5ff11506b49b096e2dcf82287f7d4232ae4a4182ff01417c5b62.png" />
 </div>
 </div>
 </section>
@@ -1521,27 +1572,27 @@ Name: geometry, dtype: geometry
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Polygon Tutorial</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngpoly">LatLngPoly</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngpoly">LatLngPoly</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-representation-and-attributes">String representation and attributes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geo-interface"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-to-cells">Polygon to cells</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-polygons-don-t-need-to-follow-the-right-hand-rule">H3 Polygons don’t need to follow the right-hand rule</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngmultipoly">LatLngMultiPoly</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngmultipoly">LatLngMultiPoly</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multipolygon-to-cells">MultiPolygon to cells</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latlngmultipoly-affordances">LatLngMultiPoly affordances</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cells-to-latlngpoly-or-latlngmultipoly">Cells to LatLngPoly or LatLngMultiPoly</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#api-summary">API Summary</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#api-summary">API Summary</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalance-notes">Equivalance notes</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interfacing-with-geopandas-and-other-libraries">Interfacing with GeoPandas and other libraries</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interfacing-with-geopandas-and-other-libraries">Interfacing with GeoPandas and other libraries</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-a-compatible-crs-before-applying-h3-functions">Use a compatible CRS before applying H3 functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-a-geo-to-h3-cells">Converting a geo to H3 cells</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-all-geos-in-a-geodataframe-to-cells">Converting all geos in a GeoDataFrame to cells</a></li>
@@ -1598,8 +1649,8 @@ By Uber Technologies
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>
