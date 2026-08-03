@@ -762,6 +762,6 @@ def test_uncompact_cells_invalid_resolution():
     h_res5 = h3.latlng_to_cell(0, 0, 5)
 
     # Attempting to uncompact to a coarser resolution (4)
-    # should raise an H3ResDomainError
+    # should raise an H3ResMismatchError
     with pytest.raises(H3ResMismatchError):
         h3.uncompact_cells({h_res5}, 4)
