@@ -131,9 +131,7 @@ def test_parent_err():
     except Exception as e:
         msg = str(e)
 
-    # todo: revist this weird formatting stuff
-    expected = 'Invalid parent resolution -1 for cell {}.'
-    expected = expected.format(hex(h3.str_to_int(h)))
+    expected = f'Invalid parent resolution -1 for cell 0x{h}.'
 
     assert msg == expected
 
