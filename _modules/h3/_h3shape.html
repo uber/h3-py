@@ -535,13 +535,6 @@
 <span class="sd">LL1: list of LL0s</span>
 <span class="sd">LL2: list of LL1s (i.e., a polygon with holes)</span>
 <span class="sd">LL3: list of LL2s (i.e., several polygons with holes)</span>
-
-
-<span class="sd">## TODO</span>
-
-<span class="sd">- Allow user to specify &quot;container&quot; in `cells_to_geojson`.</span>
-<span class="sd">    - That is, they may want a MultiPolygon even if the output fits in a Polygon</span>
-<span class="sd">    - &#39;auto&#39;, Polygon, MultiPolygon, FeatureCollection, GeometryCollection, ...</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
@@ -681,17 +674,66 @@
 
 <div class="viewcode-block" id="h3shape_to_geo">
 <a class="viewcode-back" href="../../api_verbose.html#h3.h3shape_to_geo">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">h3shape_to_geo</span><span class="p">(</span><span class="n">h3shape</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">h3shape_to_geo</span><span class="p">(</span><span class="n">h3shape</span><span class="p">,</span> <span class="n">container</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.</span>
 
 <span class="sd">    ``h3shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    container : str, optional</span>
+<span class="sd">        Specify the desired GeoJSON output container.</span>
+<span class="sd">        Options: &#39;auto&#39;, &#39;Polygon&#39;, &#39;MultiPolygon&#39;, &#39;Feature&#39;,</span>
+<span class="sd">        &#39;FeatureCollection&#39;, or &#39;GeometryCollection&#39;.</span>
+<span class="sd">        Default is &#39;auto&#39; (returns the simplest valid geometry).</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">h3shape</span><span class="o">.</span><span class="n">__geo_interface__</span></div>
+    <span class="n">base_geo</span> <span class="o">=</span> <span class="n">h3shape</span><span class="o">.</span><span class="n">__geo_interface__</span>
+
+    <span class="c1"># Return immediately if no wrapping is needed</span>
+    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span> <span class="ow">or</span> <span class="n">container</span> <span class="o">==</span> <span class="n">base_geo</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">base_geo</span>
+
+    <span class="c1"># Upgrade a Polygon to a MultiPolygon if explicitly requested</span>
+    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">&#39;MultiPolygon&#39;</span> <span class="ow">and</span> <span class="n">base_geo</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Polygon&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;MultiPolygon&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">base_geo</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">],)</span>
+        <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">&#39;Feature&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Feature&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">base_geo</span><span class="p">,</span>
+            <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">&#39;FeatureCollection&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;FeatureCollection&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="p">[{</span>
+                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Feature&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">base_geo</span><span class="p">,</span>
+                <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{}</span>
+            <span class="p">}]</span>
+        <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">&#39;GeometryCollection&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;GeometryCollection&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;geometries&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">base_geo</span><span class="p">]</span>
+        <span class="p">}</span>
+
+    <span class="c1"># If we reach here, the requested container is either unknown or</span>
+    <span class="c1"># insufficient for the data (e.g., requesting a Polygon for MultiPolygon data).</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Requested container &#39;</span><span class="si">{</span><span class="n">container</span><span class="si">}</span><span class="s2">&#39; is invalid or insufficient &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;for data of type &#39;</span><span class="si">{</span><span class="n">base_geo</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+    <span class="p">)</span></div>
 
 </pre></div>
 
