@@ -1,3 +1,4 @@
+# cython: freethreading_compatible=True
 cimport h3lib
 from h3lib cimport H3int
 from .util cimport check_cell, coord2deg

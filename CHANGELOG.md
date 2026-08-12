@@ -15,6 +15,7 @@ avoid adding features or APIs which do not map onto the
 [H3 core API](https://uber.github.io/h3/#/documentation/api-reference/).
 
 ## Unreleased
+- Fix wheels for Python 3.14.6 free-threading
 
 ## [4.5.0] - 2026-05-29
 

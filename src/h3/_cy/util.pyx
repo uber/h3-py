@@ -1,3 +1,4 @@
+# cython: freethreading_compatible=True
 from .h3lib cimport (
     H3int,
     H3str,
