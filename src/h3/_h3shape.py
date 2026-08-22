@@ -301,7 +301,11 @@ def geo_to_h3shape(geo):
         # get dict
         geo = geo.__geo_interface__
 
-    assert isinstance(geo, dict)  # todo: remove
+    if not isinstance(geo, dict):
+        raise ValueError(
+            'geo must be a dict or implement __geo_interface__, got: '
+            + str(type(geo))
+        )
 
     t = geo['type']
     coord = geo['coordinates']
