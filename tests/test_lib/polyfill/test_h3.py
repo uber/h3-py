@@ -302,6 +302,11 @@ def test_geo_to_h3shape_passthrough():
         assert h3.geo_to_h3shape(shape) is shape
 
 
+def test_geo_to_h3shape_rejects_non_dict():
+    with pytest.raises(ValueError, match='dict or implement __geo_interface__'):
+        h3.geo_to_h3shape('not a geo object')
+
+
 def test_polyfill_down_under():
     sydney = [
         (-33.8556, 151.1979),
