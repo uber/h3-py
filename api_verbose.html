@@ -1282,7 +1282,7 @@ If False, always return <code class="docutils literal notranslate"><span class="
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;8428309ffffffff&#39;</span><span class="p">,</span> <span class="s1">&#39;842830dffffffff&#39;</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'8428309ffffffff'</span><span class="p">,</span> <span class="s1">'842830dffffffff'</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">cells_to_h3shape</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">&lt;LatLngPoly: [10]&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">cells_to_h3shape</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1351,15 +1351,15 @@ Length of digits will be the resulting resolution of the output cell.</p></li>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">construct_cell</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># resolution 3 cell</span>
-<span class="go">&#39;830e8cfffffffff&#39;</span>
+<span class="go">'830e8cfffffffff'</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">construct_cell</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># resolution 4 cell</span>
-<span class="go">&#39;841e057ffffffff&#39;</span>
+<span class="go">'841e057ffffffff'</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">construct_cell</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="go">&#39;841e057ffffffff&#39;</span>
+<span class="go">'841e057ffffffff'</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1382,14 +1382,14 @@ Length of digits will be the resulting resolution of the output cell.</p></li>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">construct_cell</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># resolution 3 cell</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
-<span class="go">&#39;830e8cfffffffff&#39;</span>
+<span class="go">'830e8cfffffffff'</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">deconstruct_cell</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
 <span class="go">(7, 2, 1, 4)</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">construct_cell</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># resolution 4 cell</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
-<span class="go">&#39;841e057ffffffff&#39;</span>
+<span class="go">'841e057ffffffff'</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">deconstruct_cell</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
 <span class="go">(15, 0, 0, 5, 3)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">construct_cell</span><span class="p">(</span><span class="o">*</span><span class="n">deconstruct_cell</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">cell_to_center_child</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
@@ -1498,7 +1498,7 @@ H3Index.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">construct_cell</span><span class="p">(</span><span class="mi">57</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
-<span class="go">&#39;83728cfffffffff&#39;</span>
+<span class="go">'83728cfffffffff'</span>
 <span class="go">&gt;&gt; get_base_cell_number(h)</span>
 <span class="go">57</span>
 </pre></div>
@@ -1570,7 +1570,7 @@ H3Index.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">construct_cell</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
-<span class="go">&#39;830e8cfffffffff&#39;</span>
+<span class="go">'830e8cfffffffff'</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">get_index_digit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="go">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">get_index_digit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -1762,13 +1762,13 @@ are contained within an <code class="docutils literal notranslate"><span class="
 <span class="gp">... </span>     <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">h3shape_to_cells</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="go">[&#39;862830807ffffff&#39;,</span>
-<span class="go"> &#39;862830827ffffff&#39;,</span>
-<span class="go"> &#39;86283082fffffff&#39;,</span>
-<span class="go"> &#39;862830877ffffff&#39;,</span>
-<span class="go"> &#39;862830947ffffff&#39;,</span>
-<span class="go"> &#39;862830957ffffff&#39;,</span>
-<span class="go"> &#39;86283095fffffff&#39;]</span>
+<span class="go">['862830807ffffff',</span>
+<span class="go"> '862830827ffffff',</span>
+<span class="go"> '86283082fffffff',</span>
+<span class="go"> '862830877ffffff',</span>
+<span class="go"> '862830947ffffff',</span>
+<span class="go"> '862830957ffffff',</span>
+<span class="go"> '86283095fffffff']</span>
 </pre></div>
 </div>
 <p class="rubric">Notes</p>
@@ -1811,14 +1811,14 @@ across versions, so it may change in the future.</p>
 <span class="gp">... </span>    <span class="p">[(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.68</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.34</span><span class="p">),</span>
 <span class="gp">... </span>     <span class="p">(</span><span class="mf">37.82</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.54</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">h3shape_to_cells_experimental</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">)</span>
-<span class="go">[&#39;862830807ffffff&#39;,</span>
-<span class="go"> &#39;862830827ffffff&#39;,</span>
-<span class="go"> &#39;86283082fffffff&#39;,</span>
-<span class="go"> &#39;862830877ffffff&#39;,</span>
-<span class="go"> &#39;862830947ffffff&#39;,</span>
-<span class="go"> &#39;862830957ffffff&#39;,</span>
-<span class="go"> &#39;86283095fffffff&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h3</span><span class="o">.</span><span class="n">h3shape_to_cells_experimental</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">'center'</span><span class="p">)</span>
+<span class="go">['862830807ffffff',</span>
+<span class="go"> '862830827ffffff',</span>
+<span class="go"> '86283082fffffff',</span>
+<span class="go"> '862830877ffffff',</span>
+<span class="go"> '862830947ffffff',</span>
+<span class="go"> '862830957ffffff',</span>
+<span class="go"> '86283095fffffff']</span>
 </pre></div>
 </div>
 <p class="rubric">Notes</p>

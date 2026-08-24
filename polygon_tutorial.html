@@ -487,7 +487,7 @@ with other Python geospatial libraries.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="s2">&quot;Plot based on the `geometry` column of a GeoPandas dataframe&quot;</span>
+    <span class="s2">"Plot based on the `geometry` column of a GeoPandas dataframe"</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">3857</span><span class="p">)</span>  <span class="c1"># web mercator</span>
 
@@ -498,15 +498,15 @@ with other Python geospatial libraries.</p>
 
     <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span>
         <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">categorical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="s1">&#39;upper left&#39;</span><span class="p">},</span>
+        <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s1">'loc'</span><span class="p">:</span> <span class="s1">'upper left'</span><span class="p">},</span>
     <span class="p">)</span>
     <span class="n">cx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">cx</span><span class="o">.</span><span class="n">providers</span><span class="o">.</span><span class="n">CartoDB</span><span class="o">.</span><span class="n">Positron</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">({</span><span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">shape</span><span class="p">]},</span> <span class="n">crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">({</span><span class="s1">'geometry'</span><span class="p">:</span> <span class="p">[</span><span class="n">shape</span><span class="p">]},</span> <span class="n">crs</span><span class="o">=</span><span class="s1">'EPSG:4326'</span><span class="p">)</span>
     <span class="n">plot_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 
 
@@ -668,8 +668,8 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;type&#39;: &#39;Polygon&#39;,
- &#39;coordinates&#39;: (((-122.412, 37.804),
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'type': 'Polygon',
+ 'coordinates': (((-122.412, 37.804),
    (-122.507, 37.778),
    (-122.501, 37.733),
    (-122.412, 37.804)),
@@ -759,7 +759,7 @@ with 3 and 4 vertices respectively.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;872830958ffffff&#39;, &#39;87283095bffffff&#39;, &#39;87283095affffff&#39;, &#39;872830829ffffff&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>['872830958ffffff', '87283095bffffff', '87283095affffff', '872830829ffffff']
 </pre></div>
 </div>
 </div>
@@ -962,8 +962,8 @@ in each hole (if there are any).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;type&#39;: &#39;MultiPolygon&#39;,
- &#39;coordinates&#39;: ((((-122.412, 37.804),
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'type': 'MultiPolygon',
+ 'coordinates': ((((-122.412, 37.804),
     (-122.507, 37.778),
     (-122.501, 37.733),
     (-122.412, 37.804)),),
@@ -1010,18 +1010,18 @@ use <code class="docutils literal notranslate"><span class="pre">h3.cells_to_geo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;89283082b57ffff&#39;,
- &#39;89283082b43ffff&#39;,
- &#39;89283082b4bffff&#39;,
- &#39;89283080cb3ffff&#39;,
- &#39;89283080ca3ffff&#39;,
- &#39;89283080ca7ffff&#39;,
- &#39;89283080dd3ffff&#39;,
- &#39;89283082b6fffff&#39;,
- &#39;89283082b67ffff&#39;,
- &#39;89283082b77ffff&#39;,
- &#39;89283082b0fffff&#39;,
- &#39;89283082b0bffff&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>['89283082b57ffff',
+ '89283082b43ffff',
+ '89283082b4bffff',
+ '89283080cb3ffff',
+ '89283080ca3ffff',
+ '89283080ca7ffff',
+ '89283080dd3ffff',
+ '89283082b6fffff',
+ '89283082b67ffff',
+ '89283082b77ffff',
+ '89283082b0fffff',
+ '89283082b0bffff']
 </pre></div>
 </div>
 </div>
@@ -1055,7 +1055,7 @@ use <code class="docutils literal notranslate"><span class="pre">h3.cells_to_geo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;{&#39;type&#39;: &#39;Polygon&#39;, &#39;coordinates&#39;: (((-122.4136666660363, 37.79467622784018), (-122.41133521694228, 37.79485434566282), (-122.41026351803329, 37.79653679957154), (-122.40793197004145, 37.7967148637251&quot;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>"{'type': 'Polygon', 'coordinates': (((-122.4136666660363, 37.79467622784018), (-122.41133521694228, 37.79485434566282), (-122.41026351803329, 37.79653679957154), (-122.40793197004145, 37.7967148637251"
 </pre></div>
 </div>
 </div>
@@ -1063,7 +1063,7 @@ use <code class="docutils literal notranslate"><span class="pre">h3.cells_to_geo
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="api-summary">
 <h1>API Summary<a class="headerlink" href="#api-summary" title="Link to this heading">#</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Geo object&quot;</span> <span class="o">&lt;-&gt;</span> <span class="n">H3Shape</span> <span class="o">&lt;-&gt;</span> <span class="n">H3</span> <span class="n">cells</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"Geo object"</span> <span class="o">&lt;-&gt;</span> <span class="n">H3Shape</span> <span class="o">&lt;-&gt;</span> <span class="n">H3</span> <span class="n">cells</span>
 </pre></div>
 </div>
 <p>“Geo objects” are any Python object that implements <code class="docutils literal notranslate"><span class="pre">__geo_interface__</span></code>. This is a widely used
@@ -1104,25 +1104,25 @@ then the following two expressions are equivalent:</p>
 <p>To demonstrate, we start with a GeoPandas <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> describing the five New York City boroughs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geodatasets</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;nybb&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geodatasets</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">'nybb'</span><span class="p">))</span>
 <span class="n">df</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading file &#39;nybb_16a.zip&#39; from &#39;https://github.com/geopandas/geodatasets/raw/refs/heads/main/data_backup/nybb_16a.zip&#39; to &#39;/home/runner/.cache/geodatasets&#39;.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading file 'nybb_16a.zip' from 'https://github.com/geopandas/geodatasets/raw/refs/heads/main/data_backup/nybb_16a.zip' to '/home/runner/.cache/geodatasets'.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting &#39;nybb_16a/nybb.shp&#39; from &#39;/home/runner/.cache/geodatasets/nybb_16a.zip&#39; to &#39;/home/runner/.cache/geodatasets/nybb_16a.zip.unzip&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting 'nybb_16a/nybb.shp' from '/home/runner/.cache/geodatasets/nybb_16a.zip' to '/home/runner/.cache/geodatasets/nybb_16a.zip.unzip'
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting &#39;nybb_16a/nybb.shx&#39; from &#39;/home/runner/.cache/geodatasets/nybb_16a.zip&#39; to &#39;/home/runner/.cache/geodatasets/nybb_16a.zip.unzip&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting 'nybb_16a/nybb.shx' from '/home/runner/.cache/geodatasets/nybb_16a.zip' to '/home/runner/.cache/geodatasets/nybb_16a.zip.unzip'
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting &#39;nybb_16a/nybb.dbf&#39; from &#39;/home/runner/.cache/geodatasets/nybb_16a.zip&#39; to &#39;/home/runner/.cache/geodatasets/nybb_16a.zip.unzip&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting 'nybb_16a/nybb.dbf' from '/home/runner/.cache/geodatasets/nybb_16a.zip' to '/home/runner/.cache/geodatasets/nybb_16a.zip.unzip'
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting &#39;nybb_16a/nybb.prj&#39; from &#39;/home/runner/.cache/geodatasets/nybb_16a.zip&#39; to &#39;/home/runner/.cache/geodatasets/nybb_16a.zip.unzip&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting 'nybb_16a/nybb.prj' from '/home/runner/.cache/geodatasets/nybb_16a.zip' to '/home/runner/.cache/geodatasets/nybb_16a.zip.unzip'
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -1197,7 +1197,7 @@ then the following two expressions are equivalent:</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s1">&#39;BoroName&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s1">'BoroName'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1372,7 +1372,7 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;862a1062fffffff&#39;, &#39;862a10627ffffff&#39;, &#39;862a1060fffffff&#39;, &#39;862a10607ffffff&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>['862a1062fffffff', '862a10627ffffff', '862a1060fffffff', '862a10607ffffff']
 </pre></div>
 </div>
 </div>
@@ -1496,7 +1496,7 @@ Name: geometry, dtype: geometry
 <p>We can visualize the results with our helper function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s1">&#39;BoroName&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s1">'BoroName'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

@@ -346,20 +346,20 @@
 <div class="viewcode-block" id="H3Shape">
 <a class="viewcode-back" href="../../api_verbose.html#h3.H3Shape">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">H3Shape</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Abstract parent class of ``LatLngPoly`` and ``LatLngMultiPoly``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">__geo_interface__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; https://github.com/pytest-dev/pytest-cov/issues/428 &quot;&quot;&quot;</span></div>
+<span class="w">        </span><span class="sd">""" https://github.com/pytest-dev/pytest-cov/issues/428 """</span></div>
 
 
 
 <div class="viewcode-block" id="LatLngPoly">
 <a class="viewcode-back" href="../../api_verbose.html#h3.LatLngPoly">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LatLngPoly</span><span class="p">(</span><span class="n">H3Shape</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Container for loops of lat/lng points describing a polygon, possibly with holes.</span>
 
 <span class="sd">    Attributes</span>
@@ -397,17 +397,17 @@
 <span class="sd">    ...      (37.73, -122.43)],</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &lt;LatLngPoly: [4/(3, 5)]&gt;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outer</span><span class="p">,</span> <span class="o">*</span><span class="n">holes</span><span class="p">):</span>
         <span class="n">loops</span> <span class="o">=</span> <span class="p">[</span><span class="n">outer</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">holes</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="n">loops</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Non-empty LatLngPoly loops need at least 3 points.&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Non-empty LatLngPoly loops need at least 3 points.'</span><span class="p">)</span>
 
             <span class="n">point_dimensions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">loop</span><span class="p">))</span>
             <span class="c1"># empty set is possible for empty polygons, so we check if a subset</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">point_dimensions</span> <span class="o">&lt;=</span> <span class="p">{</span><span class="mi">2</span><span class="p">}):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;LatLngPoly only accepts 2D points: lat/lng.&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'LatLngPoly only accepts 2D points: lat/lng.'</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">outer</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_open_ring</span><span class="p">(</span><span class="n">outer</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">holes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
@@ -416,35 +416,35 @@
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;&lt;LatLngPoly: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loopcode</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">'&lt;LatLngPoly: </span><span class="si">{}</span><span class="s1">&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loopcode</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Should this be the number of points in the outer loop,</span>
 <span class="sd">        the number of holes (or +1 for the outer loop)?</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;No clear definition of length for LatLngPoly.&#39;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">'No clear definition of length for LatLngPoly.'</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">loopcode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Short code for describing the length of the outer loop and each hole</span>
+<span class="w">        </span><span class="sd">""" Short code for describing the length of the outer loop and each hole</span>
 
 <span class="sd">        Example: ``[382/(18, 6, 6)]`` indicates an outer loop of 382 points,</span>
 <span class="sd">        along with 3 holes with 18, 6, and 6 points, respectively.</span>
 
 <span class="sd">        Example: ``[15]`` indicates an outer loop of 15 points and no holes.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">outer</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outer</span><span class="p">)</span>
         <span class="n">holes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">holes</span><span class="p">))</span>
 
         <span class="n">outer</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">outer</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">holes</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">outer</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">holes</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">outer</span> <span class="o">+</span> <span class="s1">'/'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">holes</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">out</span> <span class="o">=</span> <span class="n">outer</span>
 
-        <span class="k">return</span> <span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="n">out</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
+        <span class="k">return</span> <span class="s1">'['</span> <span class="o">+</span> <span class="n">out</span> <span class="o">+</span> <span class="s1">']'</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">__geo_interface__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -458,39 +458,39 @@
 <div class="viewcode-block" id="LatLngMultiPoly">
 <a class="viewcode-back" href="../../api_verbose.html#h3.LatLngMultiPoly">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LatLngMultiPoly</span><span class="p">(</span><span class="n">H3Shape</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Container for multiple ``LatLngPoly`` polygons.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    polys : list[LatLngPoly]</span>
 <span class="sd">        List of lat/lng points describing the outer loop of the polygon</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">polys</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">polys</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">polys</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">polys</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">LatLngPoly</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;LatLngMultiPoly requires each input to be an LatLngPoly object, instead got: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="c1"># noqa</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'LatLngMultiPoly requires each input to be an LatLngPoly object, instead got: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="c1"># noqa</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">loopcode</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">polys</span><span class="p">]</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;&lt;LatLngMultiPoly: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="s1">'&lt;LatLngMultiPoly: </span><span class="si">{}</span><span class="s1">&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">out</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polys</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Give the number of polygons in this multi-polygon.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">""" Give the number of polygons in this multi-polygon.</span>
+<span class="sd">        """</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        TODO: Pandas series or dataframe representation changes depending</span>
 <span class="sd">        on if __len__ is defined.</span>
 
-<span class="sd">        I&#39;d prefer the one that states `LatLngMultiPoly`.</span>
+<span class="sd">        I'd prefer the one that states `LatLngMultiPoly`.</span>
 <span class="sd">        It seems like Pandas is assuming an iterable is best-described</span>
 <span class="sd">        by its elements when choosing the representation.</span>
 
@@ -509,7 +509,7 @@
 <span class="sd">        2    (&lt;LatLngPoly: [490/(6, 6, 10, 10, 14, 10, 6)]&gt;, &lt;H...</span>
 <span class="sd">        3    (&lt;LatLngPoly: [344/(6,)]&gt;, &lt;LatLngPoly: [22]&gt;, &lt;LatLngPoly...</span>
 <span class="sd">        4    (&lt;LatLngPoly: [382/(18, 6, 6)]&gt;, &lt;LatLngPoly: [32]&gt;, &lt;...</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polys</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
@@ -524,7 +524,7 @@
 
 
 
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">Helpers for cells_to_geojson and geojson_to_cells.</span>
 
 <span class="sd">Dealing with GeoJSON Polygons and MultiPolygons can be confusing because</span>
@@ -535,7 +535,7 @@
 <span class="sd">LL1: list of LL0s</span>
 <span class="sd">LL2: list of LL1s (i.e., a polygon with holes)</span>
 <span class="sd">LL3: list of LL2s (i.e., several polygons with holes)</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_mpoly_to_LL3</span><span class="p">(</span><span class="n">mpoly</span><span class="p">):</span>
@@ -590,8 +590,8 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_LL2_to_geojson_dict</span><span class="p">(</span><span class="n">ll2</span><span class="p">):</span>
     <span class="n">gj_dict</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Polygon&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="n">ll2</span><span class="p">,</span>
+        <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'Polygon'</span><span class="p">,</span>
+        <span class="s1">'coordinates'</span><span class="p">:</span> <span class="n">ll2</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="n">gj_dict</span>
@@ -599,8 +599,8 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_LL3_to_geojson_dict</span><span class="p">(</span><span class="n">ll3</span><span class="p">):</span>
     <span class="n">gj_dict</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;MultiPolygon&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="n">ll3</span><span class="p">,</span>
+        <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'MultiPolygon'</span><span class="p">,</span>
+        <span class="s1">'coordinates'</span><span class="p">:</span> <span class="n">ll3</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="n">gj_dict</span>
@@ -614,9 +614,9 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_close_ring</span><span class="p">(</span><span class="n">ll1</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Idempotent</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">ll1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ll1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ll1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
         <span class="n">ll1</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ll1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">ll1</span><span class="p">[</span><span class="mi">0</span><span class="p">],)</span>
 
@@ -624,9 +624,9 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_open_ring</span><span class="p">(</span><span class="n">ll1</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Idempotent</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">ll1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ll1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">ll1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
         <span class="n">ll1</span> <span class="o">=</span> <span class="n">ll1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
@@ -636,7 +636,7 @@
 <div class="viewcode-block" id="geo_to_h3shape">
 <a class="viewcode-back" href="../../api_verbose.html#h3.geo_to_h3shape">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">geo_to_h3shape</span><span class="p">(</span><span class="n">geo</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Translate from ``__geo_interface__`` to H3Shape.</span>
 
 <span class="sd">    ``geo`` either implements ``__geo_interface__`` or is a dict matching the format</span>
@@ -644,29 +644,33 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    H3Shape</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># geo can be dict, a __geo_interface__, a string, LatLngPoly or LatLngMultiPoly</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geo</span><span class="p">,</span> <span class="n">H3Shape</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">geo</span>
 
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">geo</span><span class="p">,</span> <span class="s1">&#39;__geo_interface__&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">geo</span><span class="p">,</span> <span class="s1">'__geo_interface__'</span><span class="p">):</span>
         <span class="c1"># get dict</span>
         <span class="n">geo</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">__geo_interface__</span>
 
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geo</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>  <span class="c1"># todo: remove</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geo</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">'geo must be a dict or implement __geo_interface__, got: '</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">geo</span><span class="p">))</span>
+        <span class="p">)</span>
 
-    <span class="n">t</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
-    <span class="n">coord</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span>
+    <span class="n">coord</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="s1">'coordinates'</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;Polygon&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">'Polygon'</span><span class="p">:</span>
         <span class="n">ll2</span> <span class="o">=</span> <span class="n">coord</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="n">_LL2_to_polygon</span><span class="p">(</span><span class="n">ll2</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;MultiPolygon&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">'MultiPolygon'</span><span class="p">:</span>
         <span class="n">ll3</span> <span class="o">=</span> <span class="n">coord</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="n">_LL3_to_mpoly</span><span class="p">(</span><span class="n">ll3</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized type: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Unrecognized type: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">shape</span></div>
 
@@ -674,8 +678,8 @@
 
 <div class="viewcode-block" id="h3shape_to_geo">
 <a class="viewcode-back" href="../../api_verbose.html#h3.h3shape_to_geo">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">h3shape_to_geo</span><span class="p">(</span><span class="n">h3shape</span><span class="p">,</span> <span class="n">container</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">h3shape_to_geo</span><span class="p">(</span><span class="n">h3shape</span><span class="p">,</span> <span class="n">container</span><span class="o">=</span><span class="s1">'auto'</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Translate from an ``H3Shape`` to a ``__geo_interface__`` dict.</span>
 
 <span class="sd">    ``h3shape`` should be either ``LatLngPoly`` or ``LatLngMultiPoly``</span>
@@ -684,55 +688,55 @@
 <span class="sd">    ----------</span>
 <span class="sd">    container : str, optional</span>
 <span class="sd">        Specify the desired GeoJSON output container.</span>
-<span class="sd">        Options: &#39;auto&#39;, &#39;Polygon&#39;, &#39;MultiPolygon&#39;, &#39;Feature&#39;,</span>
-<span class="sd">        &#39;FeatureCollection&#39;, or &#39;GeometryCollection&#39;.</span>
-<span class="sd">        Default is &#39;auto&#39; (returns the simplest valid geometry).</span>
+<span class="sd">        Options: 'auto', 'Polygon', 'MultiPolygon', 'Feature',</span>
+<span class="sd">        'FeatureCollection', or 'GeometryCollection'.</span>
+<span class="sd">        Default is 'auto' (returns the simplest valid geometry).</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    dict</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">base_geo</span> <span class="o">=</span> <span class="n">h3shape</span><span class="o">.</span><span class="n">__geo_interface__</span>
 
     <span class="c1"># Return immediately if no wrapping is needed</span>
-    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span> <span class="ow">or</span> <span class="n">container</span> <span class="o">==</span> <span class="n">base_geo</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">'auto'</span> <span class="ow">or</span> <span class="n">container</span> <span class="o">==</span> <span class="n">base_geo</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">base_geo</span>
 
     <span class="c1"># Upgrade a Polygon to a MultiPolygon if explicitly requested</span>
-    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">&#39;MultiPolygon&#39;</span> <span class="ow">and</span> <span class="n">base_geo</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Polygon&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">'MultiPolygon'</span> <span class="ow">and</span> <span class="n">base_geo</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'Polygon'</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;MultiPolygon&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">base_geo</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">],)</span>
+            <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'MultiPolygon'</span><span class="p">,</span>
+            <span class="s1">'coordinates'</span><span class="p">:</span> <span class="p">(</span><span class="n">base_geo</span><span class="p">[</span><span class="s1">'coordinates'</span><span class="p">],)</span>
         <span class="p">}</span>
 
-    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">&#39;Feature&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">'Feature'</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Feature&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">base_geo</span><span class="p">,</span>
-            <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{}</span>
+            <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'Feature'</span><span class="p">,</span>
+            <span class="s1">'geometry'</span><span class="p">:</span> <span class="n">base_geo</span><span class="p">,</span>
+            <span class="s1">'properties'</span><span class="p">:</span> <span class="p">{}</span>
         <span class="p">}</span>
 
-    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">&#39;FeatureCollection&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">'FeatureCollection'</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;FeatureCollection&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="p">[{</span>
-                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Feature&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">base_geo</span><span class="p">,</span>
-                <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{}</span>
+            <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'FeatureCollection'</span><span class="p">,</span>
+            <span class="s1">'features'</span><span class="p">:</span> <span class="p">[{</span>
+                <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'Feature'</span><span class="p">,</span>
+                <span class="s1">'geometry'</span><span class="p">:</span> <span class="n">base_geo</span><span class="p">,</span>
+                <span class="s1">'properties'</span><span class="p">:</span> <span class="p">{}</span>
             <span class="p">}]</span>
         <span class="p">}</span>
 
-    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">&#39;GeometryCollection&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">container</span> <span class="o">==</span> <span class="s1">'GeometryCollection'</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;GeometryCollection&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;geometries&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">base_geo</span><span class="p">]</span>
+            <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'GeometryCollection'</span><span class="p">,</span>
+            <span class="s1">'geometries'</span><span class="p">:</span> <span class="p">[</span><span class="n">base_geo</span><span class="p">]</span>
         <span class="p">}</span>
 
     <span class="c1"># If we reach here, the requested container is either unknown or</span>
     <span class="c1"># insufficient for the data (e.g., requesting a Polygon for MultiPolygon data).</span>
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;Requested container &#39;</span><span class="si">{</span><span class="n">container</span><span class="si">}</span><span class="s2">&#39; is invalid or insufficient &quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;for data of type &#39;</span><span class="si">{</span><span class="n">base_geo</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+        <span class="sa">f</span><span class="s2">"Requested container '</span><span class="si">{</span><span class="n">container</span><span class="si">}</span><span class="s2">' is invalid or insufficient "</span>
+        <span class="sa">f</span><span class="s2">"for data of type '</span><span class="si">{</span><span class="n">base_geo</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2">'."</span>
     <span class="p">)</span></div>
 
 </pre></div>
