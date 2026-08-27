@@ -151,6 +151,9 @@ def test_bad_geo_input():
     with pytest.raises(ValueError):
         h3.geo_to_cells({'type': 'not a shape', 'coordinates': None}, 9)
 
+    with pytest.raises(ValueError):
+        h3.geo_to_cells('not a shape', 9)
+
 
 def test_cells_to_geo():
     h = '89754e64993ffff'
@@ -166,17 +169,3 @@ def test_cells_to_geo():
     assert coord[0][0] == coord[0][-1]
 
     assert h3.geo_to_cells(geo, res) == [h]
-
-def test_bad_geo_input():
-    with pytest.raises(ValueError):
-        h3.h3shape_to_cells('not a shape', 9)
-
-    with pytest.raises(ValueError):
-        h3.h3shape_to_cells_experimental('not a shape', res=9)
-
-    with pytest.raises(ValueError):
-        h3.geo_to_cells({'type': 'not a shape', 'coordinates': None}, 9)
-
-    # Add this new block to test our specific fix!
-    with pytest.raises(ValueError):
-        h3.geo_to_cells('not a shape', 9)
