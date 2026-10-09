@@ -1365,3 +1365,25 @@ def is_valid_vertex(v):
         return _cy.is_valid_vertex(v)
     except (ValueError, TypeError):
         return False
+
+
+if _out_scalar is _in_scalar:
+    # When _out_scalar is identity (basic_int, numpy_int, memview_int),
+    # bind scalar functions directly to their _cy counterparts to eliminate
+    # Python call frame and identity wrapper overhead (Issue #501).
+    for _name in (
+        'latlng_to_cell',
+        'cell_to_parent',
+        'cell_to_center_child',
+        'cells_to_directed_edge',
+        'get_directed_edge_origin',
+        'get_directed_edge_destination',
+        'directed_edge_to_cells',
+        'local_ij_to_cell',
+        'cell_to_vertex',
+    ):
+        _fn = globals()[_name]
+        _cy_fn = getattr(_cy, _name)
+        _cy_fn.__doc__ = _fn.__doc__
+        globals()[_name] = _cy_fn
+    del _name, _fn, _cy_fn
