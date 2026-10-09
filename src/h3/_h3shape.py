@@ -54,7 +54,7 @@ class LatLngPoly(H3Shape):
     def __init__(self, outer, *holes):
         loops = [outer] + list(holes)
         for loop in loops:
-            if len(loop) in (1, 2):
+            if len(loop) > 0 and len(_open_ring(loop)) < 3:
                 raise ValueError('Non-empty LatLngPoly loops need at least 3 points.')
 
             point_dimensions = set(map(len, loop))
