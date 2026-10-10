@@ -95,9 +95,6 @@ jobs:
             name: Linux Intel glibc 64-bit
 
           - os: ubuntu-22.04
-            build: 'cp310-musllinux_x86_64'
-            name: Linux Intel musl 64-bit 3.10
-          - os: ubuntu-22.04
             build: 'cp311-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.11
           - os: ubuntu-22.04
@@ -119,9 +116,6 @@ jobs:
             build: 'cp315t-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.15t
 
-          - os: ubuntu-22.04
-            build: 'cp310-manylinux_aarch64'
-            name: Linux Aarch64 3.10
           - os: ubuntu-22.04
             build: 'cp311-manylinux_aarch64'
             name: Linux Aarch64 3.11

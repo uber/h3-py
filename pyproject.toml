@@ -14,7 +14,7 @@ authors = [
 maintainers = [
   { name = 'AJ Friend', email = 'ajfriend@gmail.com' },
 ]
-requires-python = '>=3.10'
+requires-python = '>=3.11'
 
 dependencies = []
 
@@ -25,7 +25,6 @@ classifiers = [
     'License :: OSI Approved :: Apache Software License',
     'Programming Language :: C',
     'Programming Language :: Cython',
-    'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
     'Programming Language :: Python :: 3.13',
