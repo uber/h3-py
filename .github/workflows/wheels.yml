@@ -83,14 +83,17 @@ jobs:
           - os: windows-11-arm
             build: 'cp314t-win_arm64'
             name: Windows ARM64 3.14t
+          - os: windows-11-arm
+            build: 'cp315-win_arm64'
+            name: Windows ARM64 3.15
+          - os: windows-11-arm
+            build: 'cp315t-win_arm64'
+            name: Windows ARM64 3.15t
 
           - os: ubuntu-22.04
             build: 'cp*-manylinux_x86_64'
             name: Linux Intel glibc 64-bit
 
-          - os: ubuntu-22.04
-            build: 'cp310-musllinux_x86_64'
-            name: Linux Intel musl 64-bit 3.10
           - os: ubuntu-22.04
             build: 'cp311-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.11
@@ -106,10 +109,13 @@ jobs:
           - os: ubuntu-22.04
             build: 'cp314t-musllinux_x86_64'
             name: Linux Intel musl 64-bit 3.14t
-
           - os: ubuntu-22.04
-            build: 'cp310-manylinux_aarch64'
-            name: Linux Aarch64 3.10
+            build: 'cp315-musllinux_x86_64'
+            name: Linux Intel musl 64-bit 3.15
+          - os: ubuntu-22.04
+            build: 'cp315t-musllinux_x86_64'
+            name: Linux Intel musl 64-bit 3.15t
+
           - os: ubuntu-22.04
             build: 'cp311-manylinux_aarch64'
             name: Linux Aarch64 3.11
@@ -125,6 +131,12 @@ jobs:
           - os: ubuntu-22.04
             build: 'cp314t-manylinux_aarch64'
             name: Linux Aarch64 3.14t
+          - os: ubuntu-22.04
+            build: 'cp315-manylinux_aarch64'
+            name: Linux Aarch64 3.15
+          - os: ubuntu-22.04
+            build: 'cp315t-manylinux_aarch64'
+            name: Linux Aarch64 3.15t
 
     steps:
       - uses: actions/checkout@v6.0.2
@@ -158,7 +170,7 @@ jobs:
         with:
           platforms: aarch64
 
-      - uses: pypa/cibuildwheel@v3.3.1
+      - uses: pypa/cibuildwheel@v4.2.1
         env:
           CIBW_BUILD_FRONTEND: 'build[uv]'
           CIBW_TEST_REQUIRES: pytest pytest-cov numpy
