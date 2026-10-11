@@ -139,7 +139,7 @@ def is_valid_index(h):
     try:
         h = _in_scalar(h)
         return _cy.is_valid_index(h)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError, OverflowError):
         return False
 
 
@@ -154,7 +154,7 @@ def is_valid_cell(h):
     try:
         h = _in_scalar(h)
         return _cy.is_valid_cell(h)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError, OverflowError):
         return False
 
 
@@ -169,7 +169,7 @@ def is_valid_directed_edge(edge):
     try:
         e = _in_scalar(edge)
         return _cy.is_valid_directed_edge(e)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError, OverflowError):
         return False
 
 
@@ -1363,5 +1363,5 @@ def is_valid_vertex(v):
     try:
         v = _in_scalar(v)
         return _cy.is_valid_vertex(v)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError, OverflowError):
         return False
