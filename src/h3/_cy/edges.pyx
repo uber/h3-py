@@ -4,6 +4,8 @@ from .h3lib cimport bool, H3int
 
 from .error_system cimport check_for_error
 
+from .util import EARTH_RADIUS_KM
+
 from .memory cimport H3MemoryManager
 
 # todo: make bint
@@ -86,7 +88,8 @@ cpdef double average_hexagon_edge_length(int resolution, unit='km') except -1:
     # todo: multiple units
     convert = {
         'km': 1.0,
-        'm': 1000.0
+        'm': 1000.0,
+        'rads': 1.0/EARTH_RADIUS_KM,
     }
 
     try:

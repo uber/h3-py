@@ -19,6 +19,10 @@ from .error_system import (
     H3IndexInvalidError,
 )
 
+# Must match EARTH_RADIUS_KM in h3lib's constants.h, which is not part of the
+# public h3api.h header. Used to convert km based averages to radians.
+EARTH_RADIUS_KM = 6371.007180918475
+
 cdef h3lib.LatLng deg2coord(double lat, double lng) nogil:
     cdef:
         h3lib.LatLng c

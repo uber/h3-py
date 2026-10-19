@@ -86,6 +86,30 @@ def test_areas_at_00():
     assert u.approx2(out, areas_rads2)
 
 
+def test_average_hexagon_area_rads():
+    # the ratio between km^2 and rads^2 should match the one used by cell_area
+    h = '89754e64993ffff'
+    ratio = h3.cell_area(h, unit='km^2') / h3.cell_area(h, unit='rads^2')
+
+    for res in range(16):
+        km2 = h3.average_hexagon_area(res, unit='km^2')
+        rads2 = h3.average_hexagon_area(res, unit='rads^2')
+
+        assert km2 / rads2 == pytest.approx(ratio)
+
+
+def test_average_hexagon_edge_length_rads():
+    # the ratio between km and rads should match the one used by edge_length
+    e = '139754e64993ffff'
+    ratio = h3.edge_length(e, unit='km') / h3.edge_length(e, unit='rads')
+
+    for res in range(16):
+        km = h3.average_hexagon_edge_length(res, unit='km')
+        rads = h3.average_hexagon_edge_length(res, unit='rads')
+
+        assert km / rads == pytest.approx(ratio)
+
+
 def test_bad_units():
     h = '89754e64993ffff'
     e = '139754e64993ffff'
