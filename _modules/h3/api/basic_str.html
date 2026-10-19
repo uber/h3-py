@@ -501,7 +501,7 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">is_valid_index</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
@@ -519,7 +519,7 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">is_valid_cell</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
@@ -537,7 +537,7 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">e</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">is_valid_directed_edge</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
@@ -1875,7 +1875,7 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">v</span> <span class="o">=</span> <span class="n">_in_scalar</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_cy</span><span class="o">.</span><span class="n">is_valid_vertex</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 </pre></div>
