@@ -480,6 +480,14 @@ def test_edge_is_valid_fail():
     assert not h3.is_valid_directed_edge(e_invalid)
 
 
+def test_is_valid_out_of_uint64_range():
+    for h in ['10000000000000000', '-1']:
+        assert not h3.is_valid_index(h)
+        assert not h3.is_valid_cell(h)
+        assert not h3.is_valid_directed_edge(h)
+        assert not h3.is_valid_vertex(h)
+
+
 def test_get_pentagons():
     out = h3.get_pentagons(0)
 
