@@ -8,6 +8,8 @@ from .util cimport (
     check_distance,
 )
 
+from .util import EARTH_RADIUS_KM
+
 from .error_system cimport (
     H3Error,
     check_for_error,
@@ -322,7 +324,8 @@ cpdef double average_hexagon_area(int resolution, unit='km^2') except -1:
     # todo: multiple units
     convert = {
         'km^2': 1.0,
-        'm^2': 1000*1000.0
+        'm^2': 1000*1000.0,
+        'rads^2': 1.0/(EARTH_RADIUS_KM*EARTH_RADIUS_KM),
     }
 
     try:
