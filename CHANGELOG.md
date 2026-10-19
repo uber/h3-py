@@ -16,6 +16,7 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 - Fix wheels for Python 3.14.6 free-threading
+- Add Python 3.15 and 3.15t wheels
 
 ## [4.5.0] - 2026-05-29
 
