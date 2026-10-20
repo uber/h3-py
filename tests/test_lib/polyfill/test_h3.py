@@ -307,6 +307,18 @@ def test_geo_to_h3shape_rejects_non_dict():
         h3.geo_to_h3shape('not a geo object')
 
 
+def test_geo_to_h3shape_empty_polygon():
+    # e.g., shapely.Polygon().__geo_interface__
+    geo = MockGeoInterface({'type': 'Polygon', 'coordinates': ()})
+
+    shape = h3.geo_to_h3shape(geo)
+    assert isinstance(shape, h3.LatLngPoly)
+    assert shape.outer == ()
+    assert shape.holes == ()
+
+    assert h3.geo_to_cells(geo, 9) == []
+
+
 def test_polyfill_down_under():
     sydney = [
         (-33.8556, 151.1979),
