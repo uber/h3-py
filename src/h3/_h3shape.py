@@ -223,6 +223,10 @@ def _remove_z(ll1):
 
 
 def _LL2_to_polygon(ll2):
+    if len(ll2) == 0:
+        # empty GeoJSON Polygon, like `shapely.Polygon().__geo_interface__`
+        return LatLngPoly([])
+
     ll2 = [
         _remove_z(ll1)
         for ll1 in ll2
