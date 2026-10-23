@@ -207,6 +207,20 @@ def test_poly_to_cells_experimental_mpoly():
     ))
 
 
+def test_poly_to_cells_experimental_mpoly_no_duplicates():
+    # cells that overlap both polygons should only be returned once
+    a = h3.LatLngPoly([(37.70, -122.50), (37.70, -122.45), (37.75, -122.45)])
+    b = h3.LatLngPoly([(37.70, -122.449), (37.70, -122.40), (37.75, -122.40)])
+    mpoly = h3.LatLngMultiPoly(a, b)
+
+    out = h3.h3shape_to_cells_experimental(mpoly, res=7, contain='overlap')
+
+    expected = set(h3.h3shape_to_cells_experimental(a, res=7, contain='overlap'))
+    expected |= set(h3.h3shape_to_cells_experimental(b, res=7, contain='overlap'))
+    assert len(out) == len(expected)
+    assert set(out) == expected
+
+
 def test_polyfill_with_hole():
     poly = h3.LatLngPoly(sf_7x7, sf_hole1)
 
