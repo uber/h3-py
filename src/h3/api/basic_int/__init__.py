@@ -1367,10 +1367,13 @@ def is_valid_vertex(v):
         return False
 
 
-if _out_scalar is _in_scalar:
+if _out_scalar is _in_scalar:  # pragma: no cover
     # When _out_scalar is identity (basic_int, numpy_int, memview_int),
     # bind scalar functions directly to their _cy counterparts to eliminate
     # Python call frame and identity wrapper overhead (Issue #501).
+    #
+    # Coverage is only measured on the basic_str copy of this file, where
+    # this branch is never taken; it is exercised by the int API tests.
     for _name in (
         'latlng_to_cell',
         'cell_to_parent',
