@@ -574,6 +574,10 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_LL2_to_polygon</span><span class="p">(</span><span class="n">ll2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ll2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># empty GeoJSON Polygon, like `shapely.Polygon().__geo_interface__`</span>
+        <span class="k">return</span> <span class="n">LatLngPoly</span><span class="p">([])</span>
+
     <span class="n">ll2</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">_remove_z</span><span class="p">(</span><span class="n">ll1</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ll1</span> <span class="ow">in</span> <span class="n">ll2</span>
