@@ -1878,6 +1878,28 @@
     <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
+
+
+<span class="k">if</span> <span class="n">_out_scalar</span> <span class="ow">is</span> <span class="n">_in_scalar</span><span class="p">:</span>
+    <span class="c1"># When _out_scalar is identity (basic_int, numpy_int, memview_int),</span>
+    <span class="c1"># bind scalar functions directly to their _cy counterparts to eliminate</span>
+    <span class="c1"># Python call frame and identity wrapper overhead (Issue #501).</span>
+    <span class="k">for</span> <span class="n">_name</span> <span class="ow">in</span> <span class="p">(</span>
+        <span class="s1">'latlng_to_cell'</span><span class="p">,</span>
+        <span class="s1">'cell_to_parent'</span><span class="p">,</span>
+        <span class="s1">'cell_to_center_child'</span><span class="p">,</span>
+        <span class="s1">'cells_to_directed_edge'</span><span class="p">,</span>
+        <span class="s1">'get_directed_edge_origin'</span><span class="p">,</span>
+        <span class="s1">'get_directed_edge_destination'</span><span class="p">,</span>
+        <span class="s1">'directed_edge_to_cells'</span><span class="p">,</span>
+        <span class="s1">'local_ij_to_cell'</span><span class="p">,</span>
+        <span class="s1">'cell_to_vertex'</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">_fn</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">_name</span><span class="p">]</span>
+        <span class="n">_cy_fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_cy</span><span class="p">,</span> <span class="n">_name</span><span class="p">)</span>
+        <span class="n">_cy_fn</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">_fn</span><span class="o">.</span><span class="vm">__doc__</span>
+        <span class="nb">globals</span><span class="p">()[</span><span class="n">_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">_cy_fn</span>
+    <span class="k">del</span> <span class="n">_name</span><span class="p">,</span> <span class="n">_fn</span><span class="p">,</span> <span class="n">_cy_fn</span>
 </pre></div>
 
                 </article>
