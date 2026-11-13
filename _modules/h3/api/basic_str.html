@@ -1880,10 +1880,13 @@
 
 
 
-<span class="k">if</span> <span class="n">_out_scalar</span> <span class="ow">is</span> <span class="n">_in_scalar</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">_out_scalar</span> <span class="ow">is</span> <span class="n">_in_scalar</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
     <span class="c1"># When _out_scalar is identity (basic_int, numpy_int, memview_int),</span>
     <span class="c1"># bind scalar functions directly to their _cy counterparts to eliminate</span>
     <span class="c1"># Python call frame and identity wrapper overhead (Issue #501).</span>
+    <span class="c1">#</span>
+    <span class="c1"># Coverage is only measured on the basic_str copy of this file, where</span>
+    <span class="c1"># this branch is never taken; it is exercised by the int API tests.</span>
     <span class="k">for</span> <span class="n">_name</span> <span class="ow">in</span> <span class="p">(</span>
         <span class="s1">'latlng_to_cell'</span><span class="p">,</span>
         <span class="s1">'cell_to_parent'</span><span class="p">,</span>
