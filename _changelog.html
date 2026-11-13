@@ -498,8 +498,15 @@ avoid adding features or APIs which do not map onto the
 <h2>Unreleased<a class="headerlink" href="#unreleased" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Fix wheels for Python 3.14.6 free-threading</p></li>
-<li><p>Add Python 3.15 and 3.15t wheels</p></li>
+<li><p>Add Python 3.14t, 3.15 and 3.15t wheels</p></li>
 <li><p>Support <code class="docutils literal notranslate"><span class="pre">unit='rads'</span></code> in <code class="docutils literal notranslate"><span class="pre">average_hexagon_area</span></code> and <code class="docutils literal notranslate"><span class="pre">average_hexagon_edge_length</span></code> (#509)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">container</span></code> option to <code class="docutils literal notranslate"><span class="pre">h3shape_to_geo</span></code> (#495)</p></li>
+<li><p>Fix Android cross-compilation with Buildozer (#494)</p></li>
+<li><p>Raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> instead of <code class="docutils literal notranslate"><span class="pre">assert</span></code> in <code class="docutils literal notranslate"><span class="pre">geo_to_h3shape</span></code> (#500, #502)</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">LatLngPoly</span></code> loop length check for closed rings (#505)</p></li>
+<li><p>Return <code class="docutils literal notranslate"><span class="pre">False</span></code> from <code class="docutils literal notranslate"><span class="pre">is_valid_*</span></code> for out-of-range integers (#507)</p></li>
+<li><p>Handle empty GeoJSON Polygon in <code class="docutils literal notranslate"><span class="pre">geo_to_h3shape</span></code> (#511)</p></li>
+<li><p>Fix duplicate cells from <code class="docutils literal notranslate"><span class="pre">h3shape_to_cells_experimental</span></code> for <code class="docutils literal notranslate"><span class="pre">LatLngMultiPoly</span></code> (#512)</p></li>
 </ul>
 </section>
 <section id="id1">
