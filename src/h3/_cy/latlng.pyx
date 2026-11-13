@@ -262,11 +262,15 @@ def polygons_to_cells_experimental(polygons, int res, int flag):
 
     # probably super inefficient, but it is working!
     # tood: move this to C
+    # a cell can overlap more than one polygon, so skip the ones already added
+    seen = set()
     k = 0
     for mv in mvs:
         for v in mv:
-            hmm.ptr[k] = v
-            k += 1
+            if v not in seen:
+                seen.add(v)
+                hmm.ptr[k] = v
+                k += 1
 
     return hmm.to_mv()
 
