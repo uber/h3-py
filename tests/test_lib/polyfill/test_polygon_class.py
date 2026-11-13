@@ -50,3 +50,16 @@ def test_bad_subclass():
 
     with pytest.raises(ValueError):
         h3.h3shape_to_cells_experimental(shoop, res=9)
+
+
+def test_closed_loop_with_too_few_points():
+    # a closed loop of 3 points only has 2 distinct points once the
+    # repeated closing point is removed
+    a, b = (37.68, -122.54), (37.82, -122.34)
+    outer = [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34)]
+
+    with pytest.raises(ValueError, match='at least 3 points'):
+        h3.LatLngPoly([a, b, a])
+
+    with pytest.raises(ValueError, match='at least 3 points'):
+        h3.LatLngPoly(outer, [a, b, a])

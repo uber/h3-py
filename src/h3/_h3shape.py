@@ -54,7 +54,7 @@ class LatLngPoly(H3Shape):
     def __init__(self, outer, *holes):
         loops = [outer] + list(holes)
         for loop in loops:
-            if len(loop) in (1, 2):
+            if len(loop) > 0 and len(_open_ring(loop)) < 3:
                 raise ValueError('Non-empty LatLngPoly loops need at least 3 points.')
 
             point_dimensions = set(map(len, loop))
@@ -230,6 +230,10 @@ def _remove_z(ll1):
 
 
 def _LL2_to_polygon(ll2):
+    if len(ll2) == 0:
+        # empty GeoJSON Polygon, like `shapely.Polygon().__geo_interface__`
+        return LatLngPoly([])
+
     ll2 = [
         _remove_z(ll1)
         for ll1 in ll2
@@ -308,7 +312,11 @@ def geo_to_h3shape(geo):
         # get dict
         geo = geo.__geo_interface__
 
-    assert isinstance(geo, dict)  # todo: remove
+    if not isinstance(geo, dict):
+        raise ValueError(
+            'geo must be a dict or implement __geo_interface__, got: '
+            + str(type(geo))
+        )
 
     t = geo['type']
     coord = geo['coordinates']

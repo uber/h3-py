@@ -16,6 +16,17 @@ avoid adding features or APIs which do not map onto the
 
 ## Unreleased
 
+## [4.5.1] - 2026-11-13
+
+- Fix wheels for Python 3.14.6 free-threading
+- Add Python 3.14t, 3.15 and 3.15t wheels
+- Fix Android cross-compilation with Buildozer (#494)
+- Raise `ValueError` instead of `assert` in `geo_to_h3shape` (#500, #502)
+- Fix `LatLngPoly` loop length check for closed rings (#505)
+- Return `False` from `is_valid_*` for out-of-range integers (#507)
+- Handle empty GeoJSON Polygon in `geo_to_h3shape` (#511)
+- Fix duplicate cells from `h3shape_to_cells_experimental` for `LatLngMultiPoly` (#512)
+
 ## [4.5.0] - 2026-05-29
 
 - Final v4.5 release includes all v4.5.x changes below

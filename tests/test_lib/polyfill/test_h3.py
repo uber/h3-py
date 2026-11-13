@@ -207,6 +207,20 @@ def test_poly_to_cells_experimental_mpoly():
     ))
 
 
+def test_poly_to_cells_experimental_mpoly_no_duplicates():
+    # cells that overlap both polygons should only be returned once
+    a = h3.LatLngPoly([(37.70, -122.50), (37.70, -122.45), (37.75, -122.45)])
+    b = h3.LatLngPoly([(37.70, -122.449), (37.70, -122.40), (37.75, -122.40)])
+    mpoly = h3.LatLngMultiPoly(a, b)
+
+    out = h3.h3shape_to_cells_experimental(mpoly, res=7, contain='overlap')
+
+    expected = set(h3.h3shape_to_cells_experimental(a, res=7, contain='overlap'))
+    expected |= set(h3.h3shape_to_cells_experimental(b, res=7, contain='overlap'))
+    assert len(out) == len(expected)
+    assert set(out) == expected
+
+
 def test_polyfill_with_hole():
     poly = h3.LatLngPoly(sf_7x7, sf_hole1)
 
@@ -300,6 +314,23 @@ def test_geo_to_h3shape_passthrough():
 
     for shape in [poly, mpoly]:
         assert h3.geo_to_h3shape(shape) is shape
+
+
+def test_geo_to_h3shape_rejects_non_dict():
+    with pytest.raises(ValueError, match='dict or implement __geo_interface__'):
+        h3.geo_to_h3shape('not a geo object')
+
+
+def test_geo_to_h3shape_empty_polygon():
+    # e.g., shapely.Polygon().__geo_interface__
+    geo = MockGeoInterface({'type': 'Polygon', 'coordinates': ()})
+
+    shape = h3.geo_to_h3shape(geo)
+    assert isinstance(shape, h3.LatLngPoly)
+    assert shape.outer == ()
+    assert shape.holes == ()
+
+    assert h3.geo_to_cells(geo, 9) == []
 
 
 def test_polyfill_down_under():
