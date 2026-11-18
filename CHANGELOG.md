@@ -15,10 +15,15 @@ avoid adding features or APIs which do not map onto the
 [H3 core API](https://uber.github.io/h3/#/documentation/api-reference/).
 
 ## Unreleased
-- Fix wheels for Python 3.14.6 free-threading
-- Add Python 3.14t, 3.15 and 3.15t wheels
+
 - Support `unit='rads'` in `average_hexagon_area` and `average_hexagon_edge_length` (#509)
 - Add `container` option to `h3shape_to_geo` (#495)
+- Speed up scalar functions in the `int` APIs by skipping the identity output wrapper (#504)
+
+## [4.5.1] - 2026-11-13
+
+- Fix wheels for Python 3.14.6 free-threading
+- Add Python 3.14t, 3.15 and 3.15t wheels
 - Fix Android cross-compilation with Buildozer (#494)
 - Raise `ValueError` instead of `assert` in `geo_to_h3shape` (#500, #502)
 - Fix `LatLngPoly` loop length check for closed rings (#505)
