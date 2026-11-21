@@ -24,7 +24,7 @@ hexadecimal format (`8075fffffffffff`).
 The *default* Python API (via `import h3` or `import h3.api.basic_str`),
 represents indices in their hexadecimal
 format as a Python `str`s and uses standard Python collection types like
-`set` and `list`. These conventions make it more natural to work with
+`list`. These conventions make it more natural to work with
 `h3-py` objects in Python, but come at the cost of converting back and forth
 between the C and Python representations.
 
@@ -40,7 +40,7 @@ Note that the APIs are all 100% compatible, and it is easy to convert
 between them with functions like `int_to_str` (links!) and `str_to_int`.
 
 For example, one common pattern is to use `h3.api.numpy_int` for any
-computationally-heavy work, and convert the output to `str` and `list`/`set`
+computationally-heavy work, and convert the output to `str` and `list`
 (akin to `h3.api.basic_str`) to inspect or report the results.
 ```
 
@@ -50,7 +50,7 @@ computationally-heavy work, and convert the output to `str` and `list`/`set`
 ### `h3.api.basic_str`
 
 H3 indexes are represented as Python `str`s,
-using `list` and `set` for collections.
+using `list` for collections.
 
 ```python
 >>> import h3
@@ -59,11 +59,11 @@ using `list` and `set` for collections.
 '8075fffffffffff'
 
 >>> h3.grid_ring(h, 1)
-{'8055fffffffffff',
+['8083fffffffffff',
  '8059fffffffffff',
  '807dfffffffffff',
- '8083fffffffffff',
- '8099fffffffffff'}
+ '8099fffffffffff',
+ '8055fffffffffff']
 ```
 
 ````{note}
@@ -83,7 +83,7 @@ are equivalent.
 
 ### `h3.api.basic_int`
 
-H3 indexes are represented as Python `int`s, using `list` and `set` for collections.
+H3 indexes are represented as Python `int`s, using `list` for collections.
 
 ```python
 >>> import h3.api.basic_int as h3
@@ -92,11 +92,11 @@ H3 indexes are represented as Python `int`s, using `list` and `set` for collecti
 578536630256664575
 
 >>> h3.grid_ring(h, 1)
-{577973680303243263,
+[578782920861286399,
  578044049047420927,
  578677367745019903,
- 578782920861286399,
- 579169948954263551}
+ 579169948954263551,
+ 577973680303243263]
 ```
 
 ### `h3.api.numpy_int`
@@ -106,7 +106,7 @@ for collections.
 
 The intention is for this API to be faster and more memory-efficient by
 not requiring `int` to `str` conversion and by using
-no-copy `numpy` arrays instead of Python `list`s and `set`s.
+no-copy `numpy` arrays instead of Python `list`s.
 
 ```python
 >>> import h3.api.numpy_int as h3

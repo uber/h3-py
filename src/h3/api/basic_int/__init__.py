@@ -1125,7 +1125,7 @@ def get_icosahedron_faces(h):
 
     There are twenty possible faces, ranging from 0--19.
 
-    Note: Every interface returns a Python ``set`` of ``int``.
+    Note: Every interface returns a Python ``list`` of ``int``.
 
     Parameters
     ----------
@@ -1133,7 +1133,7 @@ def get_icosahedron_faces(h):
 
     Returns
     -------
-    Python ``set`` of ``int``
+    Python ``list`` of ``int``
     """
     h = _in_scalar(h)
     faces = _cy.get_icosahedron_faces(h)
