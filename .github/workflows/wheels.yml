@@ -144,6 +144,25 @@ jobs:
             build: 'cp315t-manylinux_aarch64'
             name: Linux Aarch64 3.15t
 
+          - os: ubuntu-24.04-arm
+            build: 'cp310-musllinux_aarch64'
+            name: Linux Aarch64 musl 3.10
+          - os: ubuntu-24.04-arm
+            build: 'cp311-musllinux_aarch64'
+            name: Linux Aarch64 musl 3.11
+          - os: ubuntu-24.04-arm
+            build: 'cp312-musllinux_aarch64'
+            name: Linux Aarch64 musl 3.12
+          - os: ubuntu-24.04-arm
+            build: 'cp313-musllinux_aarch64'
+            name: Linux Aarch64 musl 3.13
+          - os: ubuntu-24.04-arm
+            build: 'cp314-musllinux_aarch64'
+            name: Linux Aarch64 musl 3.14
+          - os: ubuntu-24.04-arm
+            build: 'cp315-musllinux_aarch64'
+            name: Linux Aarch64 musl 3.15
+
     steps:
       - uses: actions/checkout@v6.0.2
         with:
