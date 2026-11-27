@@ -18,6 +18,7 @@ avoid adding features or APIs which do not map onto the
 
 - Support `unit='rads'` in `average_hexagon_area` and `average_hexagon_edge_length` (#509)
 - Add `container` option to `h3shape_to_geo` (#495)
+- Accept a GeoJSON `Feature` in `geo_to_h3shape` and `geo_to_cells`, and raise `ValueError` instead of `KeyError` for unsupported GeoJSON types
 - Speed up scalar functions in the `int` APIs by skipping the identity output wrapper (#504)
 
 ## [4.5.1] - 2026-11-13

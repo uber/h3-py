@@ -321,6 +321,27 @@ def test_geo_to_h3shape_rejects_non_dict():
         h3.geo_to_h3shape('not a geo object')
 
 
+def test_geo_to_h3shape_feature():
+    poly = h3.LatLngPoly(latlng_open())
+    mpoly = h3.LatLngMultiPoly(poly)
+
+    for shape in [poly, mpoly]:
+        feature = h3.h3shape_to_geo(shape, container='Feature')
+        assert h3.geo_to_h3shape(feature).__geo_interface__ == shape.__geo_interface__
+        assert h3.geo_to_cells(feature, 9) == h3.h3shape_to_cells(shape, 9)
+
+
+@pytest.mark.parametrize('geo', [
+    {'type': 'Point', 'coordinates': (-122.4, 37.7)},
+    {'type': 'FeatureCollection', 'features': []},
+    {'type': 'GeometryCollection', 'geometries': []},
+    {'coordinates': ()},
+])
+def test_geo_to_h3shape_unrecognized_type(geo):
+    with pytest.raises(ValueError, match='Unrecognized type'):
+        h3.geo_to_h3shape(geo)
+
+
 def test_geo_to_h3shape_empty_polygon():
     # e.g., shapely.Polygon().__geo_interface__
     geo = MockGeoInterface({'type': 'Polygon', 'coordinates': ()})

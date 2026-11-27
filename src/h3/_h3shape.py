@@ -311,14 +311,16 @@ def geo_to_h3shape(geo):
             + str(type(geo))
         )
 
-    t = geo['type']
-    coord = geo['coordinates']
+    t = geo.get('type')
 
-    if t == 'Polygon':
-        ll2 = coord
+    if t == 'Feature':
+        # e.g., the output of `h3shape_to_geo(..., container='Feature')`
+        return geo_to_h3shape(geo.get('geometry'))
+    elif t == 'Polygon':
+        ll2 = geo['coordinates']
         shape = _LL2_to_polygon(ll2)
     elif t == 'MultiPolygon':
-        ll3 = coord
+        ll3 = geo['coordinates']
         shape = _LL3_to_mpoly(ll3)
     else:
         raise ValueError('Unrecognized type: ' + str(t))
