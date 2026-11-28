@@ -510,7 +510,7 @@ def h3shape_to_cells(h3shape, res):
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
     ...      (37.82, -122.54)],
     ... )
-    >>> h3.h3shape_to_cells(poly, 6)
+    >>> sorted(h3.h3shape_to_cells(poly, 6))
     ['862830807ffffff',
      '862830827ffffff',
      '86283082fffffff',
@@ -591,7 +591,7 @@ def h3shape_to_cells_experimental(
     ...     [(37.68, -122.54), (37.68, -122.34), (37.82, -122.34),
     ...      (37.82, -122.54)],
     ... )
-    >>> h3.h3shape_to_cells_experimental(poly, 6, 'center')
+    >>> sorted(h3.h3shape_to_cells_experimental(poly, 6, 'center'))
     ['862830807ffffff',
      '862830827ffffff',
      '86283082fffffff',
@@ -755,7 +755,7 @@ def get_base_cell_number(h):
     >>> h = construct_cell(57, 2, 1, 4)
     >>> h
     '83728cfffffffff'
-    >> get_base_cell_number(h)
+    >>> get_base_cell_number(h)
     57
     """
     return _cy.get_base_cell_number(_in_scalar(h))
@@ -851,14 +851,15 @@ def deconstruct_cell(h):
     >>> h
     '830e8cfffffffff'
     >>> deconstruct_cell(h)
-    (7, 2, 1, 4)
+    [7, 2, 1, 4]
 
     >>> h = construct_cell(15, 0, 0, 5, 3)  # resolution 4 cell
     >>> h
     '841e057ffffffff'
     >>> deconstruct_cell(h)
-    (15, 0, 0, 5, 3)
+    [15, 0, 0, 5, 3]
     >>> construct_cell(*deconstruct_cell(h), 0) == cell_to_center_child(h)
+    True
     """
     res = get_resolution(h)
     bc = get_base_cell_number(h)
